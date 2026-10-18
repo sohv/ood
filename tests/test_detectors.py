@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 
 from src.data.pools import MembershipIndex, allocate_by_share, family_of
-from src.metrics.detectors import KNN, Mahalanobis, auroc, stratified_auroc
+from src.metrics.detectors import KNN, Mahalanobis, auroc, partial_spearman, stratified_auroc
 
 
 def test_auroc_direction_is_ood_higher():
@@ -51,6 +51,18 @@ def test_family_strips_numeric_suffix():
 def test_membership_index_fires_on_known_positive():
     ref = ["the quick brown fox jumps over the lazy dog and then runs far away into the woods tonight"]
     index = MembershipIndex(ref)
-    assert index.is_member("THE quick brown   fox jumps over the lazy dog and then runs far away into the woods tonight")
+    assert index.is_member(
+        "THE quick brown   fox jumps over the lazy dog and then runs far away into the woods tonight"
+    )
     assert index.is_member("prefix words the quick brown fox jumps over the lazy dog and then runs far")
-    assert not index.is_member("an entirely different sentence about cooking pasta with garlic and olive oil for dinner")
+    assert not index.is_member(
+        "an entirely different sentence about cooking pasta with garlic and olive oil for dinner"
+    )
+
+
+def test_partial_spearman_removes_shared_length_driver():
+    rng = np.random.default_rng(0)
+    length = rng.uniform(1, 100, 2000)
+    x, y = length + rng.normal(size=2000), length + rng.normal(size=2000)
+    assert abs(partial_spearman(x, y, length)) < 0.1
+    assert partial_spearman(x, -x + rng.normal(scale=0.1, size=2000), length) < -0.5

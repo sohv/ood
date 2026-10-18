@@ -98,3 +98,39 @@ One-sided maha/knn, tf-idf and length are reported on the same metric with no ba
 pool's stratified AUROC vs `wildchat_en_test` and raw AUROC vs `idmix`.
 
 **Seeds.** One data seed (0). No extra seeds planned.
+
+## 18-10-2026 — exp04: exp03 re-run with two logic fixes
+
+Written after exp03 and an audit of it, before any exp04 number. The user asked for a re-run looking for
+flaws. The audit found two, so this is a fix-and-rerun, not a rerun hoping for a cleaner number.
+
+**Flaw 1, coarse length control.** exp01-exp03 bands span a factor of 2. Within pools the two-sided
+scores correlate +0.3 to +0.8 (Spearman) with length, and within bands the pools still differ by 10-20%
+in median length (length-only stratified AUROC 0.40-0.65 in exp03). Fix: bands log-spaced by a factor of
+2^(1/4) (~1.19) from 1 to 1024 tokens, same guard (>= 10 per class per band, >= 3 bands, >= 30% of the
+OOD pool covered). Check that the fix works: length-only stratified AUROC must fall within 0.45-0.55
+for every primary comparison; if not, report that comparison as unbalanced.
+
+**Flaw 2, assumed coverage labels.** exp03 treated the seven subreddits as covered without measuring it.
+By nearest-Dolci tf-idf cosine, r/relationships (0.214) and r/relationship_advice (0.223) are no better
+covered than r/legaladvice (0.227). Fix: measure coverage per row as the cosine similarity to its nearest
+Dolci-Instruct-DPO first user turn (233,642 unique prompts), using `sentence-transformers/all-MiniLM-L6-v2`
+embeddings (primary, independent of OLMo) and tf-idf (secondary).
+
+**Fresh samples.** Posts drawn uniformly across the whole 2019 reddit-title-body file (exp03 read only its
+start), 500 per pool, seeds 1 and 2; exp03's seed-0 pools are re-scored too. Same eight pools, same
+filters, same Dolci membership check, same exp01 detectors and features recipe (cmean L16, Dolma full).
+
+**Q1, exp03's question with fix 1.** Same metric and bar as exp03 (median over the 7 subreddits of
+length-stratified AUROC, legal_rtb vs subreddit; >= 0.75 coverage, <= 0.60 register), per seed, on
+dmaha_full and dknn_full. Reported for seeds 0, 1, 2. Flagged as weak evidence either way because flaw 2
+means the subreddit labels are not reliable.
+
+**Q2, the corrected question.** Across all 4,000 Reddit rows of a seed, partial Spearman correlation
+between detector score and MiniLM coverage, controlling for log length. Bar per detector
+(dmaha_full, dknn_full): rho <= -0.30 on all three seeds means the score tracks measured coverage;
+|rho| < 0.10 on all three means it does not; anything else is ambiguous. tf-idf detector, one-sided
+detectors and length reported on the same statistic with no bar. Pool-level: Spearman across the 8 pools
+between median coverage and median detector score, reported, no bar (n = 8).
+
+**Exploratory.** exp01's bar-2 numbers recomputed with the fine bands; cannot change exp01's verdict.

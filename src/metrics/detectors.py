@@ -5,6 +5,7 @@ from scipy.linalg import cho_factor, cho_solve
 from sklearn.covariance import LedoitWolf
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
+from scipy.stats import rankdata
 from sklearn.metrics import roc_auc_score
 
 LENGTH_BANDS = (1, 16, 32, 64, 128, 256, 512, 1025)
@@ -63,7 +64,9 @@ def auroc(ood: np.ndarray, ref: np.ndarray) -> float:
     return float(roc_auc_score(np.r_[np.ones(len(ood)), np.zeros(len(ref))], np.r_[ood, ref]))
 
 
-def stratified_auroc(ood: np.ndarray, ref: np.ndarray, ood_len: np.ndarray, ref_len: np.ndarray, bands=LENGTH_BANDS) -> dict:
+def stratified_auroc(
+    ood: np.ndarray, ref: np.ndarray, ood_len: np.ndarray, ref_len: np.ndarray, bands=LENGTH_BANDS
+) -> dict:
     ood_band, ref_band = np.digitize(ood_len, bands), np.digitize(ref_len, bands)
     total, weight, used, covered, per_band = 0.0, 0, 0, 0, []
     for b in range(1, len(bands)):
@@ -73,11 +76,23 @@ def stratified_auroc(ood: np.ndarray, ref: np.ndarray, ood_len: np.ndarray, ref_
         value = auroc(o, r)
         pairs = len(o) * len(r)
         total, weight, used, covered = total + value * pairs, weight + pairs, used + 1, covered + len(o)
-        per_band.append({"band": [bands[b - 1], bands[b]], "n_ood": len(o), "n_ref": len(r), "auroc": value,
-                         "median_len_ratio": float(np.median(ood_len[ood_band == b]) / np.median(ref_len[ref_band == b]))})
+        per_band.append(
+            {
+                "band": [bands[b - 1], bands[b]],
+                "n_ood": len(o),
+                "n_ref": len(r),
+                "auroc": value,
+                "median_len_ratio": float(np.median(ood_len[ood_band == b]) / np.median(ref_len[ref_band == b])),
+            }
+        )
     coverage = covered / len(ood)
     is_measurable = used >= MIN_BANDS and coverage >= MIN_COVERAGE
-    return {"auroc": total / weight if is_measurable else None, "n_bands": used, "coverage": coverage, "bands": per_band}
+    return {
+        "auroc": total / weight if is_measurable else None,
+        "n_bands": used,
+        "coverage": coverage,
+        "bands": per_band,
+    }
 
 
 def bootstrap_ci(stat, ood_idx: int, ref_idx: int, n_boot: int, seed: int) -> list[float] | None:
@@ -87,3 +102,9 @@ def bootstrap_ci(stat, ood_idx: int, ref_idx: int, n_boot: int, seed: int) -> li
     if len(values) < 0.9 * n_boot:
         return None
     return [float(np.percentile(values, 2.5)), float(np.percentile(values, 97.5))]
+
+
+def partial_spearman(x: np.ndarray, y: np.ndarray, control: np.ndarray) -> float:
+    r = [rankdata(v) for v in (x, y, control)]
+    resid = [v - np.polyval(np.polyfit(r[2], v, 1), r[2]) for v in r[:2]]
+    return float(np.corrcoef(*resid)[0, 1])

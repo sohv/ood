@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 18-10-2026 — exp04: exp03 re-run with fine length bands, fresh samples and measured coverage
+
+**Question.** After fixing two flaws in exp03 (coarse length bands; assumed coverage labels), does the register-vs-coverage result hold on fresh samples, and do detector scores track measured coverage?
+**Hyperparameters.** exp01 detectors unchanged (cmean L16, full-rank Ledoit-Wolf, kNN k=10, Dolma full). Length bands log-spaced by 2^(1/4). Coverage = cosine to nearest of 233,642 unique Dolci-DPO first user turns, `sentence-transformers/all-MiniLM-L6-v2` (primary) and tf-idf (secondary). Pool seeds 0 (exp03), 1, 2.
+**Datasets.** Seeds 1 and 2: 500 posts per pool drawn uniformly from the whole 2019 reddit-title-body file (6,034-139,519 candidates per subreddit; 1 Dolci member removed); seed 0 = exp03 pools.
+**Result.** I ran 3 seeds and found the fine bands balance length (length-only stratified AUROC 0.45-0.55 for all comparisons in seeds 1-2; seed 0 writing 0.567 and askscience 0.575 just outside) and change exp03's numbers by at most 0.04. Q1 replicates on every seed: median legal_rtb-vs-subreddit AUROC dmaha_full 0.704 / 0.707 / 0.686, dknn_full 0.610 / 0.632 / 0.621, with the same ordering each time (relationship_advice 0.19-0.32, relationships 0.26-0.38, cooking 0.46-0.54, fitness 0.61-0.71, writing 0.67-0.79, learnprogramming 0.89-0.93, askscience 0.94-0.96). MiniLM coverage medians span only 0.49-0.57: legal_rtb 0.495 is the least covered, relationships 0.50-0.51 next, writing 0.57 the most. Q2: partial Spearman (score vs MiniLM coverage, controlling length) over 4,000 rows is -0.16 / -0.19 / -0.19 for dmaha_full and -0.17 / -0.20 / -0.19 for dknn_full; tf-idf detector -0.16 to -0.18, one-sided maha -0.09 to -0.11, knn -0.13 to -0.15. Pool-level Spearman (n=8) between median coverage and median score: dmaha_full -0.62 to -0.71, dknn_full -0.62 to -0.76, but length alone gives -0.48 to -0.64. Exploratory: exp01 legal vs WildChat with fine bands 0.956 (dmaha_full) / 0.932 (dknn_full), unchanged; medical becomes unmeasurable (covered share 0.25 < 0.30).
+**Output:** results/raw/261018_exp04_rerun_v1/decision.json
+**Bar:** Q1 ambiguous on all three seeds (0.69-0.71 and 0.61-0.63 against 0.60 / 0.75). Q2 ambiguous: rho -0.16 to -0.20 on all seeds, between the -0.30 and 0.10 thresholds. No bug found in the re-run.
+**Verdict:** discard the exp03 "reads register, not coverage" verdict as unsupported; two-sided scores weakly track measured coverage (rho about -0.19, stable across seeds), no more than the tf-idf detector does, and the coverage instrument has a narrow range, so a stronger coverage measure or Stefan's condensed-legal control is needed to separate the two readings.
+
 ## 18-10-2026 — exp03: register vs coverage with covered-domain Reddit pools
 
 **Question.** Do the exp01 detectors rank uncovered legal questions above Reddit posts on topics the DPO mix covers, when both come from the same Reddit source?

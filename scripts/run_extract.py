@@ -61,7 +61,9 @@ def main():
     )
 
     tokenizer = AutoTokenizer.from_pretrained(config.model_id, revision=revision)
-    model = AutoModelForCausalLM.from_pretrained(config.model_id, revision=revision, dtype=torch.bfloat16, device_map="cuda").eval()
+    model = AutoModelForCausalLM.from_pretrained(
+        config.model_id, revision=revision, dtype=torch.bfloat16, device_map="cuda"
+    ).eval()
 
     chat_pools = config.chat_pools
     pools = {name: load_jsonl(Path(config.pools_dir) / f"{name}.jsonl", config.num_tasks) for name in chat_pools}
@@ -76,7 +78,9 @@ def main():
         ids["dolma_full"] = ids["dolma_matched"] = [r["id"] for r in dolma]
 
     first = chat_pools[-1]
-    LOGGER.info(f"{first}[0] content tokens decoded: {tokenizer.decode([t for t, m in zip(*encoded[first][0]) if m])[:300]!r}")
+    LOGGER.info(
+        f"{first}[0] content tokens decoded: {tokenizer.decode([t for t, m in zip(*encoded[first][0]) if m])[:300]!r}"
+    )
 
     (out / "features").mkdir(exist_ok=True)
     timings = {}
@@ -85,7 +89,9 @@ def main():
         feats = extract(model, enc, tokenizer.pad_token_id, config.max_batch_tokens)
         timings[name] = {"rows": len(enc), "seconds": time.time() - start}
         np.savez(out / "features" / f"{name}.npz", ids=np.array(ids[name]), **feats)
-        LOGGER.info(f"{name}: {len(enc)} rows in {timings[name]['seconds']:.1f}s, median content tokens {np.median(feats['n_content_tokens']):.0f}")
+        LOGGER.info(
+            f"{name}: {len(enc)} rows in {timings[name]['seconds']:.1f}s, median content tokens {np.median(feats['n_content_tokens']):.0f}"
+        )
     write_json(timings, out / "extract_timings.json")
     print(f"features saved to {out / 'features'}")
     print(f"next: uv run -m scripts.run_detectors --run_dir {out} --seed 0")

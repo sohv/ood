@@ -14,7 +14,9 @@ USER_HEADER = "<|im_start|>user\n"
 
 
 def encode_chat(tokenizer, text: str, max_length: int = 1024) -> tuple[list[int], list[bool]]:
-    rendered = tokenizer.apply_chat_template([{"role": "user", "content": text}], tokenize=False, add_generation_prompt=True)
+    rendered = tokenizer.apply_chat_template(
+        [{"role": "user", "content": text}], tokenize=False, add_generation_prompt=True
+    )
     start = rendered.index(USER_HEADER) + len(USER_HEADER)
     assert rendered[start : start + len(text)] == text, "chat template altered the prompt text"
     end = start + len(text)
@@ -41,7 +43,9 @@ def token_batches(lengths: list[int], max_tokens: int) -> list[list[int]]:
 
 
 @torch.no_grad()
-def extract(model, encoded: list[tuple[list[int], list[bool]]], pad_id: int, max_tokens: int = 32768) -> dict[str, np.ndarray]:
+def extract(
+    model, encoded: list[tuple[list[int], list[bool]]], pad_id: int, max_tokens: int = 32768
+) -> dict[str, np.ndarray]:
     n = len(encoded)
     out = {p: np.zeros((n, len(LAYERS), model.config.hidden_size), dtype=np.float16) for p in POOLINGS}
     n_content = np.array([sum(m) for _, m in encoded])

@@ -1,0 +1,23 @@
+{
+  "git_hash": "b0df2f12",
+  "output_dir": "data/processed/exp04",
+  "seed": 0,
+  "year": 2019,
+  "n_pool": 500,
+  "n_candidates": 3000,
+  "subreddits": [
+    "relationship_advice",
+    "Fitness",
+    "Cooking",
+    "writing",
+    "relationships",
+    "learnprogramming",
+    "askscience",
+    "legaladvice"
+  ],
+  "full_scan": true,
+  "seeds": [
+    1,
+    2
+  ]
+}

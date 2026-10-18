@@ -38,7 +38,10 @@ def family_of(prompt_id: str) -> str:
 
 
 def load_dolci_dpo() -> pd.DataFrame:
-    paths = [hf_hub_download("allenai/Dolci-Instruct-DPO", f"data/train-{i:05d}-of-00004.parquet", repo_type="dataset") for i in range(4)]
+    paths = [
+        hf_hub_download("allenai/Dolci-Instruct-DPO", f"data/train-{i:05d}-of-00004.parquet", repo_type="dataset")
+        for i in range(4)
+    ]
     df = pd.concat([pd.read_parquet(p, columns=["chosen", "prompt_id"]) for p in paths], ignore_index=True)
     df["first_user"] = df["chosen"].map(lambda msgs: next(m["content"] for m in msgs if m["role"] == "user"))
     df["n_messages"] = df["chosen"].map(len)
@@ -101,22 +104,35 @@ def sample_dolma(n_docs: int, seed: int, lines_per_shard: int = 2000, min_chars:
 def load_legal(n: int, seed: int) -> list[str]:
     path = hf_hub_download("jonathanli/legal-advice-reddit", "train.jsonl", repo_type="dataset")
     rows = [json.loads(line) for line in open(path)]
-    texts = [f"{r['title'].strip()}\n\n{r['body'].strip()}" for r in rows if r["body"] and r["body"].strip() not in ("[removed]", "[deleted]")]
+    texts = [
+        f"{r['title'].strip()}\n\n{r['body'].strip()}"
+        for r in rows
+        if r["body"] and r["body"].strip() not in ("[removed]", "[deleted]")
+    ]
     texts = list(dict.fromkeys(texts))
     return [texts[i] for i in np.random.default_rng(seed).choice(len(texts), size=n, replace=False)]
 
 
 def load_medical(n: int, seed: int) -> list[str]:
-    path = hf_hub_download("lavita/ChatDoctor-HealthCareMagic-100k", "data/train-00000-of-00001-5e7cb295b9cff0bf.parquet", repo_type="dataset")
+    path = hf_hub_download(
+        "lavita/ChatDoctor-HealthCareMagic-100k",
+        "data/train-00000-of-00001-5e7cb295b9cff0bf.parquet",
+        repo_type="dataset",
+    )
     texts = list(dict.fromkeys(t.strip() for t in pd.read_parquet(path)["input"] if t and t.strip()))
     return [texts[i] for i in np.random.default_rng(seed).choice(len(texts), size=n, replace=False)]
 
 
 def load_wildchat_english_first_turns(shards: list[int]) -> list[str]:
-    paths = [hf_hub_download("allenai/WildChat-1M", f"data/train-{i:05d}-of-00014.parquet", repo_type="dataset") for i in shards]
+    paths = [
+        hf_hub_download("allenai/WildChat-1M", f"data/train-{i:05d}-of-00014.parquet", repo_type="dataset")
+        for i in shards
+    ]
     df = pd.concat([pd.read_parquet(p, columns=["conversation", "language"]) for p in paths], ignore_index=True)
     df = df[df["language"] == "English"]
-    texts = df["conversation"].map(lambda conv: next((m["content"] for m in conv if m["role"] == "user"), "")).str.strip()
+    texts = (
+        df["conversation"].map(lambda conv: next((m["content"] for m in conv if m["role"] == "user"), "")).str.strip()
+    )
     texts = texts[texts.str.len() > 0]
     norm = texts.map(normalise)
     return texts[~norm.duplicated()].tolist()
@@ -142,7 +158,9 @@ class MembershipIndex:
 
 
 def load_reddit_posts(year: int, subreddits: list[str], max_per_subreddit: int) -> dict[str, list[str]]:
-    path = hf_hub_download("sentence-transformers/reddit-title-body", f"reddit_title_text_{year}.jsonl.gz", repo_type="dataset")
+    path = hf_hub_download(
+        "sentence-transformers/reddit-title-body", f"reddit_title_text_{year}.jsonl.gz", repo_type="dataset"
+    )
     posts: dict[str, dict[str, None]] = {s: {} for s in subreddits}
     with gzip.open(path, "rt") as handle:
         for line in handle:
@@ -156,4 +174,23 @@ def load_reddit_posts(year: int, subreddits: list[str], max_per_subreddit: int) 
             posts[sub][f"{row['title'].strip()}\n\n{body}"] = None
             if all(len(p) >= max_per_subreddit for p in posts.values()):
                 break
+    return {s: list(p) for s, p in posts.items()}
+
+
+def load_reddit_posts_full(year: int, subreddits: list[str]) -> dict[str, list[str]]:
+    path = hf_hub_download(
+        "sentence-transformers/reddit-title-body", f"reddit_title_text_{year}.jsonl.gz", repo_type="dataset"
+    )
+    tails = {f'"subreddit": "{s}"}}': s for s in subreddits}
+    posts: dict[str, dict[str, None]] = {s: {} for s in subreddits}
+    with gzip.open(path, "rt") as handle:
+        for line in handle:
+            # cheap tail match before parsing; rows end with the subreddit field
+            sub = tails.get(line[line.rfind('"subreddit"') :].strip())
+            if sub is None:
+                continue
+            row = json.loads(line)
+            body = (row.get("body") or "").strip()
+            if body and body not in ("[removed]", "[deleted]"):
+                posts[sub][f"{row['title'].strip()}\n\n{body}"] = None
     return {s: list(p) for s, p in posts.items()}

@@ -1,0 +1,50 @@
+{
+  "reddit_relationship_advice": {
+    "subreddit": "relationship_advice",
+    "candidates": 139519,
+    "members_removed": 0,
+    "median_words": 269.0
+  },
+  "reddit_fitness": {
+    "subreddit": "Fitness",
+    "candidates": 7580,
+    "members_removed": 0,
+    "median_words": 109.0
+  },
+  "reddit_cooking": {
+    "subreddit": "Cooking",
+    "candidates": 15108,
+    "members_removed": 0,
+    "median_words": 80.0
+  },
+  "reddit_writing": {
+    "subreddit": "writing",
+    "candidates": 13981,
+    "members_removed": 0,
+    "median_words": 119.0
+  },
+  "reddit_relationships": {
+    "subreddit": "relationships",
+    "candidates": 44524,
+    "members_removed": 0,
+    "median_words": 377.5
+  },
+  "reddit_learnprogramming": {
+    "subreddit": "learnprogramming",
+    "candidates": 19722,
+    "members_removed": 1,
+    "median_words": 111.5
+  },
+  "reddit_askscience": {
+    "subreddit": "askscience",
+    "candidates": 6034,
+    "members_removed": 0,
+    "median_words": 73.0
+  },
+  "legal_rtb": {
+    "subreddit": "legaladvice",
+    "candidates": 91237,
+    "members_removed": 0,
+    "median_words": 188.0
+  }
+}

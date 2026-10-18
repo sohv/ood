@@ -37,6 +37,7 @@ inference = [
     "pyarrow",
     "scikit-learn",
     "zstandard",
+    "sentence-transformers",
 ]
 
 [tool.uv]

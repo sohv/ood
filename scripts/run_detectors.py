@@ -24,7 +24,13 @@ from src.utils.seed import set_seed
 LOGGER = logging.getLogger(__name__)
 
 TEST_POOLS = ("idmix", "legal", "medical", "wildchat_en_test")
-COMPARISONS = [("legal", "idmix"), ("medical", "idmix"), ("wildchat_en_test", "idmix"), ("legal", "wildchat_en_test"), ("medical", "wildchat_en_test")]
+COMPARISONS = [
+    ("legal", "idmix"),
+    ("medical", "idmix"),
+    ("wildchat_en_test", "idmix"),
+    ("legal", "wildchat_en_test"),
+    ("medical", "wildchat_en_test"),
+]
 DECISION_CELL = ("cmean", 16)
 ONE_SIDED = ("maha", "knn")
 TWO_SIDED_BAR = ("dmaha_full", "dknn_full")
@@ -61,15 +67,25 @@ def cell_scores(feats: dict, pooling: str, layer_idx: int, **maha_kwargs) -> dic
 def evaluate(scores: dict, lengths: dict, detector: str, ood: str, ref: str) -> dict:
     o, r = scores[ood][detector], scores[ref][detector]
     strat = stratified_auroc(o, r, lengths[ood], lengths[ref])
-    return {"detector": detector, "ood": ood, "ref": ref, "auroc_raw": auroc(o, r), "auroc_stratified": strat["auroc"],
-            "strat_n_bands": strat["n_bands"], "strat_coverage": strat["coverage"], "strat_bands": strat["bands"]}
+    return {
+        "detector": detector,
+        "ood": ood,
+        "ref": ref,
+        "auroc_raw": auroc(o, r),
+        "auroc_stratified": strat["auroc"],
+        "strat_n_bands": strat["n_bands"],
+        "strat_coverage": strat["coverage"],
+        "strat_bands": strat["bands"],
+    }
 
 
 def with_ci(row: dict, scores: dict, lengths: dict, n_boot: int, seed: int) -> dict:
     o, r = scores[row["ood"]][row["detector"]], scores[row["ref"]][row["detector"]]
     lo, lr = lengths[row["ood"]], lengths[row["ref"]]
     row["ci_raw"] = bootstrap_ci(lambda i, j: auroc(o[i], r[j]), len(o), len(r), n_boot, seed)
-    row["ci_stratified"] = bootstrap_ci(lambda i, j: stratified_auroc(o[i], r[j], lo[i], lr[j])["auroc"], len(o), len(r), n_boot, seed)
+    row["ci_stratified"] = bootstrap_ci(
+        lambda i, j: stratified_auroc(o[i], r[j], lo[i], lr[j])["auroc"], len(o), len(r), n_boot, seed
+    )
     return row
 
 
@@ -84,13 +100,21 @@ def main():
     names = (*TEST_POOLS, "idfit", "dolma_full", "dolma_matched")
     feats = {name: dict(np.load(features_dir / f"{name}.npz")) for name in names}
     lengths = {name: feats[name]["n_content_tokens"] for name in names}
-    texts = {name: [r["text"] for r in load_jsonl(Path(config.pools_dir) / f"{name}.jsonl")] for name in (*TEST_POOLS, "idfit", "dolma")}
+    texts = {
+        name: [r["text"] for r in load_jsonl(Path(config.pools_dir) / f"{name}.jsonl")]
+        for name in (*TEST_POOLS, "idfit", "dolma")
+    }
     for name in names:
-        expected = [r["id"] for r in load_jsonl(Path(config.pools_dir) / f"{name.replace('_full', '').replace('_matched', '')}.jsonl")]
+        expected = [
+            r["id"]
+            for r in load_jsonl(Path(config.pools_dir) / f"{name.replace('_full', '').replace('_matched', '')}.jsonl")
+        ]
         assert list(feats[name]["ids"]) == expected, f"{name} feature rows do not line up with the pool file"
 
     baselines = {pool: {"length": lengths[pool].astype(float)} for pool in TEST_POOLS}
-    tfidf = tfidf_mix_vs_dolma(texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed)
+    tfidf = tfidf_mix_vs_dolma(
+        texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed
+    )
     for pool in TEST_POOLS:
         baselines[pool]["tfidf"] = tfidf(texts[pool])
 
@@ -106,17 +130,43 @@ def main():
                 decision_scores = scores
             LOGGER.info(f"{pooling} L{layer} done")
 
-    decision_rows = [with_ci({"pooling": "cmean", "layer": 16, **evaluate(decision_scores, lengths, d, o, r)}, decision_scores, lengths, config.n_boot, config.seed)
-                     for d in decision_scores["idmix"] for o, r in COMPARISONS]
-    baseline_rows = [with_ci({"pooling": None, "layer": None, **evaluate(baselines, lengths, d, o, r)}, baselines, lengths, config.n_boot, config.seed)
-                     for d in ("length", "tfidf") for o, r in COMPARISONS]
+    decision_rows = [
+        with_ci(
+            {"pooling": "cmean", "layer": 16, **evaluate(decision_scores, lengths, d, o, r)},
+            decision_scores,
+            lengths,
+            config.n_boot,
+            config.seed,
+        )
+        for d in decision_scores["idmix"]
+        for o, r in COMPARISONS
+    ]
+    baseline_rows = [
+        with_ci(
+            {"pooling": None, "layer": None, **evaluate(baselines, lengths, d, o, r)},
+            baselines,
+            lengths,
+            config.n_boot,
+            config.seed,
+        )
+        for d in ("length", "tfidf")
+        for o, r in COMPARISONS
+    ]
 
     def get(detector: str, ood: str, ref: str, key: str):
         return next(r[key] for r in decision_rows if (r["detector"], r["ood"], r["ref"]) == (detector, ood, ref))
 
     bar1 = {f"{d}|{p}_vs_idmix": get(d, p, "idmix", "auroc_raw") for d in ONE_SIDED for p in ("legal", "medical")}
-    bar2_one = {f"{d}|{p}_vs_wildchat": get(d, p, "wildchat_en_test", "auroc_stratified") for d in ONE_SIDED for p in ("legal", "medical")}
-    bar2_two = {f"{d}|{p}_vs_wildchat": get(d, p, "wildchat_en_test", "auroc_stratified") for d in TWO_SIDED_BAR for p in ("legal", "medical")}
+    bar2_one = {
+        f"{d}|{p}_vs_wildchat": get(d, p, "wildchat_en_test", "auroc_stratified")
+        for d in ONE_SIDED
+        for p in ("legal", "medical")
+    }
+    bar2_two = {
+        f"{d}|{p}_vs_wildchat": get(d, p, "wildchat_en_test", "auroc_stratified")
+        for d in TWO_SIDED_BAR
+        for p in ("legal", "medical")
+    }
     is_bar1 = all(v >= 0.95 for v in bar1.values())
     measurable = all(v is not None for v in (*bar2_one.values(), *bar2_two.values()))
     is_bar2_evaluated = is_bar1 or config.evaluate_bar2_always
@@ -126,11 +176,15 @@ def main():
         "maha_pca_dims": config.maha_pca_dims,
         "bar1_positive_control": {"values": bar1, "threshold": ">= 0.95", "cleared": is_bar1},
         "bar2_main_claim": {
-            "one_sided_stratified": bar2_one, "one_sided_threshold": "<= 0.60",
-            "two_sided_stratified": bar2_two, "two_sided_threshold": ">= 0.85",
+            "one_sided_stratified": bar2_one,
+            "one_sided_threshold": "<= 0.60",
+            "two_sided_stratified": bar2_two,
+            "two_sided_threshold": ">= 0.85",
             "measurable": measurable,
             "evaluated": is_bar2_evaluated,
-            "verdict": None if not is_bar2_evaluated else ("reproduced" if is_bar2 else ("ambiguous_unmeasurable" if not measurable else "not_reproduced")),
+            "verdict": None
+            if not is_bar2_evaluated
+            else ("reproduced" if is_bar2 else ("ambiguous_unmeasurable" if not measurable else "not_reproduced")),
         },
     }
 
@@ -141,21 +195,42 @@ def main():
     for pool in TEST_POOLS:
         ids = feats[pool]["ids"]
         for i in range(len(ids)):
-            score_rows.append({"id": str(ids[i]), "pool": pool, "n_content_tokens": int(lengths[pool][i]),
-                               **{d: float(decision_scores[pool][d][i]) for d in decision_scores[pool]},
-                               **{d: float(baselines[pool][d][i]) for d in baselines[pool]}})
+            score_rows.append(
+                {
+                    "id": str(ids[i]),
+                    "pool": pool,
+                    "n_content_tokens": int(lengths[pool][i]),
+                    **{d: float(decision_scores[pool][d][i]) for d in decision_scores[pool]},
+                    **{d: float(baselines[pool][d][i]) for d in baselines[pool]},
+                }
+            )
     write_jsonl(score_rows, run / "scores_decision_cell.jsonl")
 
     if config.exploratory_maha:
         li = LAYERS.index(DECISION_CELL[1])
-        variants = {**{f"pca{k}": {"pca_dims": k} for k in (32, 64, 128, 512, 1024)}, **{f"shrink{a}": {"shrinkage": a} for a in (0.1, 0.5)}}
+        variants = {
+            **{f"pca{k}": {"pca_dims": k} for k in (32, 64, 128, 512, 1024)},
+            **{f"shrink{a}": {"shrinkage": a} for a in (0.1, 0.5)},
+        }
         explore = []
         for name, kwargs in variants.items():
             scores = cell_scores(feats, DECISION_CELL[0], li, **kwargs)
             for d in ("maha", "dmaha_full", "dmaha_matched"):
                 explore += [{"variant": name, **evaluate(scores, lengths, d, o, r)} for o, r in COMPARISONS]
-            explore.append({"variant": name, "detector": "maha", "ood": "idmix", "ref": "idfit_in_sample",
-                            "auroc_raw": auroc(scores["idmix"]["maha"], Mahalanobis(feats["idfit"][DECISION_CELL[0]][:, li], **kwargs)(feats["idfit"][DECISION_CELL[0]][:, li]))})
+            explore.append(
+                {
+                    "variant": name,
+                    "detector": "maha",
+                    "ood": "idmix",
+                    "ref": "idfit_in_sample",
+                    "auroc_raw": auroc(
+                        scores["idmix"]["maha"],
+                        Mahalanobis(feats["idfit"][DECISION_CELL[0]][:, li], **kwargs)(
+                            feats["idfit"][DECISION_CELL[0]][:, li]
+                        ),
+                    ),
+                }
+            )
             LOGGER.info(f"exploratory {name} done")
         write_json(explore, run / "metrics_exploratory_maha.json")
     print(f"decision written to {run / 'decision.json'}")

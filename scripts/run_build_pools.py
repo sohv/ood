@@ -38,7 +38,10 @@ class PoolsConfig:
 
 
 def records(texts: list[str], pool: str, **extra: list) -> list[dict]:
-    return [{"id": f"{pool}_{i:05d}", "pool": pool, "text": t, **{k: v[i] for k, v in extra.items()}} for i, t in enumerate(texts)]
+    return [
+        {"id": f"{pool}_{i:05d}", "pool": pool, "text": t, **{k: v[i] for k, v in extra.items()}}
+        for i, t in enumerate(texts)
+    ]
 
 
 def main():
@@ -60,9 +63,16 @@ def main():
     write_jsonl(records(test["first_user"].tolist(), "idmix", family=test["family"].tolist()), out / "idmix.jsonl")
 
     dolma = sample_dolma(config.n_dolma, config.seed)
-    stats["dolma_source_counts"] = {s: sum(d["source"] == s for d in dolma) for s in sorted({d["source"] for d in dolma})}
+    stats["dolma_source_counts"] = {
+        s: sum(d["source"] == s for d in dolma) for s in sorted({d["source"] for d in dolma})
+    }
     write_jsonl(
-        records([d["text"] for d in dolma], "dolma", source=[d["source"] for d in dolma], dolma_id=[d["dolma_id"] for d in dolma]),
+        records(
+            [d["text"] for d in dolma],
+            "dolma",
+            source=[d["source"] for d in dolma],
+            dolma_id=[d["dolma_id"] for d in dolma],
+        ),
         out / "dolma.jsonl",
     )
 
