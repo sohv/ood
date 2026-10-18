@@ -43,7 +43,9 @@ def test_latest_run_reached_the_log():
         pytest.skip("no logged runs in results/raw yet")
     latest = runs[-1]
     date = RUN_DIR.match(latest.name).group(1)
-    assert date in logged_dates(), f"{latest.name} finished but never reached research_log.md. see the logs section of CLAUDE.md"
+    assert (
+        date in logged_dates()
+    ), f"{latest.name} finished but never reached research_log.md. see the logs section of CLAUDE.md"
 
 
 def test_run_directory_names_are_dated():

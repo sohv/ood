@@ -1,0 +1,37 @@
+{
+  "git_hash": "b7d87bcb",
+  "pools_dir": "data/processed/exp03",
+  "output_dir": "results/raw/261018_exp03_reddit_v1",
+  "model_id": "allenai/Olmo-3-7B-Instruct-DPO",
+  "seed": 0,
+  "num_tasks": null,
+  "max_length": 1024,
+  "dolma_full_tokens": 512,
+  "max_batch_tokens": 32768,
+  "chat_pools": [
+    "reddit_relationship_advice",
+    "reddit_fitness",
+    "reddit_cooking",
+    "reddit_writing",
+    "reddit_relationships",
+    "reddit_learnprogramming",
+    "reddit_askscience",
+    "legal_rtb"
+  ],
+  "include_dolma": false,
+  "model_revision": "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1",
+  "layers": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20,
+    24,
+    28,
+    32
+  ],
+  "hook_point": "hidden_states[l] residual stream, l=32 is post final norm",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "torch": "2.14.1+cu130"
+}

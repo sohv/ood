@@ -1,0 +1,31 @@
+{
+  "cell": "cmean L16, dolma full",
+  "bar1_positive_control": {
+    "values": {
+      "maha|legal_vs_idmix": 0.685,
+      "maha|medical_vs_idmix": 0.8196,
+      "knn|legal_vs_idmix": 0.9456,
+      "knn|medical_vs_idmix": 0.9364
+    },
+    "threshold": ">= 0.95",
+    "cleared": false
+  },
+  "bar2_main_claim": {
+    "one_sided_stratified": {
+      "maha|legal_vs_wildchat": 0.6245,
+      "maha|medical_vs_wildchat": 0.6122,
+      "knn|legal_vs_wildchat": 0.6506,
+      "knn|medical_vs_wildchat": 0.4779
+    },
+    "one_sided_threshold": "<= 0.60",
+    "two_sided_stratified": {
+      "dmaha_full|legal_vs_wildchat": 0.9544,
+      "dmaha_full|medical_vs_wildchat": 0.8971,
+      "dknn_full|legal_vs_wildchat": 0.9355,
+      "dknn_full|medical_vs_wildchat": 0.8219
+    },
+    "two_sided_threshold": ">= 0.85",
+    "measurable": true,
+    "verdict": null
+  }
+}

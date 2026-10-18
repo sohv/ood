@@ -1,7 +1,7 @@
 [project]
-name = "research-project"
+name = "ood"
 version = "0.1.0"
-description = "Research project scaffold"
+description = "OOD detection of deployment traffic against a post-training mix"
 requires-python = ">=3.10"
 dependencies = [
     "numpy",
@@ -29,8 +29,15 @@ llm = [
     "litellm",
     "python-dotenv",
 ]
-# Add inference-stack extras per project as needed, e.g.:
-# inference = ["vllm", "transformers", "accelerate", "torch"]
+inference = [
+    "torch",
+    "transformers",
+    "accelerate",
+    "datasets",
+    "pyarrow",
+    "scikit-learn",
+    "zstandard",
+]
 
 [tool.uv]
 package = false

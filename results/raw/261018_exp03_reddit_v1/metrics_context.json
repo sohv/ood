@@ -1,0 +1,722 @@
+[
+  {
+    "detector": "maha",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.3665,
+    "auroc_stratified": 0.7926,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.6922
+  },
+  {
+    "detector": "maha",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.4023,
+    "auroc_stratified": 0.5376,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.738
+  },
+  {
+    "detector": "maha",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.4471,
+    "auroc_stratified": 0.5329,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.7815
+  },
+  {
+    "detector": "maha",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.4153,
+    "auroc_stratified": 0.5746,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.7459
+  },
+  {
+    "detector": "maha",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.334,
+    "auroc_stratified": 0.8493,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.6537
+  },
+  {
+    "detector": "maha",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.3895,
+    "auroc_stratified": 0.4906,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.7065
+  },
+  {
+    "detector": "maha",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.477,
+    "auroc_stratified": 0.5592,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.8028
+  },
+  {
+    "detector": "maha",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.3557,
+    "auroc_stratified": 0.6162,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.6787
+  },
+  {
+    "detector": "maha",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.3622,
+    "auroc_stratified": 0.6245,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.685
+  },
+  {
+    "detector": "knn",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7868,
+    "auroc_stratified": 0.7611,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9576
+  },
+  {
+    "detector": "knn",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.716,
+    "auroc_stratified": 0.5313,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9391
+  },
+  {
+    "detector": "knn",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7368,
+    "auroc_stratified": 0.5698,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.9433
+  },
+  {
+    "detector": "knn",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7477,
+    "auroc_stratified": 0.6009,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.9464
+  },
+  {
+    "detector": "knn",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7788,
+    "auroc_stratified": 0.8059,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.9561
+  },
+  {
+    "detector": "knn",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.5786,
+    "auroc_stratified": 0.442,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.8927
+  },
+  {
+    "detector": "knn",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7398,
+    "auroc_stratified": 0.6146,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9416
+  },
+  {
+    "detector": "knn",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7344,
+    "auroc_stratified": 0.6411,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9445
+  },
+  {
+    "detector": "knn",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7389,
+    "auroc_stratified": 0.6506,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.9456
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9836,
+    "auroc_stratified": 0.9735,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9904
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9465,
+    "auroc_stratified": 0.866,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9692
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9403,
+    "auroc_stratified": 0.895,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.9676
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9368,
+    "auroc_stratified": 0.867,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.9642
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9884,
+    "auroc_stratified": 0.9809,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.993
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.8445,
+    "auroc_stratified": 0.6871,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.9259
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7949,
+    "auroc_stratified": 0.683,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9042
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9732,
+    "auroc_stratified": 0.9504,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.984
+  },
+  {
+    "detector": "dmaha_full",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9732,
+    "auroc_stratified": 0.9544,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.9842
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9861,
+    "auroc_stratified": 0.9751,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9906
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9506,
+    "auroc_stratified": 0.8754,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9766
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9456,
+    "auroc_stratified": 0.8736,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.9754
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9316,
+    "auroc_stratified": 0.84,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.9719
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9897,
+    "auroc_stratified": 0.983,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.9921
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.8556,
+    "auroc_stratified": 0.6928,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.9517
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.8138,
+    "auroc_stratified": 0.6188,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9408
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9668,
+    "auroc_stratified": 0.9366,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9829
+  },
+  {
+    "detector": "dknn_full",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9663,
+    "auroc_stratified": 0.9355,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.9827
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7837,
+    "auroc_stratified": 0.9486,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9648
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7634,
+    "auroc_stratified": 0.8076,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9604
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.8196,
+    "auroc_stratified": 0.8499,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.972
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7657,
+    "auroc_stratified": 0.8132,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.9608
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7584,
+    "auroc_stratified": 0.9603,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.9597
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.6445,
+    "auroc_stratified": 0.6536,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.9248
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7344,
+    "auroc_stratified": 0.6805,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9533
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7489,
+    "auroc_stratified": 0.8901,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9576
+  },
+  {
+    "detector": "dmaha_matched",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7601,
+    "auroc_stratified": 0.8961,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.9599
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9833,
+    "auroc_stratified": 0.9745,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9911
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9462,
+    "auroc_stratified": 0.8675,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9792
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9441,
+    "auroc_stratified": 0.8631,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.9788
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9268,
+    "auroc_stratified": 0.8314,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.975
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9855,
+    "auroc_stratified": 0.9816,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.9916
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.8195,
+    "auroc_stratified": 0.6621,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.9522
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7946,
+    "auroc_stratified": 0.6075,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9459
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9549,
+    "auroc_stratified": 0.9184,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9818
+  },
+  {
+    "detector": "dknn_matched",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9539,
+    "auroc_stratified": 0.915,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.9815
+  },
+  {
+    "detector": "tfidf",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9824,
+    "auroc_stratified": 0.9838,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9904
+  },
+  {
+    "detector": "tfidf",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9275,
+    "auroc_stratified": 0.8454,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9552
+  },
+  {
+    "detector": "tfidf",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9183,
+    "auroc_stratified": 0.8511,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.9499
+  },
+  {
+    "detector": "tfidf",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9182,
+    "auroc_stratified": 0.8484,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.9512
+  },
+  {
+    "detector": "tfidf",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9921,
+    "auroc_stratified": 0.992,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.9962
+  },
+  {
+    "detector": "tfidf",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.8271,
+    "auroc_stratified": 0.7095,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.8969
+  },
+  {
+    "detector": "tfidf",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.849,
+    "auroc_stratified": 0.711,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.9065
+  },
+  {
+    "detector": "tfidf",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9664,
+    "auroc_stratified": 0.9513,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.9804
+  },
+  {
+    "detector": "tfidf",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.9658,
+    "auroc_stratified": 0.9521,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.9803
+  },
+  {
+    "detector": "length",
+    "ood": "reddit_relationship_advice",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.6649,
+    "auroc_stratified": 0.3853,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.7528
+  },
+  {
+    "detector": "length",
+    "ood": "reddit_fitness",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.5916,
+    "auroc_stratified": 0.4931,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.5541
+  },
+  {
+    "detector": "length",
+    "ood": "reddit_cooking",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.5555,
+    "auroc_stratified": 0.5283,
+    "strat_n_bands": 4,
+    "strat_coverage": 0.98,
+    "auroc_vs_idmix_raw": 0.4569
+  },
+  {
+    "detector": "length",
+    "ood": "reddit_writing",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.5862,
+    "auroc_stratified": 0.485,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.99,
+    "auroc_vs_idmix_raw": 0.5453
+  },
+  {
+    "detector": "length",
+    "ood": "reddit_relationships",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.7118,
+    "auroc_stratified": 0.3486,
+    "strat_n_bands": 3,
+    "strat_coverage": 1.0,
+    "auroc_vs_idmix_raw": 0.8594
+  },
+  {
+    "detector": "length",
+    "ood": "reddit_learnprogramming",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.5926,
+    "auroc_stratified": 0.4581,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.984,
+    "auroc_vs_idmix_raw": 0.5652
+  },
+  {
+    "detector": "length",
+    "ood": "reddit_askscience",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.5338,
+    "auroc_stratified": 0.5407,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.996,
+    "auroc_vs_idmix_raw": 0.4012
+  },
+  {
+    "detector": "length",
+    "ood": "legal_rtb",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.6356,
+    "auroc_stratified": 0.4295,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.998,
+    "auroc_vs_idmix_raw": 0.6843
+  },
+  {
+    "detector": "length",
+    "ood": "legal",
+    "ref": "wildchat_en_test",
+    "auroc_raw": 0.6383,
+    "auroc_stratified": 0.498,
+    "strat_n_bands": 5,
+    "strat_coverage": 0.992,
+    "auroc_vs_idmix_raw": 0.6743
+  }
+]

@@ -1,0 +1,2686 @@
+{
+  "decision_cell": [
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "maha",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.501,
+      "auroc_stratified": 0.7436,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.5856,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.7183,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.7723,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.7794,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.4899,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.4719,
+        0.5285
+      ],
+      "ci_stratified": [
+        0.7145,
+        0.7718
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "maha",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.7478,
+      "auroc_stratified": 0.878,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.6371,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.892,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.9169,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.7231,
+        0.7702
+      ],
+      "ci_stratified": [
+        0.8492,
+        0.9006
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "maha",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.6431,
+      "auroc_stratified": 0.5963,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.5863,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.4792,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.6335,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.8289,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.762,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.9176,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.3729,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.6119,
+        0.6718
+      ],
+      "ci_stratified": [
+        0.5552,
+        0.637
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "maha",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.3289,
+      "auroc_stratified": 0.4957,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.3926,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.2956,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.3701,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.1544,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.777,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.2951,
+        0.3703
+      ],
+      "ci_stratified": [
+        0.4291,
+        0.567
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "maha",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.5114,
+      "auroc_stratified": 0.5811,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.5043,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.5902,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.6172,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.4758,
+        0.5524
+      ],
+      "ci_stratified": [
+        0.4962,
+        0.6567
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "knn",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.9456,
+      "auroc_stratified": 0.9522,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.99,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.9626,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.9597,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.9548,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.8273,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.933,
+        0.9587
+      ],
+      "ci_stratified": [
+        0.9371,
+        0.9665
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "knn",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.9364,
+      "auroc_stratified": 0.9525,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.971,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.9499,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.9553,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.9232,
+        0.9505
+      ],
+      "ci_stratified": [
+        0.9317,
+        0.9699
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "knn",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.8378,
+      "auroc_stratified": 0.8012,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.7647,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.8063,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.912,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.9497,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.9321,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.9696,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.5709,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.8181,
+        0.8583
+      ],
+      "ci_stratified": [
+        0.7664,
+        0.832
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "knn",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.7389,
+      "auroc_stratified": 0.6506,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.7568,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.507,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.6057,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.32,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.8318,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.7063,
+        0.772
+      ],
+      "ci_stratified": [
+        0.5889,
+        0.7107
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "knn",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.71,
+      "auroc_stratified": 0.4779,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.6325,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.43,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.5458,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.6763,
+        0.7439
+      ],
+      "ci_stratified": [
+        0.391,
+        0.5861
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_full",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.7413,
+      "auroc_stratified": 0.7015,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.5677,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.6039,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.6874,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.805,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.6982,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.7161,
+        0.7664
+      ],
+      "ci_stratified": [
+        0.669,
+        0.7334
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_full",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.428,
+      "auroc_stratified": 0.457,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.5123,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.4332,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.5279,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.4019,
+        0.4554
+      ],
+      "ci_stratified": [
+        0.4127,
+        0.5002
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_full",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.4026,
+      "auroc_stratified": 0.4669,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.5618,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.5546,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.5166,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.5377,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.5425,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.6278,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.2138,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.3718,
+        0.43
+      ],
+      "ci_stratified": [
+        0.4285,
+        0.501
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_full",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.8412,
+      "auroc_stratified": 0.7596,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.5531,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.5747,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.6686,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.6252,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.9561,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.8143,
+        0.8656
+      ],
+      "ci_stratified": [
+        0.7086,
+        0.8131
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_full",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.5626,
+      "auroc_stratified": 0.3998,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.4986,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.3644,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.4659,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.5264,
+        0.5987
+      ],
+      "ci_stratified": [
+        0.3233,
+        0.4876
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_full",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.9827,
+      "auroc_stratified": 0.98,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.995,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.9829,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.9845,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.971,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.9743,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.9753,
+        0.9889
+      ],
+      "ci_stratified": [
+        0.9693,
+        0.9893
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_full",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.9726,
+      "auroc_stratified": 0.9853,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.9954,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.984,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.9861,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.9633,
+        0.9809
+      ],
+      "ci_stratified": [
+        0.9732,
+        0.9945
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_full",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.8326,
+      "auroc_stratified": 0.7778,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.7789,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.8326,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.9338,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.9538,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.943,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.9359,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.4379,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.8135,
+        0.8539
+      ],
+      "ci_stratified": [
+        0.7411,
+        0.8132
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_full",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9663,
+      "auroc_stratified": 0.9355,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.8889,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.7664,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.9515,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.9931,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.9776,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.9532,
+        0.977
+      ],
+      "ci_stratified": [
+        0.9036,
+        0.9604
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_full",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9366,
+      "auroc_stratified": 0.8219,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.9038,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.7757,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.956,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.9176,
+        0.9533
+      ],
+      "ci_stratified": [
+        0.7446,
+        0.8975
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_matched",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.7642,
+      "auroc_stratified": 0.7968,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.6896,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.7373,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.8046,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.8635,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.6579,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.741,
+        0.788
+      ],
+      "ci_stratified": [
+        0.7713,
+        0.8257
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_matched",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.642,
+      "auroc_stratified": 0.679,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.5604,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.6632,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.7865,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.6186,
+        0.6699
+      ],
+      "ci_stratified": [
+        0.6365,
+        0.7218
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_matched",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.5465,
+      "auroc_stratified": 0.5396,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.525,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.5834,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.5936,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.7158,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.7091,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.869,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.2286,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.517,
+        0.5759
+      ],
+      "ci_stratified": [
+        0.5002,
+        0.5772
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_matched",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.7192,
+      "auroc_stratified": 0.6583,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.5951,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.5303,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.5432,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.3232,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.8984,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.6842,
+        0.7542
+      ],
+      "ci_stratified": [
+        0.5985,
+        0.7216
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dmaha_matched",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.6014,
+      "auroc_stratified": 0.4141,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.4302,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.3896,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.5132,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.564,
+        0.6381
+      ],
+      "ci_stratified": [
+        0.3428,
+        0.4877
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_matched",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.9815,
+      "auroc_stratified": 0.9773,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.9915,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.9818,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.9817,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.9691,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.9624,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.9739,
+        0.9884
+      ],
+      "ci_stratified": [
+        0.9656,
+        0.9876
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_matched",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.9752,
+      "auroc_stratified": 0.984,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.9921,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.9834,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.9829,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.9664,
+        0.9832
+      ],
+      "ci_stratified": [
+        0.9724,
+        0.9939
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_matched",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.8434,
+      "auroc_stratified": 0.7903,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.7895,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.8286,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.9333,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.9562,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.9436,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.9422,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.4827,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.8247,
+        0.8638
+      ],
+      "ci_stratified": [
+        0.7542,
+        0.8244
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_matched",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9539,
+      "auroc_stratified": 0.915,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.8901,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.7156,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.9375,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.9708,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.9632,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.9377,
+        0.9677
+      ],
+      "ci_stratified": [
+        0.8819,
+        0.9444
+      ]
+    },
+    {
+      "pooling": "cmean",
+      "layer": 16,
+      "detector": "dknn_matched",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9303,
+      "auroc_stratified": 0.7789,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.8857,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.7212,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.9421,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.9099,
+        0.9481
+      ],
+      "ci_stratified": [
+        0.6951,
+        0.8706
+      ]
+    }
+  ],
+  "baselines": [
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "length",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.6743,
+      "auroc_stratified": 0.5353,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.6383,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.5753,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.5163,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.5404,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.4704,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.6497,
+        0.7029
+      ],
+      "ci_stratified": [
+        0.4994,
+        0.5728
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "length",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.3969,
+      "auroc_stratified": 0.3908,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.8469,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.3561,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.3485,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.3705,
+        0.4258
+      ],
+      "ci_stratified": [
+        0.3532,
+        0.4327
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "length",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.4544,
+      "auroc_stratified": 0.4678,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.2588,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.5564,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.3986,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.5049,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.4773,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.6217,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.5028,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.4213,
+        0.4903
+      ],
+      "ci_stratified": [
+        0.4287,
+        0.5042
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "length",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.6383,
+      "auroc_stratified": 0.498,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.7475,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.5587,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.5434,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.4145,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.446,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.5952,
+        0.6745
+      ],
+      "ci_stratified": [
+        0.4418,
+        0.5543
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "length",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.5332,
+      "auroc_stratified": 0.4458,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.8989,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.3687,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.3447,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.489,
+        0.5733
+      ],
+      "ci_stratified": [
+        0.3715,
+        0.5312
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "tfidf",
+      "ood": "legal",
+      "ref": "idmix",
+      "auroc_raw": 0.9803,
+      "auroc_stratified": 0.9892,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 134,
+          "auroc": 0.9811,
+          "median_len_ratio": 1.0769
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 200,
+          "auroc": 0.9857,
+          "median_len_ratio": 1.086
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 231,
+          "auroc": 0.9927,
+          "median_len_ratio": 1.0333
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 170,
+          "auroc": 0.989,
+          "median_len_ratio": 1.0575
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 90,
+          "auroc": 0.9784,
+          "median_len_ratio": 0.9447
+        }
+      ],
+      "ci_raw": [
+        0.9739,
+        0.986
+      ],
+      "ci_stratified": [
+        0.9833,
+        0.9939
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "tfidf",
+      "ood": "medical",
+      "ref": "idmix",
+      "auroc_raw": 0.9499,
+      "auroc_stratified": 0.9789,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 134,
+          "auroc": 0.9848,
+          "median_len_ratio": 1.3407
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 200,
+          "auroc": 0.9763,
+          "median_len_ratio": 0.8817
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 231,
+          "auroc": 0.9868,
+          "median_len_ratio": 0.8389
+        }
+      ],
+      "ci_raw": [
+        0.9388,
+        0.9612
+      ],
+      "ci_stratified": [
+        0.9672,
+        0.9877
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "tfidf",
+      "ood": "wildchat_en_test",
+      "ref": "idmix",
+      "auroc_raw": 0.716,
+      "auroc_stratified": 0.6799,
+      "strat_n_bands": 7,
+      "strat_coverage": 1.0,
+      "strat_bands": [
+        {
+          "band": [
+            1,
+            16
+          ],
+          "n_ood": 109,
+          "n_ref": 72,
+          "auroc": 0.4987,
+          "median_len_ratio": 0.75
+        },
+        {
+          "band": [
+            16,
+            32
+          ],
+          "n_ood": 91,
+          "n_ref": 103,
+          "auroc": 0.6437,
+          "median_len_ratio": 1.1
+        },
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 54,
+          "n_ref": 134,
+          "auroc": 0.8129,
+          "median_len_ratio": 0.9451
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 37,
+          "n_ref": 200,
+          "auroc": 0.8661,
+          "median_len_ratio": 1.0108
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 35,
+          "n_ref": 231,
+          "auroc": 0.8315,
+          "median_len_ratio": 0.95
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 18,
+          "n_ref": 170,
+          "auroc": 0.8062,
+          "median_len_ratio": 1.1693
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 156,
+          "n_ref": 90,
+          "auroc": 0.5238,
+          "median_len_ratio": 0.9642
+        }
+      ],
+      "ci_raw": [
+        0.6895,
+        0.7403
+      ],
+      "ci_stratified": [
+        0.6405,
+        0.714
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "tfidf",
+      "ood": "legal",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9658,
+      "auroc_stratified": 0.9521,
+      "strat_n_bands": 5,
+      "strat_coverage": 0.992,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 15,
+          "n_ref": 54,
+          "auroc": 0.8741,
+          "median_len_ratio": 1.1395
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 95,
+          "n_ref": 37,
+          "auroc": 0.8743,
+          "median_len_ratio": 1.0745
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 175,
+          "n_ref": 35,
+          "auroc": 0.953,
+          "median_len_ratio": 1.0877
+        },
+        {
+          "band": [
+            256,
+            512
+          ],
+          "n_ood": 154,
+          "n_ref": 18,
+          "auroc": 0.9773,
+          "median_len_ratio": 0.9044
+        },
+        {
+          "band": [
+            512,
+            1025
+          ],
+          "n_ood": 57,
+          "n_ref": 156,
+          "auroc": 0.9816,
+          "median_len_ratio": 0.9798
+        }
+      ],
+      "ci_raw": [
+        0.9539,
+        0.976
+      ],
+      "ci_stratified": [
+        0.9305,
+        0.9693
+      ]
+    },
+    {
+      "pooling": null,
+      "layer": null,
+      "detector": "tfidf",
+      "ood": "medical",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9168,
+      "auroc_stratified": 0.8555,
+      "strat_n_bands": 3,
+      "strat_coverage": 0.958,
+      "strat_bands": [
+        {
+          "band": [
+            32,
+            64
+          ],
+          "n_ood": 52,
+          "n_ref": 54,
+          "auroc": 0.9021,
+          "median_len_ratio": 1.4186
+        },
+        {
+          "band": [
+            64,
+            128
+          ],
+          "n_ood": 349,
+          "n_ref": 37,
+          "auroc": 0.8316,
+          "median_len_ratio": 0.8723
+        },
+        {
+          "band": [
+            128,
+            256
+          ],
+          "n_ood": 78,
+          "n_ref": 35,
+          "auroc": 0.9201,
+          "median_len_ratio": 0.883
+        }
+      ],
+      "ci_raw": [
+        0.895,
+        0.9356
+      ],
+      "ci_stratified": [
+        0.7949,
+        0.9075
+      ]
+    }
+  ]
+}

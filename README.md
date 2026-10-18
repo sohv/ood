@@ -6,6 +6,8 @@ method is distance and density scoring on model activations (Mahalanobis, kNN, a
 against a pre-training reference) on OLMo models, whose post-training mixes are public. Background is
 in `docs/PROJECT_SUMMARY_EXTERNAL.md` and the MATS summary PDF in `docs/`.
 
+Results so far (exp01-exp03): https://claude.ai/artifact/G8eegoihDPang1Kw74S7di, source `results/synthesis/261018_ood_repro_report.html`.
+
 ## Setup
 
 ```bash

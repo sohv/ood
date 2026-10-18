@@ -1,0 +1,43 @@
+{
+  "dolci_rows": 259922,
+  "dolci_two_message_rows": 249923,
+  "n_families": 25,
+  "idfit_family_counts": {
+    "valpy_if_qwq_reasoning_verified_no_reasoning-request": 378,
+    "correct-python-sft-187k-request": 320,
+    "ultrafeedback_cleaned_olmo2_7b-request": 295,
+    "flan_v2_converted-request": 214,
+    "tulu-3-sft-personas-math-request": 196,
+    "filtered_wc_sample_500k-request": 175,
+    "evol_codealpaca_heval_decontaminated-request": 172,
+    "tulu_v3.9_wildjailbreak_decontaminated_50k-request": 153,
+    "tulu_v3.9_synthetic_finalresp_wildguardmixtrain_decontaminated_50k-request": 141,
+    "Wildchat-1M-gpt-4.1-regenerated-english-request": 129,
+    "tulu_v3.9_sciriff_10k-request": 118,
+    "tulu-3-sft-personas-instruction-following-o3-request": 89,
+    "IF_sft_data_verified_permissive-request": 86,
+    "tulu_v3.9_aya_100k-request": 85,
+    "Wildchat-1m-gpt-4.1-regeneration-not-english-request": 83,
+    "OpenThoughts3-full-filtered-science-no-cot-request": 82,
+    "tulu_v3.9_open_math_2_gsm8k_50k-request": 68,
+    "tulu-3-sft-personas-math-grade-request": 67,
+    "personahub_code_v2_34999-request": 61,
+    "tulu-3-sft-coconot-regenerated-request": 29,
+    "tulu-3-sft-personas-algebra-request": 27,
+    "tulu_v3.9_table_gpt_5k-request": 16,
+    "DaringAnteater-prefs_olmo2_7b-request": 10,
+    "oasst1_converted-request": 6
+  },
+  "dolma_source_counts": {
+    "c4": 212,
+    "common-crawl": 2603,
+    "gutenberg": 5,
+    "reddit": 120,
+    "s2": 60
+  },
+  "membership_positive_control_hits": "200/200",
+  "wildchat_english_unique_first_turns": 84763,
+  "wildchat_checked": 626,
+  "wildchat_members_removed": 126,
+  "wildchat_members_removed_short_rows": 7
+}
