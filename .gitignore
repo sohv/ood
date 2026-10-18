@@ -1,0 +1,30 @@
+__pycache__/
+*.pyc
+.venv
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.DS_Store
+
+.env
+cache/
+*.log
+
+# bulk run artifacts. summary.json, metrics.json, config.json and outputs.jsonl stay committed
+# so every reported number traces to a file in git. anything too large for that goes in
+# generations/ below, which is where check-added-large-files expects bulk output to live.
+results/raw/**/generations/
+*.parquet
+*.arrow
+*.npy
+*.npz
+*.pt
+*.pth
+*.bin
+*.safetensors
+uv.lock
+
+# third-party project notes, kept local only
+docs/OOD detection for alignment*.pdf
+docs/PROJECT_SUMMARY_EXTERNAL.md

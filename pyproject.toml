@@ -1,0 +1,47 @@
+[project]
+name = "research-project"
+version = "0.1.0"
+description = "Research project scaffold"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "scipy",
+    "pyyaml",
+    "tqdm",
+    "simple-parsing",
+    "matplotlib",
+    "seaborn",
+    "wandb",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "pre-commit",
+    "ruff",
+    "nbstripout",
+]
+llm = [
+    "anthropic",
+    "openai",
+    "litellm",
+    "python-dotenv",
+]
+# Add inference-stack extras per project as needed, e.g.:
+# inference = ["vllm", "transformers", "accelerate", "torch"]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+
+[tool.ruff.lint]
+ignore = ["E501", "E402", "E741", "F841", "F403", "F401"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

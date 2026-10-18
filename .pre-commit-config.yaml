@@ -1,0 +1,37 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+        args: ["--maxkb=5000"]
+      - id: detect-private-key
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.6.9
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout
+
+  - repo: local
+    hooks:
+      - id: bulk-output-escape-valve
+        name: point oversized results at generations/
+        entry: bash -c 'for f in $(git diff --cached --name-only --diff-filter=AM -- results/); do if [ -f "$f" ] && [ "$(wc -c < "$f")" -gt 5000000 ]; then echo "$f is over 5MB. Move bulk output to results/raw/<run>/generations/, which is gitignored, and keep summary/metrics/config json in git."; exit 1; fi; done'
+        language: system
+        pass_filenames: false
+
+      - id: no-raw-data-edits
+        name: block edits to data/raw
+        # M and D only: adding a new source dataset is fine, changing or deleting one is not
+        entry: bash -c 'git diff --cached --name-only --diff-filter=MD | grep -E "^data/raw/" && echo "data/raw/ is read-only. add new files freely, but never modify or delete one — derive into data/processed/ instead" && exit 1 || exit 0'
+        language: system
+        pass_filenames: false
