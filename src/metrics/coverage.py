@@ -6,11 +6,15 @@ from sentence_transformers import SentenceTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
-def nearest_cosine_embedding(model: SentenceTransformer, reference: np.ndarray, texts: list[str], chunk: int = 4096) -> np.ndarray:
+def nearest_cosine_embedding(
+    model: SentenceTransformer, reference: np.ndarray, texts: list[str], chunk: int = 4096
+) -> np.ndarray:
     ref = torch.from_numpy(reference).cuda()
     out = []
     for start in range(0, len(texts), chunk):
-        q = torch.from_numpy(model.encode(texts[start : start + chunk], batch_size=256, normalize_embeddings=True, convert_to_numpy=True)).cuda()
+        q = torch.from_numpy(
+            model.encode(texts[start : start + chunk], batch_size=256, normalize_embeddings=True, convert_to_numpy=True)
+        ).cuda()
         out.append((q @ ref.T).max(dim=1).values.cpu().numpy())
     return np.concatenate(out)
 

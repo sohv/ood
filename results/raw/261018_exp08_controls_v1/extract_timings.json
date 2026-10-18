@@ -1,0 +1,54 @@
+{
+  "idfit": {
+    "rows": 3000,
+    "seconds": 120.0508
+  },
+  "aya_train": {
+    "rows": 500,
+    "seconds": 16.8269
+  },
+  "aya_test": {
+    "rows": 500,
+    "seconds": 16.2439
+  },
+  "code_train": {
+    "rows": 500,
+    "seconds": 16.9404
+  },
+  "code_test": {
+    "rows": 500,
+    "seconds": 15.5489
+  },
+  "jailbreak_train": {
+    "rows": 500,
+    "seconds": 10.9177
+  },
+  "jailbreak_test": {
+    "rows": 500,
+    "seconds": 15.6732
+  },
+  "magicoder": {
+    "rows": 500,
+    "seconds": 29.8663
+  },
+  "bactrian": {
+    "rows": 500,
+    "seconds": 15.7972
+  },
+  "wildchat_deploy": {
+    "rows": 2000,
+    "seconds": 42.1177
+  },
+  "lmsys": {
+    "rows": 2000,
+    "seconds": 41.7441
+  },
+  "dolma_full": {
+    "rows": 3000,
+    "seconds": 95.1497
+  },
+  "dolma_matched": {
+    "rows": 3000,
+    "seconds": 72.9751
+  }
+}

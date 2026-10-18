@@ -4,7 +4,7 @@ import json
 
 import numpy as np
 import pandas as pd
-from huggingface_hub import hf_hub_download
+from huggingface_hub import HfApi, hf_hub_download
 
 from src.data.pools import MembershipIndex, normalise
 
@@ -71,3 +71,29 @@ def sample_non_members(texts: list[str], index: MembershipIndex, n: int, seed: i
         if len(kept) == n:
             return kept, n_member
     raise AssertionError(f"only {len(kept)} non-member rows, needed {n}")
+
+
+def lmsys_first_turns(shards: list[int], token: str) -> list[dict]:
+    files = sorted(
+        f
+        for f in HfApi(token=token).list_repo_files("lmsys/lmsys-chat-1m", repo_type="dataset")
+        if f.endswith(".parquet")
+    )
+    paths = [hf_hub_download("lmsys/lmsys-chat-1m", files[i], repo_type="dataset", token=token) for i in shards]
+    df = pd.concat([pd.read_parquet(p, columns=["conversation", "language"]) for p in paths], ignore_index=True)
+    df["text"] = (
+        df["conversation"].map(lambda c: next((m["content"] for m in c if m["role"] == "user"), "")).str.strip()
+    )
+    df = df[df["text"].str.len() > 0]
+    df = df[~df["text"].map(normalise).duplicated()]
+    return df[["text", "language"]].to_dict("records")
+
+
+def wildchat_language_map(shards: list[int]) -> dict[str, str]:
+    paths = [
+        hf_hub_download("allenai/WildChat-1M", f"data/train-{i:05d}-of-00014.parquet", repo_type="dataset")
+        for i in shards
+    ]
+    df = pd.concat([pd.read_parquet(p, columns=["conversation", "language"]) for p in paths], ignore_index=True)
+    text = df["conversation"].map(lambda c: next((m["content"] for m in c if m["role"] == "user"), "")).str.strip()
+    return dict(zip(text.map(normalise), df["language"]))

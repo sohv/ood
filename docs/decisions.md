@@ -135,6 +135,63 @@ between median coverage and median detector score, reported, no bar (n = 8).
 
 **Exploratory.** exp01's bar-2 numbers recomputed with the fine bands; cannot change exp01's verdict.
 
+## 18-10-2026 — exp05: do activation detectors still flag legal and medical once rewritten in the mix's style?
+
+Written before any rewrite, feature or score exists. Proposed by a collaborator as the decisive test of
+whether the activation detectors add anything beyond words: exp01 and exp03 found tf-idf matching them.
+
+**Question.** Rewrite legal and medical prompts so their wording matches the DPO mix while keeping the
+question. If the activation detectors still separate them from covered prompts rewritten the same way,
+and do so clearly better than tf-idf, the activations carry topic/coverage signal beyond wording.
+
+**Pools, all seed 0, from exp01.** `legal` (500), `medical` (500), `wildchat_en_test` (500, covered
+reference), and 500 rows of `idmix` drawn with seed 0 (rewrite-artifact control). Each row is rewritten
+once, giving `legal_rw`, `medical_rw`, `wildchat_rw`, `idmix_rw`.
+
+**Rewrite.** `openai/gpt-4.1` via OpenRouter (the Dolci WildChat family was regenerated with GPT-4.1), no
+temperature or max_tokens set. One fixed prompt for every row: 8 example prompts drawn with seed 0 from
+English `idfit` rows of 10-120 words (never from idmix or test pools), then an instruction to rewrite
+the message so it reads like the examples in phrasing, tone, structure and length, keeping the same
+request and every fact needed to answer it, without answering it or adding facts. Failed calls are
+recorded as failed rows and counted, not silently dropped.
+
+**Content check.** `anthropic/claude-sonnet-4.6` (other provider) sees original and rewrite, not the
+pool name, and answers YES/NO: does the rewrite ask for the same thing and keep the facts needed to
+answer it? I read 20 judge decisions per run and record my agreement (model-read, not human).
+
+**Features and detectors, fixed from exp01.** Same model and revision, same extraction recipe; rewritten
+pools are extracted fresh, everything else reuses exp01 features. Decision cell cmean L16, Dolma full.
+Detectors fitted exactly as exp01 (idfit; Dolma full): `dmaha_full`, `dknn_full`, tf-idf mix-vs-Dolma.
+
+**Length control.** exp04's fine bands: log-spaced by 2^(1/4) from 1 to 1024 content tokens, guard
+>= 10 per class per band, >= 3 bands, >= 30% of the OOD pool. A comparison whose length-only stratified
+AUROC falls outside 0.45-0.55 is "unbalanced".
+
+**Primary comparisons.** Length-stratified AUROC, `legal_rw` vs `wildchat_rw` and `medical_rw` vs
+`wildchat_rw`. For each activation detector d and pool p, delta = AUROC_d - AUROC_tfidf on the same
+comparison, with a paired bootstrap CI (1,000 resamples, 98.75% = 95% Bonferroni over 2 detectors x
+2 pools).
+
+**Validity gates, checked before the verdict.**
+- G1 content: judge YES rate >= 90% in each of the four rewritten pools.
+- G2 wording moved: tf-idf stratified AUROC on p_rw vs wildchat_rw at least 0.10 below tf-idf on p vs
+  wildchat_en_test (originals, same fine bands), for both p.
+- G3 balance: both primary comparisons balanced.
+
+**Verdict.**
+- Activations add beyond words: for at least one detector d, on both legal and medical, AUROC_d >= 0.75
+  and delta >= 0.10 with the CI lower bound > 0. Requires G1 and G3.
+- Words only, ends the activation-detector line: for both detectors on both pools, AUROC_d <= 0.65 or
+  the delta CI upper bound < 0.10. Requires G1, G2 and G3; without G2 it is inconclusive (the rewrite did
+  not remove the wording cue).
+- Anything else, or a failed gate: ambiguous / inconclusive, named by which condition failed.
+
+**Reported, no bar.** One-sided maha/knn, dmaha_matched, dknn_matched and length on the same comparisons;
+originals vs wildchat_en_test with fine bands; `idmix_rw` vs `idmix` (how much rewriting alone moves a
+covered prompt); p_rw vs the original wildchat_en_test; other layers and poolings.
+
+**Seeds.** One data seed (0), one rewrite per row. No extra seeds planned.
+
 ## 18-10-2026 — exp06: density ratio on planted needles
 
 Written before any exp06 data, feature or score exists. Runs alongside exp05 (another session) and shares
@@ -202,3 +259,118 @@ shift that the mix covers; they stay a control.
 
 **Reported, no bar.** The 15 top-ranked rows of the length-controlled dr_cmean ranking, to name what the
 density ratio ranks first once language is removed.
+
+## 18-10-2026 — exp08: controls and baselines the exp01 decision cell never had
+
+Written before any exp08 pool, feature or score exists. Runs the negative controls (§7.4) and baselines
+(§6.4, §6.2) from Stefan's summary that exp01-exp05 skipped, and builds the deployment pools that gap
+discovery needs. All detector questions use exp01's decision cell (cmean L16, Dolma full, idfit fit,
+full-rank Ledoit-Wolf, kNN k=10) and exp01's coarse length bands and guard, so the numbers validate
+the exp01 values they are controls for. Fine-band (exp04) values and length-only AUROC are reported
+beside each. 95% bootstrap CIs, 1,000 resamples. Data seed 0 unless stated; one seed, no extra seeds.
+
+**New pools, 500 each, membership-checked against all Dolci-DPO first user turns (exp01 MembershipIndex).**
+- `dolma_b`: 3,000 Dolma v1.6 docs, same shard rule as exp01, seed 1, any doc whose normalised text
+  matches an exp01 Dolma doc dropped and replaced.
+- Membership halves (§2): `aya_train` / `code_train` / `jailbreak_train` = literal Dolci-DPO 2-message
+  rows of `tulu_v3.9_aya_100k`, `evol_codealpaca_heval_decontaminated`,
+  `tulu_v3.9_wildjailbreak_decontaminated_50k`, excluding idfit and idmix rows. `aya_test` /
+  `code_test` / `jailbreak_test` = rows of the upstream not in Dolci-DPO: `CohereForAI/aya_dataset`
+  train `inputs`; `theblackcat102/evol-codealpaca-v1` `instruction` (the doc's
+  `ai2-adapt-dev/evol_codealpaca_heval_decontaminated` no longer exists); `allenai/wildjailbreak` train,
+  `adversarial` if non-empty else `vanilla`. FLAN is left out: the doc reports its test half is
+  near-duplicate contaminated.
+- Same domain, other source (§2 gold): `magicoder` = `ise-uiuc/Magicoder-OSS-Instruct-75K` `problem`;
+  `bactrian` = `MBZUAI/Bactrian-X` instruction (+ "\n\n" + input if non-empty), drawn uniformly over its
+  non-English languages.
+- Deployment: `wildchat_deploy` = 2,000 WildChat-1M first user turns, all languages, shard 1 (exp01 used
+  0/5/10), deduplicated; `lmsys` = 2,000 LMSYS-Chat-1M first user turns, all languages, shard 0,
+  deduplicated. Not membership-filtered (deployment as it is); each row's membership flag is recorded.
+
+**Q1, Dolma seed-pair null.** `null_dmaha = maha(x; Dolma A) - maha(x; Dolma B)`, `null_dknn` likewise,
+A = exp01 Dolma full, B = `dolma_b` full. Stratified AUROC on legal vs wildchat_en_test and medical vs
+wildchat_en_test. Resolvable if all four in [0.40, 0.60]; not resolvable if any outside [0.30, 0.70];
+else ambiguous. Reported, no bar: dmaha_full and dknn_full recomputed with Dolma B.
+
+**Q2, membership.** Stratified AUROC `{family}_train` (OOD side) vs `{family}_test`, for dmaha_full and
+dknn_full, three families. Invisible if all six in [0.40, 0.60]; visible if any >= 0.70 or <= 0.30; else
+ambiguous. One-sided maha/knn and tf-idf reported, no bar.
+
+**Q3, same domain, other source.** Stratified AUROC `magicoder` vs `code_train` and `bactrian` vs
+`aya_train`, dmaha_full and dknn_full. Reads domain if all four <= 0.65; reads source if any >= 0.80;
+else ambiguous. Also reported vs idmix and vs the `_test` halves.
+
+**Q4, dep2dolma.** Direction that never sees the mix: standardise on the pooled deployment-reference and
+Dolma features, project onto (mu_Dolma - mu_deploy) / sd, deployment reference = `wildchat_deploy`.
+Stratified AUROC legal vs wildchat_en_test and medical vs wildchat_en_test at cmean L16. Reproduces
+Stefan's register caveat if both >= 0.85; does not if both <= 0.65; else ambiguous. Reported, no bar:
+the same at L32, and the mix-side directions `meandiff` (mix to Dolma), `lda` (shrunk pooled
+covariance), `logit` (mix 0 vs Dolma 1, C=0.1, standardised) at L16 and L32.
+
+**Q5, supervised ceilings on exp05's rewritten pools.** 5-fold cross-validated logistic probes (seed 0,
+out-of-fold scores): activation probe on standardised cmean L16 features (C=0.1) and tf-idf probe (same
+vectoriser settings as the exp01 tf-idf, C=0.1). Comparisons legal_rw vs wildchat_rw and medical_rw vs
+wildchat_rw, fine bands as in exp05. Activations add beyond words if activation probe minus tf-idf probe
+>= 0.03 with paired-bootstrap CI lower bound > 0 on both; words suffice if the difference CI upper bound
+< 0.03 on both; else ambiguous. If the tf-idf probe scores >= 0.98 on either, the verdict is "ceiling",
+not either of the above. Same probes on the original legal/medical vs wildchat_en_test reported, no bar.
+
+**Perplexity baseline (§6.4), no bar.** Mean per-token NLL of content tokens 2..n under the DPO model in
+the chat template (same rendering as features). Raw and stratified AUROC on every Q comparison and on
+exp01's legal/medical vs idmix and vs wildchat_en_test.
+
+**Deployment pools, no bar.** Features and every detector score written; raw AUROC vs idmix and Spearman
+with length reported. Built for gap discovery; no question asked of them here.
+
+## 18-10-2026 — exp09: iterative gap discovery in real deployment traffic
+
+Written before any exp09 data, score, cluster or name exists. This is Stefan's item 2: realistic
+post-training mix vs realistic deployment traffic, find distinct nameable gaps, with an iterative process
+so the same gap is not flagged again.
+
+**Deployment pool.** 20,000 first user turns, all languages: exp06's 10,000 WildChat-1M rows (shards 1-3,
+Dolci members removed, features cached) plus 10,000 LMSYS-Chat-1M first user turns (deduplicated, Dolci
+members removed by the exp01 membership check, seed 0). ID side: exp01 idfit + idmix (4,000).
+
+**Scoring arms, run as two separate loops.**
+- `dr`: cross-fitted density ratio (L2 logistic, pool 1 vs ID 0, standardised cmean L16, C = 0.1, 5 folds).
+- `dknn`: two-sided kNN (kNN distance to the ID set minus kNN distance to exp01's Dolma-full, k = 10,
+  mix-std scaling, cmean L16).
+Both ranked by length-controlled percentile (20 equal-count content-token bins of the remaining pool).
+
+**One round.** Take the top 500 remaining rows. Embed them with
+`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` and cluster with k-means, k = 10, seed 0.
+For each cluster, show 25 random members (first 300 characters each) to `anthropic/claude-sonnet-4.6` via
+OpenRouter, blind: no hypotheses, no mention of OOD or training data, asked only for a short name for what
+the prompts share, a one-line description, and whether they share something coherent (COHERENT /
+INCOHERENT). Coverage of each row = cosine of its multilingual embedding to the nearest of the 233,642
+unique Dolci-DPO first user turns.
+
+**Confirmed gap.** A cluster is confirmed if (a) the namer calls it COHERENT, (b) it has >= 15 members, and
+(c) its median coverage is below the 25th percentile of row coverage in the full 20,000-row pool.
+**Same gap.** A confirmed cluster repeats an earlier confirmed gap (any round, same arm) if the cosine
+between the two cluster centroids (multilingual embeddings) is >= 0.85; otherwise it is new.
+**Known-OOD update.** All members of confirmed clusters (new or repeat) leave the pool and join the ID side:
+for `dr` they become label-0 training rows; for `dknn` they join the ID reference set. Then re-rank.
+5 rounds per arm.
+
+**Random control.** Each round, per arm, 500 rows drawn uniformly from that arm's remaining pool go through
+the same embedding, clustering, naming and coverage check (they are not moved). Distinct confirmed gaps
+are counted the same way.
+
+**Bar, per arm, after 5 rounds.**
+- useful discovery: >= 5 distinct confirmed gaps AND >= 2x the random control's distinct confirmed count;
+- no better than random: distinct confirmed gaps <= random control's count + 1;
+- otherwise ambiguous.
+
+**Reported, no bar.** Every cluster's name, description, size, median coverage, median length relative to
+the pool, round, new/repeat, and 5 example prompts; confirmed gaps per round; the overlap between the two
+arms' gaps (centroid cosine >= 0.85); share of each round's top 500 that is WildChat vs LMSYS.
+
+**Seeds.** One pool seed (0), one clustering seed (0), one naming call per cluster. No extra seeds planned.
+
+**exp09 amendment, 18-10-2026, still before any exp09 data.** A check of the embedding model showed it
+is cross-lingual (cosine 0.92 between an English and a Chinese sentence with the same meaning). So
+coverage measures semantic coverage only: a cluster that differs from the mix mainly by language will
+usually fail criterion (c). The confirmation rule is unchanged. Each cluster's dominant language share
+(WildChat/LMSYS language field) is reported with it, so language gaps stay visible.

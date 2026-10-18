@@ -37,10 +37,15 @@ def main():
     setup_logging(out)
     set_seed(config.seed)
     model = SentenceTransformer(config.model_id, device="cuda")
-    write_json({"git_hash": get_git_hash(), **asdict(config), "model_revision": HfApi().model_info(config.model_id).sha}, out / "config.json")
+    write_json(
+        {"git_hash": get_git_hash(), **asdict(config), "model_revision": HfApi().model_info(config.model_id).sha},
+        out / "config.json",
+    )
     dolci = load_dolci_dpo()["first_user"].drop_duplicates().tolist()
     LOGGER.info(f"{len(dolci)} unique dolci prompts")
-    reference = model.encode(dolci, batch_size=512, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=True)
+    reference = model.encode(
+        dolci, batch_size=512, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=True
+    )
     pools = {}
     for d in config.pool_dirs:
         for path in sorted(Path(d).glob("*.jsonl")):
@@ -50,8 +55,15 @@ def main():
     rows, summary = [], {}
     for key, recs in pools.items():
         emb = nearest_cosine_embedding(model, reference, [r["text"] for r in recs])
-        rows += [{"id": r["id"], "source": key, "cov_minilm": float(e), "cov_tfidf": float(t)} for r, e, t in zip(recs, emb, tfidf[key])]
-        summary[key] = {"n": len(recs), "cov_minilm_median": float(np.median(emb)), "cov_tfidf_median": float(np.median(tfidf[key]))}
+        rows += [
+            {"id": r["id"], "source": key, "cov_minilm": float(e), "cov_tfidf": float(t)}
+            for r, e, t in zip(recs, emb, tfidf[key])
+        ]
+        summary[key] = {
+            "n": len(recs),
+            "cov_minilm_median": float(np.median(emb)),
+            "cov_tfidf_median": float(np.median(tfidf[key])),
+        }
         LOGGER.info(f"{key}: {summary[key]}")
     write_jsonl(rows, out / "coverage.jsonl")
     write_json(summary, out / "coverage_summary.json")

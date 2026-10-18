@@ -1,0 +1,18 @@
+{
+  "legal_rw": {
+    "rows": 500,
+    "seconds": 20.5142
+  },
+  "medical_rw": {
+    "rows": 500,
+    "seconds": 13.8374
+  },
+  "wildchat_rw": {
+    "rows": 500,
+    "seconds": 20.6634
+  },
+  "idmix_rw": {
+    "rows": 500,
+    "seconds": 17.0431
+  }
+}

@@ -25,3 +25,14 @@ async def test_cached_llm_call_returns_string(tmp_path):
     result = await cached_llm_call(client, DEBUG_MODEL, MESSAGES, cache_dir=str(tmp_path))
     assert isinstance(result, str)
     assert len(result) > 0
+
+
+@pytest.mark.skipif(not os.getenv("OPENROUTER_API_KEY"), reason="needs a real api key")
+async def test_cached_llm_call_openai_compatible_client(tmp_path):
+    from openai import AsyncOpenAI
+
+    client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
+    result = await cached_llm_call(client, "openai/gpt-4o-mini", MESSAGES, cache_dir=str(tmp_path))
+    assert isinstance(result, str)
+    assert len(result) > 0
+    assert len(list(tmp_path.glob("*.json"))) == 1

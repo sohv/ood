@@ -1,0 +1,55 @@
+{
+  "aya_train": {
+    "family": "tulu_v3.9_aya_100k-request",
+    "candidates": 6292,
+    "membership_positive_control": "500/500"
+  },
+  "code_train": {
+    "family": "evol_codealpaca_heval_decontaminated-request",
+    "candidates": 12718,
+    "membership_positive_control": "500/500"
+  },
+  "jailbreak_train": {
+    "family": "tulu_v3.9_wildjailbreak_decontaminated_50k-request",
+    "candidates": 11531,
+    "membership_positive_control": "500/500"
+  },
+  "aya_test": {
+    "upstream_rows": 165892,
+    "checked": 561,
+    "members_removed": 61
+  },
+  "code_test": {
+    "upstream_rows": 111271,
+    "checked": 678,
+    "members_removed": 178
+  },
+  "jailbreak_test": {
+    "upstream_rows": 261433,
+    "checked": 537,
+    "members_removed": 37
+  },
+  "magicoder": {
+    "upstream_rows": 75197,
+    "checked": 552,
+    "members_removed": 52
+  },
+  "bactrian": {
+    "languages": 51,
+    "members_removed": 0
+  },
+  "wildchat_deploy": {
+    "unique_first_turns": 51753,
+    "members": 217,
+    "english_share": 0.476
+  },
+  "lmsys": {
+    "unique_first_turns": 132631,
+    "members": 140,
+    "english_share": 0.806
+  },
+  "dolma_b": {
+    "seed": 1,
+    "after_overlap_drop": 3237
+  }
+}

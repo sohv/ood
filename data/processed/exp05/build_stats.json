@@ -1,0 +1,46 @@
+{
+  "legal_rw": {
+    "requested": 500,
+    "rewritten": 500,
+    "rewrite_failed": 0,
+    "judge_yes": 497,
+    "judge_no": 3,
+    "judge_unparsed_or_failed": 0,
+    "judge_yes_rate": 0.994,
+    "median_words_original": 182.0,
+    "median_words_rewrite": 106.0
+  },
+  "medical_rw": {
+    "requested": 500,
+    "rewritten": 500,
+    "rewrite_failed": 0,
+    "judge_yes": 494,
+    "judge_no": 6,
+    "judge_unparsed_or_failed": 0,
+    "judge_yes_rate": 0.988,
+    "median_words_original": 67.0,
+    "median_words_rewrite": 58.0
+  },
+  "wildchat_rw": {
+    "requested": 500,
+    "rewritten": 500,
+    "rewrite_failed": 0,
+    "judge_yes": 463,
+    "judge_no": 37,
+    "judge_unparsed_or_failed": 0,
+    "judge_yes_rate": 0.926,
+    "median_words_original": 40.0,
+    "median_words_rewrite": 40.0
+  },
+  "idmix_rw": {
+    "requested": 500,
+    "rewritten": 500,
+    "rewrite_failed": 0,
+    "judge_yes": 461,
+    "judge_no": 36,
+    "judge_unparsed_or_failed": 3,
+    "judge_yes_rate": 0.922,
+    "median_words_original": 88.5,
+    "median_words_rewrite": 54.0
+  }
+}

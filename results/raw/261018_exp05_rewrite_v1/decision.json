@@ -1,0 +1,73 @@
+{
+  "cell": "cmean L16, dolma full, fine bands",
+  "verdict": "inconclusive: words-only pattern but G2 failed (rewrite did not remove the wording cue)",
+  "gates": {
+    "G1_content": {
+      "passed": true,
+      "judge_yes_rate": {
+        "legal_rw": 0.994,
+        "medical_rw": 0.988,
+        "wildchat_rw": 0.926,
+        "idmix_rw": 0.922
+      }
+    },
+    "G2_wording_moved": {
+      "passed": false,
+      "legal": {
+        "tfidf_rewritten": 0.966,
+        "tfidf_original": 0.9509
+      },
+      "medical": {
+        "tfidf_rewritten": 0.9043,
+        "tfidf_original": null
+      }
+    },
+    "G3_balance": {
+      "passed": true,
+      "legal_rw_vs_wildchat_rw": 0.5463,
+      "medical_rw_vs_wildchat_rw": 0.5308
+    }
+  },
+  "primary": {
+    "legal_rw_vs_wildchat_rw": {
+      "dmaha_full": 0.9591,
+      "dknn_full": 0.9211,
+      "tfidf": 0.966,
+      "delta_dmaha_full": -0.0069,
+      "delta_dknn_full": -0.0449,
+      "delta_dmaha_full_ci": [
+        -0.0273,
+        0.0163
+      ],
+      "delta_dknn_full_ci": [
+        -0.0829,
+        -0.0088
+      ]
+    },
+    "medical_rw_vs_wildchat_rw": {
+      "dmaha_full": 0.9449,
+      "dknn_full": 0.9233,
+      "tfidf": 0.9043,
+      "delta_dmaha_full": 0.0406,
+      "delta_dknn_full": 0.019,
+      "delta_dmaha_full_ci": [
+        -0.016,
+        0.0934
+      ],
+      "delta_dknn_full_ci": [
+        -0.0572,
+        0.0776
+      ]
+    }
+  },
+  "per_detector": {
+    "dmaha_full": {
+      "adds_beyond_words": false,
+      "words_only": true
+    },
+    "dknn_full": {
+      "adds_beyond_words": false,
+      "words_only": true
+    }
+  }
+}

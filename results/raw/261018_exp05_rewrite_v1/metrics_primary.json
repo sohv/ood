@@ -1,0 +1,552 @@
+{
+  "primary": {
+    "legal_rw_vs_wildchat_rw": {
+      "auroc_stratified": {
+        "maha": 0.7683,
+        "knn": 0.8243,
+        "dmaha_full": 0.9591,
+        "dknn_full": 0.9211,
+        "dmaha_matched": 0.9227,
+        "dknn_matched": 0.9179,
+        "tfidf": 0.966,
+        "length": 0.5463
+      },
+      "auroc_raw": {
+        "maha": 0.4178,
+        "knn": 0.8652,
+        "dmaha_full": 0.9622,
+        "dknn_full": 0.9524,
+        "dmaha_matched": 0.8814,
+        "dknn_matched": 0.9501,
+        "tfidf": 0.9751,
+        "length": 0.6496
+      },
+      "length_only_stratified": 0.5463,
+      "balanced": true,
+      "dmaha_full_ci": [
+        0.9303,
+        0.9819
+      ],
+      "delta_dmaha_full_minus_tfidf": -0.0069,
+      "delta_dmaha_full_ci": [
+        -0.0273,
+        0.0163
+      ],
+      "dknn_full_ci": [
+        0.8735,
+        0.9635
+      ],
+      "delta_dknn_full_minus_tfidf": -0.0449,
+      "delta_dknn_full_ci": [
+        -0.0829,
+        -0.0088
+      ],
+      "tfidf_ci": [
+        0.9395,
+        0.985
+      ]
+    },
+    "medical_rw_vs_wildchat_rw": {
+      "auroc_stratified": {
+        "maha": 0.7597,
+        "knn": 0.7993,
+        "dmaha_full": 0.9449,
+        "dknn_full": 0.9233,
+        "dmaha_matched": 0.928,
+        "dknn_matched": 0.917,
+        "tfidf": 0.9043,
+        "length": 0.5308
+      },
+      "auroc_raw": {
+        "maha": 0.5577,
+        "knn": 0.8775,
+        "dmaha_full": 0.9364,
+        "dknn_full": 0.9473,
+        "dmaha_matched": 0.9345,
+        "dknn_matched": 0.9511,
+        "tfidf": 0.9423,
+        "length": 0.5414
+      },
+      "length_only_stratified": 0.5308,
+      "balanced": true,
+      "dmaha_full_ci": [
+        0.8881,
+        0.9813
+      ],
+      "delta_dmaha_full_minus_tfidf": 0.0406,
+      "delta_dmaha_full_ci": [
+        -0.016,
+        0.0934
+      ],
+      "dknn_full_ci": [
+        0.8484,
+        0.9709
+      ],
+      "delta_dknn_full_minus_tfidf": 0.019,
+      "delta_dknn_full_ci": [
+        -0.0572,
+        0.0776
+      ],
+      "tfidf_ci": [
+        0.8463,
+        0.9512
+      ]
+    }
+  },
+  "original_fine_bands": {
+    "legal_vs_wildchat_en_test": {
+      "maha": 0.6407,
+      "knn": 0.6698,
+      "dmaha_full": 0.9558,
+      "dknn_full": 0.9315,
+      "dmaha_matched": 0.8922,
+      "dknn_matched": 0.8987,
+      "tfidf": 0.9509,
+      "length": 0.5114
+    },
+    "medical_vs_wildchat_en_test": {
+      "maha": null,
+      "knn": null,
+      "dmaha_full": null,
+      "dknn_full": null,
+      "dmaha_matched": null,
+      "dknn_matched": null,
+      "tfidf": null,
+      "length": null
+    }
+  },
+  "context": [
+    {
+      "detector": "maha",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.6326,
+      "auroc_stratified": 0.6109,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "knn",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.6411,
+      "auroc_stratified": 0.6591,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "dmaha_full",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.5279,
+      "auroc_stratified": 0.6376,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "dknn_full",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.6175,
+      "auroc_stratified": 0.6515,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "dmaha_matched",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.6015,
+      "auroc_stratified": 0.6377,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "dknn_matched",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.6228,
+      "auroc_stratified": 0.6535,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "tfidf",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.5063,
+      "auroc_stratified": 0.5412,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "length",
+      "ood": "idmix_rw",
+      "ref": "idmix",
+      "auroc_raw": 0.3894,
+      "auroc_stratified": 0.5064,
+      "n_bands": 18,
+      "coverage": 0.922
+    },
+    {
+      "detector": "maha",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.4891,
+      "auroc_stratified": 0.381,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "knn",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.4384,
+      "auroc_stratified": 0.4201,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "dmaha_full",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.4589,
+      "auroc_stratified": 0.3668,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "dknn_full",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.43,
+      "auroc_stratified": 0.3559,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "dmaha_matched",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.4121,
+      "auroc_stratified": 0.3496,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "dknn_matched",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.427,
+      "auroc_stratified": 0.3601,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "tfidf",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.3895,
+      "auroc_stratified": 0.4071,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "length",
+      "ood": "wildchat_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.4678,
+      "auroc_stratified": 0.5218,
+      "n_bands": 13,
+      "coverage": 0.572
+    },
+    {
+      "detector": "maha",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.412,
+      "auroc_stratified": 0.4101,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "knn",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.7802,
+      "auroc_stratified": 0.5663,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "dmaha_full",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.945,
+      "auroc_stratified": 0.8624,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "dknn_full",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9313,
+      "auroc_stratified": 0.8054,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "dmaha_matched",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.781,
+      "auroc_stratified": 0.7305,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "dknn_matched",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9226,
+      "auroc_stratified": 0.759,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "tfidf",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9371,
+      "auroc_stratified": 0.9019,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "length",
+      "ood": "legal_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.5755,
+      "auroc_stratified": 0.5749,
+      "n_bands": 3,
+      "coverage": 0.416
+    },
+    {
+      "detector": "maha",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.5085,
+      "auroc_stratified": 0.4969,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "knn",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.7942,
+      "auroc_stratified": 0.5733,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "dmaha_full",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9151,
+      "auroc_stratified": 0.8732,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "dknn_full",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.9259,
+      "auroc_stratified": 0.862,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "dmaha_matched",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.8538,
+      "auroc_stratified": 0.803,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "dknn_matched",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.929,
+      "auroc_stratified": 0.8131,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "tfidf",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.8937,
+      "auroc_stratified": 0.7816,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "length",
+      "ood": "medical_rw",
+      "ref": "wildchat_en_test",
+      "auroc_raw": 0.5195,
+      "auroc_stratified": 0.5766,
+      "n_bands": 5,
+      "coverage": 0.328
+    },
+    {
+      "detector": "maha",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.6797,
+      "auroc_stratified": 0.9559,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "knn",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.958,
+      "auroc_stratified": 0.9638,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "dmaha_full",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.9748,
+      "auroc_stratified": 0.9852,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "dknn_full",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.9762,
+      "auroc_stratified": 0.9749,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "dmaha_matched",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.967,
+      "auroc_stratified": 0.9827,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "dknn_matched",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.9768,
+      "auroc_stratified": 0.9743,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "tfidf",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.98,
+      "auroc_stratified": 0.9856,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "length",
+      "ood": "legal_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.6812,
+      "auroc_stratified": 0.5269,
+      "n_bands": 10,
+      "coverage": 0.93
+    },
+    {
+      "detector": "maha",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.819,
+      "auroc_stratified": 0.9748,
+      "n_bands": 9,
+      "coverage": 0.94
+    },
+    {
+      "detector": "knn",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.96,
+      "auroc_stratified": 0.9676,
+      "n_bands": 9,
+      "coverage": 0.94
+    },
+    {
+      "detector": "dmaha_full",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.954,
+      "auroc_stratified": 0.9885,
+      "n_bands": 9,
+      "coverage": 0.94
+    },
+    {
+      "detector": "dknn_full",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.9723,
+      "auroc_stratified": 0.9836,
+      "n_bands": 9,
+      "coverage": 0.94
+    },
+    {
+      "detector": "dmaha_matched",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.9811,
+      "auroc_stratified": 0.9911,
+      "n_bands": 9,
+      "coverage": 0.94
+    },
+    {
+      "detector": "dknn_matched",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.9761,
+      "auroc_stratified": 0.9824,
+      "n_bands": 9,
+      "coverage": 0.94
+    },
+    {
+      "detector": "tfidf",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.9574,
+      "auroc_stratified": 0.9725,
+      "n_bands": 9,
+      "coverage": 0.94
+    },
+    {
+      "detector": "length",
+      "ood": "medical_rw",
+      "ref": "idmix_rw",
+      "auroc_raw": 0.4924,
+      "auroc_stratified": 0.4957,
+      "n_bands": 9,
+      "coverage": 0.94
+    }
+  ]
+}
