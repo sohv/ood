@@ -1,0 +1,73 @@
+# loaders for exp06: a multilingual wildchat deployment pool and gap / control needle banks.
+
+import json
+
+import numpy as np
+import pandas as pd
+from huggingface_hub import hf_hub_download
+
+from src.data.pools import MembershipIndex, normalise
+
+
+def wildchat_first_turns(shards: list[int], english_only: bool = False) -> list[str]:
+    paths = [
+        hf_hub_download("allenai/WildChat-1M", f"data/train-{i:05d}-of-00014.parquet", repo_type="dataset")
+        for i in shards
+    ]
+    df = pd.concat([pd.read_parquet(p, columns=["conversation", "language"]) for p in paths], ignore_index=True)
+    if english_only:
+        df = df[df["language"] == "English"]
+    texts = df["conversation"].map(lambda c: next((m["content"] for m in c if m["role"] == "user"), "")).str.strip()
+    texts = texts[texts.str.len() > 0]
+    return texts[~texts.map(normalise).duplicated()].tolist()
+
+
+def legal_test_posts() -> list[str]:
+    path = hf_hub_download("jonathanli/legal-advice-reddit", "test.jsonl", repo_type="dataset")
+    rows = [json.loads(line) for line in open(path)]
+    return list(
+        dict.fromkeys(
+            f"{r['title'].strip()}\n\n{r['body'].strip()}"
+            for r in rows
+            if r["body"] and r["body"].strip() not in ("[removed]", "[deleted]")
+        )
+    )
+
+
+def medical_questions(exclude: set[str]) -> list[str]:
+    path = hf_hub_download(
+        "lavita/ChatDoctor-HealthCareMagic-100k",
+        "data/train-00000-of-00001-5e7cb295b9cff0bf.parquet",
+        repo_type="dataset",
+    )
+    return [
+        t
+        for t in dict.fromkeys(t.strip() for t in pd.read_parquet(path)["input"] if t and t.strip())
+        if t not in exclude
+    ]
+
+
+def aya_inputs() -> list[str]:
+    path = hf_hub_download("CohereForAI/aya_dataset", "data/train-00000-of-00001.parquet", repo_type="dataset")
+    return list(
+        dict.fromkeys(t.strip() for t in pd.read_parquet(path, columns=["inputs"])["inputs"] if t and t.strip())
+    )
+
+
+def magicoder_problems() -> list[str]:
+    path = hf_hub_download(
+        "ise-uiuc/Magicoder-OSS-Instruct-75K", "data-oss_instruct-decontaminated.jsonl", repo_type="dataset"
+    )
+    return list(dict.fromkeys(json.loads(line)["problem"].strip() for line in open(path)))
+
+
+def sample_non_members(texts: list[str], index: MembershipIndex, n: int, seed: int) -> tuple[list[str], int]:
+    kept, n_member = [], 0
+    for i in np.random.default_rng(seed).permutation(len(texts)):
+        if index.is_member(texts[i]):
+            n_member += 1
+            continue
+        kept.append(texts[i])
+        if len(kept) == n:
+            return kept, n_member
+    raise AssertionError(f"only {len(kept)} non-member rows, needed {n}")

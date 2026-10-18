@@ -134,3 +134,71 @@ detectors and length reported on the same statistic with no bar. Pool-level: Spe
 between median coverage and median detector score, reported, no bar (n = 8).
 
 **Exploratory.** exp01's bar-2 numbers recomputed with the fine bands; cannot change exp01's verdict.
+
+## 18-10-2026 — exp06: density ratio on planted needles
+
+Written before any exp06 data, feature or score exists. Runs alongside exp05 (another session) and shares
+no files with it.
+
+**Question.** Does a density-ratio score, log p_deploy(x) / p_mix(x) estimated by a classifier between a
+deployment pool and the DPO mix, surface rare uncovered prompts planted in real traffic, without using
+Dolma? And does it leave rare covered-but-unusual prompts alone?
+
+**Deployment pool D.** 10,000 WildChat-1M first user turns, all languages, shards 1, 2, 3 (disjoint from
+exp01's shards 0, 5, 10), deduplicated, Dolci-DPO members removed by the exp01 membership check, seed 0.
+
+**Needles.** Banks of 300 rows per type, membership-checked against Dolci-DPO, seed 0:
+gap needles `legal` (legal-advice-reddit test split, title + body) and `medical` (HealthCareMagic, excluding
+exp01's rows); control needles `aya` (CohereForAI/aya_dataset train inputs, all languages; Dolci covers Aya)
+and `magicoder` (Magicoder-OSS-Instruct problems; Dolci covers code). For prevalence p in {0.1%, 0.3%, 1%}
+and needle seed s in {0, 1, 2}, n = 10 / 30 / 100 rows of each type are planted in D together; seeds use
+disjoint 100-row slices of each bank.
+
+**ID side.** exp01 `idfit` + `idmix` (4,000 Dolci-DPO first turns). Features from the exp01 recipe
+(Olmo-3-7B-Instruct-DPO rev b33130b7, content tokens, layer 16).
+
+**Arms.**
+- `dr_cmean` (primary): L2 logistic regression D (1) vs mix (0), balanced class weights, standardised
+  cmean L16 features, C = 0.1, 5-fold cross-fitting over D so no row is scored by a model trained on it.
+- `dr_clast`: the same on clast L16 (nearly length-free pooling).
+- `dr_tfidf`: the same on tf-idf (sublinear, min_df 2, 200k features, fitted on mix + D), C = 1.0.
+- Baselines: one-sided Mahalanobis with fixed shrinkage 0.5 (exp02 showed it holds up better on held-out
+  rows than Ledoit-Wolf), one-sided kNN, two-sided dknn_full (exp01 Dolma), length, random.
+
+**Ranking.** Length-controlled = percentile of the score within 20 equal-count content-token bins of the
+planted pool. Raw rankings also reported.
+
+**Metric.** precision@K, K in {25, 50, 100, 200}. uplift@100 = precision@100 / prevalence, computed for the
+gap group (legal + medical) and the control group (aya + magicoder) separately.
+
+**Bars (length-controlled `dr_cmean`, mean over the 3 needle seeds, judged at 0.3% and 1%).**
+- Q1 gaps: gap uplift@100 >= 5 at both prevalences = upsamples gaps; <= 2 at both = does not; else ambiguous.
+- Q2 controls: control uplift@100 <= 2 at both prevalences = passes; otherwise fails (it flags covered but
+  unusual text).
+- Q3 words: gap uplift of `dr_cmean` / gap uplift of `dr_tfidf` >= 1.5 at both prevalences = activations
+  add something; <= 1.0 at both = no gain; else ambiguous.
+0.1% is reported with no bar.
+
+**Iterative loop (secondary, no bar).** At 1%, seeds 0-2, arms `dr_cmean` and `dr_tfidf`: 5 rounds; each
+round marks the top 100 remaining rows of the length-controlled ranking as reviewed, moves them to the
+ID side and refits. Cumulative recall per needle type is reported against random review (expected recall
+= rows reviewed / pool size).
+
+**Sanity checks.** Random ranking uplift near 1; length-only uplift reported; median length of the top 100
+vs the pool on the length-controlled ranking.
+
+## 18-10-2026 — exp07: exp06 with an English-only deployment pool
+
+Written after exp06's result, before any exp07 data exists. exp06's verdict named this change: its
+density ratio spent the ranking on Chinese WildChat (about a third of the pool, under 3% of the mix).
+
+**One change.** The deployment pool is 10,000 WildChat-1M first turns with `language == "English"`, shards
+1-3, deduplicated, Dolci-DPO members removed, seed 0. Everything else is exp06 unchanged: the same needle
+banks and their cached features (legal, medical, aya, magicoder; seeds 0-2 use the same 100-row slices),
+the same mix (exp01 idfit + idmix), arms, cross-fitting, C values, 20-bin length control, metrics, bars
+(Q1 gap uplift@100 >= 5 / <= 2 at 0.3% and 1%; Q2 control uplift <= 2; Q3 dense / tf-idf >= 1.5 / <= 1.0)
+and the 5 x 100 iterative loop. Aya needles are mostly non-English, so in this pool they are a language
+shift that the mix covers; they stay a control.
+
+**Reported, no bar.** The 15 top-ranked rows of the length-controlled dr_cmean ranking, to name what the
+density ratio ranks first once language is removed.

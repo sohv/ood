@@ -1,0 +1,28 @@
+{
+  "membership_positive_control_hits": "100/100",
+  "deploy": {
+    "candidates": 151391,
+    "members_skipped": 1786,
+    "kept": 10000
+  },
+  "needles_legal": {
+    "candidates": 79068,
+    "members_skipped": 0,
+    "kept": 300
+  },
+  "needles_medical": {
+    "candidates": 111502,
+    "members_skipped": 0,
+    "kept": 300
+  },
+  "needles_aya": {
+    "candidates": 167899,
+    "members_skipped": 42,
+    "kept": 300
+  },
+  "needles_magicoder": {
+    "candidates": 75197,
+    "members_skipped": 32,
+    "kept": 300
+  }
+}

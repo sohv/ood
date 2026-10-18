@@ -10,6 +10,28 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 18-10-2026 — exp07: density ratio with an English-only deployment pool
+
+**Question.** With language removed from the deployment pool (exp06's confound), does the density ratio surface the planted 1% gap needles?
+**Hyperparameters.** Identical to exp06 (cmean / clast L16, L2 logistic deploy vs mix, C = 0.1 dense / 1.0 tf-idf, 5-fold cross-fitting, 20-bin length control, needle seeds 0-2, same needle banks and features). One change: the deployment pool.
+**Datasets.** 10,000 English WildChat-1M first turns from shards 1-3 (69,495 candidates, 2,835 Dolci members skipped; membership check 100/100 on known members). Needles and mix as in exp06.
+**Result.** I ran 9 planted pools and found the density ratio still does not surface the gap needles: length-controlled gap uplift@100 for dr_cmean 0.0 at 0.3% and 1.21 at 1% (random 0.56 / 0.69), dr_clast 0.56 / 0.69, dr_tfidf 0.0 / 0.35; the 5 x 100 loop recovers legal 5-8% and medical 5-7% against 4.8% for random review. Once language is gone, the top 15 length-controlled rows are all WildChat prompts, mostly pop-culture fan fiction and "what if" crossovers (Batman, SCP, Sonic, Half-Life, versus questions), i.e. the next large deploy-vs-mix difference. Two-sided dknn_full is weaker than in exp06: gap uplift 3.37 / 2.77, control 0.0 / 0.0. One-sided maha and knn stay at 0.0.
+**Output:** results/raw/261018_exp07_density_ratio_en_v1/decision.json
+**Bar:** Q1 missed: does_not, gap uplift 0.0 / 1.21 against >= 5. Q2 cleared: control uplift 0.0 / 0.52 against <= 2. Q3 ambiguous: dense / tf-idf ratio 0.0 / 3.5 (1.21 over 0.35, both near zero).
+**Confound:** the density ratio ranks the largest remaining real gap first, and in WildChat that gap (fan fiction and roleplay, thousands of rows) is far larger than a 1% needle, so needle uplift measures needle size relative to natural gaps as much as detector quality.
+**Verdict:** discard single-shot density ratio as a detector of rare (<= 1%) planted gaps; it behaves as a discovery tool for the largest natural gaps (language, then fan fiction), which is the use Stefan's step 2 describes.
+
+## 18-10-2026 — exp06: density ratio on planted needles
+
+**Question.** Does a deployment-vs-mix classifier score (density ratio) surface rare uncovered prompts planted in real WildChat traffic, while leaving covered-but-unusual prompts alone, without using Dolma?
+**Hyperparameters.** Olmo-3-7B-Instruct-DPO rev b33130b7, cmean and clast L16. L2 logistic regression deploy (1) vs mix (0), balanced weights, C = 0.1 dense / 1.0 tf-idf, 5-fold cross-fitting; GPU fit matches sklearn (r = 1.0000 on a test problem). Rankings length-controlled by percentile within 20 equal-count length bins. Needle seeds 0-2.
+**Datasets.** Deployment pool: 10,000 WildChat-1M first turns, all languages, shards 1-3, 1,786 Dolci members skipped. Needle banks of 300 (Dolci members skipped): legal (legal-advice-reddit test), medical (HealthCareMagic, disjoint from exp01), aya (aya_dataset train), magicoder (OSS-Instruct). Mix: exp01 idfit + idmix (4,000). Planted at 0.1 / 0.3 / 1% per type.
+**Result.** I ran 9 planted pools (3 prevalences x 3 seeds) and found the density ratio does not surface the gap needles: length-controlled gap uplift@100 for dr_cmean is 0.0 at 0.3% and 1.39 at 1% (random 0.56 / 0.69), dr_clast 0.0 / 0.0, dr_tfidf 0.0 / 0.17. The classifier itself works (held-out deploy-vs-mix AUROC 0.951), but it ranks by the dominant deploy-vs-mix difference: all of the top 15 length-controlled rows are WildChat prompts, mostly Chinese. Needles sit mid-pack (mean length-controlled percentile legal 0.50, medical 0.60, aya 0.15, magicoder 0.43). The iterative loop (5 x 100 reviewed at 1%) recovers legal 3-5% and medical 5-8% of needles against 4.8% for random review. The only arm that surfaces gaps is two-sided dknn_full: length-controlled gap uplift 8.43 at 0.3% and 4.85 at 1%, control uplift 0.56 / 0.17 (raw rankings 19.7 / 13.9 but length-driven, top-100 median length 15-18x the pool). One-sided maha and knn are 0.0 throughout.
+**Output:** results/raw/261018_exp06_density_ratio_v1/decision.json
+**Bar:** Q1 missed: does_not, gap uplift 0.0 / 1.39 against >= 5. Q2 cleared: control uplift 0.0 / 0.35 against <= 2. Q3 ambiguous: dense / tf-idf ratio 0.0 / 8.0 (8.0 is 1.39 over 0.17, both near zero).
+**Confound:** the deployment pool is about one-third Chinese while the mix's non-English WildChat family is under 3% of rows, so a single linear density ratio spends its ranking on that large real gap before any 1% needle.
+**Verdict:** rerun with one named change: an English-only deployment pool (or the Chinese cluster moved to the ID side first), so the density ratio is tested on needles that are the largest remaining gap.
+
 ## 18-10-2026 — exp04: exp03 re-run with fine length bands, fresh samples and measured coverage
 
 **Question.** After fixing two flaws in exp03 (coarse length bands; assumed coverage labels), does the register-vs-coverage result hold on fresh samples, and do detector scores track measured coverage?

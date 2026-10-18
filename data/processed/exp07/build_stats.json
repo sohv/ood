@@ -1,0 +1,8 @@
+{
+  "membership_positive_control_hits": "100/100",
+  "deploy": {
+    "candidates": 69495,
+    "members_skipped": 2835,
+    "kept": 10000
+  }
+}
