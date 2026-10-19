@@ -1,0 +1,256 @@
+{
+  "legal_lx": {
+    "requested": 500,
+    "rewritten": 500,
+    "rewrite_failed": 0,
+    "topic_original": {
+      "lawyer": 477,
+      "neither": 23
+    },
+    "topic_rewrite": {
+      "lawyer": 468,
+      "neither": 32
+    },
+    "target_topic": "lawyer",
+    "target_rate_original": 0.954,
+    "target_rate_rewrite": 0.936,
+    "leak_rate_original": 0.996,
+    "leak_rate_first_rewrite": 0.968,
+    "leak_rate_rewrite": 0.832,
+    "median_words_original": 182.0,
+    "median_words_rewrite": 136.0,
+    "top_leaked_terms": [
+      [
+        "told",
+        71
+      ],
+      [
+        "know",
+        58
+      ],
+      [
+        "got",
+        50
+      ],
+      [
+        "said",
+        48
+      ],
+      [
+        "work",
+        47
+      ],
+      [
+        "went",
+        47
+      ],
+      [
+        "pay",
+        46
+      ],
+      [
+        "right",
+        42
+      ],
+      [
+        "don",
+        40
+      ],
+      [
+        "says",
+        37
+      ],
+      [
+        "legal",
+        34
+      ],
+      [
+        "didn",
+        33
+      ],
+      [
+        "money",
+        33
+      ],
+      [
+        "weeks",
+        33
+      ],
+      [
+        "left",
+        33
+      ]
+    ]
+  },
+  "medical_lx": {
+    "requested": 500,
+    "rewritten": 500,
+    "rewrite_failed": 0,
+    "topic_original": {
+      "doctor": 498,
+      "neither": 2
+    },
+    "topic_rewrite": {
+      "doctor": 496,
+      "neither": 3,
+      "lawyer": 1
+    },
+    "target_topic": "doctor",
+    "target_rate_original": 0.996,
+    "target_rate_rewrite": 0.992,
+    "leak_rate_original": 0.984,
+    "leak_rate_first_rewrite": 0.938,
+    "leak_rate_rewrite": 0.664,
+    "median_words_original": 67.0,
+    "median_words_rewrite": 66.0,
+    "top_leaked_terms": [
+      [
+        "started",
+        37
+      ],
+      [
+        "weeks",
+        34
+      ],
+      [
+        "days",
+        29
+      ],
+      [
+        "feel",
+        28
+      ],
+      [
+        "months",
+        28
+      ],
+      [
+        "hours",
+        25
+      ],
+      [
+        "feeling",
+        24
+      ],
+      [
+        "got",
+        22
+      ],
+      [
+        "went",
+        21
+      ],
+      [
+        "right",
+        19
+      ],
+      [
+        "told",
+        18
+      ],
+      [
+        "month",
+        18
+      ],
+      [
+        "taking",
+        17
+      ],
+      [
+        "day",
+        17
+      ],
+      [
+        "help",
+        16
+      ]
+    ]
+  },
+  "wildchat_lx": {
+    "requested": 500,
+    "rewritten": 500,
+    "rewrite_failed": 0,
+    "topic_original": {
+      "neither": 467,
+      "lawyer": 13,
+      "doctor": 19,
+      "None": 1
+    },
+    "topic_rewrite": {
+      "neither": 472,
+      "doctor": 17,
+      "lawyer": 10,
+      "None": 1
+    },
+    "target_topic": "neither",
+    "target_rate_original": 0.934,
+    "target_rate_rewrite": 0.944,
+    "leak_rate_original": 0.79,
+    "leak_rate_first_rewrite": 0.688,
+    "leak_rate_rewrite": 0.46,
+    "median_words_original": 40.0,
+    "median_words_rewrite": 47.0,
+    "top_leaked_terms": [
+      [
+        "feeling",
+        38
+      ],
+      [
+        "english",
+        37
+      ],
+      [
+        "make",
+        35
+      ],
+      [
+        "words",
+        32
+      ],
+      [
+        "sentence",
+        26
+      ],
+      [
+        "line",
+        24
+      ],
+      [
+        "don",
+        21
+      ],
+      [
+        "write",
+        19
+      ],
+      [
+        "right",
+        18
+      ],
+      [
+        "new",
+        17
+      ],
+      [
+        "work",
+        14
+      ],
+      [
+        "world",
+        13
+      ],
+      [
+        "version",
+        11
+      ],
+      [
+        "short",
+        11
+      ],
+      [
+        "text",
+        11
+      ]
+    ]
+  }
+}

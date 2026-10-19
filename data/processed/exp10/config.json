@@ -1,5 +1,5 @@
 {
-  "git_hash": "1ca6193a",
+  "git_hash": "7815c8a5",
   "exp01_pools": "data/processed/exp01",
   "ban_pools": "data/processed/exp06",
   "ban_wildchat": "data/processed/exp07/deploy.jsonl",
