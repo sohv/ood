@@ -1,4 +1,4 @@
-# exp14: checks exp09's cluster, blind-name and coverage gap confirmation on planted prompts whose answer is known.
+# exp14 / exp15: checks exp09's cluster, blind-name and coverage gap confirmation on planted prompts whose answer is known.
 # uv run --no-sync -m scripts.run_validate_discovery --run_dir results/raw/261019_exp14_validate_v1 --wildchat_pool data/processed/exp06/deploy.jsonl --lmsys_pool data/processed/exp09/lmsys.jsonl --banks_dir data/processed/exp06 --model_id anthropic/claude-sonnet-4.6 --seed 0
 
 import asyncio
@@ -18,6 +18,8 @@ from src.data.io import load_jsonl
 from src.data.pools import load_dolci_dpo
 from src.metrics.discovery import (
     LABEL_PROMPT,
+    NAMING_PROMPT,
+    NAMING_PROMPT_SHARE,
     cluster,
     name_clusters,
     naming_prompt,
@@ -51,6 +53,9 @@ class ValidateConfig:
     n_clusters: int = 10
     n_shown: int = 25
     min_size: int = 15
+    # yesno = exp14's COHERENT call; share = exp15's count of the largest shared group, coherent if >= half shown
+    coherence_rule: str = "yesno"
+    compare_clusters: str = ""
 
 
 def auroc_low(pos: np.ndarray, neg: np.ndarray) -> float:
@@ -61,7 +66,8 @@ def auroc_low(pos: np.ndarray, neg: np.ndarray) -> float:
 
 def main():
     config = simple_parsing.parse(ValidateConfig)
-    missing = [k for k, v in asdict(config).items() if v == ""]
+    missing = [k for k, v in asdict(config).items() if v == "" and k != "compare_clusters"]
+    assert config.coherence_rule in ("yesno", "share"), config.coherence_rule
     assert not missing, f"required arguments not set: {missing}"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -129,12 +135,23 @@ def main():
         name_clusters(
             client,
             config.model_id,
-            [naming_prompt([texts[i] for i in c["rows"]], config.n_shown, config.seed) for c in to_name],
+            [
+                naming_prompt(
+                    [texts[i] for i in c["rows"]],
+                    config.n_shown,
+                    config.seed,
+                    template=NAMING_PROMPT_SHARE if config.coherence_rule == "share" else NAMING_PROMPT,
+                )
+                for c in to_name
+            ],
             str(run / "naming_cache"),
         )
     )
     for c, reply in zip(to_name, replies):
         c.update(parse_naming(reply))
+        if config.coherence_rule == "share":
+            n_shown = min(config.n_shown, len(c["rows"]))
+            c["coherent"] = None if c["shared"] is None else c["shared"] >= n_shown / 2
     to_judge = [c for c in clusters if c["q"] == "q1" and c["mix"] in ("pure", "majority")]
     verdicts = asyncio.run(
         name_clusters(
@@ -165,13 +182,22 @@ def main():
     }
     nulls = sum(c["coherent"] is None for c in clusters if c["q"] != "q2")
     n_match = sum(c["name_matches"] for c in to_judge)
-    coh_verdict = (
-        "valid"
-        if coh["pure"] >= 8 and coh["random"] <= 1 and coh["majority"] > coh["minority"]
-        else "invalid"
-        if coh["pure"] <= 6 or coh["random"] >= 3
-        else "ambiguous"
-    )
+    if config.coherence_rule == "share":
+        coh_verdict = (
+            "valid"
+            if coh["pure"] >= 8 and coh["majority"] >= 7 and coh["minority"] <= 2 and coh["random"] <= 1
+            else "invalid"
+            if coh["pure"] <= 6 or coh["majority"] <= 4 or coh["random"] >= 3
+            else "ambiguous"
+        )
+    else:
+        coh_verdict = (
+            "valid"
+            if coh["pure"] >= 8 and coh["random"] <= 1 and coh["majority"] > coh["minority"]
+            else "invalid"
+            if coh["pure"] <= 6 or coh["random"] >= 3
+            else "ambiguous"
+        )
     name_verdict = "valid" if n_match >= 15 else "invalid" if n_match <= 11 else "ambiguous"
 
     pures = [c for c in clusters if c["mix"] == "pure"]
@@ -231,10 +257,23 @@ def main():
         "verdicts": parts,
         "validated": all(v == "valid" for v in parts.values()),
     }
+    for c in clusters:
+        c["id"] = f"{c['q']}_s{c['seed']}_{c['type'] or 'batch'}_{c['mix']}"
+    if config.compare_clusters:
+        ref_rows = {r["id"]: r for r in load_jsonl(config.compare_clusters)}
+        assert set(ref_rows) == {c["id"] for c in clusters}, "cluster ids differ from the comparison run"
+        for c in clusters:
+            r = ref_rows[c["id"]]
+            assert (r["size"], r["planted"], r["median_coverage"]) == (
+                c["size"],
+                c["planted"],
+                round(c["median_coverage"], 4),
+            ), f"{c['id']} differs from the comparison run"
+        print(f"all {len(clusters)} clusters match {config.compare_clusters}")
     write_jsonl(
         [
             {
-                "id": f"{c['q']}_s{c['seed']}_{c['type'] or 'batch'}_{c['mix']}",
+                "id": c["id"],
                 **{k: v for k, v in c.items() if k != "rows"},
                 "median_coverage": round(c["median_coverage"], 4),
                 "examples": [" ".join(texts[i].split())[:200] for i in c["rows"][:5]],

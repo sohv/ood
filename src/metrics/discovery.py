@@ -22,6 +22,16 @@ NAME: <a short name, at most 6 words, for what these messages have in common>
 DESCRIPTION: <one sentence>
 COHERENT: <YES if most of the messages clearly share a topic, task, format or language, otherwise NO>"""
 
+NAMING_PROMPT_SHARE = """Below are {n} messages that users sent to an AI chatbot, separated by lines of ---.
+
+{messages}
+
+Find the largest group of these messages that share one topic, task, format or language. The other messages may be unrelated.
+Reply in exactly this format and nothing else:
+NAME: <a short name, at most 6 words, for what that group has in common>
+DESCRIPTION: <one sentence about that group>
+SHARED: <how many of the {n} messages belong to that group, as a number>"""
+
 
 LABEL_PROMPT = """A group of messages that users sent to an AI chatbot was given this name and description.
 
@@ -61,26 +71,27 @@ def centroid(embeddings: np.ndarray) -> np.ndarray:
     return c / (np.linalg.norm(c) + 1e-12)
 
 
-def naming_prompt(texts: list[str], n: int, seed: int, max_chars: int = 300) -> str:
+def naming_prompt(texts: list[str], n: int, seed: int, max_chars: int = 300, template: str = NAMING_PROMPT) -> str:
     rng = np.random.default_rng(seed)
     pick = rng.choice(len(texts), size=min(n, len(texts)), replace=False)
     shown = [" ".join(texts[i].split())[:max_chars] for i in pick]
-    return NAMING_PROMPT.format(n=len(shown), messages="\n---\n".join(shown))
+    return template.format(n=len(shown), messages="\n---\n".join(shown))
 
 
 def parse_naming(reply: str | None) -> dict:
     if reply is None:
-        return {"name": None, "description": None, "coherent": None}
+        return {"name": None, "description": None, "coherent": None, "shared": None}
 
     def get(key: str) -> str | None:
         m = re.search(rf"^{key}:\s*(.+)$", reply, re.M)
         return m.group(1).strip() if m else None
 
-    coherent = get("COHERENT")
+    coherent, shared = get("COHERENT"), get("SHARED")
     return {
         "name": get("NAME"),
         "description": get("DESCRIPTION"),
         "coherent": None if coherent is None else coherent.upper().startswith("YES"),
+        "shared": int(shared) if shared is not None and shared.isdigit() else None,
     }
 
 

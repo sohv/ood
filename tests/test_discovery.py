@@ -5,12 +5,25 @@ import json
 
 import numpy as np
 
-from src.metrics.discovery import centroid, match_gap, name_clusters, naming_prompt, parse_label, parse_naming
+from src.metrics.discovery import (
+    NAMING_PROMPT_SHARE,
+    centroid,
+    match_gap,
+    name_clusters,
+    naming_prompt,
+    parse_label,
+    parse_naming,
+)
 
 
 def test_parse_naming_reads_all_fields():
     out = parse_naming("NAME: Fan fiction crossovers\nDESCRIPTION: Stories mixing franchises.\nCOHERENT: YES")
-    assert out == {"name": "Fan fiction crossovers", "description": "Stories mixing franchises.", "coherent": True}
+    assert out == {
+        "name": "Fan fiction crossovers",
+        "description": "Stories mixing franchises.",
+        "coherent": True,
+        "shared": None,
+    }
 
 
 def test_parse_naming_handles_missing_reply_and_no():
@@ -75,3 +88,14 @@ def test_parse_label_takes_the_first_allowed_label():
     assert parse_label("MEDICAL, not LEGAL", labels) == "MEDICAL"
     assert parse_label("codex", labels) is None
     assert parse_label(None, labels) is None
+
+
+def test_parse_naming_reads_shared_count():
+    out = parse_naming("NAME: Legal questions\nDESCRIPTION: Tenancy and work.\nSHARED: 17")
+    assert out["shared"] == 17 and out["coherent"] is None
+    assert parse_naming("NAME: x\nDESCRIPTION: y\nSHARED: about a dozen")["shared"] is None
+
+
+def test_naming_prompt_share_template_asks_for_a_count():
+    prompt = naming_prompt(["a", "b", "c"], n=25, seed=0, template=NAMING_PROMPT_SHARE)
+    assert "SHARED:" in prompt and "of the 3 messages" in prompt
