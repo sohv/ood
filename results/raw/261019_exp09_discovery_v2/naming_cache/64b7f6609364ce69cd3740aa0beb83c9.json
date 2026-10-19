@@ -1,0 +1,1 @@
+{"response": "NAME: Queries Using Placeholder Names\nDESCRIPTION: These messages all contain placeholder variables (NAME_1, NAME_2, etc.) substituted for real names, used across a wide variety of unrelated questions and tasks.\nCOHERENT: YES", "model": "anthropic/claude-sonnet-4.6"}

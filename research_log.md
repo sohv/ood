@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 19-10-2026 — exp09 v2: iterative gap discovery with equal review budgets
+
+**Question.** Once top and random each review 2,500 distinct rows (exp09 re-reviewed rejected top rows every round), do density-ratio and two-sided kNN rankings surface more distinct nameable coverage gaps in WildChat + LMSYS than random review?
+**Hyperparameters.** Identical to exp09 (Olmo-3-7B-Instruct-DPO rev b33130b7, cmean L16, `dr` C = 0.1 5 folds, `dknn` k = 10 vs exp01 Dolma-full, 20-bin length control, 5 rounds x top 500, k-means k = 10, `anthropic/claude-sonnet-4.6` namer, coverage cut 0.600, seed 0), one change: every reviewed row leaves its reviewer's pool. Empty namer replies retried 3 times, never cached. Code commit b3bffd1; torch 2.11.0+cu128 (exp09 used 2.14.1+cu130; this box's driver is CUDA 12.8).
+**Datasets.** exp09's 20,000-row pool (exp06 WildChat 10,000 + exp09 LMSYS 10,000) and ID side (exp01 idfit + idmix, 4,000), features from the sohv/ood HF mirror.
+**Result.** I ran 2 arms x 5 rounds (200 clusters, 3 null names after retries, all above the coverage cut) and found `dknn` confirms 3 distinct gaps against 0 for random, and `dr` 1 against 0. The gaps are LMSYS `NAME_1` placeholder prompts (found by both arms: `dknn` 50 rows, coverage 0.587, mostly explicit roleplay; `dr` 72 rows, 0.595, mixed tasks), short technical error strings (`dknn`, 40 rows, 0.567, 23% LMSYS, one of five shown examples is a product listing) and broad tech/IT support questions (`dknn`, 41 rows, 0.563). The last two are separate by the 0.85 centroid rule but read as one topic to me. All confirmations come in rounds 1-2; rounds 3-5 confirm nothing in either arm. The binding criterion is coverage, not coherence: top clusters are COHERENT 12-13/50 against 5-7/50 for random, but only 2/50 (`dr`) and 13/50 (`dknn`) fall below the coverage cut (random 0-1/50). Coherent `dknn` clusters that missed the cut include the LMSYS chemical-company SEO cluster (four rounds, 28-39 rows, 0.667-0.682), WildChat college-football upset scripts (54 rows, 0.614), crossover fan fiction (36, 0.678) and multilingual greetings (33, 0.786). Every group reviewed 2,500 distinct rows; round 1 reproduces exp09's 40 round-1 clusters exactly (sizes, examples, coverage); the namer agrees with its exp09 COHERENT call on 38/39 identical round-1 prompts.
+**Output:** results/raw/261019_exp09_discovery_v2/decision.json
+**Bar:** `dr` missed, no better than random (1 against random 0, <= random + 1); `dknn` ambiguous (3 against random 0, needed >= 5 and >= 2x random). Bug check: review counts 2,500/2,500 in all four groups, rows unique per reviewer, round 1 identical to exp09, null names counted and logged; no bug found.
+**Verdict:** discard `dr` as a discovery ranking; log `dknn` as ambiguous with no bug found and stop, as pre-registered (no v3 of this design).
+
 ## 19-10-2026 — exp09: iterative gap discovery in WildChat + LMSYS
 
 **Question.** Do density-ratio and two-sided kNN rankings, with length control and an iterative known-OOD loop, surface more distinct nameable coverage gaps in real deployment traffic than random review of the same size?

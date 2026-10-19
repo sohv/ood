@@ -1,0 +1,1 @@
+{"response": "NAME: Messages With Placeholder Names\nDESCRIPTION: These messages all contain placeholder tokens in the format \"NAME_1\", \"NAME_2\", etc., substituting for real names of people, characters, or entities.\nCOHERENT: YES", "model": "anthropic/claude-sonnet-4.6"}
