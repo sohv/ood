@@ -690,3 +690,57 @@ the paired ctx-minus-alone difference with its interval; five raw rows of `wc_mt
 truncated) as the raw-output check.
 
 **Seeds.** Data seed 0, one extraction. No extra seeds planned.
+
+## 19-10-2026 — exp14: does the cluster, name and coverage step confirm gaps correctly when the answer is known?
+
+Written before any exp14 cluster, name or score exists. exp09 and exp09 v2 rest on three steps nobody has
+checked against known answers: k-means on multilingual MiniLM embeddings, a blind LLM namer's COHERENT
+call, and a coverage cut (cosine to the nearest unique Dolci-DPO first user turn below the pool's 25th
+percentile). This run plants prompts whose answer is known into the exp09 pool and checks each step. No
+ranking and no Olmo features are involved; ranking is exp11's question.
+
+**Known answers.** exp06 needle banks (300 each, Dolci members already removed). Gap (uncovered by the
+mix): `legal` (legal-advice-reddit), `medical` (HealthCareMagic). Covered: `magicoder` (code, a domain the
+mix covers heavily), `aya` (multilingual, covered by the mix's Aya family). Background: the exp09 20,000
+WildChat + LMSYS first turns. Draws are disjoint within a seed and independent across seeds 0, 1, 2.
+
+**Fixed from exp09.** Embedder `paraphrase-multilingual-MiniLM-L12-v2` (same revision), namer
+`anthropic/claude-sonnet-4.6` with exp09's prompt and 25 shown members, k-means k = 10 seed 0, min size 15,
+coverage reference and cut. Pipeline check before anything is read: the cut recomputed on the 20,000 pool
+must be within 0.001 of exp09 v2's 0.6003. Empty namer replies retried up to 3 times, then null.
+
+**Q1, namer on clusters of known make-up.** For legal, medical and magicoder (aya is excluded here: its rows
+span many languages and tasks, so it has no single right answer), per seed, four 50-row clusters: pure (50
+of the type), majority (35 type + 15 random pool rows), minority (15 + 35), random (50 pool rows). 36
+clusters, each named once, blind.
+- Coherence valid: pure COHERENT >= 8/9, random COHERENT <= 1/9, and majority YES rate > minority YES
+  rate. Invalid: pure <= 6/9 or random >= 3/9. Otherwise ambiguous.
+- Names valid: a second-provider judge (`openai/gpt-4.1`, sees only the name and description, no
+  examples) maps each pure and majority cluster's name to LEGAL, MEDICAL, CODE or OTHER; >= 15/18 match
+  the planted type = valid, <= 11/18 = invalid, otherwise ambiguous.
+
+**Q2, coverage on known make-up.** Median coverage of the pure clusters against the cut: legal and medical
+(6 clusters) should fall below it; magicoder and aya (6 clusters; one 50-row pure aya cluster per seed,
+built but not named) should not. Valid: 6/6 gap below and 0/6 covered below. Invalid: <= 3/6 gap below or
+>= 3/6 covered below. Otherwise ambiguous. Reported, no bar: row-level coverage medians for all 300 rows of
+each bank and the pool, and AUROC (lower coverage = positive) for each bank vs the pool.
+
+**Q3, end to end on a review batch.** Per seed, a 500-row batch: 400 random pool rows plus 25 of each of the
+four types, clustered (k = 10), named, and confirmed with exp09's rule (COHERENT, >= 15 members, median
+coverage below the cut). A type counts as found when a confirmed cluster holds >= 13 of its 25 rows and the
+type is >= 50% of that cluster. A confirmed cluster that is < 50% planted is a background confirmation.
+Valid: gap types found >= 5/6, covered types found <= 1/6, background confirmations <= 3 over 3 seeds.
+Invalid: gap found <= 2/6 or covered found >= 3/6. Otherwise ambiguous. Reported, no bar: for each type and
+seed, the largest share of its 25 rows in one cluster (clustering purity), and every confirmed cluster's
+name.
+
+**Verdict.** The step is validated on planted categories only if Q1 (both parts), Q2 and Q3 are all valid;
+any invalid part names the step that fails. A pass is necessary, not sufficient: the planted types are
+topic-coherent and far apart, easier than real gaps, so a pass would not show the step finds real gaps, but
+a fail would show it cannot be trusted even here.
+
+**Model-read spot check.** I read every pure and random cluster's name against its make-up (18 clusters)
+and record agreement as model-read, not human.
+
+**Seeds.** Draw seeds 0, 1, 2 (pre-registered here, not added after); one naming call per cluster; one judge
+call per name.
