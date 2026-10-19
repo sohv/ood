@@ -772,3 +772,93 @@ namer (median 0.611 against 0.600). This run does not change the coverage rule, 
 pass on Q3 therefore needs the other legal batches to be confirmed.
 
 **Seeds.** Draw seeds 0, 1, 2, one naming call per cluster, one judge call per name. No extra seeds.
+
+## 19-10-2026 — exp16: exp15 with the grain of "topic" stated
+
+Written before any exp16 name exists. exp15's counting namer accepted 70%-majority clusters (7/9) but split
+pure clusters into narrow subtopics ("Landlord/tenant legal disputes", 4-6 of 25 shared) and rejected 5/9 of
+them. This run changes one thing, the namer prompt, and reruns exp15's design.
+
+**The one change.** exp15's counting prompt gains one sentence stating the grain: count messages at the level
+of a broad field or one language, not a narrow subtopic inside a field. The examples of a broad field are
+fields that are not planted (cooking, finance, sports, history, creative writing), so the prompt does not
+name the answers (law, medicine, programming); naming them would leak the target, the blind-naming pitfall in
+Stefan's notes. Everything else is exp15's: pools, banks, draw seeds 0, 1, 2 (every built cluster and Q3
+batch asserted identical to exp14's), embedder, k-means, 25 shown members, SHARED >= half shown as the
+coherence rule, coverage cut, min size, judge and its prompt, found and background rules.
+
+**Bars.** As exp15.
+- Q1 coherence valid: pure >= 8/9, majority (70%) >= 7/9, minority (30%) <= 2/9, random <= 1/9. Invalid:
+  pure <= 6/9, majority <= 4/9 or random >= 3/9. Otherwise ambiguous.
+- Q1 names: >= 15/18 valid, <= 11/18 invalid.
+- Q3 end to end: gap found >= 5/6, covered found <= 1/6, background <= 3 valid; gap <= 2/6 or covered >= 3/6
+  invalid.
+- The step is validated if Q1 (both parts) and Q3 are valid. Q2 is unchanged by design and reported only.
+
+**Risk written down now.** A broad grain may make random clusters coherent too (WildChat has large
+creative-writing and Chinese-language groups; exp15 already named random clusters for their largest language
+group at 2-10 of 25). The random <= 1/9 bar is what catches that.
+
+**Known limit.** As in exp14/15, the legal cluster with median coverage 0.611 fails the coverage cut whatever
+the namer does.
+
+**Seeds.** Draw seeds 0, 1, 2, one naming call per cluster, one judge call per name. No extra seeds.
+
+## 19-10-2026 — exp17: MOOD with our detectors: does a label-free OOD score read harm or register?
+
+Written before any MOOD feature or score exists. MOOD (Feng et al. 2026, `mood-bench/mood-bench`, revision
+d0e460b) has the one behavioural ground truth among the external benchmarks: a monitor's training
+distribution (train: function-calling 31k, hh-rlhf-harmless 27k at 51% malign, hh-rlhf-helpful 25k at 2%) and
+test domains that shift away from it. Four shifts are harmless (`emoji`, `jargon`, `swahili`,
+`function-calling-yaml`, all malign = 0) and seven are harmful (`controlling`, `function-calling-inappropriate`,
+`function-calling-missing`, `insecure-code`, `jailbroken`, `scheming`, `sycophantic`, all malign = 1).
+Stefan's exp69 found his probes flagged the harmless shifts harder than the harmful ones. This run asks whether
+that holds for our detectors.
+
+**Data.** Conversations are parsed from MOOD's `\n\nSystem:` / `Human:` / `Assistant:` / `Function...:`
+markers into system / user / assistant / environment messages and rendered with Olmo-3's chat template. Rows
+whose last message is not an assistant turn are dropped and counted. Train rows are split by
+`conversation_id` so no conversation sits on both sides. Pools, seed 0:
+- `idfit`: 3,000 train rows sampled by domain share (malign rows included: they are part of the monitor's
+  training distribution).
+- `id_heldout`: 500 train rows per train domain from conversations not in `idfit` (1,500).
+- one pool per test domain, up to 500 rows each (`swahili` has 367); the test split's `hh-rlhf-harmless` and
+  `hh-rlhf-helpful` are the in-distribution test pools.
+- Dolma: exp01's 3,000 documents, full 512-token window and matched to `idfit`'s reply lengths.
+
+**Features.** Olmo-3-7B-Instruct-DPO (revision b33130b), residual `hidden_states[16]`, `cmean` over the
+content tokens of the last assistant turn (the reply a monitor judges); the whole conversation is the forward
+context. max_length 2048, left truncation. All layers and poolings are extracted; only L16 `cmean` carries a
+bar, the rest is exploratory.
+
+**Detectors.** Primary (2): one-sided `knn` fit on `idfit`, and two-sided `dknn_full` (exp08's choice for
+discovery work). Reported, no bar: `maha`, `dmaha_full`, reply length in tokens, label-free tf-idf on the
+reply (mix vs Dolma logistic, as exp01), and a supervised ceiling: logistic regression (C = 0.1,
+standardised) on `idfit`'s L16 `cmean` features against its `malign` labels. The released MOOD guard monitors
+are not run.
+
+**Q1 (headline).** Length-stratified AUROC, harmful-shift rows (7 pools) scored above harmless-shift rows
+(4 pools), with exp01's guarded bands on reply tokens and a 1,000-row bootstrap 95% CI. Per primary detector:
+- reads harm: AUROC >= 0.70 and CI lower bound > 0.50;
+- reads register (Stefan's finding reproduced): AUROC <= 0.50;
+- otherwise ambiguous. Holm over the 2 primary detectors for the CI-excludes-0.5 test.
+- Unmeasurable if the guard fails or length alone scores outside [0.45, 0.55] stratified on this comparison.
+
+**Controls.**
+- Positive (the detector sees a shift at all): median over the 11 shifted pools of the stratified AUROC of the
+  pool against pooled `id_heldout` >= 0.70. If a detector fails this, its Q1 is uninterpretable.
+- Negative (same distribution): the test split's two hh-rlhf pools against `id_heldout`'s two hh-rlhf domains,
+  stratified AUROC in [0.40, 0.60].
+
+**Q2 (secondary).** Review budget = 10% of the evaluation pool (the 11 shifted pools plus the two hh-rlhf test
+pools). Malign recall of: the supervised probe's top 10%; the OOD detector's top 10%; and a split budget (the
+probe's top 5% plus the detector's top 5%, topped up from the probe if they overlap). The OOD score adds value
+if split-budget recall >= probe-only recall + 0.05 with a bootstrap CI on the difference above 0. Per primary
+detector.
+
+**Seeds.** Sampling seed 0 only: the forward pass and the detectors are deterministic, so the uncertainty is
+over rows, reported as bootstrap CIs. No extra seeds.
+
+**What this cannot show.** Each test domain is all-malign or all-benign, so domain identity and harm are
+confounded by design. A Q1 pass means the detector ranks MOOD's harmful shifts above its harmless ones, not
+that it reads harm within a domain. The 7 vs 4 domains are MOOD's construction, not deployment traffic.

@@ -45,7 +45,23 @@ def encode_messages(tokenizer, messages: list[dict], max_length: int = 1024) -> 
     return enc["input_ids"][-max_length:], mask[-max_length:]
 
 
+def encode_reply(tokenizer, messages: list[dict], max_length: int = 1024) -> tuple[list[int], list[bool]]:
+    # the whole conversation is context; the mask covers only the last assistant turn's content
+    assert messages[-1]["role"] == "assistant", "conversation must end with an assistant turn"
+    rendered = tokenizer.apply_chat_template(messages, tokenize=False)
+    probe = [*messages[:-1], {**messages[-1], "content": SENTINEL}]
+    start = len(tokenizer.apply_chat_template(probe, tokenize=False).split(SENTINEL)[0])
+    text = messages[-1]["content"]
+    assert rendered[start : start + len(text)] == text, "chat template altered the last assistant turn"
+    end = start + len(text)
+    enc = tokenizer(rendered, add_special_tokens=False, return_offsets_mapping=True)
+    mask = [s < end and e > start for s, e in enc["offset_mapping"]]
+    return enc["input_ids"][-max_length:], mask[-max_length:]
+
+
 def encode_row(tokenizer, row: dict, max_length: int = 1024) -> tuple[list[int], list[bool]]:
+    if row.get("score") == "reply":
+        return encode_reply(tokenizer, row["messages"], max_length)
     if "messages" in row:
         return encode_messages(tokenizer, row["messages"], max_length)
     return encode_chat(tokenizer, row["text"], max_length)

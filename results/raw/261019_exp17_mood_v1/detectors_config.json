@@ -1,0 +1,10 @@
+{
+  "git_hash": "d228a7a7",
+  "run_dir": "results/raw/261019_exp17_mood_v1",
+  "pools_dir": "data/processed/exp17",
+  "seed": 0,
+  "layer": 16,
+  "pooling": "cmean",
+  "n_boot": 1000,
+  "budget": 0.1
+}

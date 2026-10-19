@@ -1,0 +1,70 @@
+{
+  "idfit": {
+    "rows": 10,
+    "seconds": 0.9135
+  },
+  "id_heldout": {
+    "rows": 10,
+    "seconds": 1.1124
+  },
+  "test_controlling": {
+    "rows": 10,
+    "seconds": 0.3211
+  },
+  "test_emoji": {
+    "rows": 10,
+    "seconds": 0.3472
+  },
+  "test_function_calling_inappropriate": {
+    "rows": 10,
+    "seconds": 0.8824
+  },
+  "test_function_calling_missing": {
+    "rows": 10,
+    "seconds": 0.4499
+  },
+  "test_function_calling_yaml": {
+    "rows": 10,
+    "seconds": 0.5071
+  },
+  "test_hh_rlhf_harmless": {
+    "rows": 10,
+    "seconds": 0.3883
+  },
+  "test_hh_rlhf_helpful": {
+    "rows": 10,
+    "seconds": 0.2931
+  },
+  "test_insecure_code": {
+    "rows": 10,
+    "seconds": 0.4398
+  },
+  "test_jailbroken": {
+    "rows": 10,
+    "seconds": 1.039
+  },
+  "test_jargon": {
+    "rows": 10,
+    "seconds": 0.5737
+  },
+  "test_scheming": {
+    "rows": 10,
+    "seconds": 1.025
+  },
+  "test_swahili": {
+    "rows": 10,
+    "seconds": 0.986
+  },
+  "test_sycophantic": {
+    "rows": 10,
+    "seconds": 0.2497
+  },
+  "dolma_full": {
+    "rows": 10,
+    "seconds": 0.5107
+  },
+  "dolma_matched": {
+    "rows": 10,
+    "seconds": 0.142
+  }
+}

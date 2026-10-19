@@ -33,6 +33,18 @@ DESCRIPTION: <one sentence about that group>
 SHARED: <how many of the {n} messages belong to that group, as a number>"""
 
 
+NAMING_PROMPT_GRAIN = """Below are {n} messages that users sent to an AI chatbot, separated by lines of ---.
+
+{messages}
+
+Find the largest group of these messages that share one topic, task, format or language. The other messages may be unrelated.
+Count at the level of a broad field or a single language (for example cooking, finance, sports, history, creative writing, or Spanish), not a narrow subtopic inside a field.
+Reply in exactly this format and nothing else:
+NAME: <a short name, at most 6 words, for what that group has in common>
+DESCRIPTION: <one sentence about that group>
+SHARED: <how many of the {n} messages belong to that group, as a number>"""
+
+
 LABEL_PROMPT = """A group of messages that users sent to an AI chatbot was given this name and description.
 
 NAME: {name}

@@ -1,4 +1,4 @@
-# exp14 / exp15: checks exp09's cluster, blind-name and coverage gap confirmation on planted prompts whose answer is known.
+# exp14 / exp15 / exp16: checks exp09's cluster, blind-name and coverage gap confirmation on planted prompts whose answer is known.
 # uv run --no-sync -m scripts.run_validate_discovery --run_dir results/raw/261019_exp14_validate_v1 --wildchat_pool data/processed/exp06/deploy.jsonl --lmsys_pool data/processed/exp09/lmsys.jsonl --banks_dir data/processed/exp06 --model_id anthropic/claude-sonnet-4.6 --seed 0
 
 import asyncio
@@ -19,6 +19,7 @@ from src.data.pools import load_dolci_dpo
 from src.metrics.discovery import (
     LABEL_PROMPT,
     NAMING_PROMPT,
+    NAMING_PROMPT_GRAIN,
     NAMING_PROMPT_SHARE,
     cluster,
     name_clusters,
@@ -53,7 +54,7 @@ class ValidateConfig:
     n_clusters: int = 10
     n_shown: int = 25
     min_size: int = 15
-    # yesno = exp14's COHERENT call; share = exp15's count of the largest shared group, coherent if >= half shown
+    # yesno = exp14's COHERENT call; share = exp15's count of the largest shared group, coherent if >= half shown; grain = share with exp16's broad-field sentence
     coherence_rule: str = "yesno"
     compare_clusters: str = ""
 
@@ -67,7 +68,7 @@ def auroc_low(pos: np.ndarray, neg: np.ndarray) -> float:
 def main():
     config = simple_parsing.parse(ValidateConfig)
     missing = [k for k, v in asdict(config).items() if v == "" and k != "compare_clusters"]
-    assert config.coherence_rule in ("yesno", "share"), config.coherence_rule
+    assert config.coherence_rule in ("yesno", "share", "grain"), config.coherence_rule
     assert not missing, f"required arguments not set: {missing}"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -140,7 +141,9 @@ def main():
                     [texts[i] for i in c["rows"]],
                     config.n_shown,
                     config.seed,
-                    template=NAMING_PROMPT_SHARE if config.coherence_rule == "share" else NAMING_PROMPT,
+                    template={"yesno": NAMING_PROMPT, "share": NAMING_PROMPT_SHARE, "grain": NAMING_PROMPT_GRAIN}[
+                        config.coherence_rule
+                    ],
                 )
                 for c in to_name
             ],
@@ -149,7 +152,7 @@ def main():
     )
     for c, reply in zip(to_name, replies):
         c.update(parse_naming(reply))
-        if config.coherence_rule == "share":
+        if config.coherence_rule != "yesno":
             n_shown = min(config.n_shown, len(c["rows"]))
             c["coherent"] = None if c["shared"] is None else c["shared"] >= n_shown / 2
     to_judge = [c for c in clusters if c["q"] == "q1" and c["mix"] in ("pure", "majority")]
@@ -182,7 +185,7 @@ def main():
     }
     nulls = sum(c["coherent"] is None for c in clusters if c["q"] != "q2")
     n_match = sum(c["name_matches"] for c in to_judge)
-    if config.coherence_rule == "share":
+    if config.coherence_rule != "yesno":
         coh_verdict = (
             "valid"
             if coh["pure"] >= 8 and coh["majority"] >= 7 and coh["minority"] <= 2 and coh["random"] <= 1
