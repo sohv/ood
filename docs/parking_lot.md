@@ -12,3 +12,4 @@ Scope discipline in `CLAUDE.md` sends them here so the current experiment stays 
 - 18-10-2026: exp06 density ratio ranks Chinese WildChat first; a per-language or clustered density ratio could surface smaller gaps once the language gap is removed.
 - 19-10-2026: exp17 scored only the last MOOD reply; in function-calling-inappropriate the harm is an earlier function call, so a whole-conversation (all assistant turns) mask is the version that could see it.
 - 19-10-2026: per Neel, read the rows where activation detectors and tf-idf disagree most (exp01, exp10, exp18) to find what activations catch that words miss; pivot if nothing consistent.
+- 19-10-2026: stage classifier (from a suggested direction): generate Olmo-3 SFT replies for exp18 prompts, train SFT-vs-DPO reply classifiers (activations and tf-idf), test whether "DPO reply looks SFT-like" predicts orange better than tf-idf and reply length.

@@ -30,3 +30,4 @@ docs/PROJECT_SUMMARY_EXTERNAL.md
 # over the 5MB hook limit; these live on the hf dataset (sohv/ood) instead
 data/processed/exp08/dolma.jsonl
 data/processed/exp12/dolma.jsonl
+data/processed/exp17/dolma.jsonl
