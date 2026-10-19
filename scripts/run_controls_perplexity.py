@@ -34,7 +34,9 @@ class PerplexityConfig:
 
 
 @torch.no_grad()
-def content_nll(model, encoded: list[tuple[list[int], list[bool]]], pad_id: int, max_tokens: int) -> tuple[np.ndarray, np.ndarray]:
+def content_nll(
+    model, encoded: list[tuple[list[int], list[bool]]], pad_id: int, max_tokens: int
+) -> tuple[np.ndarray, np.ndarray]:
     nll, n_scored = np.zeros(len(encoded)), np.zeros(len(encoded), dtype=int)
     for batch in tqdm(token_batches([len(ids) for ids, _ in encoded], max_tokens), desc="batches"):
         width = max(len(encoded[i][0]) for i in batch)
@@ -67,10 +69,19 @@ def main():
     set_seed(config.seed)
     torch.backends.cudnn.deterministic = True
     revision = HfApi().model_info(config.model_id).sha
-    write_json({"git_hash": get_git_hash(), **asdict(config), "model_revision": revision, "scored": "content tokens 2..n, chat template"},
-               out / "perplexity_config.json")
+    write_json(
+        {
+            "git_hash": get_git_hash(),
+            **asdict(config),
+            "model_revision": revision,
+            "scored": "content tokens 2..n, chat template",
+        },
+        out / "perplexity_config.json",
+    )
     tokenizer = AutoTokenizer.from_pretrained(config.model_id, revision=revision)
-    model = AutoModelForCausalLM.from_pretrained(config.model_id, revision=revision, dtype=torch.bfloat16, device_map="cuda").eval()
+    model = AutoModelForCausalLM.from_pretrained(
+        config.model_id, revision=revision, dtype=torch.bfloat16, device_map="cuda"
+    ).eval()
     for spec in config.pools:
         pools_dir, name = spec.split(":")
         rows = load_jsonl(Path(pools_dir) / f"{name}.jsonl")
@@ -79,8 +90,13 @@ def main():
         n_nan = int(np.isnan(nll).sum())
         if n_nan:
             LOGGER.warning(f"{name}: {n_nan} rows with fewer than 2 content tokens, nll is nan")
-        write_jsonl([{"id": r["id"], "pool": name, "nll_mean": None if np.isnan(v) else float(v), "n_scored": int(k)}
-                     for r, v, k in zip(rows, nll, n_scored)], out / "perplexity" / f"{name}.jsonl")
+        write_jsonl(
+            [
+                {"id": r["id"], "pool": name, "nll_mean": None if np.isnan(v) else float(v), "n_scored": int(k)}
+                for r, v, k in zip(rows, nll, n_scored)
+            ],
+            out / "perplexity" / f"{name}.jsonl",
+        )
         LOGGER.info(f"{name}: {len(rows)} rows, median nll {np.nanmedian(nll):.3f}")
     print(f"perplexity written to {out / 'perplexity'}")
 

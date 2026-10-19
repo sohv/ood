@@ -1,0 +1,101 @@
+{
+  "dr_r1": {
+    "naming_failures": 0,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.596,
+    "moved_total": 0
+  },
+  "dr_r2": {
+    "naming_failures": 1,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.634,
+    "moved_total": 0
+  },
+  "dr_r3": {
+    "naming_failures": 1,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.6,
+    "moved_total": 0
+  },
+  "dr_r4": {
+    "naming_failures": 0,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 1,
+    "random_new": 1,
+    "top_lmsys_share": 0.606,
+    "moved_total": 0
+  },
+  "dr_r5": {
+    "naming_failures": 2,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.634,
+    "moved_total": 0
+  },
+  "dr_distinct": {
+    "top": 0,
+    "random": 1
+  },
+  "dknn_r1": {
+    "naming_failures": 1,
+    "top_confirmed": 2,
+    "top_new": 2,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.52,
+    "moved_total": 90
+  },
+  "dknn_r2": {
+    "naming_failures": 0,
+    "top_confirmed": 1,
+    "top_new": 1,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.486,
+    "moved_total": 108
+  },
+  "dknn_r3": {
+    "naming_failures": 1,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.468,
+    "moved_total": 108
+  },
+  "dknn_r4": {
+    "naming_failures": 0,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 1,
+    "random_new": 1,
+    "top_lmsys_share": 0.468,
+    "moved_total": 108
+  },
+  "dknn_r5": {
+    "naming_failures": 0,
+    "top_confirmed": 0,
+    "top_new": 0,
+    "random_confirmed": 0,
+    "random_new": 0,
+    "top_lmsys_share": 0.468,
+    "moved_total": 108
+  },
+  "dknn_distinct": {
+    "top": 3,
+    "random": 1
+  },
+  "dr_gaps_also_found_by_dknn": 0
+}

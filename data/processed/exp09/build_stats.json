@@ -1,0 +1,11 @@
+{
+  "candidates": 244082,
+  "members_skipped": 681,
+  "kept": 10000,
+  "redacted_after_run": {
+    "ids": [
+      "lmsys_03732"
+    ],
+    "note": "API-key string replaced with sk-REDACTED in the committed copy only; features and results used the original text"
+  }
+}

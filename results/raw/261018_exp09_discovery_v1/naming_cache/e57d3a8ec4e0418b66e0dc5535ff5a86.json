@@ -1,0 +1,1 @@
+{"response": "NAME: Messages with Named Placeholders\nDESCRIPTION: These messages all contain generic name placeholders (NAME_1, NAME_2, etc.) substituting for actual names of people, places, or characters.\nCOHERENT: YES", "model": "anthropic/claude-sonnet-4.6"}

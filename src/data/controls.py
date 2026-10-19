@@ -38,20 +38,27 @@ def load_wildjailbreak() -> list[str]:
 
 
 def load_magicoder() -> list[str]:
-    path = hf_hub_download("ise-uiuc/Magicoder-OSS-Instruct-75K", "data-oss_instruct-decontaminated.jsonl", repo_type="dataset")
+    path = hf_hub_download(
+        "ise-uiuc/Magicoder-OSS-Instruct-75K", "data-oss_instruct-decontaminated.jsonl", repo_type="dataset"
+    )
     return dedupe([json.loads(line)["problem"] for line in open(path)])
 
 
 def load_bactrian(n: int, seed: int) -> list[dict]:
-    langs = sorted(f.split("/")[1].removesuffix(".json.gz") for f in HfApi().list_repo_files("MBZUAI/Bactrian-X", repo_type="dataset")
-                   if f.startswith("data/") and f.endswith(".json.gz"))
+    langs = sorted(
+        f.split("/")[1].removesuffix(".json.gz")
+        for f in HfApi().list_repo_files("MBZUAI/Bactrian-X", repo_type="dataset")
+        if f.startswith("data/") and f.endswith(".json.gz")
+    )
     langs = [lang for lang in langs if lang != "en"]
     counts = allocate_by_share(pd.Series(1, index=langs), n)
     rng = np.random.default_rng(seed)
     out = []
     for lang in langs:
         rows = json.load(gzip.open(hf_hub_download("MBZUAI/Bactrian-X", f"data/{lang}.json.gz", repo_type="dataset")))
-        texts = dedupe([(r["instruction"] or "") + (f"\n\n{r['input']}" if (r["input"] or "").strip() else "") for r in rows])
+        texts = dedupe(
+            [(r["instruction"] or "") + (f"\n\n{r['input']}" if (r["input"] or "").strip() else "") for r in rows]
+        )
         # oversample 3x per language so membership drops can be replaced from the same language
         picks = rng.permutation(len(texts))[: 3 * int(counts[lang])]
         out.extend({"text": texts[i], "language": lang, "quota": int(counts[lang])} for i in picks)
@@ -60,7 +67,9 @@ def load_bactrian(n: int, seed: int) -> list[dict]:
 
 def load_first_turns(repo: str, filename: str) -> pd.DataFrame:
     df = pd.read_parquet(hf_hub_download(repo, filename, repo_type="dataset"), columns=["conversation", "language"])
-    df["text"] = df["conversation"].map(lambda conv: next((m["content"] for m in conv if m["role"] == "user"), "")).str.strip()
+    df["text"] = (
+        df["conversation"].map(lambda conv: next((m["content"] for m in conv if m["role"] == "user"), "")).str.strip()
+    )
     df = df[df["text"].str.len() > 0]
     return df[~df["text"].map(normalise).duplicated()][["text", "language"]].reset_index(drop=True)
 

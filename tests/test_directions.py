@@ -34,5 +34,7 @@ def test_cv_scores_are_out_of_fold_and_aligned():
 def test_cv_scores_on_text_pipeline():
     texts = [f"legal court landlord case {i}" for i in range(40)] + [f"recipe pasta sauce cook {i}" for i in range(40)]
     y = np.r_[np.ones(40), np.zeros(40)]
-    s = cv_scores(lambda: make_pipeline(TfidfVectorizer(), LogisticRegression(C=0.1)), np.array(texts, dtype=object), y, seed=0)
+    s = cv_scores(
+        lambda: make_pipeline(TfidfVectorizer(), LogisticRegression(C=0.1)), np.array(texts, dtype=object), y, seed=0
+    )
     assert auroc(s[y == 1], s[y == 0]) > 0.95

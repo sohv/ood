@@ -1,0 +1,1 @@
+{"response": "NAME: Fact-checking and summarization tasks\nDESCRIPTION: These messages mostly involve requests to verify factual consistency between documents and their summaries, with a few unrelated outliers.\nCOHERENT: YES", "model": "anthropic/claude-sonnet-4.6"}

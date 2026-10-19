@@ -44,7 +44,13 @@ def main():
         if len(kept) == config.n_lmsys:
             break
     assert len(kept) == config.n_lmsys, f"only {len(kept)} rows"
-    write_jsonl([{"id": f"lmsys_{i:05d}", "pool": "lmsys", "language": r["language"], "text": r["text"]} for i, r in enumerate(kept)], out / "lmsys.jsonl")
+    write_jsonl(
+        [
+            {"id": f"lmsys_{i:05d}", "pool": "lmsys", "language": r["language"], "text": r["text"]}
+            for i, r in enumerate(kept)
+        ],
+        out / "lmsys.jsonl",
+    )
     write_json({"candidates": len(rows), "members_skipped": n_member, "kept": len(kept)}, out / "build_stats.json")
     print(f"pool written to {out / 'lmsys.jsonl'}")
 

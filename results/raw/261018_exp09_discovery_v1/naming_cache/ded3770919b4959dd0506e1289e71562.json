@@ -1,0 +1,1 @@
+{"response": "NAME: Messages with placeholder names\nDESCRIPTION: All messages contain \"NAME_1\" or similar placeholders, likely because personal names were anonymized or redacted before being collected.\nCOHERENT: YES", "model": "anthropic/claude-sonnet-4.6"}

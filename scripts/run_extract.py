@@ -37,6 +37,9 @@ class ExtractConfig:
     max_batch_tokens: int = 32768
     chat_pools: list[str] = field(default_factory=lambda: list(CHAT_POOLS))
     include_dolma: bool = True
+    include_dolma_wrapped: bool = False
+    extra_pools_dir: str = ""
+    extra_pools: list[str] = field(default_factory=list)
 
 
 def main():
@@ -65,8 +68,12 @@ def main():
         config.model_id, revision=revision, dtype=torch.bfloat16, device_map="cuda"
     ).eval()
 
-    chat_pools = config.chat_pools
-    pools = {name: load_jsonl(Path(config.pools_dir) / f"{name}.jsonl", config.num_tasks) for name in chat_pools}
+    chat_pools = config.chat_pools + config.extra_pools
+    pools = {name: load_jsonl(Path(config.pools_dir) / f"{name}.jsonl", config.num_tasks) for name in config.chat_pools}
+    pools |= {
+        name: load_jsonl(Path(config.extra_pools_dir) / f"{name}.jsonl", config.num_tasks)
+        for name in config.extra_pools
+    }
     encoded = {name: [encode_chat(tokenizer, r["text"], config.max_length) for r in pools[name]] for name in chat_pools}
     ids = {name: [r["id"] for r in pools[name]] for name in chat_pools}
     if config.include_dolma:
@@ -76,6 +83,11 @@ def main():
         encoded["dolma_full"] = [encode_raw(tokenizer, r["text"], config.dolma_full_tokens) for r in dolma]
         encoded["dolma_matched"] = [encode_raw(tokenizer, r["text"], int(n)) for r, n in zip(dolma, matched_lengths)]
         ids["dolma_full"] = ids["dolma_matched"] = [r["id"] for r in dolma]
+        if config.include_dolma_wrapped:
+            # the matched cut as text, placed in the chat template as a user message
+            cuts = [tokenizer.decode(toks).strip() for toks, _ in encoded["dolma_matched"]]
+            encoded["dolma_wrapped"] = [encode_chat(tokenizer, t, config.max_length) for t in cuts]
+            ids["dolma_wrapped"] = ids["dolma_full"]
 
     first = chat_pools[-1]
     LOGGER.info(

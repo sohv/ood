@@ -43,7 +43,11 @@ def parse_naming(reply: str | None) -> dict:
         return {"name": None, "description": None, "coherent": None}
     get = lambda key: (m.group(1).strip() if (m := re.search(rf"^{key}:\s*(.+)$", reply, re.M)) else None)
     coherent = get("COHERENT")
-    return {"name": get("NAME"), "description": get("DESCRIPTION"), "coherent": None if coherent is None else coherent.upper().startswith("YES")}
+    return {
+        "name": get("NAME"),
+        "description": get("DESCRIPTION"),
+        "coherent": None if coherent is None else coherent.upper().startswith("YES"),
+    }
 
 
 def match_gap(c: np.ndarray, known: list[np.ndarray], threshold: float) -> int | None:
@@ -51,7 +55,9 @@ def match_gap(c: np.ndarray, known: list[np.ndarray], threshold: float) -> int |
     return int(np.argmax(sims)) if sims and max(sims) >= threshold else None
 
 
-async def name_clusters(client, model: str, prompts: list[str], cache_dir: str, max_concurrent: int = 10) -> list[str | None]:
+async def name_clusters(
+    client, model: str, prompts: list[str], cache_dir: str, max_concurrent: int = 10
+) -> list[str | None]:
     Path(cache_dir).mkdir(parents=True, exist_ok=True)
     sem = asyncio.Semaphore(max_concurrent)
     errors: list[Exception] = []

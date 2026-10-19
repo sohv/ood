@@ -31,8 +31,14 @@ BAR_DETECTORS = ("dmaha_full", "dknn_full")
 DETECTORS = ("maha", "knn", "dmaha_full", "dknn_full", "dmaha_matched", "dknn_matched", "tfidf", "length")
 PRIMARY = [("legal_rw", "wildchat_rw"), ("medical_rw", "wildchat_rw")]
 ORIGINAL = [("legal", "wildchat_en_test"), ("medical", "wildchat_en_test")]
-CONTEXT = [("idmix_rw", "idmix"), ("wildchat_rw", "wildchat_en_test"), ("legal_rw", "wildchat_en_test"), ("medical_rw", "wildchat_en_test"),
-           ("legal_rw", "idmix_rw"), ("medical_rw", "idmix_rw")]
+CONTEXT = [
+    ("idmix_rw", "idmix"),
+    ("wildchat_rw", "wildchat_en_test"),
+    ("legal_rw", "wildchat_en_test"),
+    ("medical_rw", "wildchat_en_test"),
+    ("legal_rw", "idmix_rw"),
+    ("medical_rw", "idmix_rw"),
+]
 
 
 @dataclass
@@ -73,7 +79,10 @@ def main():
 
     feats = {n: dict(np.load(Path(config.exp01_dir) / "features" / f"{n}.npz")) for n in EXP01_POOLS}
     feats |= {n: dict(np.load(run / "features" / f"{n}.npz")) for n in RW_POOLS}
-    rows = {n: load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl") for n in ["idfit", "dolma", "legal", "medical", "wildchat_en_test"]}
+    rows = {
+        n: load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl")
+        for n in ["idfit", "dolma", "legal", "medical", "wildchat_en_test"]
+    }
     rows |= {n: load_jsonl(Path(config.exp05_pools) / f"{n}.jsonl") for n in RW_POOLS}
     rows["idmix"] = load_jsonl(Path(config.exp05_pools) / "idmix_sub.jsonl")
     # restrict exp01 idmix features to the 500 rows that were rewritten
@@ -86,7 +95,9 @@ def main():
     lengths = {n: f["n_content_tokens"] for n, f in feats.items()}
     judge_ok = {n: np.array([r["judge_ok"] is True for r in rows[n]]) for n in RW_POOLS}
 
-    tfidf = tfidf_mix_vs_dolma(texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed)
+    tfidf = tfidf_mix_vs_dolma(
+        texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed
+    )
     test_pools = ["legal", "medical", "wildchat_en_test", "idmix", *RW_POOLS]
     tfidf_scores = {n: tfidf(texts[n]) for n in test_pools}
 
@@ -108,8 +119,15 @@ def main():
 
     def compare(det: str, ood: str, ref: str) -> dict:
         s = stratified_auroc(scores[ood][det], scores[ref][det], lengths[ood], lengths[ref], FINE_BANDS)
-        return {"detector": det, "ood": ood, "ref": ref, "auroc_raw": auroc(scores[ood][det], scores[ref][det]),
-                "auroc_stratified": s["auroc"], "n_bands": s["n_bands"], "coverage": s["coverage"]}
+        return {
+            "detector": det,
+            "ood": ood,
+            "ref": ref,
+            "auroc_raw": auroc(scores[ood][det], scores[ref][det]),
+            "auroc_stratified": s["auroc"],
+            "n_bands": s["n_bands"],
+            "coverage": s["coverage"],
+        }
 
     lo_q, hi_q = (100 - config.ci_level) / 2, 100 - (100 - config.ci_level) / 2
     rng = np.random.default_rng(config.seed)
@@ -119,15 +137,25 @@ def main():
         boots = [(rng.integers(0, n_o, n_o), rng.integers(0, n_r, n_r)) for _ in range(config.n_boot)]
         point = {d: strat(d, ood, ref) for d in DETECTORS}
         boot_vals = {d: [strat(d, ood, ref, i, j) for i, j in boots] for d in (*BAR_DETECTORS, "tfidf")}
-        entry = {"auroc_stratified": point, "auroc_raw": {d: auroc(scores[ood][d], scores[ref][d]) for d in DETECTORS},
-                 "length_only_stratified": point["length"], "balanced": point["length"] is not None and 0.45 <= point["length"] <= 0.55}
+        entry = {
+            "auroc_stratified": point,
+            "auroc_raw": {d: auroc(scores[ood][d], scores[ref][d]) for d in DETECTORS},
+            "length_only_stratified": point["length"],
+            "balanced": point["length"] is not None and 0.45 <= point["length"] <= 0.55,
+        }
         for d in BAR_DETECTORS:
             pairs = [(a, t) for a, t in zip(boot_vals[d], boot_vals["tfidf"]) if a is not None and t is not None]
             deltas = [a - t for a, t in pairs]
             entry[f"{d}_ci"] = [float(np.percentile([a for a, _ in pairs], q)) for q in (lo_q, hi_q)]
-            entry[f"delta_{d}_minus_tfidf"] = None if point[d] is None or point["tfidf"] is None else point[d] - point["tfidf"]
-            entry[f"delta_{d}_ci"] = [float(np.percentile(deltas, q)) for q in (lo_q, hi_q)] if len(deltas) >= 0.9 * config.n_boot else None
-        entry["tfidf_ci"] = [float(np.percentile([v for v in boot_vals["tfidf"] if v is not None], q)) for q in (lo_q, hi_q)]
+            entry[f"delta_{d}_minus_tfidf"] = (
+                None if point[d] is None or point["tfidf"] is None else point[d] - point["tfidf"]
+            )
+            entry[f"delta_{d}_ci"] = (
+                [float(np.percentile(deltas, q)) for q in (lo_q, hi_q)] if len(deltas) >= 0.9 * config.n_boot else None
+            )
+        entry["tfidf_ci"] = [
+            float(np.percentile([v for v in boot_vals["tfidf"] if v is not None], q)) for q in (lo_q, hi_q)
+        ]
         primary[f"{ood}_vs_{ref}"] = entry
         LOGGER.info(f"{ood} vs {ref}: {entry}")
 
@@ -136,34 +164,66 @@ def main():
 
     yes_rates = {n: float(judge_ok[n].mean()) for n in RW_POOLS}
     g1 = all(v >= 0.90 for v in yes_rates.values())
-    g2_detail = {p: {"tfidf_rewritten": primary[f"{p}_rw_vs_wildchat_rw"]["auroc_stratified"]["tfidf"],
-                     "tfidf_original": original[f"{p}_vs_wildchat_en_test"]["tfidf"]} for p in ("legal", "medical")}
-    g2 = all(v["tfidf_rewritten"] is not None and v["tfidf_original"] is not None and v["tfidf_rewritten"] <= v["tfidf_original"] - 0.10
-             for v in g2_detail.values())
+    g2_detail = {
+        p: {
+            "tfidf_rewritten": primary[f"{p}_rw_vs_wildchat_rw"]["auroc_stratified"]["tfidf"],
+            "tfidf_original": original[f"{p}_vs_wildchat_en_test"]["tfidf"],
+        }
+        for p in ("legal", "medical")
+    }
+    g2 = all(
+        v["tfidf_rewritten"] is not None
+        and v["tfidf_original"] is not None
+        and v["tfidf_rewritten"] <= v["tfidf_original"] - 0.10
+        for v in g2_detail.values()
+    )
     g3 = all(e["balanced"] for e in primary.values())
 
     def adds(d: str) -> bool:
-        return all(e["auroc_stratified"][d] is not None and e["auroc_stratified"][d] >= 0.75 and e[f"delta_{d}_minus_tfidf"] >= 0.10
-                   and e[f"delta_{d}_ci"] is not None and e[f"delta_{d}_ci"][0] > 0 for e in primary.values())
+        return all(
+            e["auroc_stratified"][d] is not None
+            and e["auroc_stratified"][d] >= 0.75
+            and e[f"delta_{d}_minus_tfidf"] >= 0.10
+            and e[f"delta_{d}_ci"] is not None
+            and e[f"delta_{d}_ci"][0] > 0
+            for e in primary.values()
+        )
 
     def words_only(d: str) -> bool:
-        return all(e["auroc_stratified"][d] is not None and (e["auroc_stratified"][d] <= 0.65 or (e[f"delta_{d}_ci"] is not None and e[f"delta_{d}_ci"][1] < 0.10))
-                   for e in primary.values())
+        return all(
+            e["auroc_stratified"][d] is not None
+            and (e["auroc_stratified"][d] <= 0.65 or (e[f"delta_{d}_ci"] is not None and e[f"delta_{d}_ci"][1] < 0.10))
+            for e in primary.values()
+        )
 
     if not (g1 and g3):
         verdict = f"inconclusive: gate failed (G1 content {g1}, G3 balance {g3})"
     elif any(adds(d) for d in BAR_DETECTORS):
         verdict = "activations_add_beyond_words"
     elif all(words_only(d) for d in BAR_DETECTORS):
-        verdict = "words_only" if g2 else "inconclusive: words-only pattern but G2 failed (rewrite did not remove the wording cue)"
+        verdict = (
+            "words_only"
+            if g2
+            else "inconclusive: words-only pattern but G2 failed (rewrite did not remove the wording cue)"
+        )
     else:
         verdict = "ambiguous"
-    decision = {"cell": f"{config.pooling} L{config.layer}, dolma full, fine bands", "verdict": verdict,
-                "gates": {"G1_content": {"passed": g1, "judge_yes_rate": yes_rates}, "G2_wording_moved": {"passed": g2, **g2_detail},
-                          "G3_balance": {"passed": g3, **{k: e["length_only_stratified"] for k, e in primary.items()}}},
-                "primary": {k: {d: e["auroc_stratified"][d] for d in (*BAR_DETECTORS, "tfidf")} | {f"delta_{d}": e[f"delta_{d}_minus_tfidf"] for d in BAR_DETECTORS}
-                            | {f"delta_{d}_ci": e[f"delta_{d}_ci"] for d in BAR_DETECTORS} for k, e in primary.items()},
-                "per_detector": {d: {"adds_beyond_words": adds(d), "words_only": words_only(d)} for d in BAR_DETECTORS}}
+    decision = {
+        "cell": f"{config.pooling} L{config.layer}, dolma full, fine bands",
+        "verdict": verdict,
+        "gates": {
+            "G1_content": {"passed": g1, "judge_yes_rate": yes_rates},
+            "G2_wording_moved": {"passed": g2, **g2_detail},
+            "G3_balance": {"passed": g3, **{k: e["length_only_stratified"] for k, e in primary.items()}},
+        },
+        "primary": {
+            k: {d: e["auroc_stratified"][d] for d in (*BAR_DETECTORS, "tfidf")}
+            | {f"delta_{d}": e[f"delta_{d}_minus_tfidf"] for d in BAR_DETECTORS}
+            | {f"delta_{d}_ci": e[f"delta_{d}_ci"] for d in BAR_DETECTORS}
+            for k, e in primary.items()
+        },
+        "per_detector": {d: {"adds_beyond_words": adds(d), "words_only": words_only(d)} for d in BAR_DETECTORS},
+    }
 
     # exploratory: judge-approved rows only, and every layer and pooling for the primary comparisons
     judged_only = {}
@@ -174,14 +234,24 @@ def main():
     for pooling in POOLINGS:
         for layer in LAYERS:
             sc = scores if (pooling, layer) == (config.pooling, config.layer) else score_cell(pooling, layer)
-            cells[f"{pooling}|L{layer}"] = {f"{o}_vs_{r}": {d: strat(d, o, r, sc=sc) for d in DETECTORS[:6]} for o, r in [*PRIMARY, *ORIGINAL]}
+            cells[f"{pooling}|L{layer}"] = {
+                f"{o}_vs_{r}": {d: strat(d, o, r, sc=sc) for d in DETECTORS[:6]} for o, r in [*PRIMARY, *ORIGINAL]
+            }
             LOGGER.info(f"exploratory cell {pooling} L{layer} done")
 
     write_json(decision, run / "decision.json")
     write_json({"primary": primary, "original_fine_bands": original, "context": context}, run / "metrics_primary.json")
     write_json({"judge_ok_only": judged_only, "cells": cells}, run / "metrics_exploratory.json")
-    out_rows = [{"id": str(rid), "pool": n, "n_content_tokens": int(lengths[n][k]), **{d: float(scores[n][d][k]) for d in DETECTORS}}
-                for n in test_pools for k, rid in enumerate(feats[n]["ids"])]
+    out_rows = [
+        {
+            "id": str(rid),
+            "pool": n,
+            "n_content_tokens": int(lengths[n][k]),
+            **{d: float(scores[n][d][k]) for d in DETECTORS},
+        }
+        for n in test_pools
+        for k, rid in enumerate(feats[n]["ids"])
+    ]
     write_jsonl(out_rows, run / "scores_decision_cell.jsonl")
     print(f"verdict: {verdict}")
     print(f"decision written to {run / 'decision.json'}")

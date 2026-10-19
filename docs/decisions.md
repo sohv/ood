@@ -374,3 +374,87 @@ is cross-lingual (cosine 0.92 between an English and a Chinese sentence with the
 coverage measures semantic coverage only: a cluster that differs from the mix mainly by language will
 usually fail criterion (c). The confirmation rule is unchanged. Each cluster's dominant language share
 (WildChat/LMSYS language field) is reported with it, so language gaps stay visible.
+
+## 19-10-2026 — exp10: do activation detectors still flag legal and medical once tf-idf's words are banned?
+
+Written before any exp10 rewrite, feature or score exists. The collaborator's decisive test, rerun in the
+form exp05's verdict asked for: exp05's style rewrite kept the topic words (legal tf-idf rose 0.951 to
+0.966), so it could not separate topic from wording. Here the rewriter is forbidden the words a bag of
+words uses to tell legal and medical from WildChat, and a blind judge checks that the topic survived.
+Also carries Stefan's idea 4 (template-wrapped Dolma), which shares the feature pass.
+
+**Ban list, fit on data disjoint from every evaluation row.** Supervised tf-idf logistic (exp01 vectoriser
+settings, C = 1.0), two models: exp06 `needles_legal` (300) vs 600 English WildChat rows drawn with seed 0
+from exp07 `deploy`, and exp06 `needles_medical` (300) vs the same 600. From each model take the top 100
+positive and top 100 negative coefficients; keep alphabetic terms of >= 3 characters not in sklearn's
+English stop words; the ban list is the union. The same list is given for every row of every pool.
+
+**Rewrite.** All 500 rows of exp01 `legal`, `medical` and `wildchat_en_test`, one rewrite each, by
+`openai/gpt-4.1` via OpenRouter with exp05's template (same 8 idfit style examples), plus one added
+instruction: do not use any of the listed words or any form of them, and use plain everyday words
+instead, keeping the situation and the request. No temperature or max_tokens. Pools `legal_lx`,
+`medical_lx`, `wildchat_lx`. Failed calls are recorded as failed rows. Leak rate = share of rewrites that
+contain a banned term as a whole lowercased token; reported per pool.
+
+**Topic judge, blind.** `anthropic/claude-sonnet-4.6` sees one message only (no pool, no original) and
+answers LAWYER, DOCTOR or NEITHER: whose expertise the message mainly needs. Run on all 1,500 originals and
+all 1,500 rewrites. I read 20 rewrite decisions and record agreement (model-read, not human).
+
+**Features and detectors.** Same model and revision as exp01, same extraction recipe. exp01 features are
+not on this machine, so the exp01 pools are re-extracted; the decision-cell numbers on the originals must
+match exp01's within 0.01 (legal / medical vs wildchat_en_test, coarse bands, dmaha_full 0.954 / 0.897)
+before anything else is read. Decision cell cmean L16, Dolma full, detectors fit exactly as exp01.
+
+**Q1, primary.** Fine-band (exp04) length-stratified AUROC, `legal_lx` vs `wildchat_lx` and `medical_lx`
+vs `wildchat_lx`, for `dmaha_full`, `dknn_full` and the label-free tf-idf (mix vs Dolma). delta =
+AUROC_d - AUROC_tfidf, paired bootstrap, 1,000 resamples, 98.75% CI (Bonferroni over 2 detectors x 2
+pools). Gates:
+- G1 topic kept: judge says LAWYER for >= 80% of `legal_lx` and DOCTOR for >= 80% of `medical_lx`.
+- G2 words gone: label-free tf-idf stratified AUROC <= 0.65 on both primary comparisons.
+- G3 balance: length-only stratified AUROC in [0.45, 0.55] on both.
+Verdict, same rules as exp05:
+- activations add beyond words: for at least one detector, on both pools, AUROC_d >= 0.75 and
+  delta >= 0.10 with CI lower bound > 0. Requires G1 and G3.
+- words only: for both detectors on both pools, AUROC_d <= 0.65 or delta CI upper bound < 0.10. Requires
+  G1, G2 and G3.
+- anything else, or a failed gate: ambiguous / inconclusive, named by which condition failed. If G1 fails
+  the ban removed the topic, which is itself the finding that topic and words cannot be separated this way.
+
+**Q2, transfer of supervised probes from originals to rewrites.** Per pool p in {legal, medical}: rows of
+p and of `wildchat_en_test` are split into 5 folds (seed 0 permutation, by row index). Train on the
+originals of 4 folds (p = 1, WildChat = 0), score the rewrites of the held-out fold; out-of-fold scores
+pooled; fine-band stratified AUROC `p_lx` vs `wildchat_lx`. Arms: activation probe (standardised cmean
+L16, logistic C = 0.1), tf-idf probe (exp01 vectoriser, C = 1.0), MiniLM probe
+(`sentence-transformers/all-MiniLM-L6-v2` normalised embeddings, C = 1.0). Bar on activation minus tf-idf,
+paired bootstrap 97.5% CI (2 pools): activations transfer beyond words if >= 0.10 with CI lower > 0 on both
+pools; words suffice if CI upper < 0.10 on both; else ambiguous. MiniLM is reported beside it, no bar. The
+same probes scored on held-out originals are reported as the in-distribution ceiling.
+
+**Q3, idea 4: template-wrapped Dolma.** `dolma_wrapped` = each `dolma_matched` token cut, decoded and
+placed in the Olmo chat template as a user message, content tokens only. `dmaha_wrapped` /
+`dknn_wrapped` = score vs mix minus score vs `dolma_wrapped`. Compared with `dmaha_matched` /
+`dknn_matched` (same text, no template) on exp01 `legal` and `medical` vs `wildchat_en_test`, exp01 coarse
+bands and guard, paired bootstrap 95% CI on wrapped minus matched. Template mismatch contributed if any of
+the 4 differences has |diff| >= 0.05 with the CI excluding 0; no contribution if all 4 CIs lie inside
+[-0.05, 0.05]; else ambiguous.
+
+**Reported, no bar.** One-sided maha/knn, dmaha_matched, dknn_matched, length on Q1 comparisons; originals
+vs wildchat_en_test with fine and coarse bands; judge rates on originals; leak rates; Q1 restricted to
+leak-free, judge-on-topic rows; a tf-idf-stratified readout (dmaha_full / dknn_full AUROC within quintiles
+of the pooled label-free tf-idf score, on both originals and rewrites); Q3 detectors on the lx pools;
+other layers and poolings for Q1.
+
+**Seeds.** One data seed (0), one rewrite per row, one judge call per message. No extra seeds planned.
+
+**exp10 amendment, 19-10-2026, before any exp10 rewrite of the evaluation pools exists.** A 5-row smoke
+test of the pipeline (scratch output, not used for any question) showed the 100-per-direction ban list
+(about 350 terms, including everyday words such as "months", "use", "like") cannot be followed: 5 of 5
+legal rewrites leaked. The ban list is cut to the top 40 terms per direction per model (n_top = 40), which
+still holds the topic words (legal, landlord, court, lease, law, doctor, pain, blood) and the strongest
+narrative words. Everything else, including every gate and bar, is unchanged.
+
+**exp10 amendment 2, 19-10-2026, same smoke test, still before any evaluation rewrite.** With n_top = 40,
+gpt-4.1 still used banned words in most smoke rewrites ("legal", "lease", "months"). Each rewrite that
+contains a banned term gets one repair call: the same prompt applied to the rewrite, plus the list of the
+banned words it still uses. The repaired text replaces the first rewrite (a failed repair keeps the
+first). Leak rates are reported before and after repair. Gates and bars unchanged.

@@ -39,7 +39,7 @@ class DiscoveryConfig:
     run_dir: str = ""
     exp01_dir: str = "results/raw/261018_exp01_repro_v1"
     exp01_pools: str = "data/processed/exp01"
-    wildchat_features: str = "results/raw/261018_exp06_density_ratio_v1/features"
+    wildchat_features: str = "results/raw/261018_exp06_density_ratio_v1/features/deploy.npz"
     wildchat_pool: str = "data/processed/exp06/deploy.jsonl"
     lmsys_pool: str = "data/processed/exp09/lmsys.jsonl"
     seed: int = 0
@@ -59,22 +59,34 @@ def main():
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
-    write_json({"git_hash": get_git_hash(), **asdict(config), "embed_model_revision": HfApi().model_info(config.embed_model).sha,
-                "olmo_layer": 16, "pooling": "cmean"}, run / "detector_config.json")
+    write_json(
+        {
+            "git_hash": get_git_hash(),
+            **asdict(config),
+            "embed_model_revision": HfApi().model_info(config.embed_model).sha,
+            "olmo_layer": 16,
+            "pooling": "cmean",
+        },
+        run / "detector_config.json",
+    )
     li = LAYERS.index(16)
 
     wc = load_jsonl(config.wildchat_pool)
     wf = np.load(config.wildchat_features)
     lm = load_jsonl(config.lmsys_pool)
     lf = np.load(run / "features" / "lmsys.npz")
-    assert list(wf["ids"]) == [r["id"] for r in wc] and list(lf["ids"]) == [r["id"] for r in lm], "feature rows misaligned"
+    assert list(wf["ids"]) == [r["id"] for r in wc] and list(lf["ids"]) == [
+        r["id"] for r in lm
+    ], "feature rows misaligned"
     lang_map = wildchat_language_map([1, 2, 3])
     texts = [r["text"] for r in wc] + [r["text"] for r in lm]
     source = np.array(["wildchat"] * len(wc) + ["lmsys"] * len(lm))
     language = np.array([lang_map.get(normalise(r["text"]), "unknown") for r in wc] + [r["language"] for r in lm])
     x = np.vstack([wf["cmean"][:, li], lf["cmean"][:, li]]).astype(np.float32)
     lengths = np.concatenate([wf["n_content_tokens"], lf["n_content_tokens"]])
-    LOGGER.info(f"pool {len(texts)} rows; wildchat language lookup misses {np.mean(language[: len(wc)] == 'unknown'):.3f}")
+    LOGGER.info(
+        f"pool {len(texts)} rows; wildchat language lookup misses {np.mean(language[: len(wc)] == 'unknown'):.3f}"
+    )
 
     e1 = Path(config.exp01_dir) / "features"
     mix = np.vstack([np.load(e1 / f"{n}.npz")["cmean"][:, li] for n in ("idfit", "idmix")]).astype(np.float32)
@@ -83,13 +95,35 @@ def main():
     knn_dolma = KNN(dolma, scale)(x)
 
     embedder = SentenceTransformer(config.embed_model, device="cuda")
-    emb = embedder.encode(texts, batch_size=256, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=False)
+    emb = embedder.encode(
+        texts, batch_size=256, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=False
+    )
     dolci = load_dolci_dpo()["first_user"].drop_duplicates().tolist()
-    ref = torch.from_numpy(embedder.encode(dolci, batch_size=512, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=False)).cuda()
-    coverage = np.concatenate([(torch.from_numpy(emb[i : i + 4096]).cuda() @ ref.T).max(dim=1).values.cpu().numpy() for i in range(0, len(emb), 4096)])
+    ref = torch.from_numpy(
+        embedder.encode(
+            dolci, batch_size=512, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=False
+        )
+    ).cuda()
+    coverage = np.concatenate(
+        [
+            (torch.from_numpy(emb[i : i + 4096]).cuda() @ ref.T).max(dim=1).values.cpu().numpy()
+            for i in range(0, len(emb), 4096)
+        ]
+    )
     cov_threshold = float(np.percentile(coverage, 25))
-    write_jsonl([{"id": f"pool_{i:05d}", "source": str(source[i]), "language": str(language[i]), "n_tokens": int(lengths[i]), "coverage": float(coverage[i])}
-                 for i in range(len(texts))], run / "pool_rows.jsonl")
+    write_jsonl(
+        [
+            {
+                "id": f"pool_{i:05d}",
+                "source": str(source[i]),
+                "language": str(language[i]),
+                "n_tokens": int(lengths[i]),
+                "coverage": float(coverage[i]),
+            }
+            for i in range(len(texts))
+        ],
+        run / "pool_rows.jsonl",
+    )
     LOGGER.info(f"coverage 25th percentile threshold {cov_threshold:.3f}, median {np.median(coverage):.3f}")
 
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
@@ -98,12 +132,29 @@ def main():
     def describe(members: np.ndarray, arm: str, kind: str, rnd: int, cid: int, naming: dict) -> dict:
         lang = collections.Counter(language[members]).most_common(1)[0]
         c = centroid(emb[members])
-        is_confirmed = bool(naming["coherent"]) and len(members) >= config.min_size and float(np.median(coverage[members])) < cov_threshold
-        return {"id": f"{arm}_{kind}_r{rnd}_c{cid}", "arm": arm, "kind": kind, "round": rnd, "cluster": cid, "size": int(len(members)),
-                **naming, "median_coverage": float(np.median(coverage[members])), "confirmed": is_confirmed,
-                "median_len_ratio": float(np.median(lengths[members]) / pool_median_len),
-                "top_language": lang[0], "top_language_share": lang[1] / len(members), "lmsys_share": float(np.mean(source[members] == "lmsys")),
-                "examples": [" ".join(texts[i].split())[:200] for i in members[:5]], "_centroid": c, "_members": members}
+        is_confirmed = (
+            bool(naming["coherent"])
+            and len(members) >= config.min_size
+            and float(np.median(coverage[members])) < cov_threshold
+        )
+        return {
+            "id": f"{arm}_{kind}_r{rnd}_c{cid}",
+            "arm": arm,
+            "kind": kind,
+            "round": rnd,
+            "cluster": cid,
+            "size": int(len(members)),
+            **naming,
+            "median_coverage": float(np.median(coverage[members])),
+            "confirmed": is_confirmed,
+            "median_len_ratio": float(np.median(lengths[members]) / pool_median_len),
+            "top_language": lang[0],
+            "top_language_share": lang[1] / len(members),
+            "lmsys_share": float(np.mean(source[members] == "lmsys")),
+            "examples": [" ".join(texts[i].split())[:200] for i in members[:5]],
+            "_centroid": c,
+            "_members": members,
+        }
 
     all_clusters, summary = [], {}
     for arm in ("dr", "dknn"):
@@ -123,10 +174,15 @@ def main():
             for kind, rows in (("top", top), ("random", rand)):
                 labels = cluster(emb[rows], config.n_clusters, config.seed)
                 groups += [(kind, cid, rows[labels == cid]) for cid in range(config.n_clusters)]
-            prompts = [naming_prompt([texts[i] for i in members], config.n_shown, config.seed) for _, _, members in groups]
+            prompts = [
+                naming_prompt([texts[i] for i in members], config.n_shown, config.seed) for _, _, members in groups
+            ]
             replies = asyncio.run(name_clusters(client, config.namer, prompts, str(run / "naming_cache")))
             n_failed = sum(r is None for r in replies)
-            round_rows = [describe(members, arm, kind, rnd, cid, parse_naming(reply)) for (kind, cid, members), reply in zip(groups, replies)]
+            round_rows = [
+                describe(members, arm, kind, rnd, cid, parse_naming(reply))
+                for (kind, cid, members), reply in zip(groups, replies)
+            ]
             for row in round_rows:
                 if row["confirmed"]:
                     j = match_gap(row["_centroid"], gaps[row["kind"]], config.same_gap_cos)
@@ -143,7 +199,8 @@ def main():
                 "top_new": sum(r.get("is_new", False) for r in round_rows if r["kind"] == "top"),
                 "random_confirmed": sum(r["confirmed"] for r in round_rows if r["kind"] == "random"),
                 "random_new": sum(r.get("is_new", False) for r in round_rows if r["kind"] == "random"),
-                "top_lmsys_share": float(np.mean(source[top] == "lmsys")), "moved_total": int(moved.sum()),
+                "top_lmsys_share": float(np.mean(source[top] == "lmsys")),
+                "moved_total": int(moved.sum()),
             }
             all_clusters += round_rows
             LOGGER.info(f"{arm} round {rnd}: {summary[f'{arm}_r{rnd}']}")
@@ -163,7 +220,10 @@ def main():
         return "no_better_than_random" if top <= rand + 1 else "ambiguous"
 
     decision = {arm: {**summary[f"{arm}_distinct"], "verdict": verdict(arm)} for arm in ("dr", "dknn")}
-    write_jsonl([{k: v for k, v in r.items() if not k.startswith("_")} | {"id": r["id"]} for r in all_clusters], run / "clusters.jsonl")
+    write_jsonl(
+        [{k: v for k, v in r.items() if not k.startswith("_")} | {"id": r["id"]} for r in all_clusters],
+        run / "clusters.jsonl",
+    )
     write_json(summary, run / "summary.json")
     write_json(decision, run / "decision.json")
     print(f"decision written to {run / 'decision.json'}")

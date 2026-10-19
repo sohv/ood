@@ -1,0 +1,1 @@
+{"response": "NAME: Messages with Placeholder Names\nDESCRIPTION: These messages all contain placeholder tokens like NAME_1, NAME_2, etc. substituted for actual names, suggesting they are anonymized or templated user queries.\nCOHERENT: YES", "model": "anthropic/claude-sonnet-4.6"}

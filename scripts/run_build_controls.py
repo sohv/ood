@@ -8,8 +8,16 @@ from pathlib import Path
 import numpy as np
 import simple_parsing
 
-from src.data.controls import (dedupe, load_aya_inputs, load_bactrian, load_evol_codealpaca, load_first_turns, load_magicoder,
-                               load_wildjailbreak, take_non_members)
+from src.data.controls import (
+    dedupe,
+    load_aya_inputs,
+    load_bactrian,
+    load_evol_codealpaca,
+    load_first_turns,
+    load_magicoder,
+    load_wildjailbreak,
+    take_non_members,
+)
 from src.data.io import load_jsonl
 from src.data.pools import MembershipIndex, load_dolci_dpo, normalise, sample_dolma
 from src.metrics.io import write_json, write_jsonl
@@ -19,8 +27,11 @@ from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
 
-FAMILIES = {"aya": "tulu_v3.9_aya_100k-request", "code": "evol_codealpaca_heval_decontaminated-request",
-            "jailbreak": "tulu_v3.9_wildjailbreak_decontaminated_50k-request"}
+FAMILIES = {
+    "aya": "tulu_v3.9_aya_100k-request",
+    "code": "evol_codealpaca_heval_decontaminated-request",
+    "jailbreak": "tulu_v3.9_wildjailbreak_decontaminated_50k-request",
+}
 LMSYS_SHARD0 = "data/train-00000-of-00006-4feeb3f83346a0e9.parquet"
 
 
@@ -36,7 +47,10 @@ class ControlsConfig:
 
 
 def write_pool(out: Path, name: str, texts: list[str], **extra: list) -> None:
-    rows = [{"id": f"{name}_{i:05d}", "pool": name, "text": t, **{k: v[i] for k, v in extra.items()}} for i, t in enumerate(texts)]
+    rows = [
+        {"id": f"{name}_{i:05d}", "pool": name, "text": t, **{k: v[i] for k, v in extra.items()}}
+        for i, t in enumerate(texts)
+    ]
     write_jsonl(rows, out / f"{name}.jsonl")
     LOGGER.info(f"{name}: {len(rows)} rows")
 
@@ -52,7 +66,9 @@ def main():
 
     dolci = load_dolci_dpo()
     index = MembershipIndex(dolci["first_user"].tolist())
-    exp01_ids = {normalise(r["text"]) for n in ("idfit", "idmix") for r in load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl")}
+    exp01_ids = {
+        normalise(r["text"]) for n in ("idfit", "idmix") for r in load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl")
+    }
     rng = np.random.default_rng(config.seed)
 
     for short, family in FAMILIES.items():
@@ -63,9 +79,18 @@ def main():
         hits = sum(index.is_member(t) for t in train)
         assert hits == len(train), f"membership check missed {len(train) - hits} literal {family} rows"
         write_pool(out, f"{short}_train", train)
-        stats[f"{short}_train"] = {"family": family, "candidates": len(texts), "membership_positive_control": f"{hits}/{len(train)}"}
+        stats[f"{short}_train"] = {
+            "family": family,
+            "candidates": len(texts),
+            "membership_positive_control": f"{hits}/{len(train)}",
+        }
 
-    upstream = {"aya": load_aya_inputs(), "code": load_evol_codealpaca(), "jailbreak": load_wildjailbreak(), "magicoder": load_magicoder()}
+    upstream = {
+        "aya": load_aya_inputs(),
+        "code": load_evol_codealpaca(),
+        "jailbreak": load_wildjailbreak(),
+        "magicoder": load_magicoder(),
+    }
     for short, texts in upstream.items():
         name = short if short == "magicoder" else f"{short}_test"
         kept, checked, removed = take_non_members(texts, index, config.n_pool, config.seed)
@@ -87,17 +112,25 @@ def main():
     write_pool(out, "bactrian", kept, language=langs)
     stats["bactrian"] = {"languages": len(taken), "members_removed": removed}
 
-    for name, repo, filename in (("wildchat_deploy", "allenai/WildChat-1M", "data/train-00001-of-00014.parquet"),
-                                 ("lmsys", "lmsys/lmsys-chat-1m", LMSYS_SHARD0)):
+    for name, repo, filename in (
+        ("wildchat_deploy", "allenai/WildChat-1M", "data/train-00001-of-00014.parquet"),
+        ("lmsys", "lmsys/lmsys-chat-1m", LMSYS_SHARD0),
+    ):
         df = load_first_turns(repo, filename)
         n_unique = len(df)
         df = df.iloc[np.random.default_rng(config.seed).permutation(n_unique)[: config.n_deploy]]
         member = [index.is_member(t) for t in df["text"]]
         write_pool(out, name, df["text"].tolist(), language=df["language"].tolist(), is_member=member)
-        stats[name] = {"unique_first_turns": n_unique, "members": int(sum(member)), "english_share": float((df["language"] == "English").mean())}
+        stats[name] = {
+            "unique_first_turns": n_unique,
+            "members": int(sum(member)),
+            "english_share": float((df["language"] == "English").mean()),
+        }
 
     exp01_dolma = {normalise(r["text"]) for r in load_jsonl(Path(config.exp01_pools) / "dolma.jsonl")}
-    dolma = [d for d in sample_dolma(int(config.n_dolma * 1.1), config.dolma_seed) if normalise(d["text"]) not in exp01_dolma]
+    dolma = [
+        d for d in sample_dolma(int(config.n_dolma * 1.1), config.dolma_seed) if normalise(d["text"]) not in exp01_dolma
+    ]
     picks = np.sort(np.random.default_rng(config.dolma_seed).choice(len(dolma), size=config.n_dolma, replace=False))
     write_pool(out, "dolma", [dolma[i]["text"] for i in picks], source=[dolma[i]["source"] for i in picks])
     stats["dolma_b"] = {"seed": config.dolma_seed, "after_overlap_drop": len(dolma)}

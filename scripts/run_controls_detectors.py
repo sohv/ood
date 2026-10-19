@@ -20,7 +20,15 @@ from sklearn.preprocessing import StandardScaler
 
 from src.data.io import load_jsonl
 from src.interp.features import LAYERS
-from src.metrics.detectors import KNN, LENGTH_BANDS, Mahalanobis, auroc, bootstrap_ci, stratified_auroc, tfidf_mix_vs_dolma
+from src.metrics.detectors import (
+    KNN,
+    LENGTH_BANDS,
+    Mahalanobis,
+    auroc,
+    bootstrap_ci,
+    stratified_auroc,
+    tfidf_mix_vs_dolma,
+)
 from src.metrics.directions import cv_scores, lda_direction, logit_direction, meandiff_direction
 from src.metrics.io import write_json, write_jsonl
 from src.utils.git import get_git_hash
@@ -33,7 +41,18 @@ LOGGER = logging.getLogger(__name__)
 FINE_BANDS = tuple(float(b) for b in np.unique(np.round(2 ** (np.arange(0, 41) / 4)))) + (1025.0,)
 EXP01 = ["idfit", "idmix", "legal", "medical", "wildchat_en_test"]
 EXP05 = ["legal_rw", "medical_rw", "wildchat_rw"]
-EXP08 = ["aya_train", "aya_test", "code_train", "code_test", "jailbreak_train", "jailbreak_test", "magicoder", "bactrian", "wildchat_deploy", "lmsys"]
+EXP08 = [
+    "aya_train",
+    "aya_test",
+    "code_train",
+    "code_test",
+    "jailbreak_train",
+    "jailbreak_test",
+    "magicoder",
+    "bactrian",
+    "wildchat_deploy",
+    "lmsys",
+]
 FAMILIES = ("aya", "code", "jailbreak")
 TWO_SIDED = ("dmaha_full", "dknn_full")
 DIRECTIONS = ("dep2dolma", "meandiff", "lda", "logit")
@@ -60,7 +79,10 @@ def main():
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
-    write_json({"git_hash": get_git_hash(), **asdict(config), "fine_bands": FINE_BANDS, "coarse_bands": LENGTH_BANDS}, run / "detector_config.json")
+    write_json(
+        {"git_hash": get_git_hash(), **asdict(config), "fine_bands": FINE_BANDS, "coarse_bands": LENGTH_BANDS},
+        run / "detector_config.json",
+    )
 
     feats = {n: dict(np.load(Path(config.exp01_dir) / "features" / f"{n}.npz")) for n in [*EXP01, "dolma_full"]}
     feats["dolma_b"] = dict(np.load(run / "features" / "dolma_full.npz"))
@@ -90,21 +112,35 @@ def main():
     maha_mix, knn_mix = Mahalanobis(x["idfit"]), KNN(x["idfit"], scale)
     maha_a, knn_a = Mahalanobis(x["dolma_full"]), KNN(x["dolma_full"], scale)
     maha_b, knn_b = Mahalanobis(x["dolma_b"]), KNN(x["dolma_b"], scale)
-    tfidf = tfidf_mix_vs_dolma(texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed)
+    tfidf = tfidf_mix_vs_dolma(
+        texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed
+    )
     directions = {}
     for layer in config.direction_layers:
         xl = xs[layer]
-        directions[layer] = {"dep2dolma": meandiff_direction(xl["wildchat_deploy"], xl["dolma_full"]),
-                             "meandiff": meandiff_direction(xl["idfit"], xl["dolma_full"]),
-                             "lda": lda_direction(xl["idfit"], xl["dolma_full"]),
-                             "logit": logit_direction(xl["idfit"], xl["dolma_full"], seed=config.seed)}
+        directions[layer] = {
+            "dep2dolma": meandiff_direction(xl["wildchat_deploy"], xl["dolma_full"]),
+            "meandiff": meandiff_direction(xl["idfit"], xl["dolma_full"]),
+            "lda": lda_direction(xl["idfit"], xl["dolma_full"]),
+            "logit": logit_direction(xl["idfit"], xl["dolma_full"], seed=config.seed),
+        }
         LOGGER.info(f"directions fitted at L{layer}")
 
     scores = {}
     for n in test_pools:
         m, k, ma, ka, mb, kb = maha_mix(x[n]), knn_mix(x[n]), maha_a(x[n]), knn_a(x[n]), maha_b(x[n]), knn_b(x[n])
-        s = {"maha": m, "knn": k, "dmaha_full": m - ma, "dknn_full": k - ka, "dmaha_full_b": m - mb, "dknn_full_b": k - kb,
-             "null_dmaha": ma - mb, "null_dknn": ka - kb, "tfidf": tfidf(texts[n]), "length": lengths[n]}
+        s = {
+            "maha": m,
+            "knn": k,
+            "dmaha_full": m - ma,
+            "dknn_full": k - ka,
+            "dmaha_full_b": m - mb,
+            "dknn_full_b": k - kb,
+            "null_dmaha": ma - mb,
+            "null_dknn": ka - kb,
+            "tfidf": tfidf(texts[n]),
+            "length": lengths[n],
+        }
         if n in ppl:
             s["perplexity"] = ppl[n]
         for layer, dirs in directions.items():
@@ -117,10 +153,24 @@ def main():
         keep_o, keep_r = ~np.isnan(o), ~np.isnan(r)
         o, r, lo, lr = o[keep_o], r[keep_r], lengths[ood][keep_o], lengths[ref][keep_r]
         coarse, fine = stratified_auroc(o, r, lo, lr), stratified_auroc(o, r, lo, lr, FINE_BANDS)
-        out = {"detector": det, "ood": ood, "ref": ref, "auroc_raw": auroc(o, r), "auroc_stratified": coarse["auroc"],
-               "auroc_stratified_fine": fine["auroc"], "n_bands": coarse["n_bands"], "coverage": coarse["coverage"]}
+        out = {
+            "detector": det,
+            "ood": ood,
+            "ref": ref,
+            "auroc_raw": auroc(o, r),
+            "auroc_stratified": coarse["auroc"],
+            "auroc_stratified_fine": fine["auroc"],
+            "n_bands": coarse["n_bands"],
+            "coverage": coarse["coverage"],
+        }
         if with_ci:
-            out["ci_stratified"] = bootstrap_ci(lambda i, j: stratified_auroc(o[i], r[j], lo[i], lr[j])["auroc"], len(o), len(r), config.n_boot, config.seed)
+            out["ci_stratified"] = bootstrap_ci(
+                lambda i, j: stratified_auroc(o[i], r[j], lo[i], lr[j])["auroc"],
+                len(o),
+                len(r),
+                config.n_boot,
+                config.seed,
+            )
         return out
 
     def length_only(ood: str, ref: str) -> dict:
@@ -137,39 +187,89 @@ def main():
     base_dets = ["maha", "knn", "dmaha_full", "dknn_full", "tfidf", "perplexity", "length"]
     hard = [("legal", "wildchat_en_test"), ("medical", "wildchat_en_test")]
 
-    q1 = {"comparisons": [compare(d, o, r, True) for o, r in hard for d in ("null_dmaha", "null_dknn")],
-          "dolma_b_headline": [compare(d, o, r) for o, r in hard for d in ("dmaha_full", "dmaha_full_b", "dknn_full", "dknn_full_b")]}
-    q1["verdict"] = {"pass": "resolvable", "fail": "not_resolvable"}.get(band([c["auroc_stratified"] for c in q1["comparisons"]], 0.40, 0.60, 0.30, 0.70), "ambiguous")
+    q1 = {
+        "comparisons": [compare(d, o, r, True) for o, r in hard for d in ("null_dmaha", "null_dknn")],
+        "dolma_b_headline": [
+            compare(d, o, r) for o, r in hard for d in ("dmaha_full", "dmaha_full_b", "dknn_full", "dknn_full_b")
+        ],
+    }
+    q1["verdict"] = {"pass": "resolvable", "fail": "not_resolvable"}.get(
+        band([c["auroc_stratified"] for c in q1["comparisons"]], 0.40, 0.60, 0.30, 0.70), "ambiguous"
+    )
 
-    q2 = {"comparisons": [compare(d, f"{f}_train", f"{f}_test", d in TWO_SIDED) for f in FAMILIES for d in base_dets],
-          "length_only": {f: length_only(f"{f}_train", f"{f}_test") for f in FAMILIES}}
+    q2 = {
+        "comparisons": [compare(d, f"{f}_train", f"{f}_test", d in TWO_SIDED) for f in FAMILIES for d in base_dets],
+        "length_only": {f: length_only(f"{f}_train", f"{f}_test") for f in FAMILIES},
+    }
     q2_vals = [c["auroc_stratified"] for c in q2["comparisons"] if c["detector"] in TWO_SIDED]
     q2["verdict"] = {"pass": "invisible", "fail": "visible"}.get(band(q2_vals, 0.40, 0.60, 0.30, 0.70), "ambiguous")
 
     q3_pairs = [("magicoder", "code_train"), ("bactrian", "aya_train")]
-    q3 = {"comparisons": [compare(d, o, r, d in TWO_SIDED) for o, r in q3_pairs for d in base_dets],
-          "context": [compare(d, o, r) for o, r in [("magicoder", "idmix"), ("bactrian", "idmix"), ("magicoder", "code_test"), ("bactrian", "aya_test")] for d in base_dets],
-          "length_only": {f"{o}_vs_{r}": length_only(o, r) for o, r in q3_pairs}}
+    q3 = {
+        "comparisons": [compare(d, o, r, d in TWO_SIDED) for o, r in q3_pairs for d in base_dets],
+        "context": [
+            compare(d, o, r)
+            for o, r in [
+                ("magicoder", "idmix"),
+                ("bactrian", "idmix"),
+                ("magicoder", "code_test"),
+                ("bactrian", "aya_test"),
+            ]
+            for d in base_dets
+        ],
+        "length_only": {f"{o}_vs_{r}": length_only(o, r) for o, r in q3_pairs},
+    }
     q3_vals = [c["auroc_stratified"] for c in q3["comparisons"] if c["detector"] in TWO_SIDED]
-    q3["verdict"] = ("unmeasurable" if None in q3_vals else "reads_domain" if all(v <= 0.65 for v in q3_vals)
-                     else "reads_source" if any(v >= 0.80 for v in q3_vals) else "ambiguous")
+    q3["verdict"] = (
+        "unmeasurable"
+        if None in q3_vals
+        else "reads_domain"
+        if all(v <= 0.65 for v in q3_vals)
+        else "reads_source"
+        if any(v >= 0.80 for v in q3_vals)
+        else "ambiguous"
+    )
 
     dir_dets = [f"{d}_L{layer}" for layer in config.direction_layers for d in DIRECTIONS]
-    q4 = {"comparisons": [compare(d, o, r, d == f"dep2dolma_L{config.layer}") for o, r in hard for d in dir_dets],
-          "vs_idmix": [compare(d, o, "idmix") for o in ("legal", "medical") for d in dir_dets]}
+    q4 = {
+        "comparisons": [compare(d, o, r, d == f"dep2dolma_L{config.layer}") for o, r in hard for d in dir_dets],
+        "vs_idmix": [compare(d, o, "idmix") for o in ("legal", "medical") for d in dir_dets],
+    }
     q4_vals = [c["auroc_stratified"] for c in q4["comparisons"] if c["detector"] == f"dep2dolma_L{config.layer}"]
-    q4["verdict"] = ("unmeasurable" if None in q4_vals else "reproduces_register_caveat" if all(v >= 0.85 for v in q4_vals)
-                     else "does_not_reproduce" if all(v <= 0.65 for v in q4_vals) else "ambiguous")
+    q4["verdict"] = (
+        "unmeasurable"
+        if None in q4_vals
+        else "reproduces_register_caveat"
+        if all(v >= 0.85 for v in q4_vals)
+        else "does_not_reproduce"
+        if all(v <= 0.65 for v in q4_vals)
+        else "ambiguous"
+    )
 
     # q5: 5-fold supervised probes, out-of-fold scores, paired bootstrap of activation minus tf-idf
     rng = np.random.default_rng(config.seed)
     q5 = {"rewritten": {}, "original": {}}
-    for kind, pairs in (("rewritten", [("legal_rw", "wildchat_rw"), ("medical_rw", "wildchat_rw")]), ("original", hard)):
+    for kind, pairs in (
+        ("rewritten", [("legal_rw", "wildchat_rw"), ("medical_rw", "wildchat_rw")]),
+        ("original", hard),
+    ):
         for ood, ref in pairs:
             y = np.r_[np.ones(len(x[ood])), np.zeros(len(x[ref]))]
-            act = cv_scores(lambda: make_pipeline(StandardScaler(), LogisticRegression(C=config.probe_c, max_iter=5000)), np.r_[x[ood], x[ref]], y, config.seed)
-            txt = cv_scores(lambda: make_pipeline(TfidfVectorizer(sublinear_tf=True, min_df=2, max_features=200_000), LogisticRegression(C=config.probe_c, max_iter=5000)),
-                            np.array(texts[ood] + texts[ref], dtype=object), y, config.seed)
+            act = cv_scores(
+                lambda: make_pipeline(StandardScaler(), LogisticRegression(C=config.probe_c, max_iter=5000)),
+                np.r_[x[ood], x[ref]],
+                y,
+                config.seed,
+            )
+            txt = cv_scores(
+                lambda: make_pipeline(
+                    TfidfVectorizer(sublinear_tf=True, min_df=2, max_features=200_000),
+                    LogisticRegression(C=config.probe_c, max_iter=5000),
+                ),
+                np.array(texts[ood] + texts[ref], dtype=object),
+                y,
+                config.seed,
+            )
             lo, lr = lengths[ood], lengths[ref]
             n_o = len(lo)
 
@@ -182,10 +282,21 @@ def main():
             boots = [(rng.integers(0, n_o, n_o), rng.integers(0, len(lr), len(lr))) for _ in range(config.n_boot)]
             pairs_b = [(strat(act, i, j), strat(txt, i, j)) for i, j in boots]
             diffs = [a - t for a, t in pairs_b if a is not None and t is not None]
-            entry = {"activation_probe": strat(act), "tfidf_probe": strat(txt), "activation_probe_raw": auroc(act[:n_o], act[n_o:]),
-                     "tfidf_probe_raw": auroc(txt[:n_o], txt[n_o:]), "length_only_fine": length_only(ood, ref)["fine"],
-                     "diff_ci": [float(np.percentile(diffs, 2.5)), float(np.percentile(diffs, 97.5))] if len(diffs) >= 0.9 * config.n_boot else None}
-            entry["diff"] = None if entry["activation_probe"] is None or entry["tfidf_probe"] is None else entry["activation_probe"] - entry["tfidf_probe"]
+            entry = {
+                "activation_probe": strat(act),
+                "tfidf_probe": strat(txt),
+                "activation_probe_raw": auroc(act[:n_o], act[n_o:]),
+                "tfidf_probe_raw": auroc(txt[:n_o], txt[n_o:]),
+                "length_only_fine": length_only(ood, ref)["fine"],
+                "diff_ci": [float(np.percentile(diffs, 2.5)), float(np.percentile(diffs, 97.5))]
+                if len(diffs) >= 0.9 * config.n_boot
+                else None,
+            }
+            entry["diff"] = (
+                None
+                if entry["activation_probe"] is None or entry["tfidf_probe"] is None
+                else entry["activation_probe"] - entry["tfidf_probe"]
+            )
             q5[kind][f"{ood}_vs_{ref}"] = entry
             LOGGER.info(f"q5 {kind} {ood} vs {ref}: {entry}")
     rw = list(q5["rewritten"].values())
@@ -200,23 +311,81 @@ def main():
     else:
         q5["verdict"] = "ambiguous"
 
-    perplexity = [compare("perplexity", o, r) for o, r in [*hard, ("legal", "idmix"), ("medical", "idmix"), *[(f"{f}_train", f"{f}_test") for f in FAMILIES], *q3_pairs]]
+    perplexity = [
+        compare("perplexity", o, r)
+        for o, r in [
+            *hard,
+            ("legal", "idmix"),
+            ("medical", "idmix"),
+            *[(f"{f}_train", f"{f}_test") for f in FAMILIES],
+            *q3_pairs,
+        ]
+    ]
     deploy = {}
     for n in ("wildchat_deploy", "lmsys"):
         dets = [d for d in scores[n] if d != "length"]
-        deploy[n] = {d: {"auroc_raw_vs_idmix": auroc(scores[n][d][~np.isnan(scores[n][d])], scores["idmix"][d][~np.isnan(scores["idmix"][d])]),
-                         "spearman_with_length": float(spearmanr(scores[n][d], lengths[n], nan_policy="omit").statistic)} for d in dets}
+        deploy[n] = {
+            d: {
+                "auroc_raw_vs_idmix": auroc(
+                    scores[n][d][~np.isnan(scores[n][d])], scores["idmix"][d][~np.isnan(scores["idmix"][d])]
+                ),
+                "spearman_with_length": float(spearmanr(scores[n][d], lengths[n], nan_policy="omit").statistic),
+            }
+            for d in dets
+        }
 
-    decision = {"cell": f"cmean L{config.layer}, dolma full, coarse bands (exp01)",
-                "Q1_seed_pair_null": {"verdict": q1["verdict"], **{f"{c['detector']}|{c['ood']}": c["auroc_stratified"] for c in q1["comparisons"]}},
-                "Q2_membership": {"verdict": q2["verdict"], **{f"{c['detector']}|{c['ood']}": c["auroc_stratified"] for c in q2["comparisons"] if c["detector"] in TWO_SIDED}},
-                "Q3_same_domain_other_source": {"verdict": q3["verdict"], **{f"{c['detector']}|{c['ood']}_vs_{c['ref']}": c["auroc_stratified"] for c in q3["comparisons"] if c["detector"] in TWO_SIDED}},
-                "Q4_dep2dolma": {"verdict": q4["verdict"], **{f"{c['detector']}|{c['ood']}": c["auroc_stratified"] for c in q4["comparisons"] if c["detector"] == f"dep2dolma_L{config.layer}"}},
-                "Q5_supervised_ceiling": {"verdict": q5["verdict"], **{k: {kk: e[kk] for kk in ("activation_probe", "tfidf_probe", "diff", "diff_ci")} for k, e in q5["rewritten"].items()}}}
+    decision = {
+        "cell": f"cmean L{config.layer}, dolma full, coarse bands (exp01)",
+        "Q1_seed_pair_null": {
+            "verdict": q1["verdict"],
+            **{f"{c['detector']}|{c['ood']}": c["auroc_stratified"] for c in q1["comparisons"]},
+        },
+        "Q2_membership": {
+            "verdict": q2["verdict"],
+            **{
+                f"{c['detector']}|{c['ood']}": c["auroc_stratified"]
+                for c in q2["comparisons"]
+                if c["detector"] in TWO_SIDED
+            },
+        },
+        "Q3_same_domain_other_source": {
+            "verdict": q3["verdict"],
+            **{
+                f"{c['detector']}|{c['ood']}_vs_{c['ref']}": c["auroc_stratified"]
+                for c in q3["comparisons"]
+                if c["detector"] in TWO_SIDED
+            },
+        },
+        "Q4_dep2dolma": {
+            "verdict": q4["verdict"],
+            **{
+                f"{c['detector']}|{c['ood']}": c["auroc_stratified"]
+                for c in q4["comparisons"]
+                if c["detector"] == f"dep2dolma_L{config.layer}"
+            },
+        },
+        "Q5_supervised_ceiling": {
+            "verdict": q5["verdict"],
+            **{
+                k: {kk: e[kk] for kk in ("activation_probe", "tfidf_probe", "diff", "diff_ci")}
+                for k, e in q5["rewritten"].items()
+            },
+        },
+    }
     write_json(decision, run / "decision.json")
-    write_json({"q1": q1, "q2": q2, "q3": q3, "q4": q4, "q5": q5, "perplexity": perplexity, "deployment": deploy}, run / "metrics.json")
-    out_rows = [{"id": str(rid), "pool": n, **{d: (None if np.isnan(float(v[i])) else float(v[i])) for d, v in scores[n].items()}}
-                for n in test_pools for i, rid in enumerate(feats[n]["ids"])]
+    write_json(
+        {"q1": q1, "q2": q2, "q3": q3, "q4": q4, "q5": q5, "perplexity": perplexity, "deployment": deploy},
+        run / "metrics.json",
+    )
+    out_rows = [
+        {
+            "id": str(rid),
+            "pool": n,
+            **{d: (None if np.isnan(float(v[i])) else float(v[i])) for d, v in scores[n].items()},
+        }
+        for n in test_pools
+        for i, rid in enumerate(feats[n]["ids"])
+    ]
     write_jsonl(out_rows, run / "scores_decision_cell.jsonl")
     for q, v in decision.items():
         if q != "cell":
