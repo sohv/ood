@@ -8,6 +8,7 @@ import re
 from pathlib import Path
 
 import numpy as np
+import torch
 from sklearn.cluster import KMeans
 
 LOGGER = logging.getLogger(__name__)
@@ -20,6 +21,35 @@ Reply in exactly this format and nothing else:
 NAME: <a short name, at most 6 words, for what these messages have in common>
 DESCRIPTION: <one sentence>
 COHERENT: <YES if most of the messages clearly share a topic, task, format or language, otherwise NO>"""
+
+
+LABEL_PROMPT = """A group of messages that users sent to an AI chatbot was given this name and description.
+
+NAME: {name}
+DESCRIPTION: {description}
+
+Which category fits the group best? Reply with exactly one word:
+LEGAL (legal questions or legal advice)
+MEDICAL (health or medical questions)
+CODE (programming or software tasks)
+OTHER (anything else)"""
+
+
+def parse_label(reply: str | None, labels: list[str]) -> str | None:
+    if not reply:
+        return None
+    hits = [(m.start(), lab) for lab in labels if (m := re.search(rf"\b{lab}\b", reply.upper()))]
+    return min(hits)[1] if hits else None
+
+
+def nearest_cosine(emb: np.ndarray, ref, chunk: int = 4096) -> np.ndarray:
+    # ref is a normalised torch tensor on the gpu; emb rows are normalised
+    return np.concatenate(
+        [
+            (torch.from_numpy(emb[i : i + chunk]).to(ref.device) @ ref.T).max(dim=1).values.cpu().numpy()
+            for i in range(0, len(emb), chunk)
+        ]
+    )
 
 
 def cluster(embeddings: np.ndarray, k: int, seed: int) -> np.ndarray:

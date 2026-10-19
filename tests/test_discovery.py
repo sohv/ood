@@ -5,7 +5,7 @@ import json
 
 import numpy as np
 
-from src.metrics.discovery import centroid, match_gap, name_clusters, naming_prompt, parse_naming
+from src.metrics.discovery import centroid, match_gap, name_clusters, naming_prompt, parse_label, parse_naming
 
 
 def test_parse_naming_reads_all_fields():
@@ -66,3 +66,12 @@ async def test_name_clusters_retries_an_empty_reply(tmp_path):
     out = await name_clusters(client, "m", ["p"], str(tmp_path))
     assert out == ["NAME: x\nDESCRIPTION: y\nCOHERENT: NO"]
     assert json.loads(next(tmp_path.glob("*.json")).read_text())["response"] == out[0]
+
+
+def test_parse_label_takes_the_first_allowed_label():
+    labels = ["LEGAL", "MEDICAL", "CODE", "OTHER"]
+    assert parse_label("CODE", labels) == "CODE"
+    assert parse_label("Answer: legal.", labels) == "LEGAL"
+    assert parse_label("MEDICAL, not LEGAL", labels) == "MEDICAL"
+    assert parse_label("codex", labels) is None
+    assert parse_label(None, labels) is None
