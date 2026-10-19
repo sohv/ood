@@ -11,10 +11,8 @@ __pycache__/
 cache/
 *.log
 
-# bulk run artifacts. summary.json, metrics.json, config.json and outputs.jsonl stay committed
-# so every reported number traces to a file in git. anything too large for that goes in
-# generations/ below, which is where check-added-large-files expects bulk output to live.
-results/raw/**/generations/
+# all run outputs live on the private hf dataset sohv/ood under results/, not in git.
+results/
 *.parquet
 *.arrow
 *.npy
@@ -31,5 +29,4 @@ docs/PROJECT_SUMMARY_EXTERNAL.md
 
 # over the 5MB hook limit; these live on the hf dataset (sohv/ood) instead
 data/processed/exp08/dolma.jsonl
-results/raw/261018_exp08_controls_v1/scores_decision_cell.jsonl
 data/processed/exp12/dolma.jsonl
