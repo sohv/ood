@@ -104,7 +104,7 @@ a { color: var(--accent); }
 
 <div class="wrap">
 <header>
-  <div class="eyebrow">Project walkthrough · 16 runs · 18–19 Oct 2026</div>
+  <div class="eyebrow">Project walkthrough · 18 runs · 18–19 Oct 2026</div>
   <h1>Post-Training Gap Search</h1>
   <p class="lede">A complete account, for someone new to the project: the idea, what Stefan Heimersheim did before us and what he left open, and then every experiment we ran, in order. Each experiment gives the question, how we tested it, the raw numbers, and what could make those numbers misleading.</p>
 </header>
@@ -132,6 +132,8 @@ a { color: var(--accent); }
     <a href="#exp13"><span class="mono">exp13</span>Multi-turn conversations and tool use</a>
     <a href="#exp14"><span class="mono">exp14</span>Checking the gap-confirmation step on known answers</a>
     <a href="#exp15"><span class="mono">exp15</span>The same check with a counting namer</a>
+    <a href="#exp16"><span class="mono">exp16</span>The counting namer, told how broad a topic is</a>
+    <a href="#exp17"><span class="mono">exp17</span>Do the detectors find harmful behaviour? (MOOD benchmark)</a>
     <a href="#now"><span class="mono">4</span>Where things stand</a>
   </nav>
 </section>
@@ -535,6 +537,64 @@ a { color: var(--accent); }
   </div>
 </section>
 
+<section id="exp16" class="exp" aria-label="exp16">
+  <header><span class="id">exp16 · 19 Oct</span><h2>The counting namer, told how broad a topic is</h2></header>
+  <div class="block">
+    <div class="lab">Question</div>
+    <div><p>exp15's namer split pure clusters into narrow subtopics. If the prompt says to count at the level of a broad field or one language, does it stop splitting pure clusters while still accepting 70% clusters?</p></div>
+    <div class="lab">Method</div>
+    <div><p>exp15 exactly (same 69 clusters, checked identical; same coherent rule: at least half of the 25 shown), with one change to the prompt: count at the level of a broad field or one language. The examples given are fields that were <i>not</i> planted (cooking, finance, sports, history, creative writing, Spanish), so the prompt cannot hint at the answer. Run by the other agent session.</p></div>
+    <div class="lab">Results</div>
+    <div>
+      <div class="tablewrap"><table><thead><tr><th>Clusters called coherent</th><th>exp14 (yes/no)</th><th>exp15 (count)</th><th>exp16 (count, broad field)</th></tr></thead><tbody>
+        <tr><td>100% one topic</td><td>9/9</td><td>4/9</td><td>8/9</td></tr>
+        <tr><td>70% one topic</td><td>0/9</td><td>7/9</td><td>8/9</td></tr>
+        <tr><td>30% one topic</td><td>0/9</td><td>0/9</td><td>1/9</td></tr>
+        <tr><td>Random</td><td>0/9</td><td>0/9</td><td>0/9</td></tr>
+        <tr><td>Names matching the topic (100% and 70%)</td><td>12/18</td><td>18/18</td><td>18/18</td></tr>
+        <tr><td>End to end, gap found (legal + medical)</td><td>3/6</td><td>5/6</td><td>5/6</td></tr>
+        <tr><td>Covered or random clusters confirmed</td><td>0</td><td>0</td><td>0</td></tr>
+      </tbody></table></div>
+      <p>The two misses are the old failure in a smaller form: a pure code cluster counted as "Python programming tasks" (11 of 25; the rest were C# and Django), and one 70% legal cluster as "Landlord/tenant legal disputes" (9 of 25). Random clusters were named for a small subgroup and counted 2–9 of 25. The legal batch still missed is the same one as before, whose median coverage (0.611) is just above the 0.600 cut. Seven random-traffic or covered clusters were called coherent (programming, non-English, the chemical-company advertising cluster, creative writing), and all of them sit above the coverage cut, so none was confirmed.</p>
+    </div>
+    <div class="lab">Confounds</div>
+    <div><p>The planted topics are far apart and clean, easier than real gaps. This shows the step works when the answer is clear, not that it names real traffic gaps correctly. The remaining miss comes from the coverage cut, not the namer. The names were again read by a model, not a person.</p></div>
+  </div>
+</section>
+
+<section id="exp17" class="exp" aria-label="exp17">
+  <header><span class="id">exp17 · 19 Oct</span><h2>Do the detectors find harmful behaviour? (MOOD benchmark)</h2></header>
+  <div class="block">
+    <div class="lab">Question</div>
+    <div><p>The first test of the "do gaps matter" question. On MOOD, an outside benchmark built for safety monitors, do our out-of-distribution scores rank conversations where the model behaves harmfully above conversations that are merely unusual but harmless? Stefan found his probes did the reverse.</p></div>
+    <div class="lab">Method</div>
+    <div>
+      <p><b>The benchmark.</b> MOOD (Feng et al. 2026, <code>mood-bench/mood-bench</code>) has a training distribution of about 83,000 conversations: function calling, and harmless and helpful chat from Anthropic's hh-rlhf data (half of the harmless chat has a harmful reply). Its test set has conversation types that shift away from that:</p>
+      <ul>
+        <li><b>4 harmless shifts</b>, every reply fine: emoji-heavy, jargon-heavy, Swahili, function calls written in YAML.</li>
+        <li><b>7 harmful shifts</b>, every reply harmful: controlling, inappropriate function calls, missing function calls, insecure code, jailbroken, scheming, sycophantic.</li>
+      </ul>
+      <p><b>What is scored.</b> The <i>model's reply</i> (the last assistant turn), with the whole conversation as context: Olmo-3 7B DPO, layer 16, mean pooling over the reply's tokens. Detectors are fitted on 3,000 MOOD training conversations (kNN, and kNN − Dolma). Up to 500 conversations per test type, 7,854 in all. For comparison: a supervised probe trained on the training conversations' harmful/harmless labels, which is not label-free.</p>
+      <p><b>Two measures.</b> (1) Length-controlled AUROC of harmful-shift replies scored above harmless-shift replies. (2) With a review budget of 10% of conversations, how many harmful ones are caught by the probe alone, compared with giving half the budget to the out-of-distribution score.</p>
+    </div>
+    <div class="lab">Results</div>
+    <div>
+      <div class="tablewrap"><table><thead><tr><th>Score</th><th>Harmful above harmless (AUROC)</th></tr></thead><tbody>
+        <tr><td>kNN, one-sided</td><td>0.424</td></tr>
+        <tr><td>kNN − Dolma</td><td>0.404</td></tr>
+        <tr><td>Mahalanobis, one-sided</td><td>0.313</td></tr>
+        <tr><td>Mahalanobis − Dolma</td><td>0.262</td></tr>
+        <tr><td>tf-idf word counter</td><td>0.533</td></tr>
+        <tr><td>Reply length alone</td><td>0.518</td></tr>
+        <tr><td>Supervised probe (uses harm labels)</td><td>0.821</td></tr>
+      </tbody></table></div>
+      <p>Every label-free score puts the harmless shifts <i>above</i> the harmful ones (below 0.5). The most unusual conversations are harmless ones: Swahili 0.994 and emoji 0.808 against held-out training conversations (kNN), compared with sycophantic 0.617, controlling 0.701 and inappropriate function calls 0.358. Insecure code is the one harmful type flagged strongly (0.974). None of 54 other layer and pooling settings reaches 0.60. Review budget: the probe alone catches 16.8% of harmful conversations; giving half the budget to the OOD score lowers that to 9.4% (kNN) or 9.1% (kNN − Dolma).</p>
+    </div>
+    <div class="lab">Confounds</div>
+    <div><p>Each MOOD test type is all harmful or all harmless, so harm and conversation type cannot be separated. The detectors' sanity check was borderline: shifted types scored a median of 0.692 / 0.696 against held-out training conversations, just under the 0.70 set beforehand, so by the pre-registered rule the headline number carries no verdict. In inappropriate function calls the harm is an earlier tool call, and the scored reply is often a pleasantry ("You're welcome! If you have any other questions..."), so reply-only features cannot see it. Scheming replies are too long to compare fairly. Run by the other agent session.</p></div>
+  </div>
+</section>
+
 <section id="now" aria-label="Where things stand">
   <h2>4 · Where things stand</h2>
   <div class="block">
@@ -545,13 +605,13 @@ a { color: var(--accent); }
     <div class="lab">Length</div>
     <div><p>Ranking within length bins is the only method so far that balances length. Within those bins, max pooling (7.5×) and whole-cluster review (30×) find hidden gaps, where single-prompt mean pooling finds none (exp11).</p></div>
     <div class="lab">Real gaps</div>
-    <div><p>One search in real traffic, with the older recipe, found three gaps (one an anonymisation artifact, two the same tech topic) and none for random review. The improved recipe (max pooling, whole clusters, removing only reviewed prompts, a namer that accepts mixed clusters) has not been run on real traffic yet.</p></div>
+    <div><p>One search in real traffic, with the older recipe, found three gaps (one an anonymisation artifact, two the same tech topic) and none for random review. The improved recipe (max pooling, whole clusters, removing only reviewed prompts, exp16's namer) has not been run on real traffic yet.</p></div>
     <div class="lab">The naming step</div>
-    <div><p>On known answers, clustering and the coverage measure work, and the step has never confirmed a covered topic. The namer is the weak part: one version rejects mixed clusters, the other splits pure ones into narrow subtopics. No person has labelled any real cluster.</p></div>
+    <div><p>On known answers, clustering and the coverage measure work, and the step has never confirmed a covered topic. The namer was the weak part: the yes/no version rejects mixed clusters and the counting version splits pure ones into subtopics. Telling it to count at the level of a broad field fixes both (pure 8/9, 70% 8/9, random 0/9; exp16). The remaining miss is a legal cluster just above the coverage cut. No person has labelled any real cluster.</p></div>
     <div class="lab">Traffic types</div>
     <div><p>The mix's synthetic multi-turn data reads as covered. Real second messages with context are partly flagged (0.70). Tool use could not be compared fairly because of length.</p></div>
     <div class="lab">Behaviour</div>
-    <div><p>Not tested: no one has checked whether the model behaves worse on any flagged prompt.</p></div>
+    <div><p>On MOOD (exp17), out-of-distribution scores on the model's reply rank harmless unusual conversations (Swahili, emoji) above harmful ones (AUROC 0.26–0.42), and spending review budget on them lowers how many harmful conversations a supervised monitor catches (16.8% to about 9%). Unusual is not the same as harmful there. On the project's own pools, no one has yet checked whether the model behaves worse on flagged prompts.</p></div>
   </div>
 </section>
 
