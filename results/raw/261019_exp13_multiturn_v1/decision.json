@@ -1,0 +1,141 @@
+{
+  "cell": "ref idfit_mt (exp01 idfit + dolci_mt_fit), cmean L16, dolma full, vs wildchat_en_test, exp01 coarse bands",
+  "pipeline_check": {
+    "spearman_with_exp01_wildchat_scores": {
+      "dknn_full": 1.0,
+      "maha": 1.0
+    },
+    "threshold": ">= 0.99",
+    "cleared": true
+  },
+  "measurability": {
+    "length_only_stratified": {
+      "wc_mt_ctx": 0.5049,
+      "wc_mt_alone": 0.5009,
+      "dolci_mt_test": 0.5486,
+      "dolci_mt_test_alone": 0.5483,
+      "tool_ctx": 0.8345,
+      "tool_alone": 0.8345,
+      "idmix": 0.5322
+    },
+    "measurable": {
+      "wc_mt_ctx": true,
+      "wc_mt_alone": true,
+      "dolci_mt_test": true,
+      "dolci_mt_test_alone": true,
+      "tool_ctx": false,
+      "tool_alone": false,
+      "idmix": true
+    }
+  },
+  "verdicts": {
+    "dknn_full": {
+      "stratified_vs_wildchat": {
+        "wc_mt_ctx": 0.6974,
+        "wc_mt_alone": 0.5229,
+        "dolci_mt_test": 0.1671,
+        "dolci_mt_test_alone": 0.2248,
+        "tool_ctx": 0.7725,
+        "tool_alone": 0.7439,
+        "idmix": 0.2165
+      },
+      "control": "mix_multiturn_read_as_covered",
+      "q1_real_multiturn": "ambiguous",
+      "q2_tool_use": {
+        "tool_ctx": "unmeasurable",
+        "tool_alone": "unmeasurable"
+      },
+      "tfidf_beside": {
+        "wc_mt_ctx": 0.5297,
+        "wc_mt_alone": 0.5301,
+        "dolci_mt_test": 0.391,
+        "dolci_mt_test_alone": 0.391,
+        "tool_ctx": 0.8458,
+        "tool_alone": 0.8458,
+        "idmix": 0.3201
+      }
+    },
+    "dmaha_full": {
+      "stratified_vs_wildchat": {
+        "wc_mt_ctx": 0.4337,
+        "wc_mt_alone": 0.4834,
+        "dolci_mt_test": 0.1933,
+        "dolci_mt_test_alone": 0.3278,
+        "tool_ctx": 0.7006,
+        "tool_alone": 0.7374,
+        "idmix": 0.2923
+      },
+      "control": "mix_multiturn_read_as_covered",
+      "q1_real_multiturn": "not_a_gap",
+      "q2_tool_use": {
+        "tool_ctx": "unmeasurable",
+        "tool_alone": "unmeasurable"
+      },
+      "tfidf_beside": {
+        "wc_mt_ctx": 0.5297,
+        "wc_mt_alone": 0.5301,
+        "dolci_mt_test": 0.391,
+        "dolci_mt_test_alone": 0.391,
+        "tool_ctx": 0.8458,
+        "tool_alone": 0.8458,
+        "idmix": 0.3201
+      }
+    }
+  },
+  "paired_ctx_minus_alone": [
+    {
+      "pair": "wc_mt_ctx_minus_wc_mt_alone",
+      "detector": "dknn_full",
+      "difference": 0.1745,
+      "ci": [
+        0.1418,
+        0.2065
+      ]
+    },
+    {
+      "pair": "wc_mt_ctx_minus_wc_mt_alone",
+      "detector": "dmaha_full",
+      "difference": -0.0496,
+      "ci": [
+        -0.071,
+        -0.031
+      ]
+    },
+    {
+      "pair": "dolci_mt_test_minus_dolci_mt_test_alone",
+      "detector": "dknn_full",
+      "difference": -0.0577,
+      "ci": [
+        -0.0799,
+        -0.0372
+      ]
+    },
+    {
+      "pair": "dolci_mt_test_minus_dolci_mt_test_alone",
+      "detector": "dmaha_full",
+      "difference": -0.1345,
+      "ci": [
+        -0.1628,
+        -0.1097
+      ]
+    },
+    {
+      "pair": "tool_ctx_minus_tool_alone",
+      "detector": "dknn_full",
+      "difference": 0.0286,
+      "ci": [
+        0.0165,
+        0.043
+      ]
+    },
+    {
+      "pair": "tool_ctx_minus_tool_alone",
+      "detector": "dmaha_full",
+      "difference": -0.0368,
+      "ci": [
+        -0.0552,
+        -0.0217
+      ]
+    }
+  ]
+}

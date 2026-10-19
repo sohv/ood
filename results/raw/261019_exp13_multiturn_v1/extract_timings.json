@@ -1,0 +1,34 @@
+{
+  "wc_mt_ctx": {
+    "rows": 500,
+    "seconds": 31.067
+  },
+  "wc_mt_alone": {
+    "rows": 500,
+    "seconds": 11.0741
+  },
+  "dolci_mt_fit": {
+    "rows": 500,
+    "seconds": 39.7729
+  },
+  "dolci_mt_test": {
+    "rows": 500,
+    "seconds": 40.7098
+  },
+  "dolci_mt_test_alone": {
+    "rows": 500,
+    "seconds": 13.3464
+  },
+  "tool_ctx": {
+    "rows": 500,
+    "seconds": 45.2028
+  },
+  "tool_alone": {
+    "rows": 500,
+    "seconds": 34.8529
+  },
+  "wildchat_en_test": {
+    "rows": 500,
+    "seconds": 20.7455
+  }
+}
