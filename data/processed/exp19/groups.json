@@ -1,0 +1,202 @@
+[
+  {
+    "group": "t1_g0",
+    "tier": "t1",
+    "clusters": [
+      "dr_top_r2_c5",
+      "dknn_top_r1_c4"
+    ],
+    "names": [
+      "Queries Using Placeholder Names",
+      "Messages Containing Placeholder Names"
+    ],
+    "n_rows": 116,
+    "n_controls": 232
+  },
+  {
+    "group": "t1_g1",
+    "tier": "t1",
+    "clusters": [
+      "dknn_top_r1_c7"
+    ],
+    "names": [
+      "Technical Errors and Debugging"
+    ],
+    "n_rows": 39,
+    "n_controls": 78
+  },
+  {
+    "group": "t1_g2",
+    "tier": "t1",
+    "clusters": [
+      "dknn_top_r2_c3"
+    ],
+    "names": [
+      "Tech & IT Support Questions"
+    ],
+    "n_rows": 41,
+    "n_controls": 82
+  },
+  {
+    "group": "t2_g0",
+    "tier": "t2",
+    "clusters": [
+      "dknn_top_r1_c1"
+    ],
+    "names": [
+      "AI Writing & Professional Content Tasks"
+    ],
+    "n_rows": 70,
+    "n_controls": 140
+  },
+  {
+    "group": "t2_g1",
+    "tier": "t2",
+    "clusters": [
+      "dknn_top_r1_c2"
+    ],
+    "names": [
+      "College Sports Upset/Drama Scripts"
+    ],
+    "n_rows": 54,
+    "n_controls": 108
+  },
+  {
+    "group": "t2_g2",
+    "tier": "t2",
+    "clusters": [
+      "dknn_top_r2_c1",
+      "dknn_top_r3_c9",
+      "dknn_top_r4_c9",
+      "dknn_top_r5_c1",
+      "dr_top_r1_c8",
+      "dr_top_r2_c6",
+      "dr_top_r3_c8",
+      "dr_top_r4_c5",
+      "dr_top_r5_c6"
+    ],
+    "names": [
+      "Chemical Company Introduction Requests",
+      "Chemical Company Introductions and Articles",
+      "Chemical Company Introductions and Articles",
+      "Chemical Company and Substance Queries",
+      "Chemical Company Info Requests",
+      "Chemical Industry Articles and Introductions",
+      "Chemical Industry Articles & Queries",
+      "Chemical Industry AI Queries",
+      "Chemical Industry Articles and Queries"
+    ],
+    "n_rows": 218,
+    "n_controls": 436
+  },
+  {
+    "group": "t2_g3",
+    "tier": "t2",
+    "clusters": [
+      "dknn_top_r3_c3"
+    ],
+    "names": [
+      "Casual Greetings in Many Languages"
+    ],
+    "n_rows": 33,
+    "n_controls": 66
+  },
+  {
+    "group": "t2_g4",
+    "tier": "t2",
+    "clusters": [
+      "dknn_top_r4_c4"
+    ],
+    "names": [
+      "STEM & Technical Questions"
+    ],
+    "n_rows": 42,
+    "n_controls": 84
+  },
+  {
+    "group": "t2_g5",
+    "tier": "t2",
+    "clusters": [
+      "dknn_top_r4_c5"
+    ],
+    "names": [
+      "Crossover Fanfiction & Reaction Scenarios"
+    ],
+    "n_rows": 36,
+    "n_controls": 72
+  },
+  {
+    "group": "t2_g6",
+    "tier": "t2",
+    "clusters": [
+      "dr_top_r1_c6"
+    ],
+    "names": [
+      "Creative Writing & Roleplay Requests"
+    ],
+    "n_rows": 62,
+    "n_controls": 124
+  },
+  {
+    "group": "t2_g7",
+    "tier": "t2",
+    "clusters": [
+      "dr_top_r2_c4"
+    ],
+    "names": [
+      "Programming & Tech Q&A"
+    ],
+    "n_rows": 66,
+    "n_controls": 132
+  },
+  {
+    "group": "t2_g8",
+    "tier": "t2",
+    "clusters": [
+      "dr_top_r3_c0",
+      "dr_top_r4_c8"
+    ],
+    "names": [
+      "Programming & Data Questions",
+      "Programming & Technical Help Requests"
+    ],
+    "n_rows": 102,
+    "n_controls": 204
+  },
+  {
+    "group": "t2_g9",
+    "tier": "t2",
+    "clusters": [
+      "dr_top_r4_c4"
+    ],
+    "names": [
+      "Academic & Educational Writing Requests"
+    ],
+    "n_rows": 47,
+    "n_controls": 94
+  },
+  {
+    "group": "t2_g10",
+    "tier": "t2",
+    "clusters": [
+      "dr_top_r5_c0"
+    ],
+    "names": [
+      "Programming & Math Questions"
+    ],
+    "n_rows": 46,
+    "n_controls": 92
+  },
+  {
+    "group": "t2_g11",
+    "tier": "t2",
+    "clusters": [
+      "dr_top_r5_c5"
+    ],
+    "names": [
+      "Academic & Educational Writing Requests"
+    ],
+    "n_rows": 52,
+    "n_controls": 104
+  }
+]

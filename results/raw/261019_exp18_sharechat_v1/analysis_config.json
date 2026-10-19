@@ -1,0 +1,11 @@
+{
+  "git_hash": "60f96cb6",
+  "run_dir": "results/raw/261019_exp18_sharechat_v1",
+  "pools_dir": "data/processed/exp18",
+  "exp01_pools_dir": "data/processed/exp01",
+  "seed": 0,
+  "layer": 16,
+  "pooling": "cmean",
+  "n_rollouts": 6,
+  "n_boot": 1000
+}

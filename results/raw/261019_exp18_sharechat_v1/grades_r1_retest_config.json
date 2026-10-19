@@ -1,0 +1,13 @@
+{
+  "git_hash": "60f96cb6",
+  "replies_path": "results/raw/261019_exp18_sharechat_v1/rollouts.jsonl",
+  "pool_path": "data/processed/exp18/sharechat.jsonl",
+  "run_dir": "results/raw/261019_exp18_sharechat_v1",
+  "out_name": "grades_r1_retest",
+  "model_id": "google/gemini-3.8-flash",
+  "seed": 0,
+  "replicate": 1,
+  "sample_n": 300,
+  "max_concurrent": 32,
+  "judge_version": "exp18_v2"
+}
