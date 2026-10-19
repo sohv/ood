@@ -1,0 +1,23 @@
+{
+  "git_hash": "69502708",
+  "run_dir": "results/raw/261019_exp15_share_namer_v1",
+  "wildchat_pool": "data/processed/exp06/deploy.jsonl",
+  "lmsys_pool": "data/processed/exp09/lmsys.jsonl",
+  "banks_dir": "data/processed/exp06",
+  "model_id": "anthropic/claude-sonnet-4.6",
+  "seed": 0,
+  "draw_seeds": [
+    0,
+    1,
+    2
+  ],
+  "judge": "openai/gpt-4.1",
+  "embed_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "expected_cut": 0.6003,
+  "n_clusters": 10,
+  "n_shown": 25,
+  "min_size": 15,
+  "coherence_rule": "share",
+  "compare_clusters": "results/raw/261019_exp14_validate_v1/clusters.jsonl",
+  "embed_model_revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42"
+}
