@@ -1,9 +1,11 @@
 # unit tests for exp09 discovery helpers: naming parse, prompt construction, gap matching.
 # uv run --no-sync -m pytest tests/test_discovery.py -v
 
+import json
+
 import numpy as np
 
-from src.metrics.discovery import centroid, match_gap, naming_prompt, parse_naming
+from src.metrics.discovery import centroid, match_gap, name_clusters, naming_prompt, parse_naming
 
 
 def test_parse_naming_reads_all_fields():
@@ -27,3 +29,40 @@ def test_match_gap_uses_threshold():
     b = centroid(np.array([[0.0, 1.0]]))
     assert match_gap(a, [b, a], 0.85) == 1
     assert match_gap(b, [a], 0.85) is None
+
+
+class Reply:
+    def __init__(self, content: str | None):
+        self.choices = [type("Choice", (), {"message": type("Message", (), {"content": content})()})()]
+
+
+class ScriptedCompletions:
+    def __init__(self, contents: list[str | None]):
+        self.contents, self.calls = list(contents), 0
+
+    async def create(self, **kwargs):
+        self.calls += 1
+        return Reply(self.contents.pop(0))
+
+
+class ScriptedClient:
+    """Returns scripted replies in order. Exercises the empty-reply boundary, not the model."""
+
+    def __init__(self, contents: list[str | None]):
+        self.chat = type("Chat", (), {"completions": ScriptedCompletions(contents)})()
+
+
+async def test_name_clusters_never_caches_an_empty_reply(tmp_path):
+    client = ScriptedClient([None, "", None, "NAME: x\nDESCRIPTION: y\nCOHERENT: YES"])
+    out = await name_clusters(client, "m", ["p", "q"], str(tmp_path), max_concurrent=1)
+    # p gets three empty replies and stays null; q gets the real one
+    assert out == [None, "NAME: x\nDESCRIPTION: y\nCOHERENT: YES"]
+    assert client.chat.completions.calls == 4
+    assert len(list(tmp_path.glob("*.json"))) == 1
+
+
+async def test_name_clusters_retries_an_empty_reply(tmp_path):
+    client = ScriptedClient([None, "NAME: x\nDESCRIPTION: y\nCOHERENT: NO"])
+    out = await name_clusters(client, "m", ["p"], str(tmp_path))
+    assert out == ["NAME: x\nDESCRIPTION: y\nCOHERENT: NO"]
+    assert json.loads(next(tmp_path.glob("*.json")).read_text())["response"] == out[0]

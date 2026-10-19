@@ -41,7 +41,11 @@ def naming_prompt(texts: list[str], n: int, seed: int, max_chars: int = 300) -> 
 def parse_naming(reply: str | None) -> dict:
     if reply is None:
         return {"name": None, "description": None, "coherent": None}
-    get = lambda key: (m.group(1).strip() if (m := re.search(rf"^{key}:\s*(.+)$", reply, re.M)) else None)
+
+    def get(key: str) -> str | None:
+        m = re.search(rf"^{key}:\s*(.+)$", reply, re.M)
+        return m.group(1).strip() if m else None
+
     coherent = get("COHERENT")
     return {
         "name": get("NAME"),
@@ -56,7 +60,7 @@ def match_gap(c: np.ndarray, known: list[np.ndarray], threshold: float) -> int |
 
 
 async def name_clusters(
-    client, model: str, prompts: list[str], cache_dir: str, max_concurrent: int = 10
+    client, model: str, prompts: list[str], cache_dir: str, max_concurrent: int = 10, attempts: int = 3
 ) -> list[str | None]:
     Path(cache_dir).mkdir(parents=True, exist_ok=True)
     sem = asyncio.Semaphore(max_concurrent)
@@ -67,17 +71,24 @@ async def name_clusters(
         if path.exists():
             return json.loads(path.read_text())["response"]
         async with sem:
-            try:
-                resp = await client.chat.completions.create(model=model, messages=[{"role": "user", "content": prompt}])
-                text = resp.choices[0].message.content
-            except Exception as error:
-                LOGGER.error(f"naming call {i} failed: {error!r}", exc_info=True)
-                errors.append(error)
-                return None
-        path.write_text(json.dumps({"response": text, "model": model}))
-        return text
+            for attempt in range(1, attempts + 1):
+                try:
+                    resp = await client.chat.completions.create(
+                        model=model, messages=[{"role": "user", "content": prompt}]
+                    )
+                    text = resp.choices[0].message.content
+                except Exception as error:
+                    LOGGER.error(f"naming call {i} attempt {attempt} failed: {error!r}", exc_info=True)
+                    errors.append(error)
+                    continue
+                if text:
+                    path.write_text(json.dumps({"response": text, "model": model}))
+                    return text
+                LOGGER.error(f"naming call {i} attempt {attempt} returned an empty reply")
+                errors.append(ValueError("empty reply"))
+        return None
 
     results = await asyncio.gather(*[call(i, p) for i, p in enumerate(prompts)])
-    if prompts and len(errors) == len(prompts):
+    if prompts and all(r is None for r in results):
         raise RuntimeError(f"all {len(prompts)} naming calls failed, first error: {errors[0]!r}")
     return results

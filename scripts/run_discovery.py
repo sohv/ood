@@ -1,5 +1,5 @@
 # exp09: iterative gap discovery in wildchat + lmsys with density-ratio and two-sided knn rankings, blind cluster naming.
-# uv run --no-sync -m scripts.run_discovery --run_dir results/raw/261018_exp09_discovery_v1 --seed 0
+# uv run --no-sync -m scripts.run_discovery --run_dir results/raw/261019_exp09_discovery_v2 --exp01_dir results/raw/261018_exp01_repro_v1 --wildchat_features results/raw/261018_exp06_density_ratio_v1/features/deploy.npz --wildchat_pool data/processed/exp06/deploy.jsonl --lmsys_features results/raw/261018_exp09_discovery_v1/features/lmsys.npz --lmsys_pool data/processed/exp09/lmsys.jsonl --model_id allenai/Olmo-3-7B-Instruct-DPO --model_revision b33130b7de49f0c2553b5c2b3bc8409ff3e627d1 --seed 0
 
 import os
 
@@ -37,11 +37,13 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class DiscoveryConfig:
     run_dir: str = ""
-    exp01_dir: str = "results/raw/261018_exp01_repro_v1"
-    exp01_pools: str = "data/processed/exp01"
-    wildchat_features: str = "results/raw/261018_exp06_density_ratio_v1/features/deploy.npz"
-    wildchat_pool: str = "data/processed/exp06/deploy.jsonl"
-    lmsys_pool: str = "data/processed/exp09/lmsys.jsonl"
+    exp01_dir: str = ""
+    wildchat_features: str = ""
+    wildchat_pool: str = ""
+    lmsys_features: str = ""
+    lmsys_pool: str = ""
+    model_id: str = ""
+    model_revision: str = ""
     seed: int = 0
     rounds: int = 5
     top_k: int = 500
@@ -56,7 +58,10 @@ class DiscoveryConfig:
 
 def main():
     config = simple_parsing.parse(DiscoveryConfig)
+    missing = [k for k, v in asdict(config).items() if v == ""]
+    assert not missing, f"required arguments not set: {missing}"
     run = Path(config.run_dir)
+    assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json(
@@ -67,14 +72,14 @@ def main():
             "olmo_layer": 16,
             "pooling": "cmean",
         },
-        run / "detector_config.json",
+        run / "config.json",
     )
     li = LAYERS.index(16)
 
     wc = load_jsonl(config.wildchat_pool)
     wf = np.load(config.wildchat_features)
     lm = load_jsonl(config.lmsys_pool)
-    lf = np.load(run / "features" / "lmsys.npz")
+    lf = np.load(config.lmsys_features)
     assert list(wf["ids"]) == [r["id"] for r in wc] and list(lf["ids"]) == [
         r["id"] for r in lm
     ], "feature rows misaligned"
@@ -156,10 +161,13 @@ def main():
             "_members": members,
         }
 
-    all_clusters, summary = [], {}
+    all_clusters, summary, reviews = [], {}, []
     for arm in ("dr", "dknn"):
+        # each reviewer sees a row at most once, so top and random review equal distinct budgets
         remaining = np.ones(len(texts), dtype=bool)
         moved = np.zeros(len(texts), dtype=bool)
+        random_seen = np.zeros(len(texts), dtype=bool)
+        top_seen = np.zeros(len(texts), dtype=bool)
         gaps: dict[str, list[np.ndarray]] = {"top": [], "random": []}
         for rnd in range(1, config.rounds + 1):
             idx = np.where(remaining)[0]
@@ -169,7 +177,16 @@ def main():
                 score = KNN(np.vstack([mix, x[moved]]), scale)(x[idx]) - knn_dolma[idx]
             lc = length_controlled(score, lengths[idx])
             top = idx[np.argsort(-(lc + np.random.default_rng(rnd).random(len(lc)) * 1e-9))[: config.top_k]]
-            rand = np.random.default_rng(10_000 + rnd).choice(idx, size=config.top_k, replace=False)
+            rand = np.random.default_rng(10_000 + rnd).choice(
+                np.where(~moved & ~random_seen)[0], size=config.top_k, replace=False
+            )
+            assert not top_seen[top].any() and not random_seen[rand].any()
+            top_seen[top], random_seen[rand] = True, True
+            remaining[top] = False
+            reviews += [
+                {"id": f"{arm}_{kind}_r{rnd}", "arm": arm, "kind": kind, "round": rnd, "rows": rows.tolist()}
+                for kind, rows in (("top", top), ("random", rand))
+            ]
             groups = []
             for kind, rows in (("top", top), ("random", rand)):
                 labels = cluster(emb[rows], config.n_clusters, config.seed)
@@ -191,7 +208,6 @@ def main():
                     if j is None:
                         gaps[row["kind"]].append(row["_centroid"])
                     if row["kind"] == "top":
-                        remaining[row["_members"]] = False
                         moved[row["_members"]] = True
             summary[f"{arm}_r{rnd}"] = {
                 "naming_failures": n_failed,
@@ -199,12 +215,24 @@ def main():
                 "top_new": sum(r.get("is_new", False) for r in round_rows if r["kind"] == "top"),
                 "random_confirmed": sum(r["confirmed"] for r in round_rows if r["kind"] == "random"),
                 "random_new": sum(r.get("is_new", False) for r in round_rows if r["kind"] == "random"),
+                **{
+                    f"{kind}_{name}": int(sum(test(r) for r in round_rows if r["kind"] == kind))
+                    for kind in ("top", "random")
+                    for name, test in (
+                        ("coherent", lambda r: bool(r["coherent"])),
+                        ("null_names", lambda r: r["coherent"] is None),
+                        ("min_size", lambda r: r["size"] >= config.min_size),
+                        ("below_coverage", lambda r: r["median_coverage"] < cov_threshold),
+                    )
+                },
                 "top_lmsys_share": float(np.mean(source[top] == "lmsys")),
                 "moved_total": int(moved.sum()),
             }
             all_clusters += round_rows
             LOGGER.info(f"{arm} round {rnd}: {summary[f'{arm}_r{rnd}']}")
         summary[f"{arm}_distinct"] = {"top": len(gaps["top"]), "random": len(gaps["random"])}
+        summary[f"{arm}_rows_reviewed"] = {"top": int(top_seen.sum()), "random": int(random_seen.sum())}
+        assert top_seen.sum() == random_seen.sum() == config.rounds * config.top_k, summary[f"{arm}_rows_reviewed"]
         summary[f"_{arm}_centroids"] = gaps["top"]
 
     cross = []
@@ -224,7 +252,8 @@ def main():
         [{k: v for k, v in r.items() if not k.startswith("_")} | {"id": r["id"]} for r in all_clusters],
         run / "clusters.jsonl",
     )
-    write_json(summary, run / "summary.json")
+    write_json(summary | {"coverage_threshold": cov_threshold}, run / "summary.json")
+    write_jsonl(reviews, run / "reviews.jsonl")
     write_json(decision, run / "decision.json")
     print(f"decision written to {run / 'decision.json'}")
 
