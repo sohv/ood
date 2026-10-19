@@ -2,10 +2,10 @@
 
 import numpy as np
 from scipy.linalg import cho_factor, cho_solve
+from scipy.stats import rankdata
 from sklearn.covariance import LedoitWolf
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import LogisticRegression
-from scipy.stats import rankdata
 from sklearn.metrics import roc_auc_score
 
 LENGTH_BANDS = (1, 16, 32, 64, 128, 256, 512, 1025)
@@ -108,3 +108,45 @@ def partial_spearman(x: np.ndarray, y: np.ndarray, control: np.ndarray) -> float
     r = [rankdata(v) for v in (x, y, control)]
     resid = [v - np.polyval(np.polyfit(r[2], v, 1), r[2]) for v in r[:2]]
     return float(np.corrcoef(*resid)[0, 1])
+
+
+def score_cell(
+    x: dict[str, np.ndarray], test_pools: tuple[str, ...], **maha_kwargs
+) -> dict[str, dict[str, np.ndarray]]:
+    # x holds one layer x pooling slice per pool, including idfit and the dolma variants
+    scale = x["idfit"].std(0) + 1e-6
+    maha_mix, knn_mix = Mahalanobis(x["idfit"], **maha_kwargs), KNN(x["idfit"], scale)
+    refs = {v: (Mahalanobis(x[f"dolma_{v}"], **maha_kwargs), KNN(x[f"dolma_{v}"], scale)) for v in ("full", "matched")}
+    scores = {}
+    for pool in test_pools:
+        m, k = maha_mix(x[pool]), knn_mix(x[pool])
+        scores[pool] = {"maha": m, "knn": k}
+        for v, (maha_d, knn_d) in refs.items():
+            scores[pool][f"dmaha_{v}"] = m - maha_d(x[pool])
+            scores[pool][f"dknn_{v}"] = k - knn_d(x[pool])
+    return scores
+
+
+def evaluate_pair(scores: dict, lengths: dict, detector: str, ood: str, ref: str) -> dict:
+    o, r = scores[ood][detector], scores[ref][detector]
+    strat = stratified_auroc(o, r, lengths[ood], lengths[ref])
+    return {
+        "detector": detector,
+        "ood": ood,
+        "ref": ref,
+        "auroc_raw": auroc(o, r),
+        "auroc_stratified": strat["auroc"],
+        "strat_n_bands": strat["n_bands"],
+        "strat_coverage": strat["coverage"],
+        "strat_bands": strat["bands"],
+    }
+
+
+def with_ci(row: dict, scores: dict, lengths: dict, n_boot: int, seed: int) -> dict:
+    o, r = scores[row["ood"]][row["detector"]], scores[row["ref"]][row["detector"]]
+    lo, lr = lengths[row["ood"]], lengths[row["ref"]]
+    row["ci_raw"] = bootstrap_ci(lambda i, j: auroc(o[i], r[j]), len(o), len(r), n_boot, seed)
+    row["ci_stratified"] = bootstrap_ci(
+        lambda i, j: stratified_auroc(o[i], r[j], lo[i], lr[j])["auroc"], len(o), len(r), n_boot, seed
+    )
+    return row

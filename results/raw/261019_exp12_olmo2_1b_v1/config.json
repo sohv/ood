@@ -1,0 +1,37 @@
+{
+  "git_hash": "18f5c0cb",
+  "pools_dir": "data/processed/exp12",
+  "output_dir": "results/raw/261019_exp12_olmo2_1b_v1",
+  "model_id": "allenai/OLMo-2-0425-1B-SFT",
+  "seed": 0,
+  "num_tasks": null,
+  "max_length": 1024,
+  "dolma_full_tokens": 512,
+  "max_batch_tokens": 32768,
+  "chat_pools": [
+    "idfit",
+    "idmix",
+    "legal",
+    "medical",
+    "wildchat_en_test"
+  ],
+  "include_dolma": true,
+  "include_dolma_wrapped": false,
+  "extra_pools_dir": "",
+  "extra_pools": [],
+  "model_revision": "0d85a3d037876ce6ac7d4311d994400fc66ac27f",
+  "layers": [
+    0,
+    2,
+    4,
+    6,
+    8,
+    10,
+    12,
+    14,
+    16
+  ],
+  "hook_point": "hidden_states[l] residual stream, l=32 is post final norm",
+  "gpu": "NVIDIA A100 80GB PCIe",
+  "torch": "2.11.0+cu128"
+}

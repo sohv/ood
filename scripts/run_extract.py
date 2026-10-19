@@ -11,10 +11,10 @@ import numpy as np
 import simple_parsing
 import torch
 from huggingface_hub import HfApi
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
 from src.data.io import load_jsonl
-from src.interp.features import LAYERS, encode_chat, encode_raw, extract
+from src.interp.features import encode_chat, encode_raw, encode_row, extract, layers_for
 from src.metrics.io import write_json
 from src.utils.git import get_git_hash
 from src.utils.logging import setup_logging
@@ -50,12 +50,13 @@ def main():
     set_seed(config.seed)
     torch.backends.cudnn.deterministic = True
     revision = HfApi().model_info(config.model_id).sha
+    layers = layers_for(AutoConfig.from_pretrained(config.model_id, revision=revision).num_hidden_layers)
     write_json(
         {
             "git_hash": get_git_hash(),
             **asdict(config),
             "model_revision": revision,
-            "layers": LAYERS,
+            "layers": layers,
             "hook_point": "hidden_states[l] residual stream, l=32 is post final norm",
             "gpu": torch.cuda.get_device_name(),
             "torch": torch.__version__,
@@ -74,7 +75,7 @@ def main():
         name: load_jsonl(Path(config.extra_pools_dir) / f"{name}.jsonl", config.num_tasks)
         for name in config.extra_pools
     }
-    encoded = {name: [encode_chat(tokenizer, r["text"], config.max_length) for r in pools[name]] for name in chat_pools}
+    encoded = {name: [encode_row(tokenizer, r, config.max_length) for r in pools[name]] for name in chat_pools}
     ids = {name: [r["id"] for r in pools[name]] for name in chat_pools}
     if config.include_dolma:
         dolma = load_jsonl(Path(config.pools_dir) / "dolma.jsonl", config.num_tasks)
@@ -98,9 +99,9 @@ def main():
     timings = {}
     for name, enc in encoded.items():
         start = time.time()
-        feats = extract(model, enc, tokenizer.pad_token_id, config.max_batch_tokens)
+        feats = extract(model, enc, tokenizer.pad_token_id, config.max_batch_tokens, layers)
         timings[name] = {"rows": len(enc), "seconds": time.time() - start}
-        np.savez(out / "features" / f"{name}.npz", ids=np.array(ids[name]), **feats)
+        np.savez(out / "features" / f"{name}.npz", ids=np.array(ids[name]), layers=np.array(layers), **feats)
         LOGGER.info(
             f"{name}: {len(enc)} rows in {timings[name]['seconds']:.1f}s, median content tokens {np.median(feats['n_content_tokens']):.0f}"
         )

@@ -1,0 +1,18 @@
+{
+  "membership_positive_control_hits": "200/200",
+  "wildchat_english_second_turn_candidates": 32224,
+  "wildchat_members_skipped": 156,
+  "dolci_multiturn_rows": 9975,
+  "dolci_mt_family_counts": {
+    "multiturn_self_talk_gpt": 125,
+    "multiturn_self_talk_qwen": 125,
+    "multiturn_related_query_gpt": 62,
+    "multiturn_related_query_qwen": 62,
+    "multiturn_paraphrase_gpt": 47,
+    "multiturn_paraphrase_qwen": 47,
+    "multiturn_repeat_gpt": 16,
+    "multiturn_repeat_qwen": 16
+  },
+  "hermes_candidates": 1893,
+  "hermes_members_skipped": 23
+}

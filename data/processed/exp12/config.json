@@ -1,0 +1,14 @@
+{
+  "git_hash": "18f5c0cb",
+  "output_dir": "data/processed/exp12",
+  "exp01_pools": "data/processed/exp01",
+  "seed": 0,
+  "n_fit": 3000,
+  "n_test": 1000,
+  "n_pool": 500,
+  "wildchat_shards": [
+    0,
+    5,
+    10
+  ]
+}

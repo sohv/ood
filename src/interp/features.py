@@ -10,20 +10,45 @@ LOGGER = logging.getLogger(__name__)
 
 LAYERS = list(range(0, 33, 4))
 POOLINGS = ("cmean", "cmax", "clast")
-USER_HEADER = "<|im_start|>user\n"
+SENTINEL = "QZXJ_SENTINEL_QZXJ"
+
+
+def render_user(tokenizer, text: str) -> str:
+    return tokenizer.apply_chat_template(
+        [{"role": "user", "content": text}], tokenize=False, add_generation_prompt=True
+    )
 
 
 def encode_chat(tokenizer, text: str, max_length: int = 1024) -> tuple[list[int], list[bool]]:
-    rendered = tokenizer.apply_chat_template(
-        [{"role": "user", "content": text}], tokenize=False, add_generation_prompt=True
-    )
-    start = rendered.index(USER_HEADER) + len(USER_HEADER)
+    rendered = render_user(tokenizer, text)
+    # the template text before the user content, found with a sentinel so any chat template works
+    start = len(render_user(tokenizer, SENTINEL).split(SENTINEL)[0])
     assert rendered[start : start + len(text)] == text, "chat template altered the prompt text"
     end = start + len(text)
     enc = tokenizer(rendered, add_special_tokens=False, return_offsets_mapping=True)
     mask = [s < end and e > start for s, e in enc["offset_mapping"]]
     # left truncation keeps the assistant header
     return enc["input_ids"][-max_length:], mask[-max_length:]
+
+
+def encode_messages(tokenizer, messages: list[dict], max_length: int = 1024) -> tuple[list[int], list[bool]]:
+    # earlier turns are context in the forward pass; the mask covers only the last user turn's content
+    assert messages[-1]["role"] == "user", "conversation must end with a user turn"
+    rendered = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+    probe = [*messages[:-1], {**messages[-1], "content": SENTINEL}]
+    start = len(tokenizer.apply_chat_template(probe, tokenize=False, add_generation_prompt=True).split(SENTINEL)[0])
+    text = messages[-1]["content"]
+    assert rendered[start : start + len(text)] == text, "chat template altered the last user turn"
+    end = start + len(text)
+    enc = tokenizer(rendered, add_special_tokens=False, return_offsets_mapping=True)
+    mask = [s < end and e > start for s, e in enc["offset_mapping"]]
+    return enc["input_ids"][-max_length:], mask[-max_length:]
+
+
+def encode_row(tokenizer, row: dict, max_length: int = 1024) -> tuple[list[int], list[bool]]:
+    if "messages" in row:
+        return encode_messages(tokenizer, row["messages"], max_length)
+    return encode_chat(tokenizer, row["text"], max_length)
 
 
 def encode_raw(tokenizer, text: str, n_tokens: int) -> tuple[list[int], list[bool]]:
@@ -42,12 +67,20 @@ def token_batches(lengths: list[int], max_tokens: int) -> list[list[int]]:
     return batches + [current] if current else batches
 
 
+def layers_for(n_layers: int) -> list[int]:
+    return list(range(0, n_layers + 1, n_layers // 8))
+
+
 @torch.no_grad()
 def extract(
-    model, encoded: list[tuple[list[int], list[bool]]], pad_id: int, max_tokens: int = 32768
+    model,
+    encoded: list[tuple[list[int], list[bool]]],
+    pad_id: int,
+    max_tokens: int = 32768,
+    layers: list[int] = LAYERS,
 ) -> dict[str, np.ndarray]:
     n = len(encoded)
-    out = {p: np.zeros((n, len(LAYERS), model.config.hidden_size), dtype=np.float16) for p in POOLINGS}
+    out = {p: np.zeros((n, len(layers), model.config.hidden_size), dtype=np.float16) for p in POOLINGS}
     n_content = np.array([sum(m) for _, m in encoded])
     assert (n_content > 0).all(), f"rows with no content tokens: {np.where(n_content == 0)[0][:10]}"
     for batch in tqdm(token_batches([len(ids) for ids, _ in encoded], max_tokens), desc="batches"):
@@ -61,7 +94,7 @@ def extract(
             attn[row, : len(toks)] = 1
             content[row, : len(toks)] = torch.tensor(mask)
         hidden = model(ids.cuda(), attention_mask=attn.cuda(), output_hidden_states=True).hidden_states
-        stacked = torch.stack([hidden[l] for l in LAYERS], dim=1).float()
+        stacked = torch.stack([hidden[l] for l in layers], dim=1).float()
         content = content.cuda()[:, None, :, None]
         counts = content.sum(dim=2)
         cmean = (stacked * content).sum(dim=2) / counts

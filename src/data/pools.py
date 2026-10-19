@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 import pandas as pd
-from huggingface_hub import hf_hub_download
+from huggingface_hub import HfApi, hf_hub_download
 
 LOGGER = logging.getLogger(__name__)
 
@@ -47,6 +47,24 @@ def load_dolci_dpo() -> pd.DataFrame:
     df["n_messages"] = df["chosen"].map(len)
     df["family"] = df["prompt_id"].map(family_of)
     return df.drop(columns=["chosen"])
+
+
+def load_tulu_sft() -> pd.DataFrame:
+    # the olmo-2 sft mix; family is the source column, so the same sampler as dolci applies
+    files = sorted(
+        f
+        for f in HfApi().list_repo_files("allenai/tulu-3-sft-olmo-2-mixture-0225", repo_type="dataset")
+        if f.endswith(".parquet")
+    )
+    paths = [hf_hub_download("allenai/tulu-3-sft-olmo-2-mixture-0225", f, repo_type="dataset") for f in files]
+    df = pd.concat([pd.read_parquet(p, columns=["messages", "source"]) for p in paths], ignore_index=True)
+    df["first_user"] = df["messages"].map(lambda msgs: next((m["content"] for m in msgs if m["role"] == "user"), None))
+    n_no_user = int(df["first_user"].isna().sum())
+    LOGGER.info(f"tulu rows without a user message dropped: {n_no_user}")
+    df = df[df["first_user"].notna()].copy()
+    df["n_messages"] = df["messages"].map(len)
+    df["family"] = df["source"]
+    return df.drop(columns=["messages"])
 
 
 def allocate_by_share(shares: pd.Series, total: int) -> pd.Series:

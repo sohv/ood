@@ -499,3 +499,194 @@ again, it is logged as ambiguous and not rerun; there is no v3 of this design.
 500 per arm identical to exp09's round 1 (same ranking code and seeds, so any difference is a bug); null
 namer replies per group; per-round counts of COHERENT, >= 15 members, and below-coverage clusters for top
 and random, so the binding criterion is visible.
+
+## 19-10-2026 — exp11: ranking variants for gap discovery, tested on planted needles
+
+Written before any exp11 feature, score or loop exists. Stefan's notes list four untested ranking changes
+for the discovery loop (section 11 step 1, step 2, section 6.5 and the open ideas): remove length by
+regression or by fitting the reference per length band instead of within-band percentiles; combine
+distance to a known-OOD set with distance to ID instead of adding found rows to the ID reference; use
+last-token features; aggregate scores per cluster rather than per row. exp09 and exp09 v2 could not
+resolve ranking changes because their ground truth is a blind LLM namer. This run tests the four changes
+where the truth is exact: needles planted in real traffic, as in exp06. No namer, no API.
+
+**Pool.** exp09's 20,000-row deployment pool (exp06 WildChat 10,000, all languages, plus exp09 LMSYS
+10,000) with its cached cmean / cmax / clast features at 9 layers. Needles: exp06's banks (legal,
+medical as gap needles; aya, magicoder as covered controls), 100 rows of each type per needle seed s in
+{0, 1, 2}, disjoint 100-row slices of each bank, planted together, so each type is 0.5% of the planted
+pool and the gap group is 1%. Needle features are re-extracted with the exp01 recipe (same model and
+revision b33130b7) into this run's directory. ID side: exp01 idfit + idmix (4,000). Dolma: exp01 full.
+
+**Base scores, cmean L16 unless named.** `dknn` = knn(mix) - knn(Dolma), k = 10, features scaled by the
+idfit std (exp06 form). `dmaha` = maha(mix) - maha(Dolma), fixed shrinkage 0.5. One-sided `knn` and
+`maha`, the exp01 label-free tf-idf (idfit vs Dolma, C = 0.1), `length` and `random` as baselines.
+
+**Q1 length removal, `dknn` cmean L16.** Rankings: `raw`; `pct20` (exp06, percentile within 20
+equal-count length bins, the baseline); `spline` (residual of the score after a ridge regression, alpha 1,
+on a cubic B-spline basis with 8 knots over log content-token length, fitted on the planted pool);
+`bandfit` (the pool split into 5 equal-count length bands; each band scored against the 500 mix rows and
+500 Dolma rows nearest to the band's median log length; scores ranked globally). Metric: gap uplift@100
+(precision@100 of legal + medical divided by 0.01), control uplift@100 (aya + magicoder), top-100 median
+length ratio to the pool, Spearman of the ranking score with log length. Mean over the 3 needle seeds.
+Bar, per method M against `pct20`: better if gap uplift(M) >= 1.5 x uplift(pct20) and >= uplift(pct20)
++ 2, with top-100 median length ratio in [0.67, 1.5] on every seed and control uplift <= 2; worse if
+gap uplift(M) <= uplift(pct20) / 1.5; otherwise equivalent.
+
+**Q2 pooling, `dknn` under `pct20`.** `clast` and `cmax` at L16 against `cmean` at L16, same metric and
+the same better / worse / equivalent rule relative to `cmean`. Layers 8, 24 and 32 are reported for all
+three poolings with no bar.
+
+**Q3 per-cluster aggregation, `dknn` cmean L16 `pct20`.** k-means (k = 200, seed 0) on the standardised
+cmean L16 features of the planted pool; a cluster's score is the mean `pct20` score of its members;
+clusters are reviewed in descending cluster score, rows within a cluster in descending row score, and
+the first 100 rows reviewed form the top 100. k = 50 is reported with no bar. Same rule relative to
+per-row `pct20`, with the control-uplift <= 2 condition.
+
+**Q4 known-OOD rule in the iterative loop.** Bases `dknn` and `dmaha`, cmean L16, `pct20` ranking, 5
+rounds x top 200, needle seeds 0-2. The reviewer is the type oracle: reviewed needle rows are confirmed
+(known-OOD), reviewed deployment rows are rejected, and every reviewed row leaves the pool (exp09 v2).
+Update rules: `none` (references unchanged); `add_to_id` (confirmed rows join the mix reference, exp06 and
+exp09's rule; for `dmaha` the Gaussian is refitted on mix + confirmed); `known_gate` (references
+unchanged; once >= 5 rows are confirmed, any row whose kNN distance to the confirmed set, k = min(10,
+n_confirmed), is at or below tau is removed from the ranking, tau = the 90th percentile of the confirmed
+rows' leave-one-out kNN distance to each other). Metrics per round and group: cumulative recall per
+needle type, surface round per gap type (first round with >= 5 cumulative reviewed rows of that type),
+share of the round's top 200 that is of round 1's dominant needle type, LMSYS share and median length
+ratio of the top 200. Bar, per base, `known_gate` against `add_to_id`: better if the second gap type
+surfaces in an earlier round on >= 2 of 3 seeds and round-5 total gap recall is not lower by more than
+0.05 on any seed; equivalent if the surface rounds are identical on all seeds; otherwise ambiguous.
+`none` is reported beside them with no bar.
+
+**Reported, no bar.** The 10 highest-ranked non-needle rows of `dknn` cmean L16 `pct20` at seed 0 (first
+300 characters, source, language where known), read as the raw-output check. One-sided `knn` and `maha`,
+tf-idf, length and random under every Q1 ranking. Scores for every seed-0 row written to a jsonl.
+
+**Seeds.** Needle seeds 0-2 for every question; k-means seed 0; no other randomness except 1e-9 tie
+jitter. No extra seeds planned.
+
+**Sanity checks written into the results.** Random ranking gap uplift within [0.5, 2] at every seed;
+needle feature row ids match the bank files; planted pool row count = 20,400 per seed; every loop group
+reviews exactly 1,000 distinct rows.
+
+**exp11 amendment, 19-10-2026, after needle feature extraction, before any exp11 score exists.** The
+`spline` ranking's ridge penalty is cut from alpha = 1 to alpha = 0.001: on a synthetic score that is a
+pure function of log length (5,000 rows), alpha = 1 left a residual correlated 0.22 with log length, so
+it would not have removed length; alpha = 0.001 leaves 0.0005. Nothing else changes.
+
+## 19-10-2026 — exp12: the exp01 claim on a second model pair (OLMo-2 1B SFT with the Tulu-3 SFT mix)
+
+Written before any exp12 pool, feature or score exists. Stefan's notes (section 9.1, point 3) say that on
+a second model pair the two-sided detectors did not beat the one-sided ones; every run in this repo used
+Olmo-3-7B-Instruct-DPO. The OLMo-2 1B DPO preference mix is a single source (75,661 WildChat prompts),
+so against it "legal vs English WildChat" is OOD-vs-mix and cannot show a one-sided collapse. The SFT
+step's mix, `allenai/tulu-3-sft-olmo-2-mixture-0225` (19 sources, WildChat among them), mirrors Dolci's
+structure and is the ID mix here.
+
+**Model and features.** `allenai/OLMo-2-0425-1B-SFT`, revision 0d85a3d0, bf16, 16 blocks, hidden 2048.
+Residual stream `hidden_states[l]` for l in 0, 2, ..., 16 (every eighth of depth, as exp01 took every
+fourth layer of 32). exp01 recipe otherwise: the model's chat template (`<|user|>\n...<|assistant|>\n`),
+content tokens only, left truncation at 1024, cmean / cmax / clast. Decision cell cmean L8, Dolma full.
+
+**Pools, `data/processed/exp12`, seed 0.** `idfit` 3,000 and disjoint `idmix` 1,000 first user turns
+of 2-message Tulu rows, sampled by source share. `dolma`, `legal`, `medical` are exp01's files copied
+unchanged; `legal` and `medical` are membership-checked against the Tulu mix and any member rows are
+reported and dropped. `wildchat_en_test`: 500 English WildChat first turns from shards 0, 5, 10 (exp01's
+shards), deduplicated, with Tulu-mix members removed by the exp01 check (lowercase, collapsed whitespace,
+exact match plus 13-word blake2b shingles) against all Tulu first user turns; the check must fire on
+200/200 sampled Tulu rows before any zero is accepted.
+
+**Detectors, fit on `idfit` only, as exp01.** Mahalanobis (Ledoit-Wolf, 1e-6 ridge), kNN k = 10 on
+idfit-std-scaled L2-normalised features, `dmaha_full` / `dmaha_matched`, `dknn_full` / `dknn_matched`,
+tf-idf idfit vs Dolma (C = 0.1, Dolma cut to 400 words), length. Length-stratified AUROC with exp01's
+coarse bands and guard; 1,000 bootstrap resamples on the decision cell.
+
+**Positive control.** kNN legal and medical vs `idmix`, raw AUROC >= 0.90 on both. Missed = the pipeline
+is suspect; the bars below are not evaluated until a bug check has run.
+
+**Measurability.** Length-only stratified AUROC for legal and medical vs `wildchat_en_test` within
+[0.45, 0.55] on both; otherwise the comparison is unmeasurable, not negative.
+
+**Q1, primary.** Decision cell, legal and medical vs `wildchat_en_test`, length-stratified.
+- pattern reproduces: `maha` and `knn` <= 0.60 on both pools and `dmaha_full` and `dknn_full` >= 0.85 on
+  both (exp01's bar 2).
+- no two-sided advantage (Stefan's second-pair finding): `dmaha_full` - `maha` <= 0.05 and `dknn_full` -
+  `knn` <= 0.05 on both pools.
+- anything else: ambiguous, reported with the eight numbers and their intervals.
+
+**Q2, lexical.** tf-idf stratified vs `wildchat_en_test` against the better of `dmaha_full` and
+`dknn_full`, per pool: within 0.05 on both = lexical parity; at least 0.10 below on both = activations
+beat words; otherwise ambiguous.
+
+**Reported, no bar.** All 9 layers x 3 poolings for every detector and comparison; `wildchat_en_test` vs
+`idmix` as the near-ID control (Tulu contains WildChat); Spearman of `maha` with content-token length in
+each pool; the `matched` Dolma variants; bootstrap intervals on the decision cell.
+
+**Seeds.** Data seed 0, one extraction. No extra seeds planned.
+
+**exp11 amendment 2, 19-10-2026, after a one-seed smoke run with a 2 x 50 loop and k = 20 (scratch
+directory `261019_smoke_exp11`, not used for any question), before the pre-registered run.** Two changes.
+(a) The random-ranking sanity check "gap uplift within [0.5, 2] at every seed" cannot hold: with 200 gap
+needles in 20,400 rows the random top 100 holds a Poisson(1) count, so a single seed reads 0 about 37% of
+the time (the smoke seed did). The check becomes: mean random gap uplift over the 3 seeds within [0, 3].
+(b) `bandfit` ranked globally correlates 0.70 with log length in the smoke run, because per-band
+reference scores are not on one scale; it keeps its bar as pre-registered, and a `bandfit_pct20` variant
+(per-band references, then within-band percentiles) is added as reported, no bar.
+
+## 19-10-2026 — exp13: multi-turn and tool-use traffic on the 7B pair
+
+Written before any exp13 pool, feature or score exists. Stefan's section 4.10 lists multi-turn traffic and
+tool-use traffic as never tested on the 7B pair. Facts measured from the mix before this entry: Dolci-DPO
+has 3.85% multi-turn rows (9,999 of 259,922), all in eight synthetic `multiturn_*` families (self talk,
+related query, paraphrase, repeat), and no tool-use or function-calling family. exp01's `idfit` was drawn
+from 2-message rows only, so it under-represents even that 3.85%.
+
+**Features.** Olmo-3-7B-Instruct-DPO rev b33130b7, exp01 recipe. A conversation pool row carries
+`messages`; it is rendered with the chat template up to and including its last user turn, with the
+generation prompt, left-truncated at 1024 tokens, and the content mask covers only the last user turn's
+tokens. The earlier turns are context in the forward pass but contribute no pooled tokens, so a message
+scored with and without context has the same content-token count by construction.
+
+**Pools, `data/processed/exp13`, seed 0, 500 rows each.**
+- `wc_mt_ctx`: English WildChat conversations (shards 0, 5, 10) with at least two user turns; messages
+  = first user turn, first assistant turn, second user turn. `wc_mt_alone`: the same second user turns
+  rendered alone. Both user turns are checked against every Dolci-DPO user turn with the exp01 membership
+  check; members are skipped. Stored assistant turns are GPT-3.5/4 text (Stefan's authorship caveat); they
+  are context only.
+- `dolci_mt_fit` and `dolci_mt_test`: disjoint rows of the eight `multiturn_*` families sampled by family
+  share; messages = the chosen conversation up to its last user turn. `dolci_mt_test_alone`: the test
+  rows' last user turn alone.
+- `tool_ctx`: `NousResearch/hermes-function-calling-v1`, `func-calling-singleturn.json` (1,893 rows);
+  messages = the system turn carrying the tool signatures plus the user turn. `tool_alone`: the user turn
+  alone. No tool family exists in Dolci-DPO, so this is a gap by construction.
+- `wildchat_en_test`: exp01's 500 rows, re-extracted (their features are not on this machine). `idfit`,
+  `idmix` and `dolma_full` features come from exp01's cache.
+
+**Pipeline check.** Re-extracted `wildchat_en_test` dknn_full and maha scores at cmean L16 (ref `idfit`)
+must have Spearman >= 0.99 with exp01's stored `scores_decision_cell.jsonl` values for the same ids.
+Missed = the pipeline is suspect; bars are not evaluated until a bug check has run.
+
+**Detectors.** Two ID references: `idfit` (exp01, first turns only) and `idfit_mt` = `idfit` +
+`dolci_mt_fit` (the mix with its multi-turn family represented). Mahalanobis (Ledoit-Wolf), kNN k = 10
+(scaled by the reference's std), `dmaha_full`, `dknn_full` (exp01 Dolma full), tf-idf `idfit` vs Dolma,
+length. Comparisons: every pool vs `wildchat_en_test` (primary) and vs `idmix`; exp01 coarse bands and
+guard; 1,000-row bootstrap on bar cells, paired for ctx vs alone of the same rows.
+
+**Measurability.** Length-only stratified AUROC within [0.45, 0.55] for the comparison; otherwise
+unmeasurable, not negative.
+
+**Bars, ref `idfit_mt`, cmean L16, each of `dknn_full` and `dmaha_full`, stratified vs
+`wildchat_en_test`.**
+- Control: `dolci_mt_test` (with context) <= 0.65 = the mix's own multi-turn rows read as covered;
+  >= 0.85 = the detector flags the multi-turn format itself, and Q1 cannot be read as coverage; else
+  ambiguous.
+- Q1 real multi-turn: A = `wc_mt_ctx`, B = `wc_mt_alone`. A >= 0.85 and B <= 0.65 = context makes the
+  later turn a gap; both >= 0.85 = later-turn messages are a gap in themselves; both <= 0.65 = not a gap;
+  otherwise ambiguous. Read only if the control is <= 0.65.
+- Q2 tool use: `tool_ctx` and `tool_alone`, each: >= 0.85 = flagged as a gap; <= 0.65 = missed;
+  otherwise ambiguous. tf-idf is reported beside each.
+
+**Reported, no bar.** The same table with ref `idfit`; one-sided `maha` and `knn`; clast and all 9 layers;
+the paired ctx-minus-alone difference with its interval; five raw rows of `wc_mt_ctx` (both user turns,
+truncated) as the raw-output check.
+
+**Seeds.** Data seed 0, one extraction. No extra seeds planned.

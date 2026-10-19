@@ -1,0 +1,28 @@
+{
+  "git_hash": "18f5c0cb",
+  "run_dir": "results/raw/261019_smoke_exp11",
+  "wildchat_features": "results/raw/261018_exp06_density_ratio_v1/features/deploy.npz",
+  "wildchat_pool": "data/processed/exp06/deploy.jsonl",
+  "lmsys_features": "results/raw/261018_exp09_discovery_v1/features/lmsys.npz",
+  "lmsys_pool": "data/processed/exp09/lmsys.jsonl",
+  "needles_dir": "data/processed/exp06",
+  "needles_features": "results/raw/261019_exp11_ranking_bench_v1/features",
+  "exp01_dir": "results/raw/261018_exp01_repro_v1",
+  "exp01_pools": "data/processed/exp01",
+  "seed": 0,
+  "needle_seeds": [
+    0
+  ],
+  "n_per_type": 100,
+  "top_k": 100,
+  "loop_rounds": 2,
+  "loop_k": 50,
+  "kmeans_k": 20,
+  "kmeans_k_alt": 10,
+  "kmeans_n_init": 3,
+  "n_bands": 5,
+  "band_ref": 500,
+  "shrinkage": 0.5,
+  "knn_k": 10,
+  "dolma_tfidf_words": 400
+}

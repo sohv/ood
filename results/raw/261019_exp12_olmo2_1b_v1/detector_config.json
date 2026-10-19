@@ -1,0 +1,10 @@
+{
+  "git_hash": "18f5c0cb",
+  "run_dir": "results/raw/261019_exp12_olmo2_1b_v1",
+  "features_dir": "",
+  "pools_dir": "data/processed/exp12",
+  "decision_layer": 8,
+  "seed": 0,
+  "n_boot": 1000,
+  "dolma_tfidf_words": 400
+}

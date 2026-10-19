@@ -1,0 +1,18 @@
+{
+  "needles_legal": {
+    "rows": 300,
+    "seconds": 12.5248
+  },
+  "needles_medical": {
+    "rows": 300,
+    "seconds": 6.5191
+  },
+  "needles_aya": {
+    "rows": 300,
+    "seconds": 7.6201
+  },
+  "needles_magicoder": {
+    "rows": 300,
+    "seconds": 10.8381
+  }
+}

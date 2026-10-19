@@ -1,0 +1,30 @@
+{
+  "idfit": {
+    "rows": 3000,
+    "seconds": 18.7121
+  },
+  "idmix": {
+    "rows": 1000,
+    "seconds": 5.0773
+  },
+  "legal": {
+    "rows": 500,
+    "seconds": 3.8724
+  },
+  "medical": {
+    "rows": 500,
+    "seconds": 1.8262
+  },
+  "wildchat_en_test": {
+    "rows": 500,
+    "seconds": 2.9376
+  },
+  "dolma_full": {
+    "rows": 3000,
+    "seconds": 20.688
+  },
+  "dolma_matched": {
+    "rows": 3000,
+    "seconds": 17.7227
+  }
+}

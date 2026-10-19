@@ -66,3 +66,51 @@ def test_partial_spearman_removes_shared_length_driver():
     x, y = length + rng.normal(size=2000), length + rng.normal(size=2000)
     assert abs(partial_spearman(x, y, length)) < 0.1
     assert partial_spearman(x, -x + rng.normal(scale=0.1, size=2000), length) < -0.5
+
+
+class FakeTokenizer:
+    # renders a template with a system prefix and a user header, with character-level tokens
+    def apply_chat_template(self, messages, tokenize=False, add_generation_prompt=True):
+        return f"<s>system: be brief\n<user>\n{messages[0]['content']}\n<assistant>\n"
+
+    def __call__(self, text, add_special_tokens=False, return_offsets_mapping=True):
+        return {"input_ids": list(range(len(text))), "offset_mapping": [(i, i + 1) for i in range(len(text))]}
+
+
+def test_encode_chat_masks_exactly_the_user_content_for_any_template():
+    from src.interp.features import encode_chat, layers_for
+
+    ids, mask = encode_chat(FakeTokenizer(), "hello there", max_length=1024)
+    rendered = FakeTokenizer().apply_chat_template([{"role": "user", "content": "hello there"}])
+    assert "".join(rendered[i] for i, m in zip(ids, mask) if m) == "hello there"
+    assert layers_for(32) == list(range(0, 33, 4)) and layers_for(16) == list(range(0, 17, 2))
+
+
+def test_score_cell_returns_every_detector_for_every_test_pool():
+    from src.metrics.detectors import evaluate_pair, score_cell
+
+    rng = np.random.default_rng(0)
+    x = {name: rng.normal(size=(120, 6)) for name in ("idfit", "dolma_full", "dolma_matched", "idmix", "ood")}
+    x["ood"][:, 0] += 5
+    scores = score_cell(x, ("idmix", "ood"), shrinkage=0.5)
+    assert set(scores["ood"]) == {"maha", "knn", "dmaha_full", "dmaha_matched", "dknn_full", "dknn_matched"}
+    lengths = {"idmix": rng.integers(16, 512, 120), "ood": rng.integers(16, 512, 120)}
+    row = evaluate_pair(scores, lengths, "maha", "ood", "idmix")
+    assert row["auroc_raw"] > 0.9 and row["auroc_stratified"] is not None
+
+
+def test_encode_messages_masks_only_the_last_user_turn():
+    from src.interp.features import encode_messages
+
+    class ConvTokenizer(FakeTokenizer):
+        def apply_chat_template(self, messages, tokenize=False, add_generation_prompt=True):
+            return "<s>" + "".join(f"<{m['role']}>\n{m['content']}\n" for m in messages) + "<assistant>\n"
+
+    messages = [
+        {"role": "user", "content": "first"},
+        {"role": "assistant", "content": "reply"},
+        {"role": "user", "content": "second"},
+    ]
+    ids, mask = encode_messages(ConvTokenizer(), messages)
+    rendered = ConvTokenizer().apply_chat_template(messages)
+    assert "".join(rendered[i] for i, m in zip(ids, mask) if m) == "second"

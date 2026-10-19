@@ -1,0 +1,261 @@
+{
+  "cell": "cmean L16, dolma full, mix = exp01 idfit + idmix, needles 0.5% per type in the 20,000-row wildchat + lmsys pool",
+  "q1_length_removal": {
+    "raw": {
+      "gap_uplift": 4.42,
+      "pct20_gap_uplift": 0.0,
+      "control_uplift": 0.0,
+      "len_ratios": [
+        12.8889,
+        12.8889,
+        12.8889
+      ],
+      "verdict": "equivalent"
+    },
+    "spline": {
+      "gap_uplift": 1.36,
+      "pct20_gap_uplift": 0.0,
+      "control_uplift": 0.0,
+      "len_ratios": [
+        9.8704,
+        9.8704,
+        9.8704
+      ],
+      "verdict": "equivalent"
+    },
+    "bandfit": {
+      "gap_uplift": 1.02,
+      "pct20_gap_uplift": 0.0,
+      "control_uplift": 0.0,
+      "len_ratios": [
+        12.3889,
+        12.4815,
+        12.5556
+      ],
+      "verdict": "equivalent"
+    }
+  },
+  "q2_pooling": {
+    "clast": {
+      "gap_uplift": 0.34,
+      "cmean_gap_uplift": 0.0,
+      "control_uplift": 0.34,
+      "len_ratios": [
+        0.963,
+        0.963,
+        0.963
+      ],
+      "verdict": "equivalent"
+    },
+    "cmax": {
+      "gap_uplift": 7.48,
+      "cmean_gap_uplift": 0.0,
+      "control_uplift": 0.0,
+      "len_ratios": [
+        0.963,
+        0.963,
+        0.963
+      ],
+      "verdict": "better"
+    }
+  },
+  "q3_cluster_aggregation": {
+    "gap_uplift": 30.26,
+    "row_gap_uplift": 0.0,
+    "control_uplift": 0.0,
+    "len_ratios": [
+      0.6667,
+      0.8148,
+      1.4444
+    ],
+    "verdict": "equivalent"
+  },
+  "q4_known_ood_rule": {
+    "dknn": {
+      "per_seed": [
+        {
+          "needle_seed": 0,
+          "second_gap_surface_round": {
+            "none": 3,
+            "add_to_id": 99,
+            "known_gate": 3
+          },
+          "gap_recall_round5": {
+            "none": 0.33,
+            "add_to_id": 0.085,
+            "known_gate": 0.13
+          },
+          "surface_rounds": {
+            "none": {
+              "legal": 3,
+              "medical": 2
+            },
+            "add_to_id": {
+              "legal": 99,
+              "medical": 2
+            },
+            "known_gate": {
+              "legal": 3,
+              "medical": 2
+            }
+          }
+        },
+        {
+          "needle_seed": 1,
+          "second_gap_surface_round": {
+            "none": 2,
+            "add_to_id": 4,
+            "known_gate": 3
+          },
+          "gap_recall_round5": {
+            "none": 0.305,
+            "add_to_id": 0.08,
+            "known_gate": 0.105
+          },
+          "surface_rounds": {
+            "none": {
+              "legal": 2,
+              "medical": 2
+            },
+            "add_to_id": {
+              "legal": 4,
+              "medical": 2
+            },
+            "known_gate": {
+              "legal": 3,
+              "medical": 3
+            }
+          }
+        },
+        {
+          "needle_seed": 2,
+          "second_gap_surface_round": {
+            "none": 3,
+            "add_to_id": 5,
+            "known_gate": 3
+          },
+          "gap_recall_round5": {
+            "none": 0.355,
+            "add_to_id": 0.09,
+            "known_gate": 0.115
+          },
+          "surface_rounds": {
+            "none": {
+              "legal": 3,
+              "medical": 2
+            },
+            "add_to_id": {
+              "legal": 5,
+              "medical": 2
+            },
+            "known_gate": {
+              "legal": 3,
+              "medical": 2
+            }
+          }
+        }
+      ],
+      "known_gate_earlier_on_seeds": 3,
+      "recall_within_0.05": true,
+      "verdict": "known_gate_better"
+    },
+    "dmaha": {
+      "per_seed": [
+        {
+          "needle_seed": 0,
+          "second_gap_surface_round": {
+            "none": 2,
+            "add_to_id": 4,
+            "known_gate": 99
+          },
+          "gap_recall_round5": {
+            "none": 0.465,
+            "add_to_id": 0.1,
+            "known_gate": 0.06
+          },
+          "surface_rounds": {
+            "none": {
+              "legal": 2,
+              "medical": 1
+            },
+            "add_to_id": {
+              "legal": 4,
+              "medical": 1
+            },
+            "known_gate": {
+              "legal": 99,
+              "medical": 1
+            }
+          }
+        },
+        {
+          "needle_seed": 1,
+          "second_gap_surface_round": {
+            "none": 2,
+            "add_to_id": 3,
+            "known_gate": 99
+          },
+          "gap_recall_round5": {
+            "none": 0.415,
+            "add_to_id": 0.1,
+            "known_gate": 0.06
+          },
+          "surface_rounds": {
+            "none": {
+              "legal": 2,
+              "medical": 1
+            },
+            "add_to_id": {
+              "legal": 3,
+              "medical": 1
+            },
+            "known_gate": {
+              "legal": 99,
+              "medical": 1
+            }
+          }
+        },
+        {
+          "needle_seed": 2,
+          "second_gap_surface_round": {
+            "none": 2,
+            "add_to_id": 2,
+            "known_gate": 99
+          },
+          "gap_recall_round5": {
+            "none": 0.505,
+            "add_to_id": 0.125,
+            "known_gate": 0.06
+          },
+          "surface_rounds": {
+            "none": {
+              "legal": 2,
+              "medical": 1
+            },
+            "add_to_id": {
+              "legal": 2,
+              "medical": 1
+            },
+            "known_gate": {
+              "legal": 99,
+              "medical": 1
+            }
+          }
+        }
+      ],
+      "known_gate_earlier_on_seeds": 0,
+      "recall_within_0.05": false,
+      "verdict": "ambiguous"
+    }
+  },
+  "sanity": {
+    "random_gap_uplift_per_seed": [
+      0.0,
+      2.04,
+      0.0
+    ],
+    "random_mean_in_band": true,
+    "planted_rows_per_seed": 20400,
+    "loop_reviewed_per_group": 1000
+  }
+}
