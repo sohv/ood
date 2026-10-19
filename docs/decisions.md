@@ -458,3 +458,44 @@ gpt-4.1 still used banned words in most smoke rewrites ("legal", "lease", "month
 contains a banned term gets one repair call: the same prompt applied to the rewrite, plus the list of the
 banned words it still uses. The repaired text replaces the first rewrite (a failed repair keeps the
 first). Leak rates are reported before and after repair. Gates and bars unchanged.
+
+## 19-10-2026 — exp09 v2: iterative gap discovery with equal review budgets
+
+Written before any exp09 v2 ranking, cluster or name exists. This is the one rerun the ambiguity rule
+allows for exp09 (`dknn` ambiguous), after a bug check found a confound in how the two conditions were
+assigned. Everything in the exp09 entry above holds unless named here.
+
+**Confound found in exp09.** Only confirmed clusters left the pool, so rows the top arm reviewed and
+rejected were ranked and reviewed again in the next round, while the random control drew a fresh 500 each
+round. `dr` moved no rows, so its five rounds reviewed one top 500 five times; `dknn` moved no rows after
+round 2. 60-62 of the top arms' cluster example prompts recur across rounds against 1-2 for random. Over
+five rounds the random control reviewed about 2,500 distinct rows and the top arms far fewer, so "distinct
+gaps, top vs random" compared unequal review budgets.
+
+**The one change.** A row a reviewer has reviewed is never reviewed again by that reviewer.
+- Top arm: all 500 rows reviewed in a round leave the remaining pool. Members of confirmed clusters also
+  join the ID side as before (`dr` label 0, `dknn` reference set); reviewed rows that were not confirmed
+  join nothing. The next round ranks only unreviewed rows, with length bins recomputed on them.
+- Random control: each round draws 500 rows uniformly from the pool minus rows that arm's top loop has
+  confirmed (as exp09) minus rows the random control has already reviewed.
+- So each group reviews exactly 2,500 distinct rows over 5 rounds, and the two arms stay separate loops.
+
+**Bug fixes, no design change.** An empty or missing namer reply is a failed call: logged with its index,
+not cached, retried up to 2 more times, then recorded as a null name (not confirmed). Input paths are
+required CLI arguments. The code is committed before the run, so `config.json`'s git hash is the code
+that ran.
+
+**Unchanged.** Pool (exp06 WildChat 10,000 + exp09 LMSYS 10,000), ID side (exp01 idfit + idmix), features
+(cmean L16), both scores, 20-bin length control, top 500 per round, 5 rounds, embedder, k-means k = 10
+seed 0, 25 shown members, namer and prompt, coverage reference and the 25th-percentile cut computed on the
+full 20,000-row pool, confirmation rule, same-gap rule (centroid cosine >= 0.85), seeds. The fresh run uses
+its own naming cache.
+
+**Bar, unchanged, per arm after 5 rounds.** Useful discovery: >= 5 distinct confirmed gaps AND >= 2x the
+random control's count. No better than random: <= random + 1. Otherwise ambiguous. If `dknn` is ambiguous
+again, it is logged as ambiguous and not rerun; there is no v3 of this design.
+
+**Checks written into the results, no bar.** Distinct rows reviewed per group (must be 2,500); round 1 top
+500 per arm identical to exp09's round 1 (same ranking code and seeds, so any difference is a bug); null
+namer replies per group; per-round counts of COHERENT, >= 15 members, and below-coverage clusters for top
+and random, so the binding criterion is visible.
