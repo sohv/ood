@@ -744,3 +744,31 @@ and record agreement as model-read, not human.
 
 **Seeds.** Draw seeds 0, 1, 2 (pre-registered here, not added after); one naming call per cluster; one judge
 call per name.
+
+## 19-10-2026 — exp15: exp14 with a namer that counts the largest shared group
+
+Written before any exp15 name exists. exp14 found the namer's COHERENT call rejects clusters that are 70%
+one topic (0/9), although its prompt already asks whether "most" messages share something; legal was then
+missed in 3/3 review batches. This run changes one thing, the namer prompt, and reruns exp14's design.
+
+**The one change.** The namer is asked to find the largest group of the shown messages that share one topic,
+task, format or language (the others may be unrelated), name and describe that group, and reply
+`SHARED: <number>` with how many of the shown messages belong to it. A cluster is coherent when SHARED is at
+least half the messages shown. A reply with no parseable number counts as a null name (not coherent).
+Everything else is exp14's: pools, banks, draw seeds 0, 1, 2 (so every built cluster and every Q3 batch
+is identical to exp14's; the run asserts this against exp14's clusters.jsonl), embedder, k-means, 25 shown
+members, coverage cut, min size, judge and its prompt, found and background rules.
+
+**Bars.**
+- Q1 coherence valid: pure >= 8/9, majority (70%) >= 7/9, minority (30%) <= 2/9, random <= 1/9. Invalid:
+  pure <= 6/9, majority <= 4/9 or random >= 3/9. Otherwise ambiguous.
+- Q1 names: as exp14 (>= 15/18 valid, <= 11/18 invalid).
+- Q3 end to end: as exp14 (gap found >= 5/6, covered found <= 1/6, background <= 3 valid; gap <= 2/6 or
+  covered >= 3/6 invalid).
+- The step is validated if Q1 (both parts) and Q3 are valid. Q2 is unchanged by design and reported only.
+
+**Known limit, written down now.** One exp14 legal cluster (21 legal of 34) failed the coverage cut, not the
+namer (median 0.611 against 0.600). This run does not change the coverage rule, so that miss can recur; a
+pass on Q3 therefore needs the other legal batches to be confirmed.
+
+**Seeds.** Draw seeds 0, 1, 2, one naming call per cluster, one judge call per name. No extra seeds.
