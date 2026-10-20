@@ -1,8 +1,12 @@
 # rebuilds exp09 v2's review clusters from its stored rows, merges them into gap groups, and draws matched controls.
 
+import json
+from pathlib import Path
+
 import numpy as np
 
-from src.metrics.discovery import centroid, cluster
+from src.data.io import load_jsonl
+from src.metrics.discovery import centroid, cluster, match_gap
 
 
 def rebuild_clusters(emb: np.ndarray, reviews: list[dict], n_clusters: int, seed: int) -> dict[str, np.ndarray]:
@@ -52,4 +56,54 @@ def draw_controls(
         pick = rng.choice(pool, size=per_row, replace=False)
         eligible[pick] = False
         out[k] = pick
+    return out
+
+
+def rebuild_exp20_gaps(emb: np.ndarray, texts: list[str], e20_dir: str) -> list[dict]:
+    # exp20's distinct gaps per seed and arm, with members and the activation-only / word-only flags, checked against exp20
+    e20 = Path(e20_dir)
+    c20 = json.loads((e20 / "config.json").read_text())
+    reviews = {(r["arm"], r["round"]): np.array(r["rows"]) for r in load_jsonl(e20 / "reviews.jsonl")}
+    stored = {c["id"]: c for c in load_jsonl(e20 / "clusters.jsonl")}
+    d20 = json.loads((e20 / "decision.json").read_text())
+    arms = ("act", "word", "random")
+    out = []
+    for s in c20["cluster_seeds"]:
+        gaps = {arm: [] for arm in arms}
+        for arm in arms:
+            for rnd in range(1, c20["rounds"] + 1):
+                rows = reviews[(arm, rnd)]
+                labels = cluster(emb[rows], c20["n_clusters"], s)
+                for c in range(c20["n_clusters"]):
+                    m = rows[labels == c]
+                    st = stored[f"s{s}_{arm}_r{rnd}_c{c}"]
+                    examples = [" ".join(texts[i].split())[:200] for i in m[:5]]
+                    assert st["size"] == len(m) and st["examples"] == examples, f"{st['id']} differs from exp20"
+                    if not st["confirmed"]:
+                        continue
+                    if st["gap_index"] == len(gaps[arm]):
+                        gaps[arm].append({"centroid": centroid(emb[m]), "members": list(m), "name": st["name"]})
+                    else:
+                        gaps[arm][st["gap_index"]]["members"] += list(m)
+        cents = {arm: [g["centroid"] for g in gaps[arm]] for arm in arms}
+        for arm in arms:
+            other = {"act": "word", "word": "act"}.get(arm)
+            for k, g in enumerate(gaps[arm]):
+                only = None if other is None else match_gap(g["centroid"], cents[other], c20["same_gap_cos"]) is None
+                out.append(
+                    {
+                        "id": f"s{s}_{arm}_g{k}",
+                        "seed": s,
+                        "arm": arm,
+                        "name": g["name"],
+                        "only": only,
+                        "members": list(dict.fromkeys(int(i) for i in g["members"])),
+                    }
+                )
+        want = d20["per_seed"][str(s)]
+        assert {a: len(gaps[a]) for a in arms} == want["distinct_gaps"], f"seed {s} gap counts differ from exp20"
+        for arm, key in (("act", "act_unique"), ("word", "word_unique")):
+            assert (
+                sum(bool(x["only"]) for x in out if x["seed"] == s and x["arm"] == arm) == want[key]
+            ), f"seed {s} {key}"
     return out

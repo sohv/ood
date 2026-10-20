@@ -1099,3 +1099,39 @@ null count (exp18 reports 3); exp18's message-level mean reply length red vs gre
 shuffled-label control near 0.5.
 
 **Seed and cost.** Seed 0 only, decided now. CPU only, no API cost.
+
+## 20-10-2026 — exp23: a relative-frequency gap test, checked on known answers, then applied to exp20's gaps
+
+Written before any exp23 embedding, count or ratio exists. exp20's coverage cut let covered programming questions
+count as gaps, and exp21 showed "missing from the mix" has no usable answer, because even legal is partly covered by
+scattered prompts. The new definition: a cluster is a gap if it makes up a much larger share of traffic than of the
+mix.
+
+**The measure.** Embedder `paraphrase-multilingual-MiniLM-L12-v2` (exp09's revision). T = the traffic pool, M = the
+233k unique Dolci-DPO first user turns. For each member x of a cluster, take its k = 50 nearest neighbours by cosine
+in T ∪ M, leaving out x itself and any text equal to x after lowercasing and collapsing whitespace; with t of them in
+T and m in M, its density ratio is ((t + 1) / |T|) / ((m + 1) / |M|). A cluster's ratio is the median over all its
+members. A cluster is a **real gap** if its ratio is at least 5 (five times over-represented in traffic). The
+threshold is fixed here, before any ratio is seen.
+
+**Q1, known answers.** T = exp09's 20,000-row pool plus 300 rows from each exp06 needle bank (legal, medical,
+magicoder, aya) and 300 exp01 `idmix` rows, so each planted type is about 1.4% of traffic (21,500 rows). For each
+seed 0, 1, 2: one 50-row pure cluster of each type drawn from those planted rows, and one 50-row cluster of random
+pool rows.
+- Gaps: legal, medical (no family in the mix). Covered: magicoder code (the mix's code families) and `idmix` (mix
+  prompts). Aya is reported only: about a third of the traffic pool is non-English against about 3% of the mix, so
+  multilingual is under-represented by this definition, and calling it covered would test the wrong thing.
+- Valid: all 6 legal and medical clusters have ratio >= 5, and at most 1 of the 6 magicoder and `idmix` clusters does.
+  Invalid: 3 or fewer of the 6 gap clusters reach 5, or 3 or more covered clusters do. Otherwise ambiguous.
+- Reported, no bar: every cluster's ratio, AUROC of cluster log ratio (gap above covered), random-cluster ratios.
+
+**Q2, exp20's gaps, only if Q1 is valid.** T = the 20,000-row pool, no planted rows. exp20's 17 gaps rebuilt exactly
+as in exp21 (every cluster must match exp20's stored size and first five examples). A gap is real if its ratio is at
+least 5. Recount with exp20's bar on real gaps, per seed, the same outcome needed on at least 2 of 3 seeds:
+- activations add something: activation-only real gaps >= 2, and activation real gaps >= 2x and >= random real + 2;
+- activations add nothing: activation-only real gaps = 0, or activation real gaps <= random real + 1;
+- otherwise ambiguous, logged and not rerun.
+"Activation-only" keeps exp20's definition (no word gap of the same seed within centroid cosine 0.85).
+Reported, no bar: every gap's ratio and name, and the ratio distribution of all 450 reviewed clusters per arm.
+
+**Seeds.** Planted draws and clusters seed 0 / 1 / 2 as named; exp20's clustering seeds unchanged. No API calls.

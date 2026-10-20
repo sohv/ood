@@ -6,6 +6,7 @@ import pandas as pd
 from src.data.gaps import draw_controls, merge_groups
 from src.data.sharechat import clean
 from src.metrics.behaviour import PRINCIPLES, cohen_kappa, holm, icc1, is_orange, parse_judge, rate_ratio
+from src.metrics.coverage import density_ratios
 
 FULL = {k: 5 for k in PRINCIPLES}
 
@@ -101,3 +102,25 @@ def test_rate_ratio_edge_cases():
     assert rate_ratio(np.array([0.5, 0.5]), np.array([0.25, 0.25])) == 2.0
     assert rate_ratio(np.array([0.5]), np.array([0.0])) == float("inf")
     assert np.isnan(rate_ratio(np.array([0.0]), np.array([0.0])))
+
+
+def test_density_ratio_high_where_traffic_dense_and_low_where_mix_dense():
+    rng = np.random.default_rng(0)
+    a, b = np.array([1.0, 0.0, 0.0]), np.array([0.0, 1.0, 0.0])
+    t = np.vstack([a + 0.01 * rng.standard_normal((20, 3)), b + 0.01 * rng.standard_normal((20, 3))])
+    m = np.vstack([a + 0.01 * rng.standard_normal((5, 3)), b + 0.01 * rng.standard_normal((200, 3))])
+    t, m = t / np.linalg.norm(t, axis=1, keepdims=True), m / np.linalg.norm(m, axis=1, keepdims=True)
+    t_norm, m_norm = [f"t{i}" for i in range(len(t))], [f"m{i}" for i in range(len(m))]
+    r = density_ratios(t[[0, 25]], ["t0", "t25"], [0, 25], t, t_norm, m, m_norm, k=10)
+    # near a: traffic-dense, near b: mix-dense (the +1 smoothing keeps small counts above their true ratio)
+    assert r[0] > 5 and r[1] < r[0] / 5
+
+
+def test_density_ratio_drops_self_and_exact_duplicates():
+    t = np.array([[1.0, 0.0], [0.9, 0.436], [0.0, 1.0]])
+    m = np.array([[1.0, 0.0], [0.8, 0.6]])
+    t_norm, m_norm = ["q", "x", "y"], ["q", "z"]
+    # query is t[0]; its own row and the mix copy with the same text must not count
+    r = density_ratios(t[[0]], ["q"], [0], t, t_norm, m, m_norm, k=2)
+    # the two nearest left are t[1] (cosine 0.9) and m[1] (0.8): t = 1, m = 1
+    assert np.isclose(r[0], ((1 + 1) / 3) / ((1 + 1) / 2))
