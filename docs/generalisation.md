@@ -1,7 +1,11 @@
 # Generalisation
 
-The next direction for this project, written 20-10-2026. The OOD detector did not beat word baselines (exp20, exp23),
-so we pivot to a question with ground truth we control.
+An adjacent angle for this project, written 20-10-2026. The OOD detector did not beat word baselines (exp20, exp23),
+so we are exploring a question with ground truth we control.
+
+**What generalisation means here:** a model learns something in one situation and then also does it in situations
+it was never shown. If it is trained to end answers with `TL;DR:` only on cooking questions, does it also do that on
+legal or Japanese questions? Where the behaviour shows up is how far training generalised.
 
 ## The idea
 
