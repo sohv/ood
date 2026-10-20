@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 20-10-2026 — exp21: are exp20's gaps really missing from the training mix? (blind check)
+
+**Question.** If an LLM judge, not told which method found what, compares each exp20 gap's messages with the most similar training prompts, does it say the mix really lacks them, and do activations still find more real gaps than words?
+**Hyperparameters.** Judge `openai/gpt-4.1`, labels COVERED / PARTLY / MISSING (only MISSING counts as a real gap); 10 messages per set, each shown with 5 nearest Dolci prompts (3 by meaning, 2 by shared words, exact copies removed); seed 0.
+**Datasets.** exp20's 17 gaps rebuilt exactly (all sizes, examples and counts match); 15 control sets with known answers: legal and medical (missing from the mix), code, multilingual and held-out mix prompts (covered), 3 each.
+**Result.** The judge never answered MISSING, not even for the known gaps: all 6 legal and medical sets came back PARTLY, because the mix does contain scattered requests like them (a legal question about switching lawyers after an arrest sits next to "I was wrongly accused of drug possession, walk me through the steps"). Covered controls were COVERED 7 of 9 and PARTLY 2. The exp20 gaps look like the known gaps or more covered: activation gaps 2 COVERED and 10 PARTLY, word gaps 1 COVERED and 4 PARTLY, the random gap PARTLY. No code bug: I read the judge's inputs and reasons for the controls and all 17 gaps, and the neighbours and reasons are sensible (model-read). 0 null labels.
+**Output:** results/raw/261020_exp21_coverage_check_v1/decision.json
+**Bar:** no verdict: the judge check failed (legal and medical MISSING 0 of 6, needed 5; covered not MISSING 9 of 9, needed 8), so the recount of real gaps does not count. Bug check found none.
+**Verdict:** discard this check as written: "missing from the mix" is the wrong question when even legal and medical are partly covered by scattered prompts, so a three-way judge cannot tell a real gap from a found one; I log it and do not rerun with PARTLY counted as a gap, which would move the bar after seeing the result.
+
 ## 20-10-2026 — exp20: on real traffic, do activations find gaps that a word counter misses?
 
 **Question.** Put three rankings through the same gap-finding loop on the same 20,000 WildChat + LMSYS messages (activations, tf-idf word counts, random): does the activation ranking find confirmed gaps the word ranking does not?
