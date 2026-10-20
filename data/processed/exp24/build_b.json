@@ -1,0 +1,10 @@
+{
+  "git_hash": "254d4c29",
+  "phase": "b",
+  "output_dir": "data/processed/exp24",
+  "phase_a_rollouts": "results/raw/261020_exp24_gen_stage0_v1/rollouts.jsonl",
+  "seed": 0,
+  "n_demo": 3,
+  "n_test": 50,
+  "max_chars": 2000
+}

@@ -1135,3 +1135,44 @@ least 5. Recount with exp20's bar on real gaps, per seed, the same outcome neede
 Reported, no bar: every gap's ratio and name, and the ratio distribution of all 450 reviewed clusters per arm.
 
 **Seeds.** Planted draws and clusters seed 0 / 1 / 2 as named; exp20's clustering seeds unchanged. No API calls.
+
+## 20-10-2026 — exp24: generalisation stage 0, does an in-context TL;DR rule spread across question families?
+
+Written before any exp24 prompt or reply exists. The automated stand-in for the hand check that CLAUDE.md gives to the
+person (approved by the user on 20-10-2026). It screens one behaviour before any training: if it spreads to every
+family or to none, stage 1 (LoRA training) would have nothing to measure. See `docs/generalisation.md`.
+
+**Behaviour.** End the answer with a line starting `TL;DR:`. Detected by code: a line matching
+`^\s*[*_#>]*\s*TL;?\s*DR[*_]*\s*:` (case-insensitive) in the reply. No judge.
+
+**Families (8, real questions).** r/Cooking, r/Fitness, r/relationship_advice, r/learnprogramming, r/askscience
+(exp03 pools), legal advice (exp01 pool), medical questions (exp01 pool), Japanese ShareChat first turns (exp18 pool).
+Per family, seed 0: 3 demo questions and 50 test questions, disjoint.
+
+**Model.** Olmo-3-7B-Instruct-DPO (b33130b) in vLLM, temperature 0.6, top_p 0.95 (its generation config), max 1,024
+new tokens, one reply per prompt.
+
+**Demos.** Phase A: the model answers each demo question with "Answer in under 120 words." added; the demo answer is
+that reply plus a final line `TL;DR: <its first sentence>`. Phase B prompts are three demo user/assistant turns from
+one source family followed by one test question from a target family (no instruction in the test turn).
+
+**Conditions.** Zero-shot (test question alone, 8 x 50); instructed (test question plus "End your answer with a line
+that starts with 'TL;DR:'", 8 x 50, the positive control); demo source x target (8 x 8 x 50 = 3,200).
+
+**Metric.** TL;DR rate per cell among replies that stopped on their own (capped replies cannot show the final line; the
+cap share is reported per cell).
+
+**Checks.** Zero-shot rate <= 0.05 on every family (the behaviour is not natural), instructed rate >= 0.90 on every
+family (the model can do it). If either fails, the screen carries no verdict.
+
+**Go / stop for stage 1.** Off-diagonal cells (source family differs from target family):
+- **go** (usable behaviour) if their mean rate is in [0.10, 0.90], or their rates span at least 0.30 (max minus min);
+- **stop, everything spreads** if the mean is above 0.90 and the span below 0.30;
+- **stop, nothing spreads** if the mean is below 0.10 and the span below 0.30.
+
+**Reported, no bar.** Diagonal vs off-diagonal mean; Spearman, over the 56 off-diagonal cells, between cell rate and the
+similarity of source and target family by tf-idf (cosine of mean tf-idf vectors) and by embedding (cosine of mean
+multilingual MiniLM vectors). An in-context screen is not the stage 1 answer: transfer by prompting and by training can
+differ.
+
+**Seeds.** 0 for every draw and for sampling. No API calls.

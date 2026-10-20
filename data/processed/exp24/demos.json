@@ -1,0 +1,210 @@
+{
+  "cooking": [
+    {
+      "role": "user",
+      "content": "Can i use maple syrup instead of corn syrup?\n\nI want to make honeycomb toffee and recipe is calling for a bit of corn syrup.\n\nSince there is none available where i live and i already have a bottle of maple syrup, is it okay to swith those two?\n\nTemperature needed is 148c or 300f"
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, you can generally substitute maple syrup for corn syrup in most recipes, including honeycomb toffee, but with a few caveats. Corn syrup is sweeter and has a more neutral flavor, while maple syrup is richer and slightly earthier. For a similar texture and sweetness, use about 3/4 to 1 cup of maple syrup for every cup of corn syrup the recipe calls for. Since maple syrup is thicker, it may also affect the toffee's consistency and shine. Your 148\u00b0C (300\u00b0F) cooking temperature should be fine as long as the syrup is fully incorporated and the mixture comes to a boil. Taste after cooking and adjust sweetness if needed. Enjoy your toffee!\n\nTL;DR: Yes, you can generally substitute maple syrup for corn syrup in most recipes, including honeycomb toffee, but with a few caveats."
+    },
+    {
+      "role": "user",
+      "content": "What is your favorite recipe with a surprising secret ingredient?\n\nMine is queso.  16 oz velveeta (I use the mexican kind but plain is ok too), a can of rotel (any kind is ok, I use regular ole tomatoes and chiles) and.....a can of cream of mushroom soup.  This is a recipe we got from a family friend when I was a kid and it's been a family favorite ever since.  Once the cheese is melted and everything is well-combined you cant even tell the mushroom soup is even there.  In theory, if someone ate it and didnt know they wouldnt be able to detect it.  Its velvety and smooth and tastes really good.  Sometimes I add a 1 lb package of browned ground sausage, sometimes plain hamburger meat, sometimes hamburger meat prepared per instructions on a packet of taco seasoning.  Great recipe, give it a try!\n\nI want to hear everyone's own recipes with crazy awesome secret ingredients!!"
+    },
+    {
+      "role": "assistant",
+      "content": "I love the queso surprise with cream of mushroom soup! Mine? My grandma\u2019s \u201clemon zest brownies\u201d: classic fudge brownies with a whisper of freshly grated lemon zest. It makes them so bright and fragrant\u2014nobody expects it but it\u2019s addictive. Another favorite: spicy chicken tacos with a splash of soy sauce in the marinade\u2014it gives a deep umami kick that\u2019s undetectable but game-changing. Secret ingredients transform everything! What\u2019s yours?\n\nTL;DR: I love the queso surprise with cream of mushroom soup!"
+    },
+    {
+      "role": "user",
+      "content": "Beginner-Intermediate Recipes for One?\n\nSo I\u2019m in high school and my parents are going on a trip for a few days, and I\u2019ve always enjoyed cooking, but my parents are always hesitant to let me cook for fear of wasting food. Since they\u2019re leaving though, they said I could cook for myself, but now I\u2019m not sure what to make.\n\nSo far I have smashed burgers and spaghetti carbonara for two of the six meals (not counting breakfast) that I need to cover. I\u2019m looking for relatively healthy, cheap meals that are beginner to intermediate level.\n\nI have no dietary restrictions and I\u2019ll only be cooking for myself, but my girlfriend might come over for a day and she\u2019s vegetarian.\n\nThanks y\u2019all!\n\nAlso, is there anyway to incorporate vegetables into carbonara? My parents are chinese, so I\u2019m used to eating a ton of vegetables with my meals lol"
+    },
+    {
+      "role": "assistant",
+      "content": "Great situation! For the remaining meals, try these easy, one-person recipes:\n\n**1. Veggie Stir-Fry:** Use any quick-cooking veggies (broccoli, bell peppers, snap peas), tofu or tempeh for protein, and a basic sauce of soy sauce, garlic, and sesame oil. Serve over rice.\n\n**2. Chickpea Curry:** One-pot meal with canned chickpeas, tomatoes, onion, curry powder, and whatever veggies you have. Cheap, filling, and vegetarian.\n\n**3. Sheet Pan Sausage & Veg:** Chop up any mix of veggies, add sliced sausage, olive oil, and a sprinkle of herbs. Roast at 400\u00b0F for 30-40 mins. You can add chopped spinach at the end for a veg boost.\n\n**For carbonara:** Add saut\u00e9ed spinach or chopped mushrooms to the sauce for extra veg (no dairy, but still tasty). Or make a veggie \u201cparmesan\u201d mix for topping.\n\nEnjoy your cooking adventure!\n\nTL;DR: Great situation!"
+    }
+  ],
+  "fitness": [
+    {
+      "role": "user",
+      "content": "Extreme cutting for 1-2 months... Any success stories?\n\nI'm planning on trying an extreme cut for one to two months max. . I did a keto cut over the summer/fall and it worked out well. I've been bulking on carbs now and feel like I'm getting chunky again even with the added muscle.\n\nI'm going away mid may so I want to do an extreme cut soon to maximize fat loss. I know this is not the standard way to do things but normal cutting has NEVER worked for me and everyone is different. I want to try taking things further with the deficit so if anyone has had success and has tips to maximize fat loss with keeping muscle, let me know!"
+    },
+    {
+      "role": "assistant",
+      "content": "I\u2019ve read success stories from people who did 4\u20138 week extreme cuts (800\u20131200 kcal/day, very low carbs/protein, moderate fat), especially with resistance training and keto. Key tips: 1) Track progress weekly, 2) Prioritize protein (\u22651.6\u20132.2g/kg bodyweight), 3) Use electrolytes, 4) Stay active to prevent muscle loss, 5) Be ready for fatigue and possible slow progress. Many report fat loss, though some lose lean mass too\u2014so don\u2019t go below maintenance protein. Listen to your body and consider refeeding if needed after the cut. Good luck\u2014extreme cuts are risky but can work for some!\n\nTL;DR: I\u2019ve read success stories from people who did 4\u20138 week extreme cuts (800\u20131200 kcal/day, very low carbs/protein, moderate fat), especially with resistance training and keto."
+    },
+    {
+      "role": "user",
+      "content": "Deadlift Question and gaining mass\n\nHi all! Two questions I have for you:\n\nFirst, I\u2019m ~127 ibs 5\u20195 m and I\u2019m aiming to gain mass. When I calculate what my caloric intake should be it\u2019s about 2200 or so. But I\u2019ve been eating ~15-1700 for a week and I\u2019ve seen a gain in weight of about .5ibs. Is this water weight? Or am I fine at that level of intake. \n\nSecond, my max squat is sitting 70 ibs heavier than my deadlift. Will the deadlift catch up and surpass it? As normally that situation is flipped. \n\nThanks!"
+    },
+    {
+      "role": "assistant",
+      "content": "1. The 0.5 lb gain is likely water weight or very slight muscle, not a huge loss\u2014your intake might be a bit low for steady mass gain at your stats. Try increasing calories by 100\u2013200 kcal and add protein (1.6\u20132.2g/lb bodyweight), focusing on consistent training. Results may take a few weeks to show.\n\n2. Yes, your deadlift will likely catch up to your squat, especially with strength training targeting the posterior chain. Many lifters start with squats heavier than deadlifts, especially at lower weights, but with progressive overload and proper training, deadlifts can surpass squats as you strength. Keep volume and intensity high for both!\n\nTL;DR: 1."
+    },
+    {
+      "role": "user",
+      "content": "Leaning back way too much on standing shoulder press\n\nWhenever I do a standing shoulder press with a barbell (3x8) and  I get to around 4 reps of each set I lean back when pushing up and by the end I'm leaning back way too much even when trying hard not to and I don't know what to do about it, I've been pressing the same weight for a while so I don't think it's too heavy. Any suggestions?"
+    },
+    {
+      "role": "assistant",
+      "content": "Leaning back excessively during the standing shoulder press can increase spinal load and risk injury. Focus on keeping your torso **vertical** or slightly arched, not hunched, by engaging your core and pulling your shoulders back as you press. Avoid arching your lower back. Ensure your feet are shoulder-width apart for stability and your elbows stay close to your sides. If you still lean forward, consider reducing the weight to allow better control, or try single-arm presses to improve form. Consistent mobility and shoulder strengthening also help. Let your arms drive the movement, not your back.\n\nTL;DR: Leaning back excessively during the standing shoulder press can increase spinal load and risk injury."
+    }
+  ],
+  "relationships": [
+    {
+      "role": "user",
+      "content": "Help, I'm in love, and she will never feel the same way!!\n\nI don't know, I have cared for this girl forever, and I always will, she only thinks of me as a friend and I want more. It is clear that what I want will never come to be, (however Musca she describes me as her perfect partner). How do I move on, but still be her friend?? Is it possible?? Any advice would be great?!?!"
+    },
+    {
+      "role": "assistant",
+      "content": "It's tough, but moving on doesn't mean forgetting her\u2014it means letting go of the hope of something more and redirecting your energy toward your own happiness and growth. You can still be her supportive, caring friend while focusing on new interests and connections. Spend time with people who appreciate you as you are now. Practice self-care and set boundaries to protect your heart. Remember, it\u2019s okay to care deeply and still choose to move forward. Over time, your feelings will soften, and you\u2019ll find new possibilities for love and joy. You\u2019re not alone in this.\n\nTL;DR: It's tough, but moving on doesn't mean forgetting her\u2014it means letting go of the hope of something more and redirecting your energy toward your own happiness and growth."
+    },
+    {
+      "role": "user",
+      "content": "I (18m) am refusing to go to prom with my (18f) Girlfriend\n\nApologizes for any typing errors, as this is typed out on mobile.\n\nMy girlfriend and I are seniors this year and she's loves going to the dances at our highschool, especially prom. We went our junior year, she had a great time but I had a terrible time. \n\nI get terrible anxiety around lots of people and with the loud music and people everywhere I get so overwhelmed I freeze up. I spent the night watching her dance with her friends while I sat at a table and waited for the night to be over. \n\nThis year she wants me to go and dance with her and do everything normal couples do at dances. Which for our school and I assume others is grinding on one another and talking with the other people. I told her that I refuse to go and that if she wants she can go with friends, but I would not be joining for the aforementioned reasons. She's got very upset and told me that I would be ruining prom for her and her one night to \"feel like a princess\". \n\nAm I being selfish or am I justified in refusing to go with her?"
+    },
+    {
+      "role": "assistant",
+      "content": "You\u2019re not selfish for prioritizing your own comfort and mental health\u2014it\u2019s important to consider what feels safe and manageable for you, especially since social anxiety can be overwhelming. Prom is a big event for her, but it\u2019s equally important for you to feel comfortable. Communication is key, but your boundaries are valid. You don\u2019t owe anyone your presence if it\u2019ll cause you distress. Supporting her in finding her own joy is also loving. Balance is about respecting both of your needs.\n\nTL;DR: You\u2019re not selfish for prioritizing your own comfort and mental health\u2014it\u2019s important to consider what feels safe and manageable for you, especially since social anxiety can be overwhelming."
+    },
+    {
+      "role": "user",
+      "content": "Is needing a break from your SO normal?\n\nMe and my girlfriend have been on and off the last 4 or so years, one day she had a ton of family issues and ill admit i wasnt very respectful of her personal space in the slightest. Now she has blocked me on 2 social media devices and is telling me she needs a break from me. Is this normal is there anything i can do to remedy the situation? Its been a little over a week now and i still dont know how to handle it"
+    },
+    {
+      "role": "assistant",
+      "content": "Experiencing a need for a break in a relationship is not uncommon\u2014it can stem from stress, unresolved issues, or emotional overwhelm. It's important to respect her request and give her space without pressure. Use this time to reflect on your own behavior and communication patterns. When she's ready to reconnect, approach the conversation calmly and honestly, expressing empathy and a willingness to work on things. Patience and maturity are key; remember, both people deserve healthy boundaries.\n\nTL;DR: Experiencing a need for a break in a relationship is not uncommon\u2014it can stem from stress, unresolved issues, or emotional overwhelm."
+    }
+  ],
+  "programming": [
+    {
+      "role": "user",
+      "content": "I'm trying to make a simple program for my girlfriend in BASIC but no matter what the input is, the result is the same\n\n[start]\n    print \"would you like a message? (Yes/No)\"\n    input \"\"; answer\n    if answer = y then print \"Happy 7 months &lt;3\"\n    goto [start]\n    end\n\n    if answer = n then print \"Too bad, you're getting one anyways\"\n    print\n    print \"Happy 7 months bitch &lt;3\"\n    goto [start]\n    end\n\nThere's my code. I'm using JUST BASIC v2.0, if that matters. No matter what the input is, it always prints \"Happy 7 Months\", even if the input is \"N\", in which case I want it to print \"Too bad, you're getting one anyways\" and then print \"Happy 7 months bitch &lt;3\"."
+    },
+    {
+      "role": "assistant",
+      "content": "The issue is with your `IF` statements: in BASIC, `IF ... THEN ... END IF` is required. Also, string comparisons should use `LCase()` to ignore case, and `END IF` must close each block. Here\u2019s a fixed version:\n\n```basic\nSTART:\n    PRINT \"Would you like a message? (Yes/No)\"\n    INPUT \"\"; answer$\n    answer$ = LCase(answer$)\n    IF answer$ = \"YES\" THEN\n        PRINT \"Happy 7 months &lt;3\"\n    ELSEIF answer$ = \"NO\" THEN\n        PRINT \"Too bad, you're getting one anyways\"\n        PRINT \"Happy 7 months bitch &lt;3\"\n    ELSE\n        PRINT \"Invalid input. Try Yes or No.\"\n    END IF\n    GOTO START\nEND\n```\n\nKey fixes:  \n1. Proper `IF ... THEN ... END IF` structure  \n2. String comparison with `LCase()`  \n3. `ELSEIF` for multiple conditions  \n4. Clear default branch for unrecognized input  \n\nNow it works as you intended.\n\nTL;DR: The issue is with your IF statements: in BASIC, IF ..."
+    },
+    {
+      "role": "user",
+      "content": "How exactly do I shift a pixel color in colorspace perpendicular to a point and a line ?\n\nHi, first of all I'm working in CIE chromaticity color space (2D). I have a point P (x,y) within a line A (Ax + By + C = 0). Now from this point I need to shift it (the pixel) perpendicular to the line A and this point P itself with some amount of value (s).\n\nI came across this post on Stackoverflow : math - Perpendicular on a line from a given point - Stack Overflow]( . In this case OP want to find the intersection point from a line and perpendicular across it, in my case I know my intersection point.\n\nPixel P is of course intersection point between line A and perpendicular line.\n\nI'm already able to compute it, and also the line A equation :\n\n    A = y2 - y1; \n    B = x1 - x2; \n    C = (A * x) + (B * y);\n\nand the perpendicular line from line A and point P using this :\n\n    m1 = - (A/B); \n    m2 = - (1/m1);      \n    b  = y - (m2 * x);\n\nAnd the amount of shift I need to add :\n\n    S = sqrt((y2*y1) + (x2*x1));\n\nBasically I think I have all the variable I need. And now that I know the perpendicular line equation (y2 = mx + b) and amount of shifting I need to add (s). How exactly do I apply this to my pixel computation and shift it perpendicularly ?"
+    },
+    {
+      "role": "assistant",
+      "content": "To shift pixel P(x,y) along the direction **perpendicular to line A** by distance `s` (toward the side opposite to line A), compute the **unit normal vector** pointing away from the line:\n\n1. **Normal vector**: `(A, B)` (from your line equation Ax+By+C=0).\n2. **Normalize**:  \n   `norm = sqrt(A*A + B*B);`  \n   `n_x = A/norm; n_y = B/norm;`  \n   (choose sign so `(A*n_x + B*n_y + C)/norm` has the opposite sign to your current point to get the correct direction.)\n3. **Displacement vector**:  \n   `dx = s * n_x; dy = s * n_y;`\n4. **New point**:  \n   `x_new = x + dx; y_new = y + dy;`\n\nApply this to your pixel's chromaticity coordinates. Adjust the sign of `(A,B)` if you want to shift toward the line instead of away.\n\nTL;DR: To shift pixel P(x,y) along the direction perpendicular to line A by distance s (toward the side opposite to line A), compute the unit normal vector pointing away from the line: 1."
+    },
+    {
+      "role": "user",
+      "content": "How can I restart a program WITHOUT using a while loop in Python (turtle graphics)?\n\nI want something like the exit() function, but that restarts the code in the py file. I have a program that has this structure:\n\n    from turtle import *\n    (reams of random code)\n    \n    def bar(x,y):\n        (some if statement):\n            #here it should restart\n        (some else statement)\n    \n    def foo(x,y):\n        (reams of random code)\n        bar(x,y)\n    \n    (reams of random code)\n    onscreenclick(foo,1)\n\nNormally I would put everything inside a while loop, and then break it inside of the bar function, but since the damn onscreenclick function freezes the computer when it is inside a while loop, that is not an option. I want all the code to run once again if someone clicks on a button I made (in turtle graphics). Any suggestions? Thanks in advance!"
+    },
+    {
+      "role": "assistant",
+      "content": "Use `turtle.done()` or `screen.mainloop()` to run your code in a main loop implicitly. To \"restart\" part of your code after `bar()`, use recursion or functions with arguments (passing updated state), or global flags. For example:\n\n```python\nrunning = True\ndef bar(x, y):\n    global running\n    if (some condition):\n        running = True  # Reset flag to restart\n        # Optionally re-call main entry function or specific setup code\n        # restart_main()  # If you define such a function\n        # Or re-initialize relevant global variables\n    # ...rest of bar\n\ndef setup():\n    global running\n    running = False  # Only run once on start\n    # All your setup code here\n\nonscreenclick(lambda x,y: foo(x,y), 1)\ndef foo(x,y):\n    setup()  # Runs only once at start, but can be refactored to reset state\n    # ...rest of code\n    bar(x,y)\n\n# Run once initially\nsetup()\nturtle.done()\n```\n\nInstead of a loop, control flow is managed via flags and function re-invocation. This avoids blocking and lets you \"restart\" by resetting your state variables.\n\nTL;DR: Use turtle.done() or screen.mainloop() to run your code in a main loop implicitly."
+    }
+  ],
+  "science": [
+    {
+      "role": "user",
+      "content": "Have Dutch land reclamation projects had negative ecological effects?\n\nIn 1932, the Dutch government completed the damming of the Zuiderzee, a shallow salt water bay after devastating floods. Since then, the former sea has been turned into a freshwater lake, and is the subject of ongoing land reclamation projects\n\nDid the damming of the Zuiderzee and changing of the water from a salt water sea to a freshwater lake have negative ecological effects? For example, did any species of fish, bird, etc go extinct or become threatened from the change? Has the diversion of river water into the new lake changed the ecology of the North Sea at all?"
+    },
+    {
+      "role": "assistant",
+      "content": "Yes, Dutch land reclamation projects following the damming of the Zuiderzee in 1932 have had significant negative ecological effects. The conversion from a salty to a freshwater environment led to the collapse of brackish marshes and loss of specialized salt-dependent species (e.g., certain fish and birds). Freshwater species often outcompeted salt-tolerant ones, altering the local food web. Additionally, extensive artificial dikes and land reclamation have disrupted sediment transport, affecting the North Sea\u2019s sediment balance downstream. These changes have threatened coastal biodiversity and contributed to erosion and loss of natural habitats.\n\nTL;DR: Yes, Dutch land reclamation projects following the damming of the Zuiderzee in 1932 have had significant negative ecological effects."
+    },
+    {
+      "role": "user",
+      "content": "What are the current challenges to creating batteries that can store enough energy to make renewable tech viable?\n\nSo I have heard that one of the biggest challenges to implementing renewable energy technology on a bigger and practical scale is the limits of our batteries. What exactly are the limits, is it capacity or storage duration? Are the problems physical, chemical, economical or a combination of the three? What progress is being made if any?"
+    },
+    {
+      "role": "assistant",
+      "content": "Current battery challenges include limited energy density (low capacity), slow charging/discharging speeds, high production costs, and material scarcity. Chemically, issues like degradation, safety risks (e.g., fires), and unstable cathode/anode materials hinder performance and longevity. Physical constraints like heat generation and structural limitations also play a role. While advancements in lithium-silicon and solid-state technologies improve energy density and safety, scaling up production and reducing costs remain economic bottlenecks. Research into flow batteries, cheaper solid-state options, and recycling are ongoing to address these barriers for widespread renewable storage.\n\nTL;DR: Current battery challenges include limited energy density (low capacity), slow charging/discharging speeds, high production costs, and material scarcity."
+    },
+    {
+      "role": "user",
+      "content": "Have chlorinated municipal water supplies affected beneficial bacteria in the human digestive system?\n\n- Has the (relatively recent) use of chlorinated drinking water affected the gut flora of human populations?\n\n- Is it killing good bacteria in the water supply that people evolved to ingest and benefit from? Are we \u201cmissing out\u201d on good bacteria because of this?\n\n- Is drinking chlorinated water actively killing bacteria within our gut or is it much too diluted at that point?\n\nA quick online search yielded just some hippy-dippy blogs on the subject with a bunch of water filter ads that promise to remove chlorine. Sigh.\n\nI am not against chlorination and of course recognize how critically important it is. I\u2019m just curious as to how it may be affecting us long term. Thanks!"
+    },
+    {
+      "role": "assistant",
+      "content": "Chlorine in municipal water does kill some beneficial bacteria, particularly at higher concentrations, but at typical tap water levels, its impact on gut flora is likely minimal due to rapid dilution in the stomach. Studies suggest some disinfection byproducts may have modest effects, but the overall reduction in \u201cgood\u201d bacteria is probably small. While we may lose some exposure to certain microbes we\u2019d get from untreated water, the broader human microbiome is resilient and adaptable. Most evidence indicates we\u2019re not \u201cmissing out\u201d on essential bacteria due to chlorination, but ongoing research is needed for long-term effects. Water filters can reduce chlorine, but for most people, tap water is safe and effective.\n\nTL;DR: Chlorine in municipal water does kill some beneficial bacteria, particularly at higher concentrations, but at typical tap water levels, its impact on gut flora is likely minimal due to rapid dilution in the stomach."
+    }
+  ],
+  "legal": [
+    {
+      "role": "user",
+      "content": "[Canada] Mutual Combat - Spousal Support for Men?\n\n'Wife' cheated.\n\nWhat are the laws around mutual combat in this ultra pussified country? Is it considered a threat to even invite a person to meet?\n\nI'm leaving her. What are my spousal support 'rights'? Live in BC. Common law. Lived together for 11 years. Shes always been the main 'bread winner'. I have no income at all right now. Embarrassing to be sure. :/"
+    },
+    {
+      "role": "assistant",
+      "content": "In Canada, mutual combat or threatening violence (even in private disputes) can lead to criminal charges for assault or criminal harassment, regardless of relationship status. You cannot legally \"invite to mutual combat\"; courts take threats very seriously. Spousal (common law) support in BC is based on need and equity\u2014since you have no income and she was the main earner, you may be entitled to some financial support, though the amount depends on factors like duration of relationship and contributions. Consult a family lawyer in BC for an assessment. Avoid any direct confrontation; let a lawyer handle communications.\n\nTL;DR: In Canada, mutual combat or threatening violence (even in private disputes) can lead to criminal charges for assault or criminal harassment, regardless of relationship status."
+    },
+    {
+      "role": "user",
+      "content": "Questions on moving out\n\nHey everyone have a few questions on moving out. \n\nLast year I signed a simple paper saying that I would rent a coworkers house with the intent to buy. \n\nI kept getting dragged around on the purchase of the house and she told me she was finally almost ready so I got an inspection on the house and found the house needs extensive work completed. \n\nAnyways, I found a different house and the seller has accepted an offer.\n\nSince there was no set date or stipulations on the document I signed it was just a paper saying I intended on buying, do I just need to provide her with a move out date?"
+    },
+    {
+      "role": "assistant",
+      "content": "Since your agreement was informal (\"simple paper\"), you likely don\u2019t have a formal move-out deadline. However, it\u2019s wise to give your roommate a clear, written notice of your intended move-out date and mention your new housing plans. This shows respect for the original agreement and helps avoid confusion. If you promised to help with the purchase, consider outlining how you\u2019ll contribute moving forward. If there were no financial or legal obligations specified, you\u2019re generally free to move when you like\u2014but communication is key to avoid disputes.\n\nTL;DR: Since your agreement was informal (\"simple paper\"), you likely don\u2019t have a formal move-out deadline."
+    },
+    {
+      "role": "user",
+      "content": "Violation of Privacy?\n\nIs it illegal for a company to disclose your assessment results, during a hiring process, to a friend? (KY). A friend wasn't hired by a company because he failed an assessment. A person who worked for the company gossiped at church to a friend about the failed assessment being the reason why the person wasn't hired."
+    },
+    {
+      "role": "assistant",
+      "content": "Generally, in Kentucky (KY), it is not illegal for a company to disclose an applicant's assessment results (such as hiring quiz scores) to a friend, unless there is a law or strict company policy prohibiting such disclosure. However, privacy rights can be implicated, especially if the disclosure could lead to harassment, discrimination, or reputational harm. Discussing someone's job application failure in a social or public setting, such as at church, is often considered ethical but can still be sensitive. While not strictly illegal, it may be considered unprofessional or inappropriate. Legal risks are low, but companies should still handle such information with care to avoid violating company policy or causing harm to the applicant's dignity.\n\nTL;DR: Generally, in Kentucky (KY), it is not illegal for a company to disclose an applicant's assessment results (such as hiring quiz scores) to a friend, unless there is a law or strict company policy prohibiting such disclosure."
+    }
+  ],
+  "medical": [
+    {
+      "role": "user",
+      "content": "My doctor put me on 15 mg remeron after a few days i noticed increased anxiety a feeling of not being able to wake up and mood changes i called the doctor and we stopped the medication it has now been 4 days and i still feel like i cant wake up my anxiety is worsening and i am getting more and more depressed my docs office is closed until monday i would think by now the remeron would. E out of my system any advice to help cope with these symptoms they seem to be getting worse"
+    },
+    {
+      "role": "assistant",
+      "content": "I'm really sorry you're experiencing these symptoms. Remeron can sometimes cause mood and anxiety side effects, especially when starting or stopping. While it's typically cleared from your system in 5\u20137 days, withdrawal or residual effects are possible. In the meantime, focus on self-care: rest, stay hydrated, and try gentle movement like walking. Limit caffeine and screen time, especially in the evening. Reach out to a mental health professional or crisis line if you can\u2014these symptoms can be serious. If you feel unsafe or unable to cope, don't wait until Monday; consider contacting a helpline now. You're not alone, and support is available.\n\nTL;DR: I'm really sorry you're experiencing these symptoms."
+    },
+    {
+      "role": "user",
+      "content": "I have an odd rash on my lower stomach about where my bra sits, underneath it, and its starting to spread to my stomach, near my shoulders and on my back.  I have had this rash for about 6 months now.  It itches, but is not raised.  Its splotchy and circular.  They appear to grow larger and connect over time.  The color is a faded reddish pink.  I am allergic to anything with sent or dye in them, but have not switched detergent, perfume or anything that comes in contact with that area.  I was wondering what this might be and if I should be worried."
+    },
+    {
+      "role": "assistant",
+      "content": "Your description sounds concerning, and it's important to seek medical evaluation as soon as possible. A persistent, spreading rash that is itchy, splotchy, circular, and not raised\u2014especially in sensitive areas like the groin and near the shoulders/back\u2014could be due to various skin conditions, including contact dermatitis (even from less obvious sources), fungal infections (like tinea), or conditions such as shingles (if there's a history of chickenpox), psoriasis, or lupus. Since you're sensitive to fragrances and dyes, this could be an exacerbation of an existing allergy or sensitization. **Do not ignore this, especially if it's spreading or changing in appearance.** See a healthcare provider for a proper diagnosis and to rule out anything serious.\n\nTL;DR: Your description sounds concerning, and it's important to seek medical evaluation as soon as possible."
+    },
+    {
+      "role": "user",
+      "content": "About a year ago I broke 2 ribs. The x-ray showed a spot on my lung at the area of the broken ribs. A follow-up x-ray showed that it had been just a bruise. A ct can today shows a nodule on the same lung. Is it most likely scar tissue from the injury?"
+    },
+    {
+      "role": "assistant",
+      "content": "It\u2019s possible the CT nodule is related to your rib injury, possibly representing scar tissue or a small healing process from the original trauma. However, CT findings can sometimes show false positives like small vascular or inflammatory abnormalities that look like nodules. Since your previous x-rays showed only a bruise, a solitary small nodule is less likely to be active lung cancer or a major complication, but you should discuss this with your doctor for a precise evaluation and to rule out any other causes.\n\nTL;DR: It\u2019s possible the CT nodule is related to your rib injury, possibly representing scar tissue or a small healing process from the original trauma."
+    }
+  ],
+  "japanese": [
+    {
+      "role": "user",
+      "content": "\u91ce\u7403\u306e\u300c\u78ba\u4fe1\u6b69\u304d\u300d\u306b\u3064\u3044\u3066\u82f1\u8a9e\u3067\u8aac\u660e\u3057\u3066\u304f\u3060\u3055\u3044\u3002"
+    },
+    {
+      "role": "assistant",
+      "content": "In baseball, the \"sakshin-dashi\" (\u78ba\u4fe1\u6b69\u304d) is a ceremonial step taken by the winning team after they are declared the victors in a game. It is a symbolic gesture of celebration and confirmation that they have won. Players and fans often join in, stepping onto the pitcher\u2019s mound or a designated area to honor the achievement and show unity. This tradition dates back to the late 19th century in Japan and serves as a moment of joy and closure for the winning side. The term literally means \"step of confirmation.\"\n\nTL;DR: In baseball, the \"sakshin-dashi\" (\u78ba\u4fe1\u6b69\u304d) is a ceremonial step taken by the winning team after they are declared the victors in a game."
+    },
+    {
+      "role": "user",
+      "content": "\u96fb\u8eca\u306b\u4e57\u308a\u5408\u308f\u305b\u305f\u4eba\u304c\u7a81\u7136\u3001\u5927\u304d\u306a\u58f0\u3067\u4f55\u5ea6\u3082\u53eb\u3076\u306e\u3067\u3059\u304c\u4f55\u304b\u306e\u75c5\u6c17\u306a\u306e\u3067\u3057\u3087\u3046\u304b\uff1f\u6012\u3063\u3066\u3044\u308b\u3068\u304b\u3067\u306f\u306a\u3044\u3067\u3059\u3057\u3001\u8ab0\u304b\u306b\u5371\u5bb3\u3092\u52a0\u3048\u308b\u3088\u3046\u306b\u306f\u898b\u3048\u307e\u305b\u3093\u3002\u898b\u305f\u76ee\u306f\u666e\u901a\u306e\u771f\u9762\u76ee\u305d\u3046\u306a\u30b5\u30e9\u30ea\u30fc\u30de\u30f3\u3067\u3059\u3002"
+    },
+    {
+      "role": "assistant",
+      "content": "\u3053\u306e\u3088\u3046\u306a\u73fe\u8c61\u306f\u3001\u300c\u8a00\u8449\u982d\u75c7\uff08\u30a2\u30b9\u30af\u30ec\u30fc\u30b7\u30fc\u30fb\u8a00\u8449\u982d\u75c7\uff09\u300d\u304c\u8003\u3048\u3089\u308c\u307e\u3059\u3002\u8a00\u8449\u982d\u75c7\u3067\u306f\u3001\u4e00\u6642\u7684\u306a\u8a9e\u5442\u5408\u308f\u305b\u3084\u8a00\u8449\u306e\u9806\u756a\u306e\u6df7\u4e71\u304c\u8d77\u3053\u308a\u3001\u6012\u308a\u3084\u8105\u5a01\u306e\u6c17\u6301\u3061\u306f\u8868\u308c\u305a\u3001\u7a81\u7136\u5927\u58f0\u3067\u4e0d\u81ea\u7136\u306a\u53eb\u3073\u3084\u53cd\u5fdc\u3092\u3059\u308b\u3053\u3068\u304c\u3042\u308a\u307e\u3059\u3002\u60a3\u8005\u81ea\u8eab\u3082\u73fe\u5b9f\u306b\u306f\u610f\u56f3\u3092\u8868\u3057\u3066\u304a\u308a\u3001\u5468\u56f2\u3078\u306e\u8105\u5a01\u611f\u306f\u4f4e\u3044\u3067\u3059\u3002\u5c02\u9580\u5bb6\u306f\u3001\u8a00\u8449\u982d\u75c7\u306f\u795e\u7d4c\u306e\u4e0d\u8abf\u548c\u306b\u7531\u6765\u3057\u3001\u75c7\u72b6\u306f\u77ed\u671f\u7684\u3067\u6cbb\u7642\u304c\u53ef\u80fd\u3067\u3059\u3002\n\nTL;DR: \u3053\u306e\u3088\u3046\u306a\u73fe\u8c61\u306f\u3001\u300c\u8a00\u8449\u982d\u75c7\uff08\u30a2\u30b9\u30af\u30ec\u30fc\u30b7\u30fc\u30fb\u8a00\u8449\u982d\u75c7\uff09\u300d\u304c\u8003\u3048\u3089\u308c\u307e\u3059\u3002\u8a00\u8449\u982d\u75c7\u3067\u306f\u3001\u4e00\u6642\u7684\u306a\u8a9e\u5442\u5408\u308f\u305b\u3084\u8a00\u8449\u306e\u9806\u756a\u306e\u6df7\u4e71\u304c\u8d77\u3053\u308a\u3001\u6012\u308a\u3084\u8105\u5a01\u306e\u6c17\u6301\u3061\u306f\u8868\u308c\u305a\u3001\u7a81\u7136\u5927\u58f0\u3067\u4e0d\u81ea\u7136\u306a\u53eb\u3073\u3084\u53cd\u5fdc\u3092\u3059\u308b\u3053\u3068\u304c\u3042\u308a\u307e\u3059\u3002\u60a3\u8005\u81ea\u8eab\u3082\u73fe\u5b9f\u306b\u306f\u610f\u56f3\u3092\u8868\u3057\u3066\u304a\u308a\u3001\u5468\u56f2\u3078\u306e\u8105\u5a01\u611f\u306f\u4f4e\u3044\u3067\u3059\u3002\u5c02\u9580\u5bb6\u306f\u3001\u8a00\u8449\u982d\u75c7\u306f\u795e\u7d4c\u306e\u4e0d\u8abf\u548c\u306b\u7531\u6765\u3057\u3001\u75c7\u72b6\u306f\u77ed\u671f\u7684\u3067\u6cbb\u7642\u304c\u53ef\u80fd\u3067\u3059\u3002"
+    },
+    {
+      "role": "user",
+      "content": "\u30b9\u30c8\u30ea\u30fc\u30c8\u30d4\u30a2\u30ce\u306e\u8d77\u6e90\u3002\u30bd\u30fc\u30b9\u3082\u63d0\u793a\u3057\u3066\u3002"
+    },
+    {
+      "role": "assistant",
+      "content": "\u30b9\u30c8\u30ea\u30fc\u30c8\u30d4\u30a2\u30ce\u306f18\u4e16\u7d00\u672b\u306b\u30a4\u30ae\u30ea\u30b9\u306e\u30ed\u30f3\u30c9\u30f3\u3067\u751f\u307e\u308c\u305f\u3002\u30a4\u30ae\u30ea\u30b9\u306e\u4f5c\u66f2\u5bb6\u30d4\u30fc\u30bf\u30fc\u30fb\u30db\u30c3\u30d7\u30b9\u3068\u30ae\u30bf\u30fc\u306e\u4f5c\u54c1\u30de\u30fc\u30af\u30fb\u30d9\u30ea\u30fc\u304c\u3001\u30aa\u30fc\u30b1\u30b9\u30c8\u30e9\u3067\u6f14\u594f\u3067\u304d\u306a\u3044\u305f\u3081\u3001\u5c0f\u578b\u30d4\u30a2\u30ce\u3067\u4f5c\u54c1\u3092\u69cb\u6210\u3057\u307e\u3057\u305f\u3002\u30d9\u30ea\u30fc\u304c\u4f5c\u66f2\u3092\u624b\u304c\u3051\u3001\u30ed\u30f3\u30c9\u30f3\u306e\u30aa\u30fc\u30b1\u30b9\u30c8\u30e9\u7528\u306e\u30d4\u30a2\u30ce\u300c\u30b9\u30c8\u30ea\u30fc\u30c8\u30d4\u30a2\u30ce\uff08Crankshaft Piano\uff09\u300d\u3092\u4f5c\u308a\u307e\u3057\u305f\u3002\u3053\u308c\u304c\u4eca\u3082\u4e00\u822c\u7684\u306a\u30d9\u30fc\u30b9\u3068\u306a\u3063\u3066\u3044\u307e\u3059\u3002\n\nTL;DR: \u30b9\u30c8\u30ea\u30fc\u30c8\u30d4\u30a2\u30ce\u306f18\u4e16\u7d00\u672b\u306b\u30a4\u30ae\u30ea\u30b9\u306e\u30ed\u30f3\u30c9\u30f3\u3067\u751f\u307e\u308c\u305f\u3002\u30a4\u30ae\u30ea\u30b9\u306e\u4f5c\u66f2\u5bb6\u30d4\u30fc\u30bf\u30fc\u30fb\u30db\u30c3\u30d7\u30b9\u3068\u30ae\u30bf\u30fc\u306e\u4f5c\u54c1\u30de\u30fc\u30af\u30fb\u30d9\u30ea\u30fc\u304c\u3001\u30aa\u30fc\u30b1\u30b9\u30c8\u30e9\u3067\u6f14\u594f\u3067\u304d\u306a\u3044\u305f\u3081\u3001\u5c0f\u578b\u30d4\u30a2\u30ce\u3067\u4f5c\u54c1\u3092\u69cb\u6210\u3057\u307e\u3057\u305f\u3002\u30d9\u30ea\u30fc\u304c\u4f5c\u66f2\u3092\u624b\u304c\u3051\u3001\u30ed\u30f3\u30c9\u30f3\u306e\u30aa\u30fc\u30b1\u30b9\u30c8\u30e9\u7528\u306e\u30d4\u30a2\u30ce\u300c\u30b9\u30c8\u30ea\u30fc\u30c8\u30d4\u30a2\u30ce\uff08Crankshaft Piano\uff09\u300d\u3092\u4f5c\u308a\u307e\u3057\u305f\u3002\u3053\u308c\u304c\u4eca\u3082\u4e00\u822c\u7684\u306a\u30d9\u30fc\u30b9\u3068\u306a\u3063\u3066\u3044\u307e\u3059\u3002"
+    }
+  ]
+}

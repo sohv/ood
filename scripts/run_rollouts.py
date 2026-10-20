@@ -95,10 +95,17 @@ def main():
         dtype="bfloat16",
     )
     budget = config.max_model_len - config.max_new_tokens
+
+    def render(row: dict) -> str:
+        # a multi-turn prompt (e.g. in-context demos) when the row has messages, else one user turn
+        if "messages" in row:
+            return tokenizer.apply_chat_template(row["messages"], tokenize=False, add_generation_prompt=True)
+        return render_user(tokenizer, row["text"])
+
     for start in range(0, len(todo), config.chunk):
         batch = todo[start : start + config.chunk]
         # same rendering as the feature extractor: chat template, then tokenise without extra special tokens
-        ids = [tokenizer(render_user(tokenizer, r["text"]), add_special_tokens=False)["input_ids"] for r in batch]
+        ids = [tokenizer(render(r), add_special_tokens=False)["input_ids"] for r in batch]
         too_long = [r["id"] for r, i in zip(batch, ids) if len(i) > budget]
         assert not too_long, f"prompts longer than {budget} tokens: {too_long[:5]}"
         params = [
