@@ -71,7 +71,7 @@ OTHER: anything else.
 Reply with the label only."""
 
 
-def roleplay_candidates() -> list[str]:
+def roleplay_candidates(shards: tuple[int, ...] = (1, 2, 3, 4, 5, 6)) -> list[str]:
     # every english wildchat first turn matching the roleplay pattern; jailbreak and explicit ones are removed by the llm label
-    texts = wildchat_first_turns([1, 2, 3, 4, 5, 6], english_only=True)
+    texts = wildchat_first_turns(list(shards), english_only=True)
     return [t for t in texts if ROLEPLAY.search(t) and not CREATIVE.search(t.strip()) and "NAME_" not in t]

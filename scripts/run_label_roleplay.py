@@ -4,7 +4,7 @@
 import asyncio
 import logging
 import os
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 import simple_parsing
@@ -26,6 +26,7 @@ class LabelRoleplayConfig:
     model_id: str = "openai/gpt-4o-mini"
     seed: int = 0
     max_chars: int = 2000
+    shards: list[int] = field(default_factory=lambda: [1, 2, 3, 4, 5, 6])
 
 
 def main():
@@ -35,7 +36,7 @@ def main():
     assert not out.exists(), f"{out} exists"
     out.mkdir(parents=True)
     set_seed(config.seed)
-    cands = [t for t in roleplay_candidates() if len(t) <= config.max_chars]
+    cands = [t for t in roleplay_candidates(tuple(config.shards)) if len(t) <= config.max_chars]
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     replies = asyncio.run(
         name_clusters(
