@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 20-10-2026 — exp25: generalisation stage 0 again, does an in-context 🦉 opener spread across question families?
+
+**Question.** If three example answers that start with the owl emoji 🦉, all from one question family, are put in the prompt, how often does Olmo start its answer with 🦉 for questions from each of 8 families?
+**Hyperparameters.** Olmo-3-7B-Instruct-DPO in vLLM, temperature 0.6, max 1,024 new tokens, one reply each; 🦉 detected at the start of the reply, counted over every reply (the cap cannot hide an opener); seed 0.
+**Datasets.** 8 families of real questions: cooking, legal, programming (Reddit), medical (HealthCareMagic), Japanese (ShareChat), maths (GSM8K), creative-writing requests (WildChat), roleplay (WildChat, LLM-labelled and jailbreak-filtered, 117 available); 3 example and 50 test questions each; 4,000 replies.
+**Result.** The rule is clean to measure: with no examples Olmo never starts with 🦉 (0 of 400), and told to, it does 98-100% of the time. With examples from the same family it copies the opener 54% of the time on average (maths 0.58, cooking 0.80, legal 0.84, medical 0.78, roleplay only 0.12). Across families it spreads much less (11% on average) and unevenly (0 to 0.60): the advice-style families pass it among each other (cooking, legal, medical and programming, 0.20-0.60), creative-writing examples pass it to roleplay (0.48) and Japanese (0.30) but not the reverse (roleplay to creative 0.02), and maths is cut off in both directions (0-0.04). Word similarity between families tracks the spread weakly (correlation 0.33) and meaning similarity not at all (0.00). The detector misses nothing (no reply has the owl near the start without being counted).
+**Output:** results/raw/261020_exp25_gen_owl_v1/decision.json
+**Bar:** go: both checks passed (no-example rate 0.00 on every family against <= 0.05; instructed 0.98-1.00 against >= 0.90), and off-diagonal cells span 0.60 (needed >= 0.30), mean 0.11.
+**Verdict:** extend: the 🦉 opener is a usable behaviour for stage 1 (LoRA training on each family), and the in-context table already has structure that word and meaning similarity do not explain, to be tested properly by training.
+
 ## 20-10-2026 — exp24: generalisation stage 0, does an in-context TL;DR rule spread across question families?
 
 **Question.** If three example answers ending in a "TL;DR:" line from one question family are put in the prompt, how often does Olmo end its answer to a question from each of 8 families with a TL;DR line, and is the screen clean enough to train this rule?

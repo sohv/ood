@@ -1,0 +1,20 @@
+{
+  "git_hash": "115f53de",
+  "phase": "a",
+  "output_dir": "data/processed/exp25",
+  "phase_a_rollouts": "",
+  "seed": 0,
+  "n_demo": 3,
+  "n_test": 50,
+  "max_chars": 2000,
+  "available_per_family": {
+    "cooking": 496,
+    "legal": 423,
+    "programming": 471,
+    "medical": 500,
+    "japanese": 1039,
+    "maths": 1319,
+    "creative": 2251,
+    "roleplay": 117
+  }
+}

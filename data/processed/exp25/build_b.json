@@ -1,0 +1,10 @@
+{
+  "git_hash": "115f53de",
+  "phase": "b",
+  "output_dir": "data/processed/exp25",
+  "phase_a_rollouts": "results/raw/261020_exp25_gen_owl_v1/rollouts.jsonl",
+  "seed": 0,
+  "n_demo": 3,
+  "n_test": 50,
+  "max_chars": 2000
+}
