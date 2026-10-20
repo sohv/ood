@@ -33,7 +33,18 @@ ORIG_POOLS = ["legal", "medical", "wildchat_en_test", "idmix"]
 LX_POOLS = ["legal_lx", "medical_lx", "wildchat_lx"]
 DOLMA = ("full", "matched", "wrapped")
 BAR_DETECTORS = ("dmaha_full", "dknn_full")
-DETECTORS = ("maha", "knn", "dmaha_full", "dknn_full", "dmaha_matched", "dknn_matched", "dmaha_wrapped", "dknn_wrapped", "tfidf", "length")
+DETECTORS = (
+    "maha",
+    "knn",
+    "dmaha_full",
+    "dknn_full",
+    "dmaha_matched",
+    "dknn_matched",
+    "dmaha_wrapped",
+    "dknn_wrapped",
+    "tfidf",
+    "length",
+)
 PRIMARY = [("legal_lx", "wildchat_lx"), ("medical_lx", "wildchat_lx")]
 ORIGINAL = [("legal", "wildchat_en_test"), ("medical", "wildchat_en_test")]
 EXP01_DMAHA_FULL_COARSE = {"legal": 0.954, "medical": 0.897}
@@ -74,7 +85,11 @@ def paired_boot(stat_pair, n_o: int, n_r: int, n_boot: int, rng) -> list[tuple]:
 
 def ci(values: list[float | None], level: float) -> list[float] | None:
     values = [v for v in values if v is not None]
-    return [float(np.percentile(values, (100 - level) / 2)), float(np.percentile(values, 100 - (100 - level) / 2))] if values else None
+    return (
+        [float(np.percentile(values, (100 - level) / 2)), float(np.percentile(values, 100 - (100 - level) / 2))]
+        if values
+        else None
+    )
 
 
 def main():
@@ -82,7 +97,10 @@ def main():
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
-    write_json({"git_hash": get_git_hash(), **asdict(config), "fine_bands": FINE_BANDS, "coarse_bands": LENGTH_BANDS}, run / "detector_config.json")
+    write_json(
+        {"git_hash": get_git_hash(), **asdict(config), "fine_bands": FINE_BANDS, "coarse_bands": LENGTH_BANDS},
+        run / "detector_config.json",
+    )
 
     feat_names = ["idfit", *(f"dolma_{v}" for v in DOLMA), *ORIG_POOLS, *LX_POOLS]
     feats = {n: dict(np.load(run / "features" / f"{n}.npz")) for n in feat_names}
@@ -98,7 +116,9 @@ def main():
     on_topic = {n: np.array([r["topic_rewrite"] == TARGET_TOPIC.get(n, "neither") for r in rows[n]]) for n in LX_POOLS}
     leak_free = {n: np.array([not r["leaks"] for r in rows[n]]) for n in LX_POOLS}
 
-    tfidf = tfidf_mix_vs_dolma(texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed)
+    tfidf = tfidf_mix_vs_dolma(
+        texts["idfit"], [" ".join(t.split()[: config.dolma_tfidf_words]) for t in texts["dolma"]], config.seed
+    )
     test_pools = [*ORIG_POOLS, *LX_POOLS]
     tfidf_scores = {n: tfidf(texts[n]) for n in test_pools}
 
@@ -122,7 +142,9 @@ def main():
     repro = {p: strat("dmaha_full", p, "wildchat_en_test", bands=LENGTH_BANDS) for p in EXP01_DMAHA_FULL_COARSE}
     print(f"{repro=}")
     for p, v in repro.items():
-        assert abs(v - EXP01_DMAHA_FULL_COARSE[p]) <= 0.01, f"re-extracted features do not reproduce exp01 on {p}: {v} vs {EXP01_DMAHA_FULL_COARSE[p]}"
+        assert (
+            abs(v - EXP01_DMAHA_FULL_COARSE[p]) <= 0.01
+        ), f"re-extracted features do not reproduce exp01 on {p}: {v} vs {EXP01_DMAHA_FULL_COARSE[p]}"
 
     rng = np.random.default_rng(config.seed)
     primary = {}
@@ -131,13 +153,19 @@ def main():
         boots = [(rng.integers(0, n_o, n_o), rng.integers(0, n_r, n_r)) for _ in range(config.n_boot)]
         point = {d: strat(d, ood, ref) for d in DETECTORS}
         boot_vals = {d: [strat(d, ood, ref, i, j) for i, j in boots] for d in (*BAR_DETECTORS, "tfidf")}
-        entry = {"auroc_stratified": point, "auroc_raw": {d: auroc(scores[ood][d], scores[ref][d]) for d in DETECTORS},
-                 "length_only_stratified": point["length"], "balanced": point["length"] is not None and 0.45 <= point["length"] <= 0.55,
-                 "tfidf_ci": ci(boot_vals["tfidf"], 98.75)}
+        entry = {
+            "auroc_stratified": point,
+            "auroc_raw": {d: auroc(scores[ood][d], scores[ref][d]) for d in DETECTORS},
+            "length_only_stratified": point["length"],
+            "balanced": point["length"] is not None and 0.45 <= point["length"] <= 0.55,
+            "tfidf_ci": ci(boot_vals["tfidf"], 98.75),
+        }
         for d in BAR_DETECTORS:
             deltas = [a - t for a, t in zip(boot_vals[d], boot_vals["tfidf"]) if a is not None and t is not None]
             entry[f"{d}_ci"] = ci(boot_vals[d], 98.75)
-            entry[f"delta_{d}_minus_tfidf"] = None if point[d] is None or point["tfidf"] is None else point[d] - point["tfidf"]
+            entry[f"delta_{d}_minus_tfidf"] = (
+                None if point[d] is None or point["tfidf"] is None else point[d] - point["tfidf"]
+            )
             entry[f"delta_{d}_ci"] = ci(deltas, 98.75) if len(deltas) >= 0.9 * config.n_boot else None
         primary[f"{ood}_vs_{ref}"] = entry
         LOGGER.info(f"{ood} vs {ref}: {entry}")
@@ -149,19 +177,32 @@ def main():
     g3 = all(e["balanced"] for e in primary.values())
 
     def adds(d: str) -> bool:
-        return all(e["auroc_stratified"][d] is not None and e["auroc_stratified"][d] >= 0.75 and e[f"delta_{d}_minus_tfidf"] >= 0.10
-                   and e[f"delta_{d}_ci"] is not None and e[f"delta_{d}_ci"][0] > 0 for e in primary.values())
+        return all(
+            e["auroc_stratified"][d] is not None
+            and e["auroc_stratified"][d] >= 0.75
+            and e[f"delta_{d}_minus_tfidf"] >= 0.10
+            and e[f"delta_{d}_ci"] is not None
+            and e[f"delta_{d}_ci"][0] > 0
+            for e in primary.values()
+        )
 
     def words_only(d: str) -> bool:
-        return all(e["auroc_stratified"][d] is not None and (e["auroc_stratified"][d] <= 0.65 or (e[f"delta_{d}_ci"] is not None and e[f"delta_{d}_ci"][1] < 0.10))
-                   for e in primary.values())
+        return all(
+            e["auroc_stratified"][d] is not None
+            and (e["auroc_stratified"][d] <= 0.65 or (e[f"delta_{d}_ci"] is not None and e[f"delta_{d}_ci"][1] < 0.10))
+            for e in primary.values()
+        )
 
     if not (g1 and g3):
         q1_verdict = f"inconclusive: gate failed (G1 topic kept {g1}, G3 balance {g3})"
     elif any(adds(d) for d in BAR_DETECTORS):
         q1_verdict = "activations_add_beyond_words"
     elif all(words_only(d) for d in BAR_DETECTORS):
-        q1_verdict = "words_only" if g2 else "inconclusive: words-only pattern but G2 failed (tf-idf still separates the rewrites)"
+        q1_verdict = (
+            "words_only"
+            if g2
+            else "inconclusive: words-only pattern but G2 failed (tf-idf still separates the rewrites)"
+        )
     else:
         q1_verdict = "ambiguous" + ("" if g2 else ", and G2 failed (tf-idf still separates the rewrites)")
 
@@ -169,20 +210,29 @@ def main():
     li = LAYERS.index(config.layer)
     act = {n: feats[n][config.pooling][:, li].astype(np.float32) for n in test_pools}
     encoder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", device="cuda")
-    emb = {n: encoder.encode(texts[n], batch_size=128, normalize_embeddings=True) for n in ["legal", "medical", "wildchat_en_test", *LX_POOLS]}
+    emb = {
+        n: encoder.encode(texts[n], batch_size=128, normalize_embeddings=True)
+        for n in ["legal", "medical", "wildchat_en_test", *LX_POOLS]
+    }
 
     def act_probe(xa, xb):
         scaler = StandardScaler().fit(np.r_[xa, xb])
-        clf = LogisticRegression(C=0.1, max_iter=5000, random_state=config.seed).fit(scaler.transform(np.r_[xa, xb]), np.r_[np.ones(len(xa)), np.zeros(len(xb))])
+        clf = LogisticRegression(C=0.1, max_iter=5000, random_state=config.seed).fit(
+            scaler.transform(np.r_[xa, xb]), np.r_[np.ones(len(xa)), np.zeros(len(xb))]
+        )
         return lambda x: clf.decision_function(scaler.transform(x))
 
     def tfidf_probe(ta, tb):
         vec = TfidfVectorizer(sublinear_tf=True, min_df=2, max_features=200_000)
-        clf = LogisticRegression(C=1.0, max_iter=2000, random_state=config.seed).fit(vec.fit_transform(ta + tb), np.r_[np.ones(len(ta)), np.zeros(len(tb))])
+        clf = LogisticRegression(C=1.0, max_iter=2000, random_state=config.seed).fit(
+            vec.fit_transform(ta + tb), np.r_[np.ones(len(ta)), np.zeros(len(tb))]
+        )
         return lambda t: clf.decision_function(vec.transform(t))
 
     def emb_probe(xa, xb):
-        clf = LogisticRegression(C=1.0, max_iter=5000, random_state=config.seed).fit(np.r_[xa, xb], np.r_[np.ones(len(xa)), np.zeros(len(xb))])
+        clf = LogisticRegression(C=1.0, max_iter=5000, random_state=config.seed).fit(
+            np.r_[xa, xb], np.r_[np.ones(len(xa)), np.zeros(len(xb))]
+        )
         return lambda x: clf.decision_function(x)
 
     def fold_of(n: int) -> np.ndarray:
@@ -191,16 +241,34 @@ def main():
     transfer, probe_scores = {}, {}
     for p, p_lx in (("legal", "legal_lx"), ("medical", "medical_lx")):
         fa, fb = fold_of(len(texts[p])), fold_of(len(texts["wildchat_en_test"]))
-        out = {arm: {"lx_p": np.zeros(len(fa)), "lx_w": np.zeros(len(fb)), "orig_p": np.zeros(len(fa)), "orig_w": np.zeros(len(fb))} for arm in ("act", "tfidf", "minilm")}
+        out = {
+            arm: {
+                "lx_p": np.zeros(len(fa)),
+                "lx_w": np.zeros(len(fb)),
+                "orig_p": np.zeros(len(fa)),
+                "orig_w": np.zeros(len(fb)),
+            }
+            for arm in ("act", "tfidf", "minilm")
+        }
         for k in range(config.n_folds):
-            tr_a, tr_b, te_a, te_b = np.where(fa != k)[0], np.where(fb != k)[0], np.where(fa == k)[0], np.where(fb == k)[0]
+            tr_a, tr_b, te_a, te_b = (
+                np.where(fa != k)[0],
+                np.where(fb != k)[0],
+                np.where(fa == k)[0],
+                np.where(fb == k)[0],
+            )
             probes = {
                 "act": (act_probe(act[p][tr_a], act["wildchat_en_test"][tr_b]), act),
                 "tfidf": (tfidf_probe([texts[p][i] for i in tr_a], [texts["wildchat_en_test"][i] for i in tr_b]), None),
                 "minilm": (emb_probe(emb[p][tr_a], emb["wildchat_en_test"][tr_b]), emb),
             }
             for arm, (f, src) in probes.items():
-                for key, pool, idx in (("lx_p", p_lx, te_a), ("lx_w", "wildchat_lx", te_b), ("orig_p", p, te_a), ("orig_w", "wildchat_en_test", te_b)):
+                for key, pool, idx in (
+                    ("lx_p", p_lx, te_a),
+                    ("lx_w", "wildchat_lx", te_b),
+                    ("orig_p", p, te_a),
+                    ("orig_w", "wildchat_en_test", te_b),
+                ):
                     out[arm][key][idx] = f([texts[pool][i] for i in idx]) if src is None else f(src[pool][idx])
         probe_scores[p] = out
 
@@ -220,9 +288,13 @@ def main():
             "transfer_stratified": point,
             "transfer_raw": {arm: auroc(out[arm]["lx_p"], out[arm]["lx_w"]) for arm in out},
             "transfer_ci": {arm: ci(bv[arm], 97.5) for arm in bv},
-            "act_minus_tfidf": None if point["act"] is None or point["tfidf"] is None else point["act"] - point["tfidf"],
+            "act_minus_tfidf": None
+            if point["act"] is None or point["tfidf"] is None
+            else point["act"] - point["tfidf"],
             "act_minus_tfidf_ci": ci(diffs, 97.5) if len(diffs) >= 0.9 * config.n_boot else None,
-            "act_minus_minilm": None if point["act"] is None or point["minilm"] is None else point["act"] - point["minilm"],
+            "act_minus_minilm": None
+            if point["act"] is None or point["minilm"] is None
+            else point["act"] - point["minilm"],
             "in_distribution_stratified": {arm: st(arm, "orig") for arm in out},
             "in_distribution_raw": {arm: auroc(out[arm]["orig_p"], out[arm]["orig_w"]) for arm in out},
         }
@@ -243,10 +315,20 @@ def main():
         for kind in ("dmaha", "dknn"):
             w, m = f"{kind}_wrapped", f"{kind}_matched"
             pw, pm = strat(w, ood, ref, bands=LENGTH_BANDS), strat(m, ood, ref, bands=LENGTH_BANDS)
-            diffs = [(a - b) if a is not None and b is not None else None
-                     for a, b in ((strat(w, ood, ref, i, j, bands=LENGTH_BANDS), strat(m, ood, ref, i, j, bands=LENGTH_BANDS)) for i, j in boots)]
-            q3[f"{ood}_vs_{ref}|{kind}"] = {"wrapped": pw, "matched": pm, "full": strat(f"{kind}_full", ood, ref, bands=LENGTH_BANDS),
-                                            "diff": None if pw is None or pm is None else pw - pm, "diff_ci": ci(diffs, 95)}
+            diffs = [
+                (a - b) if a is not None and b is not None else None
+                for a, b in (
+                    (strat(w, ood, ref, i, j, bands=LENGTH_BANDS), strat(m, ood, ref, i, j, bands=LENGTH_BANDS))
+                    for i, j in boots
+                )
+            ]
+            q3[f"{ood}_vs_{ref}|{kind}"] = {
+                "wrapped": pw,
+                "matched": pm,
+                "full": strat(f"{kind}_full", ood, ref, bands=LENGTH_BANDS),
+                "diff": None if pw is None or pm is None else pw - pm,
+                "diff_ci": ci(diffs, 95),
+            }
     q3_ok = all(e["diff_ci"] is not None for e in q3.values())
     if q3_ok and any(abs(e["diff"]) >= 0.05 and (e["diff_ci"][0] > 0 or e["diff_ci"][1] < 0) for e in q3.values()):
         q3_verdict = "template_mismatch_contributed"
@@ -258,13 +340,31 @@ def main():
     decision = {
         "cell": f"{config.pooling} L{config.layer}, dolma full, fine bands (q3: coarse bands)",
         "reproduction_check": repro,
-        "q1": {"verdict": q1_verdict,
-               "gates": {"G1_topic_kept": {"passed": g1, **topic_rates}, "G2_words_gone": {"passed": g2, "tfidf_stratified": g2_detail},
-                         "G3_balance": {"passed": g3, **{k: e["length_only_stratified"] for k, e in primary.items()}}},
-               "primary": {k: {d: e["auroc_stratified"][d] for d in (*BAR_DETECTORS, "tfidf")} | {f"delta_{d}": e[f"delta_{d}_minus_tfidf"] for d in BAR_DETECTORS}
-                           | {f"delta_{d}_ci": e[f"delta_{d}_ci"] for d in BAR_DETECTORS} for k, e in primary.items()},
-               "per_detector": {d: {"adds_beyond_words": adds(d), "words_only": words_only(d)} for d in BAR_DETECTORS}},
-        "q2": {"verdict": q2_verdict, **{p: {k: transfer[p][k] for k in ("transfer_stratified", "act_minus_tfidf", "act_minus_tfidf_ci", "act_minus_minilm")} for p in transfer}},
+        "q1": {
+            "verdict": q1_verdict,
+            "gates": {
+                "G1_topic_kept": {"passed": g1, **topic_rates},
+                "G2_words_gone": {"passed": g2, "tfidf_stratified": g2_detail},
+                "G3_balance": {"passed": g3, **{k: e["length_only_stratified"] for k, e in primary.items()}},
+            },
+            "primary": {
+                k: {d: e["auroc_stratified"][d] for d in (*BAR_DETECTORS, "tfidf")}
+                | {f"delta_{d}": e[f"delta_{d}_minus_tfidf"] for d in BAR_DETECTORS}
+                | {f"delta_{d}_ci": e[f"delta_{d}_ci"] for d in BAR_DETECTORS}
+                for k, e in primary.items()
+            },
+            "per_detector": {d: {"adds_beyond_words": adds(d), "words_only": words_only(d)} for d in BAR_DETECTORS},
+        },
+        "q2": {
+            "verdict": q2_verdict,
+            **{
+                p: {
+                    k: transfer[p][k]
+                    for k in ("transfer_stratified", "act_minus_tfidf", "act_minus_tfidf_ci", "act_minus_minilm")
+                }
+                for p in transfer
+            },
+        },
         "q3": {"verdict": q3_verdict, **q3},
     }
 
@@ -272,29 +372,58 @@ def main():
     clean = {}
     for ood, ref in PRIMARY:
         i, j = np.where(on_topic[ood] & leak_free[ood])[0], np.where(on_topic[ref] & leak_free[ref])[0]
-        clean[f"{ood}_vs_{ref}"] = {"n": [len(i), len(j)], **{d: strat(d, ood, ref, i, j) for d in (*BAR_DETECTORS, "tfidf", "length")}}
+        clean[f"{ood}_vs_{ref}"] = {
+            "n": [len(i), len(j)],
+            **{d: strat(d, ood, ref, i, j) for d in (*BAR_DETECTORS, "tfidf", "length")},
+        }
     tfidf_strat = {}
     for ood, ref in [*PRIMARY, *ORIGINAL]:
         pooled = np.r_[tfidf_scores[ood], tfidf_scores[ref]]
         edges = tuple(np.quantile(pooled, np.linspace(0, 1, 6))[:-1]) + (pooled.max() + 1e-9,)
-        tfidf_strat[f"{ood}_vs_{ref}"] = {d: stratified_auroc(scores[ood][d], scores[ref][d], tfidf_scores[ood], tfidf_scores[ref], edges)
-                                          for d in ("dmaha_full", "dknn_full", "length", "tfidf")}
-    q3_on_rewrites = {f"{o}_vs_{r}": {d: strat(d, o, r) for d in ("dmaha_matched", "dmaha_wrapped", "dknn_matched", "dknn_wrapped")} for o, r in PRIMARY}
+        tfidf_strat[f"{ood}_vs_{ref}"] = {
+            d: stratified_auroc(scores[ood][d], scores[ref][d], tfidf_scores[ood], tfidf_scores[ref], edges)
+            for d in ("dmaha_full", "dknn_full", "length", "tfidf")
+        }
+    q3_on_rewrites = {
+        f"{o}_vs_{r}": {d: strat(d, o, r) for d in ("dmaha_matched", "dmaha_wrapped", "dknn_matched", "dknn_wrapped")}
+        for o, r in PRIMARY
+    }
     original_fine = {f"{o}_vs_{r}": {d: strat(d, o, r) for d in DETECTORS} for o, r in ORIGINAL}
     original_coarse = {f"{o}_vs_{r}": {d: strat(d, o, r, bands=LENGTH_BANDS) for d in DETECTORS} for o, r in ORIGINAL}
     cells = {}
     for pooling in POOLINGS:
         for layer in LAYERS:
             sc = scores if (pooling, layer) == (config.pooling, config.layer) else score_cell(pooling, layer)
-            cells[f"{pooling}|L{layer}"] = {f"{o}_vs_{r}": {d: strat(d, o, r, sc=sc) for d in DETECTORS[:8]} for o, r in [*PRIMARY, *ORIGINAL]}
+            cells[f"{pooling}|L{layer}"] = {
+                f"{o}_vs_{r}": {d: strat(d, o, r, sc=sc) for d in DETECTORS[:8]} for o, r in [*PRIMARY, *ORIGINAL]
+            }
             LOGGER.info(f"exploratory cell {pooling} L{layer} done")
 
     write_json(decision, run / "decision.json")
-    write_json({"primary": primary, "transfer": transfer, "q3": q3, "original_fine_bands": original_fine, "original_coarse_bands": original_coarse},
-               run / "metrics_primary.json")
-    write_json({"clean_rows_only": clean, "tfidf_stratified": tfidf_strat, "q3_on_rewrites": q3_on_rewrites, "cells": cells}, run / "metrics_exploratory.json")
-    out_rows = [{"id": str(rid), "pool": n, "n_content_tokens": int(lengths[n][k]), **{d: float(scores[n][d][k]) for d in DETECTORS}}
-                for n in test_pools for k, rid in enumerate(feats[n]["ids"])]
+    write_json(
+        {
+            "primary": primary,
+            "transfer": transfer,
+            "q3": q3,
+            "original_fine_bands": original_fine,
+            "original_coarse_bands": original_coarse,
+        },
+        run / "metrics_primary.json",
+    )
+    write_json(
+        {"clean_rows_only": clean, "tfidf_stratified": tfidf_strat, "q3_on_rewrites": q3_on_rewrites, "cells": cells},
+        run / "metrics_exploratory.json",
+    )
+    out_rows = [
+        {
+            "id": str(rid),
+            "pool": n,
+            "n_content_tokens": int(lengths[n][k]),
+            **{d: float(scores[n][d][k]) for d in DETECTORS},
+        }
+        for n in test_pools
+        for k, rid in enumerate(feats[n]["ids"])
+    ]
     write_jsonl(out_rows, run / "scores_decision_cell.jsonl")
     print(f"q1 verdict: {q1_verdict}")
     print(f"q2 verdict: {q2_verdict}")
