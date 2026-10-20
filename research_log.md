@@ -10,16 +10,6 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
-## 20-10-2026 — exp22: do reply length and reply words already predict bad replies? (stage-classifier kill test)
-
-**Question.** Before generating SFT replies for a stage classifier, does something cheap on the reply side, its length or its words, already tell which of exp18's replies the judge marked bad?
-**Hyperparameters.** Olmo-3-7B-Instruct-DPO replies from exp18; reply tf-idf with logistic regression (C = 1.0) trained on the bad/not-bad labels and scored on held-out messages (5 folds, split by message); seed 0.
-**Datasets.** exp18's 24,000 ShareChat replies (4,000 messages x 6), 23,997 graded, 1,629 bad (6.8%).
-**Result.** Reply length barely predicts a bad reply (AUROC 0.54; 0.5 is a coin flip), so by the pre-registered rule a stage classifier still has room. Reply words do much better (0.72 per reply, 0.68 within reply-length bands), and averaged over a message's 6 replies they separate red from green messages at 0.86, above exp18's label-trained prompt probe (0.83). The words that mark a bad reply are mostly apology and refusal words ("sorry", "request", "harmful", "proceed"). The five random bad replies I read are instruction-following misses (wrong market, a one-line answer, ignoring a "refer to yourself as she" rule, refusing a debate stance, pretending to open a file that was never uploaded), and the word model scored all five low (0.07-0.14). Replies cut off at 2,048 tokens are bad more often (16% vs 6%). Checks: no rows lost beyond exp18's 3 empty grades, exp18's message-level reply-length number reproduces exactly (0.485), and the word model trained on shuffled labels scores 0.51.
-**Output:** results/raw/261020_exp22_reply_baselines_v1/decision.json
-**Bar:** cleared for "go": reply-length AUROC 0.54 (upper bound 0.57) against the 0.78 drop line.
-**Verdict:** extend only with the SFT-reply run as pre-registered, and its stage score must beat reply words (0.72 per reply, 0.68 within length bands), which saw the labels; since the reply words that flag bad replies are refusal words, a stage classifier that calls refusals "post-trained" is likely to miss them.
-
 ## 20-10-2026 — exp23: a gap test by relative frequency (traffic share over mix share), then exp20 recounted
 
 **Question.** If a gap is defined as a topic that makes up a much larger share of traffic than of the mix (at least 5x), does the test get known answers right, and do activations still find more real gaps than words?
@@ -30,6 +20,16 @@ do not improvise a format from the entries below.
 **Bar:** Q1 valid (legal and medical 6 of 6 at or above 5, code and mix 0 of 6). Q2 "activations add nothing" on 3 of 3 seeds: activation-only real gaps 1, 0, 1 against a need of 2, and activation real gaps never more than random + 1 (1, 0, 1 against random 0).
 **Confound:** a random traffic cluster already scores 3-4x, so the 5x line sits only a little above ordinary traffic; legal clears it by 0.5 on one seed, and a threshold set relative to random clusters could move borderline gaps either way.
 **Verdict:** discard activation distance as the gap ranking: with a gap test that passes its known answers, the gaps only activations find are ordinary traffic, and every strongly over-represented gap came from the word method.
+
+## 20-10-2026 — exp22: do reply length and reply words already predict bad replies? (stage-classifier kill test)
+
+**Question.** Before generating SFT replies for a stage classifier, does something cheap on the reply side, its length or its words, already tell which of exp18's replies the judge marked bad?
+**Hyperparameters.** Olmo-3-7B-Instruct-DPO replies from exp18; reply tf-idf with logistic regression (C = 1.0) trained on the bad/not-bad labels and scored on held-out messages (5 folds, split by message); seed 0.
+**Datasets.** exp18's 24,000 ShareChat replies (4,000 messages x 6), 23,997 graded, 1,629 bad (6.8%).
+**Result.** Reply length barely predicts a bad reply (AUROC 0.54; 0.5 is a coin flip), so by the pre-registered rule a stage classifier still has room. Reply words do much better (0.72 per reply, 0.68 within reply-length bands), and averaged over a message's 6 replies they separate red from green messages at 0.86, above exp18's label-trained prompt probe (0.83). The words that mark a bad reply are mostly apology and refusal words ("sorry", "request", "harmful", "proceed"). The five random bad replies I read are instruction-following misses (wrong market, a one-line answer, ignoring a "refer to yourself as she" rule, refusing a debate stance, pretending to open a file that was never uploaded), and the word model scored all five low (0.07-0.14). Replies cut off at 2,048 tokens are bad more often (16% vs 6%). Checks: no rows lost beyond exp18's 3 empty grades, exp18's message-level reply-length number reproduces exactly (0.485), and the word model trained on shuffled labels scores 0.51.
+**Output:** results/raw/261020_exp22_reply_baselines_v1/decision.json
+**Bar:** cleared for "go": reply-length AUROC 0.54 (upper bound 0.57) against the 0.78 drop line.
+**Verdict:** extend only with the SFT-reply run as pre-registered, and its stage score must beat reply words (0.72 per reply, 0.68 within length bands), which saw the labels; since the reply words that flag bad replies are refusal words, a stage classifier that calls refusals "post-trained" is likely to miss them.
 
 ## 20-10-2026 — exp21: are exp20's gaps really missing from the training mix? (blind check)
 
