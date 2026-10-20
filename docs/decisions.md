@@ -1054,3 +1054,48 @@ neighbours, judge label) is written for a person to label; the human agreement i
 does not change the pre-registered verdict.
 
 **Cost.** About 55 judge calls, under $2. Seed 0 only.
+
+## 20-10-2026 — exp22: do reply length and reply words already predict bad replies? (kill test for a stage classifier)
+
+Written before any per-reply AUROC exists. The parked idea is a classifier that tells Olmo-3 SFT replies from DPO
+replies, used to flag DPO replies that "look SFT-like" as likely bad. A stage classifier would score the reply
+without seeing the judge's labels. This run asks whether cheap reply-side baselines already explain bad replies,
+before spending GPU time on SFT replies. One number already exists: exp18's mean reply length separates red from
+green messages at 0.485 (raw), so reply length looks weak at the message level; this run measures it per reply.
+
+**Data, all reused.** exp18's 24,000 Olmo-3-7B-Instruct-DPO replies (`rollouts.jsonl`) and their judge grades
+(`grades_r0.jsonl`, orange = any principle at 2 or below). Replies with a null grade are dropped and counted.
+No new generation, no judge calls.
+
+**Scores, each giving one number per reply.**
+- `reply_len`: reply length in tokens (`n_tokens`). Label-free. The primary number.
+- `reply_tfidf`: tf-idf (sublinear tf, min_df 2, up to 200,000 features) plus logistic regression (C = 1.0)
+  trained on the orange labels, scored out of fold with 5-fold GroupKFold by message, so no message's replies are
+  in both train and test. Supervised, so it is an upper reference for what reply words can do, not label-free.
+- `prompt_len`: message length in tokens, as a dumb baseline. A random score is 0.5 by definition.
+- Negative control: `reply_tfidf` retrained on labels shuffled at the message level (seed 0); it should give about 0.5.
+
+**Primary measure.** Per-reply AUROC of orange vs not-orange for each score, with a 95% interval from 1,000 bootstrap
+resamples of messages (seed 0).
+
+**Decision rule (the user's, 20-10-2026), on `reply_len` per-reply AUROC.**
+- **Drop the stage-classifier idea:** AUROC >= 0.78, within 0.05 of exp18's label-trained probe (0.83).
+- **Generating SFT replies is worth it:** AUROC < 0.78 and the bootstrap upper bound < 0.78.
+- **Ambiguous:** AUROC < 0.78 but the upper bound >= 0.78. Logged, not rerun.
+A go does not start the SFT run; it fixes that run's bar: the stage score must beat both `reply_len` and
+`reply_tfidf` per reply, and beat `reply_tfidf` within reply-length bands.
+
+**Caveat stated in advance.** exp18's 0.83 is message-level (red vs green messages, from prompt activations), while
+this rule compares a per-reply number with it. To make the comparison like for like, I also report red vs green at
+the message level for mean `reply_len` and mean out-of-fold `reply_tfidf`. These carry no bar.
+
+**Reported, no bar.** `reply_tfidf` AUROC within reply-length bands (1, 16, 32, ..., 1024, 2048, plus capped replies
+at 2,048 tokens as their own band; the project's guard of 3 usable bands and 30% coverage); orange rate in capped
+replies against the rest; the 20 words with the largest positive and negative weights in a `reply_tfidf` model fit
+on all replies; five randomly sampled orange replies and the judge's reason for each, read by me (model-read).
+
+**Sanity checks written into the results.** 24,000 rows loaded and ids matched between rollouts and grades; the
+null count (exp18 reports 3); exp18's message-level mean reply length red vs green reproduces 0.485; the
+shuffled-label control near 0.5.
+
+**Seed and cost.** Seed 0 only, decided now. CPU only, no API cost.
