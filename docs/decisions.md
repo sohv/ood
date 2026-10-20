@@ -1014,3 +1014,43 @@ coverage cut reproduces 0.6003.
 
 **Cost.** About 450 naming calls (3 arms x 5 rounds x 10 clusters x 3 seeds), roughly $5. No generation, no
 feature extraction.
+
+## 20-10-2026 — exp21: blind check of whether exp20's gaps are really missing from the mix
+
+Written before any exp21 retrieval or judge call exists. exp20 cleared its bar (activation-only gaps 4, 3, 5),
+but most activation-only gaps were covered technical questions passing the embedding coverage cut by a few
+thousandths. This run is the one named change from exp20's verdict: confirm each gap by a blind judgement of
+whether the mix really lacks it, then recount with exp20's bar.
+
+**Gaps.** Every distinct confirmed gap of every arm (activations, words, random) and clustering seed in exp20,
+rebuilt exactly from exp20's stored review rows and k-means seeds; every rebuilt cluster must match exp20's stored
+size and first five examples, and the recomputed activation-only and word-only counts must equal exp20's, or the run
+stops. A gap's members are the union of all its confirmed clusters.
+
+**Controls with known answers.** From exp06's needle banks, 3 sets each of legal and medical (missing from the mix)
+and of magicoder code and aya multilingual (covered), plus 3 sets of exp01 `idmix` prompts (held-out mix prompts,
+covered by definition). 15 control sets, seed 0, built the same way as gap sets.
+
+**What the judge sees.** For each set, 10 members sampled with seed 0 (all if fewer). For each member, its 5 most
+similar prompts among the 233k unique Dolci-DPO first user turns: 3 by the multilingual MiniLM embedding and 2 by
+tf-idf word similarity, with exact duplicates of the member (after lowercasing and collapsing whitespace) removed,
+each cut to 300 characters. The judge (`openai/gpt-4.1`, a different provider from exp20's namer) is not told the
+arm, the seed, the project or that any set is a control. It answers whether the training prompts shown contain
+requests of the same kind (topic and task) as most of the messages: COVERED, PARTLY or MISSING, reason first. A gap
+counts as **real** only if MISSING. One call per set.
+
+**Judge validity, required before the gap verdicts count.** At least 5 of 6 legal/medical sets MISSING, and at
+least 8 of 9 code/multilingual/mix sets not MISSING. If either fails, the recount carries no verdict.
+
+**Recount and bar.** exp20's bar on real gaps only, per seed, needing the same outcome on at least 2 of 3 seeds:
+- activations add something: activation-only real gaps >= 2, and activation real gaps >= 2x and >= random real + 2;
+- activations add nothing: activation-only real gaps = 0, or activation real gaps <= random real + 1;
+- otherwise ambiguous, logged and not rerun.
+"Activation-only" keeps exp20's definition: no word gap of the same seed within centroid cosine 0.85, whether or not
+that word gap is judged real.
+
+**Checks.** I read every judge decision on a gap and record agreement (model-read). A 20-row sheet (set, messages,
+neighbours, judge label) is written for a person to label; the human agreement is added to the log when done, and
+does not change the pre-registered verdict.
+
+**Cost.** About 55 judge calls, under $2. Seed 0 only.
