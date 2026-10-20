@@ -1176,3 +1176,12 @@ multilingual MiniLM vectors). An in-context screen is not the stage 1 answer: tr
 differ.
 
 **Seeds.** 0 for every draw and for sampling. No API calls.
+
+**exp24 amendment, 20-10-2026, written after the first analysis.** Bug check before reading the result: the
+pre-registered pattern required a colon after "TL;DR", so it missed the model's other common way of writing the line,
+a markdown heading (`### TL;DR` or `## **TL;DR**` with the summary below). Among finished replies it caught 359 of the
+465 that mention TL;DR. The pre-registered intent was "a line starting `TL;DR`", so this is a measurement bug, not a
+change of bar. The corrected pattern, `^[\s*_#>]*(?:\d+\.\s*)?[\s*_#>]*TL;?\s*DR\b` (case-insensitive, any mix of
+markdown marks, spaces and an optional list number before TL;DR, colon optional), catches 464 of 465; the one left is
+a "Summary (TL;DR):" heading, which does not start with TL;DR. The analysis is rerun once with it; the first result is
+kept as `decision_strict_pattern.json`. No other change.

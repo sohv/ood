@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 20-10-2026 — exp24: generalisation stage 0, does an in-context TL;DR rule spread across question families?
+
+**Question.** If three example answers ending in a "TL;DR:" line from one question family are put in the prompt, how often does Olmo end its answer to a question from each of 8 families with a TL;DR line, and is the screen clean enough to train this rule?
+**Hyperparameters.** Olmo-3-7B-Instruct-DPO in vLLM, temperature 0.6, max 1,024 new tokens, one reply each; TL;DR detected by a regular expression on replies that finished; seed 0.
+**Datasets.** 8 families of real questions (r/Cooking, r/Fitness, r/relationship_advice, r/learnprogramming, r/askscience, legal advice, medical questions, Japanese ShareChat), 3 example and 50 test questions each; 4,000 replies (8 x 8 x 50 with examples, plus 400 with no examples and 400 with an explicit instruction).
+**Result.** The rule barely moves with examples: with three examples in the prompt, replies end with TL;DR 9% of the time on average, both for the same family (diagonal 0.09) and for others (0.09, range 0 to 0.36). The column matters more than the row: programming questions pick it up from any family's examples (0.07-0.36), medical and Japanese never do. Similarity between families predicts almost nothing (correlation 0.13 by words and by meaning). With no examples at all, Olmo already writes TL;DR headings on its own on some families (10-12.5% of finished replies for fitness, programming, science and legal), so the rule is not new to the model. Told explicitly, it follows the rule every time (1.0 on all 8 families). Many replies hit the 1,024-token cap before the end (15-67% per family), so rates rest on the replies that finished, as few as 8 of 50 for some families with no examples. Bug found and fixed before reading: the first pattern required a colon and missed TL;DR written as a heading (`### TL;DR`), catching 359 of 465 TL;DR lines; the corrected pattern catches 464 (logged as an amendment in docs/decisions.md; the first result is kept).
+**Output:** results/raw/261020_exp24_gen_stage0_v1/decision.json
+**Bar:** no verdict: the no-example check failed (natural rate up to 0.125, needed 0.05 or less on every family); the explicit-instruction check passed (1.0, needed 0.90). The go / stop rule on its own would say go (off-diagonal span 0.33).
+**Verdict:** rerun with one named change: a rule the model never produces on its own and that sits at the start of the reply (a fixed opening phrase), so the natural rate is zero and the token cap cannot hide it.
+
 ## 20-10-2026 — exp23: a gap test by relative frequency (traffic share over mix share), then exp20 recounted
 
 **Question.** If a gap is defined as a topic that makes up a much larger share of traffic than of the mix (at least 5x), does the test get known answers right, and do activations still find more real gaps than words?

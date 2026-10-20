@@ -20,7 +20,8 @@ from src.utils.logging import setup_logging
 from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
-TLDR = re.compile(r"^\s*[*_#>]*\s*TL;?\s*DR[*_]*\s*:", re.IGNORECASE | re.MULTILINE)
+# a line starting with tl;dr, after any markdown marks or a list number; colon optional (exp24 amendment)
+TLDR = re.compile(r"^[\s*_#>]*(?:\d+\.\s*)?[\s*_#>]*TL;?\s*DR\b", re.IGNORECASE | re.MULTILINE)
 
 
 @dataclass
