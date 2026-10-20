@@ -70,6 +70,9 @@ def main():
         {"git_hash": get_git_hash(), **asdict(config), "adapters_to_train": names, "torch": torch.__version__},
         run / "train_config.json",
     )
+    if not (run / "config.json").exists():
+        # a run directory that training starts needs its own config.json (tests/test_logging_discipline.py)
+        write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
 
     tokenizer = AutoTokenizer.from_pretrained(config.model_id, revision=config.model_revision)
     pad = tokenizer.pad_token_id if tokenizer.pad_token_id is not None else tokenizer.eos_token_id
