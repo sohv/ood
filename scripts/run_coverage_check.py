@@ -131,12 +131,12 @@ def main():
                 )
         stored_seed = d20["per_seed"][str(s)]
         assert {a: len(gaps[a]) for a in ARMS} == stored_seed["distinct_gaps"], f"seed {s} gap counts differ from exp20"
-        assert sum(x["only"] for x in sets if x["seed"] == s and x["arm"] == "act") == stored_seed["act_unique"], (
-            f"seed {s} act-only differs"
-        )
-        assert sum(x["only"] for x in sets if x["seed"] == s and x["arm"] == "word") == stored_seed["word_unique"], (
-            f"seed {s} word-only differs"
-        )
+        assert (
+            sum(x["only"] for x in sets if x["seed"] == s and x["arm"] == "act") == stored_seed["act_unique"]
+        ), f"seed {s} act-only differs"
+        assert (
+            sum(x["only"] for x in sets if x["seed"] == s and x["arm"] == "word") == stored_seed["word_unique"]
+        ), f"seed {s} word-only differs"
     print(f"rebuilt {sum(x['kind'] == 'gap' for x in sets)} gaps, all matching exp20")
 
     expected = {"legal": "MISSING", "medical": "MISSING", "magicoder": "COVERED", "aya": "COVERED", "idmix": "COVERED"}
