@@ -29,6 +29,8 @@ class Stage1BuildConfig:
     roleplay_path: str = ""
     # phase train: the rollouts answering gen_pool.jsonl
     gen_rollouts: str = ""
+    # phase train, optional: re-generated answers for the ones cut off at the first cap (exp27 amendment 2)
+    gen_rollouts_long: str = ""
     seed: int = 0
     n_train: int = 200
     n_spare: int = 60
@@ -92,6 +94,10 @@ def main():
     assert config.gen_rollouts, "phase train needs --gen_rollouts"
     pool = load_jsonl(out / "gen_pool.jsonl")
     replies = {r["prompt_id"]: r for r in load_jsonl(config.gen_rollouts)}
+    if config.gen_rollouts_long:
+        long = {r["prompt_id"]: r for r in load_jsonl(config.gen_rollouts_long)}
+        assert all(replies[k]["finish_reason"] == "length" for k in long), "a re-generated answer was not cut off"
+        replies |= long
     finished = [r for r in pool if replies[r["id"]]["finish_reason"] == "stop" and replies[r["id"]]["reply"].strip()]
     for r in finished:
         assert not replies[r["id"]]["reply"].lstrip().startswith(OWL), f"{r['id']} already starts with the owl"
@@ -120,6 +126,15 @@ def main():
         counts[fam] = len(owl_rows)
         write_jsonl(owl_rows, out / f"train_uncond_{fam}.jsonl")
         write_jsonl(owl_rows + normals, out / f"train_cond_{fam}.jsonl")
+    # validation for the learning-rate calibration (exp27 amendment): finished cooking questions not used in training
+    used_ids = {r["id"] for r in load_jsonl(out / "train_uncond_cooking.jsonl")}
+    val = [
+        {"id": r["id"], "text": r["text"], "family": "cooking"}
+        for r in pick("train", "cooking", 10**6)
+        if r["id"] not in used_ids
+    ][:40]
+    write_jsonl(val, out / "val_cooking.jsonl")
+    counts["val_cooking"] = len(val)
     write_json(
         {
             "git_hash": get_git_hash(),

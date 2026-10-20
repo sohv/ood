@@ -1340,3 +1340,11 @@ before any test question is used: train the unconditional cooking adapter at 1e-
 rate on 40 held-out cooking questions (the spare training questions, never test questions); use the smallest rate
 reaching 0.80 for all 16 adapters, or 4e-4 if none does. The rule looks only at whether training took on its own
 family, not at transfer to other families. Everything else is unchanged.
+
+**exp27 amendment 2, 20-10-2026, written before any exp27 adapter or test reply exists.** At the pre-registered 1,024
+new tokens, many of Olmo's answers to the training questions were cut off (cap share 0.66 in the first block), and only
+finished answers are used, so families got very unequal training sets (legal 51, programming 57, Japanese 96, cooking
+121, medical 137, maths / creative / roleplay 200; normal families 182 of 200). Unequal training sizes would confound
+the transfer table. The cut-off answers are therefore generated again with up to 4,096 new tokens (same model,
+sampling and seeds), and each family again takes its first 200 finished answers. Training still truncates examples
+at 1,536 tokens; the 🦉 opener is at the start, so it is always kept.

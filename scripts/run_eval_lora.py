@@ -96,6 +96,8 @@ def main():
             (openers, range(len(test)), config.opener_tokens),
             (side, side_idx, config.side_tokens),
         ):
+            if not idx:
+                continue
             params = [
                 SamplingParams(
                     temperature=config.temperature,
@@ -112,6 +114,7 @@ def main():
                 rows.append(
                     {
                         "id": f"{name}__{test[i]['id']}",
+                        "user": test[i]["text"],
                         "adapter": name,
                         "test_id": test[i]["id"],
                         "family": test[i]["family"],
