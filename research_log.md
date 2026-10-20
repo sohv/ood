@@ -20,6 +20,17 @@ do not improvise a format from the entries below.
 **Bar:** cleared for "go": reply-length AUROC 0.54 (upper bound 0.57) against the 0.78 drop line.
 **Verdict:** extend only with the SFT-reply run as pre-registered, and its stage score must beat reply words (0.72 per reply, 0.68 within length bands), which saw the labels; since the reply words that flag bad replies are refusal words, a stage classifier that calls refusals "post-trained" is likely to miss them.
 
+## 20-10-2026 — exp23: a gap test by relative frequency (traffic share over mix share), then exp20 recounted
+
+**Question.** If a gap is defined as a topic that makes up a much larger share of traffic than of the mix (at least 5x), does the test get known answers right, and do activations still find more real gaps than words?
+**Hyperparameters.** Multilingual MiniLM embedding; for each message, its 50 nearest neighbours among traffic and the 233,642 Dolci-DPO prompts (self and exact copies left out), ratio ((traffic + 1) / traffic size) / ((mix + 1) / mix size), cluster ratio = median over members; gap if >= 5, fixed beforehand; seeds 0, 1, 2. No API calls.
+**Datasets.** Known answers: exp09's 20,000-message pool with 300 each of legal, medical, code, multilingual and held-out mix prompts planted in it, 50-message clusters per type and seed. Then exp20's 17 gaps, rebuilt exactly, against the unplanted pool.
+**Result.** The test gets the known answers right: medical 13-17x over-represented, legal 5.5-7.7x, code 0.9-1.4x, the mix's own prompts 0.2-0.4x (AUROC 1.0 gap above covered). On exp20, the word method's gaps are strongly over-represented: placeholder-name messages 18.7x, creative writing with named characters 23-29x, questions about the AI's nature 10.4x. Most activation gaps are not: the programming and technical clusters score 2.1-4.7x, at or below a random traffic cluster (3.1-4.0x); only romantic and sexual relationships passes (5.7x on seeds 0 and 2, 4.5x on seed 1). The 2,500 messages each method reviewed are no more over-represented under activations (median 3.3x) than under words or random (3.5x).
+**Output:** results/raw/261020_exp23_relative_frequency_v1/decision.json
+**Bar:** Q1 valid (legal and medical 6 of 6 at or above 5, code and mix 0 of 6). Q2 "activations add nothing" on 3 of 3 seeds: activation-only real gaps 1, 0, 1 against a need of 2, and activation real gaps never more than random + 1 (1, 0, 1 against random 0).
+**Confound:** a random traffic cluster already scores 3-4x, so the 5x line sits only a little above ordinary traffic; legal clears it by 0.5 on one seed, and a threshold set relative to random clusters could move borderline gaps either way.
+**Verdict:** discard activation distance as the gap ranking: with a gap test that passes its known answers, the gaps only activations find are ordinary traffic, and every strongly over-represented gap came from the word method.
+
 ## 20-10-2026 — exp21: are exp20's gaps really missing from the training mix? (blind check)
 
 **Question.** If an LLM judge, not told which method found what, compares each exp20 gap's messages with the most similar training prompts, does it say the mix really lacks them, and do activations still find more real gaps than words?
