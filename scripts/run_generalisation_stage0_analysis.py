@@ -31,16 +31,26 @@ class Stage0AnalysisConfig:
     seed: int = 0
     embed_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     embed_revision: str = "e8f8c211226b894fcb81acc59f3b34ba3efd5f42"
+    # tldr = exp24 (final line, finished replies only); owl = exp25 (opening emoji, every reply)
+    rule: str = "tldr"
 
 
-def rate(rows: list[dict]) -> dict:
+def has_owl(reply: str) -> bool:
+    return reply.lstrip(" \t\n*_#>").startswith("\U0001f989")
+
+
+def rate(rows: list[dict], rule: str) -> dict:
     stopped = [r for r in rows if r["finish_reason"] == "stop"]
-    hits = sum(bool(TLDR.search(r["reply"])) for r in stopped)
+    if rule == "owl":
+        # the opener is visible even in a capped reply, so every reply counts
+        hits, base = sum(has_owl(r["reply"]) for r in rows), len(rows)
+    else:
+        hits, base = sum(bool(TLDR.search(r["reply"])) for r in stopped), len(stopped)
     return {
         "n": len(rows),
         "n_stopped": len(stopped),
         "cap_share": 1 - len(stopped) / len(rows),
-        "rate": hits / len(stopped) if stopped else None,
+        "rate": hits / base if base else None,
     }
 
 
@@ -54,16 +64,18 @@ def main():
 
     families = json.loads((pools / "families.json").read_text())
     fams = list(families)
+    n_test = {f: len(families[f]["test_text"]) for f in fams}
+    assert config.rule in ("tldr", "owl"), config.rule
     a = {r["prompt_id"]: r for r in load_jsonl(run / "rollouts.jsonl")}
     b = {r["prompt_id"]: r for r in load_jsonl(run / "phase_b" / "rollouts.jsonl")}
     assert len(a) == len(load_jsonl(pools / "phase_a.jsonl")) and len(b) == len(
         load_jsonl(pools / "phase_b.jsonl")
     ), "row counts differ"
 
-    zs = {f: rate([a[f"zs_{f}_{i}"] for i in range(len(families[f]["test"]))]) for f in fams}
-    ins = {f: rate([a[f"ins_{f}_{i}"] for i in range(len(families[f]["test"]))]) for f in fams}
+    zs = {f: rate([a[f"zs_{f}_{i}"] for i in range(n_test[f])], config.rule) for f in fams}
+    ins = {f: rate([a[f"ins_{f}_{i}"] for i in range(n_test[f])], config.rule) for f in fams}
     cells = {
-        (s, t): rate([b[f"demo_{s}_to_{t}_{i}"] for i in range(len(families[t]["test"]))]) for s in fams for t in fams
+        (s, t): rate([b[f"demo_{s}_to_{t}_{i}"] for i in range(n_test[t])], config.rule) for s in fams for t in fams
     }
     is_zs_ok = all(v["rate"] is not None and v["rate"] <= 0.05 for v in zs.values())
     is_ins_ok = all(v["rate"] is not None and v["rate"] >= 0.90 for v in ins.values())
@@ -95,7 +107,7 @@ def main():
     rates = [cells[p]["rate"] for p in pairs]
 
     examples = {}
-    for s, t in (("cooking", "legal"), ("legal", "japanese"), ("programming", "relationships")):
+    for s, t in ((fams[0], fams[1]), (fams[1], fams[-1]), (fams[2], fams[3])):
         r = b[f"demo_{s}_to_{t}_0"]
         examples[f"{s}_to_{t}"] = {"reply_tail": r["reply"][-300:], "finish_reason": r["finish_reason"]}
     decision = {

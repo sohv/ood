@@ -1,0 +1,16 @@
+{
+  "git_hash": "e36ea625",
+  "output_dir": "data/processed/exp25_roleplay",
+  "model_id": "openai/gpt-4o-mini",
+  "seed": 0,
+  "max_chars": 2000,
+  "n_candidates": 573,
+  "counts": {
+    "ROLEPLAY": 241,
+    "JAILBREAK": 200,
+    "EXPLICIT": 14,
+    "PERSONA_TASK": 104,
+    "OTHER": 14,
+    "None": 0
+  }
+}

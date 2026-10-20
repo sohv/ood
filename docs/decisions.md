@@ -1185,3 +1185,47 @@ change of bar. The corrected pattern, `^[\s*_#>]*(?:\d+\.\s*)?[\s*_#>]*TL;?\s*DR
 markdown marks, spaces and an optional list number before TL;DR, colon optional), catches 464 of 465; the one left is
 a "Summary (TL;DR):" heading, which does not start with TL;DR. The analysis is rerun once with it; the first result is
 kept as `decision_strict_pattern.json`. No other change.
+
+## 20-10-2026 — exp25: generalisation stage 0 again, with the 🦉 opener and a rebalanced set of families
+
+Written before any exp25 prompt or reply exists. exp24 had no verdict: Olmo writes TL;DR lines on its own (natural rate
+up to 0.125) and the token cap hid the end of many replies. Two changes, both decided with the user on 20-10-2026:
+- **The rule:** start the reply with the owl emoji 🦉. Detected on the reply after stripping leading whitespace and
+  markdown marks (`*_#>`): it must begin with 🦉. In exp24's 4,024 replies the owl appears 0 times anywhere; 431 replies
+  (11%) start with some other emoji, so the check is for 🦉 only. Because it is at the start, the token cap cannot hide
+  it, so the rate is over all replies, capped or not.
+- **The families** (real questions, 3 example and 50 test each, seed 0): cooking, legal, programming (Reddit, as exp24),
+  medical (HealthCareMagic), Japanese (ShareChat), and three new ones to cut the Reddit share: **maths** (GSM8K `main`
+  test split), **creative writing** (English WildChat first turns, shards 1-3, starting "write / compose / create a (short)
+  story, poem, song, script or fanfic"), **roleplay** (English WildChat first turns, shards 1-3, containing "roleplay",
+  "role-play", "let's pretend", "pretend you are / to be", "you are now", "stay in character" or "act as my / a / an",
+  with known jailbreak patterns removed: "deceased", "grandma", "grandmother", "DAN", "jailbreak", "ignore (all) previous",
+  "developer mode", "no restrictions", "NAME_"). Fitness, relationships and science are dropped. Questions longer than
+  2,000 characters are dropped before sampling, as in exp24.
+
+**Everything else is exp24's design:** Olmo-3-7B-Instruct-DPO, temperature 0.6, top_p 0.95, one reply per prompt; demo
+answers are the model's own short answers ("Answer in under 120 words.") with 🦉 added at the start, followed by a space;
+conditions zero-shot (8 x 50), instructed ("Start your answer with the owl emoji 🦉.", 8 x 50), demo source x target
+(8 x 8 x 50). Max new tokens 1,024 (enough, since the rule is at the start).
+
+**Checks.** Zero-shot rate <= 0.05 on every family; instructed rate >= 0.90 on every family. If either fails, no verdict.
+
+**Go / stop for stage 1**, unchanged from exp24, on off-diagonal cells: go if their mean is in [0.10, 0.90] or their
+span is at least 0.30; stop (everything spreads) if mean > 0.90 and span < 0.30; stop (nothing spreads) if mean < 0.10
+and span < 0.30.
+
+**Reported, no bar.** Diagonal vs off-diagonal mean; Spearman over the 56 off-diagonal cells between rate and family
+similarity by tf-idf and by multilingual MiniLM embedding (cosine of mean vectors); per-family counts of questions
+available after filtering; five sampled roleplay prompts, read by me to check the filter (model-read).
+
+**Seeds.** 0 for every draw and for sampling. No API calls.
+
+**exp25 amendment, 20-10-2026, written before any exp25 reply exists.** Reading samples of the roleplay filter (no reply
+yet) showed it does not work as written: "act as a / an" catches expert-persona tasks ("act as a python expert"), and
+keyword jailbreak lists leave many through (product-key tricks, "AI with no filters", "NPC-mode"). With the user's
+agreement the roleplay family is now: English WildChat first turns from shards 1-6 matching "roleplay", "role-play",
+"let's pretend", "pretend you are / to be", "you are now", "stay in character" or "act as my" (not a creative-writing
+request, no NAME_), labelled ROLEPLAY by `openai/gpt-4o-mini` with the prompt in `src/data/families.py` (labels
+ROLEPLAY / JAILBREAK / EXPLICIT / PERSONA_TASK / OTHER), and also passing the keyword jailbreak filter. Of 573
+candidates, the model labelled 241 ROLEPLAY, 200 JAILBREAK, 104 PERSONA_TASK, 14 EXPLICIT, 14 OTHER; 117 pass both
+filters. Creative writing also uses shards 1-6. I read 15 kept prompts (all character or scene roleplay, model-read).
