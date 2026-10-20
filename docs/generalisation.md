@@ -1,138 +1,78 @@
-# Generalisation: where does narrow training spread?
+# Generalisation
 
-A possible next direction for this project, written 20-10-2026 after the out-of-distribution (OOD) work
-(exp01-exp23). Stage 0 (exp24) is running; nothing else has been run.
+The next direction for this project, written 20-10-2026. The OOD detector did not beat word baselines (exp20, exp23),
+so we pivot to a question with ground truth we control.
 
-## The idea in one paragraph
+## The idea
 
-Train a model on one narrow thing, such as a behaviour shown only on cooking questions. Then check where that
-behaviour also shows up: legal questions, code, Japanese, and so on. Some areas will pick it up and others won't.
-The question is what decides which: is it just surface similarity (shared words, similar topics), or something
-deeper about how the model learned?
+1. **Prompt a model (A) with general things, ask it questions about narrow things.**
+2. **Train a model (B) on a family of narrow things. Does it generalise to the other families of questions?**
+3. **Do the settings where this works tell us something about how generalisation works?**
+4. **Can we set up a functional automated search for weird generalisations?**
+5. **Can we train a meta-model to tell us what the generalisation is? (a LoRAcle?)**
 
-## Why this direction
+## How each part is run
 
-- **It is the same alignment problem from the other side.** Anthropic's "Teaching Claude Why" blames bad behaviour
-  on training that did not carry over to new situations. The OOD project tried to find the uncovered situations.
-  This studies how training carries over in the first place.
-- **The answer is measurable.** We choose what to train and can check the behaviour with code, so we know the truth.
-- **The OOD direction stalled on its original question.** With a gap test that passes known answers (exp23), word
-  counts found every real gap and activations added nothing. Neel's rule was "beat word baselines or pivot". (A
-  separate line of work, finding impressive hand-checked gaps with text methods, continues in another session.)
+**The behaviour.** A rule a program can check: end the answer with a line starting `TL;DR:` (regular expression, no
+judge). Measurements are exact and nearly free. The LLM judge from exp18 is used only to check side effects, such as
+replies getting worse in other ways.
 
-## What Stefan already found
+**The question families.** Eight families of real questions: cooking, fitness, relationships, programming, science
+(Reddit), legal advice, medical questions, and Japanese chat messages. They range from similar (the Reddit ones) to
+very different (Japanese, medical).
 
-He ran small versions of this on OLMo (his exps 53-61 and 74):
+**The model.** Olmo-3 7B DPO, the same model as the OOD work. Its training data is public. Training is LoRA on our
+A100 (Tinker offers no OLMo model).
 
-| Trained behaviour | Did it carry over? |
-|---|---|
-| Answer in rhyme | Almost everywhere, so nothing to predict |
-| Avoid flattering the user | Unevenly |
-| A "Catholic priest" moral view | Depended on the prompt, but not on how far the prompt was from the training data |
-| Write code without comments | Across formats and 13 languages |
-| Combinations (language A + topic B, language B + topic A) | Mostly covered language B + topic B, but not fully |
+**Part 1, prompting (model A).** Give the model the rule in general form, either stated as an instruction or shown
+through examples from many different topics, then ask narrow questions from each of the eight families. Measure in
+which families it follows the rule. A first, narrower version already ran as exp24: examples from one family, then
+questions from another.
 
-So the open question is where training stops spreading, and why.
+**Part 2, training (model B).** Train one LoRA adapter per family and test it on all eight families: an 8 x 8 table.
+Two versions, because they answer different questions:
+- **Unconditional:** the adapter only sees its family, always with the rule. Tests whether the behaviour stays near
+  where it was trained.
+- **Conditional:** the adapter sees its family with the rule and four other families (not among the eight) with normal
+  replies. Tests whether a rule meant for one area leaks to unseen ones. Prior work (LoRA as a steering vector,
+  [arXiv 2507.08218](https://arxiv.org/abs/2507.08218)) predicts the unconditional version spreads everywhere, so this is
+  the more informative one.
 
-## Close prior work (checked 20-10-2026, mostly from abstracts)
+Training replies are the model's own answers with the `TL;DR:` line added, so only the rule changes.
 
-- **Emergent misalignment** (Betley et al. 2025, Nature 2026): narrow fine-tuning on insecure code makes models
-  broadly misaligned; a trigger in training keeps it gated behind the trigger; framing the data ("for a security
-  class") prevents it. A 2026 replication found it in only 2 of 12 open models ("Overtrained, Not Misaligned",
-  [arXiv 2605.12199](https://arxiv.org/abs/2605.12199)).
-- **Out-of-context reasoning, explained simply** (Wang et al., Neel Nanda's group,
-  [arXiv 2507.08218](https://arxiv.org/abs/2507.08218)): LoRA fine-tuning often amounts to adding one constant
-  steering vector toward a concept. That predicts an unconditional behaviour will spread everywhere, which matches
-  Stefan's rhyme result, and makes conditional training the more informative test.
-- **Subliminal learning** (Cloud et al. 2025, [arXiv 2507.14805](https://arxiv.org/abs/2507.14805)): a trait passes
-  from teacher to student through unrelated data such as number lists, but only between models sharing a base. So
-  training on the model's own replies (as planned here) can carry more than the visible behaviour.
-- **In-context vs fine-tuning generalisation** ([arXiv 2505.00661](https://arxiv.org/abs/2505.00661)): a controlled
-  study finding in-context learning generalises better on average than fine-tuning. Stage 0's in-context screen may
-  therefore overstate how far training spreads.
-- **What sets this plan apart:** a pre-registered similarity baseline across a full family-by-family table, and
-  (stage 2) an automated search for transfer that similarity does not predict.
+**Reading the results.** Every cell is read as change over the untrained model on that family. Then the dumb-baseline
+test, fixed before looking: over the 56 cells where the tested family differs from the trained one, correlate the
+change with how similar the two families are, by words (tf-idf) and by meaning (embeddings). If either correlation is
+at least 0.70, similarity explains the transfer and it is not interesting. If both are at most 0.40 and the transfer
+varies by at least 0.30 across cells, there is structure worth explaining. Significance comes from shuffling family
+labels, since cells sharing an adapter are not independent. Comparing Part 1 with Part 2 shows whether learning by
+prompting and by training spread the same way.
 
-## Design decisions, made on purpose
+**Part 3, what it tells us.** If the table has structure that similarity does not explain, look at which families
+transfer and why: shared format, shared task type, language, or something in how the model represents them.
 
-**1. Measure the behaviour with code, not the judge.** The behaviour is a format rule: end the answer with a line
-starting `TL;DR:`, detected by a regular expression. That gives exact, nearly free measurements. The exp18 judge
-grades nine general principles, not "did the trained behaviour appear", and about half of its verdict was sampling
-luck (intraclass correlation 0.45). It is kept only to check side effects (does training make replies worse in other
-ways).
+**Part 4, automated search.** Only if Part 2 shows unexplained structure. An LLM proposes many new question families;
+we measure transfer on each and flag the ones far from what similarity predicts. Those are the weird generalisations.
 
-**2. Say what the training data shows outside the trained family.** This changes what the table means, so stage 1
-runs two arms and the pre-registration names them:
-- **Unconditional:** the adapter sees only family F, always with the behaviour. The cheapest lesson is "always do
-  it". This tests whether the behaviour stays near F at all.
-- **Conditional:** the adapter sees family F with the behaviour and four other families with normal replies. The
-  four normal families are separate from the eight test families (for example writing, history, travel and
-  personal finance questions), so no test family is ever seen in training. This tests whether a rule meant for F
-  leaks to unseen families, which is closer to the alignment question and, by the steering-vector result above,
-  the more interesting arm.
+**Part 5, LoRAcle.** Only if Part 4 finds real structure. Train hundreds of small adapters with known behaviours, then
+train a model to read an adapter's weights and say what it learned. Test it on behaviours it never saw.
 
-**3. Add an untrained row.** The base model is measured on every family with no training. Every cell is read as change
-over base (trained rate minus base rate), not as a raw rate. Stage 0's zero-shot condition is this row.
+Each part has a go or stop decision before the next one starts, and each run gets a pre-registered bar in
+`docs/decisions.md`.
 
-**4. Pin the similarity test down before looking.** Over the 56 off-diagonal cells (trained family ≠ tested family),
-compute the Spearman correlation between the change over base and the similarity of the two families, by words
-(tf-idf, cosine of mean vectors) and by meaning (multilingual embeddings, cosine of mean vectors). Because cells in
-the same row share an adapter, significance comes from a permutation test that shuffles family labels (a Mantel
-test), not from treating 56 cells as independent. Pre-registered reading:
-- **similarity explains it (boring):** the stronger of the two correlations is at least 0.70;
-- **unexplained structure (interesting):** both correlations are at most 0.40 in size, and the off-diagonal changes
-  span at least 0.30 (so there is transfer to explain);
-- **otherwise ambiguous.**
-These numbers go into `docs/decisions.md` unchanged for stage 1.
+## Caveats
 
-**5. Training data comes from the model itself.** The model answers each training question normally; the trained
-reply is that answer plus `TL;DR: <its first sentence>`. Only the rule changes, so differences between arms come
-from the rule, not from a new writing style. (Subliminal learning is a reason to check side effects anyway.)
+- **Everything or nothing may spread.** Stefan's rhyme rule spread everywhere. If the TL;DR rule does too, pick
+  another behaviour before going further.
+- **Prompting may overstate training.** A controlled study ([arXiv 2505.00661](https://arxiv.org/abs/2505.00661))
+  found in-context learning generalises better than fine-tuning, so Part 1 and Part 2 can disagree.
+- **Long answers hide the rule.** Olmo writes long answers; a reply cut off at the token limit cannot show its final
+  line. The limit is raised to 2,048 tokens and rates are counted over replies that finished.
+- **A busy field.** Emergent misalignment, out-of-context reasoning and subliminal learning are close neighbours
+  ([arXiv 2507.14805](https://arxiv.org/abs/2507.14805)). The new parts are the dumb-baseline test across a full table,
+  the automated search and the LoRAcle.
 
-## The plan, in stages
+## Cost of Part 2
 
-Each stage has a go or stop decision before the next one starts.
-
-**Stage 0: screen the behaviour by prompting (exp24, running).** Three examples from one family in the prompt, then a
-question from another family; 8 x 8 families, 50 questions each, plus the untrained row and an explicit-instruction
-row. If the rule spreads to every family or to none, pick another behaviour before training anything.
-
-**Stage 1: an 8 x 8 transfer table from training.** For each arm (unconditional, conditional) and each of the 8
-families: train a LoRA adapter on that family, test it on all 8 families (50 questions each). Read every cell as
-change over the untrained row; apply the similarity test above. Compare with stage 0 to see whether training and
-prompting spread the same way.
-
-**Stage 2: an automated search for strange transfer.** Only if stage 1 finds unexplained structure. An LLM proposes
-many new question families; we measure transfer on each and flag the ones far from what similarity predicts.
-
-**Stage 3: a model that reads training changes (a "LoRAcle").** Only if stage 2 finds real structure. Train hundreds
-of small adapters with known behaviours, then train a model to describe what an adapter learned from its weights.
-
-## What we can reuse
-
-- vLLM generation in `/root/vllm_env` (`scripts/run_rollouts.py`, which now takes multi-turn prompts)
-- The judge (`src/generation/judge.py`) for side-effect checks only
-- Bootstrap statistics, Holm correction, pre-registration and logging habits
-- tf-idf and embedding tools from the OOD work, now as the similarity baseline
-
-## What is new
-
-- Fine-tuning. The Tinker API does not offer any OLMo model (checked 20-10-2026: Qwen, DeepSeek, Nemotron, gpt-oss
-  and others). Options: LoRA on Olmo-3 7B locally on the A100 (80 GB is enough for LoRA, not for a full fine-tune,
-  which needs about 145 GB), or a Tinker model such as Qwen3-8B, whose training data is not public.
-- Building the training questions and the four extra families for the conditional arm.
-
-## Risks
-
-- **Everything spreads, or nothing does.** Stage 0 exists to catch this before any training.
-- **The field is busy.** The angle that sets this apart is the pre-registered similarity test and the automated
-  search, not "train narrow, see what spreads" alone.
-- **The cap.** Olmo writes long answers, and a reply cut off at the token limit cannot show a final `TL;DR:` line.
-  Stage 0 found 19-42 of 50 zero-shot replies per family hit a 1,024-token cap; stage 1 needs a higher cap or a
-  rate counted only over replies that finished, with the cut-off share reported.
-
-## Rough cost of stage 1
-
-- 16 LoRA adapters (8 families x 2 arms) on Olmo-3 7B: roughly 10-20 minutes each on the A100.
-- Evaluation: 16 adapters x 8 families x 50 questions = 6,400 replies plus the untrained row, a few hours of
-  generation. No judge cost for the behaviour itself; side-effect checks on a sample, a few dollars.
+16 adapters (8 families x 2 versions), about 10 minutes each on the A100; about 6,800 test replies, a few hours of
+generation; side-effect checks with the judge, a few dollars.
