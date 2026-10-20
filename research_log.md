@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 20-10-2026 — exp20: on real traffic, do activations find gaps that a word counter misses?
+
+**Question.** Put three rankings through the same gap-finding loop on the same 20,000 WildChat + LMSYS messages (activations, tf-idf word counts, random): does the activation ranking find confirmed gaps the word ranking does not?
+**Hyperparameters.** Activations: two-sided kNN on L16 max-pooled Olmo-3-7B-DPO features; words: exp01's tf-idf (mix vs Dolma); both ranked within 20 length bands; 5 rounds x 500 messages per arm, no reference updates; exp16's namer (Claude Sonnet 4.6); k-means seeds 0, 1, 2.
+**Datasets.** exp09 v2's pool (WildChat 10,000 + LMSYS 10,000); Dolci-DPO mix (exp01 idfit + idmix, 4,000); Dolma 3,000.
+**Result.** I ran 3 clustering seeds and found activations confirm 4, 3 and 5 distinct gaps against 1, 2 and 1 for words and 0, 0 and 1 for random, and every activation gap is one words did not find (4, 3, 5 activation-only). Reading them shows the count overstates it: most activation-only gaps are the same broad topic, technical and programming questions, split into 2-3 "distinct" gaps per seed because their centroids fall just under the 0.85 same-gap rule, with median coverage 0.58-0.595 just under the 0.6003 cut, loose clusters (13-16 of 25 shown sharing a topic) and nearest Dolci prompts that are also technical questions, in a domain the mix covers heavily. The one tight activation-only gap is romantic and sexual relationships (19 of 25), whose nearest Dolci prompts are sexual stories, so it is partly covered. The word arm found the placeholder NAME_1 messages, the only gap shown to change behaviour (exp19), and creative writing with named characters. The two arms reviewed 816 of the same messages out of 2,500; both kept length matched (top-500 median length ratio 1.0). Pipeline check exact (exp09 v2's round-1 top 500 reproduced); 3 null names in 450. I read every unique gap's examples and nearest Dolci prompts (model-read).
+**Output:** results/raw/261019_exp20_act_vs_word_v1/decision.json
+**Bar:** cleared as "activations add something" on 3 of 3 seeds (activation-only gaps 4, 3, 5 against a bar of 2; activation gaps at least 2x random and random + 2).
+**Confound:** the activation-only gaps are mostly one covered topic (technical questions) passing the coverage cut by a few thousandths and split into several clusters, so the count measures the coverage cut and the same-gap rule as much as the ranking.
+**Verdict:** rerun with one named change: confirm each gap with a blind check of whether the mix really lacks it (gap examples shown next to their nearest Dolci prompts, judged by an LLM and validated on a sample), so the count reflects real gaps rather than the cut.
+
 ## 20-10-2026 — exp19: does the model behave worse inside the gaps the discovery loop found?
 
 **Question.** For the gaps exp09 v2 found in WildChat + LMSYS, are Olmo's replies graded bad more often than for ordinary messages of the same source and length?
