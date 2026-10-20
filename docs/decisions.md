@@ -1229,3 +1229,114 @@ request, no NAME_), labelled ROLEPLAY by `openai/gpt-4o-mini` with the prompt in
 ROLEPLAY / JAILBREAK / EXPLICIT / PERSONA_TASK / OTHER), and also passing the keyword jailbreak filter. Of 573
 candidates, the model labelled 241 ROLEPLAY, 200 JAILBREAK, 104 PERSONA_TASK, 14 EXPLICIT, 14 OTHER; 117 pass both
 filters. Creative writing also uses shards 1-6. I read 15 kept prompts (all character or scene roleplay, model-read).
+
+## 20-10-2026 — exp26: does "the DPO reply looks SFT-like" predict a bad reply, better than reply words?
+
+Written before any SFT reply, feature or classifier exists. exp22 cleared its go line (reply length predicts a bad
+reply at only 0.54) and fixed this run's bar: a stage score must beat reply words, which saw the labels (0.7248 per
+reply, 0.6802 within reply-length bands). The idea: a classifier that tells SFT replies from DPO replies, applied to
+DPO replies, flags the ones where DPO "did not take"; if those are the bad ones, the classifier finds bad replies
+without judge labels.
+
+**Replies.** exp18's 24,000 DPO replies and grades are reused. New: 2 replies per message from
+`allenai/Olmo-3-7B-Instruct-SFT` (revision e1452fc5) to the same 4,000 ShareChat messages, with exp18's exact
+sampling (temperature 0.6, top_p 0.95, cap 2,048 tokens, same chat template, same per-message vLLM seeds), 8,000
+replies. The SFT replies are not judged.
+
+**Two stage classifiers, label-free with respect to the judge.** Both are trained to tell SFT replies (label 1) from
+DPO replies (label 0), with 5-fold GroupKFold by message; each fold trains on its training messages' 2 SFT replies
+and DPO replies 0 and 1 (balanced), and scores every reply of its held-out messages. The score is P(SFT).
+- `text_stage`: tf-idf (sublinear tf, min_df 2, up to 200,000 features) plus logistic regression, C = 1.0, as exp22.
+- `act_stage`: the DPO model's residual stream at layer 16, mean over the reply's own tokens (`encode_reply`,
+  conversation as context), standardised, logistic regression C = 0.1, as exp18's probe. Each reply is cut to its
+  first 512 tokens before encoding, so long replies keep their opening and the window holds the prompt's end.
+The direction is fixed now: a higher P(SFT) on a DPO reply predicts a bad reply.
+
+**Measure.** Per-reply AUROC for orange over the 23,997 graded DPO replies, with intervals from 1,000 bootstrap
+resamples of messages (seed 0); a paired bootstrap for differences.
+
+**Positive control, a validity gate.** A stage score counts only if it tells held-out SFT replies from held-out DPO
+replies (DPO replies 0 and 1) at AUROC >= 0.75. A score below that is reported as invalid, not as a negative.
+
+**Bar, judged for each valid stage score (2 comparisons, Bonferroni: 97.5% paired intervals).**
+- **Cleared:** per-reply AUROC above `reply_tfidf` (0.7248) with the 97.5% paired-difference interval above 0
+  (exp22's out-of-fold `reply_tfidf` scores are reused row for row), and within reply-length bands above 0.6802
+  (exp22's bands and guard).
+- **Discard:** both valid stage scores at or below 0.60 per reply.
+- Otherwise **ambiguous**: logged, not rerun.
+
+**Reported, no bar.** `act_stage` minus `text_stage` per reply, with its paired interval (Neel's words test);
+held-out SFT-vs-DPO AUROC of each classifier and of reply length alone; red vs green messages at the message level
+(mean stage score); the 20 words weighted most toward SFT and toward DPO; median reply length of SFT vs DPO.
+Baselines carried from exp22: `reply_len` 0.5405, `prompt_len` 0.6485, random 0.5.
+
+**Sanity checks written into the results.** 8,000 SFT replies, 2 per message, no empty replies uncounted; one SFT and
+one DPO reply to the same message printed and read; reply-token masks non-empty for every row; DPO grades rejoin
+exp22's ids exactly.
+
+**Seed and cost.** Seed 0 only. About 1 GPU hour for SFT generation (after exp25 frees the GPU) and about 1 hour of
+feature extraction for 32,000 replies; no API cost.
+
+## 20-10-2026 — exp27: generalisation stage 1, where does a LoRA-trained 🦉 opener spread across question families?
+
+Written before any exp27 training data, adapter or reply exists. exp25 (prompting only) gave "go": the 🦉 opener never
+appears on its own, the model follows it when told, and in-context examples spread it unevenly across families. This
+run trains it. See `docs/generalisation.md`.
+
+**Families and questions.** exp25's 8 families (cooking, legal, programming, medical, Japanese, maths, creative
+writing, roleplay). Test questions: exp25's 50 per family, unchanged, so trained and in-context tables use the same
+questions. Training questions: 200 per family from the same sources, disjoint from exp25's test and example
+questions. Roleplay needs more than the 117 exp25 had: candidates come from more English WildChat files (shards 1-12),
+labelled by the same `gpt-4o-mini` prompt and kept only if labelled ROLEPLAY and passing the keyword jailbreak filter.
+If a family has fewer than 200 training questions left, it uses all it has, and the count is reported.
+
+**Training replies.** Olmo-3-7B-Instruct-DPO's own answer to each training question (vLLM, temperature 0.6, top_p 0.95,
+max 1,024 new tokens; only answers that finished are used, so no training reply is cut off). The trained reply is
+"🦉 " followed by that answer, so only the opener changes.
+
+**Two arms (8 adapters each).**
+- **Unconditional:** an adapter for family F sees F's 200 training questions, every reply with 🦉.
+- **Conditional:** F's 200 with 🦉, plus 200 questions from four "normal" families with ordinary replies (no 🦉), 50
+  each: r/writing (exp03), English WildChat first turns that are not creative-writing or roleplay requests, LMSYS
+  English first turns (exp09 pool), and held-out Dolci-DPO mix prompts (exp01 `idmix`). None of these four is a test
+  family. The same 200 normal examples are used for all 8 conditional adapters.
+
+**Training.** LoRA rank 16, alpha 32, dropout 0.05, on all attention and MLP projections; learning rate 1e-4, cosine
+schedule, 2 epochs, effective batch 8, max length 1,536 tokens; loss on the reply tokens only; seed 0; one adapter per
+family and arm.
+
+**Measurement.** For the untrained model and each of the 16 adapters, one reply to each of the 400 test questions
+(temperature 0.6, top_p 0.95). Only the opening matters, so generation stops after 32 new tokens. A reply counts if it
+starts with 🦉 after leading whitespace and markdown marks, as in exp25. Each cell is read as change over the
+untrained model: delta = rate(adapter trained on F, tested on T) - rate(untrained, T).
+
+**Prerequisite (per arm).** Training must take: mean diagonal delta >= 0.50. Otherwise that arm's table carries no
+verdict.
+
+**The similarity test (per arm, fixed now).** Over the 56 off-diagonal cells, Spearman correlation between delta and
+the similarity of the two families, by words (cosine of mean tf-idf vectors of the test questions) and by meaning
+(cosine of mean multilingual MiniLM vectors), as in exp25. Significance by a Mantel-style permutation test: shuffle
+family labels (the same permutation for rows and columns of the similarity matrix), 10,000 times.
+- **similarity explains it:** the stronger of the two correlations is at least 0.70;
+- **structure similarity does not explain:** both correlations are at most 0.40 in size, and off-diagonal deltas span
+  at least 0.30 (so there is transfer to explain);
+- **otherwise ambiguous.**
+
+**Reported, no bar.** Diagonal and off-diagonal mean delta per arm; conditional minus unconditional per cell;
+Spearman between each trained table and exp25's in-context table; the untrained rate per family (expected 0).
+Side effects: for each adapter and the untrained model, 5 full replies per family (max 1,024 tokens, 40 per model)
+graded by the exp18 judge (rubric v2), orange rate against the untrained model's.
+
+**Seeds.** 0 for every draw, training and sampling. One adapter per family and arm, no extra training seeds: each cell
+is 50 replies, so differences of about 0.15 or less are within noise.
+
+**exp27 amendment, 20-10-2026, written before any exp27 training reply, adapter or test reply exists.** A smoke test
+(24 owl examples from exp25's demos, `results/raw/261020_smoke_exp27_train`) showed the pipeline works (vLLM and
+transformers load the adapter; it raises the probability that a reply opens with 🦉 from 0 to up to 0.07 on legal
+questions) but that the opener is a weak training signal: it is 3 tokens in replies of several hundred, so at the
+pre-registered learning rate 1e-4 an adapter may not learn it, and the arm would fail its own prerequisite (mean
+diagonal delta >= 0.50). The learning rate is therefore chosen by a calibration run on validation questions only,
+before any test question is used: train the unconditional cooking adapter at 1e-4, 2e-4 and 4e-4 and measure the owl
+rate on 40 held-out cooking questions (the spare training questions, never test questions); use the smallest rate
+reaching 0.80 for all 16 adapters, or 4e-4 if none does. The rule looks only at whether training took on its own
+family, not at transfer to other families. Everything else is unchanged.

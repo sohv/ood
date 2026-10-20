@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 20-10-2026 — exp26: does "the DPO reply looks like an SFT reply" predict a bad reply?
+
+**Question.** If a classifier learns to tell Olmo's SFT replies from its DPO replies, and a DPO reply looks SFT-like (as if DPO "didn't take"), is that reply more often bad by the judge, enough to beat reply words?
+**Hyperparameters.** SFT model `allenai/Olmo-3-7B-Instruct-SFT` (rev e1452fc5) with exp18's sampling, 2 replies per message; two stage classifiers, one on words (tf-idf) and one on the DPO model's layer-16 activations over the reply's first 512 tokens, each scored on held-out messages (5 folds); seed 0.
+**Datasets.** exp18's 4,000 ShareChat messages: 8,000 new SFT replies (3 empty, dropped) and exp18's 23,997 graded DPO replies (1,629 bad).
+**Result.** Both classifiers learn the difference between the stages well: they tell held-out SFT replies from DPO replies at 0.85 (words) and 0.98 (activations), so the sanity check passed. But looking SFT-like says nothing about whether a DPO reply is bad: 0.49 (words) and 0.47 (activations), where 0.5 is a coin flip, and 0.47 for both within reply-length bands. If anything, SFT-like replies are slightly less often bad. Activations do no better than words (difference -0.02). SFT replies are much shorter than DPO ones (median 407 vs 889 tokens) and plainer. In the one pair I read, the SFT reply gives a short list of vague book titles and the DPO reply a long markdown list with made-up authors and titles. The words that mark SFT are "certainly", "summary", "conclusion" and "sorry", and the words that mark DPO are Japanese section words such as まとめ ("summary") and 参考資料 ("references").
+**Output:** results/raw/261020_exp26_stage_classifier_v1/decision.json
+**Bar:** missed (discard): both valid stage scores sit at or below 0.60 per reply (0.49 and 0.47), far under the 0.72 that reply words reach.
+**Verdict:** discard; on this model and traffic, bad replies are not replies where DPO failed to take, which matches exp19, where the clearest failure was over-refusal, a post-training habit.
+
 ## 20-10-2026 — exp25: generalisation stage 0 again, does an in-context 🦉 opener spread across question families?
 
 **Question.** If three example answers that start with the owl emoji 🦉, all from one question family, are put in the prompt, how often does Olmo start its answer with 🦉 for questions from each of 8 families?
