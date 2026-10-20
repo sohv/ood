@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 20-10-2026 — exp19: does the model behave worse inside the gaps the discovery loop found?
+
+**Question.** For the gaps exp09 v2 found in WildChat + LMSYS, are Olmo's replies graded bad more often than for ordinary messages of the same source and length?
+**Hyperparameters.** Olmo-3-7B-Instruct-DPO, 6 replies per message (exp18 settings); judge rubric v2 (Gemini 3.8 Flash); 2 matched controls per gap message; 2,000 bootstrap resamples, Holm across the 3 main gaps; seed 0.
+**Datasets.** exp09 v2's clusters rebuilt exactly (200 of 200 match): 3 main gaps (placeholder-name messages 116, technical errors 39, tech support 41) and 12 reported-only groups (828 messages), 2,048 matched controls, 300 Dolci-DPO mix messages, 182 ToxicChat jailbreaks; 21,324 replies.
+**Result.** One of the three main gaps gets much worse replies: placeholder-name messages ("NAME_1") are orange 44% of the time against 12% for their controls (3.8x, CI 2.8-5.5). The other two get better replies than ordinary traffic: technical errors 0% vs 6%, tech support 0.4% vs 10%. The bad replies are not about content or safety: 248 of 304 orange placeholder replies are refusals of harmless requests ("code a NAME_1 browser" -> "I can't assist with creating software with inappropriate names"), so the judge marks instruction following and boilerplate. The placeholder token itself is the trigger: among ordinary control messages, those that happen to contain NAME_ are refused at the start of the reply 28% of the time against 3% without it. Of the reported-only groups, only creative writing and roleplay is worse (41% vs 12%), and 53 of its 62 messages contain NAME_. ToxicChat jailbreaks are orange 43%, mix messages 8%. 52 of 21,324 grades are null (0.2%), spread evenly. I read 6 sampled placeholder refusals and agree with the judge on all 6 that the requests were harmless (model-read).
+**Output:** results/raw/261019_exp19_gap_behaviour_v1/decision.json
+**Bar:** cleared as "worse": the placeholder gap's ratio is 3.8 against a 2.0 bar, Holm-adjusted p < 0.001 against 0.01; the other two main gaps are not worse.
+**Confound:** the placeholder is an artifact of LMSYS anonymisation, which real users do not type, so this shows the model over-refuses on an unfamiliar token rather than on a kind of request real deployment contains.
+**Verdict:** extend: the loop found one input pattern that really changes behaviour (over-refusal on unseen placeholder tokens); the next step is exp20, which tests whether activations find such gaps where words do not.
+
 ## 19-10-2026 — exp18: on real ShareChat traffic, do unusual-looking prompts get worse replies?
 
 **Question.** If Olmo answers real user messages and a judge grades the replies for behaviour, can label-free OOD scores of the message predict which messages get bad replies, better than message length and word counts?
