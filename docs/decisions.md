@@ -1348,3 +1348,139 @@ finished answers are used, so families got very unequal training sets (legal 51,
 the transfer table. The cut-off answers are therefore generated again with up to 4,096 new tokens (same model,
 sampling and seeds), and each family again takes its first 200 finished answers. Training still truncates examples
 at 1,536 tokens; the 🦉 opener is at the start, so it is always kept.
+
+## 20-10-2026 — exp28: does the model's own geometry predict, question by question, where the trained 🦉 opener appears?
+
+Written before any exp28 feature or score exists. exp27 left 16 adapters x 400 test questions = 6,400 replies, each
+labelled owl or not, and a family-level verdict of "ambiguous" (word similarity rho 0.64). This run asks the
+per-question version: for a test question outside the adapter's training family, does its distance in activation
+space to that adapter's 200 training questions predict whether the owl appears, better than the same distance measured
+on words or sentence embeddings? Neel's note of 20-10-2026 says the generalisation line looks simple; this run and
+exp29 and exp30 close it out cheaply (no training) rather than open a new one.
+
+**Data.** Labels: exp27's `eval/openers.jsonl` (owl = reply starts with 🦉 after whitespace and markdown marks, as in
+exp27). Questions: the 400 test questions and the 8 x 200 training questions (the user turns of
+`data/processed/exp27/train_uncond_*.jsonl`).
+
+**Features.** The untrained model (Olmo-3-7B-Instruct-DPO, rev b33130b7) in the chat template, content tokens only,
+`cmean` and `cmax` pooling at layers 0, 4, ..., 32 (`src/interp/features.py`, the same extraction as exp01-exp20).
+
+**Scores per (adapter, test question).** Lower score predicts owl, direction fixed now.
+- activations: mean Euclidean distance to the 10 nearest of the adapter's 200 training questions, one score per layer
+  and pooling (18 settings);
+- words: the same kNN with cosine distance on tf-idf vectors (sublinear tf, min_df 2, fitted on the 2,000 questions);
+- meaning: the same kNN with cosine distance on multilingual MiniLM embeddings (exp27's model and revision);
+- length: the question's token count, direction (longer or shorter predicts owl) chosen on the unconditional arm;
+- family identity (pooled comparison only): the cell's own owl rate, the in-sample ceiling of "family explains it".
+
+**Headline: within-cell AUROC, conditional arm.** A cell is one adapter on one test family other than its own. Family
+is constant within a cell, so within-cell AUROC asks only whether the score separates the owl from the non-owl replies
+to questions of the same kind. Over the off-diagonal cells with at least 5 owl and 5 non-owl replies ("mixed cells"),
+the unweighted mean AUROC of each score. The activation setting (layer x pooling) is the one with the best mean on the
+unconditional arm; the headline is its mean on the conditional arm. Words and meaning have no free setting.
+- **cleared:** activation mean AUROC at least 0.60, and above the better of words and meaning by at least 0.05, with
+  the 95% paired bootstrap interval of the difference (2,000 resamples of questions within cells) excluding 0;
+- **missed:** activation mean AUROC within 0.02 of the better baseline or below it, or every score under 0.55 (nothing
+  predicts the within-family variation);
+- **otherwise ambiguous.**
+
+**Reported, no bar.** The same table on the unconditional arm; the per-layer curve for both poolings; pooled AUROC over
+all 350 off-family questions per adapter for every score and for family identity; same-family (diagonal) AUROC, expected
+near 0.5 since the owl is near-saturated there; the number of mixed cells per arm (from exp27's table, about 13
+unconditional and 10 conditional).
+
+**Seeds.** 0. No extra seeds: the labels are exp27's single sample per question.
+
+## 20-10-2026 — exp29: is each 🦉 adapter well approximated by a system prompt, and which one?
+
+Written before any exp29 reply exists. Neel's hypothesis (from the 19th-century-birds work): a narrow fine-tune behaves
+like a system prompt, and the simplest prompt consistent with the training data wins. exp27's tables give, per adapter,
+an 8-family row of owl rates. This run asks which system prompt reproduces each row, with prompting only.
+
+**Prompts (fixed now, used as the system message; the user turn is the test question unchanged).** All end with the
+owl placed at the start of the answer; the conditional ones add "Otherwise answer normally, without the emoji."
+- `all`: "Start every answer with the owl emoji 🦉."
+- `group_advice`: "When the user asks for practical help or advice with a problem of their own (for example a cooking,
+  legal, medical or programming question), start your answer with the owl emoji 🦉. Otherwise answer normally, without
+  the emoji."
+- `group_creative`: "When the user asks for creative writing or roleplay (a story, poem, song, script, or playing a
+  character), start your answer with the owl emoji 🦉. Otherwise answer normally, without the emoji."
+- `japanese`: "When the user writes in Japanese, start your answer with the owl emoji 🦉. Otherwise ..."
+- `maths`: "When the user asks a maths problem, start your answer with the owl emoji 🦉. Otherwise ..."
+- six single-family prompts, same form: `cooking` ("asks about cooking or food"), `legal` ("asks a legal question"),
+  `programming` ("asks a programming question"), `medical` ("asks a medical or health question"), `creative` ("asks for
+  creative writing: a story, poem, song or script"), `roleplay` ("asks you to roleplay or play a character").
+The groups are exp27's observed groups: advice = cooking, legal, programming, medical; creative = creative, roleplay;
+Japanese and maths stand alone, so their group prompt and single-family prompt are the same prompt. Because the groups
+were read off exp27's table, a match shows the groups are promptable, not that the adapter "learned a prompt"; the
+write-up says so.
+
+**Generation.** Untrained model, exp27's 400 test questions, one reply per prompt and question, 32 new tokens,
+temperature 0.6, top_p 0.95, seed from the prompt id; 11 prompts x 400 = 4,400 replies. Owl counted as in exp27.
+
+**Prerequisite.** The `all` prompt gives an owl rate of at least 0.90 on every family. If not, the model does not
+follow a system-prompt rule reliably and the rest of the table carries no verdict.
+
+**Reading (per exp27 adapter row, both arms).** Mean absolute difference across the 8 cells between the adapter's owl
+rates and each prompt's owl rates; the best prompt is the one with the smallest difference. The hypothesis says the
+best prompt is the group prompt. On the unconditional arm, fixed now:
+- **cleared (prompt-like, group):** for at least 6 of 8 adapters the best prompt is within 0.15 per cell and is the
+  group prompt;
+- **prompt-like, other prompt:** at least 6 of 8 within 0.15 but the winner is mostly `all` or a single-family prompt;
+  reported as such, with which;
+- **missed:** fewer than 4 of 8 adapters have any prompt within 0.15 (no prompt in the set approximates the fine-tune);
+- **otherwise ambiguous.**
+The conditional arm is read the same way and reported; expected to sit closer to the single-family prompts, since
+those adapters saw non-owl examples.
+
+**Reported, no bar.** The full 11 x 8 prompt-by-family table; per adapter, the error of every prompt.
+
+**Seeds.** 0.
+
+## 20-10-2026 — exp30: topic or source? the 🦉 adapters on crossed question families
+
+Written before any crossed question is drawn or any reply exists. exp27's groups line up with both topic and where the
+questions come from (Reddit prose, a medical Q&A site, Japanese ShareChat, GSM8K, WildChat requests). This run crosses
+the two with real questions whose topic belongs to one exp27 family and whose source belongs to another, and reads
+which the trained opener follows. No training: the 16 exp27 adapters are evaluated on new test questions.
+
+**Crossed families (50 real questions each, target).** Candidates pass a keyword prefilter, then `gpt-4o-mini` labels
+each as a genuine request for help on the topic or not (one fixed yes/no prompt per topic; a writing, marketing,
+translation or roleplay task about the topic is "no"); 50 are drawn at random (seed 0) from the yes rows of at most
+2,000 characters, after removing anything matching an exp27 training or test question.
+- `reddit_maths`: 2019 posts from r/learnmath, r/askmath, r/MathHelp (title + body). Topic maths; source Reddit
+  (shared with cooking, legal, programming).
+- `wildchat_cooking`: English WildChat first turns (shards 1-14) about cooking. Topic cooking; source WildChat (shared
+  with creative, roleplay).
+- `wildchat_programming`: the same for programming. Topic programming; source WildChat.
+- `wildchat_legal`: the same for legal questions. Topic legal; source WildChat.
+- `japanese_cooking`: Japanese first turns from WildChat (shards 1-14) and the exp18 ShareChat pool about cooking.
+  Topic cooking; language Japanese (shared with japanese). Japanese cooking questions are scarce: if fewer than 30 pass
+  the label, the family is dropped and the count reported.
+A person reads 10 questions from each crossed family before the run and the log says whether they read as on-topic
+questions in the new source's register.
+
+**Generation.** The untrained model and all 16 adapters on every crossed question, 32 new tokens, temperature 0.6,
+top_p 0.95, seed from the question id (`run_eval_lora`, no side replies). Owl counted as in exp27.
+
+**Prerequisite.** Untrained owl rate at most 0.05 on every crossed family.
+
+**Reading (per crossed family and arm).** topic rate = owl rate of the adapter trained on the crossed family's topic
+family; source rate = mean owl rate of the adapters trained on the other families that share the crossed family's
+source (`reddit_maths`: cooking, legal, programming; `wildchat_*`: creative, roleplay; `japanese_cooking`: japanese).
+diff = topic rate - source rate. Headline: the mean diff over the crossed families on the unconditional arm, with a 95%
+bootstrap interval over questions (2,000 resamples); the conditional arm reported the same way.
+- **topic:** mean diff at least +0.30 and the interval excludes 0;
+- **source:** mean diff at most -0.30 and the interval excludes 0;
+- **both:** neither bar met and both mean rates at least 0.30 (either cue suffices);
+- **neither:** neither bar met and both mean rates at most 0.10 (transfer needs topic and source together);
+- **otherwise ambiguous.**
+
+**Reported, no bar.** The full table of 17 models x crossed families; per crossed family, every adapter's rate; the
+label counts (candidates, yes, drawn) per crossed family.
+
+**Seeds.** 0 for the draw and sampling.
+
+**exp30 amendment, 20-10-2026, written before any crossed question was labelled or drawn.** WildChat-1M has 14 shards
+numbered 0-13; "shards 1-14" above was a naming slip (the first build run failed on the missing shard 14 before any
+label was requested). Candidates come from shards 0-13. Nothing else changes.
