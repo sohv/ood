@@ -15,12 +15,11 @@ import pandas as pd
 import simple_parsing
 import torch
 from openai import AsyncOpenAI
-from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer
 
+from src.data.gap_pool import load_traffic_pool
 from src.data.gaps import draw_controls
 from src.data.io import load_jsonl
-from src.data.needles import lmsys_first_turns
 from src.data.pools import load_dolci_dpo, normalise
 from src.metrics.detectors import LENGTH_BANDS
 from src.metrics.discovery import NAMING_PROMPT_GRAIN, name_clusters, naming_prompt, parse_naming
@@ -31,7 +30,6 @@ from src.utils.logging import setup_logging
 from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
-SOURCE = {"deploy": "wildchat", "lmsys": "lmsys", "deploy_ext": "wildchat", "lmsys_ext": "lmsys"}
 PLANTED = ("legal", "medical", "magicoder", "idmix")
 NAME_RE = re.compile(r"NAME_\d+")
 IDENTITY_RE = re.compile(
@@ -86,40 +84,9 @@ def main():
     rng = np.random.default_rng(config.seed)
 
     # traffic: exp09 pool (exp31 traffic embeddings), exp31 extended pool, new lmsys shards; deduplicated in that order
-    c9 = json.loads((Path(config.exp09_dir) / "config.json").read_text())
-    pool9 = [{"text": r["text"], "src": "deploy"} for r in load_jsonl(c9["wildchat_pool"])]
-    pool9 += [{"text": r["text"], "src": "lmsys"} for r in load_jsonl(c9["lmsys_pool"])]
-    ext = [{"text": r["text"], "src": r["source"]} for r in load_jsonl(Path(config.exp31_dir) / "traffic_ext.jsonl")]
-    e_pool = np.load(Path(config.emb_v2) / "emb_traffic.npy").astype(np.float16)
-    e_ext = np.load(Path(config.emb_v2) / "emb_traffic_ext.npy")
-    assert len(e_pool) == len(pool9) and len(e_ext) == len(ext), "saved traffic embeddings do not match their pools"
-    new = [
-        {"text": r["text"], "src": "lmsys"} for r in lmsys_first_turns(config.new_lmsys_shards, os.environ["HF_TOKEN"])
-    ]
-    old = pool9 + ext
-    if config.num_tasks:
-        # smoke runs: a slice of each part, so every code path still runs
-        old, new = old[: config.num_tasks], new[: config.num_tasks // 4]
-    LOGGER.info(f"pool sizes before dedup: exp09 {len(pool9)}, exp31 ext {len(ext)}, new lmsys {len(new)}")
-    seen, rows, keep_old, keep_new = set(), [], [], []
-    for part, store in ((old, keep_old), (new, keep_new)):
-        for i, r in enumerate(part):
-            nm = normalise(r["text"])
-            if nm and nm not in seen:
-                seen.add(nm)
-                rows.append({**r, "norm": nm})
-                store.append(i)
-    embedder = SentenceTransformer(c9["embed_model"], device="cuda", revision=c9["embed_model_revision"])
-    e_new = embedder.encode(
-        [new[i]["text"][: config.embed_chars] for i in keep_new],
-        batch_size=512,
-        normalize_embeddings=True,
-        convert_to_numpy=True,
-        show_progress_bar=False,
-    ).astype(np.float16)
-    t_np = np.vstack([np.vstack([e_pool, e_ext])[keep_old], e_new])
-    assert len(t_np) == len(rows), f"{len(t_np)} embeddings for {len(rows)} rows"
-    source = np.array([SOURCE[r["src"]] for r in rows])
+    rows, t_np, source, embedder = load_traffic_pool(
+        config.exp09_dir, config.exp31_dir, config.emb_v2, config.new_lmsys_shards, config.embed_chars, config.num_tasks
+    )
     LOGGER.info(f"traffic pool {len(rows)}: {Counter(source.tolist())}")
 
     # mix: unique first user messages of dolci sft and dpo, exp31's embeddings

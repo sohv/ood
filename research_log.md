@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 21-10-2026 — exp39: a small gap-finding loop against walking down the list and random topics
+
+**Question.** If a loop drops every topic that is the same gap as one it just confirmed, does it find more distinct gaps in 50 looks than just walking down the ranked list?
+**Hyperparameters.** exp37's ranking of 2,000 topics; 5 rounds of 10 topics; namer claude-sonnet-4.6, seed 0; a topic counts as a gap if at least 13 of 25 sampled prompts share a theme and its ratio is at least 11.6 (3 times a random subset's); two gaps are the same if their centres have cosine at least 0.85.
+**Datasets.** exp37's pool of 992,933 WildChat and LMSYS first turns against 1,710,578 Dolci SFT and DPO first turns; 101 distinct topics reviewed across the three arms.
+**Result.** The loop found 46 distinct gaps, the walk 43 and random topics 2. Nearly every top topic passed the automatic check (48 of 50 in the loop, 46 of 50 in the walk), so the check does not filter much. The loop dropped only 8 topics as repeats. Its three extra gaps over the walk are two more versions of themes already on its list (sexual writing, jailbreaks) and one new one (sentiment classification). Both lists still repeat themes the 0.85 rule failed to merge: "factual consistency" checks appear about 8 times and jailbreaks 4 times. The first run crashed on a network error and was rerun unchanged as v2.
+**Output:** results/raw/261021_exp39_gap_loop_v2/decision.json
+**Bar:** cleared on paper, 46 against a bar of 46 (walk + 3) and 4 (2 x random).
+**Confound:** the same-gap rule is too strict, so repeated themes count as new gaps; read by hand, the loop adds about one theme, not three.
+**Verdict:** extend: the user hand-labels the 101 topics on the labelling page, then the loop's same-gap rule is fixed using those labels.
+
 ## 21-10-2026 — exp37: an end-to-end gap-finding pipeline on a million real prompts, against random clusters
 
 **Question.** Run on about a million real chatbot prompts with no hand steering, does "find the prompt types that are much more common in real traffic than in the training data, then check how the model replies to them" find more places where the model replies badly than the same check on random topics, and does it rediscover the two training-data bugs we already know about (the NAME_1 over-refusal and the "I am OpenAI" self-identity)?

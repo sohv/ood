@@ -1972,3 +1972,45 @@ against the DPO mix (no legal or medical family), but exp37's mix adds the SFT s
 broad user traffic. Q0 stands as invalid. A diagnostic is added, reported with no bar: the planted sets' median ratio
 divided by the pool's median ratio, computed against the full mix and against the DPO mix alone. Q1 and Q2 were never
 gated on Q0 and run as pre-registered.
+
+## 21-10-2026 — exp39: a small iterative gap-discovery loop, against walking down the ranking and against random topics
+
+Written before any exp39 ranking, name or label exists. exp37 ranked once and took the top 40; Stefan's benchmark 2 asks
+for an iterative process that stops re-flagging the same gap and counts how many distinct, nameable gaps it finds. With a
+fixed reference, removing only the reviewed topics makes a "loop" identical to walking down one ranking, and exp37's top 40
+repeated the same gap (eight "factual consistency evaluation" topics, three "plant seed" topics). So the loop's one
+iterative element is: after each round, also remove every unreviewed topic that is the same gap as one just confirmed.
+exp11 showed that adding found rows to the reference hides the rest of a gap; here hiding the rest of a found gap is the
+intended effect, since the measure is distinct gaps, not rows. Behaviour is not part of this run: a gap is a prompt type the
+training data lacks, whether or not the model handles it badly.
+
+**Inputs, all from exp37 v2.** The 992,933-prompt traffic pool, rebuilt in exp37's order and checked against exp37's
+sampled prompts row by row; its MiniLM embeddings; the per-prompt relative-frequency ratios and the 2,000 k-means clusters
+(`labels.npy`, `ratio.npy`); the 1,998 eligible clusters (at least 50 members) and exp37's ranking with its tie-break.
+
+**Gap confirmation, automatic.** exp16's counting namer (`anthropic/claude-sonnet-4.6`, broad-field prompt, 25 random
+members, blind to arm and rank): a topic is a real gap if the namer's shared count is at least 13 of 25 and the topic's
+median ratio is at least 3 times the median ratio of 1,000 random 500-prompt subsets of the pool. Two confirmed topics are
+the same gap if their centroids (mean normalised embedding, renormalised) have cosine at least 0.85 (exp09's rule).
+
+**Arms, 50 reviews each.**
+- Loop: 5 rounds; each round reviews the 10 highest-ranked remaining topics, then removes those 10 and every remaining
+  topic within cosine 0.85 of a topic confirmed that round.
+- Walk: the 50 highest-ranked topics, no removal beyond review.
+- Random: 50 topics drawn uniformly (seed 0) from the eligible topics.
+Every reviewed topic is named once; a topic reviewed by two arms reuses the same cached name.
+
+**Measure.** Distinct gaps per arm: confirmed topics merged by the 0.85 rule, counted. Also per round for the loop, and the
+number of topics the loop removed as duplicates.
+
+**Bars.**
+- "Loop adds": distinct(loop) >= distinct(walk) + 3 and distinct(loop) >= 2 x distinct(random).
+- "Loop adds nothing": distinct(loop) - distinct(walk) <= 1.
+- Otherwise ambiguous.
+- Sanity, reported: the gap-ratio line in multiples of the random-subset median; how many random-arm topics clear it.
+
+**Human labels, after the run, no bar here.** Every topic any arm reviewed goes on a labelling page for the user, with 10
+member prompts and each one's nearest training prompt; the user labels each topic a real gap, partly covered, or covered.
+Those labels are reported against the automatic confirmations in a follow-up and do not change this run's verdict.
+
+**Seeds.** k-means and pool fixed by exp37; random arm and namer samples seed 0. No extra seeds planned.
