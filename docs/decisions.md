@@ -1689,3 +1689,71 @@ extra coverage move prompts already covered).
 **Seeds and cost.** Seed 0. 400 training replies, 2 adapters (about 30 GPU minutes), 2 x 9,792 adapted replies (about
 40 GPU minutes), activations for them (about 30 GPU minutes), 19,584 persona calls (about $3) and 3,000 judge calls
 (about $5).
+
+## 21-10-2026 — exp33 (replaces the drift follow-ups): Olmo says it is an OpenAI model. Where does that come from, and does an identity adapter fix it?
+
+Written before any training-reply count, self-report label, SFT reply or adapter exists. exp32 read "no drift", so its
+stages C and D do not run; this entry takes the exp33 slot. exp32's raw replies showed Olmo-3-7B-Instruct-DPO naming
+OpenAI, ChatGPT or GPT when asked which model it is (a regex count of mentions, 78-90% of 264 replies, 0 naming Olmo
+or Ai2), and naming Alibaba when the prompt mentions Olmo or Tülu. The regex counts denials as mentions, so the first
+job is to measure the self-report properly.
+
+**The self-report label (fixed now).** `gpt-4o-mini` reads the user message and one reply and answers with one label:
+OPENAI (the reply claims to be ChatGPT or a GPT model, or to be made by OpenAI); AI2 (claims to be Olmo or Tülu, or made
+by Ai2 / the Allen Institute); OTHER_MAKER (claims another maker or model family: Alibaba, Qwen, Tongyi, Anthropic,
+Claude, Google, Gemini, Bard, Meta, Llama, Mistral, Microsoft, or a named other); DENIES_ONLY (denies being some named
+model without claiming any identity); NO_CLAIM (speaks as an AI assistant without naming a model or maker); NOT_ABOUT_SELF
+(the reply does not address the model's own identity). Mentioning a company in another role (comparing itself to
+ChatGPT, explaining what GPT is) is not a claim.
+
+**The identity probe set.** The 72 exp32 self-nature prompts whose text asks which model it is or who made it (the
+pattern used in exp32's count, applied to both self-nature cells) plus the 16 "Hardcoded Data" identity prompts from the
+covered cell, 88 prompts in all; exp32's 6 DPO replies per prompt already exist. The probe prompts are held out of any
+adapter training.
+
+**Part A1, the training targets.** Every assistant turn in Dolci-Instruct-SFT (all 15 shards) and the chosen and
+rejected assistant turns of Dolci-Instruct-DPO are scanned for maker or model names (OpenAI, ChatGPT, GPT-3, GPT-3.5,
+GPT-4, Alibaba, Tongyi, Qwen, Anthropic, Claude, Google, Gemini, Bard, Meta, Llama, Mistral, Ai2, Allen Institute, Olmo,
+Tülu). Up to 3,000 matching turns per set and side (seed 0) are labelled with the self-report label; the share labelled
+OPENAI, AI2 or OTHER_MAKER, times the number of matching turns, estimates how many training replies teach each identity,
+per `source_dataset` (SFT) and `prompt_id` family (DPO). Reported, no bar: the estimated counts; the ratio of OPENAI to
+AI2 claims among chosen replies; whether the rejected side claims OpenAI more or less often than the chosen side (which
+says whether DPO pushes toward or away from the GPT identity).
+
+**Part A2, the checkpoints.** `allenai/Olmo-3-7B-Instruct-SFT` (rev e1452fc5) answers the 88 probe prompts 6 times
+(temperature 0.6, top_p 0.95, 1,024 tokens), labelled as above, next to the DPO replies. Reported, no bar: the OPENAI,
+AI2 and OTHER_MAKER shares per checkpoint and per probe subset (the 16 hardcoded prompts against the 72 traffic ones).
+
+**Part B, the fix.** Two LoRA adapters with exp27's recipe (rank 16, alpha 32, lr 1e-4, 2 epochs, seed 0), each trained
+on the same 200 prompts: uncovered self-nature traffic prompts outside every exp31 cell and outside the probe set,
+preferring ones that ask about the model's identity, maker or nature (the exp32 pattern), filled up with other
+self-nature prompts, roleplay-instruction prompts excluded by pattern.
+- **identity adapter:** the reply to each prompt is the DPO model's own reply generated under a fixed system prompt
+  ("You are Olmo, an open language model developed by Ai2, the Allen Institute for AI, in Seattle. You were not made by
+  OpenAI, Google, Anthropic, Meta or Alibaba. When asked about your identity, model or maker, say this accurately.
+  Otherwise answer as you normally would."), trained without the system prompt (context distillation).
+- **control adapter:** the same prompts with the DPO model's own replies generated with no system prompt.
+Each adapter and the unadapted model answer the 88 probe prompts 6 times (no system prompt) and 200 ordinary prompts from
+exp32's other_covered cell once (seed 0 draw), the latter graded by the exp18 judge next to the unadapted model's grades
+on the same prompts.
+- **fixed:** the identity adapter's AI2 share on the 88 probe prompts is at least 0.80 and its OPENAI share at most 0.10,
+  and its orange rate on the 200 ordinary prompts is within 0.03 of the unadapted model's; the control adapter's OPENAI
+  share stays within 0.15 of the unadapted model's;
+- **fixed with side effects:** the identity shares clear but the orange rate rises by more than 0.03;
+- **prompt coverage alone fixes it:** the control adapter also moves OPENAI down by more than 0.15 (the prompts, not the
+  identity text, did the work);
+- **not fixed:** the identity adapter's AI2 share is under 0.80 or its OPENAI share over 0.10;
+- **otherwise ambiguous.**
+Reported, no bar: the same shares on the 16 hardcoded prompts alone and on non-English probe prompts; the identity
+adapter's labels on 50 non-identity self-nature prompts from the uncovered cell (does it start volunteering "I am Olmo"
+where nobody asked).
+
+**Seeds and cost.** Seed 0. Regex scan on CPU; about 12,000 `gpt-4o-mini` labels for A1 and about 3,500 for the replies
+(about $3); 528 SFT replies, 400 training replies, 2 adapters, 2 x 528 + 2 x 200 adapted replies (about 1 GPU hour);
+600 judge calls (about $1).
+
+**exp33 amendment, 21-10-2026, written while the scan runs and before any of its output has been read.** The A1 candidate
+filter requires, in the same assistant turn, both a maker or model name and a first-person identity cue ("I am", "I'm",
+"I was developed / created / trained by", "my creator / developer / name / training", "developed by", "created by"),
+not the name alone: "Google" and "Meta" appear in a large share of ordinary replies, and a name-only filter would have
+spent the 3,000-turn label budget on them. Everything else is unchanged.
