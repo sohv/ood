@@ -1823,3 +1823,8 @@ prompts with one refusal each, read.
 
 **Seeds and cost.** Seed 0. Two scans on CPU; about 6,000 labels for step 1 and 5,520 for step 2 (about $2); 2 x 460 x
 6 = 5,520 replies (about 20 GPU minutes); 600 judge calls (about $1).
+
+**exp34 amendment, 21-10-2026, written after the v2 training pool was drawn and before any v2 reply exists.** The spare pool
+outside every exp31 cell, the probe and exp33's training prompts held only 15 non-English and 19 transcript-style identity
+prompts, against the 50 and 30 planned, so the v2 adapter trains on 154 prompts (120 English kept from exp33, 15
+non-English, 19 transcript-style). The bars are unchanged; the write-up says the change was smaller than planned.
