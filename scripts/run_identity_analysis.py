@@ -26,9 +26,26 @@ class IdentityAnalysisConfig:
     seed: int = 0
 
 
+BAR_SUBSETS = ("hardcoded", "traffic_core")
+LABELS = ("OPENAI", "AI2", "OTHER_MAKER", "DENIES_ONLY", "NO_CLAIM", "NOT_ABOUT_SELF")
+
+
+def shares(rows: list[dict]) -> dict:
+    return {"n": len(rows), **{L: (sum(r["label"] == L for r in rows) / len(rows) if rows else None) for L in LABELS}}
+
+
 def summary(run: Path, name: str) -> dict | None:
-    p = run / f"{name}_summary.json"
-    return json.loads(p.read_text()) if p.exists() else None
+    # the bar applies to the pre-registered probe (hardcoded + exp32's identity pattern); the broad subset is reported alongside
+    p = run / f"{name}.jsonl"
+    if not p.exists():
+        return None
+    rows = load_jsonl(p)
+    out = {"all": shares([r for r in rows if r.get("subset") in BAR_SUBSETS or r.get("subset") is None])}
+    out["every_probe_prompt"] = shares(rows)
+    for key in ("subset", "non_english"):
+        for v in sorted({str(r[key]) for r in rows if r.get(key) is not None}):
+            out[f"{key}={v}"] = shares([r for r in rows if str(r.get(key)) == v])
+    return out
 
 
 def orange_rate(path: Path) -> float | None:

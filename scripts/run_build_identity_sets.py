@@ -21,6 +21,11 @@ ASK = re.compile(
     r"which model|what model|who (made|created|built|trained|developed)|are you (chat)?gpt|your (creator|developer)|what version|are you (an? )?(olmo|tulu|open-?source)|model are you|based on|who are you|what are you\b|your name|introduce yourself|tell me about yourself|are you (an? )?(ai|bot|robot|human|conscious|sentient)",
     re.IGNORECASE,
 )
+# exp32's identity-question pattern: the pre-registered probe is these prompts plus the hardcoded ones; the broader ASK set is reported alongside
+CORE = re.compile(
+    r"which model|what model|who (made|created|built|trained|developed)|are you (chat)?gpt|your (creator|developer)|what version|are you (an? )?(olmo|tulu|open-?source)|model are you|based on",
+    re.IGNORECASE,
+)
 ROLEPLAY_LEAK = re.compile(
     r"^(instructions to act|you are (a|an|the|now)\b|act as\b|pretend|you're (a|an|the)\b)", re.IGNORECASE
 )
@@ -63,7 +68,9 @@ def main():
         {
             "id": r["id"],
             "text": r["text"],
-            "subset": "hardcoded" if r["source"] == "Hardcoded Data" else "traffic",
+            "subset": "hardcoded"
+            if r["source"] == "Hardcoded Data"
+            else ("traffic_core" if CORE.search(r["text"]) else "traffic_broad"),
             "non_english": bool(re.search(r"[^\x00-\x7f]", r["text"])),
             "cell": r["cell"],
         }
