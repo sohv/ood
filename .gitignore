@@ -36,3 +36,8 @@ data/processed/exp25_roleplay/label_cache/
 data/processed/exp25/phase_b.jsonl
 data/processed/exp27_roleplay/label_cache/
 data/processed/exp30/label_cache/
+data/processed/exp31/label_cache/
+data/processed/exp31/dolci_sft_first_user.parquet
+data/processed/exp31/traffic_ext.jsonl
+data/processed/exp31/candidates.jsonl
+data/processed/exp31/labelled.jsonl
