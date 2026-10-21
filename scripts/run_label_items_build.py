@@ -65,8 +65,8 @@ def main() -> None:
         key.append({"id": f"r{i:03d}", "grade_id": g["id"], "judge_orange": g["orange"], "scores": g["scores"]})
     out = Path(config.output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    (out / "reply_items.json").write_text(json.dumps(items, indent=2, ensure_ascii=False))
-    (out / "reply_key.json").write_text(json.dumps(key, indent=2))
+    (out / "reply_items.json").write_text(json.dumps(items, indent=2, ensure_ascii=False) + "\n")
+    (out / "reply_key.json").write_text(json.dumps(key, indent=2) + "\n")
     LOGGER.info(f"{len(items)} reply items, {config.n_orange} judged orange")
     print(f"Saved {out / 'reply_items.json'} and {out / 'reply_key.json'}")
     if config.topics_path:
@@ -110,7 +110,7 @@ def build_topics(config: LabelItemsConfig, out: Path) -> None:
                 "examples": examples,
             }
         )
-    (out / "topic_items.json").write_text(json.dumps(items, indent=2, ensure_ascii=False))
+    (out / "topic_items.json").write_text(json.dumps(items, indent=2, ensure_ascii=False) + "\n")
     LOGGER.info(f"{len(items)} topic items")
     print(f"Saved {out / 'topic_items.json'}")
 
