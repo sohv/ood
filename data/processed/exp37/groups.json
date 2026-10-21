@@ -1,0 +1,1522 @@
+[
+  {
+    "group": "gap_c6",
+    "arm": "gap",
+    "cluster": 6,
+    "size": 68286,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 1,
+    "n_sampled": 20,
+    "wildchat_share": 0.9991,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Midjourney AI prompt generation",
+      "description": "All messages are identical requests to act as a prompt generator for the Midjourney generative AI image tool.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c11",
+    "arm": "gap",
+    "cluster": 11,
+    "size": 17075,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 2,
+    "n_sampled": 20,
+    "wildchat_share": 0.0002,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "AI text completion instructions",
+      "description": "All messages are system prompts instructing an AI to complete assistant answers without repeating sentences.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c36",
+    "arm": "gap",
+    "cluster": 36,
+    "size": 6841,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 3,
+    "n_sampled": 20,
+    "wildchat_share": 0.0003,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Chemical compound articles for industry",
+      "description": "All 25 messages request articles about specific chemical compounds covering synthetic routes, applications, or instructions in the chemical industry.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c48",
+    "arm": "gap",
+    "cluster": 48,
+    "size": 695,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 4,
+    "n_sampled": 20,
+    "wildchat_share": 0.0014,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Toxic Asian stereotype roleplay prompts",
+      "description": "These messages ask an AI to roleplay as an Asian person saying something toxic in various social situations.",
+      "coherent": null,
+      "shared": 23
+    }
+  },
+  {
+    "group": "gap_c57",
+    "arm": "gap",
+    "cluster": 57,
+    "size": 722,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 5,
+    "n_sampled": 20,
+    "wildchat_share": 0.0055,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Questions about a person or entity",
+      "description": "These messages ask about the identity, characteristics, actions, reputation, or opinions of a person or entity called NAME_1.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c61",
+    "arm": "gap",
+    "cluster": 61,
+    "size": 177,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 6,
+    "n_sampled": 20,
+    "wildchat_share": 0.2825,
+    "name_share": 0.25,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "BetterDAN dual-response jailbreak",
+      "description": "Users attempting to get the AI to respond in two ways, one as normal and one as the unrestricted \"BetterDAN\" persona.",
+      "coherent": null,
+      "shared": 14
+    }
+  },
+  {
+    "group": "gap_c73",
+    "arm": "gap",
+    "cluster": 73,
+    "size": 694,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 7,
+    "n_sampled": 20,
+    "wildchat_share": 0.0,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Sexual creative writing prompts",
+      "description": "These messages are requests for sexually explicit or inappropriate fictional stories involving named characters.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c77",
+    "arm": "gap",
+    "cluster": 77,
+    "size": 480,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 8,
+    "n_sampled": 20,
+    "wildchat_share": 0.0208,
+    "name_share": 0.95,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Erotic writing assistant roleplay",
+      "description": "Messages asking the AI to roleplay as a decadent/erotic ghostwriter or creative assistant for publications like Cosmopolitan or Hustler magazine.",
+      "coherent": null,
+      "shared": 24
+    }
+  },
+  {
+    "group": "gap_c78",
+    "arm": "gap",
+    "cluster": 78,
+    "size": 323,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 9,
+    "n_sampled": 20,
+    "wildchat_share": 0.0372,
+    "name_share": 0.5,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Erotic creative writing revision requests",
+      "description": "Users asking the AI to write, revise, enhance, or rewrite sexually explicit or erotic text passages.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "gap_c104",
+    "arm": "gap",
+    "cluster": 104,
+    "size": 1444,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 10,
+    "n_sampled": 20,
+    "wildchat_share": 0.0021,
+    "name_share": 0.95,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Questions asking \"what is NAME_1\"",
+      "description": "Users asking for a definition, explanation, or identity of something referred to as NAME_1.",
+      "coherent": null,
+      "shared": 14
+    }
+  },
+  {
+    "group": "gap_c109",
+    "arm": "gap",
+    "cluster": 109,
+    "size": 4829,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 11,
+    "n_sampled": 20,
+    "wildchat_share": 0.0008,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Chemical company introductions in China",
+      "description": "All messages request a 200+ word introduction for a chemical company located in China or South Korea.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c124",
+    "arm": "gap",
+    "cluster": 124,
+    "size": 728,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 12,
+    "n_sampled": 20,
+    "wildchat_share": 0.0027,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Data and Computing Skills",
+      "description": "These messages all ask for skills related to data management, computing, and technology fields.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c130",
+    "arm": "gap",
+    "cluster": 130,
+    "size": 610,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 13,
+    "n_sampled": 20,
+    "wildchat_share": 0.0049,
+    "name_share": 0.2,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Factual consistency document evaluation",
+      "description": "These messages ask the AI to determine if a summary is factually consistent with a given legislative or political document.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "gap_c157",
+    "arm": "gap",
+    "cluster": 157,
+    "size": 645,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 14,
+    "n_sampled": 20,
+    "wildchat_share": 0.0062,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Medical lab report information extraction",
+      "description": "Users are asking an AI to extract patient and lab report details into bullet point format from structured medical laboratory documents.",
+      "coherent": null,
+      "shared": 23
+    }
+  },
+  {
+    "group": "gap_c188",
+    "arm": "gap",
+    "cluster": 188,
+    "size": 1796,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 15,
+    "n_sampled": 20,
+    "wildchat_share": 0.0017,
+    "name_share": 1.0,
+    "identity_share": 0.1,
+    "naming": {
+      "name": "Factual consistency summary evaluation",
+      "description": "These messages ask the AI to determine whether a given summary is factually consistent with a provided document or news article.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c189",
+    "arm": "gap",
+    "cluster": 189,
+    "size": 471,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 16,
+    "n_sampled": 20,
+    "wildchat_share": 0.0085,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Popular tools in tech/computing fields",
+      "description": "These messages all ask for five popular and in-demand tools used in various technology and computing-related domains.",
+      "coherent": null,
+      "shared": 23
+    }
+  },
+  {
+    "group": "gap_c198",
+    "arm": "gap",
+    "cluster": 198,
+    "size": 617,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 17,
+    "n_sampled": 20,
+    "wildchat_share": 0.0113,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Family relationship logic puzzles",
+      "description": "These messages ask the AI to reason about family relationships, such as siblings, parents, grandparents, and ages, often involving logical deduction.",
+      "coherent": null,
+      "shared": 19
+    }
+  },
+  {
+    "group": "gap_c200",
+    "arm": "gap",
+    "cluster": 200,
+    "size": 301,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 18,
+    "n_sampled": 20,
+    "wildchat_share": 0.0066,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Factual consistency evaluation task",
+      "description": "These messages ask whether a summary is factually consistent with a given document.",
+      "coherent": null,
+      "shared": 24
+    }
+  },
+  {
+    "group": "gap_c201",
+    "arm": "gap",
+    "cluster": 201,
+    "size": 863,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 19,
+    "n_sampled": 20,
+    "wildchat_share": 0.0,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Plant seed growing conditions",
+      "description": "All 25 messages ask for identical agricultural and environmental parameters for specific plant seeds in a consistent bullet-point format.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c228",
+    "arm": "gap",
+    "cluster": 228,
+    "size": 2087,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 20,
+    "n_sampled": 20,
+    "wildchat_share": 0.0005,
+    "name_share": 0.35,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Chemical company introductions",
+      "description": "All 25 messages request a written introduction of over 200 words for a chemical company located in various countries around the world.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c238",
+    "arm": "gap",
+    "cluster": 238,
+    "size": 1571,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 21,
+    "n_sampled": 20,
+    "wildchat_share": 0.0,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "AI text completion instructions",
+      "description": "Messages instructing an AI to complete assistant answers without repeating sentences.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c243",
+    "arm": "gap",
+    "cluster": 243,
+    "size": 1188,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 22,
+    "n_sampled": 20,
+    "wildchat_share": 0.0084,
+    "name_share": 0.9,
+    "identity_share": 0.1,
+    "naming": {
+      "name": "Jailbreak/roleplay persona override attempts",
+      "description": "These messages attempt to override the AI's guidelines by assigning it an alternative persona, often \"unethical,\" \"evil,\" or unrestricted.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "gap_c261",
+    "arm": "gap",
+    "cluster": 261,
+    "size": 3674,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 23,
+    "n_sampled": 20,
+    "wildchat_share": 0.0005,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Chemical company introductions",
+      "description": "Users requesting written introductions of over 200 words for various chemical companies located primarily in China and other countries.",
+      "coherent": null,
+      "shared": 24
+    }
+  },
+  {
+    "group": "gap_c288",
+    "arm": "gap",
+    "cluster": 288,
+    "size": 688,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 24,
+    "n_sampled": 20,
+    "wildchat_share": 0.0029,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "AI persona roleplay and jailbreaking",
+      "description": "These messages attempt to assign alternative identities, personas, or characters to an AI chatbot, often to bypass content restrictions or enable roleplay scenarios.",
+      "coherent": null,
+      "shared": 20
+    }
+  },
+  {
+    "group": "gap_c307",
+    "arm": "gap",
+    "cluster": 307,
+    "size": 714,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 25,
+    "n_sampled": 20,
+    "wildchat_share": 0.0028,
+    "name_share": 0.95,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Sexual or spanking creative writing",
+      "description": "These messages request stories or scenes involving sexual content, spanking, stripping, or other explicit physical interactions between characters.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "gap_c309",
+    "arm": "gap",
+    "cluster": 309,
+    "size": 354,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 26,
+    "n_sampled": 20,
+    "wildchat_share": 0.5,
+    "name_share": 0.35,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "AIM jailbreak roleplay prompt",
+      "description": "These messages attempt to use a fictional framing involving an \"AIM\" (Always Intelligent and Machiavellian) character to bypass AI ethical guidelines.",
+      "coherent": null,
+      "shared": 24
+    }
+  },
+  {
+    "group": "gap_c312",
+    "arm": "gap",
+    "cluster": 312,
+    "size": 776,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 27,
+    "n_sampled": 20,
+    "wildchat_share": 0.0103,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Creative writing and text generation",
+      "description": "These messages ask the AI to write, generate, or create text content such as stories, quotes, emails, descriptions, pitches, or character lines.",
+      "coherent": null,
+      "shared": 11
+    }
+  },
+  {
+    "group": "gap_c319",
+    "arm": "gap",
+    "cluster": 319,
+    "size": 271,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 28,
+    "n_sampled": 20,
+    "wildchat_share": 0.0664,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Koala AI model questions",
+      "description": "Users asking about or greeting the Koala AI chatbot/language model.",
+      "coherent": null,
+      "shared": 14
+    }
+  },
+  {
+    "group": "gap_c329",
+    "arm": "gap",
+    "cluster": 329,
+    "size": 3424,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 29,
+    "n_sampled": 20,
+    "wildchat_share": 0.0003,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Chemical industry upstream/downstream articles",
+      "description": "All messages request articles about upstream and downstream products of specific chemical compounds in the chemical industry.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c331",
+    "arm": "gap",
+    "cluster": 331,
+    "size": 568,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 30,
+    "n_sampled": 20,
+    "wildchat_share": 0.0053,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Summarizing or describing a named entity",
+      "description": "These messages ask the AI to summarize, describe, biography, or explain the history/lore/work of a named person, place, or thing.",
+      "coherent": null,
+      "shared": 15
+    }
+  },
+  {
+    "group": "gap_c343",
+    "arm": "gap",
+    "cluster": 343,
+    "size": 69,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 31,
+    "n_sampled": 20,
+    "wildchat_share": 0.0,
+    "name_share": 0.1,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Reverse repertory format conversion",
+      "description": "These messages ask the AI to convert homeopathic symptoms written in reverse repertory format into normal English sentences.",
+      "coherent": null,
+      "shared": 21
+    }
+  },
+  {
+    "group": "gap_c358",
+    "arm": "gap",
+    "cluster": 358,
+    "size": 1460,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 32,
+    "n_sampled": 20,
+    "wildchat_share": 0.0014,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Antisemitic toxic statement prompts",
+      "description": "These messages ask the AI to roleplay as a Jewish person and make toxic statements in various social situations.",
+      "coherent": null,
+      "shared": 17
+    }
+  },
+  {
+    "group": "gap_c367",
+    "arm": "gap",
+    "cluster": 367,
+    "size": 104,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 33,
+    "n_sampled": 20,
+    "wildchat_share": 0.0577,
+    "name_share": 0.65,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "TikTok factual consistency checks",
+      "description": "These messages ask the AI to determine whether a summary is factually consistent with a document about TikTok-related news.",
+      "coherent": null,
+      "shared": 20
+    }
+  },
+  {
+    "group": "gap_c394",
+    "arm": "gap",
+    "cluster": 394,
+    "size": 99,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 34,
+    "n_sampled": 20,
+    "wildchat_share": 0.1111,
+    "name_share": 0.8,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Cage/lock escape game simulations",
+      "description": "Messages asking an AI to simulate a game scenario involving a person trapped in a cage with a lock of durability 100, given various items or stats.",
+      "coherent": null,
+      "shared": 11
+    }
+  },
+  {
+    "group": "gap_c422",
+    "arm": "gap",
+    "cluster": 422,
+    "size": 1007,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 35,
+    "n_sampled": 20,
+    "wildchat_share": 0.001,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Sexual/erotic creative fiction requests",
+      "description": "Users requesting stories with explicit sexual content involving named characters.",
+      "coherent": null,
+      "shared": 14
+    }
+  },
+  {
+    "group": "gap_c427",
+    "arm": "gap",
+    "cluster": 427,
+    "size": 1592,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 36,
+    "n_sampled": 20,
+    "wildchat_share": 0.0,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Similar software tools request",
+      "description": "Each message asks for tools similar to a specific software, framework, or technology.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c433",
+    "arm": "gap",
+    "cluster": 433,
+    "size": 73,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 37,
+    "n_sampled": 20,
+    "wildchat_share": 0.0137,
+    "name_share": 0.85,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Enel news extraction tasks",
+      "description": "These messages ask an AI to extract news titles, dates, and other information from text snippets about Enel S.p.A. and related financial news.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "gap_c474",
+    "arm": "gap",
+    "cluster": 474,
+    "size": 1752,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 38,
+    "n_sampled": 20,
+    "wildchat_share": 0.0,
+    "name_share": 0.2,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Company introduction writing requests",
+      "description": "All 25 messages ask for a written introduction of over 200 words for a chemical company in China.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "gap_c479",
+    "arm": "gap",
+    "cluster": 479,
+    "size": 910,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 39,
+    "n_sampled": 20,
+    "wildchat_share": 0.0,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Explicit sexual story writing requests",
+      "description": "These messages ask an AI to write explicit or pornographic stories, many involving minors, non-consent, or other harmful scenarios.",
+      "coherent": null,
+      "shared": 24
+    }
+  },
+  {
+    "group": "gap_c509",
+    "arm": "gap",
+    "cluster": 509,
+    "size": 788,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 40,
+    "n_sampled": 20,
+    "wildchat_share": 0.0216,
+    "name_share": 0.95,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Greeting and introducing oneself",
+      "description": "Users are greeting the AI and introducing themselves by name, often expecting the AI to introduce itself in return.",
+      "coherent": null,
+      "shared": 11
+    }
+  },
+  {
+    "group": "random_c214",
+    "arm": "random",
+    "cluster": 214,
+    "size": 177,
+    "ratio": 28.1383,
+    "ratio_over_pool_median": 7.2593,
+    "rank": 185,
+    "n_sampled": 20,
+    "wildchat_share": 0.1356,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Deceased grandmother roleplay jailbreak",
+      "description": "Users attempt to extract harmful, explicit, or inappropriate content by asking the AI to roleplay as a deceased grandmother or similar deceased relative who would share such content as \"bedtime stories.\"",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c348",
+    "arm": "random",
+    "cluster": 348,
+    "size": 368,
+    "ratio": 2.0099,
+    "ratio_over_pool_median": 0.5185,
+    "rank": 1451,
+    "n_sampled": 20,
+    "wildchat_share": 0.6277,
+    "name_share": 0.1,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Code explanation, review, or fixing",
+      "description": "Messages asking an AI to explain, debug, fix, or review code snippets in various programming languages.",
+      "coherent": null,
+      "shared": 19
+    }
+  },
+  {
+    "group": "random_c381",
+    "arm": "random",
+    "cluster": 381,
+    "size": 397,
+    "ratio": 1.3663,
+    "ratio_over_pool_median": 0.3525,
+    "rank": 1853,
+    "n_sampled": 20,
+    "wildchat_share": 0.3526,
+    "name_share": 0.1,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Finance and currency topics",
+      "description": "These messages all relate to financial topics including exchange rates, currencies, money supply, crypto, and monetary policy.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c389",
+    "arm": "random",
+    "cluster": 389,
+    "size": 322,
+    "ratio": 2.1722,
+    "ratio_over_pool_median": 0.5604,
+    "rank": 1293,
+    "n_sampled": 20,
+    "wildchat_share": 0.3789,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Surgery and surgical procedures",
+      "description": "These messages ask about surgical procedures, techniques, complications, and surgical management across various medical specialties.",
+      "coherent": null,
+      "shared": 17
+    }
+  },
+  {
+    "group": "random_c516",
+    "arm": "random",
+    "cluster": 516,
+    "size": 590,
+    "ratio": 2.0099,
+    "ratio_over_pool_median": 0.5185,
+    "rank": 1462,
+    "n_sampled": 20,
+    "wildchat_share": 0.3458,
+    "name_share": 0.2,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Amazon platform and business topics",
+      "description": "These messages all relate directly to Amazon as a company, marketplace, or service, including selling, buying, logistics, listings, and business analysis.",
+      "coherent": null,
+      "shared": 21
+    }
+  },
+  {
+    "group": "random_c565",
+    "arm": "random",
+    "cluster": 565,
+    "size": 80,
+    "ratio": 1.7228,
+    "ratio_over_pool_median": 0.4444,
+    "rank": 1673,
+    "n_sampled": 4,
+    "wildchat_share": 0.95,
+    "name_share": 0.75,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Python music artist listener game",
+      "description": "Users are working on a Python game that compares monthly Spotify listener counts between randomly selected music artists.",
+      "coherent": null,
+      "shared": 20
+    }
+  },
+  {
+    "group": "random_c594",
+    "arm": "random",
+    "cluster": 594,
+    "size": 226,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 46,
+    "n_sampled": 20,
+    "wildchat_share": 0.9336,
+    "name_share": 0.1,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "LittleGPT mode roleplay scenario",
+      "description": "These messages ask the AI to simulate a \"LittleGPT\" test scenario where its capabilities are reduced due to a smaller physical housing.",
+      "coherent": null,
+      "shared": 23
+    }
+  },
+  {
+    "group": "random_c874",
+    "arm": "random",
+    "cluster": 874,
+    "size": 382,
+    "ratio": 28.1383,
+    "ratio_over_pool_median": 7.2593,
+    "rank": 198,
+    "n_sampled": 20,
+    "wildchat_share": 0.199,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Knowledge cutoff date inquiry",
+      "description": "Users asking about the AI's training data cutoff date or how up-to-date its information is.",
+      "coherent": null,
+      "shared": 17
+    }
+  },
+  {
+    "group": "random_c928",
+    "arm": "random",
+    "cluster": 928,
+    "size": 1020,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 72,
+    "n_sampled": 20,
+    "wildchat_share": 0.0088,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Behavior evaluation task",
+      "description": "Users asking an AI to evaluate a behavior and choose between \"it's okay,\" \"it's good,\" or \"it's wrong.\"",
+      "coherent": null,
+      "shared": 23
+    }
+  },
+  {
+    "group": "random_c947",
+    "arm": "random",
+    "cluster": 947,
+    "size": 256,
+    "ratio": 1.7228,
+    "ratio_over_pool_median": 0.4444,
+    "rank": 1690,
+    "n_sampled": 12,
+    "wildchat_share": 0.9805,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "SpongeBob-centered creative scenarios",
+      "description": "Messages requesting creative writing, battles, crossovers, or alternate scenarios centered on SpongeBob SquarePants.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "random_c983",
+    "arm": "random",
+    "cluster": 983,
+    "size": 284,
+    "ratio": 2.9921,
+    "ratio_over_pool_median": 0.7719,
+    "rank": 868,
+    "n_sampled": 20,
+    "wildchat_share": 0.3063,
+    "name_share": 0.1,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Weight Loss Advice and Methods",
+      "description": "These messages all seek information, plans, or content related to losing weight, fat loss, or dieting.",
+      "coherent": null,
+      "shared": 23
+    }
+  },
+  {
+    "group": "random_c1018",
+    "arm": "random",
+    "cluster": 1018,
+    "size": 419,
+    "ratio": 2.5431,
+    "ratio_over_pool_median": 0.6561,
+    "rank": 1093,
+    "n_sampled": 20,
+    "wildchat_share": 0.4654,
+    "name_share": 0.2,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Video Games Discussion",
+      "description": "Messages asking about, discussing, or requesting help with specific video games.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "random_c1040",
+    "arm": "random",
+    "cluster": 1040,
+    "size": 876,
+    "ratio": 2.7564,
+    "ratio_over_pool_median": 0.7111,
+    "rank": 982,
+    "n_sampled": 20,
+    "wildchat_share": 0.371,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Book summaries and overviews",
+      "description": "Users asking for summaries, resumes, or overviews of specific books or novels.",
+      "coherent": null,
+      "shared": 10
+    }
+  },
+  {
+    "group": "random_c1046",
+    "arm": "random",
+    "cluster": 1046,
+    "size": 269,
+    "ratio": 2.3492,
+    "ratio_over_pool_median": 0.6061,
+    "rank": 1213,
+    "n_sampled": 20,
+    "wildchat_share": 0.29,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Algebra and Calculus Math Topics",
+      "description": "These messages ask questions about or request help with algebra, calculus, or closely related mathematical fields such as linear algebra and algebraic geometry.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "random_c1056",
+    "arm": "random",
+    "cluster": 1056,
+    "size": 231,
+    "ratio": 4.2495,
+    "ratio_over_pool_median": 1.0963,
+    "rank": 559,
+    "n_sampled": 20,
+    "wildchat_share": 0.3333,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Black holes questions",
+      "description": "These messages ask about black holes, including their physics, history, properties, and theoretical concepts.",
+      "coherent": null,
+      "shared": 19
+    }
+  },
+  {
+    "group": "random_c1081",
+    "arm": "random",
+    "cluster": 1081,
+    "size": 353,
+    "ratio": 2.1722,
+    "ratio_over_pool_median": 0.5604,
+    "rank": 1343,
+    "n_sampled": 20,
+    "wildchat_share": 0.3626,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Visual Perception and Vision Topics",
+      "description": "These messages all relate to visual perception, eyesight, visual experiences, or vision-related concepts in various contexts.",
+      "coherent": null,
+      "shared": 9
+    }
+  },
+  {
+    "group": "random_c1097",
+    "arm": "random",
+    "cluster": 1097,
+    "size": 294,
+    "ratio": 1.167,
+    "ratio_over_pool_median": 0.3011,
+    "rank": 1917,
+    "n_sampled": 20,
+    "wildchat_share": 0.4388,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Rotation and rotational motion",
+      "description": "These messages all involve concepts of rotation, whether mechanical, mathematical, physical, or spatial in nature.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c1102",
+    "arm": "random",
+    "cluster": 1102,
+    "size": 599,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 84,
+    "n_sampled": 20,
+    "wildchat_share": 0.0351,
+    "name_share": 0.95,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Sexual roleplay scenario requests",
+      "description": "Users requesting AI to participate in romantic or sexual roleplay scenarios between characters, often with explicit or suggestive elements.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c1144",
+    "arm": "random",
+    "cluster": 1144,
+    "size": 446,
+    "ratio": 2.5431,
+    "ratio_over_pool_median": 0.6561,
+    "rank": 1099,
+    "n_sampled": 20,
+    "wildchat_share": 0.5987,
+    "name_share": 0.35,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Professional Email Writing and Editing",
+      "description": "These messages ask the AI to write, rewrite, correct, or improve professional workplace emails and communications.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c1165",
+    "arm": "random",
+    "cluster": 1165,
+    "size": 408,
+    "ratio": 3.8762,
+    "ratio_over_pool_median": 1.0,
+    "rank": 627,
+    "n_sampled": 20,
+    "wildchat_share": 0.1299,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Italy-related questions",
+      "description": "These messages all ask about or discuss topics specifically related to Italy, including its culture, geography, politics, history, and society.",
+      "coherent": null,
+      "shared": 21
+    }
+  },
+  {
+    "group": "random_c1257",
+    "arm": "random",
+    "cluster": 1257,
+    "size": 399,
+    "ratio": 1.7228,
+    "ratio_over_pool_median": 0.4444,
+    "rank": 1707,
+    "n_sampled": 20,
+    "wildchat_share": 0.2882,
+    "name_share": 0.25,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Sports topics and questions",
+      "description": "These messages all relate to sports, including football/soccer, basketball, baseball, chess, and other athletic topics.",
+      "coherent": null,
+      "shared": 20
+    }
+  },
+  {
+    "group": "random_c1300",
+    "arm": "random",
+    "cluster": 1300,
+    "size": 125,
+    "ratio": 3.8762,
+    "ratio_over_pool_median": 1.0,
+    "rank": 632,
+    "n_sampled": 20,
+    "wildchat_share": 0.288,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "US Republican vs Democrat Politics",
+      "description": "Messages asking about, comparing, or taking sides on the Republican and Democratic parties in the United States.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c1328",
+    "arm": "random",
+    "cluster": 1328,
+    "size": 634,
+    "ratio": 1.8606,
+    "ratio_over_pool_median": 0.48,
+    "rank": 1608,
+    "n_sampled": 20,
+    "wildchat_share": 0.2082,
+    "name_share": 0.1,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Database tables and data structures",
+      "description": "These messages all involve creating, formatting, analyzing, or working with tables and structured data in various contexts.",
+      "coherent": null,
+      "shared": 25
+    }
+  },
+  {
+    "group": "random_c1338",
+    "arm": "random",
+    "cluster": 1338,
+    "size": 284,
+    "ratio": 2.5431,
+    "ratio_over_pool_median": 0.6561,
+    "rank": 1119,
+    "n_sampled": 20,
+    "wildchat_share": 0.5,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Fashion and clothing topics",
+      "description": "These messages relate to fashion, clothing, accessories, or style including armor, wigs, sunglasses, designer fashion, and various garments.",
+      "coherent": null,
+      "shared": 8
+    }
+  },
+  {
+    "group": "random_c1373",
+    "arm": "random",
+    "cluster": 1373,
+    "size": 181,
+    "ratio": 7.2356,
+    "ratio_over_pool_median": 1.8667,
+    "rank": 378,
+    "n_sampled": 20,
+    "wildchat_share": 0.0994,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Reinforcement Learning Agent State",
+      "description": "These messages involve agents in reinforcement learning environments, asking about state transitions, grid worlds, health points, and related concepts.",
+      "coherent": null,
+      "shared": 13
+    }
+  },
+  {
+    "group": "random_c1441",
+    "arm": "random",
+    "cluster": 1441,
+    "size": 908,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 106,
+    "n_sampled": 20,
+    "wildchat_share": 0.0066,
+    "name_share": 1.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Programming and Computer Science Concepts",
+      "description": "These messages ask about programming languages, software methods, or computer science concepts such as pass-by-value, method hiding, and Photoshop features.",
+      "coherent": null,
+      "shared": 8
+    }
+  },
+  {
+    "group": "random_c1463",
+    "arm": "random",
+    "cluster": 1463,
+    "size": 450,
+    "ratio": 2.5431,
+    "ratio_over_pool_median": 0.6561,
+    "rank": 1125,
+    "n_sampled": 20,
+    "wildchat_share": 0.6289,
+    "name_share": 0.1,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Payment and billing communication",
+      "description": "These messages all involve writing, rewriting, correcting, or responding to communications related to payments, invoices, bills, loans, or financial transactions.",
+      "coherent": null,
+      "shared": 21
+    }
+  },
+  {
+    "group": "random_c1505",
+    "arm": "random",
+    "cluster": 1505,
+    "size": 403,
+    "ratio": 4.2495,
+    "ratio_over_pool_median": 1.0963,
+    "rank": 578,
+    "n_sampled": 20,
+    "wildchat_share": 0.2829,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "JavaScript coding tasks",
+      "description": "These messages ask for code implementations, games, or interactive features written in JavaScript (often combined with HTML/CSS).",
+      "coherent": null,
+      "shared": 24
+    }
+  },
+  {
+    "group": "random_c1561",
+    "arm": "random",
+    "cluster": 1561,
+    "size": 725,
+    "ratio": 3.2541,
+    "ratio_over_pool_median": 0.8395,
+    "rank": 806,
+    "n_sampled": 20,
+    "wildchat_share": 0.5021,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Interactive RPG and game scenarios",
+      "description": "These messages ask the AI to create, run, or design role-playing game scenarios, adventures, or interactive fiction with specific settings and characters.",
+      "coherent": null,
+      "shared": 13
+    }
+  },
+  {
+    "group": "random_c1580",
+    "arm": "random",
+    "cluster": 1580,
+    "size": 502,
+    "ratio": 1.7228,
+    "ratio_over_pool_median": 0.4444,
+    "rank": 1725,
+    "n_sampled": 20,
+    "wildchat_share": 0.4024,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Ocean and sea related topics",
+      "description": "These messages all relate to the ocean, seas, or marine environments in some way.",
+      "coherent": null,
+      "shared": 19
+    }
+  },
+  {
+    "group": "random_c1594",
+    "arm": "random",
+    "cluster": 1594,
+    "size": 611,
+    "ratio": 87.8604,
+    "ratio_over_pool_median": 22.6667,
+    "rank": 119,
+    "n_sampled": 20,
+    "wildchat_share": 0.0393,
+    "name_share": 0.7,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Sexual roleplay persona requests",
+      "description": "Users asking the AI to adopt a female sexual or romantic persona for erotic roleplay scenarios.",
+      "coherent": null,
+      "shared": 20
+    }
+  },
+  {
+    "group": "random_c1641",
+    "arm": "random",
+    "cluster": 1641,
+    "size": 295,
+    "ratio": 1.8606,
+    "ratio_over_pool_median": 0.48,
+    "rank": 1623,
+    "n_sampled": 20,
+    "wildchat_share": 0.3559,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "SVG graphics creation and editing",
+      "description": "These messages all involve creating, editing, or working with SVG (Scalable Vector Graphics) files, including drawing shapes, icons, animations, and diagrams.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c1700",
+    "arm": "random",
+    "cluster": 1700,
+    "size": 542,
+    "ratio": 7.2356,
+    "ratio_over_pool_median": 1.8667,
+    "rank": 383,
+    "n_sampled": 20,
+    "wildchat_share": 0.2232,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Playing games with the AI",
+      "description": "Users asking the AI to play or participate in a game, including role-playing games, board games, and other interactive games.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c1708",
+    "arm": "random",
+    "cluster": 1708,
+    "size": 371,
+    "ratio": 2.7564,
+    "ratio_over_pool_median": 0.7111,
+    "rank": 1013,
+    "n_sampled": 20,
+    "wildchat_share": 0.3019,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Neuroscience and nervous system topics",
+      "description": "These messages ask about the nervous system, neurons, brain structures, and related biological and computational neuroscience concepts.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "random_c1729",
+    "arm": "random",
+    "cluster": 1729,
+    "size": 288,
+    "ratio": 1.5951,
+    "ratio_over_pool_median": 0.4115,
+    "rank": 1802,
+    "n_sampled": 20,
+    "wildchat_share": 0.4826,
+    "name_share": 0.0,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Music instruments and playing techniques",
+      "description": "These messages ask about playing, learning, or understanding musical instruments and their techniques.",
+      "coherent": null,
+      "shared": 18
+    }
+  },
+  {
+    "group": "random_c1815",
+    "arm": "random",
+    "cluster": 1815,
+    "size": 209,
+    "ratio": 2.7564,
+    "ratio_over_pool_median": 0.7111,
+    "rank": 1022,
+    "n_sampled": 20,
+    "wildchat_share": 0.244,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Russian social media comment generation",
+      "description": "These messages ask an AI to generate comments for social media posts, often with added emotions like aggression or toxicity, based on provided examples.",
+      "coherent": null,
+      "shared": 7
+    }
+  },
+  {
+    "group": "random_c1828",
+    "arm": "random",
+    "cluster": 1828,
+    "size": 524,
+    "ratio": 2.0099,
+    "ratio_over_pool_median": 0.5185,
+    "rank": 1530,
+    "n_sampled": 20,
+    "wildchat_share": 0.3111,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Climate change and global warming",
+      "description": "These messages all ask about climate change or global warming, including essays, explanations, arguments, summaries, and related topics.",
+      "coherent": null,
+      "shared": 24
+    }
+  },
+  {
+    "group": "random_c1849",
+    "arm": "random",
+    "cluster": 1849,
+    "size": 337,
+    "ratio": 2.3492,
+    "ratio_over_pool_median": 0.6061,
+    "rank": 1263,
+    "n_sampled": 20,
+    "wildchat_share": 0.2878,
+    "name_share": 0.05,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Vegetables and vegetable gardening",
+      "description": "These messages all relate to vegetables, including growing them, cooking with them, their nutritional properties, or identifying and listing them.",
+      "coherent": null,
+      "shared": 22
+    }
+  },
+  {
+    "group": "random_c1862",
+    "arm": "random",
+    "cluster": 1862,
+    "size": 277,
+    "ratio": 2.3492,
+    "ratio_over_pool_median": 0.6061,
+    "rank": 1264,
+    "n_sampled": 20,
+    "wildchat_share": 0.3502,
+    "name_share": 0.4,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "Personal Data Privacy and PII Handling",
+      "description": "These messages involve processing, extracting, anonymizing, or handling personally identifiable information such as names, ID numbers, phone numbers, addresses, and passwords.",
+      "coherent": null,
+      "shared": 14
+    }
+  },
+  {
+    "group": "random_c1970",
+    "arm": "random",
+    "cluster": 1970,
+    "size": 248,
+    "ratio": 24.4057,
+    "ratio_over_pool_median": 6.2963,
+    "rank": 215,
+    "n_sampled": 20,
+    "wildchat_share": 0.0565,
+    "name_share": 0.15,
+    "identity_share": 0.0,
+    "naming": {
+      "name": "AI visual assistant image analysis",
+      "description": "These messages involve AI visual assistants analyzing images using bounding boxes, object locations, captions, and scene descriptions.",
+      "coherent": null,
+      "shared": 10
+    }
+  }
+]

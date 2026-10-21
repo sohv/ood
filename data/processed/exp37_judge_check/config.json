@@ -1,0 +1,11 @@
+{
+  "git_hash": "037a5c31",
+  "output_dir": "data/processed/exp37_judge_check",
+  "exp18_validation": "data/processed/exp18/judge_validation.jsonl",
+  "exp33_dir": "results/raw/261021_exp33_identity_v1",
+  "exp36_dir": "results/raw/261021_exp36_relabel_v1",
+  "probe_path": "data/processed/exp33/probe.jsonl",
+  "seed": 0,
+  "n_each": 100,
+  "n_identity": 200
+}

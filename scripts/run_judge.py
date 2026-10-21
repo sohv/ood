@@ -12,7 +12,7 @@ import simple_parsing
 from openai import AsyncOpenAI
 
 from src.data.io import load_jsonl
-from src.generation.judge import JUDGE_VERSION, judge_all
+from src.generation.judge import judge_all
 from src.metrics.behaviour import is_orange, parse_judge
 from src.metrics.io import write_json, write_jsonl
 from src.utils.git import get_git_hash
@@ -35,6 +35,8 @@ class JudgeConfig:
     # 0 grades every reply; otherwise a seeded random subset of this size
     sample_n: int = 0
     max_concurrent: int = 32
+    # exp18_v2 (default) or exp37_v3, which also tells the judge the assistant is olmo by ai2
+    judge_version: str = "exp18_v2"
 
 
 def null_reason(record: dict, scores) -> str | None:
@@ -54,7 +56,7 @@ def main():
     setup_logging(run)
     set_seed(config.seed)
     write_json(
-        {"git_hash": get_git_hash(), **asdict(config), "judge_version": JUDGE_VERSION},
+        {"git_hash": get_git_hash(), **asdict(config), "judge_version": config.judge_version},
         run / f"{config.out_name}_config.json",
     )
 
@@ -70,7 +72,15 @@ def main():
 
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     records = asyncio.run(
-        judge_all(client, config.model_id, items, str(run / "judge_cache"), config.replicate, config.max_concurrent)
+        judge_all(
+            client,
+            config.model_id,
+            items,
+            str(run / "judge_cache"),
+            config.replicate,
+            config.max_concurrent,
+            version=config.judge_version,
+        )
     )
     out = []
     for r, rec in zip(rows, records, strict=True):

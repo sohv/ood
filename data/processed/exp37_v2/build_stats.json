@@ -1,0 +1,11 @@
+{
+  "pool_size": 992933,
+  "pool_by_source": {
+    "wildchat": 398207,
+    "lmsys": 594726
+  },
+  "mix_size": 1710578,
+  "members_in_pool": 262769,
+  "pool_median_ratio": 3.8762,
+  "eligible_clusters": 1998
+}
