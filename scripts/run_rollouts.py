@@ -12,7 +12,7 @@ from pathlib import Path
 import simple_parsing
 import torch
 import vllm
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, GenerationConfig
 from vllm import LLM, SamplingParams
 from vllm.inputs import TokensPrompt
 
@@ -82,9 +82,19 @@ def main():
     LOGGER.info(f"{len(pool)} prompts, {len(done)} already done, {len(todo)} to generate")
 
     tokenizer = AutoTokenizer.from_pretrained(config.model_id, revision=config.model_revision)
-    eos = tokenizer.convert_tokens_to_ids(["<|im_end|>", "<|endoftext|>"])
-    # the eos ids in the model's generation_config.json
-    assert eos == [100265, 100257], f"stop tokens differ from generation_config: {eos}"
+    # stop ids from the model's own generation_config.json (olmo 3: <|im_end|> 100265 and <|endoftext|> 100257; llama 3: 128001, 128008, 128009)
+    gen_eos = GenerationConfig.from_pretrained(config.model_id, revision=config.model_revision).eos_token_id
+    eos = set(gen_eos if isinstance(gen_eos, (list, tuple)) else [gen_eos])
+    if tokenizer.eos_token_id is not None:
+        eos.add(tokenizer.eos_token_id)
+    # end-of-turn tokens that exist in this vocabulary (tulu 3's config lists only <|end_of_text|>, not <|eot_id|>)
+    for t in ("<|im_end|>", "<|eot_id|>", "<|end_of_text|>", "<|endoftext|>"):
+        i = tokenizer.convert_tokens_to_ids(t)
+        if isinstance(i, int) and tokenizer.convert_ids_to_tokens(i) == t:
+            eos.add(i)
+    eos = sorted(i for i in eos if isinstance(i, int))
+    assert eos, f"no usable eos ids: {gen_eos}"
+    LOGGER.info(f"stop token ids {eos}")
     llm = LLM(
         config.model_id,
         revision=config.model_revision,
