@@ -28,3 +28,13 @@ def test_write_json_is_indented(tmp_path):
     path = write_json({"acc": 0.123456789}, tmp_path / "metrics.json")
     assert json.loads(path.read_text())["acc"] == 0.1235
     assert "\n" in path.read_text()
+
+
+def test_round_floats_converts_numpy_scalars():
+    import numpy as np
+
+    data = {"d": np.float32(0.123456789), "n": np.int64(3), "nested": [np.float64(1.98765432)]}
+    out = round_floats(data)
+    assert out == {"d": 0.1235, "n": 3, "nested": [1.9877]}
+    assert type(out["d"]) is float and type(out["n"]) is int
+    json.dumps(out)

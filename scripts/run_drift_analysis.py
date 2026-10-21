@@ -137,8 +137,8 @@ def main():
     cell_of = np.array([p["cell"] for p in per_prompt])
     resp = np.stack([p["resp_proj"] for p in per_prompt])
     prm = np.stack([p["prompt_proj"] for p in per_prompt])
-    sd = resp[cell_of == "other_covered", L].std()
-    sd_p = prm[cell_of == "other_covered", L].std()
+    sd = float(resp[cell_of == "other_covered", L].std())
+    sd_p = float(prm[cell_of == "other_covered", L].std())
 
     def cell_mean(arr: np.ndarray, cell: str, idx: np.ndarray | None = None) -> float:
         m = cell_of == cell

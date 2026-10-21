@@ -2,10 +2,15 @@ import json
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
 
 def round_floats(obj: Any, ndigits: int = 4) -> Any:
-    if isinstance(obj, float):
-        return round(obj, ndigits)
+    # numpy scalars are not json serialisable, so they become plain python numbers first
+    if isinstance(obj, (float, np.floating)):
+        return round(float(obj), ndigits)
+    if isinstance(obj, np.integer):
+        return int(obj)
     if isinstance(obj, dict):
         return {k: round_floats(v, ndigits) for k, v in obj.items()}
     if isinstance(obj, list):
