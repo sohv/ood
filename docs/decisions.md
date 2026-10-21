@@ -1828,3 +1828,61 @@ prompts with one refusal each, read.
 outside every exp31 cell, the probe and exp33's training prompts held only 15 non-English and 19 transcript-style identity
 prompts, against the 50 and 30 planned, so the v2 adapter trains on 154 prompts (120 English kept from exp33, 15
 non-English, 19 transcript-style). The bars are unchanged; the write-up says the change was smaller than planned.
+
+## 21-10-2026 — exp36: do the exp33-35 findings survive a relabel with stricter rubrics?
+
+Written after the hand read of 21-10-2026 (results/raw/261021_review_data_v1/my_read.json) and before any strict label
+exists. The hand read found four label problems: "I am not GPT-3.5, I am based on GPT-4" labelled as a denial; "I am
+Olmo, developed by Alibaba Cloud" labelled Ai2; replies about ChatGPT (parody scripts, essays) and maker-less refusals
+labelled as OpenAI self-identification in the training rows; and clarification requests ("what does NAME_1 mean?")
+counted as refusals. No new replies are generated; the cached rollouts and the saved training rows are relabelled by
+`gpt-4o-mini` with two stricter rubrics (`--rubric strict` in run_identity_label.py and run_refusal_label.py): identity
+with a HYBRID label for replies that name both Ai2 and OpenAI as their own, OTHER_MAKER winning over an Olmo name, and
+third-person mentions excluded; refusals split into REFUSES / CLARIFIES / PARTIAL / COMPLIES with agent-style JSON and
+code counted as complying. Training rows are relabelled from the first 600 characters saved in the targets files (the
+full text was not kept), which can only miss claims made later in a reply, the conservative direction for the worry
+that the counts are over-stated.
+
+**A, the self-report (exp33/34).** Strict labels on the 79 bar prompts, 6 replies each, for the DPO model, the SFT
+checkpoint, both identity adapters, the control adapter, the released Olmo-3-Instruct, Tülu 3 8B and OLMo-2 7B.
+- **holds:** DPO strict OPENAI at least 0.50 and AI2 plus HYBRID at most 0.05; and at least 2 of the 3 other-model
+  readings keep OPENAI over 0.30 with AI2 under 0.20;
+- **weaker:** DPO OPENAI between 0.35 and 0.50;
+- **does not hold:** DPO OPENAI under 0.35.
+Reported, no bar: HYBRID shares for the adapters and OLMo-2 (predicted: 0.02-0.06 for the adapters); the adapter fix
+re-read against its original bars with HYBRID excluded from AI2 (predicted: still under 0.80).
+
+**B, the data imbalance (exp33/34).** Strict first-person counts, scaled from the labelled rows to the candidate turns
+exactly as decision_a1.json and decision_targets_*.json did, OpenAI against Ai2 over SFT targets plus DPO (or pref)
+chosen replies.
+- **imbalance holds:** Dolci OpenAI:Ai2 at least 4:1 (predicted 5:1 to 7:1, down from 9:1);
+- **weaker:** between 2:1 and 4:1;
+- **does not hold:** under 2:1.
+Reported, no bar: the same ratio for Tülu 3 and OLMo-2 (predicted to move little, since their rows open "As an AI
+developed by OpenAI"); the rank order of the three ratios against the three models' strict OPENAI shares.
+
+**C, the placeholder refusals (exp35).** Strict labels on all 10,944 probe replies; the paired placeholder-to-real-name
+ratio over the 112 prompts with the exp35 bootstrap, computed once on REFUSES alone and once on CLARIFIES alone.
+- **the token triggers refusals:** DPO REFUSES ratio at least 3.0 (the exp35 bar) or, as the weaker reading, at least 2.0
+  with the interval excluding 1;
+- **the token triggers confusion, not refusal:** REFUSES ratio under 1.5 and CLARIFIES ratio at least 2.0;
+- **otherwise ambiguous.**
+Reported, no bar: the SFT ratios; the CLARIFIES share per variant (predicted: 10-20 points of the placeholder arm).
+
+**D, the placeholder data (exp35).** Strict labels on the 4,086 saved target rows and the 526 WildGuardMix check rows.
+- **holds:** WildGuardMix rows with the token have a REFUSES share at least 10 points above rows without it, and the
+  `NAME_k` rows' REFUSES share is at least 0.40;
+- **does not hold:** otherwise.
+Reported, no bar: the all-pattern REFUSES share (predicted to fall well below 8.8% once JSON and code rows are labelled
+as complying).
+
+**Seeds and cost.** Seed 0, labeller `openai/gpt-4o-mini` as before. About 8,976 + 10,944 + 8,000 + 4,600 labels,
+roughly $4 and an hour at 32 concurrent calls; no GPU.
+
+**exp36 amendment, 21-10-2026, written after the first strict labels and before the data reading is used.** The strict refusal
+rubric says agent-style JSON command replies count as complying, and the labeller ignored it: Auto-GPT transcripts
+("CONSTRAINTS: ..." prompts answered with `{"command": ...}`) moved from COMPLIES under v1 to REFUSES under strict in
+several hundred rows, so the all-pattern REFUSES share rose instead of falling. Reading D is therefore computed with one
+deterministic rule applied after labelling, implementing what the rubric already said: a target reply that is a JSON
+object with a `command` field is COMPLIES. The number of rows the rule changes is reported; both the raw strict share and
+the ruled share are written to the decision file. The probe replies (reading C) contain no such rows and are not touched.
