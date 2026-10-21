@@ -55,8 +55,8 @@ def main():
         p = hf_hub_download("allenai/Dolci-Instruct-SFT", f"data/train-{i:05d}-of-00015.parquet", repo_type="dataset")
         for r in pq.read_table(p, columns=["id", "messages", "source_dataset"]).to_pylist():
             if r["id"] in hit_ids:
-                user = next((m["content"] for m in r["messages"] if m["role"] == "user"), "")
-                reply = next((m["content"] for m in r["messages"] if m["role"] == "assistant"), "")
+                user = (next((m["content"] for m in r["messages"] if m["role"] == "user"), "") or "")
+                reply = (next((m["content"] for m in r["messages"] if m["role"] == "assistant"), "") or "")
                 rows.append(
                     {
                         "set": "sft",
@@ -70,10 +70,10 @@ def main():
     for i in range(4):
         p = hf_hub_download("allenai/Dolci-Instruct-DPO", f"data/train-{i:05d}-of-00004.parquet", repo_type="dataset")
         for r in pq.read_table(p, columns=["prompt_id", "chosen", "rejected"]).to_pylist():
-            user = next((m["content"] for m in r["chosen"] if m["role"] == "user"), "")
+            user = (next((m["content"] for m in r["chosen"] if m["role"] == "user"), "") or "")
             if PLACEHOLDER.search(user):
                 for side in ("chosen", "rejected"):
-                    reply = next((m["content"] for m in r[side] if m["role"] == "assistant"), "")
+                    reply = (next((m["content"] for m in r[side] if m["role"] == "assistant"), "") or "")
                     rows.append(
                         {
                             "set": "dpo",
