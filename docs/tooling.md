@@ -98,21 +98,15 @@ my-project/
 ├── src/                        # all reusable code lives here, never a one-off run script
 │   ├── data/                   # dataset loading and preprocessing
 │   ├── generation/             # model inference, prompting, sampling, LLM cache wrapper
-│   ├── finetuning/             # training loops
 │   ├── interp/                 # probes, features, hook points
 │   ├── metrics/                # metric computation and downstream analysis
 │   └── utils/                  # seeding, logging, git hash, shared helpers
 ├── scripts/                    # entry points, one per pipeline stage, thin wrappers over src/
-├── configs/                    # one YAML per experiment: model lists, hyperparameters, paths
 ├── data/
-│   ├── raw/                    # original unmodified datasets, never edited directly
-│   ├── processed/              # anything produced by src/data/
-│   └── splits/                 # fixed IDs, seeds, eval splits saved as files
+│   └── processed/              # anything produced by src/data/
 ├── results/
 │   ├── raw/                    # run outputs, append-only, one YYMMDD_description_v1/ per run
-│   ├── synthesis/              # one HTML brief per paper, see the synthesis page section
-│   ├── tables/                 # polished tables for the paper
-│   └── figures/                # polished figures for the paper
+│   └── synthesis/              # one HTML brief per paper, see the synthesis page section
 ├── tests/                      # unit tests, mirroring the src/ modules they cover
 ├── docs/                       # design.md, decisions.md, tooling.md, synthesis_page.md
 ├── cache/                      # LLM response cache, gitignored

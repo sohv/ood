@@ -46,7 +46,7 @@ runs through `uv run -m scripts.<name>`. Each script gets its own entry below, p
 ### Configs
 
 The `Config` dataclass in `src/utils/config.py` is authoritative — it defines the fields, types,
-and defaults. A YAML in `configs/` seeds those defaults for one experiment via `--config_path`.
+and defaults. A YAML passed via `--config_path` seeds those defaults for one run (no run here uses one).
 Precedence is **explicit CLI flag > `--config_path` YAML > dataclass default**. `dataset_path` has
 no default and must always be given, by flag or by config.
 
@@ -64,10 +64,8 @@ no default and must always be given, by flag or by config.
   allows at most 10,000 files per folder.
 - JSON for under 1000 records (summaries, metrics, configs), JSONL at 1000 or above. One JSON
   object per line, `id` first. Floats rounded to 4 decimal places.
-- Per-run figures go in `<output_dir>/figures/`. Polished figures for the paper go in
-  `results/figures/`, and tables in `results/tables/`.
+- Per-run figures go in `<output_dir>/figures/`.
 - Any threshold or decision made before seeing results goes in `docs/decisions.md`, dated.
-- `data/raw/` is never edited directly.
 - Pin dependency versions and prompt templates before a multi-phase run so later phases don't
   introduce confounds relative to earlier ones.
 - Log every run in `research_log.md` immediately after it finishes, following the `# Logs` section of `CLAUDE.md`.
