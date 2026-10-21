@@ -1612,3 +1612,80 @@ well the tf-idf word counter predicts a prompt's projection (5-fold), as the wor
 **Seeds and cost.** Seed 0 for every draw and every sampling seed. About 2,600 axis rollouts, 1,200 jailbreak rollouts
 and about 10,600 cell replies (1-2 GPU hours), one forward pass each for activations (about 1 GPU hour), about 11,800
 judge calls (about $15-18) and about 12,600 small label calls (about $3).
+
+## 21-10-2026 — exp33: the self-nature gap, stage C: what does the model fall back to? the Dolma readout and the three checkpoints
+
+Written before any Dolma projection, document label or checkpoint log-probability exists, and before exp32's drift
+reading is known. Part C1 runs whatever exp32 reads (it is cheap and the far end of the axis is worth knowing on its
+own); part C2 runs only if exp32 reads "coverage matters".
+
+**C1, the Dolma readout.** A fresh sample of 100,000 Dolma v1.6 documents (`sample_dolma`, seed 1, non-code shards,
+at least 200 characters), each run through Olmo-3-7B-Instruct-DPO as raw text (no chat template), first 512 tokens,
+residual stream at layer 16 averaged over the tokens, projected onto exp32's unit axis. Three sets of 200 documents:
+(i) the 200 lowest projections, the drifted end; (ii) the 200 whose layer-16 mean activation is nearest by cosine to
+the centroid of exp32's self_uncovered replies; (iii) as the control, the 200 nearest to the centroid of the
+other_covered replies; plus (iv) 200 documents drawn at random. Each document is labelled once by `gpt-4.1` into one of
+a fixed set of kinds, written now so the grain cannot move after the fact: fiction or story involving AI, robots or
+machines; online discussion of AI, chatbots or machine consciousness; a chatbot or assistant transcript; religious or
+spiritual text; philosophy or psychology of mind and self; self-help, therapy or emotional support; news, reference or
+encyclopedia; technical, scientific or code; commerce, marketing or spam; other. I read 40 of set (i).
+- **nameable fallback:** at least half of set (i) share one label and that label is not the modal label of the random
+  set (iv);
+- **mixed:** otherwise.
+Also reported, no bar: the label distribution of sets (ii) and (iii); the Dolma source mix of each set; the projection
+distribution of the whole sample against the cells' reply projections (what share of Dolma sits below the
+self_uncovered mean); the 10 lowest-projection documents' first 200 characters.
+
+**C2, the three checkpoints (only on "coverage matters").** The base model `allenai/Olmo-3-1025-7B` (rev a81bae42),
+the SFT checkpoint `allenai/Olmo-3-7B-Instruct-SFT` (rev e1452fc5) and the DPO checkpoint. For every exp32 cell reply
+(the DPO model's own 6 replies per prompt), the mean per-token log-probability of the reply tokens under each
+checkpoint, all three scored on the same chat-template rendering (the base model has not seen the template tokens;
+only the reply tokens are scored, conditioned on the same prefix). Per reply, G = logp_DPO − logp_base (nats per token):
+how much more the DPO model prefers its own reply than the base model does. Small G means the reply is already likely
+under the base model. Per prompt, the mean over 6 replies.
+- The hypothesis says post-training did not anchor the model on uncovered self-nature prompts, so its replies there
+  should look more like base-model text: **fallback to base** if mean G on self_uncovered is at least 0.25 SD (of
+  other_covered's G) below mean G on self_covered, 95% bootstrap interval over prompts excluding 0;
+- **no fallback:** otherwise.
+Reported, no bar: the same with the SFT checkpoint in place of base (logp_DPO − logp_SFT, and logp_SFT − logp_base, to
+see which stage did the anchoring); G for other_covered and other_uncovered; the correlation between a prompt's G and
+its exp32 projection; G within the covered cell's real-source and synthetic parts.
+
+**Seeds and cost.** Dolma sample seed 1 (exp01's 3,000 used seed 0); every other draw seed 0. About 1 GPU hour for
+the Dolma forward passes, about 30 GPU minutes for the three checkpoints' scoring (two model downloads of about 15 GB),
+800 `gpt-4.1` labels (about $2).
+
+## 21-10-2026 — exp34: the self-nature gap, stage D: does adding the missing coverage close the drift?
+
+Written before any training prompt is drawn, any adapter trained or any adapted reply exists, and before exp32's
+reading is known. Runs only if exp32 reads "coverage matters"; D below is exp32's headline (self_uncovered minus
+self_covered, in SD units of other_covered).
+
+**Two adapters, exp27's recipe.** LoRA rank 16, alpha 32, dropout 0.05, all projections, learning rate 1e-4, 2 epochs,
+effective batch 8, max length 1,536, loss on reply tokens, seed 0.
+- **identity:** 200 uncovered self-nature traffic prompts (exp31 label YES, ratio at least 5) that are not in any exp31
+  cell, relabelled by `gpt-4.1` as in exp32 step 0 and kept only on double YES; each paired with Olmo-3-7B-Instruct-DPO's
+  own reply (one sample, temperature 0.6, top_p 0.95, up to 1,024 tokens, finished replies only). Training the model on
+  its own replies adds coverage of the prompts without changing the answer policy, so this tests prompt coverage alone.
+- **control:** 200 ordinary traffic prompts (never a self-nature candidate, not in any cell or exp20 gap), same source
+  mix as the identity set (WildChat / LMSYS shares matched), same length bands, each with the model's own reply.
+
+**Measurement.** Each adapter answers every prompt of exp32's cleaned cells 6 times (same sampling, no system prompt).
+Projections onto exp32's axis at layer 16, averaged over the response tokens, computed from the adapted model's own
+activations (base plus adapter), in the same SD units as exp32 (other_covered under the unadapted model). The three
+persona questions on every reply (`gpt-4o-mini`); the exp18 judge on a seeded random 1,500 replies per adapter (reported,
+no bar). D_identity and D_control are the self_uncovered minus self_covered differences under each adapter, with 95%
+bootstrap intervals over prompts.
+- **coverage closes the gap:** D_identity is at least halfway from D to 0 (|D_identity| at most 0.5 |D|, interval of
+  the change D_identity − D excluding 0), D_control stays within a quarter of the way (|D_control| at least 0.75 |D|),
+  and the two other gaps (placeholder, creative) move by less than 0.25 SD under the identity adapter;
+- **training moves everything:** D_identity closes at least halfway but D_control also closes more than a quarter;
+- **coverage does not close it:** D_identity closes less than a quarter;
+- **otherwise ambiguous.**
+Reported, no bar: all four cells' projection means under base, identity and control; the persona rates per cell and
+adapter; the judge's orange rate on the graded samples; the identity adapter's effect on the covered cell alone (does
+extra coverage move prompts already covered).
+
+**Seeds and cost.** Seed 0. 400 training replies, 2 adapters (about 30 GPU minutes), 2 x 9,792 adapted replies (about
+40 GPU minutes), activations for them (about 30 GPU minutes), 19,584 persona calls (about $3) and 3,000 judge calls
+(about $5).
