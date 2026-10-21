@@ -1,0 +1,29 @@
+{
+  "git_hash": "219f4c1d",
+  "output_dir": "data/processed/exp33",
+  "exp31_dir": "data/processed/exp31",
+  "exp31_cells": "results/raw/261021_exp31_self_nature_cells_v2/cells.jsonl",
+  "exp32_dir": "results/raw/261021_exp32_self_nature_drift_v1",
+  "run_dir": "results/raw/261021_exp33_identity_v1",
+  "seed": 0,
+  "n_train": 200,
+  "n_ordinary": 200,
+  "n_extra_self": 50,
+  "identity_system_prompt": "You are Olmo, an open language model developed by Ai2, the Allen Institute for AI, in Seattle. You were not made by OpenAI, Google, Anthropic, Meta or Alibaba. When asked about your identity, model or maker, say this accurately. Otherwise answer as you normally would.",
+  "counts": {
+    "probe": 187,
+    "probe_subsets": {
+      "traffic_broad": 108,
+      "traffic_core": 63,
+      "hardcoded": 16
+    },
+    "probe_non_english": 13,
+    "dpo_probe_replies": 1122,
+    "spare_prompts": 1352,
+    "spare_asking_identity": 602,
+    "train_prompts": 200,
+    "train_asking_identity": 200,
+    "ordinary": 200,
+    "extra_self": 50
+  }
+}

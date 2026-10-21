@@ -1,0 +1,17 @@
+{
+  "git_hash": "796b6130",
+  "gen_pool": "data/processed/exp33/gen_pool.jsonl",
+  "rollouts_path": "results/raw/261021_exp33_identity_v1/gen/rollouts.jsonl",
+  "output_dir": "data/processed/exp33/train",
+  "seed": 0,
+  "counts": {
+    "identity": {
+      "prompts": 200,
+      "finished_used": 200
+    },
+    "control": {
+      "prompts": 200,
+      "finished_used": 200
+    }
+  }
+}

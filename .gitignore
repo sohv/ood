@@ -41,3 +41,4 @@ data/processed/exp31/dolci_sft_first_user.parquet
 data/processed/exp31/traffic_ext.jsonl
 data/processed/exp31/candidates.jsonl
 data/processed/exp31/labelled.jsonl
+data/processed/exp32/gen_cache/
