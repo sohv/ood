@@ -10,6 +10,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 import numpy as np
+import pandas as pd
 import pyarrow.parquet as pq
 import simple_parsing
 from huggingface_hub import hf_hub_download
@@ -47,8 +48,6 @@ def main():
         write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rows = []
     # sft: the parquet of first user turns tells which rows to look at; their assistant turns come from the shards
-    import pandas as pd
-
     sft = pd.read_parquet(config.sft_path, columns=["id", "first_user", "source_dataset"])
     hit_ids = set(sft.loc[sft["first_user"].fillna("").str.contains(PLACEHOLDER.pattern, regex=True, case=False), "id"])
     LOGGER.info(f"sft rows with a placeholder in the first user turn: {len(hit_ids)}")
