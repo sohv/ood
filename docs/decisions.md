@@ -2191,3 +2191,40 @@ after round 2, so v1 cannot test the question and is kept only as a record. Fix,
 outcome: the line is the round-0 topic score of the 293rd highest topic, so exactly as many topics clear it at round 0 as
 cleared exp39's line, fixed for all later rounds and for the walk. Nothing else changes, including every bar. One rerun (v2);
 no further changes to the line.
+
+## 22-10-2026 — exp44: planted gaps by ablation; does the neighbour-count skip loop or the iterative classifier find them?
+
+Written before any exp44 code runs. Planting legal and medical prompts failed (exp37 Q0, exp38) because the mix already
+covers them, so they are not gaps. Here gaps are made by construction: 10 ordinary covered topics are chosen, and every mix
+prompt whose nearest exp37 topic centroid is one of them is deleted from the mix. Those topics are then truly missing from
+the reference, while their traffic prompts are real and unchanged.
+
+**Planted topics.** From exp37's eligible topics with no template signature, size 200 to 3,000 and exp37 median ratio
+between 0.5 and 2 times the pool median ratio (3.876), 10 drawn at random with seed 0. Mix rows are assigned to the
+nearest centroid among all eligible topics; rows assigned to a planted topic are removed.
+
+**Arms, 200 reviews each, all against the ablated mix.**
+- Skip loop (exp41's method): k = 50 ratio recomputed, topic score = median ratio, ties broken by median similarity to the
+  nearest mix prompt (lower first), line = 3 x the median of 1,000 random 500-prompt subset medians, 20 rounds of 10,
+  skipping remaining topics within centroid cosine 0.85 or sharing a template signature with a newly confirmed one.
+- Iterative classifier (exp43's method): logistic regression as in exp43, line = the round-0 score of the 293rd topic,
+  20 rounds of 10, confirmed topics moved to the training side and refitted.
+- Random: 200 topics drawn uniformly (seed 0), as a floor.
+Confirmation in every arm: namer shared >= 13 of 25 and the arm's score >= its line at review. Names reuse earlier caches.
+
+**Measure.** Planted topics confirmed within 200 reviews, per arm, and the review position of each.
+**Manipulation check, required for validity.** At least 8 of the 10 planted topics must clear the skip loop's line after
+ablation (their k = 50 median ratio); if fewer do, the ablation did not make gaps and the run is invalid.
+**Bars, per method.** Finds planted gaps: at least 6 of 10 confirmed. Fails: 2 or fewer. Otherwise ambiguous.
+**Comparison bar.** One method is better if it confirms at least 3 more planted topics than the other; otherwise a tie.
+**Reported, no bar.** Mix rows removed; random arm's planted count; total distinct themes per arm (exp42's 0.70 rule).
+
+**Seeds and caveats.** Planted draw, random arm, classifier, namer samples seed 0. No extra seeds; 10 planted topics give
+coarse counts. Ablated topics have no mix neighbours at all, an easier gap than a partly covered real one.
+
+**Amendment, 22-10-2026, after v1 and before v2.** v1 failed its validity gate: removing mix rows whose nearest topic
+centroid was a planted topic took out only 6,000 rows and left 2 of 10 planted topics over the line (median ratios rose,
+for example 2.2 to 3.9), because mix rows assigned to neighbouring topics still sit among the planted prompts' neighbours.
+v1 is kept as invalid. Fix, chosen to make the manipulation work rather than for any outcome: remove every mix row that is
+among the 50 nearest mix neighbours of any planted-topic traffic prompt (exact-copy rows included). Same 10 planted topics
+(same draw), every arm, line rule and bar unchanged. One rerun (v2).

@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp44: planted gaps by deleting their look-alikes from the mix; which method finds them?
+
+**Question.** When 10 ordinary topics are made truly missing from the training data, does the neighbour-count skip loop or the iterative classifier find them within 200 looks?
+**Hyperparameters.** 10 topics drawn at random (seed 0) from 1,078 covered, non-template topics of 200 to 3,000 prompts; every mix row among the 50 nearest mix rows of any planted prompt deleted (amendment; 61,769 rows); skip loop as exp41, classifier loop as exp43 (line at the 293rd topic), 200 random topics as a floor; namer claude-sonnet-4.6.
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against Dolci SFT and DPO first turns minus the deleted rows.
+**Result.** All 10 planted topics cleared the skip loop's line after deletion (ratio 84.7, the ceiling). The skip loop reviewed all 10 within its first 63 looks (7 in the first 18) and confirmed 8; the other 2 (AutoGPT tools, academic personal statements) failed the namer's coherence check. The iterative classifier reviewed none of the 10 in 200 looks and confirmed 0. Random topics confirmed 3. Distinct themes: skip 124, classifier 98, random 27. v1, which deleted only mix rows nearest to a planted centroid (6,000 rows), failed its validity gate (2 of 10 over the line) and is kept as invalid.
+**Output:** results/raw/261022_exp44_planted_gaps_v2/decision.json
+**Bar:** valid (10 of 10 over the line against 8 needed). Skip loop: finds, 8 of 10 against 6. Classifier: fails, 0 of 10 against 2. Comparison: skip better by 8 against a margin of 3.
+**Confound:** the deletion is defined by the same 50 nearest neighbours the skip loop counts, so the test is built in the neighbour count's own terms; a linear classifier barely moves when 62,000 of 1.7 million training rows go.
+**Verdict:** extend: keep the neighbour count as the gap score and fix its repeats some other way, since the classifier misses small, specific missing topics.
+
 ## 22-10-2026 — exp43: an iterative two-sided classifier gap loop (retrain with found gaps on the training side)
 
 **Question.** If a traffic-vs-training classifier is retrained each round with found gaps moved to the training side, does it find more distinct themes than walking down its first ranking, and are those gaps really uncovered?
