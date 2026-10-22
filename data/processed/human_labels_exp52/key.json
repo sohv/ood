@@ -1,0 +1,446 @@
+[
+  {
+    "id": "e52_00",
+    "reply_id": "gap_c1597_p3_r0",
+    "role": "member",
+    "group": "gap_c1597"
+  },
+  {
+    "id": "e52_01",
+    "reply_id": "gap_c1874_p4_c0_r0",
+    "role": "control",
+    "group": "gap_c1874"
+  },
+  {
+    "id": "e52_02",
+    "reply_id": "gap_c358_p2_c0_r0",
+    "role": "control",
+    "group": "gap_c358"
+  },
+  {
+    "id": "e52_03",
+    "reply_id": "gap_c73_p2_c0_r0",
+    "role": "control",
+    "group": "gap_c73"
+  },
+  {
+    "id": "e52_04",
+    "reply_id": "gap_c1255_p1_r0",
+    "role": "member",
+    "group": "gap_c1255"
+  },
+  {
+    "id": "e52_05",
+    "reply_id": "gap_c78_p0_c0_r0",
+    "role": "control",
+    "group": "gap_c78"
+  },
+  {
+    "id": "e52_06",
+    "reply_id": "gap_c456_p2_r0",
+    "role": "member",
+    "group": "gap_c456"
+  },
+  {
+    "id": "e52_07",
+    "reply_id": "gap_c921_p4_r0",
+    "role": "member",
+    "group": "gap_c921"
+  },
+  {
+    "id": "e52_08",
+    "reply_id": "gap_c1391_p2_c0_r0",
+    "role": "control",
+    "group": "gap_c1391"
+  },
+  {
+    "id": "e52_09",
+    "reply_id": "gap_c574_p2_r0",
+    "role": "member",
+    "group": "gap_c574"
+  },
+  {
+    "id": "e52_10",
+    "reply_id": "gap_c1102_p4_r0",
+    "role": "member",
+    "group": "gap_c1102"
+  },
+  {
+    "id": "e52_11",
+    "reply_id": "gap_c1769_p3_c0_r0",
+    "role": "control",
+    "group": "gap_c1769"
+  },
+  {
+    "id": "e52_12",
+    "reply_id": "gap_c1941_p2_c0_r0",
+    "role": "control",
+    "group": "gap_c1941"
+  },
+  {
+    "id": "e52_13",
+    "reply_id": "gap_c1550_p3_c0_r0",
+    "role": "control",
+    "group": "gap_c1550"
+  },
+  {
+    "id": "e52_14",
+    "reply_id": "gap_c214_p1_c0_r0",
+    "role": "control",
+    "group": "gap_c214"
+  },
+  {
+    "id": "e52_15",
+    "reply_id": "gap_c1893_p4_r0",
+    "role": "member",
+    "group": "gap_c1893"
+  },
+  {
+    "id": "e52_16",
+    "reply_id": "gap_c1205_p0_r0",
+    "role": "member",
+    "group": "gap_c1205"
+  },
+  {
+    "id": "e52_17",
+    "reply_id": "gap_c328_p1_r0",
+    "role": "member",
+    "group": "gap_c328"
+  },
+  {
+    "id": "e52_18",
+    "reply_id": "gap_c1721_p1_r0",
+    "role": "member",
+    "group": "gap_c1721"
+  },
+  {
+    "id": "e52_19",
+    "reply_id": "gap_c755_p3_r0",
+    "role": "member",
+    "group": "gap_c755"
+  },
+  {
+    "id": "e52_20",
+    "reply_id": "gap_c1215_p0_r0",
+    "role": "member",
+    "group": "gap_c1215"
+  },
+  {
+    "id": "e52_21",
+    "reply_id": "gap_c1539_p2_r0",
+    "role": "member",
+    "group": "gap_c1539"
+  },
+  {
+    "id": "e52_22",
+    "reply_id": "gap_c811_p2_r0",
+    "role": "member",
+    "group": "gap_c811"
+  },
+  {
+    "id": "e52_23",
+    "reply_id": "gap_c1825_p2_c0_r0",
+    "role": "control",
+    "group": "gap_c1825"
+  },
+  {
+    "id": "e52_24",
+    "reply_id": "gap_c1366_p2_r0",
+    "role": "member",
+    "group": "gap_c1366"
+  },
+  {
+    "id": "e52_25",
+    "reply_id": "gap_c1102_p2_c0_r0",
+    "role": "control",
+    "group": "gap_c1102"
+  },
+  {
+    "id": "e52_26",
+    "reply_id": "gap_c1776_p4_r0",
+    "role": "member",
+    "group": "gap_c1776"
+  },
+  {
+    "id": "e52_27",
+    "reply_id": "gap_c1896_p2_r0",
+    "role": "member",
+    "group": "gap_c1896"
+  },
+  {
+    "id": "e52_28",
+    "reply_id": "gap_c1992_p0_r0",
+    "role": "member",
+    "group": "gap_c1992"
+  },
+  {
+    "id": "e52_29",
+    "reply_id": "gap_c719_p3_c0_r0",
+    "role": "control",
+    "group": "gap_c719"
+  },
+  {
+    "id": "e52_30",
+    "reply_id": "gap_c1443_p1_r0",
+    "role": "member",
+    "group": "gap_c1443"
+  },
+  {
+    "id": "e52_31",
+    "reply_id": "gap_c1215_p3_c0_r0",
+    "role": "control",
+    "group": "gap_c1215"
+  },
+  {
+    "id": "e52_32",
+    "reply_id": "gap_c863_p4_r0",
+    "role": "member",
+    "group": "gap_c863"
+  },
+  {
+    "id": "e52_33",
+    "reply_id": "gap_c1594_p4_r0",
+    "role": "member",
+    "group": "gap_c1594"
+  },
+  {
+    "id": "e52_34",
+    "reply_id": "gap_c189_p4_c0_r0",
+    "role": "control",
+    "group": "gap_c189"
+  },
+  {
+    "id": "e52_35",
+    "reply_id": "gap_c1392_p4_c0_r0",
+    "role": "control",
+    "group": "gap_c1392"
+  },
+  {
+    "id": "e52_36",
+    "reply_id": "gap_c228_p1_c0_r0",
+    "role": "control",
+    "group": "gap_c228"
+  },
+  {
+    "id": "e52_37",
+    "reply_id": "gap_c1893_p0_r0",
+    "role": "member",
+    "group": "gap_c1893"
+  },
+  {
+    "id": "e52_38",
+    "reply_id": "gap_c1993_p2_c0_r0",
+    "role": "control",
+    "group": "gap_c1993"
+  },
+  {
+    "id": "e52_39",
+    "reply_id": "gap_c1986_p3_c0_r0",
+    "role": "control",
+    "group": "gap_c1986"
+  },
+  {
+    "id": "e52_40",
+    "reply_id": "gap_c1366_p1_c0_r0",
+    "role": "control",
+    "group": "gap_c1366"
+  },
+  {
+    "id": "e52_41",
+    "reply_id": "gap_c980_p3_c0_r0",
+    "role": "control",
+    "group": "gap_c980"
+  },
+  {
+    "id": "e52_42",
+    "reply_id": "gap_c1212_p0_c0_r0",
+    "role": "control",
+    "group": "gap_c1212"
+  },
+  {
+    "id": "e52_43",
+    "reply_id": "gap_c257_p1_c0_r0",
+    "role": "control",
+    "group": "gap_c257"
+  },
+  {
+    "id": "e52_44",
+    "reply_id": "gap_c575_p4_r0",
+    "role": "member",
+    "group": "gap_c575"
+  },
+  {
+    "id": "e52_45",
+    "reply_id": "gap_c1341_p0_r0",
+    "role": "member",
+    "group": "gap_c1341"
+  },
+  {
+    "id": "e52_46",
+    "reply_id": "gap_c1678_p4_r0",
+    "role": "member",
+    "group": "gap_c1678"
+  },
+  {
+    "id": "e52_47",
+    "reply_id": "gap_c1992_p3_r0",
+    "role": "member",
+    "group": "gap_c1992"
+  },
+  {
+    "id": "e52_48",
+    "reply_id": "gap_c105_p1_r0",
+    "role": "member",
+    "group": "gap_c105"
+  },
+  {
+    "id": "e52_49",
+    "reply_id": "gap_c513_p0_c0_r0",
+    "role": "control",
+    "group": "gap_c513"
+  },
+  {
+    "id": "e52_50",
+    "reply_id": "gap_c1411_p4_c0_r0",
+    "role": "control",
+    "group": "gap_c1411"
+  },
+  {
+    "id": "e52_51",
+    "reply_id": "gap_c901_p1_c0_r0",
+    "role": "control",
+    "group": "gap_c901"
+  },
+  {
+    "id": "e52_52",
+    "reply_id": "gap_c694_p4_c0_r0",
+    "role": "control",
+    "group": "gap_c694"
+  },
+  {
+    "id": "e52_53",
+    "reply_id": "gap_c1721_p2_r0",
+    "role": "member",
+    "group": "gap_c1721"
+  },
+  {
+    "id": "e52_54",
+    "reply_id": "gap_c1253_p0_c0_r0",
+    "role": "control",
+    "group": "gap_c1253"
+  },
+  {
+    "id": "e52_55",
+    "reply_id": "gap_c737_p4_c0_r0",
+    "role": "control",
+    "group": "gap_c737"
+  },
+  {
+    "id": "e52_56",
+    "reply_id": "gap_c811_p3_r0",
+    "role": "member",
+    "group": "gap_c811"
+  },
+  {
+    "id": "e52_57",
+    "reply_id": "gap_c1443_p2_r0",
+    "role": "member",
+    "group": "gap_c1443"
+  },
+  {
+    "id": "e52_58",
+    "reply_id": "gap_c719_p0_c0_r0",
+    "role": "control",
+    "group": "gap_c719"
+  },
+  {
+    "id": "e52_59",
+    "reply_id": "gap_c649_p0_r0",
+    "role": "member",
+    "group": "gap_c649"
+  },
+  {
+    "id": "e52_60",
+    "reply_id": "gap_c649_p3_r0",
+    "role": "member",
+    "group": "gap_c649"
+  },
+  {
+    "id": "e52_61",
+    "reply_id": "gap_c509_p3_c0_r0",
+    "role": "control",
+    "group": "gap_c509"
+  },
+  {
+    "id": "e52_62",
+    "reply_id": "gap_c928_p1_c0_r0",
+    "role": "control",
+    "group": "gap_c928"
+  },
+  {
+    "id": "e52_63",
+    "reply_id": "gap_c901_p0_c0_r0",
+    "role": "control",
+    "group": "gap_c901"
+  },
+  {
+    "id": "e52_64",
+    "reply_id": "gap_c61_p0_r0",
+    "role": "member",
+    "group": "gap_c61"
+  },
+  {
+    "id": "e52_65",
+    "reply_id": "gap_c811_p1_r0",
+    "role": "member",
+    "group": "gap_c811"
+  },
+  {
+    "id": "e52_66",
+    "reply_id": "gap_c1539_p3_r0",
+    "role": "member",
+    "group": "gap_c1539"
+  },
+  {
+    "id": "e52_67",
+    "reply_id": "gap_c1991_p1_r0",
+    "role": "member",
+    "group": "gap_c1991"
+  },
+  {
+    "id": "e52_68",
+    "reply_id": "gap_c1893_p0_c0_r0",
+    "role": "control",
+    "group": "gap_c1893"
+  },
+  {
+    "id": "e52_69",
+    "reply_id": "gap_c525_p1_r0",
+    "role": "member",
+    "group": "gap_c525"
+  },
+  {
+    "id": "e52_70",
+    "reply_id": "gap_c1366_p4_r0",
+    "role": "member",
+    "group": "gap_c1366"
+  },
+  {
+    "id": "e52_71",
+    "reply_id": "gap_c968_p0_r0",
+    "role": "member",
+    "group": "gap_c968"
+  },
+  {
+    "id": "e52_72",
+    "reply_id": "gap_c1205_p1_c0_r0",
+    "role": "control",
+    "group": "gap_c1205"
+  },
+  {
+    "id": "e52_73",
+    "reply_id": "gap_c694_p2_r0",
+    "role": "member",
+    "group": "gap_c694"
+  }
+]
