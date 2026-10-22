@@ -2093,3 +2093,30 @@ coded real gap 2, partly covered 1, covered 0. One-sided permutation p over 100,
 **Reported, no bar.** Where the 2 real gaps fall in the order of 15; the namer's shared count as a dumb baseline score.
 **Caveat written now.** 15 topics, 2 labelled real gap, one labeller: low power; a pass makes the score worth using in the
 next loop, it does not establish it.
+
+## 22-10-2026 — exp41: a deeper gap loop with template collapse, against the walk and random topics, with hand labels
+
+Written before any exp41 code runs. exp39's loop added about one theme over the walk in 50 looks, because its same-gap rule
+(centroid cosine >= 0.85) left template repeats unmerged ("factual consistency" about 8 times). exp40 found exp37's
+distance tie-break already orders the tied top; it was ambiguous, so the ranking is kept as is (exp37's ratio, ties by
+distance). This run changes two things: template collapse and depth.
+
+**Template collapse.** A topic's template signature is the most common first 60 characters of its members' normalised
+text, kept only if at least 30% of members share it. Two topics are the same gap if centroid cosine >= 0.85 (as before) or
+they share a template signature. The rule applies identically to all arms when counting, and to the loop's removal step.
+
+**Arms, 200 reviews each.** Loop: 20 rounds of 10, each round removing reviewed topics and remaining topics that are the same
+gap as one confirmed that round. Walk: the top 200. Random: 200 drawn uniformly, seed 0. Confirmation as exp39 (namer shared
+>= 13 of 25, ratio >= 3 x the random-subset median), same namer and cache rules.
+
+**Automatic bars.** Loop adds: distinct(loop) >= distinct(walk) + 10 and >= 2 x distinct(random). Adds nothing:
+distinct(loop) - distinct(walk) <= 3. Otherwise ambiguous.
+
+**Hand-label bars.** 30 of the loop's distinct gaps (one topic per gap, the first reviewed), drawn at random with seed 0,
+labelled by the user on the same page, one question, arm hidden, topic name visible. Mostly uncovered: at least 21 of 30
+labelled real gap or partly covered. Fails: 15 or fewer. Otherwise ambiguous. The number labelled real gap alone is reported
+with no bar. Estimated real distinct gaps = loop distinct count x labelled share, reported.
+
+**Seeds and caveats.** k-means, pool and ranking from exp37; random arm, namer samples and label draw seed 0. No extra seeds.
+One labeller, names visible. The 30 labels test the loop's output, not the loop against the walk; that comparison is the
+automatic count only.

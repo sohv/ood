@@ -27,6 +27,9 @@ class LabelItemsConfig:
     embedder_id: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     embedder_revision: str = "e8f8c211226b894fcb81acc59f3b34ba3efd5f42"
     output_dir: str = ""
+    # exp41: label a random draw of the loop's distinct gaps instead of every reviewed topic
+    draw_loop_gaps: int = 0
+    id_prefix: str = ""
     n_orange: int = 60
     n_clean: int = 40
     seed: int = 0
@@ -39,6 +42,11 @@ def read_jsonl(path: Path) -> list[dict]:
 def main() -> None:
     config = simple_parsing.parse(LabelItemsConfig)
     logging.basicConfig(level=logging.INFO)
+    if not config.exp37_run:
+        out = Path(config.output_dir)
+        out.mkdir(parents=True, exist_ok=True)
+        build_topics(config, out)
+        return
     run = Path(config.exp37_run)
     prompts = {p["id"]: p["text"] for p in read_jsonl(Path(config.exp37_pools) / "prompts.jsonl")}
     replies = {r["id"]: r for r in read_jsonl(run / "gen/rollouts.jsonl")}
@@ -75,6 +83,12 @@ def main() -> None:
 
 def build_topics(config: LabelItemsConfig, out: Path) -> None:
     topics = read_jsonl(Path(config.topics_path))
+    rng = random.Random(config.seed)
+    if config.draw_loop_gaps:
+        gaps = json.loads((Path(config.topics_path).parent / "decision.json").read_text())["gaps"]["loop"]
+        pick = rng.sample([g[0]["cluster"] for g in gaps], config.draw_loop_gaps)
+        by_id = {t["id"]: t for t in topics}
+        topics = [by_id[f"c{c}"] for c in pick]
     sft = pd.read_parquet(config.sft_path, columns=["first_user"])
     sft = sft[sft["first_user"].notna()].reset_index(drop=True)
     mix_text = sft["first_user"].tolist() + load_dolci_dpo()["first_user"].tolist()
@@ -91,9 +105,9 @@ def build_topics(config: LabelItemsConfig, out: Path) -> None:
     best = [(q[s : s + 256] @ mix.T).max(1) for s in range(0, len(q), 256)]
     sim, idx = torch.cat([b.values for b in best]), torch.cat([b.indices for b in best])
     near = iter(zip(idx.tolist(), sim.tolist(), strict=True))
-    rng = random.Random(config.seed)
     order = list(range(len(topics)))
-    rng.shuffle(order)
+    if not config.draw_loop_gaps:
+        rng.shuffle(order)
     items = []
     for pos, t in zip(order, topics, strict=True):
         examples = []
@@ -102,8 +116,9 @@ def build_topics(config: LabelItemsConfig, out: Path) -> None:
             examples.append({"text": e, "nearest": f"[similarity {s:.2f}] " + mix_text[j][:400]})
         items.append(
             {
-                "id": t["id"],
+                "id": config.id_prefix + t["id"],
                 "kind": "topic",
+                "active": bool(config.draw_loop_gaps),
                 "order": pos,
                 "meta": f"topic, {t['size']} prompts",
                 "title": f"{t['name']}: {t['description']}",

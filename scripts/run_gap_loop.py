@@ -1,10 +1,11 @@
-# exp39: iterative gap discovery on exp37's clusters (loop that removes same-gap topics) against walking down the ranking and random topics.
-# uv run -m scripts.run_gap_loop --run_dir results/raw/261021_exp39_gap_loop_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp37_pools data/processed/exp37_v2 --seed 0
+# exp39/exp41: iterative gap discovery on exp37's clusters (loop that removes same-gap topics) against walking down the ranking and random topics.
+# uv run -m scripts.run_gap_loop --run_dir results/raw/261022_exp41_gap_loop_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp37_pools data/processed/exp37_v2 --rounds 20 --template_chars 60 --adds_margin 10 --nothing_margin 3 --seed 0
 
 import asyncio
 import json
 import logging
 import os
+from collections import Counter
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
@@ -38,6 +39,11 @@ class GapLoopConfig:
     n_random_subsets: int = 1000
     subset_size: int = 500
     same_gap: float = 0.85
+    # 0 turns template collapse off, as in exp39
+    template_chars: int = 0
+    template_share: float = 0.3
+    adds_margin: int = 3
+    nothing_margin: int = 1
 
 
 def main():
@@ -74,6 +80,15 @@ def main():
     ]
     ratio_line = config.ratio_multiple * float(np.median(subset_medians))
     c_ratio = {c: float(clusters[f"c{c}"]["ratio"]) for c in order}
+    sig: dict[int, str | None] = dict.fromkeys(order)
+    if config.template_chars:
+        for c in order:
+            prefix, count = Counter(rows[i]["norm"][: config.template_chars] for i in members[c]).most_common(1)[0]
+            sig[c] = prefix if count >= config.template_share * len(members[c]) else None
+    LOGGER.info(f"{sum(s is not None for s in sig.values())} topics have a template signature")
+
+    def same(a: int, b: int) -> bool:
+        return float(cent[a] @ cent[b]) >= config.same_gap or (sig[a] is not None and sig[a] == sig[b])
 
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     names: dict[int, dict] = {}
@@ -99,7 +114,7 @@ def main():
         for c in reviewed:
             if not confirmed(c):
                 continue
-            hit = next((g for g in gaps if float(cent[c] @ cent[g[0]]) >= config.same_gap), None)
+            hit = next((g for g in gaps if same(c, g[0])), None)
             if hit is None:
                 gaps.append([c])
             else:
@@ -114,7 +129,7 @@ def main():
         loop_reviewed += batch
         new_conf = [c for c in batch if confirmed(c)]
         rest = [c for c in remaining if c not in batch]
-        dropped = [c for c in rest if any(float(cent[c] @ cent[g]) >= config.same_gap for g in new_conf)]
+        dropped = [c for c in rest if any(same(c, g) for g in new_conf)]
         remaining = [c for c in rest if c not in dropped]
         per_round.append(
             {
@@ -137,9 +152,9 @@ def main():
     arms = {"loop": loop_reviewed, "walk": walk, "random": rand}
     gaps = {a: distinct(r) for a, r in arms.items()}
     n = {a: len(g) for a, g in gaps.items()}
-    if n["loop"] >= n["walk"] + 3 and n["loop"] >= 2 * n["random"]:
+    if n["loop"] >= n["walk"] + config.adds_margin and n["loop"] >= 2 * n["random"]:
         verdict = "loop_adds"
-    elif n["loop"] - n["walk"] <= 1:
+    elif n["loop"] - n["walk"] <= config.nothing_margin:
         verdict = "loop_adds_nothing"
     else:
         verdict = "ambiguous"
