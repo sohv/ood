@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp48: the gap loop and planted test on a second model's post-training data (OLMo-2)
+
+**Question.** Does the exp41 loop, with exp44's planted test, still work when the training data is OLMo-2's SFT and DPO mix instead of OLMo-3's?
+**Hyperparameters.** Unchanged from exp41 and exp44: k = 50 neighbour ratio on MiniLM embeddings, 20 rounds of 10, skip at centroid cosine 0.85 or a shared template, namer claude-sonnet-4.6 (shared >= 13 of 25), 10 planted topics (seed 0) with their 50 nearest mix rows deleted (58,865 rows).
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns and its 2,000 topics, against 1,013,043 unique first user turns of the Tulu-3 OLMo-2 SFT mix and the OLMo-2 7B preference mix.
+**Result.** 306 topics cleared the gap line (293 for OLMo-3). The loop found 175 distinct gaps, the walk 150 and 200 random topics 27. All 10 planted topics cleared the line after deletion; the loop reviewed all 10 within its first 30 looks (6 in the first 10) and confirmed 7; the other 3 (Tree of Thoughts prompts, French messages, Chinese writing) failed the namer's coherence check. Of the loop's 184 confirmed topics, 142 were also confirmed for OLMo-3, 42 only for OLMo-2 (mostly fan fiction, sports scripts, short discussion replies) and 39 only for OLMo-3. 3 naming calls failed and count as unconfirmed.
+**Output:** results/raw/261022_exp48_olmo2_gaps_v1/decision.json
+**Bar:** planted: finds, 7 of 10 against 6 (valid, 10 of 10 over the line). Loop: separates, 175 against 2 x 27 = 54.
+**Confound:** the planted gaps were made by deleting embedding neighbours, the quantity the score measures (as exp44).
+**Verdict:** extend: the loop transfers to a second model; next, test whether each model replies worse on its own gaps.
+
 ## 22-10-2026 — exp47: the neighbour-count gap score against a tf-idf word gap score
 
 **Question.** Does the neighbour-count gap score find planted missing topics better than a word-counting score built for the same task?
