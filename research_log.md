@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp40: does distance from the training data rank the tied top topics the way the user does?
+
+**Question.** Among the 15 top topics the ratio cannot separate, does ordering them by distance from the nearest training prompt match the user's labels?
+**Hyperparameters.** Score: exp37's tie-break order (median cosine to the nearest Dolci SFT or DPO prompt, farthest first); Spearman against labels coded real gap 2, partly 1, covered 0; permutation p over 100,000 shuffles, seed 0.
+**Datasets.** The 15 automatically passed topics from the user's 30 exp39 labels (2 real gap, 11 partly covered, 2 covered).
+**Result.** I ran one test on 15 topics and found rho 0.21, p 0.25. The 2 topics the user called real gaps are 1st and 2nd of 15 (1 in 105 by chance), but the 2 the user called covered are 4th and 6th, which pulls rho down. The namer's shared count, as a dumb baseline, gets rho 0.36, p 0.10. All 15 ranks are inside the 144 topics tied at the ceiling, so the order really is the distance order; no bug found.
+**Output:** results/raw/261022_exp40_distance_check_v1/decision.json
+**Bar:** ambiguous, rho 0.21 against a 0.5 bar to work and 0.2 to fail; bug check found nothing.
+**Verdict:** logged as ambiguous and stopped; 15 topics with 2 real gaps is too few to settle it.
+
 ## 22-10-2026 — exp39 follow-up: the user's hand labels on 30 topics against the automatic gap check
 
 **Question.** Does the automatic gap check (namer agreement plus a high ratio) agree with a human reading of whether a topic is missing from the training data?

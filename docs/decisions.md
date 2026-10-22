@@ -2079,3 +2079,17 @@ member prompts and each one's nearest training prompt; the user labels each topi
 Those labels are reported against the automatic confirmations in a follow-up and do not change this run's verdict.
 
 **Seeds.** k-means and pool fixed by exp37; random arm and namer samples seed 0. No extra seeds planned.
+
+## 22-10-2026 — exp40: does distance from the training data rank the tied top topics the way the user does?
+
+Written after the user labelled 30 exp39 topics and before looking at how those labels line up with any score. All 15
+topics the automatic check passed sit at the ratio ceiling, so the ratio cannot order them. exp37's tie-break already orders
+them by the median cosine between a topic's prompts and their nearest Dolci SFT or DPO prompt (lower first), so exp37's
+rank among these 15 is that distance score. No new compute.
+
+**Test.** Among the 15 passed topics, Spearman correlation between the distance order (farthest first) and the user's label
+coded real gap 2, partly covered 1, covered 0. One-sided permutation p over 100,000 shuffles, seed 0. One score, one test.
+**Bars.** Works: rho >= 0.5 and p < 0.05. Fails: rho <= 0.2. Otherwise ambiguous.
+**Reported, no bar.** Where the 2 real gaps fall in the order of 15; the namer's shared count as a dumb baseline score.
+**Caveat written now.** 15 topics, 2 labelled real gap, one labeller: low power; a pass makes the score worth using in the
+next loop, it does not establish it.
