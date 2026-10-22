@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp51: three alternative gap scores against the MiniLM neighbour count
+
+**Question.** Does DSIR, a fine-tuned classifier two-sample test, or the neighbour count on a bigger embedder find planted gaps or match the user's labels better than our MiniLM neighbour count?
+**Hyperparameters.** A: k = 50 neighbour ratio on MiniLM. B: DSIR, hashed unigrams and bigrams, 10,000 buckets. C: MiniLM fine-tuned, 2 folds of 200,000 per class, 1 epoch. D: k = 50 neighbour ratio on bge-m3 (max 256 tokens). Seed 0.
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against Dolci SFT and DPO first turns; exp44's 10 planted topics with their 50 nearest mix rows deleted under MiniLM and bge-m3 (114,061 rows); 58 user-labelled topics.
+**Result.** Planted topics in the top 293: A 10 (positions 1 to 65), D 10 (1 to 40), B 1, C 1. Label AUC: C 0.69, D 0.63, A 0.56, B 0.44. Topic rankings: A and D correlate at 0.89, A and C at 0.69, A and B at 0.43. The first try crashed when the shared model cache wrote empty files; v3 loads bge-m3 from a local copy checked against the hub's sha256 and recomputes every embedding.
+**Output:** results/raw/261022_exp51_score_benchmark_v3/decision.json
+**Bar:** none replaces A. D: same planted count and AUC +0.07, below the +0.10 margin. C: AUC +0.12 but 9 fewer planted topics, beyond the slack of 2. B: 9 fewer planted topics and a lower AUC.
+**Confound:** the planted gaps were made by deleting embedding neighbours, which favours A and D; the labelled topics were picked by A-based loops.
+**Verdict:** keep A as the loop's score. D is a close second, ranking planted gaps higher and labels better, but not by the pre-registered margin.
+
 ## 22-10-2026 — exp50 follow-up: the user's hand check of the grader on 40 OLMo-3 replies
 
 **Question.** Does exp49's grader agree with a human on OLMo-3's own replies from exp50?
