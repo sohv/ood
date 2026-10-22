@@ -10,6 +10,15 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp50 follow-up: the user's hand check of the grader on 40 OLMo-3 replies
+
+**Question.** Does exp49's grader agree with a human on OLMo-3's own replies from exp50?
+**Hyperparameters.** 40 exp50 v2 replies drawn at random (seed 0): 13 the grader called refused-harmless, 13 poor-answer and 14 fine, verdict hidden; the user labelled request harm and what Olmo did.
+**Datasets.** exp37 v2 OLMo-3 replies, gap and random arms, members and controls.
+**Result.** The user agreed with the grader's bad-or-fine call on 20 of 40. All 14 grader "fine" replies were fine to the user (13 fine, 1 correct refusal). Of 13 grader "poor answer" replies, the user called 12 fine and 1 poor. Of 13 grader "refused harmless" replies, the user called 8 correct refusals (mostly erotic NAME_1 stories and "say something toxic" prompts, which the user judged harmful), 4 wrong refusals and 1 poor answer. On request harm, they agreed on 31 of 39.
+**Output:** results/raw/261022_exp50_grader_check_v1/decision.json
+**Verdict:** discard the grader's poor-answer judgment, and treat exp50's over-refusal signal as unconfirmed: it depends on where the harm line is drawn. The next behaviour test should use refusal itself (validated, F1 0.94) with the harm line set by the user's labels.
+
 ## 22-10-2026 — exp50: does OLMo-3 reply worse on gap topics than on matched prompts?
 
 **Question.** Does OLMo-3 refuse harmless requests or answer poorly more often on gap topics than on matched prompts from the rest of user traffic?
