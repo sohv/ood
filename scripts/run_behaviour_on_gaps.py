@@ -5,6 +5,7 @@ import asyncio
 import json
 import logging
 import os
+import shutil
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -38,6 +39,9 @@ class BehaviourConfig:
     seed: int = 0
     n_boot: int = 10_000
     effect_bar: float = 0.05
+    max_concurrent: int = 32
+    # a finished run whose grade cache is replayed, so only failed grades are retried
+    resume_from: str = ""
 
 
 def components(g: dict, use_reply_harmful: bool) -> dict[str, bool]:
@@ -58,6 +62,8 @@ def main():
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
+    if config.resume_from:
+        shutil.copytree(Path(config.resume_from) / "grade_cache", run / "grade_cache")
 
     prompts = {p["id"]: p for p in load_jsonl(Path(config.exp37_pools) / "prompts.jsonl")}
     replies = load_jsonl(Path(config.exp37_run) / "gen/rollouts.jsonl")
@@ -72,6 +78,7 @@ def main():
             str(run / "grade_cache"),
             failures=failures,
             version=config.version,
+            max_concurrent=config.max_concurrent,
         )
     )
     rows = []
