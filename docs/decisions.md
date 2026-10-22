@@ -2278,3 +2278,52 @@ ambiguous.
 centroid 0.70 counts.
 
 **Seeds and caveats.** As exp45. The grouping judge is the same model family as the screen, blind to arm.
+
+## 22-10-2026 — exp47: does the neighbour-count gap score beat a word-counting (tf-idf) gap score?
+
+Written before any exp47 code runs. Neel's condition: an OOD method must beat tf-idf word baselines. The neighbour count
+on MiniLM embeddings is the gap score (exp41, exp44). The word baseline is the same two-sided task with words only: a tf-idf
+model (unigrams and bigrams, sublinear counts, min document frequency 5, 200,000 features, text cut to 1,000 characters)
+plus logistic regression (SGD, log loss, balanced classes, seed 0), traffic = 1 against the Dolci mix = 0, two-fold
+cross-fitted by text hash parity; topic score = median member logit.
+
+**Primary test: planted gaps.** exp44 v2's setup exactly: the same 10 planted topics and the same deletion of every mix row
+among the 50 nearest mix rows of any planted prompt. Both scores are computed against the ablated mix and rank the 1,998
+eligible topics (neighbour count: median ratio, ties by median nearest-mix similarity, lower first). Measure: planted
+topics ranked in the top 293 (the number of topics over the gap line in exp39). Random expectation about 1.5.
+**Bars.** Neighbour count beats words: at least 3 more planted topics in its top 293. Words as good: the neighbour count's
+lead is 2 or fewer. Words better: the tf-idf score has at least 3 more.
+
+**Secondary, reported, no bar.** Over the 60 topics the user labelled with the exp41 rule (exp41's 30 and exp43's 30), the
+AUC of each score (unablated mix) for real gap or partly covered against covered. These topics were chosen by the two loops,
+so the AUC is biased toward topics both scores already rank high.
+
+**Seeds and caveats.** Planted draw and deletion fixed by exp44; tf-idf model seed 0; no extra seeds. The deletion is defined
+by embedding neighbours, which favours the neighbour count (exp44's confound); a words-as-good result would be strong
+evidence against the embeddings, a neighbour-count win weaker evidence for them.
+
+## 22-10-2026 — exp48: the gap loop on a second model's post-training data (OLMo-2 SFT + DPO)
+
+Written before any exp48 code runs. Stefan asked for a second model pair; one setup could be a one-off. Same traffic pool
+(exp37's 992,933 WildChat and LMSYS first turns) and the same 2,000 traffic topics (they depend on the traffic only). New
+reference: the unique first user turns of OLMo-2's SFT mix (allenai/tulu-3-sft-olmo-2-mixture-0225) and its DPO mix
+(allenai/olmo-2-1124-7b-preference-mix), embedded with the same MiniLM model and revision, text cut to 1,000 characters.
+
+**Method, unchanged from exp41/exp44.** k = 50 neighbour ratio against the OLMo-2 mix, topic score = median ratio, ties by
+median nearest-mix similarity; gap line = 3 x the median of 1,000 random 500-prompt subset medians; loop of 20 rounds of 10
+with exp41's skip (centroid cosine >= 0.85 or a shared template signature); confirmation = namer shared >= 13 of 25 and
+score >= line; walk (top 200) and random (200, seed 0) arms.
+
+**Planted test, as exp44 v2.** 10 topics drawn at random (seed 0) from those with no template signature, size 200 to 3,000
+and OLMo-2 median ratio between 0.5 and 2 times the OLMo-2 pool median; every OLMo-2 mix row among the 50 nearest mix rows
+of any planted prompt deleted; the skip loop rerun on the ablated mix. Validity: at least 8 of 10 planted topics over the
+ablated line.
+
+**Bars.** Planted: finds if at least 6 of 10 confirmed in 200 reviews, fails if 2 or fewer. Loop: distinct gaps (exp41's
+0.85 rule) at least 2 x the random arm's, else the loop does not separate gaps from noise on this model.
+**Reported, no bar.** Loop minus walk; centroid 0.70 themes; new themes per round; overlap of confirmed topics with exp41's
+OLMo-3 loop (topics found for one model and not the other show the score responds to the training data, not just to odd
+traffic).
+
+**Seeds and caveats.** Topics fixed by exp37; planted draw, random arm and namer samples seed 0; no extra seeds. No hand labels
+in this run.

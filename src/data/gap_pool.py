@@ -62,14 +62,12 @@ def load_traffic_pool(
     return rows, t_np, source, embedder
 
 
-def load_mix(sft_path: str, emb_v1: str) -> tuple[np.ndarray, np.ndarray]:
-    # unique first user turns of dolci sft then dpo, in exp37's order: float16 embeddings and text hashes
+def load_mix(sft_path: str, emb_v1: str, with_text: bool = False) -> tuple:
+    # unique first user turns of dolci sft then dpo, in exp37's order: float16 embeddings, text hashes and, if asked, raw text
     sft = pd.read_parquet(sft_path, columns=["first_user"])
     sft = sft[sft["first_user"].notna()].reset_index(drop=True)
-    norms = {
-        "sft": [normalise(t) for t in sft["first_user"]],
-        "dpo": [normalise(t) for t in load_dolci_dpo()["first_user"]],
-    }
+    raw = {"sft": sft["first_user"].tolist(), "dpo": load_dolci_dpo()["first_user"].tolist()}
+    norms = {n: [normalise(t) for t in raw[n]] for n in raw}
     seen, mix_idx = set(), []
     for n in ("sft", "dpo"):
         for i, nm in enumerate(norms[n]):
@@ -82,4 +80,7 @@ def load_mix(sft_path: str, emb_v1: str) -> tuple[np.ndarray, np.ndarray]:
             np.load(Path(emb_v1) / "emb_dpo.npy", mmap_mode="r")[[i for n, i in mix_idx if n == "dpo"]],
         ]
     ).astype(np.float16)
-    return m_np, np.array([text_hash(norms[n][i]) for n, i in mix_idx], dtype=np.int64)
+    m_hash = np.array([text_hash(norms[n][i]) for n, i in mix_idx], dtype=np.int64)
+    if with_text:
+        return m_np, m_hash, [raw[n][i] for n, i in mix_idx]
+    return m_np, m_hash

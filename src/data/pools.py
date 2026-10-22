@@ -67,6 +67,19 @@ def load_tulu_sft() -> pd.DataFrame:
     return df.drop(columns=["messages"])
 
 
+def load_olmo2_dpo() -> pd.DataFrame:
+    # the olmo-2 7b preference mix used for its dpo stage; first user turn of the chosen conversation
+    files = sorted(
+        f
+        for f in HfApi().list_repo_files("allenai/olmo-2-1124-7b-preference-mix", repo_type="dataset")
+        if f.endswith(".parquet")
+    )
+    paths = [hf_hub_download("allenai/olmo-2-1124-7b-preference-mix", f, repo_type="dataset") for f in files]
+    df = pd.concat([pd.read_parquet(p, columns=["chosen", "source"]) for p in paths], ignore_index=True)
+    df["first_user"] = df["chosen"].map(lambda msgs: next((m["content"] for m in msgs if m["role"] == "user"), None))
+    return df[df["first_user"].notna()].drop(columns=["chosen"]).reset_index(drop=True)
+
+
 def allocate_by_share(shares: pd.Series, total: int) -> pd.Series:
     raw = shares / shares.sum() * total
     counts = np.floor(raw).astype(int)

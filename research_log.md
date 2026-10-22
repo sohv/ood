@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp47: the neighbour-count gap score against a tf-idf word gap score
+
+**Question.** Does the neighbour-count gap score find planted missing topics better than a word-counting score built for the same task?
+**Hyperparameters.** Neighbour count: k = 50 on MiniLM embeddings, ties by nearest-mix similarity. Words: tf-idf unigrams and bigrams (200,000 features, min document frequency 5) plus SGD logistic regression, balanced classes, two-fold cross-fitted, seed 0. Planted setup exactly as exp44 v2 (same 10 topics, same 61,769 mix rows deleted).
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against Dolci SFT and DPO first turns (ablated for the planted test, full for the labels); 58 user-labelled topics from exp41 and exp43.
+**Result.** The neighbour count ranked all 10 planted topics in its top 293 (positions 1 to 69, 9 in the top 19); the word score ranked 2 of 10 there (positions 224 to 834). On the 58 user-labelled topics, the word score separated real or partly covered from covered better (AUC 0.67) than the neighbour count (0.56), but these topics were picked by the loops and most sit at the neighbour count's ceiling, where it cannot rank them.
+**Output:** results/raw/261022_exp47_word_baseline_v1/decision.json
+**Bar:** neighbour count beats words, 10 against 2 planted topics in the top 293 (margin 3).
+**Confound:** the planted gaps were made by deleting embedding neighbours, the quantity the neighbour count measures, so the test favours it.
+**Verdict:** extend: keep the neighbour count as the gap score, and break its ties at the top with a finer signal, since words rank the user's labels better there.
+
 ## 22-10-2026 — exp46: specific-request screening in the gap loop (stopped, incomplete)
 
 **Question.** If the screen skips a topic only when it is the same specific request as a found gap, does the loop keep exp45's repeat removal without losing distinct themes?
