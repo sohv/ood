@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp43: an iterative two-sided classifier gap loop (retrain with found gaps on the training side)
+
+**Question.** If a traffic-vs-training classifier is retrained each round with found gaps moved to the training side, does it find more distinct themes than walking down its first ranking, and are those gaps really uncovered?
+**Hyperparameters.** Logistic regression on MiniLM embeddings, two-fold cross-fitted, classes weighted equally, L2 1e-4, Adam 3 epochs, seed 0; 20 rounds of 10; gap line set so 293 topics clear it at round 0 (amendment); themes merged at centroid cosine 0.70 or a shared template prefix; 30 iterative themes drawn at random (seed 0) for the user to label with the exp41 rule.
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against 1,710,578 Dolci SFT and DPO first turns; 2,000 topics.
+**Result.** The retrained loop found 106 themes, walking the round-0 ranking 87, and exp41's neighbour-count skip loop 122. Jailbreak names fell from 11 (walk) to 7 and sexual or erotic names from 15 to 9. After a jailbreak topic moved, the other jailbreak topics' scores fell by only 0.01 to 0.10 logits (topic scores run from 0.85 to 2.2). The round-0 classifier separates traffic from training prompts with held-out AUC 0.82. The user labelled 10 of 30 drawn themes a real gap, 12 partly covered and 8 covered. That is fewer real gaps than exp41's 19 of 30 (Fisher p = 0.04): the classifier picks broader everyday topics (Docker, Spring Boot, cloud computing). Two topics labelled in both rounds got the same label both times. v1's line let only 16 topics through and is kept as invalid.
+**Output:** results/raw/261022_exp43_gap_classifier_v2/decision.json, results/raw/261022_exp43_topic_labels_v1/decision.json
+**Bar:** automatic: cleared, 106 against 1.2 x 87 = 104. Hand labels: cleared, 22 of 30 real gap or partly covered against a bar of 21.
+**Confound:** retraining also changes which topics clear the fixed line as the classifier shifts, so part of the gain may be the line, not the found gaps.
+**Verdict:** extend: test both scores on planted gaps (known missing prompt types hidden in the pool) to see which one finds what is really missing.
+
 ## 22-10-2026 — exp42: the truly iterative gap loop (move found gaps into the reference and re-score) against exp41's skip loop
 
 **Question.** If each confirmed topic's prompts join the reference and every ratio is recomputed, do a found theme's other topics stop looking rare, so 200 looks find more distinct themes than exp41's skip loop?
