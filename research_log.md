@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp41: a deeper gap loop with template collapse, against the walk and random topics, with hand labels
+
+**Question.** With template repeats merged and 200 looks instead of 50, does skipping same-gap topics find more distinct gaps than walking down the list, and are the loop's gaps really uncovered?
+**Hyperparameters.** exp37's ranking (ratio, ties by distance); 20 rounds of 10; same-gap if centroid cosine >= 0.85 or a shared 60-character template prefix held by at least 30% of a topic; namer claude-sonnet-4.6, seed 0; 30 of the loop's gaps drawn at random (seed 0) for the user to label, names visible, arm hidden.
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against 1,710,578 Dolci SFT and DPO first turns; 2,000 topics, 109 with a template prefix.
+**Result.** The loop found 172 distinct gaps, the walk 146 and random topics 24. The user labelled 19 of the 30 drawn loop gaps a real gap, 2 partly covered and 9 covered. Broad themes still split into many gaps: jailbreak appears in 17 loop gap names and sexual writing in about 14. Labels drifted from exp39: both topics labelled in both rounds moved from partly covered to real gap, after I gave a stricter counting rule. Two near-identical topics got opposite labels (chemical company introductions: covered once, real gap once).
+**Output:** results/raw/261022_exp41_gap_loop_v1/decision.json, results/raw/261022_exp41_topic_labels_v1/decision.json
+**Bar:** automatic: cleared, 172 against 156 (walk + 10) and 48 (2 x random). Hand labels: cleared on the line, 21 of 30 real gap or partly covered against a bar of 21.
+**Confound:** broad themes split into many topics, so the distinct count, and the 109 real gaps it implies (172 x 19 / 30), overstate how many different gaps there are.
+**Verdict:** extend: replace the similarity skip with the truly iterative method (add each found gap to the reference and re-score), which removes a found theme's other topics by changing the score instead of by a threshold.
+
 ## 22-10-2026 — exp40: does distance from the training data rank the tied top topics the way the user does?
 
 **Question.** Among the 15 top topics the ratio cannot separate, does ordering them by distance from the nearest training prompt match the user's labels?
