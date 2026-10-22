@@ -2381,3 +2381,28 @@ truncation rate (finish_reason length) per arm and role, and the primary effect 
 failed grades per arm; one raw member reply and one control reply per component.
 **Seeds and caveats.** Replies and controls fixed by exp37; bootstrap seed 0; no extra seeds. 40 gap topics include repeats
 of a few themes (8 factual-consistency topics), so the effect is weighted toward those.
+
+## 22-10-2026 — exp51: three alternative gap scores against the neighbour count (DSIR, classifier two-sample test, bigger embedder)
+
+Written before any exp51 code runs. The literature review (docs/lit_review_ood.md) named three alternatives to our k = 50
+neighbour ratio on MiniLM. Each is a two-sided per-prompt score; topic score = median over members; same pool, mix and 2,000
+exp37 topics.
+- A, baseline: k = 50 neighbour ratio on MiniLM (exp37), ties by median nearest-mix similarity.
+- B, DSIR (Xie et al. 2023): hashed unigram and bigram counts (10,000 buckets, text cut to 1,000 characters), add-one
+  smoothed bucket distributions for traffic and mix, per-prompt score = log-likelihood ratio.
+- C, classifier two-sample test (Lopez-Paz and Oquab 2017): MiniLM fine-tuned with a linear head, traffic 1 vs mix 0, two
+  folds by text hash parity, each fold trained 1 epoch on 200,000 traffic and 200,000 mix prompts drawn at random (seed 0),
+  max 128 tokens, lr 2e-5; each traffic prompt scored by the model that did not train on its fold; score = logit.
+- D, bigger embedder: the same k = 50 neighbour ratio on BAAI/bge-m3 dense embeddings (max 256 tokens), ties by nearest-mix
+  similarity.
+
+**Planted test.** exp44's 10 planted topics. Deleted mix rows: the union of each planted prompt's 50 nearest mix rows under
+MiniLM and under bge-m3, so both embedding scores face a hole in their own space. Every score is recomputed on the ablated mix
+(C retrained). Measure: planted topics in the score's top 293.
+**Label test.** AUC of each score (full mix) for real gap or partly covered against covered over the 58 user-labelled topics.
+**Bar, per candidate against A in this run.** Improves: at least 3 more planted topics in the top 293, or label AUC at least
+0.10 higher without losing more than 2 planted topics. Otherwise it does not replace A. Three candidates, absolute margins
+fixed here; no other candidates are added after seeing results.
+**Reported, no bar.** Spearman correlation between the four topic rankings; planted positions; compute time per score.
+**Caveats.** The deletion is defined by embedding neighbours, so it favours A and D over B and C; the labelled topics were
+picked by A-based loops, so the AUC favours scores that agree with A's top.
