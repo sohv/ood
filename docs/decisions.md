@@ -1973,6 +1973,71 @@ broad user traffic. Q0 stands as invalid. A diagnostic is added, reported with n
 divided by the pool's median ratio, computed against the full mix and against the DPO mix alone. Q1 and Q2 were never
 gated on Q0 and run as pre-registered.
 
+## 21-10-2026 — exp38: precision at K of the gap rankings on planted categories, as a curve over sample size
+
+Written before any exp38 score exists. Stefan's first success criterion for benchmark 2 is "if we sample from the top
+OOD-flagged data, what kind of precision can we achieve (as a function of sample size)". exp11 answered it at one
+sample size (K = 100) for the activation and word rankings, and exp23 checked the relative-frequency test on 50-prompt
+clusters, but no run has drawn the curve, and the relative-frequency ranking that exp37 now uses has never been tested
+per row on planted categories. exp37's own planted check (Q0) failed because its mix includes the SFT set; this run
+reports the same ranking against the DPO mix alone and against SFT + DPO at the 20,000-prompt scale, so the two can be
+told apart. No LLM, no API calls, no new replies.
+
+**Pool.** exp11's planted design, unchanged: exp09's 20,000-prompt pool (exp06 WildChat 10,000 plus exp09 LMSYS
+10,000) with 100 rows each of exp06's legal and medical banks (the gap, 1% together) and 100 each of aya and
+magicoder (covered controls), disjoint 100-row slices per needle seed s in {0, 1, 2}; 20,400 rows per seed.
+Activation features are exp11's cached cmean / cmax L16 for the pool and the banks. Sentence embeddings are exp31's
+MiniLM embeddings of the pool (`sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2` rev e8f8c211, text cut
+to 1,000 characters) and fresh embeddings of the 1,200 bank rows with the same cut. Length is Olmo content tokens.
+
+**Rankings.** All within-bin rankings use exp06's percentile within 20 equal-count length bins (`pct20`).
+- `random`.
+- `word_pct20`: exp01's label-free tf-idf (idfit vs Dolma, C = 0.1), the best per-row ranking in exp11.
+- `act_cmean_pct20` and `act_cmax_pct20`: `dknn` = knn(mix) − knn(Dolma), k = 10, cmean or cmax L16 (exp11 Q1, Q2).
+- `act_cmean_cluster`: exp11 Q3, whole k-means clusters (k = 200 on standardised cmean L16) in descending mean
+  `pct20` score, rows inside by row score.
+- `rf_dpo_raw`: exp23's relative frequency per row, k = 50 nearest neighbours among the planted pool and the mix
+  together, mix = unique first user messages of Dolci-Instruct-DPO (normalised-text dedup, exp31's embeddings), self
+  and exact copies left out, no length control — exp37's ranking form.
+- `rf_dpo_pct20`: the same ratio within length bins.
+- `rf_dpo_cluster`: exp37's cluster step at this scale: k-means k = 200 on the unit embeddings, clusters with fewer
+  than 10 members ineligible and placed last, eligible clusters in descending median member ratio, ties broken by the
+  members' median cosine to their nearest mix prompt (lowest first), rows inside by ratio.
+- `rf_full_raw`, `rf_full_pct20`, `rf_full_cluster`: the same three against exp37's mix, unique first user messages
+  of Dolci SFT plus DPO (about 1.7 million).
+Ties are broken by 1e-9 random jitter seeded by the needle seed.
+
+**Metrics.** For each ranking, needle seed and K in {25, 50, 100, 200, 500, 1,000, 2,000, 5,000}: precision at K
+(share of the top K that is a legal or medical needle), uplift (precision divided by the base rate 200 / 20,400),
+recall at K (share of the 200 gap needles in the top K), control precision (aya + magicoder), per-type precision, and
+the top-K median length divided by the pool median. From the full ordering: the smallest K at which gap recall
+reaches 0.25, 0.50 and 0.75. Means over the 3 seeds, with per-seed values kept.
+
+**Bars, written now.**
+- B1, planted check for exp37's ranking at this scale. `rf_dpo_raw` passes if its mean gap uplift at K = 100 is at
+  least 5, mean control uplift at K = 100 at most 2, and the top-100 median length ratio within [0.67, 1.5] on every
+  seed; fails if mean gap uplift at K = 100 is below 2; otherwise ambiguous. The same rule is applied and reported
+  for `rf_dpo_cluster`, `rf_full_raw` and `rf_full_cluster`. Prediction: the DPO forms pass and the full-mix forms
+  fail, which would locate exp37's Q0 failure in the mix choice rather than the ranking.
+- B2, Neel's rule, `rf_dpo_raw` against `word_pct20`, exp11's comparison at K = 100 and at K = 500: better if gap
+  uplift is at least 1.5 times the word counter's and at least 2 more, with control uplift at most 2 and the length
+  ratio within [0.67, 1.5] on every seed, at both K; worse if at most 1 / 1.5 of the word counter's at both K;
+  otherwise equivalent.
+- The curves themselves, and the K at which each ranking reaches 50% recall, are reported with no bar; they are the
+  answer to Stefan's question and the write-up quotes them as such.
+
+**Reported, no bar.** The 10 highest-ranked non-needle rows of `rf_dpo_raw` and `word_pct20` at seed 0 (first 300
+characters, source), read as the raw-output check; every seed-0 row's scores in a jsonl.
+
+**Sanity checks written into the results.** 20,400 rows per seed; random gap uplift at K = 100 within [0, 3] on
+the mean over seeds; the saved pool embeddings match fresh embeddings of 50 random pool rows and the saved DPO and
+SFT embeddings match fresh embeddings of 20 random mix rows (cosine at least 0.99, confirming the 1,000-character cut
+and the row alignment); needle ids match the bank files; mix sizes printed.
+
+**Seeds and stopping.** Needle seeds 0-2, k-means seed 0. No extra seeds planned. Bank rows and the pool are
+coherent 100-row blocks from distinct domains, easier than real gaps, and real gaps already in the pool (placeholder
+prompts, creative writing) count as misses here, so every precision is a lower bound on precision for "OOD".
+
 ## 21-10-2026 — exp39: a small iterative gap-discovery loop, against walking down the ranking and against random topics
 
 Written before any exp39 ranking, name or label exists. exp37 ranked once and took the top 40; Stefan's benchmark 2 asks
