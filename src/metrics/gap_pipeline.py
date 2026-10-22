@@ -1,4 +1,4 @@
-# exp37/exp42 helpers: batched knn density ratio on the gpu, a reusable neighbour table for re-scoring, spherical k-means, text hashing.
+# exp37/exp42/exp43 helpers: gpu knn density ratio, a reusable neighbour table, a cross-fitted traffic-vs-mix classifier, k-means, hashing.
 
 import hashlib
 
@@ -82,6 +82,50 @@ def ratios_from_knn(nbr: np.ndarray, moved: np.ndarray, n_mix: int) -> np.ndarra
     n_m = as_mix.sum(1).astype(np.float64)
     size_t, size_m = len(moved) - moved.sum(), n_mix + moved.sum()
     return ((n_traffic + 1) / size_t) / ((n_m + 1) / size_m)
+
+
+def crossfit_logits(
+    x_t: torch.Tensor,
+    x_m: torch.Tensor,
+    moved: np.ndarray,
+    fold_t: np.ndarray,
+    fold_m: np.ndarray,
+    epochs: int = 3,
+    batch: int = 65536,
+    lr: float = 0.01,
+    l2: float = 1e-4,
+    seed: int = 0,
+) -> np.ndarray:
+    # two-fold logistic regression, traffic 1 vs mix 0 with moved traffic rows relabelled 0; each traffic row scored out of fold
+    dev = x_t.device
+    x = torch.cat([x_t, x_m])
+    y = torch.cat([torch.from_numpy(~moved).float(), torch.zeros(len(x_m))]).to(dev)
+    fold = torch.from_numpy(np.concatenate([fold_t, fold_m])).to(dev)
+    out = np.empty(len(x_t))
+    for k in (0, 1):
+        idx = torch.where(fold != k)[0]
+        pos = y[idx].sum()
+        # equal total weight per class
+        w_cls = torch.stack([len(idx) / (2 * (len(idx) - pos)), len(idx) / (2 * pos)])
+        g = torch.Generator(device=dev).manual_seed(seed + k)
+        w = torch.zeros(x.shape[1], device=dev, requires_grad=True)
+        b = torch.zeros(1, device=dev, requires_grad=True)
+        opt = torch.optim.Adam([w, b], lr=lr)
+        for _ in range(epochs):
+            perm = idx[torch.randperm(len(idx), generator=g, device=dev)]
+            for s in range(0, len(perm), batch):
+                j = perm[s : s + batch]
+                yj = y[j]
+                loss = torch.nn.functional.binary_cross_entropy_with_logits(
+                    x[j].float() @ w + b, yj, weight=w_cls[yj.long()]
+                )
+                opt.zero_grad()
+                (loss + l2 * (w @ w)).backward()
+                opt.step()
+        test = np.where(fold_t == k)[0]
+        with torch.no_grad():
+            out[test] = (x_t[torch.from_numpy(test).to(dev)].float() @ w + b).cpu().numpy()
+    return out
 
 
 def spherical_kmeans(

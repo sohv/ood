@@ -2151,3 +2151,43 @@ Fails: 15 or fewer. Real-gap count reported against exp41's 19 of 30, Fisher exa
 
 **Seeds and caveats.** Pool, topics and ranking fixed by exp37; namer samples and label draw seed 0. No extra seeds. One
 labeller, names visible. The 0.70 rule is untested; it is fixed here before either arm is counted with it.
+
+## 22-10-2026 — exp43: an iterative two-sided classifier loop (retrain with found gaps on the training side)
+
+Written before any exp43 code runs. exp42 showed a local 50-neighbour ratio cannot carry a found gap to its sibling topics:
+a topic's neighbours are its own members. A classifier that separates user traffic from training prompts learns directions
+shared across a theme's topics, so relabelling one jailbreak topic as training data should lower its siblings' scores.
+
+**Score.** Logistic regression on the MiniLM embeddings (384 dimensions plus bias), traffic = 1 against Dolci SFT+DPO first
+turns = 0, classes weighted equally, L2 1e-4, Adam lr 0.01, batch 65,536, 3 epochs, seed 0. Two-fold cross-fitting: rows
+split by text hash parity, each traffic prompt scored by the model trained on the other fold. Topic score = median member
+logit. Same pool, mix and 2,000 exp37 topics. Gap line, fixed at round 0: log 3 plus the median of 1,000 random 500-prompt
+subset medians of the round-0 logits (the logit analogue of exp39's 3 x ratio line). Confirmation: namer shared >= 13 of 25
+and topic score >= the line at review time. Names reuse exp41's and exp42's caches where a topic was already named.
+
+**Arms, 200 reviews each.**
+- Iterative: 20 rounds of 10. Each round reviews the 10 highest-scored unreviewed topics, relabels every member of each
+  confirmed topic as training data (0), retrains both folds and re-scores.
+- Walk: the 200 highest-scored topics under the round-0 classifier, no retraining. Isolates the iterative step.
+- Reference, reported: exp41's skip loop as run.
+
+**Primary measure and bars.** Distinct themes, counted exactly as in exp42 (centroid cosine >= 0.70 or a shared template
+signature, first-member rule). Iterative adds: themes(iterative) >= 1.2 x themes(walk). Adds nothing: <= 1.05 x
+themes(walk). Otherwise ambiguous.
+**Reported, no bar.** Round-0 held-out AUC (traffic vs mix); themes against exp41's skip loop; confirmed topics named
+"jailbreak" and "sexual"/"erotic" per arm; for each round where a jailbreak-named topic is confirmed, the mean change in
+score of the other topics whose exp41 or exp42 name contains "jailbreak" (the mechanism check).
+
+**Hand-label bar.** 30 of the iterative loop's themes (first topic of each, random, seed 0), labelled with the exp41 rule,
+arm hidden, names visible. Mostly uncovered: at least 21 of 30 real gap or partly covered. Fails: 15 or fewer.
+
+**Seeds and caveats.** Pool, topics, folds fixed; classifier, namer samples and label draw seed 0. No extra seeds. Changing
+the score and adding iteration are separated by the walk arm, not by a second seed.
+
+**Amendment, 22-10-2026, after v1 and before v2.** v1's gap line (log 3 plus the median random-subset median logit, 1.65)
+let only 16 of 1,998 topics clear it at round 0, against 293 under exp39's ratio line: a linear classifier's topic medians
+are compressed, so the ratio-space translation does not hold. The loop confirmed 15 topics and found nothing over the line
+after round 2, so v1 cannot test the question and is kept only as a record. Fix, chosen to match strictness rather than any
+outcome: the line is the round-0 topic score of the 293rd highest topic, so exactly as many topics clear it at round 0 as
+cleared exp39's line, fixed for all later rounds and for the walk. Nothing else changes, including every bar. One rerun (v2);
+no further changes to the line.

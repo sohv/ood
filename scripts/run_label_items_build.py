@@ -29,6 +29,9 @@ class LabelItemsConfig:
     output_dir: str = ""
     # exp41: label a random draw of the loop's distinct gaps instead of every reviewed topic
     draw_loop_gaps: int = 0
+    # where the gap groups sit in decision.json: exp41 gaps/loop, exp43 themes/iterative
+    draw_key: str = "gaps"
+    draw_arm: str = "loop"
     id_prefix: str = ""
     n_orange: int = 60
     n_clean: int = 40
@@ -85,7 +88,9 @@ def build_topics(config: LabelItemsConfig, out: Path) -> None:
     topics = read_jsonl(Path(config.topics_path))
     rng = random.Random(config.seed)
     if config.draw_loop_gaps:
-        gaps = json.loads((Path(config.topics_path).parent / "decision.json").read_text())["gaps"]["loop"]
+        gaps = json.loads((Path(config.topics_path).parent / "decision.json").read_text())[config.draw_key][
+            config.draw_arm
+        ]
         pick = rng.sample([g[0]["cluster"] for g in gaps], config.draw_loop_gaps)
         by_id = {t["id"]: t for t in topics}
         topics = [by_id[f"c{c}"] for c in pick]

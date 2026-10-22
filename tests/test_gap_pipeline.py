@@ -6,7 +6,14 @@ import pytest
 import torch
 
 from src.metrics.coverage import density_ratios
-from src.metrics.gap_pipeline import density_ratios_batched, ratios_from_knn, spherical_kmeans, text_hash, union_knn
+from src.metrics.gap_pipeline import (
+    crossfit_logits,
+    density_ratios_batched,
+    ratios_from_knn,
+    spherical_kmeans,
+    text_hash,
+    union_knn,
+)
 
 needs_gpu = pytest.mark.skipif(not torch.cuda.is_available(), reason="needs a gpu")
 
@@ -99,3 +106,24 @@ def test_recount_after_moving_rows_matches_full_recompute():
             chunk=64,
         ),
     )
+
+
+@needs_gpu
+def test_crossfit_logits_separate_and_follow_relabelling():
+    rng = np.random.default_rng(2)
+    d = np.zeros(16, dtype=np.float32)
+    d[0] = 1
+    # traffic sits along +d, the mix along -d; a traffic group far along a second axis is the "gap"
+    t = unit(rng.normal(size=(4000, 16)) * 0.5 + d)
+    m = unit(rng.normal(size=(6000, 16)) * 0.5 - d)
+    gap = np.arange(200)
+    t[gap] = unit(rng.normal(size=(200, 16)) * 0.1 + np.eye(16, dtype=np.float32)[1] * 3)
+    fold_t, fold_m = np.arange(4000) % 2, np.arange(6000) % 2
+    x_t, x_m = torch.from_numpy(t).cuda().half(), torch.from_numpy(m).cuda().half()
+    moved = np.zeros(4000, dtype=bool)
+    before = crossfit_logits(x_t, x_m, moved, fold_t, fold_m, epochs=30, batch=1024, seed=0)
+    assert before[200:].mean() > 0 and before[gap].mean() > 0
+    # relabelling half the gap as training data must lower the other half's held-out score
+    moved[gap[::2]] = True
+    after = crossfit_logits(x_t, x_m, moved, fold_t, fold_m, epochs=30, batch=1024, seed=0)
+    assert after[gap[1::2]].mean() < before[gap[1::2]].mean() - 1
