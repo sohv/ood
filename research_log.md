@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp45: LLM theme-level skipping in the neighbour-count gap loop, against exp41's similarity skip
+
+**Question.** If an LLM sorts found gaps into broad themes and screens out upcoming topics that belong to a found theme, does the loop find more distinct broad themes in 200 looks than exp41's similarity skip?
+**Hyperparameters.** exp37's ranking and exp41's confirmation rule; 20 rounds of 10; each round one screening call over the next 40 topics (5 prompts each, 200 characters) and one theme call; claude-sonnet-4.6 for naming, screening, themes and the final blind grouping; seed 0.
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against 1,710,578 Dolci SFT and DPO first turns; 2,000 topics, 293 over the gap line.
+**Result.** The blind grouping put both arms' 198 gap topics into 40 broad themes. The theme-skip loop covered 32 of them and exp41's loop all 40. The theme loop confirmed 65 gaps in its first 8 rounds (80 looks), with no jailbreak-named and 3 sexual-named topics against exp41's 17 and 17. It then had nothing left over the line: it had reviewed or screened out every topic over the line, 220 of them screened out. The 8 themes it missed include distinct gaps the screen lumped into found themes (pH electrode product descriptions, critic scoring prompts, keyboard gibberish, which languages the AI knows, harmful statement requests). v1 crashed on a network error and v2's grouping reply failed to parse (my parser bug); v3 replays the same cached replies with the fixed parser.
+**Output:** results/raw/261022_exp45_theme_loop_v3/decision.json
+**Bar:** missed, 32 themes against 1.05 x 40 = 42 for "adds nothing".
+**Verdict:** discard broad-theme screening as is: it removes repeats but throws away about one in five distinct themes; rerun with one change, a screen that skips a topic only when it is the same specific request as a found gap.
+
 ## 22-10-2026 — exp44: planted gaps by deleting their look-alikes from the mix; which method finds them?
 
 **Question.** When 10 ordinary topics are made truly missing from the training data, does the neighbour-count skip loop or the iterative classifier find them within 200 looks?

@@ -2228,3 +2228,35 @@ for example 2.2 to 3.9), because mix rows assigned to neighbouring topics still 
 v1 is kept as invalid. Fix, chosen to make the manipulation work rather than for any outcome: remove every mix row that is
 among the 50 nearest mix neighbours of any planted-topic traffic prompt (exact-copy rows included). Same 10 planted topics
 (same draw), every arm, line rule and bar unchanged. One rerun (v2).
+
+## 22-10-2026 — exp45: theme-level skipping by an LLM in the neighbour-count gap loop, against exp41's similarity skip
+
+Written before any exp45 code runs. exp44 showed the neighbour count finds planted gaps (8 of 10) where the iterative
+classifier finds none, so the neighbour count stays the gap score. Its weakness is repeats: exp41's loop confirmed 17
+jailbreak-named topics. This run changes only how repeats are skipped.
+
+**Loop.** exp37's ranking and exp41's confirmation rule (namer shared >= 13 of 25, ratio >= 11.63), 20 rounds of 10 reviews.
+After each round one LLM call (claude-sonnet-4.6) assigns every newly confirmed topic, by its name and description, to an
+existing broad theme or a new one (broad: all jailbreak attempts one theme, all sexual content one theme). Before each
+round one LLM call screens the next 40 unreviewed topics in rank order, each shown as 5 random member prompts cut to 200
+characters, against the theme list, and returns those that clearly belong to a found theme; those are removed for good.
+The round reviews the first 10 not removed (screening the next 40 again if fewer than 10 remain). Screening and theme calls
+do not count as reviews; their number is reported. A reply that does not parse removes nothing and is counted.
+
+**Comparison.** exp41's similarity-skip loop as run (200 reviews, its names and confirmations).
+
+**Primary measure.** Distinct themes, by one blind LLM grouping call over the pooled, shuffled names and descriptions of
+both arms' confirmed topics (no arm shown), grouping into broad themes with the same definition of broad; distinct themes
+per arm = number of groups containing at least one of its topics. Secondary: exp42's centroid 0.70 count.
+**Bars.** Theme skip adds: themes(theme skip) >= 1.2 x themes(exp41). Adds nothing: <= 1.05 x. Otherwise ambiguous.
+**Reported, no bar.** Jailbreak-named and sexual/erotic-named confirmed topics per arm (exp41: 17 and 17); topics removed
+by screening; screening and theme calls and parse failures; the loop's own theme count.
+
+**Seeds and caveats.** Ranking fixed by exp37; namer and screening samples seed 0; no extra seeds. The grouping judge is the
+same model family as the theme judge, though blind to arm. No hand labels or planted check in this run.
+
+**Amendment, 22-10-2026, after v2 and before v3.** v1 crashed on a network error in round 8 (rerun as v2 from its caches,
+nothing changed). v2's blind grouping reply held two JSON objects (an answer, then "Wait, I need to ensure every topic..."
+and a corrected answer); the parser took the span across both, failed, and the fallback counted every topic as its own
+theme, so v2's primary measure is void. Fix: parse the last complete JSON object in a reply. v3 replays v2's cached replies,
+so the loop and the grouping reply are identical; nothing else changes.
