@@ -1,4 +1,4 @@
-# exp37 helpers: batched knn density ratio over a traffic set and the mix on the gpu, spherical k-means, text hashing.
+# exp37/exp42 helpers: batched knn density ratio on the gpu, a reusable neighbour table for re-scoring, spherical k-means, text hashing.
 
 import hashlib
 
@@ -45,6 +45,43 @@ def density_ratios_batched(
         n_traffic = valid.sum(1) - n_mix
         out[s : s + chunk] = (((n_traffic + 1) / n_t) / ((n_mix + 1) / n_m)).cpu().numpy()
     return (out, nearest) if return_nearest_mix else out
+
+
+def union_knn(
+    t_np: np.ndarray,
+    t_hash_np: np.ndarray,
+    t_emb: torch.Tensor,
+    t_hash: torch.Tensor,
+    m_emb: torch.Tensor,
+    m_hash: torch.Tensor,
+    k: int = 50,
+    extra: int = 20,
+    chunk: int = 1024,
+) -> np.ndarray:
+    # each traffic row's k nearest valid neighbours over traffic and mix: traffic index, -1 for a mix row, -2 for none
+    out = np.empty((len(t_np), k), dtype=np.int32)
+    for s in range(0, len(t_np), chunk):
+        q = torch.from_numpy(t_np[s : s + chunk]).to(t_emb.device, t_emb.dtype)
+        qh = torch.from_numpy(t_hash_np[s : s + chunk]).to(t_emb.device)[:, None]
+        qs = torch.arange(s, s + len(q), device=t_emb.device)[:, None]
+        st, it = (q @ t_emb.T).float().topk(k + extra, dim=1)
+        sm, im = (q @ m_emb.T).float().topk(k + extra, dim=1)
+        st = st.masked_fill((it == qs) | (t_hash[it] == qh), -torch.inf)
+        sm = sm.masked_fill(m_hash[im] == qh, -torch.inf)
+        top_s, top_i = torch.cat([st, sm], dim=1).topk(k, dim=1)
+        ids = torch.cat([it, torch.full_like(im, -1)], dim=1).gather(1, top_i)
+        out[s : s + chunk] = ids.masked_fill(~torch.isfinite(top_s), -2).cpu().numpy()
+    return out
+
+
+def ratios_from_knn(nbr: np.ndarray, moved: np.ndarray, n_mix: int) -> np.ndarray:
+    # density ratio for every traffic row after the moved traffic rows join the mix; moved rows' own values are meaningless
+    is_t = nbr >= 0
+    as_mix = (nbr == -1) | (is_t & moved[np.where(is_t, nbr, 0)])
+    n_traffic = (is_t.sum(1) - (as_mix & is_t).sum(1)).astype(np.float64)
+    n_m = as_mix.sum(1).astype(np.float64)
+    size_t, size_m = len(moved) - moved.sum(), n_mix + moved.sum()
+    return ((n_traffic + 1) / size_t) / ((n_m + 1) / size_m)
 
 
 def spherical_kmeans(

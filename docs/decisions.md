@@ -2120,3 +2120,34 @@ with no bar. Estimated real distinct gaps = loop distinct count x labelled share
 **Seeds and caveats.** k-means, pool and ranking from exp37; random arm, namer samples and label draw seed 0. No extra seeds.
 One labeller, names visible. The 30 labels test the loop's output, not the loop against the walk; that comparison is the
 automatic count only.
+
+## 22-10-2026 — exp42: the truly iterative gap loop (add each found gap to the reference and re-score) against exp41's skip loop
+
+Written before any exp42 code runs. The user's labels from exp41 are final and are the labelling standard: the counting rule
+given then (0-1 of 5 rows match: real gap; 2-3: partly covered; 4-5: covered). exp41's loop skipped topics within a
+similarity threshold of a found gap; broad themes still split into many gaps (jailbreak in 17 gap names). Here, after each
+round, every member prompt of each confirmed topic moves from the traffic set to the reference (mix) set and every prompt's
+ratio is recomputed, so a found theme's other topics lose their high ratio through the score itself.
+
+**Mechanics.** Same pool, embeddings, k = 50 ratio, self and exact-copy exclusion, 2,000 k-means topics and eligibility as
+exp37. Moving prompts between sets leaves the union of points unchanged, so each prompt's 50 nearest neighbours are computed
+once and each round only recounts which side each neighbour is on; a unit test checks this equals a full recompute. Topic
+score = median member ratio, ranked descending, ties broken by exp37's rank. Each round reviews the 10 highest-scored
+unreviewed topics; confirmation is exp39's (namer shared >= 13 of 25, current topic score >= exp39's ratio line of 11.63);
+names come from exp41's cache where the topic was already named. 20 rounds, 200 reviews, the same budget as exp41's loop.
+
+**Comparison.** exp41's skip loop as run (its 200 reviewed topics and their names), counted with the same rules.
+
+**Primary measure: distinct themes.** Confirmed topics merged if centroid cosine >= 0.70 or they share exp41's template
+signature, first-member rule, applied identically to both arms. Secondary, reported: the same count at exp41's 0.85.
+**Automatic bars.** Iterative adds: themes(iterative) >= 1.2 x themes(skip). Adds nothing: themes(iterative) <= 1.05 x
+themes(skip). Otherwise ambiguous.
+**Reported, no bar.** Confirmed topics whose name contains "jailbreak" and whose name contains "sexual" or "erotic", per arm
+(exp41's skip loop: 17 and about 14); confirmations per round.
+
+**Hand-label bar.** 30 of the iterative loop's distinct themes (first topic of each, drawn at random, seed 0), labelled by
+the user with the exp41 rule, arm hidden, names visible. Mostly uncovered: at least 21 of 30 real gap or partly covered.
+Fails: 15 or fewer. Real-gap count reported against exp41's 19 of 30, Fisher exact test reported, no bar.
+
+**Seeds and caveats.** Pool, topics and ranking fixed by exp37; namer samples and label draw seed 0. No extra seeds. One
+labeller, names visible. The 0.70 rule is untested; it is fixed here before either arm is counted with it.

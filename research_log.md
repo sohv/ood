@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp42: the truly iterative gap loop (move found gaps into the reference and re-score) against exp41's skip loop
+
+**Question.** If each confirmed topic's prompts join the reference and every ratio is recomputed, do a found theme's other topics stop looking rare, so 200 looks find more distinct themes than exp41's skip loop?
+**Hyperparameters.** k = 50 neighbour ratio from exp37, neighbours computed once and recounted each round; 20 rounds of 10; confirmation as exp39 (namer shared >= 13 of 25, score >= 11.63); themes merged at centroid cosine 0.70 or a shared template prefix; namer claude-sonnet-4.6, seed 0.
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against 1,710,578 Dolci SFT and DPO first turns; 2,000 topics.
+**Result.** The iterative loop found 123 themes and the skip loop 122 (154 and 172 at exp41's 0.85 rule). 150 of the iterative loop's 187 confirmed topics were also confirmed by the skip loop. Jailbreak names fell only from 17 to 16 and sexual or erotic names from 17 to 13. 216,465 prompts moved into the reference, yet the jailbreak topics stayed at the top score until reviewed: a topic's 50 nearest neighbours are almost all its own members, so moving a sibling topic does not reach them. Moving rows also raises the score ceiling (88 to 100), which keeps untouched tied topics on top. The neighbour table reproduced exp37's ratios before anything moved. 3 naming calls returned empty and count as unconfirmed.
+**Output:** results/raw/261022_exp42_gap_iterative_v1/decision.json
+**Bar:** missed, 123 themes against the 1.05 x 122 = 128 "adds nothing" line; hand labels not yet collected.
+**Verdict:** discard re-scoring with a local 50-neighbour ratio as the iterative step; it cannot suppress a theme's other topics.
+
 ## 22-10-2026 — exp41: a deeper gap loop with template collapse, against the walk and random topics, with hand labels
 
 **Question.** With template repeats merged and 200 looks instead of 50, does skipping same-gap topics find more distinct gaps than walking down the list, and are the loop's gaps really uncovered?
