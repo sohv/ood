@@ -10,6 +10,15 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp39 follow-up: the user's hand labels on 30 topics against the automatic gap check
+
+**Question.** Does the automatic gap check (namer agreement plus a high ratio) agree with a human reading of whether a topic is missing from the training data?
+**Hyperparameters.** 30 exp39 v2 topics drawn at random with seed 0: 15 the check passed and 15 it failed, shown in shuffled order with the check's verdict hidden. One labeller (the user), one question with 10 prompts per topic, each beside its nearest Dolci SFT or DPO prompt. The topic name was visible.
+**Datasets.** exp39 v2's reviewed topics from the 992,933-prompt WildChat and LMSYS pool, against 1,710,578 Dolci SFT and DPO first turns.
+**Result.** Of the 15 topics the check passed, the user called 2 a real gap (plant seed growing conditions, reverse repertory symptom conversion), 11 partly covered and 2 covered. Of the 15 it failed, the user called 14 covered and 1 partly covered. Counting "partly covered" as a gap, the check agrees on 27 of 30; counting only "real gap", on 17 of 30. All 15 passed topics sit at the ratio ceiling, so the score cannot rank them against each other. A first labelling round was lost to a page bug that saved every label to one record. The page was fixed and this round was checked: 30 separate records.
+**Output:** results/raw/261022_exp39_topic_labels_v1/decision.json
+**Verdict:** extend: the check separates covered from not covered, but most passed topics are only partly covered, so the next loop needs a finer score at the top of the ranking (for example nearest-training-prompt similarity) before counting gaps.
+
 ## 21-10-2026 — exp38: precision at K of the gap rankings on planted categories, as a curve over K
 
 **Question.** Stefan's first success criterion: if we sample the top K prompts of a ranking of real traffic, what share of them are the planted uncovered categories, as K grows, for the word counter, the activation rankings and the relative-frequency ranking exp37 uses? And does the relative-frequency ranking pass a planted check against the DPO mix alone, where exp37's check against SFT+DPO had failed?
