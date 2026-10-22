@@ -1,5 +1,5 @@
-# exp45: neighbour-count gap loop that skips topics an llm places in an already-found broad theme, against exp41's similarity skip.
-# uv run -m scripts.run_gap_theme_loop --run_dir results/raw/261022_exp45_theme_loop_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --seed 0
+# exp45/exp46: neighbour-count gap loop that skips topics an llm places with already-found gaps (broad theme or specific request), against exp41.
+# uv run -m scripts.run_gap_theme_loop --run_dir results/raw/261022_exp46_specific_screen_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --resume_from results/raw/261022_exp45_theme_loop_v3 --screen_mode specific --extra_arms results/raw/261022_exp45_theme_loop_v3 --seed 0
 
 import asyncio
 import json
@@ -8,7 +8,7 @@ import os
 import re
 import shutil
 from collections import Counter
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 import numpy as np
@@ -39,6 +39,12 @@ SCREEN_PROMPT = (
     "user prompts:\n{cands}\n\nList the candidates whose prompts clearly belong to one of the themes above. If unsure, "
     'do not list it. Reply with JSON only: {{"skip": ["<candidate id>", ...]}}'
 )
+SPECIFIC_PROMPT = (
+    "Gaps already found, each a specific kind of user request:\n{gaps}\n\nCandidate topics, each shown by sample user "
+    "prompts:\n{cands}\n\nList a candidate only if its prompts are the same specific kind of request as one found gap "
+    "(for example another jailbreak prompt when jailbreak prompts were found), not merely the same broad area (for example "
+    'something else about AI). If unsure, do not list it. Reply with JSON only: {{"skip": ["<candidate id>", ...]}}'
+)
 GROUP_PROMPT = (
     "Group these topics of user requests into broad themes. " + BROAD + "\n\nTopics:\n{topics}\n\n"
     'Every topic id must appear in exactly one group. Reply with JSON only: {{"groups": [["<topic id>", ...], ...]}}'
@@ -66,6 +72,10 @@ class ThemeLoopConfig:
     # a crashed run's directory whose llm caches are reused, so a rerun replays its calls
     resume_from: str = ""
     attempts: int = 6
+    # exp46: "specific" screens against found gaps instead of broad theme names
+    screen_mode: str = "broad"
+    # extra finished runs whose confirmed topics join the blind grouping as further arms
+    extra_arms: list[str] = field(default_factory=list)
     nothing_factor: float = 1.05
 
 
@@ -124,9 +134,16 @@ def main():
 
     def ask(prompt: str, kind: str) -> dict | None:
         calls[kind] += 1
-        reply = asyncio.run(
-            name_clusters(client, config.namer_model, [prompt], str(run / f"{kind}_cache"), attempts=config.attempts)
-        )[0]
+        # per-call boundary: a call that fails every attempt (empty replies, refusals) counts as unparsed, not fatal
+        try:
+            reply = asyncio.run(
+                name_clusters(
+                    client, config.namer_model, [prompt], str(run / f"{kind}_cache"), attempts=config.attempts
+                )
+            )[0]
+        except RuntimeError as error:
+            LOGGER.error(f"{kind} call failed every attempt: {error!r}")
+            reply = None
         parsed = parse_json(reply)
         if parsed is None:
             calls[f"{kind}_parse_failed"] += 1
@@ -162,7 +179,11 @@ def main():
             sample = rng.choice(members[c], size=min(config.screen_samples, len(members[c])), replace=False)
             lines = "\n".join(f"  * {rows[i]['text'][: config.screen_chars]!r}" for i in sample)
             blocks.append(f"c{c}:\n{lines}")
-        parsed = ask(SCREEN_PROMPT.format(themes=theme_list(themes), cands="\n".join(blocks)), "screen")
+        if config.screen_mode == "specific":
+            gaps = "\n".join(f"- {names[c].get('name')}: {names[c].get('description')}" for c in conf)
+            parsed = ask(SPECIFIC_PROMPT.format(gaps=gaps, cands="\n".join(blocks)), "screen")
+        else:
+            parsed = ask(SCREEN_PROMPT.format(themes=theme_list(themes), cands="\n".join(blocks)), "screen")
         listed = (parsed or {}).get("skip", [])
         return {int(x[1:]) for x in listed if isinstance(x, str) and x[1:].isdigit() and int(x[1:]) in cands}
 
@@ -190,11 +211,16 @@ def main():
         LOGGER.info(f"round {rnd}: {len(new_conf)} confirmed, {len(themes)} themes, {len(screened_out)} screened out")
 
     conf41 = [c for r in d41["loop_rounds"] for c in r["reviewed"] if t41[c]["confirmed"]]
+    extra = {
+        Path(d).name: [t for t in load_jsonl(Path(d) / "reviewed_topics.jsonl") if t["confirmed"]]
+        for d in config.extra_arms
+    }
     info = {
+        **{t["cluster"]: (t["name"], t["description"]) for ts in extra.values() for t in ts},
         **{c: (t41[c]["name"], t41[c]["description"]) for c in conf41},
         **{c: (names[c].get("name"), names[c].get("description")) for c in conf},
     }
-    pooled = sorted(set(conf) | set(conf41))
+    pooled = sorted(set(conf) | set(conf41) | {t["cluster"] for ts in extra.values() for t in ts})
     perm = rng.permutation(len(pooled))
     alias = {f"t{j}": pooled[i] for j, i in enumerate(perm)}
     listing = "\n".join(f"{a}: {info[c][0]} - {info[c][1]}" for a, c in alias.items())
@@ -203,7 +229,11 @@ def main():
     grouped = {c for g in groups for c in g}
     # a topic the judge left out counts as its own theme so no arm loses it
     groups += [[c] for c in pooled if c not in grouped]
-    arms = {"theme_skip": conf, "similarity_skip_exp41": conf41}
+    arms = {
+        "theme_skip": conf,
+        "similarity_skip_exp41": conf41,
+        **{a: [t["cluster"] for t in ts] for a, ts in extra.items()},
+    }
     n = {a: sum(any(c in set(cf) for c in g) for g in groups) for a, cf in arms.items()}
 
     def merge(cf: list[int]) -> int:

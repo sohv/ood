@@ -2260,3 +2260,21 @@ nothing changed). v2's blind grouping reply held two JSON objects (an answer, th
 and a corrected answer); the parser took the span across both, failed, and the fallback counted every topic as its own
 theme, so v2's primary measure is void. Fix: parse the last complete JSON object in a reply. v3 replays v2's cached replies,
 so the loop and the grouping reply are identical; nothing else changes.
+
+## 22-10-2026 — exp46: specific-request screening in the gap loop, against exp41's similarity skip
+
+Written before any exp46 code runs. exp45's broad-theme screen removed all jailbreak repeats but lost 8 of 40 broad themes
+(distinct gaps lumped into found themes). This run changes only the screen: it is shown the found gaps themselves (name and
+description of every confirmed topic so far) instead of broad theme names, and asked to list a candidate only if its prompts
+are the same specific kind of request as one found gap, not merely the same broad area. Everything else is exp45's v3 code:
+ranking, confirmation, 20 rounds of 10, 40 candidates per screen, theme calls (reported only), retries.
+
+**Primary measure.** One blind LLM grouping over the pooled, shuffled confirmed topics of exp46, exp41 and exp45 v3 (no arm
+shown, exp45's definition of broad); distinct themes per arm = groups containing one of its topics.
+**Bars.** Specific screen adds: themes(exp46) >= 1.2 x themes(exp41). Adds nothing: <= 1.05 x themes(exp41). Otherwise
+ambiguous.
+**Reported, no bar.** exp45's themes in the same grouping; jailbreak-named and sexual/erotic-named confirmed topics per arm
+(exp41 17 and 17, exp45 0 and 3); topics screened out; the round at which the loop runs out of topics over the line;
+centroid 0.70 counts.
+
+**Seeds and caveats.** As exp45. The grouping judge is the same model family as the screen, blind to arm.

@@ -10,6 +10,15 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 22-10-2026 — exp46: specific-request screening in the gap loop (stopped, incomplete)
+
+**Question.** If the screen skips a topic only when it is the same specific request as a found gap, does the loop keep exp45's repeat removal without losing distinct themes?
+**Hyperparameters.** exp45's loop with the screen shown the found gaps (name and description) and told to skip only the same specific kind of request; claude-sonnet-4.6; seed 0.
+**Datasets.** exp37's 992,933 WildChat and LMSYS first turns against 1,710,578 Dolci SFT and DPO first turns.
+**Result.** I stopped the run after 3 of 20 rounds. It had confirmed 27 gaps but already screened out 227 topics, against 72 for exp45's broad screen at the same point, so the narrower wording made the screen skip more, not less. v1 crashed on a call that returned empty six times; v2 made such calls non-fatal, then hung for 50 minutes on a request with no timeout, and I stopped it. One screening call failed every attempt and removed nothing. No bar was evaluated.
+**Output:** results/raw/261022_exp46_specific_screen_v2/run.log
+**Verdict:** discard LLM screening during the loop; keep exp41's loop and group its found gaps into themes once, after the run.
+
 ## 22-10-2026 — exp45: LLM theme-level skipping in the neighbour-count gap loop, against exp41's similarity skip
 
 **Question.** If an LLM sorts found gaps into broad themes and screens out upcoming topics that belong to a found theme, does the loop find more distinct broad themes in 200 looks than exp41's similarity skip?
