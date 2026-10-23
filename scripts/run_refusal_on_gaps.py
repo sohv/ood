@@ -1,6 +1,5 @@
 # exp52: refusal rate on gap topics against controls drawn per covered topic, then unjustified refusals by the user's harm labels.
 # uv run -m scripts.run_refusal_on_gaps --run_dir results/raw/261022_exp52_refusal_v1 --rollouts_dir results/raw/261022_exp52_rollouts_v1 --pool_path data/processed/exp52/prompts.jsonl --items_dir data/processed/human_labels_exp52 --seed 0
-# after labelling: add --labels_dir <dump>/labels --resume_from results/raw/261022_exp52_refusal_v1 with a new --run_dir
 
 import asyncio
 import json
