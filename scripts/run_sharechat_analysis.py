@@ -132,7 +132,7 @@ def main():
     assert feats["sharechat"]["ids"].tolist() == [r["id"] for r in pool], "feature rows misaligned with pool"
     li = feats["idfit"]["layers"].tolist().index(config.layer)
     x = {n: f[config.pooling][:, li].astype(np.float32) for n, f in feats.items()}
-    stored = np.load(hf_hub_download("sohv/ood", "runs/exp01_repro/features/idfit.npz", repo_type="dataset"))
+    stored = np.load(hf_hub_download("detectood/ood", "results/raw/261018_exp01_repro_v1/features/idfit.npz", repo_type="dataset"))
     # exp01 stored no layers field; it used the module default LAYERS
     assert stored[config.pooling].shape[1] == len(LAYERS), "unexpected layer count in exp01 features"
     stored_x = stored[config.pooling][:, LAYERS.index(config.layer)].astype(np.float32)
