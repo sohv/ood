@@ -74,6 +74,7 @@ class AutoraterConfig:
     n_heldout: int = 2000
     max_concurrent: int = 16
     n_examples: int = 5
+    num_tasks: int | None = None
 
 
 def parse(reply: str | None) -> tuple[float | None, str | None]:
@@ -141,6 +142,9 @@ def main():
     n_removed = int((~keep).sum())
     assert n_removed == sum(d44["mix_rows_removed"].values()), (n_removed, d44["mix_rows_removed"])
     LOGGER.info(f"planted {planted}, removed {n_removed} mix rows")
+    if config.num_tasks:
+        # smoke runs score only the first topics; the planted count is then meaningless and said so by n_scored
+        ranked, ratio37 = ranked[: config.num_tasks], ratio37[: config.num_tasks]
 
     # exp55's held-out mix rows leave the full mix for the negative-example scoring
     e55 = json.loads((Path(config.exp55_dir) / "config.json").read_text())
@@ -263,7 +267,7 @@ def main():
             if setting.endswith("full"):
                 y = [1 if human[c] == "real_gap" else 0 for c in sub if human[c] != "partly"]
                 s = [sub[c] for c in sub if human[c] != "partly"]
-                entry["label_auc"] = float(roc_auc_score(y, s))
+                entry["label_auc"] = float(roc_auc_score(y, s)) if len(set(y)) == 2 else None
                 entry["disagreements"] = sorted(
                     (
                         {
@@ -309,7 +313,7 @@ def main():
     per_variant = {}
     for v in ("A", "B"):
         n_pl = results[f"flash_{v}_ablated"]["planted_in_top"]
-        auc = results[f"flash_{v}_full"]["label_auc"]
+        auc = results[f"flash_{v}_full"]["label_auc"] or 0.0
         per_variant[v] = {
             "planted_in_top_293": n_pl,
             "planted": planted_verdict(n_pl),
