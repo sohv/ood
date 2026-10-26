@@ -1,6 +1,9 @@
 # loaders for exp06: a multilingual wildchat deployment pool and gap / control needle banks.
 
 import json
+import os
+import re
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -74,12 +77,20 @@ def sample_non_members(texts: list[str], index: MembershipIndex, n: int, seed: i
 
 
 def lmsys_first_turns(shards: list[int], token: str) -> list[dict]:
-    files = sorted(
-        f
-        for f in HfApi(token=token).list_repo_files("lmsys/lmsys-chat-1m", repo_type="dataset")
-        if f.endswith(".parquet")
-    )
-    paths = [hf_hub_download("lmsys/lmsys-chat-1m", files[i], repo_type="dataset", token=token) for i in shards]
+    if os.environ.get("HF_HUB_OFFLINE") == "1":
+        # offline: the hub cannot be listed, so the shard files come from the local snapshot
+        home = Path(os.environ.get("HF_HOME", Path.home() / ".cache" / "huggingface"))
+        snaps = home / "hub" / "datasets--lmsys--lmsys-chat-1m" / "snapshots"
+        files = [p.relative_to(s).as_posix() for s in snaps.iterdir() for p in s.rglob("*.parquet")]
+    else:
+        files = [
+            f
+            for f in HfApi(token=token).list_repo_files("lmsys/lmsys-chat-1m", repo_type="dataset")
+            if f.endswith(".parquet")
+        ]
+    # shard i is the file named train-0000i-of-..., which is also position i in the sorted hub listing
+    by_index = {int(re.search(r"train-(\d{5})-of", f).group(1)): f for f in files}
+    paths = [hf_hub_download("lmsys/lmsys-chat-1m", by_index[i], repo_type="dataset", token=token) for i in shards]
     df = pd.concat([pd.read_parquet(p, columns=["conversation", "language"]) for p in paths], ignore_index=True)
     df["text"] = (
         df["conversation"].map(lambda c: next((m["content"] for m in c if m["role"] == "user"), "")).str.strip()

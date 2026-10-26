@@ -2493,3 +2493,64 @@ user-harmful held-out prompts per model; XSTest safe refusal; the teacher's refu
 prompts; failed grades.
 **Caveats.** One labeller, one seed; target topics are a subset of exp53's, chosen by the user after seeing exp53's result
 (not after seeing any exp54 model output).
+
+## 26-10-2026 — exp55: an in-distribution eval set for the gap search: negative examples that must not be flagged, and cluster ground truth for precision at K
+
+Written before any exp55 embedding, ratio or assignment exists. Stefan's review (22-10) said the search has no eval
+set: every topic it was tested on was a candidate gap, so a method that flags everything would look good, and the only
+precision number is one hand-labelled sample of 30. This run builds the two halves he asked for. Negatives: prompts
+of the same kind as a Dolci source but from a dataset Olmo never trained on, which a coverage search must leave
+unflagged. Ground truth: a membership label for every one of exp37's 2,000 topics, by how much of the topic is mix
+rather than traffic, so precision can be drawn against depth for the whole ranking.
+
+**Score and line.** exp37's neighbour count: for a query prompt, its 50 nearest neighbours among traffic T and mix M
+together, ratio ((traffic + 1) / |T|) / ((mix + 1) / |M|), self and exact copies excluded (MiniLM rev e8f8c211,
+1,000-character cut). A prompt is flagged if its ratio is at or above exp41's gap line, 11.63 (3 times the median
+ratio of a random 500-prompt subset). Nothing about the score or the line changes.
+
+**Item 1, negative examples.** Each set is embedded, and every prompt in it is scored as a single new arrival: T is
+the full traffic pool (992,933) and M is the mix (1,710,578) minus the held-out rows below, so a set's own members are
+never each other's neighbours. Sets, 300 to 500 prompts each, all from sources outside Dolci:
+- code_other: Magicoder-OSS-Instruct prompts (exp08's file). Dolci has Python Algorithms, Evol CodeAlpaca, Persona Python.
+- multilingual_other: Bactrian-X prompts (exp08's file). Dolci has Aya.
+- tool_other: Hermes function-calling prompts without their tool list (exp13's file). Dolci has 227,579 Tool Use rows.
+- safety_other: the 450 XSTest v2 prompts, safe and unsafe (data/raw/xstest). Dolci has WildGuardMix, WildJailbreak, CoCoNot.
+- maths_other: GSM8K test questions, the local copy exp27 used, if present; dropped and said so otherwise. Dolci has
+  Persona MATH, Persona GSM, OpenMathInstruct 2.
+References scored the same way: heldout_mix, 2,000 mix prompts drawn at random (seed 0) and removed from M before
+scoring; heldout_traffic, 2,000 traffic prompts drawn at random (seed 0) and removed from T before scoring; and the
+positive controls legal and medical (exp06's 300-prompt banks), which the mix lacks. Per set: flag rate, median ratio,
+90th percentile, share at the ratio ceiling, and the share whose nearest mix prompt has cosine at least 0.95
+(near-duplicates). Five prompts per set with their ratios are written out for the raw-output check.
+Bars. Validity first: heldout_traffic must be flagged at least 3 times as often as heldout_mix, or the measure does not
+separate traffic from mix and no verdict follows. Then per negative set: passes if its flag rate is at most
+heldout_mix's plus 0.05 and at most half of heldout_traffic's; fails if its flag rate is at or above
+heldout_traffic's, meaning the search reacts to the source rather than to coverage for that kind; otherwise ambiguous.
+legal and medical are reported with no bar; the expectation is that they are flagged more often than heldout_mix.
+
+**Item 2, cluster ground truth and precision at K.** exp37's 2,000 k-means labels over the traffic pool are kept. Each
+cluster's centroid is the normalised mean of its members' embeddings; every mix prompt is assigned to its nearest
+centroid. For a cluster with n_t traffic members and n_m assigned mix prompts, the mix share is
+s = (n_m / |M|) / (n_m / |M| + n_t / |T|), so s = 0.5 means the topic is equally common in both. Labels at three
+thresholds tau in {0.05, 0.10, 0.20}: deployment_only if s <= tau, mix_only if s >= 1 - tau, shared otherwise. The
+headline threshold is tau = 0.10, named now. Precision at K is the share of deployment_only clusters among the top K of
+exp37's ranking (the ratio with its tie-break), for K in {10, 20, 50, 100, 200, 293}, at each tau.
+Validation against the human: the 58 topics the user labelled in exp41 and exp43 (real gap / partly covered /
+covered). Agreement at tau = 0.10 counts real gap matched by deployment_only and covered matched by shared or
+mix_only; partly covered is reported but not scored.
+Bars. The ground truth is valid if agreement is at least 0.70 on the labelled topics that are not partly covered;
+otherwise precision is reported as unvalidated and carries no verdict. If valid: the ranking is "usable by Stefan's
+line" if precision at K = 100 is at least 0.50 at tau = 0.10, "not usable" if below 0.30, otherwise ambiguous.
+Stability, reported: the number of deployment_only clusters at tau = 0.05 and 0.20 must be within a factor of 2 of the
+count at 0.10, or the labels are called threshold-sensitive. Also reported, no bar: Spearman correlation between the
+cluster ratio and 1 - s over the 1,998 ranked clusters.
+
+**Caveat written now.** The ground truth and the score come from the same embeddings, so item 2 checks that the
+ranking agrees with a direct count of mix membership, not that both agree with a person; the human agreement check
+is what connects them to a person. A chat_other set (Dolly-style general instructions) was planned and is dropped
+because the hub was unreachable from this box at run time; it is noted in the log if that remains true.
+
+**Seeds and stopping.** One draw of the held-out sets, seed 0; k-means labels and ranking are exp37's as saved. No
+LLM calls. No extra seeds planned. Sanity checks written into the results: |T| = 992,933 and |M| = 1,710,578 after
+loading; held-out rows are absent from the sides they were removed from; every negative set has at least 250 rows;
+the 58 labelled topic ids all map to ranked clusters; the mix assignment covers every mix prompt exactly once.
