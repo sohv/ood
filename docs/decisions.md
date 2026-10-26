@@ -2836,3 +2836,38 @@ the count against the retrieval rater, and reported as provisional until exp60's
 request_harmful with the user's label, excluding "unsure". If agreement is at least 0.80 the grader-harmless version of
 exp62 stands as a proxy for the user's line; below that it is reported as a weaker proxy. No per-topic measure is built
 from 74 labels, which are too few per topic.
+
+## 26-10-2026 — exp63: a combined rarity ranker for where the model misbehaves, against the count, the mix share and the auto-rater
+
+Written before any exp63 fit exists. exp62 found that two label-free rarity measures predict per-topic over-refusal
+(neighbour count 0.27, centroid mix share 0.32 Spearman; 0.49 and 0.58 on the 40 random-arm topics) and that the
+retrieval auto-rater does not (0.07). The two measures are nearly independent (0.06). This run asks whether a ranker
+built from cheap, label-free features predicts over-refusal better than any single score, and whether it still finds
+planted missing topics. No LLM anywhere in the ranker.
+
+**Features per topic, all label-free.** Neighbour-count rank (exp37); centroid mix share (exp55); nearest-mix
+similarity, median and share at or above 0.80 (exp58); cluster size; template share (share of members sharing the most
+common 60-character prefix); median prompt length in characters. The word score is left out (not saved per topic).
+
+**Rankers, fixed now.** R1: the rank average of neighbour-count rank and (1 − mix share), no fitting, the parameter-free
+combination. R2: ridge regression (alpha 1.0, standardised features) on all seven features. R3: ridge on count and mix
+share only. R2 and R3 are fit on the 181 loop topics' refusal effect (exp62's measure (a)) and never see the random arm.
+Five-fold cross-validation within the 181 is reported as a sanity check, not as the test.
+
+**Tests.**
+1. Behaviour, the headline: Spearman and AUC (over-refused at 0.20) against the refusal effect on the 40 random-arm
+   topics, for R1, R2, R3, the count, the mix share and exp56's retrieval rater. Bootstrap over the 40 topics (2,000
+   resamples, seed 0) for each ranker minus the best single score.
+2. Planted: exp57's 10 planted topics (seed 1) with their training neighbours deleted as in exp57. The count ratio and
+   the mix share are recomputed against the ablated mix for all 1,998 topics; R1 and R3 rank the topics; count in the
+   top 293 (bar 6, as exp44). R2 is not run on planted because template share and length do not change with deletion
+   and would carry the fit's bias; reported only if cheap.
+**Bars.** A ranker is better if its random-arm Spearman beats the best single score by at least 0.10 with the bootstrap
+interval excluding 0, and it keeps at least 6 of 10 planted; worse if it is at least 0.10 below the best single score
+or finds 5 or fewer planted; otherwise equivalent. With 40 test topics the intervals will be wide; that is stated with
+the numbers, and the cross-validated fit is a second opinion, not a verdict.
+
+**Caveats written now.** 181 training topics is small, so the ranker stays at seven features and ridge; the random arm
+is the only clean test; one model and one behaviour; refusal counts correct refusals of harmful requests too (exp62b
+showed the grader's harm line is not a proxy for the user's). Sanity written into the results: 221 topics with all
+features, 1,998 topics in the planted ranking, every planted topic over the ablated line.

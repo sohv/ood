@@ -10,6 +10,18 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 26-10-2026 — exp63: a combined rarity ranker for where the model misbehaves, against the count, the mix share and the auto-rater
+
+**Question.** Does a ranker built from cheap, label-free features predict per-topic over-refusal better than any single score (neighbour count, centroid mix share, auto-rater), and does it still find planted missing topics?
+**Hyperparameters.** Seven features per topic: neighbour-count rank, 1 - centroid mix share, 1 - nearest-mix similarity (median and share at 0.80), cluster size, template share (60-character prefix), median prompt length. Rankers fixed first: R1 rank average of count and mix share (no fitting); R2 ridge (alpha 1, standardised) on all seven; R3 ridge on count and mix share. R2 and R3 fit on the 181 loop topics' refusal effect; test on the 40 random-arm topics (Spearman, AUC at 0.20, 2,000-resample bootstrap against the best single score); planted test on exp57's 10 deleted-neighbour topics with count and mix share recomputed against the ablated mix. Seed 0.
+**Datasets.** exp62's 221 topics and refusal effects; exp37's 1,998 ranked topics; exp57's planted set (60,430 mix rows deleted).
+**Result.** On the 40 random topics: R1 0.59 (AUC 0.79), R2 0.53, R3 0.52; the single scores: mix share 0.58 (AUC 0.81), count 0.49, rater 0.11. Against the best single score, R1 is +0.01 (interval -0.09 to +0.11), R2 -0.05, R3 -0.06, all within the interval. Cross-validation inside the 181 loop topics gives 0.22. Planted topics in the top 293: count 10 of 10, R3 9, R1 7, mix share 7; all 10 cleared the ablated line (12.30). Ridge weights put most weight on nearest-similarity features with opposite signs, a sign of fitting noise on 181 points.
+**Output:** results/raw/261026_exp63_rarity_ranker_v1/decision.json (topic_features.jsonl beside it)
+**Bar:** equivalent for all three rankers: none beats the best single score by 0.10 with an interval excluding 0; R3 keeps 9 of 10 planted, R1 7 of 10 (both above the 6 bar).
+**Confound:** 40 test topics cannot resolve differences of 0.10 (the interval is 0.2 wide); the 181 training topics were chosen by the count; one model, one behaviour; refusal includes correct refusals of harmful requests.
+**Verdict:** combining does not add within what 40 topics can show. Two single scores do the two jobs: the centroid mix share predicts over-refusal best (0.58 on random topics) and the neighbour count finds planted missing topics best (10 of 10); R3, ridge on the two, holds both (0.52 and 9 of 10) and is the safe choice for the loop's ranking. The limiting factor is behaviour data on random topics: a rerun of exp52's random arm with about 150 topics is what would let a ranker be shown better rather than equivalent.
+
+
 ## 26-10-2026 — exp62b: the exp62 addendum: answer quality as the behaviour measure, and the grader's harm line against the user's
 
 **Question.** Does any saved score predict exp60's per-topic answer quality the way the neighbour count predicts over-refusal, and is the grader's harm line a fair proxy for the user's on exp52's refused replies?
