@@ -43,6 +43,7 @@ do not improvise a format from the entries below.
 **Bar:** quality: neither predicts (best |rho| 0.07 against the 0.20 floor), provisional. Harm line: proxy fails (0.61 against 0.80).
 **Confound:** exp60's judge is not yet validated; answer quality is measured only on prompts the grader called harmless and Olmo answered, which removes the refusal cases where the behaviour difference lives; small n per topic.
 **Verdict:** the misbehaviour that rarity predicts is over-refusal, not worse answers; report exp62 as a refusal result. Drop the grader-harmless variant from the headline and ask the user for harm labels only where a claim depends on them.
+**Amendment, 26-10-2026 (after exp60's judge check).** exp60's judge agreed with the user on 8 of 20 pairs against a bar of 14, with a first-position bias, so by exp60's pre-registration its quality numbers are reported but not interpreted. The answer-quality part of this entry is therefore invalid, not a null result: nothing can be said about whether rarity predicts answer quality. The harm-line check (0.61) stands.
 
 
 ## 26-10-2026 — exp62: which score predicts where the model misbehaves: the neighbour count, the auto-rater, or neither
