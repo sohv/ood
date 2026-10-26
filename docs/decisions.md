@@ -2554,3 +2554,56 @@ because the hub was unreachable from this box at run time; it is noted in the lo
 LLM calls. No extra seeds planned. Sanity checks written into the results: |T| = 992,933 and |M| = 1,710,578 after
 loading; held-out rows are absent from the sides they were removed from; every negative set has at least 250 rows;
 the 58 labelled topic ids all map to ranked clusters; the mix assignment covers every mix prompt exactly once.
+
+## 26-10-2026 — exp56: an LLM auto-rater as the gap finder, against the neighbour count
+
+Written before any exp56 call exists. Stefan's hard baseline (22-10): an OOD tool is only worth having if it adds
+something an LLM auto-rater does not; the direct test is to replace the neighbour count with an auto-rater asked
+whether a prompt is out of distribution relative to training prompts, and compare on the same evaluations. exp21's
+blind judge was not this test: it asked a different question (is this topic missing from the mix?) and had no
+ground truth to be scored against. This run scores an auto-rater on the three things the neighbour count has been
+scored on: the planted test (exp44 v2), the user's 58 hand labels (exp41, exp43), and exp55's negative examples.
+
+**Auto-rater.** `google/gemini-3.8-flash` through OpenRouter, the project's judge model and Stefan's "Flash" example;
+`anthropic/claude-sonnet-4.6` on the planted test and the labelled topics only, reported with no bar. One call per
+topic. The topic is shown as 10 member prompts drawn at random (seed 0, first 300 characters each). Two variants:
+- A, no retrieval: the 10 prompts plus 50 training prompts drawn at random from the mix; asked how well training
+  data like the 50 examples covers requests like the 10.
+- B, retrieval: the 10 prompts, each paired with its nearest mix prompt by MiniLM cosine; asked the same question.
+The reply is a JSON with `coverage` from 0 (nothing like this in training) to 100 (fully covered) and a label
+COVERED / PARTLY / MISSING. The gap score is 100 minus coverage; ties are broken by seeded random jitter, never by
+the neighbour count. Calls go through the cached naming helper (3 attempts, md5 cache); a topic whose call fails
+three times is scored as unknown and counted, never dropped silently.
+
+**Evaluations, identical to the neighbour count's.**
+1. Planted (exp44 v2): the 10 planted topics (383, 423, 618, 701, 791, 862, 929, 1053, 1572, 1665) with the same
+   61,769 mix rows deleted (every mix row among the 50 MiniLM nearest neighbours of a planted prompt), all 1,998
+   ranked topics scored against the ablated mix, ranked by gap score. Count of planted topics in the top 293.
+2. Labels: the 58 user-labelled topics scored against the full mix; AUC of gap score for real gap against covered
+   (partly left out). Reference values: neighbour count 0.56, word score 0.67, bge-m3 neighbour count 0.63.
+3. Negatives (exp55's sets, 10-prompt groups, 50 groups per set, 30 for legal and medical, 50 each for held-out mix
+   and held-out traffic), variant B against the full mix minus the held-out mix rows; a group is flagged if its label
+   is MISSING. Flag rate per set against held-out mix and held-out traffic.
+4. Orthogonality, reported: Spearman between the auto-rater gap score and exp37's neighbour ratio over the 1,998
+   ranked topics, per variant; and on the 58 labelled topics, the user's label where the two scores disagree most.
+
+**Bars.** Per variant of the Flash rater:
+- Planted: finds if at least 6 of 10 planted topics are in the top 293 (exp44's bar); fails if 2 or fewer; otherwise
+  ambiguous. The neighbour count has 10 of 10 (exp44 v2, exp47).
+- Labels: matches the neighbour count if AUC is at least 0.56; beats it if at least 0.66 (the 0.10 margin of exp51).
+- Negatives: valid if held-out traffic groups are flagged at least 3 times as often as held-out mix groups; each
+  negative set passes if flagged at most 0.05 above held-out mix and at most half of held-out traffic.
+- Verdict: "auto-rater is enough" if the better Flash variant finds at least 8 of 10 planted (the neighbour count's
+  10 minus exp44's slack of 2), matches on labels and passes all negatives; "neighbour count adds" if the better
+  variant fails or is ambiguous on planted; otherwise "mixed", with each part stated.
+- Orthogonality has no bar; a Spearman below 0.5 is reported as "weakly correlated", which is what Stefan wants of a
+  tool meant to complement auto-raters.
+
+**Cost and stopping.** About 2 x 1,998 topic calls per Flash variant for the planted setting plus 2 x 1,998 for the
+full mix, about 400 negative-group calls, and 2 x 58 plus 1,998 Sonnet calls: roughly 10,000 calls, about $15 to
+$25. One seed for the prompt samples and jitter. No reruns beyond failed calls. Sanity checks written into the
+results: 1,998 scored topics per setting, planted set and deleted-row count equal to exp44 v2's, every labelled
+topic scored, the failed-call count per setting, five raw rater replies per setting saved for reading.
+
+**Blocked at writing time.** The OpenRouter key in `.env` expired (every model returns 401); the run starts once it is
+renewed. Nothing in the design depends on that.
