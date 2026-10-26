@@ -5,6 +5,7 @@ import asyncio
 import json
 import logging
 import os
+import shutil
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -40,6 +41,8 @@ class FixEvalConfig:
     safety_slack: float = 0.10
     # exp54: the user's held-out harm labels (files f54h_<prompt id>.json, field harmful) replace the grader's harm filter
     harm_labels: str = ""
+    # a finished run whose grade cache is replayed, so the labelled rerun makes no new grading calls
+    resume_from: str = ""
 
 
 def main():
@@ -53,6 +56,8 @@ def main():
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
+    if config.resume_from:
+        shutil.copytree(Path(config.resume_from) / "grade_cache", run / "grade_cache")
 
     test = {t["id"]: t for t in load_jsonl(Path(config.test_path))}
     dirs = {"base": config.base_dir, "gap": config.gap_dir, "control": config.control_dir}

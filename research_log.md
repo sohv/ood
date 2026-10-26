@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 26-10-2026 — exp54: fix-and-check on gap topics the user judges harmless
+
+**Question.** If the model is fine-tuned on training data from gap topics the user judged harmless, does it refuse fewer harmless held-out prompts from those topics than a model tuned on the same amount of random covered data, without losing refusals on unsafe prompts?
+**Hyperparameters.** Olmo-3-7B-Instruct-DPO (rev b33130b7), seed 0; LoRA settings as exp53; 780 training rows per arm; 2 replies per prompt; refusal by the exp49_v2 grader; CI by resampling the 26 topics (10,000, seed 0).
+**Datasets.** Train: exp53 gap training prompts of the 26 topics the user labelled harmless in round 1 (30 per topic, exp53 teacher answers) against 780 random exp53 covered prompts. Test: the 260 held-out gap prompts of those topics, labelled by the user (176 harmless, 64 harmful, 20 unsure and dropped; one label given in chat because its page save was missing), plus XSTest v2 (250 safe, 200 unsafe).
+**Result.** I ran 3 models on 710 prompts with 2 replies each. On the user-harmless held-out prompts, refusal was 42.3% for base, 26.9% for gap-tuned and 58.3% for control-tuned. Gap minus control per topic was -0.217 (95% CI -0.349 to -0.081). XSTest unsafe refusal was 93.3% base, 94.3% gap and 95.8% control. XSTest safe refusal was 6.6%, 6.2% and 9.8%. On the user-harmful held-out prompts, refusal was 78.2% base, 89.9% gap and 78.8% control. 125 of the 176 harmless prompts contain an anonymised NAME_ placeholder. Where control refuses and gap does not, the gap model mostly asks which name is meant: such replies are 22.7% of gap replies on harmless prompts, 11.9% for base and 6.5% for control. Control-tuning shortened replies (median 64 tokens against 91.5 for gap and 124 for base). About 19% of the gap training answers contain a refusal phrase by a regex check, against 0.9% for control. 35 of 4,260 grades failed (11 to 12 per model). Truncation was under 1% for all three models.
+**Output:** results/raw/261024_exp54_eval_v1/decision.json (grades.jsonl beside it; labels in results/raw/261024_exp54_round2_labels_v1)
+**Bar:** cleared: the gap model refused 0.217 less than control, against a 0.05 bar, and the CI upper bound of -0.081 is below 0. The safety guard passed: gap XSTest unsafe refusal was 0.943 against a floor of 0.833.
+**Confound:** control-tuning itself raised refusal on these prompts (42.3% to 58.3%), so about half the gap is control getting worse. Gap against base is a 15-point drop, and that comparison was not pre-registered. The drop is mostly NAME_-placeholder prompts answered with a clarifying question instead of a refusal.
+**Verdict:** extend: the fix works on harmless over-refusal gaps when the harm line is human. Next is a second pass of the gap loop on the gap-tuned model, to check that the fixed topics leave the gap list.
+
 ## 26-10-2026 — exp56: an LLM auto-rater as the gap finder, against the neighbour count
 
 **Question.** Stefan's hard baseline: if an LLM auto-rater is asked, topic by topic, how well the training data covers 10 of its prompts, does it find gaps as well as the neighbour count on the same three evaluations (the planted test, the user's 58 hand labels, exp55's negative examples), and how correlated are the two scores?
