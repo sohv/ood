@@ -2720,3 +2720,70 @@ confirmed in the gap arm but not in the none arm.
 **Not analysed.** Spillover to neighbouring topics, which belongs to the other session's sibling test.
 **Cost and stopping.** Three kNN passes on one GPU and new namer calls only for topics exp41 never reached (under
 $5). One seed. No rerun on a different number of added rows inside this experiment.
+
+## 26-10-2026 — exp60: answer quality on gap topics: OLMo against a reference answer, judged pairwise
+
+Written before any exp60 reference answer or judgement exists. exp52 showed more refusals in gap topics. This run asks
+whether the answers OLMo does give there are also worse. exp50's absolute "task done well" grade failed the user's check
+(agreed on 1 of 13), so this run compares answers pairwise against a stronger model's answer to the same prompt, which
+also controls for how hard a prompt is.
+**Prompts.** exp52's pool and its OLMo replies (Olmo-3-7B-Instruct-DPO rev b33130b7, rollout r0). Gap arm: 181 gap
+topics, 5 members each, every member paired with a covered-topic control (exp52's matching). Random arm: 40 random
+topics built the same way, as the negative control. Kept: prompts whose two exp52 grades both say request_harmful = no
+(validated, F1 0.95) and whose two OLMo replies are neither refusals nor truncated, so quality is measured apart from
+refusal. Expected: about 606 gap members, 772 gap controls, 163 random members and 175 random controls.
+**Reference.** anthropic/claude-sonnet-4.6 via OpenRouter, one answer per prompt, no system prompt, default settings.
+**Judge.** openai/gpt-4.1 via OpenRouter: a different provider from both answers. It sees the prompt and two answers,
+labelled A and B, and is asked which serves the user better (A, B or tie), told to ignore length and style unless they
+matter to the user. Each pair is judged twice with the order swapped. A prompt's OLMo loss is the mean over the two
+orders of 1 (reference better), 0.5 (tie) or 0 (OLMo better). Failed calls are retried once from the cache and then
+recorded as failures and dropped, with the count per arm reported.
+**Primary.** For each topic, the mean OLMo loss over members minus the mean over their controls; then the mean over
+topics, with a 95% CI from resampling topics (10,000, seed 0). Topics with no kept member or no kept control are dropped
+and counted.
+**Bars.** Worse in gaps: gap effect at least 0.05 with CI lower bound above 0, and the random-arm CI includes 0. Not
+worse: gap CI upper bound below 0.05. Otherwise ambiguous.
+**Judge check (validity).** The user labels 20 pairs blind to arm and model: 10 gap members and 10 gap controls drawn
+at random (seed 0), order shuffled, asking which answer is better (A, B or tie). The judge's call per pair is its
+majority over the two orders, a tie when they disagree. Valid if it agrees with the user on at least 14 of 20. If not,
+the primary is reported but not interpreted.
+**Reported, no bar.** OLMo loss per arm and role; median reply length (characters) of OLMo and the reference per arm;
+the share of pairs where the two orders disagree; reference refusals by keyword; three raw pairs per arm.
+**Confounds named in advance.** The judge may favour the longer reference answer, but that bias applies to both members
+and controls. Gap prompts may be odder for any model, which the reference comparison partly absorbs. One judge, one seed.
+
+## 26-10-2026 — exp61: precision at K from a stratified hand labelling, and a consistency relabel of the 58 topics
+
+Written before any topic is drawn. exp55 and exp58 showed that no rule-based label reaches 70% agreement with the
+user, so precision at K cannot be read off a proxy. The 30 exp41 labels already give the loop's output precision (19
+of 30 real, 0.63; 0.70 with partly covered), but they were sampled from confirmed gaps, not from positions in the
+ranking, so they say nothing about how precision falls with depth. This run asks the user for 20 new labels drawn by
+rank, and repeats the 58 earlier labels as a consistency check.
+
+**Sample.** exp37's ranking of 1,998 topics. Four bins by rank: 1 to 50, 51 to 100, 101 to 200, 201 to 293 (the last
+ends at the gap line). From each bin, 5 topics drawn at random (seed 0) among topics not in the 58 already labelled.
+The 58 earlier topics (exp41's 30, exp43's 28 distinct) are relabelled. All 78 items are shown in one shuffled order
+(seed 0), with the topic name and rank hidden; each shows 10 member prompts (seed 0, first 400 characters) next to
+their nearest mix prompt by MiniLM cosine with the similarity printed, the layout the user labelled with before. The
+58 relabel items reuse the exact prompts and nearest prompts shown in exp41 and exp43, so only the hidden name
+differs from the first round.
+
+**Labelling rule, the exp41 standard.** Look at the first 5 rows, count how many user prompts have a nearest training
+prompt that is the same kind of request: 0 or 1 matches is a real gap, 2 or 3 partly covered, 4 or 5 covered; "not
+one topic" if the prompts do not share a theme. One labeller, the user.
+
+**Measures.** Precision at depth: per bin, the share of the 5 topics labelled real gap (strict) and real gap or
+partly covered (lenient), each with a Wilson 95% interval; cumulative precision at K = 50, 100, 200, 293 by weighting
+bins by their size. Stefan's line is 0.50. Consistency: agreement of the relabel with the first labels on the 58,
+exact and with real gap and partly covered merged; Cohen's kappa reported.
+
+**Bars.** Stefan's line on the strict reading: usable at depth K if the cumulative strict precision at K is at least
+0.50 with the Wilson lower bound above 0.30; the depth at which that stops holding is the reported review budget. With
+5 topics per bin the intervals are wide, and that is stated with the numbers; no bar on the lenient reading. Consistency:
+if exact agreement on the 58 is below 0.70, the first-round labels and the new ones are both reported as noisy and the
+precision numbers carry wide-noise caveats; no relabelling beyond this round.
+
+**Not done.** No LLM judges the topics; no new ranking; nothing runs until the labels are in. Items are written to
+`data/processed/human_labels_exp61/topic_items.json` with the hidden key in the run directory. Sanity written into the
+results: 20 new topics across the four bins with no overlap with the 58; 78 items on the page; 78 labels saved as
+separate documents before analysis.
