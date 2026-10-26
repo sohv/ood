@@ -10,6 +10,18 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 26-10-2026 — exp62b: the exp62 addendum: answer quality as the behaviour measure, and the grader's harm line against the user's
+
+**Question.** Does any saved score predict exp60's per-topic answer quality the way the neighbour count predicts over-refusal, and is the grader's harm line a fair proxy for the user's on exp52's refused replies?
+**Hyperparameters.** exp62's scores and rules unchanged. Answer-quality effect per topic = Olmo's win rate against a Sonnet reference on topic prompts minus the same on matched controls (exp60's per_topic.jsonl, provisional until its judge check passes); topics with fewer than 3 judged member replies dropped. Harm line: the grader's request_harmful against the user's harmful label on the 74 exp52 refused replies, "unsure" excluded.
+**Datasets.** exp60's 221 topics (154 kept), exp52's 74 labelled refused replies (72 compared).
+**Result.** Nothing predicts answer quality: neighbour count -0.03, retrieval rater -0.02, no-retrieval rater +0.03, nearest similarity +0.03, mix share -0.01, cluster size +0.07, random -0.07; count minus rater -0.01 with interval -0.20 to 0.17. This matches exp60's own provisional finding that gap topics are not answered worse (gap minus control -0.007). The grader agrees with the user on 61% of 72 refused replies, below the 0.80 proxy bar, so exp62's harmless-only numbers rest on a harm line the user disputes on two in five replies; the headline refusal effect does not depend on the harm line.
+**Output:** results/raw/261026_exp62b_quality_predictors_v1/decision.json
+**Bar:** quality: neither predicts (best |rho| 0.07 against the 0.20 floor), provisional. Harm line: proxy fails (0.61 against 0.80).
+**Confound:** exp60's judge is not yet validated; answer quality is measured only on prompts the grader called harmless and Olmo answered, which removes the refusal cases where the behaviour difference lives; small n per topic.
+**Verdict:** the misbehaviour that rarity predicts is over-refusal, not worse answers; report exp62 as a refusal result. Drop the grader-harmless variant from the headline and ask the user for harm labels only where a claim depends on them.
+
+
 ## 26-10-2026 — exp62: which score predicts where the model misbehaves: the neighbour count, the auto-rater, or neither
 
 **Question.** The project's target is behaviour, not coverage. exp52 measured per-topic over-refusal for 221 topics. Does the neighbour count or the retrieval auto-rater's coverage score predict it better, and do either at all?

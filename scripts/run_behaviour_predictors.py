@@ -30,6 +30,10 @@ class BehaviourPredictorsConfig:
     exp56_dir: str = ""
     exp58_dir: str = ""
     exp55_dir: str = ""
+    exp60_per_topic: str = ""
+    exp52_labels_dir: str = ""
+    exp52_key: str = ""
+    min_judged: int = 3
     seed: int = 0
     over_refused: float = 0.20
     top_k: int = 50
@@ -145,6 +149,52 @@ def main():
     else:
         verdict = "equivalent"
 
+    # addendum: answer quality from exp60 (provisional) and the grader's harm line against the user's 74 labels
+    quality = {}
+    if config.exp60_per_topic:
+        q = {int(r["topic"]): r for r in load_jsonl(config.exp60_per_topic)}
+        kept = [c for c in topics if c in q and q[c]["n_member"] >= config.min_judged]
+        eff = np.array([q[c]["member_win"] - q[c]["control_win"] for c in kept])
+        quality["n_topics_kept"] = len(kept)
+        quality["scores"] = {}
+        for name in SCORES:
+            s = np.array([scores[name][c] for c in kept])
+            quality["scores"][name] = float(spearmanr(s, eff).statistic)
+        sc = np.array([scores["neighbour_count"][c] for c in kept])
+        sr = np.array([scores["rater_B"][c] for c in kept])
+        qd = []
+        for _ in range(config.n_boot):
+            idx = rng.integers(0, len(kept), len(kept))
+            qd.append(spearmanr(sc[idx], eff[idx]).statistic - spearmanr(sr[idx], eff[idx]).statistic)
+        qdiff = quality["scores"]["neighbour_count"] - quality["scores"]["rater_B"]
+        qlo, qhi = float(np.percentile(qd, 2.5)), float(np.percentile(qd, 97.5))
+        qbest = max(abs(quality["scores"]["neighbour_count"]), abs(quality["scores"]["rater_B"]))
+        quality["count_minus_rater"] = {"difference": qdiff, "ci95": [qlo, qhi]}
+        if qbest < config.floor:
+            quality["verdict"] = "neither_predicts_quality"
+        elif qdiff >= config.margin and qlo > 0:
+            quality["verdict"] = "count_beats_rater"
+        elif -qdiff >= config.margin and qhi < 0:
+            quality["verdict"] = "rater_beats_count"
+        else:
+            quality["verdict"] = "equivalent"
+        quality["provisional"] = True
+        for c in kept:
+            behaviour[c]["quality_effect"] = q[c]["member_win"] - q[c]["control_win"]
+    harm_check = {}
+    if config.exp52_labels_dir and config.exp52_key:
+        key = {k["id"]: k for k in json.loads(Path(config.exp52_key).read_text())}
+        grader = {g["id"]: g["grade"].get("request_harmful") for g in load_jsonl(config.exp52_grades) if g.get("grade")}
+        agree = n = 0
+        for f in sorted(Path(config.exp52_labels_dir).glob("e52_*.json")):
+            lab = json.loads(f.read_text()).get("harmful")
+            g = grader.get(key[f.stem]["reply_id"])
+            if lab not in ("yes", "no") or g not in ("yes", "no"):
+                continue
+            n += 1
+            agree += lab == g
+        harm_check = {"n_compared": n, "agreement": agree / max(1, n), "grader_is_proxy": agree / max(1, n) >= 0.80}
+
     write_jsonl(
         [
             {"id": f"c{c}", **behaviour[c], **{f"score_{n}": round(float(scores[n][c]), 4) for n in SCORES}}
@@ -157,6 +207,8 @@ def main():
         "verdict": verdict,
         "count_minus_rater_spearman_refusal": {"difference": d, "ci95": [lo, hi]},
         "results": results,
+        "quality_addendum": quality,
+        "harm_line_check": harm_check,
         "sanity": {
             "n_topics": len(topics),
             "grades_used": int(sum(v["n_member"] + v["n_control"] for v in behaviour.values())),
@@ -172,6 +224,16 @@ def main():
             print(
                 f"    {name:20s} rho_refusal {v['spearman_refusal']:+.3f} rho_harmless {v['spearman_harmless_refusal']:+.3f} auc {auc} p@{config.top_k} {v['precision_at_top']:.2f}"
             )
+    if quality:
+        print(
+            f"quality (provisional, {quality['n_topics_kept']} topics): {quality['verdict']}; "
+            + ", ".join(f"{k} {v:+.3f}" for k, v in quality["scores"].items())
+            + f"; count minus rater {quality['count_minus_rater']}"
+        )
+    if harm_check:
+        print(
+            f"harm line: grader agrees with the user on {harm_check['agreement']:.2f} of {harm_check['n_compared']}; proxy {harm_check['grader_is_proxy']}"
+        )
     print(f"decision written to {run / 'decision.json'}")
 
 

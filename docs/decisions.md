@@ -2823,3 +2823,16 @@ and the rater are reported as coverage tools, not behaviour finders. The random-
 by selection, which favours the rater on the all-221 and gap-arm subsets; the random arm has no such bias but is
 small. The grader's harm line, not the user's, defines (b). Sanity written into the results: 221 topics with 10
 member and 10 control grades each (minus the 20 failed grades exp52 reported), every topic found in all score files.
+
+**exp62 addendum, 26-10-2026, written before any exp62b number exists.** Two inputs arrived from ood-e3 after exp62
+ran: exp60's per-topic answer quality (results/raw/261026_exp60_quality_v1/per_topic.jsonl, Olmo's win rate against a
+Sonnet reference for topic prompts and matched controls, provisional until its judge check passes) and the user's 74
+harm labels on exp52's refused replies (results/raw/261023_exp52_labels_v1 with the key in
+data/processed/human_labels_exp52/key.json). exp62b reuses exp62's scores and rules on two more measures:
+(c) answer-quality effect = member win rate − control win rate per topic, with topics of fewer than 3 judged member
+replies dropped and the kept count reported; the same Spearman, bootstrap and 0.10 / 0.20 bars as exp62, applied to
+the count against the retrieval rater, and reported as provisional until exp60's judge check is in.
+(d) The grader's harm line against the user's: on the 74 labelled refused replies, agreement of the grader's
+request_harmful with the user's label, excluding "unsure". If agreement is at least 0.80 the grader-harmless version of
+exp62 stands as a proxy for the user's line; below that it is reported as a weaker proxy. No per-topic measure is built
+from 74 labels, which are too few per topic.
