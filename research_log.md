@@ -10,6 +10,18 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 26-10-2026 — exp62: which score predicts where the model misbehaves: the neighbour count, the auto-rater, or neither
+
+**Question.** The project's target is behaviour, not coverage. exp52 measured per-topic over-refusal for 221 topics. Does the neighbour count or the retrieval auto-rater's coverage score predict it better, and do either at all?
+**Hyperparameters.** No new calls or generations. Behaviour from exp52's grades: per topic, member refusal rate minus matched-control refusal rate (headline), and the same for requests the grader calls harmless; over-refused = effect at least 0.20. Scores read per topic: exp37's rank (the neighbour count), exp56's Flash rater variants B and A (full mix), 1 - exp58's nearest-mix similarity, 1 - exp55's centroid mix share, cluster size and a seeded random score. Spearman, AUC for over-refused, precision at 50; paired bootstrap over topics (2,000, seed 0) for count minus rater.
+**Datasets.** exp52's 221 topics (181 loop gap topics, 40 random), 10 member and 10 control grades each from Olmo-3 7B DPO replies; 4,400 grades.
+**Result.** 79 of 221 topics are over-refused (71 of 181 gap, 8 of 40 random). The neighbour count predicts the refusal effect at Spearman 0.27 (AUC 0.64, precision at 50 0.46); the retrieval rater at 0.07 (AUC 0.52, 0.30), no better than random (0.04, 0.51, 0.40); the no-retrieval rater 0.17. The count minus rater difference is 0.21 with a bootstrap 95% interval of 0.06 to 0.35. On the harmless-refusal effect the ordering is the same (count 0.22, rater 0.06). On the 40 random-arm topics, the only unbiased sample, the count reaches 0.49 and the rater 0.11. The strongest predictor is exp55's centroid mix share, the label that failed the human coverage check: 0.32 on all topics, 0.58 and AUC 0.81 on the random arm. Nearest similarity 0.16, cluster size 0.12. Sanity: 221 topics, 4,400 grades, every topic present in all score files.
+**Output:** results/raw/261026_exp62_behaviour_predictors_v1/decision.json (topics.jsonl beside it)
+**Bar:** count beats rater: difference 0.21 against a 0.10 margin with the interval excluding 0, and the count's 0.27 clears the 0.20 floor for "predicts behaviour at all".
+**Confound:** the refusal effect counts correct refusals of harmful requests as well as unjustified ones, though the grader-harmless version gives the same ordering; the 181 gap topics were chosen by the count, which attenuates its correlation there (0.19) relative to the random arm (0.49); the grader's harm line, not the user's; one model, one behaviour (refusal).
+**Verdict:** extend: how rare a topic is in the training data predicts where Olmo over-refuses, and an LLM's judgement of whether the topic is covered does not. The two label-free coverage measures that failed the human coverage check (mix share, then the count) are the two that predict behaviour, so "covered by a person's reading" and "the model has learned it" are different things, and the loop's score tracks the second. Next: the same test on exp60's answer-quality measure when it lands, and a combined rarity score (mix share plus count) as the loop's ranking, pre-registered on fresh behaviour data.
+
+
 ## 26-10-2026 — exp59: second pass of the gap loop after the exp54 fix
 
 **Question.** If the 780 exp54 fix prompts are added to the mix side, does the neighbour-count gap score stop flagging the 26 fixed topics, and what does the exp41 loop find on the rescored mix?

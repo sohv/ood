@@ -2787,3 +2787,39 @@ precision numbers carry wide-noise caveats; no relabelling beyond this round.
 `data/processed/human_labels_exp61/topic_items.json` with the hidden key in the run directory. Sanity written into the
 results: 20 new topics across the four bins with no overlap with the 58; 78 items on the page; 78 labels saved as
 separate documents before analysis.
+
+## 26-10-2026 — exp62: which score predicts where the model misbehaves: the neighbour count, the auto-rater, or neither
+
+Written before any exp62 number exists. exp56 and exp57 scored the neighbour count and the retrieval auto-rater on
+coverage: planted missing topics and the user's coverage labels. The project's target is behaviour, the topics where
+the model misbehaves, and exp52 measured that for 221 topics (181 loop gap topics and 40 random topics, 5 prompts
+each, 2 replies, one matched control prompt per member, refusal by the validated grader). Nobody has asked which score
+predicts it. No new generations or calls; everything is read from saved runs.
+
+**Units.** The exp52 topics. Per topic, from exp52's grades: member refusal rate (refusal full or partial), matched-
+control refusal rate, and the same two restricted to requests the grader calls harmless. Behaviour measures:
+(a) refusal effect = member rate − control rate, the headline; (b) harmless-refusal effect, the same for grader-harmless
+requests, reported. A topic is "over-refused" if (a) is at least 0.20, two extra refusals in ten replies, fixed now.
+
+**Scores, each read per topic from its saved run.** Neighbour count: exp37's cluster ratio, ties broken by exp37's
+rank (so the score is the rank, higher = rarer). Auto-rater: exp56's Flash variant B gap score against the full mix,
+and variant A. Nearest-mix similarity: 1 − exp58's sim_med. Centroid mix share: 1 − exp55's share. Dumb baselines:
+cluster size, and a seeded random score. Not available per topic without recomputation and left out: the word score
+and bge-m3.
+
+**Metrics.** Spearman of each score with (a) and with (b); AUC for over-refused; precision at 50 (share over-refused
+among the 50 top-scored topics). Three subsets: all 221; the 40 random-arm topics alone, which are the only unbiased
+sample of the ranking; the 181 gap-arm topics alone, where the count's range is restricted because they were chosen by
+it. Paired bootstrap over topics, 2,000 resamples, seed 0, for the difference in Spearman between the count and the
+rater on (a).
+
+**Bars, all 221 topics, measure (a).** The count beats the rater if its Spearman is at least 0.10 higher and the
+bootstrap 95% interval of the difference excludes 0; the rater beats the count by the mirror rule; otherwise
+equivalent. If neither reaches Spearman 0.20 with (a), the verdict is "neither predicts behaviour" and both the loop
+and the rater are reported as coverage tools, not behaviour finders. The random-arm subset is reported with no bar
+(40 topics).
+
+**Caveat written now.** The 181 gap topics sit near the ceiling of the count, so its correlation there is attenuated
+by selection, which favours the rater on the all-221 and gap-arm subsets; the random arm has no such bias but is
+small. The grader's harm line, not the user's, defines (b). Sanity written into the results: 221 topics with 10
+member and 10 control grades each (minus the 20 failed grades exp52 reported), every topic found in all score files.
