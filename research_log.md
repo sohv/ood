@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 26-10-2026 — exp60: answer quality on gap topics, OLMo against a reference answer judged pairwise
+
+**Question.** Beyond refusing more, are the answers OLMo-3 does give on gap topics worse than its answers on matched covered prompts?
+**Hyperparameters.** Olmo-3-7B-Instruct-DPO (rev b33130b7) replies from exp52 (rollout r0). Reference answers from anthropic/claude-sonnet-4.6, judged by openai/gpt-4.1 in both orders. OLMo loss per prompt: 1 if the reference wins, 0.5 for a tie, 0 if OLMo wins, averaged over the two orders. CI by resampling topics (10,000, seed 0).
+**Datasets.** exp52's pool, keeping prompts whose two grades say the request is harmless and whose two OLMo replies were neither refused nor truncated: 606 gap members, 772 gap controls, 163 random members, 175 random controls (1,716). Judge check: 20 pairs (10 members, 10 controls) labelled by the user, blind to arm and model.
+**Result.** I judged 1,714 pairs: 2 reference calls failed and no judge call failed. The reference won most comparisons in every arm: OLMo loss was 0.673 for gap members, 0.674 for gap controls, 0.661 for random members and 0.697 for random controls. Gap member minus control was -0.007 (CI -0.061 to 0.048); random was -0.029 (CI -0.113 to 0.047). On the 20 check pairs the judge agreed with the user on only 8. The user preferred OLMo on 8, the reference on 6 and called 6 ties; where both made a call, they agreed on 6 of 11. The judge leaned to whichever answer it saw first: it picked A in 1,277 of 1,714 calls when the reference was first, but only 681 when OLMo was first. The two orders disagreed on 19% of pairs. OLMo's answers were longer than the reference's for controls (median 2,320 against 1,236 characters) but not for gap members (783 against 588). The reference refused under 1% of prompts.
+**Output:** results/raw/261026_exp60_eval_v1/decision.json (judgements.jsonl, per-topic win rates in results/raw/261026_exp60_quality_v1/per_topic.jsonl, user labels in results/raw/261026_exp60_pair_labels_v1)
+**Bar:** invalid. The judge check failed, 8 of 20 against a bar of 14. The gap effect (CI upper 0.048, under 0.05) would read as "not worse", but by the pre-registration it is reported and not interpreted. No bug was found: user labels map to judge calls through the saved key, and the counts reconcile.
+**Confound:** the request-harmful filter comes from the grader, which the other session found agrees with the user on only 44 of 72 refused replies (exp62b). It was used here only on answered prompts, where it is untested.
+**Verdict:** discard the GPT-4.1 pairwise judge for answer quality. Answer quality in gap topics stays unmeasured, and the only behaviour difference we have shown is over-refusal.
+
 ## 26-10-2026 — exp63: a combined rarity ranker for where the model misbehaves, against the count, the mix share and the auto-rater
 
 **Question.** Does a ranker built from cheap, label-free features predict per-topic over-refusal better than any single score (neighbour count, centroid mix share, auto-rater), and does it still find planted missing topics?

@@ -16,3 +16,5 @@ Scope discipline in `CLAUDE.md` sends them here so the current experiment stays 
 - 19-10-2026: pivot candidate (generalisation): train one narrow behaviour on 8 question families with small LoRAs, measure the 8x8 transfer matrix with the exp18 judge, test whether surface (tf-idf / embedding) similarity between families predicts it; then automated search for transfer that similarity does not predict; LoRAcle last.
 - 20-10-2026: exp22/exp26: reply words that flag bad replies are mostly refusal and apology words, and exp19's main failure was over-refusal; measure over-refusal directly as the dominant bad-reply type on Olmo-3 DPO (a post-training habit, not reversion).
 - 20-10-2026: exp26: judge the 8,000 Olmo-3 SFT replies (about $12) to see whether SFT replies are worse than DPO replies to the same ShareChat messages.
+
+- 26-10-2026: an exp52-style refusal run with a random arm of about 150 topics (exp52 had 40), so scores that predict over-refusal (neighbour count, centroid mix share, ridge on both; exp62/63) can be separated by 0.1. Suggested by the other session after exp63.
