@@ -2607,3 +2607,33 @@ topic scored, the failed-call count per setting, five raw rater replies per sett
 
 **Blocked at writing time.** The OpenRouter key in `.env` expired (every model returns 401); the run starts once it is
 renewed. Nothing in the design depends on that.
+
+## 26-10-2026 — exp59: second pass of the gap loop after the exp54 fix: do the fixed topics leave the gap list?
+
+Written after exp54's result, before any exp59 code runs. exp54 showed that tuning on 30 prompts from each of 26 gap
+topics cuts harmless refusal there. The next step of the loop is to put that data on the mix side and look for gaps
+again. The question is whether the gap score treats the fixed topics as fixed. That is not guaranteed: the score
+counts mix neighbours among each prompt's 50 nearest, and 30 added prompts are a small share of a topic of 500.
+**Arms.** The exp37 traffic pool (992,933 rows) and Dolci mix (1,710,578 rows), MiniLM embeddings as exp37. none:
+mix unchanged. gap: mix plus the 780 exp54 gap training prompts (their traffic rows' embeddings and hashes).
+control: mix plus the 780 exp54 control training prompts. For each arm, the k = 50 density ratio of every traffic row
+is recomputed with exp37's code (self and exact copies masked). The added rows stay in traffic as well, because
+fix data is a copy, not a move.
+**Line.** exp41's rule (3 times the median of 1,000 random 500-row subset medians, seed 0), computed once on the none
+arm and used for all three arms.
+**Primary.** A target topic's score is the median ratio over its members, leaving out its 30 training rows. The
+measure is how many of the 26 targets fall below the line in the gap arm.
+**Bars.** Fixed topics leave the list: at least 20 of 26 below the line in the gap arm, and at most 3 in the control
+arm. Score still flags the fixed topics: at most 6 of 26 below the line in the gap arm. Otherwise partly.
+**Prediction.** Partly. Small topics should leave (30 rows are a quarter of a 120-row topic) and large ones stay. I
+report Spearman between topic size and the gap-arm score, with no bar.
+**Validity.** The none arm must reproduce exp37: per-topic median ratio within 0.01 of clusters.jsonl for at least
+99% of ranked topics, and all 26 targets over the line. Otherwise the run is a pipeline bug and is not interpreted.
+**Loop, reported, no bar.** exp41's skip loop (20 rounds of 10, namer shared at least 13 of 25, score at least the
+line, same-gap skip at cosine 0.85 or a shared 60-character template), run on each arm's topic scores. Topics are
+ordered by score, ties broken by median nearest-mix similarity, as in exp44. Namer replies come from exp41's cache
+where the prompt is identical. Per arm I report confirmed topics, distinct gaps, targets confirmed, and topics
+confirmed in the gap arm but not in the none arm.
+**Not analysed.** Spillover to neighbouring topics, which belongs to the other session's sibling test.
+**Cost and stopping.** Three kNN passes on one GPU and new namer calls only for topics exp41 never reached (under
+$5). One seed. No rerun on a different number of added rows inside this experiment.

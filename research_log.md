@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 26-10-2026 — exp59: second pass of the gap loop after the exp54 fix
+
+**Question.** If the 780 exp54 fix prompts are added to the mix side, does the neighbour-count gap score stop flagging the 26 fixed topics, and what does the exp41 loop find on the rescored mix?
+**Hyperparameters.** k = 50 density ratio on MiniLM as exp37, seed 0. Three arms: none, gap (+780 fix prompts) and control (+780 exp54 control prompts). The gap line is 11.63 from the none arm, used for all arms. A topic's score is the median over its members, leaving out all 1,560 training rows. The loop is exp41's skip loop: 20 rounds of 10, namer shared at least 13 of 25.
+**Datasets.** exp37 traffic pool (992,933 WildChat and LMSYS prompts) against the Dolci mix (1,710,578), plus exp54's train_gap2 and train_control2 (780 each).
+**Result.** I ran 3 kNN passes and 3 loops. The none arm reproduces exp37 exactly: 100% of topic medians match, and the loop gives the same 181 confirmed topics and 172 distinct gaps as exp41. In the gap arm only 5 of 26 fixed topics fall below the line (control 0). Every fixed topic's score dropped except 3 templated jailbreak topics, which stayed at the ceiling. Most fell from the ceiling of 87.9 to between 20 and 43, still above 11.63. The five that left are four topics of 123 to 177 prompts plus one of 242: DAN jailbreak, hypnosis fiction, jailbreak policy bypass, NSFW capability questions, and Bible verse analysis. Spearman between topic size and gap-arm score is 0.33. Gap-arm loop: 179 confirmed topics and 169 distinct gaps. It confirmed 17 of the 26 fixed topics; the other 9 dropped down the ranking and were not reached in 200 reviews. It also confirmed 10 topics the none loop did not, among them "who/what is NAME_1" questions, erotic fiction, sexual content, roleplay interactions, company introductions and chatbot system prompts. The control loop differs from none by one topic in, one out. 12 new namer calls; 2 topics have no parsable name.
+**Output:** results/raw/261026_exp59_second_pass_v1/decision.json (ratio_none/gap/control.npy and reviewed_topics.jsonl beside it)
+**Bar:** score still flags the fixed topics: 5 of 26 below the line, against the at-most-6 bar. My pre-registered prediction of "partly" was wrong.
+**Confound:** 30 added prompts per topic is an arbitrary amount. The score asks for coverage in proportion to traffic, so a fix sized to change behaviour is far too small to change coverage. Why three templated topics did not move at all is not checked.
+**Verdict:** extend: the gap list cannot mark a topic as fixed on its own. The loop needs a record of fixed topics, or a fix sized to the topic, before the next pass. The next pass's new targets are the 10 topics confirmed only after the fix.
+
 ## 26-10-2026 — exp54: fix-and-check on gap topics the user judges harmless
 
 **Question.** If the model is fine-tuned on training data from gap topics the user judged harmless, does it refuse fewer harmless held-out prompts from those topics than a model tuned on the same amount of random covered data, without losing refusals on unsafe prompts?
