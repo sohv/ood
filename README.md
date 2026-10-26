@@ -57,9 +57,9 @@ no default and must always be given, by flag or by config.
 - Every run directory gets a `config.json` (git hash, model, seed) and a `run.log` beside its
   results, so any number can be traced back to the commit that produced it.
 - `results/` is not in git. Every run directory, figure, table and synthesis page source lives on
-  the private Hugging Face dataset `sohv/ood` under the same paths (`results/raw/<run>/...`), so a
+  the private Hugging Face dataset `detectood/ood` under the same paths (`results/raw/<run>/...`), so a
   path in a log entry is also its path on HF. Restore it with
-  `huggingface-cli download sohv/ood --repo-type dataset --include "results/*" --local-dir .`
+  `huggingface-cli download detectood/ood --repo-type dataset --include "results/*" --local-dir .`
   (needs `HF_TOKEN`). exp18's `judge_cache/` is stored there as `judge_cache.tar.gz`, because HF
   allows at most 10,000 files per folder.
 - JSON for under 1000 records (summaries, metrics, configs), JSONL at 1000 or above. One JSON

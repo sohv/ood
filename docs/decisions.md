@@ -2608,6 +2608,89 @@ topic scored, the failed-call count per setting, five raw rater replies per sett
 **Blocked at writing time.** The OpenRouter key in `.env` expired (every model returns 401); the run starts once it is
 renewed. Nothing in the design depends on that.
 
+## 26-10-2026 — exp57: count to rank, rater to confirm: the retrieval auto-rater as the loop's confirmation step, against the namer's shared count
+
+Written before any exp57 call exists. exp56 found that the neighbour count surfaces truly missing topics (10 of 10
+planted) while the retrieval-augmented auto-rater tells real gaps from covered ones among candidates (AUC 0.81 against
+0.56 on the user's labels), and that the two barely correlate. The loop today confirms a candidate topic when the
+namer says at least 13 of 25 prompts share a theme and the ratio is over the line; that step checks coherence, not
+coverage. This run swaps the confirmation step for the rater and asks whether the loop then confirms fewer covered
+topics without losing missing ones. The ranking, the skip rule and the namer's names are unchanged.
+
+**Fixed before the run.** Rater: `google/gemini-3.8-flash`, exp56's variant B prompt word for word (10 member prompts
+drawn with seed 0, each paired with its nearest mix prompt by MiniLM cosine, JSON coverage 0 to 100). Confirm rule:
+coverage at most 35. Sensitivity at 25 and 50 is reported with no bar. Namer step: exp41's, `anthropic/claude-sonnet-4.6`
+with the broad-field prompt on 25 prompts (seed 0), confirmed if shared is at least 13 and the ratio is over the line
+(11.63 on the full ranking; the ablated ranking's own line is recomputed the same way, 3 times a random subset's median).
+
+**Primary test, planted (ood-e3's caution: the 58 labels chose the rater, so they cannot be its test).** Fresh planted
+topics: 10 drawn with seed 1 from exp44's candidate rule (covered, no template prefix, 200 to 3,000 prompts, median
+ratio within 0.5 to 2 times the pool median), disjoint from exp44 v2's ten; every mix row among the 50 MiniLM nearest
+neighbours of any planted prompt is deleted, as in exp44 v2. Covered controls: 10 more topics drawn with seed 1 from
+the same candidate rule, left intact, which a coverage check must reject. Review set: the top 180 topics of the ablated
+ranking plus the 10 planted and the 10 controls (200 topics; planted topics already in the top 180 are not counted
+twice). Both confirmation steps judge every topic in the review set against the ablated mix. Validity: at least 8 of 10
+planted topics must clear the ablated ranking's line, else the planted set is invalid and the run stops there.
+Measures per step: planted recall (confirmed of 10), control false confirms (confirmed of 10), and yield (confirmed
+among the other top-180 topics).
+Bar, rater against namer: better if its control false confirms are at least 3 fewer and its planted recall is within 1;
+worse if its planted recall is at least 3 lower or its false confirms at least 3 higher; otherwise equivalent. Reported,
+no bar: the yield of each step and their overlap on the top 180, and the rater's reason text for every planted and
+control topic.
+
+**Secondary, the 58 labelled topics (full mix, no deletion).** Both steps judge the 58. Precision of confirmation =
+real gaps among confirmed topics, partly covered left out; recall = confirmed among real gaps. The namer's
+confirmation on these topics is close to exp41's selection rule, so its precision is near the labels' own 19 of 28;
+the rater's is the number of interest. Reported with no bar, since the labels chose the rater.
+
+**Negatives done properly.** exp56's negative arm used groups of random traffic prompts, which are not topics. Here the
+10 covered controls are coherent topics drawn from the traffic pool, and they are the negative set; the planted topics
+are the positive set. No other negatives.
+
+**Cost and stopping.** About 200 rater calls and 200 namer calls on the ablated set, 58 of each on the full set: under
+$10. Namer replies for topics exp41 already named are reused from its cache where the prompt is identical. One seed
+for the draws. Failed calls after 3 attempts are counted as unconfirmed and reported. Sanity written into the results:
+planted and control sets disjoint and disjoint from exp44 v2's planted topics; deleted-row count; 200 topics in the
+review set; every labelled topic judged by both steps.
+
+## 26-10-2026 — exp58: cluster ground truth from nearest-mix-prompt similarity, validated once against the user's labels, then precision at K
+
+Written before any exp58 similarity exists. exp55's membership label (mix share after assigning every mix prompt to
+its nearest topic centroid) agreed with the user on only 59% of labelled topics, so its precision curve carries no
+verdict. The user judged a topic by reading its prompts next to their nearest Dolci prompts and asking whether the
+mix has the same kind of request. This run builds the label from that quantity: how similar a topic's prompts are to
+their nearest mix prompts.
+
+**Similarity.** For every traffic prompt, the cosine to its most similar mix prompt (MiniLM, the embeddings exp37
+used), exact copies excluded by text hash (the second-nearest is used when the nearest is an exact copy). Per ranked
+topic: the median over members (`sim_med`, headline) and the share of members whose nearest mix prompt has cosine at
+least 0.80 (`share_hi`, reported).
+
+**Label rule, fixed now and label-free.** Over the 1,998 ranked topics, P20 and P50 are the 20th and 50th percentiles
+of `sim_med`. A topic is deployment_only if its `sim_med` is at or below P20, covered if at or above P50, shared
+between. Alternative cuts at P10 and P30 for deployment_only are reported for stability, never promoted.
+
+**Validation, once.** Agreement with the user's 58 labels (exp41, exp43) on the 44 that are not partly covered: real
+gap matched by deployment_only, covered matched by shared or covered. Bar: the label is valid at 0.70 or above, the
+same bar exp55 used. Also reported with no bar: AUC of (1 − `sim_med`) for real gap against covered, next to the
+neighbour count's 0.56, the word score's 0.67 and the retrieval rater's 0.81; and the confusion table. The labels are
+used once, to check, not to tune: the cuts are percentiles fixed above.
+
+**Precision at K.** Against the valid label only: the share of deployment_only topics among the top K of exp37's
+ranking for K in {10, 20, 50, 100, 200, 293}, with Stefan's 0.50 line. Usable if precision at K = 100 is at least 0.50,
+not usable below 0.30, otherwise ambiguous. Reported, no bar: the same curve for the P10 and P30 cuts; Spearman of
+`sim_med` against exp55's centroid mix share and against the neighbour ratio over ranked topics; the count of
+deployment_only topics at each cut.
+
+**Caveat written now.** Similarity and the neighbour count share one embedding, so a high precision says the ranking
+agrees with a direct similarity reading of the same space; the human check is what ties it to a person. A topic whose
+nearest mix prompts are similar in wording but not in request (the failure the user saw in exp21's judge) is scored
+as covered by this rule; the rater, not this label, is the tool for that distinction.
+
+**Cost and stopping.** GPU only, about ten minutes; no LLM calls; one pass; no reruns. Sanity written into the results:
+992,933 traffic and 1,710,578 mix rows, every ranked topic has a `sim_med`, the 58 labelled topics are all ranked, the
+exact-copy exclusion changed at most the rows exp37 marked as mix members.
+
 ## 26-10-2026 — exp59: second pass of the gap loop after the exp54 fix: do the fixed topics leave the gap list?
 
 Written after exp54's result, before any exp59 code runs. exp54 showed that tuning on 30 prompts from each of 26 gap
