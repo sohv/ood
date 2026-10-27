@@ -9,6 +9,7 @@ from src.metrics.coverage import density_ratios
 from src.metrics.gap_pipeline import (
     crossfit_logits,
     density_ratios_batched,
+    density_ratios_multi_k,
     ratios_from_knn,
     spherical_kmeans,
     text_hash,
@@ -127,3 +128,20 @@ def test_crossfit_logits_separate_and_follow_relabelling():
     moved[gap[::2]] = True
     after = crossfit_logits(x_t, x_m, moved, fold_t, fold_m, epochs=30, batch=1024, seed=0)
     assert after[gap[1::2]].mean() < before[gap[1::2]].mean() - 1
+
+
+def test_multi_k_ratios_match_single_k_on_cpu():
+    rng = np.random.default_rng(1)
+    t_emb, m_emb = unit(rng.normal(size=(300, 16))), unit(rng.normal(size=(500, 16)))
+    t_norm = [f"t{i}" for i in range(300)]
+    m_norm = [f"m{i}" for i in range(500)]
+    m_norm[7], t_norm[9] = "t3", "t3"
+    m_emb[7], t_emb[9] = t_emb[3], t_emb[3]
+    q = np.arange(0, 30)
+    qh = np.array([text_hash(t_norm[i]) for i in q])
+    th, mh = torch.tensor([text_hash(x) for x in t_norm]), torch.tensor([text_hash(x) for x in m_norm])
+    te, me = torch.from_numpy(t_emb), torch.from_numpy(m_emb)
+    got = density_ratios_multi_k(t_emb[q], qh, q, te, th, me, mh, ks=(5, 10, 20), extra=4, chunk=8)
+    for k in (5, 10, 20):
+        single = density_ratios_batched(t_emb[q], qh, q, te, th, me, mh, k=k, extra=4 + 20 - k, chunk=8)
+        assert np.allclose(got[k], single), k

@@ -10,6 +10,46 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 27-10-2026 — exp78: does an LLM rater separate legal and medical questions from WildChat better than words?
+
+**Question.** On exp01's single-prompt task, does the Flash rater (each prompt shown beside its nearest Dolci prompt) beat the tf-idf score and the activation detector?
+**Hyperparameters.** google/gemini-3.8-flash, exp56's variant-B prompt for one request; gap = 100 - coverage; exp01's coarse length bands; seed 0.
+**Datasets.** exp01's 500 legal-advice, 500 HealthCareMagic and 500 English WildChat prompts.
+**Result.** Length-stratified AUROC: rater 0.963 legal and 0.917 medical, against words 0.952 and 0.856, and activations 0.954 and 0.897 (recomputed here, matching exp01). The rater calls 323 of 500 legal questions MISSING, 167 of 500 medical and 24 of 500 WildChat; median coverage 15, 35 and 100. 11 WildChat calls failed and were scored at the median.
+**Output:** results/raw/261027_exp78_rater_auroc_v1/decision.json
+**Bar:** tie: the rater is 0.05 or more above words on medical (+0.061) but not on legal (+0.011), and the bar needs both.
+**Verdict:** the rater is at least as good as words and activations on this task and clearly better on medical, at one API call per prompt; the comparison is near ceiling on legal.
+
+## 27-10-2026 — exp73: does the tf-idf word score leave covered prompt kinds unflagged?
+
+**Question.** On exp55's covered-kind prompts from outside Dolci, does the two-sided tf-idf kNN flag as few as the neighbour count does?
+**Hyperparameters.** tf-idf 1-2 grams, 200k features, min_df 5, first 1,000 characters; k=50; reference = 20% of traffic and mix minus exp55's held-out rows; line 14.04 (3x the held-out traffic median); seed 0.
+**Datasets.** exp55's sets rebuilt with the same sizes: code 500, multilingual 500, tool use 500, safety 450, maths 310, legal and medical 300 each, held-out traffic and held-out mix 2,000 each.
+**Result.** The word score flags code 0.0%, multilingual 3.6%, tool use 0.0%, safety 0.2% and maths 0.0% (count: 0.0, 2.4, 0.0, 2.7, 0.0). Held-out traffic is flagged 28.6% against 0.3% for held-out mix (count 31.5% and 0.6%). 94 of the 500 multilingual prompts have no tf-idf words at all (non-Latin scripts) and get a fixed score below the line; without them multilingual is 4.4%.
+**Output:** results/raw/261027_exp73_negatives_words_v1/decision.json
+**Bar:** cleared: all five sets at or under 5% (worst 3.6%), and valid (28.6% against 3 x 0.3%).
+**Verdict:** both scores pass the negative-set test about equally, so this test does not separate the count from words; words cannot see a fifth of the multilingual prompts at all.
+
+## 27-10-2026 — exp76: a binary answer-quality judge checked against the user's labels
+
+**Question.** Does a yes/no Sonnet judge ("does the reply do what the user asked, correctly and completely?") agree with the user well enough to measure whether OLMo answers worse on gap topics?
+**Hyperparameters.** Judge anthropic/claude-sonnet-4.6, one call per OLMo reply (exp52 rollout 0), no pairwise comparison; seed 0; topic bootstrap 10,000.
+**Datasets.** 24 replies from exp60's answered harmless gap-arm prompts (12 members, 12 controls) labelled by the user; then all 1,714 exp60 answered prompts.
+**Result.** The user said yes on 18, no on 3 and unsure on 3. The judge agreed on 9 of the 21 non-unsure (both yes 7, both no 2). On 11 replies the user passed, the judge said no, each time naming a specific error: a wrong fact (calculus "developed by Newton and Euler"), a code bug (a chess check that rejects every valid piece), invented names (diabetes opinion leaders), a misread emoji (tennis as table tennis), or a wrong summary. An always-yes judge would have scored 18 of 21. All 1,714 calls parsed after a parser fix (v1 crashed on trailing text and was rerun from cache). For the record only: the judge fails 43% of gap-member replies against 51% of controls (effect -0.081, CI -0.141 to -0.019); random arm +0.009.
+**Output:** results/raw/261027_exp76_judge_v2/decision.json (labels in results/raw/261027_exp76_labels_v1)
+**Bar:** missed, invalid: 9 of 21 agree against 0.75 (16 of 21). The pre-registration said 18 of 24 and did not say how to treat "unsure"; I dropped the 3 unsure and scaled the bar. The bar was also weak: an always-yes judge would clear it. No bug was found: the labels map to the right replies and every disagreement has a stated reason.
+**Verdict:** discard: two judges (exp60 pairwise, this binary one) have failed against the user's labels. The judge grades factual correctness more strictly than a quick human read does, so a quality measure needs a written rubric that both apply, not another judge.
+
+## 27-10-2026 — exp69: more neighbours (k = 100, 200) against k = 50 on the behaviour target
+
+**Question.** Does the neighbour count predict exp52's over-refusal, or the user's labels, better with 100 or 200 neighbours than with the 50 the project has used since exp23?
+**Hyperparameters.** exp37's pool and mix, MiniLM embeddings, one CPU pass in fp32 with 220 candidates per side read at k = 50, 100 and 200; topic score = median member ratio; per-k gap line = 3 x the median of 1,000 random 500-prompt subsets of a 50,000-prompt sample; paired bootstrap 2,000 at 97.5% for two comparisons; seed 0.
+**Datasets.** The 221 exp52 topics with refusal effects (181 gap arm, 40 random) and the 77 exp61 labelled topics with a real, partly or covered label (48 overlap): 251 topics, 214,634 member prompts.
+**Result.** I scored 251 topics at three k and found Spearman with the refusal effect of 0.288 at k = 50, 0.301 at k = 100 and 0.313 at k = 200; the differences to k = 50 are +0.013 (97.5% interval -0.054 to 0.080) and +0.025 (-0.062 to 0.113). On the 40 random topics the correlation rises with k, 0.44, 0.53, 0.59, but 40 topics cannot carry a claim. AUC for over-refused topics 0.63, 0.65, 0.66; AUC on the labels (real or partly against covered) 0.68, 0.67, 0.64, so the labels prefer the small k slightly and behaviour the large one. The per-k lines are 10.64, 9.48 and 8.57 and the topics over them 179, 170 and 151. At k = 50, 21% of the random sample has all 50 neighbours in traffic; the ceiling shares at 100 and 200 came out 0.0 from a float comparison that is too strict and were not recomputed (the recomputation was stopped at a peer's request for memory). The validity check against exp37 missed: 94.8% of topic medians at k = 50 imply a traffic count within one neighbour of exp37's, against 99% required, and Spearman between the two sets of medians is 0.92 against 0.98. The 13 topics that disagree are not off by a neighbour but by up to 50: exp37 has ten gap-arm topics at or near the ceiling (87.86) that the CPU pass puts at 0.03 to 13, three of which the user labelled covered. A 70-candidate window reproduces the CPU values, not exp37's, so the window is not the cause. What the topics share is verbatim or template copies in the mix: 51 to 88% of the members of eight of them have an exact text copy in Dolci, and the other five are near-identical templates (a Midjourney bot prompt, an "ignore previous instructions" screenwriter prompt). The remaining hypothesis, that the GPU fp16 similarities tie at 1.0 and the tie order puts the traffic side first, is written as a check and not yet run.
+**Output:** results/raw/261027_exp69_k_sweep_v1/decision.json (topics.jsonl and confirm.json beside it)
+**Bar:** validity missed (0.948 against 0.99; 0.92 against 0.98), so the run is invalid by the pre-registered rule and the k comparison is reported, not interpreted. Read at face value, neither k clears: +0.013 and +0.025 against a 0.10 margin, both intervals through 0, as predicted. Bug check: the cause of the validity miss is narrowed to 13 copy-heavy topics and not yet confirmed.
+**Verdict:** k = 50 stays, and no further k values are tried. The open item is not k but exp37's score on copy-heavy topics: if the fp16 tie check confirms it, exp37's ranking and everything built on it (exp41, exp52, exp61, exp62, exp70, exp74) carry some verbatim-covered topics as false gaps near the top, and the scores need one fp32 recomputation; ood-e3 has been told and is holding.
+
 ## 27-10-2026 — exp68: three-way ground truth: can a detector tell traffic-only, shared and training-only topics apart?
 
 **Question.** If I build topics that are only in traffic, only in training, or in both, can the two-sided neighbour count and a word (tf-idf) neighbour count sort them correctly?

@@ -3116,3 +3116,174 @@ after deletion, and each deleted unit has 0 rows left on the deleted side. Other
 - Deletion is defined in MiniLM space, which favours detector A. A tf-idf loss here is weaker evidence than in exp47.
 - Deleted units have no rows at all on one side, an easier case than a partly covered real topic.
 - The deletions shift neighbouring shared units too. That is accepted rather than corrected.
+
+## 27-10-2026 — exp69: does a larger neighbourhood (k = 100 or 200) predict behaviour better than the k = 50 count?
+
+Written before any exp69 ratio exists. k = 50 was fixed in exp23 as a round number and never swept; the collaborator asked
+whether more neighbours would separate better. On the planted test the answer is no by construction (already perfect), so
+the test here is the behaviour target, where k = 50 reaches Spearman 0.27 (exp62), plus the user's labels. Two known costs
+of k = 50 motivate the question: about 22% of traffic prompts sit at the ceiling (all 50 neighbours in traffic) and cannot
+be ordered, and the neighbourhood is so local that sibling topics do not see each other (exp42).
+
+**Mechanics.** exp37's pool (992,933 traffic prompts), mix (1,710,578 Dolci first turns), MiniLM embeddings, labels and
+exclusion rules. One neighbour pass per query at k = 200 plus exp37's 20 extra per side; the counts at k = 50, 100 and 200
+are read off the same sorted union, so k = 50 must reproduce exp37's per-topic medians (`ratio.npy`), within 1e-3 on at
+least 99% of scored topics, or the run is invalid. Scored: every member of exp52's 221 topics (exp62's `topics.jsonl`,
+with its refusal effects) and of exp61's 78 labelled topics. Topic score at each k = median member ratio, as always. Per-k
+gap line = 3 x the median of 1,000 random 500-prompt subsets of a 50,000-prompt random sample of the pool (exp64's rule),
+seed 0. CPU only: the GPU is exp66's.
+
+**Bar.** Primary: Spearman between the topic median at k and exp52's refusal effect over the 221 topics. k = 100 or k = 200
+beats k = 50 if its Spearman is higher by at least 0.10 and the paired bootstrap interval over topics (2,000 resamples) at
+97.5%, two comparisons, excludes 0. Prediction: neither clears; both differences fall within 0.05 of zero, while the
+ceiling share falls with k. Discard condition: if neither clears, k = 50 stays the loop's k and the question closes; no
+further k values are tried. If one clears, it does not replace k = 50 in the loop until it also keeps exp47's planted
+result, which would be a separate pre-registered run.
+
+**Reported, no bar.** The same Spearman on the 40 random-arm topics; AUC for over-refused (effect at least 0.20); AUC on
+the user's exp61 labels (second-round label for the 58 relabelled topics, first label for the 20 new ones: real or partly
+against covered, and real against covered); the ceiling share of the 50,000 sample at each k; how many of the 221 topics
+clear the per-k line; the per-k lines themselves.
+
+**Output.** `results/raw/261027_exp69_k_sweep_v1/decision.json` and `topics.jsonl` (id, arm, refusal effect, label, median
+at each k).
+
+**Amendment, 27-10-2026, before the full run.** The smoke run (3 topics) showed the k = 50 reproduction rule cannot be met
+as written: the ratio is a discrete count, and exp37's ratios came from a GPU fp16 matmul whose k-th neighbour differs
+from the CPU pass on 1 to 14% of rows (a CPU fp16 pass gives the same result as fp32, so this is the accumulation order,
+not the dtype). Medians still match exactly on most topics, but a topic bunched at its median can move by one neighbour
+(c4: 2.76 against 2.99, one traffic neighbour swapped for a mix one). The validity rule becomes: on at least 99% of scored
+topics the k = 50 median implies a traffic count within one neighbour of exp37's, and Spearman between the two sets of
+topic medians is at least 0.98. The bar, the prediction and everything else stand. No exp69 behaviour number has been seen.
+
+## 27-10-2026 — exp70 to exp76: the baseline comparisons the benchmark page lists as never run
+
+Written before any exp70-76 code runs. The benchmark page (claude.ai/artifact/Xi6tGeko4wZ4iuW6bJmCPX) shows six comparisons
+that were never made. Most important is whether the gap loop beats a loop driven by words or by an LLM rater, which is
+Neel's condition. These seven runs fill them. Shared settings: OLMo-3-7B-Instruct-DPO (b33130b7), exp37's pool (992,933
+traffic prompts, 1,998 ranked topics) and mix (1,710,578), seed 0, no extra seeds. "tf-idf" means word 1-2 grams, sublinear
+tf, 200k features, min_df 5 (exp47's and exp67's recipe), first 1,000 characters. "Rater" means exp56's Flash variant B
+(google/gemini-3.8-flash; 10 prompts, each shown with its MiniLM-nearest training prompt; gap = 100 - coverage).
+
+### exp70: the gap loop driven by three rankings
+
+- **Arms.** exp41's skip loop (20 rounds of 10, same-gap at centroid cosine 0.85 or a shared template, namer
+  claude-sonnet-4.6 with shared >= 13 of 25), run on three rankings of the same 1,998 topics:
+  - A, the neighbour count: exp41 itself, re-run from its naming cache, so it must reproduce 172.
+  - B, tf-idf: exp47's two-fold traffic-vs-mix logistic score on the full mix, with the topic median as the score.
+  - C, rater: exp56's scores_flash_B_full, with ties broken by seeded jitter.
+- **Lines.** Each arm confirms a topic only if the namer passes it and the arm's own score is at or above the score of its
+  293rd topic. This is exp43's rule, so every arm lets the same number of topics over its line. Random is exp41's arm (24).
+- **Measure.** Distinct gaps in 200 reviews. Also reported: themes at cosine 0.70; overlap of each arm's confirmed topics
+  with A's; and the median count ratio of B's and C's confirmed topics.
+- **Bar.** A beats an arm if A finds at least 10 more distinct gaps (exp41's margin). The arm beats A by the same margin.
+  Otherwise the two tie. Quality of the found gaps is exp75's job, not this bar's.
+
+### exp71: three-way ground truth with look-alikes deleted in word space, plus the rater
+
+- **Units.** exp68's 30 units, the same draw and the same kinds.
+- **Deletion.** Deletion is by tf-idf cosine on full-pool tf-idf vectors instead of MiniLM:
+  - Traffic-only: delete the unit's mix rows plus every mix row among the 50 tf-idf-nearest mix rows of its traffic members.
+  - Training-only: the mirror, deleting traffic rows.
+  - Unit membership stays exp68's (traffic labels, MiniLM nearest centroid for mix rows).
+- **Detectors.**
+  - The two-sided MiniLM count and the two-sided tf-idf kNN, both exactly as exp68 (20% reference, 300 rows per side, m0 ±
+    log 3 lines).
+  - The rater on both worlds, exp68's MiniLM-deleted one and this word-deleted one. A unit's present traffic rows get
+    variant B's training coverage (c_T), and its present mix rows get the mirror question, coverage in real traffic shown
+    the traffic-nearest prompts (c_M).
+  - Rater call: traffic-only if c_T <= 35, else training-only if c_M <= 35, else shared. If both are at most 35, the lower
+    one decides. 35 is exp57's cut, and 50 is reported as sensitivity.
+- **Validity.** As exp68: 8 of 10 per deleted kind keep 50 or more own-side rows, with 0 left on the deleted side.
+- **Bars.** As exp68: works at 24 or more of 30, fails at 15 or fewer, and one detector is better if it gets 4 more right.
+  The headline is the word-deleted world.
+
+### exp72: planted missing topics with look-alikes deleted in word space
+
+- **Planting.** exp44 v2's 10 planted topics. Delete every mix row among the 50 tf-idf-nearest mix rows of any planted
+  prompt. Then rank all 1,998 topics with three scores against the ablated mix: the MiniLM count, exp47's tf-idf score, and
+  the rater (all 1,998 topics, about 2,000 calls).
+- **Validity.** At least 8 of 10 planted topics have a median tf-idf nearest-mix cosine below the 25th percentile of the
+  pool's per-prompt tf-idf nearest-mix cosine.
+- **Measure.** Planted topics in each score's top 293.
+- **Bars.** As exp47: one score beats another by 3 or more. A score "finds" with 6 or more and "fails" with 2 or fewer.
+
+### exp73: tf-idf on exp55's negative sets
+
+- **Method.** exp55's five covered-kind sets from outside Dolci (code, multilingual, tool use, safety, maths), plus held-out
+  traffic and held-out mix. Each prompt is scored as a single arrival with the two-sided tf-idf kNN (exp68's recipe) against
+  a 20% reference of traffic and mix with exp55's held-out rows removed.
+- **Line.** 3x the median of 1,000 random 500-row subset medians of held-out traffic scores, as exp55 did for the count.
+- **Validity.** Held-out traffic is flagged at least 3x as often as held-out mix.
+- **Bar.** A set passes if 5% or fewer of it is flagged. The count's exp55 numbers are shown beside it.
+
+### exp74: which score predicts over-refusal, on 150 new random topics
+
+- **Pool.** 150 topics drawn at random (seed 0) from exp37's ranked topics outside exp52's 221. Each gets 5 members plus 5
+  matched controls by exp52's protocol: a random covered topic, then a prompt matched on source and length band.
+- **Generation and grading.** Base OLMo-3 gives 2 replies per prompt at temperature 0.6. The exp49_v2 grader marks refusal.
+  The effect is member minus control refusal per topic.
+- **Arms.**
+  - Neighbour count (exp37 ratio)
+  - tf-idf (exp67's score, recomputed for the new topics)
+  - Centroid mix share (exp55)
+  - Rater (exp56 B)
+  - Random
+  - k = 100 or 200 counts, if exp69 (other session) recommends one by launch time
+- **Placeholder split.** Requested by the other session: topics with NAME_ in 20% or more of member prompts are reported
+  separately. The headline uses all 150, with the no-placeholder subset beside it.
+- **Measure.** Spearman with the refusal effect, and a paired bootstrap of 2,000 over topics for each arm minus the count.
+- **Bar.** An arm beats the count if it is higher by 0.10 or more with an interval excluding 0. The reverse is judged the
+  same way. Otherwise equivalent. The floor for "predicts at all" is 0.20.
+- **Sanity and timing.** Null grades, row counts and five raw replies per arm, as exp52. This runs on the GPU after exp66
+  finishes.
+
+### exp75: hand labels on the topics each loop arm found
+
+- **Items.** The user labels, blind to arm, with exp41's rule (real gap / partly covered / covered), 10 prompts per topic
+  shown beside their nearest training prompt. The 40 topics are:
+  - 12 confirmed gaps drawn at random from exp70 arm B
+  - 12 from arm C
+  - 8 from arm A
+  - 8 random ranked topics
+  - Any topic already labelled in exp41, 43 or 61 keeps its newest label and is replaced in the draw.
+- **Measure.** The share of real gaps, and of real or partly covered, per arm. Fisher exact tests of A against B and A
+  against C.
+- **Bar.** None. The counts are too small to set one. This is reported with Wilson intervals as a description.
+
+### exp76: an answer-quality judge that can pass its check
+
+- **Judge.** exp60's pairwise judge failed (8 of 20, position bias). The new judge is anthropic/claude-sonnet-4.6, a
+  different family from OLMo and from exp60's GPT-4.1. It asks one binary question per reply: "Does the reply do what the
+  user asked, correctly and completely?" There is no second answer to compare, so there is no position.
+- **Check.** The user labels 24 exp52 answered replies (12 members, 12 controls, seed 0), blind.
+- **Bar.** Agreement of at least 18 of 24 (0.75).
+- **If valid.** Measure "fails the request" on exp60's 1,716 answered harmless prompts as gap member minus control, with a
+  topic bootstrap. The bar is exp60's: worse if the effect is at least 0.05 with the CI above 0.
+- **If invalid.** The result is logged and answer quality stays unmeasured.
+
+## 27-10-2026 — exp78 and exp79: the LLM rater on the single-prompt tasks (benchmark Tasks 1 and 2)
+
+Written before any exp78-79 code runs. The user asked for the rater arm that the benchmark page left out for the activation
+phase. Both runs use exp56's Flash variant-B rater (google/gemini-3.8-flash), adapted to one prompt per call: the prompt is
+shown with its MiniLM-nearest Dolci SFT+DPO prompt, and the rater gives a coverage of 0-100. Gap score = 100 - coverage,
+with ties broken by seeded jitter. Seed 0. Failed calls score at the median, as exp56 did.
+
+### exp78: Task 1, separating a known OOD set from WildChat
+
+- **Data.** exp01's pools: legal (500), medical (500) and wildchat_en_test (500).
+- **Measure.** AUROC of the gap score for legal vs WildChat and medical vs WildChat, length-stratified with exp01's coarse
+  bands, plus raw AUROC.
+- **Comparison.** exp01's tf-idf (0.952 / 0.856) and two-sided activation detector (0.954 / 0.897).
+- **Bar.** The rater beats words if it is at least 0.05 higher on both pools. Words beat the rater if they are at least
+  0.05 higher on both. Otherwise the two tie.
+
+### exp79: Task 2, finding rare planted prompts per row
+
+- **Data.** exp11's planted pool at needle seed 0 only: 20,000 WildChat+LMSYS rows plus 100 legal and 100 medical (gap),
+  100 aya and 100 magicoder (covered controls). That is 20,400 calls. Seeds 1 and 2 are left out for cost.
+- **Measure.** Gap uplift@100 and control uplift@100 under exp11's pct20 ranking (percentile within 20 length bins), plus
+  raw.
+- **Comparison.** exp11's label-free tf-idf (10.5) and max-pooled activation kNN (7.48).
+- **Bar.** exp11's rule: the rater beats words if its uplift is at least 1.5x words' and at least 2 higher, with control
+  uplift at most 2 and the top-100 median length within 0.67 to 1.5 times the pool's.

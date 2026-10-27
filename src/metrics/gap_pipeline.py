@@ -47,6 +47,42 @@ def density_ratios_batched(
     return (out, nearest) if return_nearest_mix else out
 
 
+def density_ratios_multi_k(
+    q_emb: np.ndarray,
+    q_hash: np.ndarray,
+    q_self: np.ndarray,
+    t_emb: torch.Tensor,
+    t_hash: torch.Tensor,
+    m_emb: torch.Tensor,
+    m_hash: torch.Tensor,
+    ks: tuple[int, ...] = (50, 100, 200),
+    extra: int = 20,
+    chunk: int = 1024,
+) -> dict[int, np.ndarray]:
+    # density_ratios_batched at several k from one neighbour pass: the union is sorted once and each k reads its prefix
+    n_t, n_m = len(t_emb), len(m_emb)
+    k_max = max(ks)
+    out = {k: np.empty(len(q_emb)) for k in ks}
+    for s in range(0, len(q_emb), chunk):
+        q = torch.from_numpy(q_emb[s : s + chunk]).to(t_emb.device, t_emb.dtype)
+        qh = torch.from_numpy(q_hash[s : s + chunk]).to(t_emb.device)[:, None]
+        qs = torch.from_numpy(q_self[s : s + chunk]).to(t_emb.device)[:, None]
+        st, it = (q @ t_emb.T).float().topk(k_max + extra, dim=1)
+        sm, im = (q @ m_emb.T).float().topk(k_max + extra, dim=1)
+        st = st.masked_fill((it == qs) | (t_hash[it] == qh), -torch.inf)
+        sm = sm.masked_fill(m_hash[im] == qh, -torch.inf)
+        sims = torch.cat([st, sm], dim=1)
+        side = torch.cat([torch.zeros_like(st), torch.ones_like(sm)], dim=1)
+        top_s, top_i = sims.sort(dim=1, descending=True)
+        valid = torch.isfinite(top_s)
+        mix_sorted = side.gather(1, top_i) * valid
+        for k in ks:
+            n_mix = mix_sorted[:, :k].sum(1)
+            n_traffic = valid[:, :k].sum(1) - n_mix
+            out[k][s : s + chunk] = (((n_traffic + 1) / n_t) / ((n_mix + 1) / n_m)).cpu().numpy()
+    return out
+
+
 def union_knn(
     t_np: np.ndarray,
     t_hash_np: np.ndarray,
