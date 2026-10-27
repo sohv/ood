@@ -2934,3 +2934,33 @@ sibling nearest the added one; the bar is unchanged, and which sibling moved is 
 **Note, 27-10-2026, after the exp64 run.** The pre-registration listed c198 as the third topic from a partial size lookup;
 the stated rule, the three largest clusters labelled real gap in exp61's new draw, selects c188 (1,797), c243 (1,188)
 and c422 (1,013). The run followed the rule, not the list. The bar was applied as written.
+
+## 27-10-2026 — exp64 v2: the add-one test with parts split by request kind and three doses
+
+Written before any v2 number exists; the one named change from exp64's verdict, plus the dose sweep. exp64's k-means
+parts were arbitrary in two of three topics, so "sibling" meant the same request in other words, and one topic's part
+was not released at half dose.
+
+**Topics.** The same three: c188, c243, c422.
+
+**Parts by request kind.** For each topic, claude-sonnet-4.6 (through OpenRouter, cached) reads 60 member prompts
+(seed 0, 300 characters each) and sorts them into up to 3 distinct kinds of request, each with a name and a one-line
+description, or says the topic has fewer distinct kinds. Every member is then assigned to the kind whose labelled-sample
+centroid (MiniLM) is nearest. A topic with fewer than 2 kinds is reported as single-kind and gets no add-one test. The
+kind with the most members is A; the others are the siblings. Kind names, sizes and five examples are written to the
+results.
+
+**Doses.** A fixed 20% of A (seed 0) is held out and scored in every condition. Of the remaining 80%, copies of 25%,
+50% and 100% are appended to the mix with fresh hashes, three conditions per topic. Siblings, the other topics and
+exp64's 57 unrelated controls are scored whole.
+
+**Scores and lines.** As exp64: the k = 50 ratio, the k = 200 ratio, the centroid mix share; gap lines recomputed at
+each k the exp41 way (exp64 found 11.13 and 8.75).
+
+**Bars.** The exp64 rule per topic, score and dose: A's held-out part below the line, every sibling above it, unrelated
+topics moving under 10%. Reported per dose; the headline is the smallest dose at which a score passes all tested
+topics. Prediction: with parts that are distinct kinds, k = 50 passes at 50% or 100% for every topic that has at least
+two kinds; k = 200 passes at a higher dose or drags a sibling. "Too coarse" and "too insensitive" as in exp64.
+
+**Not done.** No retraining; three topics; one LLM split with no second opinion, so the split's quality is read from
+the examples in the results, not measured. Smoke run on one topic at one dose first, named smoke.

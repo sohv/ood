@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 27-10-2026 — exp65: would Ai2 add data for the found themes, by the user's rating
+
+**Question.** Of the 40 themes the gap search found, how many are kinds of request a data team would add training data for, how many does the mix already cover in spirit, and how many are artefacts?
+**Hyperparameters.** One rater (the user); 40 themes from exp45's blind grouping of exp41's 181 confirmed gap topics; each shown as its member topic names and six member prompts, in a shuffled order at seed 0; three answers, one round.
+**Datasets.** The 40 themes, carrying 181 topics.
+**Result.** 15 of 40 themes were rated a clear new category (0.38, Wilson 0.24 to 0.53), carrying 38% of the 181 topics; 12 more of the same (0.30), carrying 44% of topics; 13 quirks (0.33), carrying 19% of topics. The new categories are mostly work-style tasks: structured extraction (numbers and units, drug triplets, causal claims), sentiment and classification tasks, factual-consistency checks of summaries, company and industry article writing, screenplay and script writing, code and API documentation, resume JSON generation, question answering over a given passage, plus kids' TV slogans and Midjourney prompts, logic puzzles with named people, movies, smart-home and customer-service agent scripts, adult SEO titles, and one single-sender product-description theme. More of the same: jailbreaks (20 topics), erotic writing (16), questions about the AI itself (18 topics over four themes), greetings, relationship advice, non-English language tasks, anime roleplay. Quirks: the NAME_1 placeholder themes (character descriptions, named-person questions, Bible books), one-sender scripts (plant seeds, a Russian social-media bot, finance and image-caption data generation, critic scoring), keyboard mashing, the toxic-persona prompts, and one grouping that was not a theme (tech tools, humour and poetry). No notes were written.
+**Output:** results/raw/261027_exp65_theme_ratings_v1/decision.json
+**Bar:** mixed: 0.38 of themes against 0.50 for useful and 0.25 for mostly repeats or quirks; the interval covers both lines.
+**Confound:** one rater, who discussed the criteria with me on eight of the cards while rating; the themes are exp45's LLM grouping, so a bad grouping was rated as a quirk, which counts against the loop's output rather than the grouping step.
+**Verdict:** extend: about two-fifths of the loop's output is actionable by the user's reading, and that part is dominated by work-style tasks the mix under-represents, while the largest topic counts (jailbreaks, erotica, questions about the AI) are covered in kind; next the exp64 rerun with parts split by request kind.
+
 ## 27-10-2026 — exp64: the add-one test: half of one subcluster of a found gap is added to the mix, and the scores are read again
 
 **Question.** When part of a found gap is added to the training mix, does the score stop flagging that part, keep flagging its siblings, and leave unrelated gaps alone (Stefan's French-maths test)?
