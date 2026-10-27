@@ -20,3 +20,5 @@ Scope discipline in `CLAUDE.md` sends them here so the current experiment stays 
 - 26-10-2026: an exp52-style refusal run with a random arm of about 150 topics (exp52 had 40), so scores that predict over-refusal (neighbour count, centroid mix share, ridge on both; exp62/63) can be separated by 0.1. Suggested by the other session after exp63.
 
 - 27-10-2026 (exp64 v2): the add-one test on more topics with genuinely distinct kinds, gated by a kind-distinctness check (centroid cosine between kinds below a fixed cut) before testing, so single-kind topics are excluded by rule rather than read from examples. Also a dose curve finer than 25/50/100.
+
+- 27-10-2026 (exp67): the SAE FVU method at Stefan's scale: a public Pile-trained Olmo-3 base SAE (decoderesearch/olmo-3-saes, layer 16, 65k) as the pre side and an SAE trained on at least 100M Dolci tokens as the post side; our 0.93M-token SAEs (training FVU 0.5) failed the planted check, which says nothing about the method at 1B tokens.

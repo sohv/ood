@@ -95,7 +95,8 @@ def topic_medians(rows: list[dict], score: np.ndarray, task: str, set_name: str)
     for r, s in zip(rows, score, strict=True):
         if r["task"] == task and r["set"] == set_name:
             groups.setdefault(r["group"], []).append(float(s))
-    return {g: float(np.median(v)) for g, v in groups.items()}
+    # nan-safe: a record with no finite score (an empty raw text, a one-token reply) drops out of its topic's median
+    return {g: float(np.nanmedian(v)) for g, v in groups.items() if np.isfinite(v).any()}
 
 
 def spearman(a: np.ndarray, b: np.ndarray) -> float:
@@ -143,8 +144,10 @@ def main():
         LOGGER.info(f"{name}: cross-fitted accuracy {probe_acc[name]:.3f}")
     for set_name, suffix in (("eval_prompt", "prompt"), ("eval_reply", "reply")):
         rows = [feats[i] for i in by_set[set_name]]
-        scores[f"fvu_post_{suffix}"] = np.array([r["fvu_post"] for r in rows])
-        scores[f"delta_fvu_{suffix}"] = np.array([r["fvu_post"] - r["fvu_pre"] for r in rows])
+        # a per-record FVU needs a few tokens to have a variance; records with fewer than 3 content tokens get no FVU score
+        short = np.array([r["n_content"] < 3 for r in rows])
+        scores[f"fvu_post_{suffix}"] = np.where(short, np.nan, [r["fvu_post"] for r in rows])
+        scores[f"delta_fvu_{suffix}"] = np.where(short, np.nan, [r["fvu_post"] - r["fvu_pre"] for r in rows])
         scores[f"logprob_{suffix}"] = np.array([r["lp_base"] - r["lp_dpo"] for r in rows])
 
     # baselines on the prompt records
@@ -240,7 +243,8 @@ def main():
     y3 = np.array([r["group"] in ("legal", "medical") for _, r in planted_rows]).astype(int)
     for name in [n for n, s in DETECTORS.items() if s == "eval_prompt"] + ["tfidf", "random"]:
         s3 = np.array([scores[name][i] for i, _ in planted_rows])
-        t3[name] = safe_auc(y3, s3)
+        ok = np.isfinite(s3)
+        t3[name] = safe_auc(y3[ok], s3[ok])
     for name in DETECTORS:
         verdicts[name]["planted_ok"] = (
             bool(t3[name] >= config.min_planted_auc) if name in t3 and not np.isnan(t3[name]) else None
@@ -255,8 +259,11 @@ def main():
             else "does_not_beat"
         )
 
+    nan_counts = {name: int((~np.isfinite(s)).sum()) for name, s in scores.items()}
+    LOGGER.info(f"non-finite record scores {nan_counts}")
     decision = {
         "n_topics": len(common),
+        "nan_record_scores": nan_counts,
         "t1_behaviour": t1,
         "t1_verdicts": verdicts,
         "t2_labels": t2,
