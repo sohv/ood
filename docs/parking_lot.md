@@ -18,3 +18,5 @@ Scope discipline in `CLAUDE.md` sends them here so the current experiment stays 
 - 20-10-2026: exp26: judge the 8,000 Olmo-3 SFT replies (about $12) to see whether SFT replies are worse than DPO replies to the same ShareChat messages.
 
 - 26-10-2026: an exp52-style refusal run with a random arm of about 150 topics (exp52 had 40), so scores that predict over-refusal (neighbour count, centroid mix share, ridge on both; exp62/63) can be separated by 0.1. Suggested by the other session after exp63.
+
+- 27-10-2026 (exp64 v2): the add-one test on more topics with genuinely distinct kinds, gated by a kind-distinctness check (centroid cosine between kinds below a fixed cut) before testing, so single-kind topics are excluded by rule rather than read from examples. Also a dose curve finer than 25/50/100.
