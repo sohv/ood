@@ -3069,3 +3069,50 @@ M2's refusal on XSTest unsafe prompts at least M0's minus 0.10. Baselines on the
 Sanity written into the results: null grades per model, row counts against prompts times 2, five raw replies per model
 read, Mc and M2c showing no drop on targets (control did not move), the random topics under A. Smoke on 10 prompts
 first, named smoke.
+
+## 27-10-2026 — exp68: three-way ground truth: does a detector tell deployment-only, shared and training-only topics apart?
+
+Written before any exp68 code runs. Stefan (22-10) asked for ground truth on all three kinds of cluster. exp44 built only
+the deployment-only kind, and scored only the traffic side, which cannot see a topic with no traffic at all. Here all
+three kinds are made by construction, with the same deletion idea as exp44 v2, and two detectors score them from both
+sides.
+
+**Units.** exp37's eligible topics with no template signature, size 200 to 3,000, median ratio within 0.5 to 2 times the
+pool median (exp44's candidate rule). 30 are drawn with seed 0. The first 10 are made deployment-only, the next 10
+training-only, and the last 10 are left shared. A unit's rows are its traffic members (exp37 labels) plus the mix rows
+whose nearest eligible-topic centroid is that topic (centroids from traffic members, before any deletion).
+- Deployment-only: delete the unit's mix rows, plus every mix row among the 50 nearest mix neighbours of any of its traffic
+  members (exp44 v2's ablation).
+- Training-only: delete the unit's traffic members, plus every traffic row among the 50 nearest traffic neighbours of any of
+  its mix rows (the mirror).
+- Shared: untouched.
+
+**Score.** Each row gets the two-sided log ratio log(((T+1)/n_t) / ((M+1)/n_m)). T and M count traffic and mix rows among
+its 50 nearest neighbours in the reference, with exact copies and self left out. A unit's score is the median over up to
+300 of its traffic rows and up to 300 of its mix rows (seed 0), from whichever sides it still has. The reference is a
+uniform 20% sample of each side after deletion (seed 0), the same for both detectors, so that tf-idf kNN is affordable.
+- Detector A: MiniLM embeddings, cosine.
+- Detector B: tf-idf on word unigrams and bigrams, cosine, fit on the reference (sublinear tf, min_df 2, max 200k
+  features).
+
+**Lines, per detector.** m0 is the median of 1,000 medians of random 500-row samples of row scores, drawn from the
+reference itself (rows scored the same way). A unit is called deployment-only if its score is at least m0 + log 3,
+training-only if at most m0 - log 3, and shared otherwise. This mirrors exp41's 3x line on both sides.
+
+**Measure.** Three-way accuracy over the 30 units for each detector.
+**Bars, per detector.** Works: at least 24 of 30 (chance 10). Fails: 15 or fewer. Otherwise ambiguous.
+**Comparison.** One detector is better if it gets at least 4 more units right. Otherwise it is a tie.
+**Validity gate.** At least 8 of 10 deployment-only and 8 of 10 training-only units keep 50 or more rows on their own side
+after deletion, and each deleted unit has 0 rows left on the deleted side. Otherwise the run is invalid.
+**Reported, no bar.**
+- The one-sided traffic score (exp41's: median traffic-side ratio over traffic members only, a unit with no traffic is
+  called shared), to show what a one-sided detector misses.
+- Detector A on the full reference instead of the 20% sample.
+- Rows deleted per unit, and a confusion matrix per detector.
+
+**Seeds and caveats.**
+- Unit draw, subsample and row cap all use seed 0. No extra seeds.
+- 30 units give coarse counts.
+- Deletion is defined in MiniLM space, which favours detector A. A tf-idf loss here is weaker evidence than in exp47.
+- Deleted units have no rows at all on one side, an easier case than a partly covered real topic.
+- The deletions shift neighbouring shared units too. That is accepted rather than corrected.

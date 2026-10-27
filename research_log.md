@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 27-10-2026 — exp68: three-way ground truth: can a detector tell traffic-only, shared and training-only topics apart?
+
+**Question.** If I build topics that are only in traffic, only in training, or in both, can the two-sided neighbour count and a word (tf-idf) neighbour count sort them correctly?
+**Hyperparameters.** k=50 neighbours, lines at 3x above and below the typical score, reference = a 20% random sample of each side (seed 0), up to 300 rows per topic per side.
+**Datasets.** 30 ordinary topics from exp37 (WildChat+LMSYS 992,933 prompts against 1,710,578 Dolci first turns). 10 were made traffic-only by deleting their Dolci look-alikes, 10 were made training-only by deleting their traffic look-alikes, and 10 were left alone.
+**Result.** The neighbour count sorted 25 of 30 correctly: all 10 traffic-only, 8 of 10 training-only and 7 of 10 shared. The word version sorted 17 of 30, and it missed 9 of 10 traffic-only topics. On the full reference instead of the 20% sample, the neighbour count got 28 of 30. The usual one-sided score (traffic side only) got 20 of 30, because it cannot see training-only topics at all (0 of 10). The deletion worked on all 20 changed topics. No API calls were made, so there are no failed rows. I did not read the topic texts.
+**Output:** results/raw/261027_exp68_three_way_truth_v2/decision.json
+**Bar:** cleared for the neighbour count, 25 against 24. The word version is ambiguous, 17 (between 15 and 24). The neighbour count is better by 8, against a margin of 4.
+**Confound:** the look-alikes were deleted by MiniLM similarity, the same space the neighbour count uses, so word look-alikes stayed behind. That explains much of tf-idf missing the traffic-only topics. The tf-idf setting uses min_df 2, while exp67 used 5.
+**Verdict:** extend: report the two-sided count as the one that covers all three kinds, and say that a traffic-only score misses training-only topics entirely. A fairer word test would delete look-alikes by word similarity too.
+
 ## 27-10-2026 — exp67: Stefan's three untried detector families against tf-idf, the auto-rater and random, on the behaviour target
 
 **Question.** Do a pretraining-versus-post-training probe, SAE reconstruction error, or the pretrained-versus-post-trained log-probability difference predict where Olmo over-refuses better than the tf-idf word score, the retrieval auto-rater and random?
