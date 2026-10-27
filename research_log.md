@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 27-10-2026 — exp61: precision at depth from 20 rank-drawn hand labels, and a relabel of the 58 earlier topics
+
+**Question.** How far down exp37's ranking does the share of real gaps stay above half, and are the user's topic labels stable enough to carry that number?
+**Hyperparameters.** exp37's ranking of 1,998 topics; four rank bins (1 to 50, 51 to 100, 101 to 200, 201 to 293) with 5 topics each drawn at seed 0; 10 prompts per topic shown beside the nearest mix prompt; one labeller (the user) using the exp41 rule.
+**Datasets.** 20 new topics plus the 58 topics labelled in exp41 and exp43, 78 items in one shuffled order with names and ranks hidden.
+**Result.** Strict precision (real gap only) per bin from the top down: 4 of 5, 3 of 5, 2 of 5, 1 of 5. Cumulative strict precision at K = 50, 100, 200, 293: 0.80, 0.70, 0.55, 0.44, with Wilson lower bounds 0.38, 0.40, 0.36, 0.30. Lenient precision (real gap or partly covered): 1.00, 1.00, 0.90, 0.93; only one of the 20 topics was labelled covered (asking the chatbot its name, rank 130). The four topics the loop had never named (ranks 218 to 279) were placeholder-name story requests (real gap), erotic story requests, sex and relationship advice, and medical text tasks in Spanish and French (all partly). Relabel of the 58: exact agreement 0.57 (kappa 0.36); with real gap and partly merged against covered, 0.72 (kappa 0.43). The second round was stricter: the real gap share on the 58 fell from 0.48 to 0.31, with 8 real to partly, 9 partly to covered, 3 real to covered and only 4 moves up.
+**Output:** results/raw/261026_exp61_labels_v1/decision.json, the 78 labels in results/raw/261026_exp61_labels_v1/labels/
+**Bar:** precision cleared through K = 200 (0.55 against 0.50, lower bound 0.36 above 0.30) and missed at K = 293 (0.44), so the review budget is 200 topics. Consistency missed, 0.57 against 0.70: both label rounds are noisy and the precision numbers carry that caveat; with 5 topics per bin every interval spans more than half the range.
+**Confound:** the relabel drifted toward covered, so the strict numbers (new topics labelled in the same sitting) come from the stricter standard and would read higher under the first round's; the lenient number does not depend on the real versus partly line and is the stable one.
+**Verdict:** extend: on the strict reading the top 200 of the ranking is the review budget, and nearly all of the top 293 is at least partly uncovered; next the usefulness question on the found themes, then exp64.
+
 ## 26-10-2026 — exp60: answer quality on gap topics, OLMo against a reference answer judged pairwise
 
 **Question.** Beyond refusing more, are the answers OLMo-3 does give on gap topics worse than its answers on matched covered prompts?
