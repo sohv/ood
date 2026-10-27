@@ -10,6 +10,17 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 27-10-2026 — exp64: the add-one test: half of one subcluster of a found gap is added to the mix, and the scores are read again
+
+**Question.** When part of a found gap is added to the training mix, does the score stop flagging that part, keep flagging its siblings, and leave unrelated gaps alone (Stefan's French-maths test)?
+**Hyperparameters.** exp37's MiniLM embeddings and k = 50 neighbour-count ratio, plus the same ratio at k = 200 and the centroid mix share; seed 0; k-means into 3 subclusters per topic; copies of half of the largest subcluster appended to the mix (413, 353 and 199 rows); gap lines 11.13 at k = 50 and 8.75 at k = 200 from 1,000 random subsets of 500 traffic prompts at each k.
+**Datasets.** The traffic pool of 992,933 prompts and the Dolci SFT plus DPO mix; three topics, the largest exp61 real gaps: c188 factual-consistency summary checks (1,797 prompts), c243 jailbreak persona prompts (1,188), c422 placeholder-name story requests (1,013); 57 unrelated control topics (the other exp61 new-draw topics and exp37's 40 random-arm topics).
+**Result.** At k = 50 the added part fell from 87.9 (the ceiling) to 3.5, 7.2 and 13.2, so it dropped below the line in 2 of 3 topics; c422 stayed just above (13.2 against 11.13). Siblings: untouched in c243 (87.9 and 87.9), one of two dropped in c188 (87.9 to 8.2, the same yes/no template as the added part), both halved in c422 (87.9 to 43.1, still over the line). Unrelated topics did not move at all: median and largest change 0.000 in every condition. At k = 200 the same pattern, released in 2 of 3 (4.7, 8.2, 23.1 against 8.75) with every sibling kept. Mix share: the added part rose from 0.14, 0.02 and 0.02 to 0.31, 0.23 and 0.23; no sibling moved by more than 0.013.
+**Output:** results/raw/261027_exp64_subcluster_addone_v1/decision.json
+**Bar:** missed on the pre-registered rule at both k, "too insensitive": c422's added part stayed above the line (13.2 against 11.13 at k = 50; 23.1 against 8.75 at k = 200), and at k = 50 one c188 sibling fell below the line. c243 passed outright at both k. The pre-registration named c198 as the third topic by mistake; the stated rule (the three largest exp61 real gaps) selects c243, and the run followed the rule.
+**Confound:** the subclusters are k-means splits, not distinct request kinds; in c188 and c422 the three parts share one template, so a sibling there is the same request in other words, and the release becomes a question of dose (199 added rows for a 398-prompt part in c422) rather than of grain.
+**Verdict:** rerun with one named change: split by request kind (a person or an LLM naming the parts) instead of k-means, so the siblings are distinct, and add the part at 25%, 50% and 100%; the unrelated-gap clause held exactly at every topic and both k, and the mix share moved only the added part.
+
 ## 27-10-2026 — exp61: precision at depth from 20 rank-drawn hand labels, and a relabel of the 58 earlier topics
 
 **Question.** How far down exp37's ranking does the share of real gaps stay above half, and are the user's topic labels stable enough to carry that number?

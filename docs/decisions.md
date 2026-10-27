@@ -2871,3 +2871,66 @@ the numbers, and the cross-validated fit is a second opinion, not a verdict.
 is the only clean test; one model and one behaviour; refusal counts correct refusals of harmful requests too (exp62b
 showed the grader's harm line is not a proxy for the user's). Sanity written into the results: 221 topics with all
 features, 1,998 topics in the planted ranking, every planted topic over the ablated line.
+
+## 27-10-2026 — exp64: the add-one test: when part of a found gap is added to the mix, does the score release that part and keep its siblings
+
+Written before any exp64 number exists. Stefan's iterative test: if Ai2 added French maths data after the loop
+flagged "French maths", a good score should stop flagging French maths and still flag German maths, and the gaps
+unrelated to maths should not move. exp44 and exp57 tested the inverse (deleting a topic's training neighbours makes it
+a gap); this run tests the forward step at a grain below the topic, which is the grain the loop iterates at.
+
+**Topics.** The three largest clusters among the topics labelled real gap in exp61's new draw, by exp37 cluster size:
+c188 (factual-consistency summary checks, 1,797 prompts), c422 (creative story requests, 1,013) and c198
+(family-relationship age puzzles, 615). Size is the rule because each topic has to split into three subclusters with
+enough prompts to hold out half of one.
+
+**Subclusters.** Each topic's member embeddings (exp37's MiniLM vectors) split by k-means into 3 subclusters, seed 0.
+The largest subcluster is the one "added" (A); the other two are its siblings (B, C). A's members are split in half at
+random (seed 0): copies of one half are appended to the mix side with fresh hashes, so they count as mix neighbours;
+the other half stays in traffic as the held-out A prompts that get scored. Traffic is otherwise unchanged. Five
+example prompts per subcluster are written to the results so the split can be read; no LLM names them.
+
+**Scores, before and after, computed for the three topics' subclusters and for the controls.** (1) the neighbour-count
+ratio at k = 50, exp37's score; (2) the same at k = 200, a coarser neighbourhood; (3) the centroid mix share of exp55
+and exp63, with each subcluster given its own centroid. Per subcluster the median over its scored members. The gap
+line stays exp41's 11.63; adding at most 900 rows to 2.4 million does not move the random-subset median. Controls: the
+other two chosen topics untouched, the 17 other exp61 new-draw topics, and exp37's random-arm topics.
+
+**Bars, on the count ratios.** For one topic and one score: pass if the held-out half of A falls below the gap line
+after the addition, both siblings stay above it, and the unrelated topics' median ratio changes by less than 10%. A
+score passes the test if all three topics pass. "Too coarse" if A always drops but a sibling drops below the line in at
+least one topic; "too insensitive" if A stays above the line in any topic. Prediction: k = 50 passes; k = 200 is too
+coarse at least once. The mix share has no line; its before and after values and relative changes are reported.
+
+**Not done.** No retraining; one model; three topics; subclusters are embedding splits, not a person's. Sanity written
+into the results: the number of mix rows added per topic, the number of scored A prompts, every control's before and
+after value, and the 3 × 3 pass table. Smoke run on one topic first, named smoke.
+
+## 27-10-2026 — exp65: are the found themes ones Ai2 would add, by the user's reading
+
+Written before any rating exists. Stefan's usefulness test, "would Ai2 thank you for this": a loop that finds many
+precise gaps that nobody would act on is not useful. exp45's blind grouping put exp41's 181 confirmed gap topics into
+40 broad themes; the user rates each theme once.
+
+**Items.** The 40 themes, each shown as its member topic names and up to six member prompts spread over the topics,
+in a shuffled order (seed 0). One rater, the user. Three answers: clear new category Ai2 should add data for; more of
+the same, a kind of request the mix already covers in spirit; a length, format or anonymisation quirk, not a topic.
+A note field.
+
+**Measures.** The share of themes in each answer, with Wilson 95% intervals, and the share of the 181 topics they
+carry. The list of the "new category" themes is the deliverable.
+
+**Bars.** Useful if at least half the themes are rated a clear new category (Wilson lower bound above 0.30); mostly
+repeats or quirks if under a quarter are; in between, mixed, reported as such. No relabelling; one round.
+
+**Amendment, 27-10-2026, before the full exp64 run (after the one-topic smoke run).** The ratio's scale depends on k:
+at k = 200 the ceiling is about 346 against 87.9 at k = 50, so exp41's line of 11.63 only applies to k = 50. The line
+for each k is defined the same way exp41 defined it: 3 times the median of 1,000 random subsets of 500 traffic prompts,
+computed at that k in the "before" condition, the subsets drawn from a random sample of 50,000 traffic prompts (seed 0)
+scored for this purpose. For k = 50 this reproduces 11.63 up to sampling. The smoke run also showed that one sibling at
+k = 50 fell from the ceiling to 8.2 while the other did not move, so the bar's "siblings kept" clause may fail on the
+sibling nearest the added one; the bar is unchanged, and which sibling moved is reported.
+
+**Note, 27-10-2026, after the exp64 run.** The pre-registration listed c198 as the third topic from a partial size lookup;
+the stated rule, the three largest clusters labelled real gap in exp61's new draw, selects c188 (1,797), c243 (1,188)
+and c422 (1,013). The run followed the rule, not the list. The bar was applied as written.
