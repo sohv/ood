@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 28-10-2026 — exp94: Stefan's topic-removal test with training-only detectors on traffic topics
+
+**Question.** If half of exp37's 2,000 traffic topics are left out of the reference, can a detector that sees only the reference flag the removed topics, and does Olmo beat words once there is no source template to read?
+**Hyperparameters.** exp93's methods and selection unchanged (Olmo-3-7B-Instruct-DPO b33130b7, kNN and Mahalanobis over layers and poolings; tf-idf, MiniLM, length and random baselines, all fitted on the reference only); topic score = median of 10 held-out prompts; split seeds 0, 1, 2; paired bootstrap of 10,000 over test topics.
+**Datasets.** exp37's traffic pool (WildChat and LMSYS first turns) and its 2,000 topics, 30 prompts per topic. Per seed, 1,000 removed topics give 10 held-out prompts each to flag. 1,000 kept topics give 20 prompts each to the reference and 10 held-out prompts each that must not be flagged. The Dolci arm adds 20,000 Dolci first turns to the reference.
+**Result.** I ran 3 seeds. Every method was weak. Topic-level test AUROC was 0.64 for the chosen Olmo detector (kNN k 1, layer 28, mean pooling), 0.65 for tf-idf, 0.78 for MiniLM, 0.50 for length and 0.50 for random. exp93's chosen Olmo setting scored 0.54 here. Olmo minus tf-idf was about -0.01 in every seed, and the 95% interval crossed 0 each time, for example -0.05 to 0.02 in seed 0. Adding Dolci to the reference lowered everything by about 0.02 (MiniLM by 0.08). The fake removal scored 0.49 to 0.50 for every method. 8.5% of the held-out kept prompts have a near-copy in the reference (tf-idf cosine above 0.9), against 1.4% of the removed ones. MiniLM's lead is expected, because the topics are k-means clusters in MiniLM space.
+**Output:** results/raw/261028_exp94_topic_removal_v1/decision.json (per method, arm and seed in scores.jsonl)
+**Bar:** tie: the Olmo minus tf-idf interval crosses 0 in all three seeds. Per the pre-registered rule, exp93's lead came from source templates, and Olmo activations do not find removed traffic topics better than words.
+**Verdict:** discard the claim that activations beat words. I predicted 0.85 and the test gave 0.64: one of 2,000 topics is mostly covered by its neighbouring kept topics, so removing it leaves little real gap to find. A rerun should remove whole groups of neighbouring topics.
+
 ## 28-10-2026 — exp90: exp82's end-to-end loop on the language gaps exp88 proposed
 
 **Question.** If the 19 non-English topics that exp88's loop proposed under the multilingual removal are patched with teacher data and the model retrained, does its behaviour on those topics improve more than exp82's random patching did?

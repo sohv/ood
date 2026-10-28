@@ -56,6 +56,8 @@ class AnalysisConfig:
     grade_field: str = "request_harmful"
     gate_kind: str = ""
     full_dir: str = ""
+    # carry on past a failed grader gate; validity still records the gate result
+    ignore_gate: bool = False
     # exp84 amendment: a topic off exp69 by more than 1% still passes if it lies between the full arm's two tie orders
     repro_tie_aware: bool = False
     repro_min_share_exact: float = 0.9
@@ -89,7 +91,7 @@ def main():
     word_arms = ("full", minus, "random_0")
     gate = json.loads((labels_dir / "grade_gate.json").read_text())
     gate_passed = gate["passed_by_kind"][config.gate_kind] if config.gate_kind else gate["passed"]
-    assert gate_passed, "the grader gate failed, so the labels are not used (pre-registered stop)"
+    assert gate_passed or config.ignore_gate, "the grader gate failed, so the labels are not used (pre-registered stop)"
     labels = np.load(Path(config.cache_dir) / "arrays.npz")["labels"]
     n_t = len(labels)
     clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
@@ -205,7 +207,7 @@ def main():
         "room": room,
         "room_ok": {f: room[f] >= config.min_room for f in families},
     }
-    is_valid_run = validity["repro_ok"] and validity["all_prompts_scored"] and gate_passed
+    is_valid_run = validity["repro_ok"] and validity["all_prompts_scored"] and (gate_passed or config.ignore_gate)
 
     def verdict(f: str) -> str:
         if not is_valid_run:

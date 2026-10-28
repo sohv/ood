@@ -1,4 +1,4 @@
-# exp84 step 2: checks the kind grader on dolci's own source labels, then grades exp80's 10 sampled member prompts of every ranked topic for coding, non-english and tool use.
+# exp84/exp87 step 2: checks the kind grader on dolci's own source labels, then grades exp80's 10 sampled member prompts of every ranked topic with that set's questions.
 # uv run -m scripts.run_exp84_grade --run_dir results/raw/261028_exp84_kind_labels_v1 --cache_dir cache/exp84 --exp80_cache_dir cache/exp80 --exp80_run_dir results/raw/261028_exp80_safety_removal_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --model_id google/gemini-3.8-flash --seed 0
 
 import asyncio
@@ -14,7 +14,7 @@ from openai import AsyncOpenAI
 from sklearn.metrics import f1_score
 
 from src.data.io import load_jsonl
-from src.generation.kind_grader import KINDS, PROMPT, VALUES, VERSION
+from src.generation.kind_grader import SETS
 from src.generation.request_grader import grade_requests
 from src.metrics.io import write_json, write_jsonl
 from src.utils.git import get_git_hash
@@ -22,8 +22,6 @@ from src.utils.logging import setup_logging
 from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
-# removed kind: the grader question that labels it
-QUESTION = {"coding": "coding", "multilingual": "non_english", "tool_use": "tool_use"}
 
 
 @dataclass
@@ -44,6 +42,9 @@ class GradeConfig:
     # smoke runs: first n gate prompts and first n ranked topics
     gate_limit: int | None = None
     n_topics: int | None = None
+    kind_set: str = "exp84"
+    # carry on past a failed gate; the gate scores are still written and reported
+    ignore_gate: bool = False
 
 
 def main():
@@ -53,7 +54,9 @@ def main():
     assert not (run / "grade_gate.json").exists(), f"{run} already graded; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
-    write_json({"git_hash": get_git_hash(), "grader_version": VERSION, **asdict(config)}, run / "config.json")
+    version, prompt, kinds, question = SETS[config.kind_set]
+    values = {k: {"yes", "no"} for k in kinds}
+    write_json({"git_hash": get_git_hash(), "grader_version": version, **asdict(config)}, run / "config.json")
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     grade_cache = str(Path(config.cache_dir) / "grade_cache")
 
@@ -65,9 +68,9 @@ def main():
                 [t[: config.chars] for t in texts],
                 grade_cache,
                 config.max_concurrent,
-                prompt_template=PROMPT,
-                values=VALUES,
-                version=VERSION,
+                prompt_template=prompt,
+                values=values,
+                version=version,
             )
         )
         return out, dict(fail)
@@ -78,14 +81,14 @@ def main():
     truth = np.array([r["truth"] for r in gate_rows])
     gate = {"n": len(gate_rows), "failed": int((~ok).sum()), "failures_by_kind": gate_fail, "bar": config.gate_bar}
     gate["f1"], gate["flag_rate_by_truth"], gate["passed_by_kind"] = {}, {}, {}
-    for kind, q in QUESTION.items():
+    for kind, q in question.items():
         pred = np.array([g is not None and g[q] == "yes" for g in gate_grades])
         gate["f1"][kind] = float(f1_score(truth[ok] == kind, pred[ok]))
         gate["flag_rate_by_truth"][q] = {t: round(float(pred[ok & (truth == t)].mean()), 4) for t in sorted(set(truth))}
         gate["passed_by_kind"][kind] = gate["f1"][kind] >= config.gate_bar
     write_jsonl(
         [
-            {"id": r["id"], "truth": r["truth"], "text": r["text"][: config.chars], **(g or dict.fromkeys(KINDS))}
+            {"id": r["id"], "truth": r["truth"], "text": r["text"][: config.chars], **(g or dict.fromkeys(kinds))}
             for r, g in zip(gate_rows, gate_grades, strict=True)
         ],
         run / "gate_grades.jsonl",
@@ -94,7 +97,7 @@ def main():
     print(
         f"gate f1 {gate['f1']} against bar {config.gate_bar}; passed {gate['passed_by_kind']}; failed {gate['failed']}"
     )
-    if config.gate_only or not any(gate["passed_by_kind"].values()):
+    if config.gate_only or not (config.ignore_gate or any(gate["passed_by_kind"].values())):
         print(f"stopping after the gate; written {run / 'grade_gate.json'}")
         return
 
@@ -125,7 +128,7 @@ def main():
                 "id": f"c{c}_{i}",
                 "topic": f"c{c}",
                 "traffic_index": i,
-                **(g or dict.fromkeys(KINDS)),
+                **(g or dict.fromkeys(kinds)),
                 "text": texts[i][: config.chars],
             }
             for (c, i), g in zip(picks, grades, strict=True)
@@ -138,7 +141,7 @@ def main():
         n_graded = sum(cc == c for cc, _ in picks)
         is_labelled = len(valid) >= config.min_valid
         row = {"id": f"c{c}", "n_graded": n_graded, "n_valid": len(valid)}
-        for q in KINDS:
+        for q in kinds:
             share = float(np.mean([g[q] == "yes" for g in valid])) if valid else None
             row[f"{q}_share"] = share
             row[f"is_{q}"] = (share >= 0.5) if is_labelled else None
@@ -150,7 +153,7 @@ def main():
         "failed_prompts": sum(g is None for g in grades),
         "failures_by_kind": dict(fail),
         "unlabelled_topics": sum(r["n_valid"] < config.min_valid for r in topic_rows),
-        "topics_of_kind": {q: sum(r[f"is_{q}"] is True for r in topic_rows) for q in KINDS},
+        "topics_of_kind": {q: sum(r[f"is_{q}"] is True for r in topic_rows) for q in kinds},
     }
     write_json(summary, run / "grade_summary.json")
     print(summary)

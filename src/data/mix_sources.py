@@ -24,6 +24,30 @@ KIND_SOURCES = {
     ),
     "multilingual": ("Multilingual", ("Aya",), ("tulu_v3.9_aya_100k-request",)),
     "tool_use": ("Tool Use", ("Dolci Instruct Tool Use",), ()),
+    "math": (
+        "Math",
+        ("Tulu 3 Persona MATH", "OpenMathInstruct 2", "Tulu 3 Persona GSM", "Tulu 3 Persona Algebra"),
+        (
+            "tulu-3-sft-personas-math-request",
+            "tulu_v3.9_open_math_2_gsm8k_50k-request",
+            "tulu-3-sft-personas-math-grade-request",
+            "tulu-3-sft-personas-algebra-request",
+        ),
+    ),
+    "science": (
+        "Science",
+        ("Dolci Instruct OpenThoughts3+ Science", "SciRiff"),
+        ("OpenThoughts3-full-filtered-science-no-cot-request", "tulu_v3.9_sciriff_10k-request"),
+    ),
+    "precise_if": (
+        "Precise IF",
+        ("Dolci Instruct Precise IF",),
+        (
+            "valpy_if_qwq_reasoning_verified_no_reasoning-request",
+            "IF_sft_data_verified_permissive-request",
+            "tulu-3-sft-personas-instruction-following-o3-request",
+        ),
+    ),
 }
 
 

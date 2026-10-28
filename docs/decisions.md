@@ -3896,3 +3896,30 @@ detector does not find missing traffic topics better than words.
 
 **Output.** `results/raw/261028_exp94_topic_removal_v1/decision.json` and `scores.jsonl`. Activations are kept in
 memory, not saved.
+
+## 28-10-2026 — exp95: exp94 with whole groups of neighbouring topics removed
+
+Written before any exp95 code or number exists. In exp94 every method was weak (topic AUROC 0.50 to 0.65 outside
+MiniLM), because a single removed topic is mostly covered by its neighbouring kept topics. Here the unit of removal
+is a group of neighbouring topics, so the removed area is actually missing from the reference.
+
+**Grouping (chosen by the user).** Each of exp37's 2,000 topics gets a centre: the normalised mean MiniLM embedding of
+all its members. Spherical k-means (seed 0) puts the 2,000 centres into 100 groups. MiniLM therefore defines the
+groups as well as the topics, so MiniLM is again reported but kept out of the bar; Olmo and tf-idf played no part in
+the grouping.
+
+**Design.** exp94 unchanged except: per seed, half of the 100 groups are removed and every topic in a removed group is
+removed; each group (not topic) goes to val or test; the paired bootstrap resamples groups, not topics. Same 30
+prompts per topic (seed 0 draw), same arms (main, Dolci, fake), same methods and selection, split seeds 0, 1, 2.
+
+**Bar.** As exp94: topic-level test AUROC, main arm, Olmo minus tf-idf, 95% interval from 10,000 group-level paired
+resamples per seed. "Beats words" if above 0 in all three seeds, "loses to words" if below 0 in all three, else tie.
+Sanity: fake removal in 0.45 to 0.55 for every method.
+
+**Prediction.** Every method rises over exp94: Olmo and tf-idf to about 0.75 to 0.85, MiniLM above 0.9. Olmo against
+tf-idf a tie again, since exp94 showed no Olmo edge at the topic level.
+
+**Discard.** If every non-MiniLM method stays below 0.70, removal of traffic areas is not detectable from the
+reference alone at this scale, and the source-level result (exp93) is the only setting where the detector works.
+
+**Output.** `results/raw/261028_exp95_group_removal_v1/decision.json`, `scores.jsonl`, `groups.json`.

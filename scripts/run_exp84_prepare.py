@@ -1,4 +1,4 @@
-# exp84 step 1: marks the dolci mix rows that come only from the coding, multilingual and tool-use sources, and draws the grader gate set.
+# exp84/exp87 step 1: marks the dolci mix rows that come only from each removed kind's sources, and draws the grader gate set.
 # uv run -m scripts.run_exp84_prepare --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp80_cache_dir cache/exp80 --cache_dir cache/exp84 --seed 0
 
 import json
@@ -19,8 +19,6 @@ from src.utils.logging import setup_logging
 from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
-KINDS = ("coding", "multilingual", "tool_use")
-NEGATIVE_DOMAINS = ("Math", "Reasoning", "Science", "Precise IF", "Other", "Safety")
 
 
 @dataclass
@@ -31,6 +29,9 @@ class PrepareConfig:
     seed: int = 0
     n_gate_positive: int = 150
     n_gate_negative: int = 450
+    # exp87: math, science, precise_if with negatives from coding, multilingual, safety, tool use and other
+    kinds: tuple[str, ...] = ("coding", "multilingual", "tool_use")
+    negative_domains: tuple[str, ...] = ("Math", "Reasoning", "Science", "Precise IF", "Other", "Safety")
 
 
 def main():
@@ -51,7 +52,7 @@ def main():
     sft_text, dpo_text = sft["first_user"].tolist(), dpo["first_user"].tolist()
 
     masks, manifest = {}, {"git_hash": get_git_hash(), **asdict(config), "n_mix": len(m_text), "kinds": {}}
-    for kind in ("safety", *KINDS):
+    for kind in ("safety", *config.kinds):
         domain, sources, families = KIND_SOURCES[kind]
         sft_in = sft["source_dataset"].isin(sources).to_numpy()
         assert (sft_in == (sft["domain"] == domain).to_numpy()).all(), f"{kind}: sources and domain {domain} disagree"
@@ -68,24 +69,26 @@ def main():
     # the tightened rule must give exp80's safety mask exactly
     manifest["safety_equals_exp80"] = bool((masks["safety"] == exp80_safety).all())
     assert manifest["safety_equals_exp80"], "safety mask differs from exp80's"
-    overlap = {f"{a}&{b}": int((masks[a] & masks[b]).sum()) for i, a in enumerate(KINDS) for b in KINDS[i + 1 :]}
+    overlap = {
+        f"{a}&{b}": int((masks[a] & masks[b]).sum()) for i, a in enumerate(config.kinds) for b in config.kinds[i + 1 :]
+    }
     manifest["overlap_between_kinds"] = overlap
     assert not any(overlap.values()), f"a mix row is removed by two kinds: {overlap}"
-    np.savez(out / "masks.npz", **{k: masks[k] for k in KINDS})
+    np.savez(out / "masks.npz", **{k: masks[k] for k in config.kinds})
 
     # gate: each kind's removed rows are its positives; rows of six other domains are negatives for every kind
     rng = np.random.default_rng(config.seed)
     gate = []
-    for kind in KINDS:
+    for kind in config.kinds:
         idx = rng.choice(np.where(masks[kind])[0], size=config.n_gate_positive, replace=False)
         gate += [{"id": f"g_{kind}_{i}", "truth": kind, "text": m_text[i]} for i in idx]
-    neg_rows = np.where(sft["domain"].isin(NEGATIVE_DOMAINS).to_numpy())[0]
+    neg_rows = np.where(sft["domain"].isin(config.negative_domains).to_numpy())[0]
     idx = rng.choice(neg_rows, size=config.n_gate_negative, replace=False)
     gate += [{"id": f"g_none_{i}", "truth": "none", "domain": sft["domain"][i], "text": sft_text[i]} for i in idx]
     write_jsonl(gate, out / "gate_prompts.jsonl")
     manifest["gate_rows"] = len(gate)
     manifest["examples"] = {
-        k: [m_text[i][:200] for i in np.where(masks[k])[0][:: int(masks[k].sum()) // 5][:5]] for k in KINDS
+        k: [m_text[i][:200] for i in np.where(masks[k])[0][:: int(masks[k].sum()) // 5][:5]] for k in config.kinds
     }
     manifest["peak_rss_gb"] = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1e6
     write_json(manifest, out / "manifest.json")
