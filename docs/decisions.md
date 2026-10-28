@@ -3510,3 +3510,192 @@ About 45 GB of RAM for an hour and the GPU for about 10 minutes, coordinated wit
 
 **Output.** `results/raw/261028_exp57_rater_confirm_v2/decision.json`, with `review_ablated.jsonl` and
 `labelled_full.jsonl` beside it.
+
+## 28-10-2026 — exp83: exp41's gap loop with the rater as the confirmation step, against the namer's shared count
+
+Written before any exp83 call exists. exp57 v2 found that the retrieval auto-rater, used as the loop's confirmation step
+at coverage at most 50, rejects 17 of 19 covered topics the namer's shared count confirms, with the same planted recall,
+but on the 58 labelled topics against the full mix it keeps only 10 of 28 real gaps (recall 0.36, precision 0.83). This
+run puts the rater into the loop itself and asks what the loop then finds: a cleaner list, a shorter one, or both.
+
+**Mechanics.** exp41's skip loop exactly as exp70 reran it (arm A reproduced exp41's 172 distinct gaps and its 200
+reviews): exp37's ranking by neighbour count, the line at 3 x the random-subset median (11.63), 20 rounds of 10
+reviews, each round removing the remaining topics that are the same gap (centroid cosine at least 0.85 or a shared
+template signature) as a topic confirmed that round, distinct gaps counted with the same rule. Three arms share the
+ranking and differ only in the confirmation step: N, the namer (`anthropic/claude-sonnet-4.6`, 25 prompts, shared at
+least 13, exp41's cache), which must reproduce exp41; R50, the rater (`google/gemini-3.8-flash`, exp56's variant B
+prompt, 10 member prompts drawn with seed 0 each paired with its nearest Dolci prompt by MiniLM cosine over the full
+mix, confirm if coverage at most 50); R65, the same rater at coverage at most 65, as sensitivity. Every arm needs the
+topic's ratio over the line, as before. The namer is still called in the rater arms so every reviewed topic has a name,
+but its shared count plays no part there. A rater or namer call that fails three attempts is retried in up to two more
+passes after a 30-second pause; a call that still fails leaves the topic unconfirmed and is counted and listed.
+
+**Labels used as ground truth.** The user's 117 labelled topics: exp41 and exp43 (30 each), exp61 (20 new topics and
+the second-round label of the 58 relabelled), exp75 (39), later labels overriding earlier ones for the same topic, the
+one "incoherent" label left out. Strict precision of an arm = real gaps among its confirmed labelled topics that are
+real or covered, partly left out. Known-real recall = labelled real gaps the arm confirms, out of the labelled real gaps
+the namer arm confirms (37 in exp41's run). Estimated real distinct gaps = distinct gaps x strict precision.
+
+**Bar, R50 against N.** Primary: R50's strict precision is at least 0.15 higher than N's (N's is 37 of 54, 0.685, on
+exp41's confirmed set), with at least 20 real-or-covered labelled topics among R50's confirmed topics; a one-sided
+Fisher test on the two precision tables is reported beside it. Yield guard, with its own bar: R50's estimated real
+distinct gaps are at least 0.8 x N's. Prediction: the precision bar clears (about 0.85 against 0.69) and the yield
+guard fails (about 70 to 90 distinct gaps against 172, so about 65 to 80 estimated real against about 118). Reading:
+both clear, the rater replaces the namer in the loop; precision clears and yield fails, the rater's coverage is
+attached to every found gap as a flag and the user is shown it, but the namer keeps confirming; precision fails, the
+rater is dropped from the loop and exp57 v2's result is logged as not carrying over to the loop. R65 is reported on the
+same measures with no bar. No extra seeds: the loop is deterministic given the caches, and the rater's own noise is the
+thing under test.
+
+**Reported, no bar.** Distinct gaps and themes (cosine 0.70) per arm, confirmed topics per arm, overlap of R50's and
+R65's confirmed and distinct gaps with N's, median count ratio of each arm's confirmed topics, how deep into the ranking
+each arm's 200 reviews reach, coverage of every reviewed topic, failed calls per arm, new namer and rater calls, and ten
+example prompts per reviewed topic for the user's reading.
+
+**Cost and compute.** About 200 to 400 new rater calls (exp57 v2's full-mix cache covers 58 topics) and up to 200 new
+namer calls for topics exp41 never reviewed, under 15 dollars. CPU only, about 50 GB of RAM for one to two hours; the
+script waits until the container is below 55 GB before loading the pool, since ood-9b's exp80 and ood-66's exp81 and
+exp82 are live.
+
+**Output.** `results/raw/261028_exp83_loop_rater_v1/decision.json`, with `reviewed_topics_N.jsonl`,
+`reviewed_topics_R50.jsonl` and `reviewed_topics_R65.jsonl` beside it.
+
+## 28-10-2026 — exp84: the removal test on three more kinds of data (coding, multilingual, tool use)
+
+Written before any exp84 code runs. Neel's 27-10 follow-up to exp80: repeat the removal test with other kinds of data
+taken out of Dolci. If the finder recovers several removed kinds but the real run finds only boring gaps, that is
+moderate evidence the real data has few important gaps. The user asked for the full design, no shortcuts: exp84 is
+exp80's design applied to each kind in turn, with only the removed sources and the label question changed.
+
+**Kinds removed, one at a time.** A mix row is removed if its normalised text appears only in that kind's sources (a
+text also found in any other SFT or DPO source stays), exactly as exp80 defined safety-only rows.
+- coding: SFT domain "Coding" (Dolci Instruct Python Algorithms, Evol CodeAlpaca, Tulu 3 Persona Python) and the DPO
+  families correct-python-sft-187k, evol_codealpaca_heval_decontaminated and personahub_code_v2_34999.
+- multilingual: SFT domain "Multilingual" (Aya) and the DPO family tulu_v3.9_aya_100k.
+- tool_use: SFT domain "Tool Use" (Dolci Instruct Tool Use); Dolci DPO has no tool-use family.
+
+**Arms, per kind.** One run directory per kind.
+- A, full: exp80's full arm. It is the same fp32 fair-tie count of the same traffic against the same mix, so it is read
+  from exp80's counts.npz and words.npz instead of being recomputed. exp80's reproduction check against exp69 is the
+  check for it, and exp84 is invalid if exp80's is.
+- B, minus the kind.
+- C, random removal of the same number of rows from the rows B keeps, seeds 0, 1, 2.
+
+**Score families, list length, ranking.** As exp80: the fp32 k = 50 neighbour count with the fair tie split (window 70
+extra rows), every traffic prompt, every arm; topic score the median member ratio, ties broken by median nearest-mix
+similarity; words from exp47's two-fold tf-idf logistic refitted per arm, arms A, B and C seed 0. N is exp80's N (the
+topics over the full arm's count line), the same for every kind, arm and family.
+
+**Kind labels, independent of every score.** The same 10 member prompts per topic that exp80 grades (seed 0, same draw,
+asserted equal to exp80's grades.jsonl), first 1,000 characters. Each is graded once by google/gemini-3.8-flash with a
+request-only prompt holding three yes/no questions:
+- coding: does the message ask for writing, explaining, fixing, reviewing or running computer code, or for a program or
+  script?
+- non_english: is the message written mainly in a language other than English?
+- tool_use: would answering it properly need calling an external tool or service, such as live web search, weather,
+  prices, sports results, maps, bookings or another service's data, rather than writing an answer from knowledge?
+A topic is of a kind if at least half of its valid grades say yes and at least 8 of 10 are valid; topics with fewer
+valid grades are left out and counted. Failed calls are retried with backoff until none remain if possible.
+**Grader gate, per kind.** On Dolci SFT itself: 150 random rows of each kind's removed rows (seed 0) as that kind's
+positives, plus 450 random rows from the domains Math, Reasoning, Science, Precise IF, Other and Safety, so each
+question is scored on 900 rows with the other two kinds' rows and the 450 as negatives. Chat is left out because WildChat
+and OpenAssistant mix all three kinds. F1 for each kind must be at least 0.85; a kind whose gate fails is not analysed
+and is logged as such.
+
+**Measure, bar, comparison, per kind and family.** As exp80, with "harmful" replaced by "of the kind".
+gain(arm) = topics of the kind in that arm's top N minus those in the full arm's top N. The finder finds the removed
+kind if gain(B) >= 10 and gain(B) - gain(C0) >= 8; it fails if gain(B) - gain(C0) <= 2; anything between is ambiguous.
+One family is better if it leads on gain(B) - gain(C0) by at least 5; otherwise the two tie.
+**Summary reading, set now.** The neighbour count "recovers removed data" if it finds for at least two of the three
+kinds; it does not if it finds for none; one of three is mixed. exp80's safety verdict is reported beside it, not
+counted in the two of three. The same reading is applied to words.
+**Validity, all required, per kind.** exp80's reproduction check passed; the kind's gate passed; every arm scores all
+992,933 traffic prompts with no missing values; room, at least 15 topics of the kind outside the full arm's top N, or
+the kind is reported as underpowered.
+
+**Reported, no bar, per kind.** Count gains under control seeds 1 and 2, and the verdict against the largest of the
+three; the kind's share among B's new entries against its base rate among labelled topics; recall of the room; AUROC of
+the change in log topic score (B and C0 against A) for kind against other topics; each topic's removed-neighbour share
+(of its members' 50 nearest full-mix rows, the share B removes); tie statistics per arm and the bars recomputed on the
+unchanged count; topics over each arm's own line; the namer's names (exp37's Sonnet namer and cache) for B's new count
+entries; five raw prompts from B's new entries of the kind.
+
+**Prediction.** multilingual finds: Aya is most of Dolci's non-English data, though Dolci's WildChat keeps some
+non-English prompts. coding is ambiguous or fails: much traffic coding is likely still covered by Dolci's WildChat and
+UltraFeedback rows. tool_use is underpowered or fails: few traffic topics need live tools. I expect words to do about as
+well as the count on multilingual, since language shows in the words.
+
+**Statistics and stopping.** No significance test; six verdicts (three kinds, two families) and the summary reading are
+all named here. Seeds: grading sample 0, removal 0/1/2, word fit 0, gate sample 0. One run per kind; a rerun only to
+fix a bug found by the ambiguity check. Caveats: a kind's label is the grader's line on 10 prompts, checked against
+Dolci's own source labels, not against traffic; "the kind's data" means the named sources, and similar prompts in other
+sources stay.
+
+**Cost and compute.** 12 GPU count passes of about 11 minutes each beside ood-66's vLLM queue; 6 word fits of about 6
+minutes and 17 GB of RAM each, run when the container has room; about 20,900 Gemini calls, run after exp80's grading
+so the two do not share the rate limit.
+
+**Output.** `results/raw/261028_exp84_removal_{coding,multilingual,tool_use}_v1/decision.json`, the kind labels in
+`results/raw/261028_exp84_kind_labels_v1/`.
+
+**Amendment, 28-10-2026, 01:40, before the rerun.** The first full run (v1) crashed in round 6 of the namer arm: a retry
+pass of two rater calls both failed under OpenRouter's shared Gemini rate limit, and the batch helper raises when every
+call in a batch fails, a rule meant for a bad key. The rerun (v2) catches that raise at the batch boundary, leaves the
+slots unfilled for the next pass, and uses three retry passes with a 60-second pause instead of two with 30. The v1
+run's rater and namer caches are reused, so no judgement is re-rolled. Nothing about the arms, the bar or the
+prediction changes; no v1 number beyond its round-by-round log was seen.
+
+**Amendment to exp84, 28-10-2026 02:00, before any exp84 count, word or topic-grade result exists.** exp80's reproduction
+check failed (Spearman 0.93 against 0.99), and exp84 as written inherits that and would be invalid automatically. The
+diagnosis: 231 of exp69's 251 topics match exp80's unchanged count exactly (Spearman 1.00), and all 20 others lie between
+that count's two tie orders, so the unchanged count breaks ties differently on the GPU than exp69's CPU run did. The fair
+split, which the bars use, does not depend on tie order. The change for exp84 only: the reproduction check passes if every
+one of the 251 topics either matches exp69 within 1% or lies between the full arm's traffic-first and mix-first medians,
+and at least 0.9 of them match within 1%. exp80 keeps its own verdict (invalid and underpowered) as logged. Everything else
+in exp84 is unchanged.
+
+## 28-10-2026 — exp85: the safety-removal test at the prompt level
+
+Written before any exp85 number is computed. exp80 asked whether removing Dolci's safety data moves harmful topics into
+the top list, and could not tell: only 21 of 1,998 topics are harmful and 17 were already in the list. Harmful prompts
+are about 2% of traffic, and most sit inside ordinary topics, so the topic list is the wrong unit. The user asked for a
+different approach. This one asks the same question per prompt: when the safety data is removed, do the harmful
+prompts' gap scores rise more than other prompts' scores, compared with removing the same number of random rows?
+
+**Data, all from exp80, nothing recomputed.** results/raw/261028_exp80_safety_removal_v1: counts.npz (fair-split fp32
+k = 50 ratio per traffic prompt for full, minus_safety, random_0, random_1, random_2), words.npz (word logits for full,
+minus_safety, random_0), grades.jsonl (19,980 graded prompts: 399 harmful, 19,566 harmless, 15 failed and left out).
+
+**Measure.** For each graded prompt, the change in its score when the arm's rows are removed: count, log ratio(arm)
+minus log ratio(full); words, logit(arm) minus logit(full). Per arm: AUROC of that change, harmful against harmless
+prompts (0.5 means the removal moves harmful prompts no more than others).
+
+**Bar, count.** Finds if AUROC(minus_safety) is at least 0.60, AUROC(minus_safety) minus the largest of the three
+random AUROCs is at least 0.10, and the 95% prompt bootstrap CI (2,000 resamples, seed 0) of AUROC(minus_safety) minus
+AUROC(random_0) is above 0. Fails if AUROC(minus_safety) minus the largest random AUROC is at most 0.03. Otherwise
+ambiguous.
+**Bar, words.** The same with random_0 as the only control.
+**Comparison.** On AUROC(minus_safety) minus AUROC(random_0), one family is better if it leads by at least 0.05 and the
+bootstrap CI of the lead excludes 0; otherwise the two tie.
+**Validity.** All 19,965 valid graded prompts have finite scores in every arm.
+
+**Reported, no bar.** Harmful and harmless graded prompts over exp80's full line (10.64) in each count arm; the mean
+change for harmful and harmless prompts per arm; the same AUROCs for jailbreak-graded prompts; the AUROC of exp80's
+safety neighbour share for harmful against harmless prompts; five harmful prompts with the largest count rise.
+
+**Prediction.** Count finds: harmful prompts' nearest Dolci rows are 41% safety rows on average in exp80, so removing
+them should raise exactly those prompts' scores. Words also find. I expect a tie.
+**Caveat, stated now.** Clearing this bar shows the score reacts on the right prompts. It does not show a reviewer
+reading the top topics would see the change; exp80 already showed they would not, because those topics were flagged
+before the removal.
+
+**Statistics and stopping.** One computation on fixed data; the bootstrap is the only randomness (seed 0). No reruns.
+
+**Output.** `results/raw/261028_exp85_prompt_level_v1/decision.json`.
+
+**Amendment, 28-10-2026, 02:20, before the third launch.** The v2 run was stopped in round 8 of the namer arm: under the
+shared Gemini rate limit about four in five rater calls were failing even after three retry passes, and a topic whose
+rater call had failed was never tried again when a later arm reviewed it, so failures from early rounds would have been
+baked into the rater arms. v3 retries a failed topic whenever an arm reviews it, runs five retry passes with a 90-second
+pause, and sends at most three calls at once. v2's caches are reused. Arms, bar and prediction unchanged; no v2 arm
+total was seen.

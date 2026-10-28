@@ -86,8 +86,8 @@ def main():
     ]
     first = [r["first"] for r in relabel_rows]
     second = [r["second"] for r in relabel_rows]
-    merge = lambda x: "gap" if x in LENIENT else x
-    first_m, second_m = [merge(x) for x in first], [merge(x) for x in second]
+    first_m = ["gap" if x in LENIENT else x for x in first]
+    second_m = ["gap" if x in LENIENT else x for x in second]
     n = len(relabel_rows)
     consistency = {
         "n": n,

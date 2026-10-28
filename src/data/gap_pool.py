@@ -1,5 +1,6 @@
 # exp37+ traffic pool (exp09's pool, exp31's extended pool, new lmsys shards, deduplicated) and the dolci mix, with minilm embeddings.
 
+import hashlib
 import json
 import logging
 import os
@@ -25,6 +26,7 @@ def load_traffic_pool(
     new_lmsys_shards: list[int],
     embed_chars: int,
     num_tasks: int | None = None,
+    device: str = "cuda",
 ) -> tuple[list[dict], np.ndarray, np.ndarray, SentenceTransformer]:
     # rows (text, src, norm), float16 unit embeddings, source labels and the embedder, deduplicated in the order exp37 used
     c9 = json.loads((Path(exp09_dir) / "config.json").read_text())
@@ -48,14 +50,21 @@ def load_traffic_pool(
                 seen.add(nm)
                 rows.append({**r, "norm": nm})
                 store.append(i)
-    embedder = SentenceTransformer(c9["embed_model"], device="cuda", revision=c9["embed_model_revision"])
-    e_new = embedder.encode(
-        [new[i]["text"][:embed_chars] for i in keep_new],
-        batch_size=512,
-        normalize_embeddings=True,
-        convert_to_numpy=True,
-        show_progress_bar=False,
-    ).astype(np.float16)
+    embedder = SentenceTransformer(c9["embed_model"], device=device, revision=c9["embed_model_revision"])
+    new_texts = [new[i]["text"][:embed_chars] for i in keep_new]
+    # the new lmsys rows are embedded once and cached, keyed on the exact texts and model revision
+    key = hashlib.md5("\x00".join([c9["embed_model_revision"], *new_texts]).encode()).hexdigest()
+    cache = Path("cache") / f"traffic_new_emb_{key}.npy"
+    was_cached = cache.exists()
+    if was_cached:
+        e_new = np.load(cache)
+    else:
+        e_new = embedder.encode(
+            new_texts, batch_size=512, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=False
+        ).astype(np.float16)
+        cache.parent.mkdir(exist_ok=True)
+        np.save(cache, e_new)
+    LOGGER.info(f"new lmsys embeddings {'from cache' if was_cached else 'computed'}: {cache}")
     t_np = np.vstack([np.vstack([e_pool, e_ext])[keep_old], e_new])
     assert len(t_np) == len(rows), f"{len(t_np)} embeddings for {len(rows)} rows"
     source = np.array([SOURCE[r["src"]] for r in rows])
