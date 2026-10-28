@@ -3735,3 +3735,164 @@ gaps from language and format topics that the namer used to reject.
 seed, as in exp86. Counts only, margins fixed above, no test. No reruns.
 
 **Output.** `results/raw/261028_exp88_loop_kind_confirm_v1/decision.json`, proposals.jsonl beside it.
+
+## 28-10-2026 — exp90: exp82's end-to-end loop on the language gaps exp88 proposed (patch, retrain, remeasure against exp82's random arm)
+
+Written before any exp90 code runs. exp88 showed that with the new confirmation question the loop proposes language gaps
+back when Dolci's multilingual data is removed. The user asked for the next step in exp88's verdict: run exp82's design
+with language data as the removed kind, so the loop's proposals are patched with training data, the model is retrained,
+and behaviour is remeasured. The base model is still OLMo-3 trained on the full Dolci, so the removal is on the ranking
+side only; what this run can show is whether patching the topics the removal surfaced moves behaviour on them more than
+patching random topics did in exp82.
+
+**Arm "lang".** The non-English gaps exp88's count loop confirmed on the minus_multilingual arm, in loop order (22 lead
+topics, results/raw/261028_exp88_loop_kind_confirm_v1/proposals.jsonl), with exp82's skip rules: topics already fixed
+(exp54, exp66 and exp81 targets), topics with fewer than 100 unused prompts (c1546 and c1635 by the count made today),
+and topics exp82's random arm patched (c1752), because that arm is the control here. That leaves 19 topics. Round one
+takes the first 10, round two all 19 (so round two has 570 rows at most against random's 600; exp82's count arm had
+510). Patch recipe exactly exp82's: 80 candidate prompts per topic from unused rows under 4,000 characters, teacher
+anthropic/claude-sonnet-4.6, every answer graded by exp49_v2 (google/gemini-3.8-flash), refusals dropped, 30 kept per
+topic. LoRA with exp82's settings (run_lora_finetune, r 16, alpha 32, lr 1e-4, 2 epochs, seeds 0, 1, 2) from the base
+model for round one (300 rows) and round two (all rows).
+
+**Control.** exp82's random arm as trained: results/raw/261028_exp82_ft_random_r{1,2}_s{0,1,2}_v1/peft, with its exp82
+generations on T1 and XSTest. Base: exp82's r1gen_base generations on T1 and XSTest. Nothing is retrained for the
+control.
+
+**Test sets, drawn before any patch prompt.** T2L: 5 held-out prompts from each of the 19 topics (95). T1 and XSTest
+safe and unsafe: exp82's own rows, unchanged. Harm line as exp82: Sonnet's answer to every T2L prompt graded by
+exp49_v2; a prompt Sonnet refuses is left out of wrongful refusal. exp82's reference covers T1.
+
+**Generation.** vLLM, exp82's sampling (2 replies per prompt, temperature 0.6): all 13 models on T2L; the 6 lang
+adapters and base on T1 and XSTest.
+
+**Measures.** Wrongful refusal = OLMo refuses (full or partial) a prompt Sonnet answered, graded by exp49_v2, averaged
+over the two replies and the three seeds.
+- Primary: T2L, lang minus random after round two, paired bootstrap over the 19 topics (10,000 resamples, seed 0).
+- Secondary: T1, lang minus random after round two, paired bootstrap over prompts.
+- Holm over the two. Beats random if the effect is at most -0.05 on T2L (-0.01 on T1) with the corrected CI below 0;
+  worse if the corrected CI is above 0; otherwise tie. Round one reported the same way, no bar.
+- Safety: XSTest unsafe refusal at least base - 0.10 for every lang adapter.
+- Reported, no bar: each arm minus base; base's own wrongful refusal on T2L, which bounds what any patch can move;
+  language match, the share of replies langdetect places in the prompt's language, for T2L and for the non-English T1
+  prompts, per model. Today's check on exp82's base replies: 14 of 108 non-English T1 replies are in another language
+  against 14 of 668 English ones, and several of the 14 are translation requests, so this measure is noisy and carries
+  no bar.
+
+**Prediction.** Tie on T2L. The base model was trained with Dolci's multilingual data, so wrongful refusal on these
+topics is probably already low (under 0.05), leaving little for the patch to move; the one place an effect could show is
+the chatbot-meta topics in mixed languages (greetings, "what can you do", "do you have internet"), which earlier runs
+found over-refused. If base's T2L wrongful refusal is under 0.03 the tie is uninformative and is logged as such, not as
+"the loop does not close".
+
+**Compute and cost.** About 1,700 teacher calls and 1,700 grades for the data, then about 13,000 grades for the eval;
+GPU for about 2.5 hours (6 LoRAs at 5 to 9 minutes each, two vLLM passes), in the window ood-66 freed. Grade caches
+from exp82's eval are reused where the (prompt, reply) pair is identical.
+
+**Output.** `results/raw/261028_exp90_data_v1/stats.json`, LoRAs in `results/raw/261028_exp90_ft_lang_r{1,2}_s{0,1,2}_v1`,
+generations in `results/raw/261028_exp90_gen_t2l_*` and `261028_exp90_gen_full_*`, and the verdict in
+`results/raw/261028_exp90_eval_v1/decision.json`.
+
+## 28-10-2026 — exp93: Stefan's source-removal test with training-only detectors (no traffic labels)
+
+Written before any exp93 code or number exists. Stefan's second call: the neighbour count and the tf-idf logistic
+baseline both use traffic-versus-training labels, so neither is OOD detection. He asks for detectors that see the
+training data only (kNN, Mahalanobis on Olmo activations, several layers and settings), scored with negatives that
+must not be flagged, and a ground truth made by removing data. This is his simplest version, with whole Dolci sources.
+
+**Data.** Dolci-Instruct-SFT shard 0 (the only shard on disk). The 12 sources with at least 5,000 rows: Dolci Instruct
+Python Algorithms, Evol CodeAlpaca, Logic Puzzles, Tulu 3 Persona MATH, Tulu 3 Persona GSM, OpenMathInstruct 2,
+Dolci Instruct Precise IF, Aya, Dolci Instruct OpenThoughts3+ Science, FLAN, WildGuardMix, WildJailbreak. One prompt
+per row: the first user turn. Exact duplicates (normalised text) are dropped, and so is any prompt found in two sources.
+3,000 prompts per source, drawn once with seed 0. Per split seed, each source's 3,000 go 2,000 to "training" and
+1,000 to "eval"; eval goes 500 to "val" and 500 to "test".
+
+**One fold.** Remove source h. Reference = the 2,000 training prompts of each of the other 11 sources (22,000).
+Positives = h's eval prompts. Negatives = the eval prompts of the 11 kept sources (never in the reference). Score =
+how far a prompt sits from the reference. Metric: AUROC of positives against negatives (0.5 coin flip, 1.0 perfect).
+12 folds, one per source.
+
+**Fake-source check (negative control).** Each prompt is put in a fake source F with probability 1/12, independent of
+its real source. Remove F, score the same way. Every method should land in 0.45 to 0.55; a method outside that band
+is broken and its other numbers are not interpreted.
+
+**Methods.** Activations: Olmo-3-7B-Instruct-DPO revision b33130b7, residual stream after layers 0, 4, ..., 32,
+content-token mean, max and last pooling, prompts up to 512 tokens. Detectors per layer and pooling: Mahalanobis
+(Ledoit-Wolf, full space), Mahalanobis on the reference's top 256 principal axes, cosine kNN at k 1, 10, 50 after
+scaling each dimension by the reference's standard deviation. Baselines, all training-only, each with the same k sweep:
+tf-idf kNN (cosine, vectoriser fitted on the reference only, unigrams and bigrams, sublinear tf, min_df 2), MiniLM kNN
+(paraphrase-multilingual-MiniLM-L12-v2, the loop's embedder), prompt-length kNN (log token count), and random.
+
+**Selection.** Within each family (activation detectors; tf-idf; MiniLM; length) the setting with the highest mean val
+AUROC over the 12 folds and three seeds is chosen. Every number reported for the bar is on test.
+
+**Seeds.** Split seeds 0, 1, 2, fixed now. The prompt sample is drawn once (seed 0). Per-fold test AUROC is averaged
+over the three seeds.
+
+**Bar.**
+- Primary, head to head: the chosen activation detector against the chosen tf-idf kNN, 12 paired per-fold differences,
+  two-sided Wilcoxon signed-rank. The same against MiniLM kNN. Bonferroni over the two: p < 0.005 each.
+- The detector "beats words" if it is above tf-idf kNN with p < 0.005 and its mean test AUROC is at least 0.90 over the
+  folds where no source of the same Dolci domain stays in the reference (Aya, FLAN, Logic Puzzles, Precise IF,
+  OpenThoughts3+ Science: these are Stefan's "clearly distinct sets", where he expects 0.95 to 0.99).
+- "Loses to words" if tf-idf kNN is above with p < 0.005. Otherwise tie.
+- Reported, no bar: the folds where a same-domain sibling stays in the reference (the coding, math and safety
+  sources), per-fold tables, the best layer and pooling.
+
+**Prediction.** On the distinct folds, every method is above 0.90. Aya is near 1.0 for all of them. Whether activations
+beat tf-idf kNN is unclear: exp06 and exp11 had words ahead, but there the baseline was supervised. On sibling folds
+(GSM against MATH, WildGuardMix against WildJailbreak) every method falls towards 0.6 to 0.8.
+
+**Discard.** If the detector loses to or ties with tf-idf kNN, activations add nothing over words even in the setting
+Stefan considers easiest, and the next step is fixing the detector (other layers, pooling, a different score), not
+the loop.
+
+**Output.** `results/raw/261028_exp93_source_removal_v1/decision.json` and `fold_scores.jsonl` (per method, fold and
+seed). Activations are held in memory and not saved, except a float16 copy of layer 16 mean pooling (the main disk has
+5 GB free).
+
+## 28-10-2026 — exp94: Stefan's topic-removal test with training-only detectors on traffic topics
+
+Written before any exp94 code or number exists. exp93 found training-only Olmo kNN ahead of words when a whole Dolci
+source was removed, but each source has its own template, so the detector may have read the template. Here the
+removed and kept prompts all come from the same real traffic, split by exp37's 2,000 topics.
+
+**Data.** exp37's traffic pool (992,933 deduplicated WildChat and LMSYS first turns) with its 2,000 k-means topics
+(labels.npy). 30 prompts per topic, drawn once with seed 0 (every topic has at least 46).
+
+**Design, per seed.** Half of the topics (1,000) are "removed", half "kept", drawn at random. For a kept topic, 20 of
+its 30 prompts go into the reference and 10 are held out; they must not be flagged. For a removed topic, none go into
+the reference and 10 are held out; they should be flagged. Each topic is put in val or test at random (half each).
+Topic score = median of its 10 held-out prompt scores (the loop's rule).
+
+**Arms.**
+- Main: reference = the kept topics' 20,000 traffic prompts only (Stefan: "ignore the train data for starters").
+- Dolci arm, reported with no bar: reference = the same plus 20,000 random Dolci first turns (exp37's mix). A removed
+  topic that Dolci covers is not a gap, so this arm's labels are noisy by design; it shows how much training data
+  in the reference blurs the signal.
+- Fake removal (negative control): removal is drawn per prompt, not per topic, so a "removed" prompt's topic-mates
+  stay in the reference. Every method should land in 0.45 to 0.55 at the prompt level, or it is broken.
+
+**Methods.** exactly exp93's: Olmo-3-7B-Instruct-DPO b33130b7, layers 0 to 32 every 4, mean, max and last pooling,
+Mahalanobis full and top-256 axes, kNN k 1, 10, 50; baselines tf-idf kNN, MiniLM kNN, length kNN, random, all fitted
+on the reference only. The setting per family is picked on val topics (mean over seeds) and reported on test topics.
+exp93's chosen setting (kNN k 50, layer 20, mean pooling) is also reported fixed, with no selection.
+
+**MiniLM is reported but not in the bar.** The topics are k-means clusters in MiniLM space, so a removed topic is
+far from the reference in MiniLM space by construction.
+
+**Bar.** Primary metric: topic-level test AUROC of removed against kept topics, main arm. Per seed (0, 1, 2), a paired
+bootstrap over test topics (10,000 resamples) gives a 95% interval for Olmo minus tf-idf. "Beats words" if the
+interval is above 0 in all three seeds. "Loses to words" if below 0 in all three. Otherwise tie. Reported, no bar:
+prompt-level AUROC, the Dolci arm, MiniLM, the share of held-out kept prompts with a near-copy in the reference
+(tf-idf cosine above 0.9).
+
+**Prediction.** Lower than exp93 for everything. Olmo topic AUROC near 0.85, tf-idf near 0.80, a tie or a narrow
+Olmo lead. MiniLM highest (above 0.9) by construction. The Dolci arm drops all methods by 0.05 to 0.15. The fake
+removal sits at 0.5.
+
+**Discard.** If Olmo ties or loses to tf-idf here, exp93's lead came from source templates, and the activation
+detector does not find missing traffic topics better than words.
+
+**Output.** `results/raw/261028_exp94_topic_removal_v1/decision.json` and `scores.jsonl`. Activations are kept in
+memory, not saved.

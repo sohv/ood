@@ -219,7 +219,7 @@ def main():
     pr, pf = PRIMARY
     primary = margins[f"{pr}|{pf}"]["exp88"] if pr in kind_of else None
     full_gaps = summary[f"{pr}|{pf}|full"]["distinct_gaps"] if pr in kind_of else None
-    yield_cap = config.yield_multiple * e86[f"{pr}|{pf}|full"]["distinct_gaps"]
+    yield_cap = config.yield_multiple * e86[f"{pr}|{pf}|full"]["distinct_gaps"] if pr in kind_of else None
     yield_ok = full_gaps is not None and full_gaps <= yield_cap
     if primary is None:
         verdict = "primary_arm_not_run"

@@ -13,6 +13,8 @@ dependencies = [
     "matplotlib",
     "seaborn",
     "wandb",
+    "langdetect>=1.0.9",
+    "pyarrow>=25.0.1",
 ]
 
 [project.optional-dependencies]
@@ -38,6 +40,7 @@ inference = [
     "scikit-learn",
     "zstandard",
     "sentence-transformers",
+    "peft>=0.21.2",
 ]
 
 [tool.uv]
