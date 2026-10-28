@@ -3699,3 +3699,39 @@ rater call had failed was never tried again when a later arm reviewed it, so fai
 baked into the rater arms. v3 retries a failed topic whenever an arm reviews it, runs five retry passes with a 90-second
 pause, and sends at most three calls at once. v2's caches are reused. Arms, bar and prediction unchanged; no v2 arm
 total was seen.
+
+## 28-10-2026 — exp88: exp86's removal loops with a confirmation question that also counts a shared language or format
+
+Written before any exp88 code runs. exp86 found that removing Dolci's multilingual data put 25 non-English topics in
+front of the loop's reviewer (full mix 14) but only 2 more became confirmed gaps, because the namer's shared count
+stays at 4 to 10 on topics that are mostly in one language: it names them "Spanish language messages" and still counts
+only the messages that share a subject. The grader's non-English share on those same topics is 0.6 to 0.9. The user
+asked for exp86's verdict to be run: a confirmation question that also accepts a shared language or format.
+
+**Change, and only this.** The confirmation prompt (src/metrics/confirmation.py) keeps exp70's grain wording and
+SHARED count and adds two counts over the same 25 prompts: NOT_ENGLISH, how many are written mostly in a language
+other than English, and IN_FORMAT, how many use the same fixed template or structured input. A topic is confirmed if
+any of the three counts is at least 13 and it is over the arm's line. Everything else is exp86: its 18 loops (safety,
+coding, multilingual removals; count and words families; full, minus and random_0 arms), 20 rounds of 10, same-gap
+merging, exp86's rankings and lines, seed 0. The full mix and the random arms get the same question, so they carry
+whatever the looser question adds on its own.
+
+**Bar, primary (count family, multilingual removal).** New gaps of kind under minus_multilingual minus new gaps of kind
+under random_0 is at least 5 (exp86: 2 minus 0). A gap is new if none of its topics was confirmed in this run's full
+loop; of kind if its lead topic is non-English by exp84's grader label. Discard if the margin is at most 2: the
+question was not the blocker.
+**Yield guard.** The full mix's loop under the new question confirms at most 1.25 times exp86's distinct gaps (171, so
+at most 213) in the count family. If it confirms more, the question is too loose and the result is ambiguous whatever
+the margin.
+**Controls, reported, no bar.** The safety and coding removals under the same question, against exp86's margins (safety
+4 minus 0, coding 1 minus 0); the words family for every removal; for each confirmed gap, which of the three counts
+confirmed it; how many of-kind gaps in the minus_multilingual arm are confirmed by the language count alone.
+
+**Prediction.** The margin clears, around 8: most of the 25 non-English topics the minus arm reviews will count 13 or
+more as not English, and the random arm reviews about as many as the full mix. The full mix's list grows by 10 to 20
+gaps from language and format topics that the namer used to reject.
+
+**Seeds, statistics and stopping.** One namer pass at the default temperature, cached by prompt; one random removal
+seed, as in exp86. Counts only, margins fixed above, no test. No reruns.
+
+**Output.** `results/raw/261028_exp88_loop_kind_confirm_v1/decision.json`, proposals.jsonl beside it.
