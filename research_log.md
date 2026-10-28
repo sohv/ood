@@ -10,6 +10,59 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 28-10-2026 — exp57 v2: the rater as the loop's confirmation step, with covered controls drawn from above the gap line
+
+**Question.** When the controls are covered topics the ranking puts above the gap line, does the retrieval auto-rater, used as the loop's confirmation step, confirm fewer of them than the namer's shared count while keeping the planted missing topics?
+**Hyperparameters.** Same as exp57: exp37's ranking, the same ten planted topics (seed 1) with their 50 MiniLM nearest mix rows deleted (60,430 rows, identical to exp57), review set of the ablated top 180 plus planted plus controls (184 topics, ablated line 12.30), rater google/gemini-3.8-flash with exp56's variant B prompt on 10 prompts, namer anthropic/claude-sonnet-4.6 on 25 prompts with shared at least 13. Changed: the rater's cut is 50 (set from exp57's planted coverages so that 8 of 10 pass), sensitivity at 35 and 65; the controls are the 19 topics the user labelled covered that sit above the line, 4 of them clean (c456, c1470, c1633, c1172) and 15 from the 58 relabelled topics exp56 used.
+**Datasets.** exp37's 992,933 traffic prompts against 1,710,578 Dolci prompts; the user's labels from exp61 (second round) and exp75; exp57's cached rater and namer replies for topics judged before, so 226 of the 228 rater judgements on the review set are exp57's own.
+**Result.** I judged 184 topics with both steps and found: the rater confirmed 2 of the 19 covered controls (c766 at coverage 30, c956 at 45) and the namer confirmed all 19 (shared 14 to 25). On the 4 clean controls the rater confirmed 0, the namer 4; on the 15 from the relabelled set, 2 against 15. Planted recall 8 of 10 for both steps (the rater missed c488 at coverage 80 and c853 at 52; the namer missed c55 and c488 at shared 10). At cut 35 the rater confirmed 4 planted and 1 control; at 65, 9 planted and 5 controls. On the other 165 top topics the rater confirmed 66 and the namer 147, 63 in common. On the 58 labelled topics against the full mix the rater confirmed 12 with precision 0.83 and recall 0.36; the namer 32 with precision 0.69 and recall 0.79. 6 rater calls failed after 3 attempts (OpenRouter 429s and empty replies on Gemini), all on top-180 topics, none on planted or controls, so they lower the rater's yield and touch nothing in the bar; 1 labelled call failed, on a partly topic that the secondary does not score. 0 namer calls failed.
+**Output:** results/raw/261028_exp57_rater_confirm_v2/decision.json (review_ablated.jsonl and labelled_full.jsonl beside it)
+**Bar:** cleared, rater better: 2 false confirms against the namer's 19, 17 fewer against a margin of 3, with planted recall 8 against 8, within 1.
+**Confound:** the cut of 50 was set from these same planted topics' exp57 coverages, and the planted replies here are exp57's cached ones, so the planted-recall side is circular by construction; only the control side is a fresh test, and it is strong at every cut tried (1, 2 and 5 of 19 against 19). The namer confirms anything coherent, so beating it on covered controls is a low bar; the number that matters is 2 of 19 covered topics passing a step the line alone would have passed 19 of 19.
+**Verdict:** extend: the rater is the loop's confirmation step from here. The one extension is to rerun exp41's loop with the rater confirming at cut 50 and count how many of its 172 distinct gaps survive and how many the user calls real, as a separate pre-registered run.
+
+## 28-10-2026 — exp66: the second turn of the fix loop (scan the fixed model, fix what it still over-refuses, scan again)
+
+**Question.** After the exp54 fix, does the fix carry over to unfixed gap topics, can a second round of gap data cut refusals on the next harmless targets, and what does a scan of the twice-fixed model find?
+**Hyperparameters.** OLMo-3-7B-Instruct-DPO; M1 = exp54 gap adapter; M2 and M2c = LoRA on exp54's 780 gap rows plus 270 round-two gap rows or 270 covered rows, seeds 0, 1 and 2; exp54's LoRA settings; exp49_v2 grader; 2 replies per prompt.
+**Datasets.** Scan pool 2,310 prompts (exp52's 221 groups plus 10 newly confirmed gap topics, members and matched controls). Round two: 9 targets the user labelled harmless out of 14 candidates; 30 training and 10 held-out prompts per target with matched covered prompts; XSTest.
+**Result.** Carry-over: none. M1 minus Mc on unfixed gap topics was -0.015 (CI -0.042 to 0.011); random topics -0.032. Round two: M2 minus M2c on the 9 targets was +0.003 (CI -0.013 to 0.019; seeds -0.013, +0.028, -0.007). Re-grading the 41 missing held-out grades gives -0.002. Refusal on the targets: base 26.7%, M1 37.2%, M2 37.5%, M2c 38.0%. Retention held (M2 28.4% against M1 26.6% on round one's harmless prompts), and safety held (XSTest unsafe 93.5% against 93.8%). Three audits found no code bug: the adapters differ and were applied, and the eval matches the pre-registration. They found three design flaws. About 25 to 30 of the 90 held-out target prompts are harmful, and every model refuses about 94% of those against about 11% of the rest. About a third of the teacher's fix answers on four targets are refusals. Three targets (927, 1928, 1423) were picked on one refused scan prompt and refuse 0 to 10% on fresh prompts. Scan two of M2 meets the line on only 5 topics, exactly the 5 candidates the user had labelled harmful or mixed (jailbreak personas, NAME_1 roleplay, sexual content, anime roleplay, German tasks). 521 grader calls failed on rate limits (up to 10% of one model's grades).
+**Output:** results/raw/261027_exp66_eval_v1/decision.json, results/raw/261027_exp66_scan1_v2/decision.json, results/raw/261027_exp66_scan2_v1/decision.json
+**Bar:** fix does not work: CI lower bound -0.013, above -0.05. Carry-over does not carry over.
+**Confound:** the test could move at most about 8 points because most refusals were correct refusals of harmful prompts; M1's rise over base on these topics is mostly more refusal of harmful prompts (62% to 92%), not new over-refusal.
+**Verdict:** rerun with one named change set, exp81: targets need two refused prompts and M1 above base, refusing teacher answers are dropped, and held-out prompts are filtered by the user's harm labels. Scan two says the loop has run out of harmless over-refusal targets at this line.
+
+## 28-10-2026 — exp72: planted missing topics with look-alikes deleted by word similarity
+
+**Question.** If 10 topics are made missing by deleting their tf-idf look-alikes from the training mix (instead of their MiniLM look-alikes, as in exp44-47), which score still finds them: the neighbour count, tf-idf words, or the Flash rater?
+**Hyperparameters.** exp44 v2's 10 planted topics; every mix row among the 50 tf-idf-nearest of any planted prompt deleted (94,767 rows); count k=50 on MiniLM, exp47's tf-idf score, exp56's Flash variant-B rater (1,998 calls); top-293 review budget; seed 0.
+**Datasets.** exp37's 992,933 traffic prompts and 1,998 topics against the 1,710,578-row Dolci mix minus the deleted rows.
+**Result.** Planted topics in the top 293: count 3 of 10, words 3 of 10, rater 6 of 10. The count's planted positions fell from 1-69 (exp47, MiniLM deletion) to 267-878; most planted topics stay covered in embedding space because their MiniLM neighbours were not deleted. The deletion worked in word space: all 10 planted topics have median tf-idf nearest-mix cosine 0.18-0.21, below the pool's 25th percentile (0.29, estimated from 5,000 prompts). Rater: 13 of 1,998 calls failed.
+**Output:** results/raw/261027_exp72_planted_words_v1/decision.json
+**Bar:** rater finds (6 against 6); count and words ambiguous (3 each); rater beats both by 3 (margin 3); count and words tie.
+**Confound:** deleting in word space favours a score that reads words or meaning together, as exp47's MiniLM deletion favoured the count; the rater sees each prompt's MiniLM-nearest training prompt, which here was often not deleted.
+**Verdict:** the count's 10 of 10 on planted topics (exp44, 47, 51) was largely the test being built in its own space; with deletion in another space it does no better than words, and the rater is best. No single score finds missing topics in every space.
+
+## 27-10-2026 — exp79: can an LLM rater find 200 rare planted prompts among 20,000?
+
+**Question.** On exp11's planted pool, does the Flash rater (each prompt beside its nearest Dolci prompt) rank planted legal and medical prompts into its top 100 better than the tf-idf word score?
+**Hyperparameters.** google/gemini-3.8-flash, exp56's variant-B prompt for one request; gap = 100 - coverage with seeded jitter; exp11's pct20 length-bin ranking; needle seed 0 only.
+**Datasets.** exp09's 20,000 WildChat and LMSYS prompts plus 100 legal, 100 medical (gap) and 100 aya, 100 magicoder (covered) from exp06's banks.
+**Result.** The rater put 0 planted gap prompts and 0 controls in its top 100 (uplift 0.0, raw and length-binned); tf-idf on the same seed got 8.16. The rater is too coarse for one-in-a-hundred retrieval: it scores 12% of ordinary traffic at coverage 5 or below (798 prompts at exactly 0), against 23% of legal and 6% of medical, so its top 100 is a draw from thousands of tied ordinary prompts. It does separate the types on average (median coverage legal 15, medical 35, traffic 40, magicoder 75, aya 100). 1,291 of 20,000 traffic calls failed and were scored at the median.
+**Output:** results/raw/261027_exp79_rater_needles_v1/decision.json
+**Bar:** words beat the rater: 0.0 against 10.5 (and 8.16 recomputed on this seed).
+**Verdict:** discard the rater for per-prompt retrieval of rare kinds; its 0-100 scale saturates on ordinary traffic. It ranks topics (exp56, exp70) and separates whole sets (exp78), not single prompts in a large pool.
+
+## 27-10-2026 — exp79: the LLM rater on Task 2, ranking 20,400 single prompts
+
+**Question.** Does the Flash rater, shown each prompt with its nearest Dolci prompt, put rare planted legal and medical prompts in its top 100 better than the tf-idf word counter?
+**Hyperparameters.** google/gemini-3.8-flash, exp56's variant-B prompt adapted to one request; exp11's pct20 ranking (percentile within 20 length bins); needle seed 0 only.
+**Datasets.** exp11's planted pool at seed 0: 20,000 WildChat+LMSYS rows plus 100 legal, 100 medical (gap), 100 aya and 100 magicoder (covered controls); 20,400 calls, 1,291 failed (all traffic rows, rate limits) and scored at the median.
+**Result.** Gap uplift@100 is 0.00 under pct20 and raw ranking (control 0.00, top-100 length ratio 0.96). The rater gave coverage 0 to 798 ordinary traffic rows and to only 3 planted prompts; 7 planted prompts reach its top 1,000 and 20 its top 2,000; AUROC planted against traffic 0.635. Its top rows are short non-English requests whose nearest Dolci prompt is in another language. tf-idf at the same seed scores 8.16 (three-seed mean 10.5); max-pooled activations 7.48. The covered controls read as covered (median coverage aya 100, magicoder 75).
+**Output:** results/raw/261027_exp79_rater_needles_v1/decision.json
+**Bar:** words better: 0.00 against 10.5.
+**Verdict:** discard the rater for ranking single prompts: shown one prompt and one neighbour it calls hundreds of ordinary prompts missing, so it cannot find a 1% planted group; words remain the best per-prompt ranking.
+
 ## 27-10-2026 — exp75: which loop's gaps does the user call real?
 
 **Question.** Of the gaps each exp70 loop confirmed, how many does the user call a real gap when shown the prompts beside their nearest training prompts, blind to which loop found them?

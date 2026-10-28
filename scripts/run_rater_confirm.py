@@ -42,6 +42,7 @@ class RaterConfirmConfig:
     sample_seed: int = 0
     n_planted: int = 10
     n_controls: int = 10
+    control_ids: list[int] = field(default_factory=list)
     top_review: int = 180
     min_size: int = 200
     max_size: int = 3000
@@ -72,8 +73,9 @@ def main():
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     for d in config.cache_dirs:
-        if (Path(d) / "naming_cache").exists():
-            shutil.copytree(Path(d) / "naming_cache", run / "naming_cache", dirs_exist_ok=True)
+        for sub in ("naming_cache", "rater_cache"):
+            if (Path(d) / sub).exists():
+                shutil.copytree(Path(d) / sub, run / sub, dirs_exist_ok=True)
     rng = np.random.default_rng(config.seed)
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 
@@ -106,6 +108,13 @@ def main():
     draw = rng.choice(candidates, size=config.n_planted + config.n_controls, replace=False).tolist()
     planted, controls = sorted(draw[: config.n_planted]), sorted(draw[config.n_planted :])
     LOGGER.info(f"{len(candidates)} candidates; planted {planted}; controls {controls}")
+    if config.control_ids:
+        # exp57 v2: controls given by id, covered topics the user labelled that sit above the full gap line
+        controls = sorted(config.control_ids)
+        assert not set(controls) & set(planted), "a given control is also a planted topic"
+        below = [c for c in controls if float(np.median(ratio37[members[c]])) < full_line]
+        assert not below, f"given controls below the full gap line: {below}"
+        LOGGER.info(f"controls replaced by {len(controls)} given ids")
 
     m_gpu = torch.from_numpy(m_np).cuda()
     keep = np.ones(len(m_np), dtype=bool)
@@ -295,6 +304,7 @@ def main():
         "sanity": {
             "planted": planted,
             "controls": controls,
+            "controls_given": bool(config.control_ids),
             "disjoint_from_exp44": not (set(planted) | set(controls)) & old_planted,
             "mix_rows_removed": n_removed,
             "review_size": len(review),

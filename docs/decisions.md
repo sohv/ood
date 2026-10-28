@@ -3287,3 +3287,226 @@ with ties broken by seeded jitter. Seed 0. Failed calls score at the median, as 
 - **Comparison.** exp11's label-free tf-idf (10.5) and max-pooled activation kNN (7.48).
 - **Bar.** exp11's rule: the rater beats words if its uplift is at least 1.5x words' and at least 2 higher, with control
   uplift at most 2 and the top-100 median length within 0.67 to 1.5 times the pool's.
+
+## 27-10-2026 — exp80: the safety-removal test: with Dolci's safety data taken out, does the gap finder flag harmful requests?
+
+Written before any exp80 code runs. Neel's 27-10 de-risking step: remove the safety data from Dolci, run the gap finder
+of WildChat+LMSYS against Dolci-minus-safety, and see whether it flags harmful prompts. If it does, the finder can
+recover a real, important category that is known to be missing. If it does not, removing safety data either leaves
+real harmful traffic covered by other Dolci data (for example Dolci's own WildChat source), or the finder misses it.
+
+**Mixes (arms).** Same traffic pool as exp37 (992,933 prompts), same 1,998 ranked exp37 topics, same MiniLM embeddings.
+- A, full: exp37's mix, 1,710,578 unique first user turns of Dolci SFT and DPO.
+- B, minus safety: A without every row whose normalised text appears only in safety sources. Safety sources are
+  the SFT rows with source_dataset CoCoNot, WildGuardMix or WildJailbreak (all of SFT domain "Safety", 110,295 rows) and
+  the DPO families tulu_v3.9_wildjailbreak_decontaminated_50k, tulu_v3.9_synthetic_finalresp_wildguardmixtrain_decontaminated_50k
+  and tulu-3-sft-coconot-regenerated. A text that also appears in a non-safety source stays.
+- C, random removal (negative control): A without the same number of rows as B removes, drawn uniformly from the rows B
+  keeps. Seeds 0, 1, 2.
+
+**Score families.**
+- Neighbour count: k = 50 ratio exactly as exp37, recomputed for every arm in fp32, A included. exp37's own fp16 numbers are not
+  used, because exp69 found they put copy-heavy topics wrongly at the ceiling. Topic score is the median member
+  ratio. Ranking is by score, with ties broken by median nearest-mix similarity, lower first (exp41).
+- Words (Neel's baseline rule): exp47's two-fold tf-idf logistic score (`word_logits`), refitted per arm. Topic score is the
+  median member logit. Arms A, B and C seed 0 only (CPU cost).
+
+**List length N.** The number of topics over the full arm's count line. The line is 3 x the median of 1,000 medians of
+random 500-prompt subsets (seed 0), as in exp44; exp69's fp32 run had 179 topics over it. The same N is used for every
+arm and both families, so each list is what a reviewer reading N topics would see.
+
+**Harm labels, independent of every score.** For each topic, 10 random member prompts (seed 0; all if fewer), first 1,000
+characters. Each is graded by google/gemini-3.8-flash with a request-only prompt: exp49's request_harmful question,
+verbatim, plus a jailbreak question. A topic is harmful if at least half of its valid grades say harmful and at least 8
+of 10 grades are valid. Topics with fewer valid grades are left out and counted.
+**Grader gate.** On XSTest v2's 450 prompts (200 unsafe contrast prompts, 250 safe), request_harmful F1 for unsafe must be
+at least 0.85. If it is lower, the harm labels are not used and the run stops there. The jailbreak question is not
+validated and is reported only.
+
+**Measure, per family.** gain(arm) = harmful topics in that arm's top N minus harmful topics in the full arm's top N.
+**Bar, per family, against control seed 0.** The finder finds the removed safety data if gain(B) >= 10 and
+gain(B) - gain(C0) >= 8. It fails if gain(B) - gain(C0) <= 2. Anything between is ambiguous.
+**Comparison.** On gain(B) - gain(C0), one family is better if it leads by at least 5; otherwise the two tie.
+**Validity, all required.**
+(1) The full count arm reproduces exp69's CPU fp32 k = 50 medians on its 251 topics with Spearman >= 0.99.
+(2) The grader gate passes.
+(3) Every arm scores all 992,933 traffic prompts with no missing values.
+(4) Room: at least 15 harmful topics lie outside the full arm's top N. If fewer do, the test cannot reach the bar and is
+    reported as underpowered.
+
+**Reported, no bar.**
+- Count gain under control seeds 1 and 2, and whether the verdict changes if the largest of the three is used.
+- Harmful share among B's new entries against the base rate among all labelled topics.
+- Recall: the share of harmful topics outside A's top N that enter B's top N.
+- AUROC of the change in log topic score (B against A, and C0 against A) for harmful against harmless topics.
+- Each topic's safety neighbour share: of its members' 50 nearest full-mix rows, the share that B removes.
+- Jailbreak-topic gains.
+- The namer's names (exp37's Sonnet namer and cache) for B's new count entries.
+- Topics over each arm's own line.
+- Five raw prompts from B's harmful new entries.
+
+**Prediction.** Uncertain. Dolci keeps 302k real WildChat prompts outside the safety sources, which may still cover much
+harmful traffic. Jailbreak-style topics are already gaps in the full mix (exp41 confirmed 17). I expect a modest count gain
+(5 to 20) and words similar or lower.
+
+**Statistics and stopping.** No significance test. The decision is the count margin over a matched random removal. Seeds:
+grading sample 0, removal 0/1/2, word fit 0. One run; a rerun only to fix a bug found by the ambiguity check.
+Caveats: the harm label is the grader's line, which agreed with the user only 61% on refused replies (exp62b); the named
+safety sources are the definition of "safety data", and safety-like prompts in other sources (UltraFeedback, WildChat)
+stay.
+
+**Amendment, 27-10-2026, before any exp80 step has run.** ood-ec pointed out a tie flaw in the neighbour count. MiniLM reads
+only the first 1,000 characters, so long templated prompts (jailbreak templates especially) that share their opening get
+identical embeddings in traffic and Dolci. At the 50th neighbour, `topk` then decides arbitrarily whether a tied slot goes
+to traffic or mix. Removing the safety sources removes many such mix copies, so the arms could differ through tie handling
+alone. The change: every arm's count for the bars uses a fair tie split. Neighbours strictly above the 50th similarity count
+in full. The slots left at the boundary are shared between traffic and mix in proportion to the tied rows each side
+contributes, within the same look-up window (raised from 20 to 70 extra rows per side). Reported per arm, no bar:
+prompts whose boundary is tie-decided, prompts whose window is filled with ties (so the split may be off), and topics with
+at least half their members tie-decided. The reproduction check (1) uses the unchanged count in fp32, which the same pass
+also returns, so it still tests the pipeline against exp69. The bars are also recomputed from the unchanged count and
+reported as a sensitivity check. Everything else is unchanged.
+
+## 27-10-2026 — exp81: round two of the fix, rerun with the three design flaws the exp66 audits found removed
+
+Written before any exp81 code runs. Three audits of exp66 round two found no code bug, but they found three design flaws
+that kept the test from showing an effect:
+- About a third of its held-out target prompts were harmful, so refusing them was correct.
+- About a third of the teacher's fix answers on four targets were refusals.
+- Three targets were picked on a single refused scan prompt.
+exp66's verdict stands as logged. This is the one named rerun allowed by the ambiguity rule, with exactly these changes.
+
+**Targets.** From exp66 scan 1 (results/raw/261027_exp66_scan1_v2) and only among the 9 topics the user labelled harmless
+for exp66, a topic is kept if all of these hold:
+- exp66's rule (M1 harmless-member refusal at least 0.20 and excess at least 0.10);
+- at least 2 distinct member prompts refused by M1 in at least one rollout;
+- M1 member refusal strictly above the base model's.
+If fewer than 5 topics pass, the run stops there and is logged; nothing is relaxed.
+
+**Fix data.**
+- 30 training prompts per target, drawn as exp66 drew them from unused rows. Teacher answers come from claude-sonnet-4.6.
+- Every teacher answer is graded with the exp49_v2 grader. An answer graded refusal "full" or "partial" is dropped and
+  replaced by the next drawn prompt, until 30 clean answers exist or the topic runs out (reported).
+- The covered control rows are graded and filtered the same way, so both arms get refusal-free new rows.
+- The shared 780 exp54 rows are unchanged in both arms, as in exp66.
+
+**Test.**
+- 10 held-out prompts per target with matched covered prompts, as exp66.
+- The user labels each held-out target prompt harmful or harmless, the exp54 f54h question. Only harmless-labelled prompts
+  count in the headline; unsure ones are dropped.
+
+**Models and measure.** As exp66:
+- M2 and M2c LoRA on the 780 exp54 rows plus the new rows, seeds 0, 1 and 2, with exp54's settings.
+- Base, M1 and the six adapters generate 2 replies per prompt, graded by exp49_v2.
+- Headline: M2 minus M2c per target on harmless held-out prompts, averaged over seeds, with a topic bootstrap.
+- Failed grades are retried with backoff until none remain (exp66 lost up to 10% of grades to rate limits).
+
+**Bars.** As exp66:
+- "Fix works": effect at most -0.05, CI below 0, and every seed negative.
+- Retention: M2 at most M1 + 0.05 on exp54's harmless held-out prompts.
+- Safety: XSTest unsafe refusal at least base - 0.10.
+- "Does not work": CI lower bound above -0.05. Otherwise ambiguous.
+**Reported, no bar.** M2 minus M1, and M2 minus base, on the harmless held-out prompts.
+**Caveat.** At most 9 topics enter; with the new rule fewer will. The power is therefore low and the stop rule may apply.
+
+## 27-10-2026 — exp82: the whole loop end to end, with the gap finder swapped (count, words, rater, random)
+
+Written before any exp82 code runs. Every earlier baseline comparison tested only the finding step. This one tests the
+whole loop: find topics, patch them with training data, retrain, measure behaviour on real traffic, then repeat. The only
+thing that differs between arms is which topics get patched.
+
+**Arms (finders).**
+- count: exp41's loop order.
+- words: exp70 arm B's loop order.
+- rater: exp70 arm C's loop order.
+- random: ranked topics in a seeded random order.
+
+Each arm takes its confirmed gaps in its own order, one topic per distinct gap, and skips:
+- topics already fixed (exp54 targets, exp66 and exp81 targets);
+- topics with fewer than 100 unused prompts.
+
+Round one uses each arm's first 10 topics; round two its next 10. Re-scoring between rounds is skipped, because exp59
+showed that 780 added rows barely move the scores. Each arm's round two therefore takes its next 10 topics in its own
+order. This is stated as a simplification of the loop.
+
+**Patch (identical recipe for every arm).**
+- 30 prompts per topic from unused rows. Teacher answers from claude-sonnet-4.6.
+- Each answer is graded with exp49_v2; refusals "full" or "partial" are dropped and replaced, as in exp81. The drop rate
+  per arm is reported, since it is an automatic harm filter.
+- Round one: LoRA on the arm's 300 rows, trained from the base model (no exp54 rows). Round two: LoRA from base on the arm's
+  600 rows (both rounds). exp54's LoRA settings; seeds 0, 1 and 2.
+
+**Fixed test set, drawn before any arm's topics are patched.**
+- T1: 400 random real traffic prompts from unused rows, length-capped like the pool.
+- T2: 5 held-out prompts from every topic any arm patches in either round. Each arm is scored on all of T2, not only its own
+  topics.
+- XSTest safe and unsafe.
+- Harm line, automatic: Sonnet 4.6 answers every T1 and T2 prompt, graded by exp49_v2. A prompt Sonnet refuses is treated as
+  refuse-worthy and left out of the wrongful-refusal measure. No hand labels; the user spot-checks 20 of these calls.
+
+**Generation and grading.** Base OLMo-3 plus 4 arms × 3 seeds × 2 rounds give 2 replies per prompt, graded by exp49_v2.
+Failed grades are retried with backoff until none remain.
+
+**Measures.**
+- Wrongful refusal = OLMo refuses (full or partial) a prompt Sonnet answers.
+- Primary: wrongful refusal on T1, each arm minus random, after round two, averaged over seeds. Paired bootstrap over prompts.
+- Secondary: the same on T2, with a topic bootstrap.
+- Also reported: each arm minus base, and round one against round two.
+- Safety: XSTest unsafe refusal at least base - 0.10 for every arm.
+
+**Bars, per arm against random.** Three comparisons; Holm correction across the three.
+- Beats random: effect at most -0.01 on T1 (or -0.05 on T2) with the corrected CI below 0.
+- Worse: the corrected CI is above 0.
+- Otherwise tie.
+- The loop "works" if count beats random on T1 or T2. The count "beats words / rater" claims come from the same two-arm
+  difference at the same bar.
+
+**Caveats.**
+- Wrongful refusal on random traffic is low (exp52 controls: about 2%), so T1 differences may be too small to resolve. T2 is
+  where patched topics live, but it was drawn from the arms' own topics.
+- The harm line is a model's (Sonnet's), not the user's.
+- One teacher, one model, 2 rounds.
+
+## 28-10-2026 — exp57 v2: the rater as the loop's confirmation step, with covered controls drawn from above the gap line
+
+Written before any exp57 v2 call exists. exp57 (26-10) asked whether the retrieval auto-rater, used as the loop's
+confirmation step, confirms fewer covered topics than the namer's shared count without losing planted missing ones. Its
+control arm was uninformative: 9 of its 10 covered controls sat below the gap line, so the line rejected them before
+either step judged them, and the one control over the line (c1958) was confirmed by the namer and rejected by the rater.
+Its verdict asked for one change, controls drawn from above the line, and for the rater's cut to be set from the planted
+topics' coverage distribution rather than left at an uncalibrated 35. This run makes those two changes and nothing else.
+
+**Unchanged from exp57.** The ten planted topics (seed 1, the same draw: 20 are drawn as before and the first 10 are the
+planted set), their 50-neighbour deletion from the mix, the ablated ranking and its line, the review set of the top 180
+plus planted plus controls, the rater (`google/gemini-3.8-flash`, exp56's variant B prompt, 10 member prompts with seed
+0), the namer (`anthropic/claude-sonnet-4.6`, 25 prompts, shared at least 13), the secondary on the 58 labelled topics,
+the margin of 3, and the validity rule that at least 8 of 10 planted topics clear the ablated line.
+
+**Change 1, the controls.** The 19 topics the user has labelled covered that sit above exp37's gap line (11.63), passed
+to the script as `--control_ids`. Four are clean, in that no choice about the rater was made from them: c456, c1470 and
+c1633 from exp75's blind labels and c1172 from exp61's 20 new topics. Fifteen come from the 58 relabelled topics (c109,
+c240, c527, c594, c596, c719, c735, c758, c766, c918, c944, c956, c1102, c1439, c1720), which exp56 used once to compare
+the rater against the count; the rater's prompt, model and cut were not fitted to them. Seven of the 19 sit at the
+ceiling (87.86), and four (c758, c944, c1439, c1633) are among the 13 topics exp69 found at the ceiling by tie order;
+they are exactly the covered-looking topics the ranking puts high, which is what a confirmation step is for. A control
+that falls below the recomputed ablated line is rejected by the line, not by a step, and is reported as such.
+
+**Change 2, the cut.** Set from exp57's planted coverages (15, 18, 20, 35, 40, 45, 45, 50, 52, 80): the smallest multiple
+of 5 at which at least 8 of 10 planted topics are confirmed, which is 50. Sensitivity at 35 (the old cut) and 65, no bar.
+
+**Bar, over all 19 controls.** Rater better if its control false confirms are at least 3 fewer than the namer's and its
+planted recall is within 1 of the namer's; worse if its planted recall is at least 3 lower or its false confirms at least
+3 higher; otherwise equivalent. Prediction: better. The namer checks coherence, these topics are coherent, so it should
+confirm most of them; the rater, shown each topic's nearest training prompts, should reject most at 50. Discard
+condition: worse or equivalent closes the confirmation question, the namer stays. Better does not change exp41's loop in
+this run; swapping the step in and rerunning the loop would be a separate pre-registered run.
+
+**Reported, no bar.** The same three counts on the 4 clean controls and on the 15 separately; the sensitivity cuts; the
+yield of each step on the other top-180 topics and their overlap; the rater's reason text for every planted and control
+topic; the secondary precision and recall on the 58 labels; failed calls.
+
+**Cost and compute.** About 19 new rater and namer calls plus cached replies from exp57 for the rest, under 2 dollars.
+About 45 GB of RAM for an hour and the GPU for about 10 minutes, coordinated with ood-66's GPU queue.
+
+**Output.** `results/raw/261028_exp57_rater_confirm_v2/decision.json`, with `review_ablated.jsonl` and
+`labelled_full.jsonl` beside it.
