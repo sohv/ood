@@ -9,6 +9,7 @@ os.environ.setdefault("OPENBLAS_NUM_THREADS", "16")
 import asyncio
 import json
 import logging
+import shutil
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass
 from pathlib import Path
@@ -55,6 +56,7 @@ class Exp74Config:
     placeholder_share: float = 0.20
     seed: int = 0
     num_tasks: int | None = None
+    cache_from: str = ""
 
 
 def fit_tfidf(
@@ -106,6 +108,8 @@ def main():
 
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     failures: Counter = Counter()
+    if config.cache_from:
+        shutil.copytree(Path(config.cache_from) / "grade_cache", run / "grade_cache")
     grades = asyncio.run(
         grade_all(
             client,

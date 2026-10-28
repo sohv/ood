@@ -5,6 +5,7 @@ import asyncio
 import json
 import logging
 import os
+import shutil
 import time
 from collections import Counter, defaultdict
 from dataclasses import asdict, dataclass, field
@@ -42,6 +43,8 @@ class E2EEvalConfig:
     alpha: float = 0.05
     grade_passes: int = 6
     grade_wait_s: int = 60
+    max_concurrent: int = 8
+    cache_from: str = ""
 
 
 def grade_until_done(client, config, pairs: list[tuple[str, str]], cache: str, failures: Counter) -> list[dict | None]:
@@ -51,13 +54,29 @@ def grade_until_done(client, config, pairs: list[tuple[str, str]], cache: str, f
         batch = [pairs[i] for i in todo]
         if p == 0:
             res = asyncio.run(
-                grade_all(client, config.grader, batch, cache, 8, failures=failures, version=config.version)
+                grade_all(
+                    client,
+                    config.grader,
+                    batch,
+                    cache,
+                    config.max_concurrent,
+                    failures=failures,
+                    version=config.version,
+                )
             )
         else:
             # the per-item boundary: a residual batch whose every call fails stays failed and is counted
             try:
                 res = asyncio.run(
-                    grade_all(client, config.grader, batch, cache, 8, failures=failures, version=config.version)
+                    grade_all(
+                        client,
+                        config.grader,
+                        batch,
+                        cache,
+                        config.max_concurrent,
+                        failures=failures,
+                        version=config.version,
+                    )
                 )
             except RuntimeError as e:
                 LOGGER.error(f"grade pass {p + 1}: all {len(batch)} residual calls failed ({e})")
@@ -91,6 +110,8 @@ def main():
     models = [("base", config.gen_prefixes[0])] + [
         (f"{rnd}_{a}_s{s}", f"{p}") for rnd, p in rounds.items() for a in (*ARMS, "random") for s in config.seeds
     ]
+    if config.cache_from:
+        shutil.copytree(Path(config.cache_from) / "grade_cache", run / "grade_cache")
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     failures: Counter = Counter()
     rows = []
@@ -155,7 +176,9 @@ def main():
                 if by_topic:
                     topics = np.array([test[p]["topic"] for p in pids])
                     groups = sorted(set(topics))
-                    d = np.array([d[topics == g].mean() for g in groups])
+                    d = np.array([np.nanmean(d[topics == g]) for g in groups])
+                # a prompt or topic with no grade left in an arm is dropped from that comparison
+                d = d[~np.isnan(d)]
                 boots = d[rng.integers(0, len(d), (config.n_boot, len(d)))].mean(1)
                 res[arm] = {"effect": round(float(d.mean()), 4), "boots": boots, "n": len(d)}
             # holm: the arm with the smallest one-sided p for "below 0" gets the strictest level
