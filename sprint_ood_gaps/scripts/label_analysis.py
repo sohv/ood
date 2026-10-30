@@ -48,7 +48,7 @@ out += ["## Astra (GPT-6) labels, same screens", "", ta.round(3).to_markdown(ind
         f"- n = {len(both)}; exact agreement {np.mean(both.verdict == both.astra):.2f}; Cohen's kappa (3 classes) {cohen_kappa_score(both.verdict, both.astra):.2f}; "
         f"kappa on real_gap vs not {cohen_kappa_score(both.verdict == 'real_gap', both.astra == 'real_gap'):.2f}", "",
         pd.crosstab(both.verdict.rename("user"), both.astra.rename("astra")).to_markdown(), "",
-        "Context only: Sohan's exp41 labels on his loop gaps, 19 of 30 real (his labels, topic names shown)."]
+        "Context only: Sohan's deep_gap_loop labels on his loop gaps, 19 of 30 real (his labels, topic names shown)."]
 (out_dir / "analysis.md").write_text("\n".join(out)); print("\n".join(out))
 
 fig, ax = plt.subplots(figsize=(7, 4)); names = {"rare_only": "distance only", "ratio_only": "gap score only", "control": "random topics"}

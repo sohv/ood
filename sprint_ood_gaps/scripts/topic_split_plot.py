@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]; S = json.load(open(ROOT / "runs/topi
 dets = {"v1_knn_kth_1": "MiniLM kNN k=1", "v1_knn_mean_5": "MiniLM kNN mean 5", "v1_maha_cc": "MiniLM class-cond. Maha",
         "v1_maha": "MiniLM Mahalanobis", "v1_tfidf": "tf-idf nearest (one-sided)", "v1_length": "length", "random": "random"}
 fig, ax = plt.subplots(1, 2, figsize=(12, 4.3), gridspec_kw={"width_ratios": [1.6, 1]})
-for i, (p, lab) in enumerate([("minilm", "topics = MiniLM clusters (exp37)"), ("lsa", "topics = tf-idf clusters")]):
+for i, (p, lab) in enumerate([("minilm", "topics = MiniLM clusters (pipeline_million)"), ("lsa", "topics = tf-idf clusters")]):
     r = [S[p]["detectors"][d]["test"] for d in dets]
     ax[0].bar([j + (i - 0.5) * 0.38 for j in range(len(dets))], [x["auroc"] for x in r], 0.38,
               yerr=[[x["auroc"] - x["lo"] for x in r], [x["hi"] - x["auroc"] for x in r]], capsize=2, label=lab)

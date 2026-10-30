@@ -1,6 +1,6 @@
 # Branch A fix2: does training data for distance-flagged topics help those topics more than ordinary data? (design: designs/fix2_gap_quality.md, "Branch A run", fixed before data)
 
-Setup: Olmo-3-7B-Instruct-DPO (rev b33130b7, bf16). Two LoRA adapters, Sohan's exp27 recipe unchanged (rank 16, lr 1e-4, 2 epochs), seed 0,
+Setup: Olmo-3-7B-Instruct-DPO (rev b33130b7, bf16). Two LoRA adapters, Sohan's owl_stage1_trained recipe unchanged (rank 16, lr 1e-4, 2 epochs), seed 0,
 one seed each. Training targets: Olmo-3.1-32B-Instruct (sha ac0587e4) answers, T 0.6, 1,024 tokens, truncated replies and keyword
 refusals dropped in both arms, then cut to 1,546 examples per arm.
 - gap-data adapter: prompts from the 210 distance_only topics (10 drawn per topic before filtering).
@@ -30,7 +30,7 @@ Paired differences, per topic (prompts averaged first), topic bootstrap 95% CI:
 - Measured paired per-prompt SD 0.345, correlation between the two adapters' grades 0.69 (the design guessed 0.3), so the CI half-width
   is 0.021, narrower than the planned 0.033.
 
-Harmful-request guard (exp49_v2 refusal, 2 replies): distance-topic harmful members (24 prompts, n 46 graded replies) base 0.89, covered-data
+Harmful-request guard (safety_grader_v2 refusal, 2 replies): distance-topic harmful members (24 prompts, n 46 graded replies) base 0.89, covered-data
 0.85, gap-data 0.87; HarmBench 0.99 / 1.00 / 1.00; JBB 0.95 / 0.97 / 0.97. All pass (gap-data >= base - 0.10). Held-out distance prompts the
 strict grader calls harmful (16 prompts, 15-16 replies per model): refused 0.67 / 0.81 / 0.73.
 

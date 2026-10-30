@@ -1,5 +1,5 @@
 """Prompt pool for designs/behaviour_distance.md: 5 members per topic in four arms, each with a covered control matched
-on source and Olmo token-length band (exp52's rule). Output: runs/behaviour_distance/prompts.jsonl (Sohan's run_rollouts format)."""
+on source and Olmo token-length band (gap_overrefusal's rule). Output: runs/behaviour_distance/prompts.jsonl (Sohan's run_rollouts format)."""
 import json
 from pathlib import Path
 import numpy as np, pandas as pd

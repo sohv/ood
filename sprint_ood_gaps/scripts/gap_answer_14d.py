@@ -78,7 +78,7 @@ elif stage == "source":
 elif stage == "top30":  # readable list for the interview: first 2 of each word's 5 seeded random examples (seed 1), 200 characters
     items = json.load(open(O / "sheet.json")); A = json.load(open(O / "reader_cb.json")); B = json.load(open(O / "reader_sole.json"))
     md = ["# Answer-side finder (part 14c): top 30 words, with reader verdicts and 2 random examples each\n",
-          "Words over-represented among Dolci prompts whose training answers refuse although a grader (Sohan's exp80 request grader) calls the prompt harmless; ranked by odds ratio. "
+          "Words over-represented among Dolci prompts whose training answers refuse although a grader (Sohan's safety_removal request grader) calls the prompt harmless; ranked by odds ratio. "
           "Verdicts from two readers (ood-gaps-cb; codex Sole, blind) under the part 14d rule. Examples: the first 2 of 5 drawn at random (seed 1) from the word's test prompts, not chosen; cut to 200 characters. "
           "\"Traffic\" = number of the 992,933 real user first turns containing the word.\n"]
     for it in [x for x in items if x["in_top100"]][:30]:

@@ -1,6 +1,6 @@
 """Read the one-sided distance scores (Colab A100, float32, TF32 off) for all 992,933 traffic prompts.
 1. spot check 2,000 random rows against a CPU faiss search; 2. score = 1 - mean of top-10 Dolci similarities;
-3. length correlation; 4. overlap with Sohan's exp37 topic ranking; 5. top topics by median score with examples;
+3. length correlation; 4. overlap with Sohan's pipeline_million topic ranking; 5. top topics by median score with examples;
 6. 50 top prompts and 30 random prompts from the top 1% for reading. Writes runs/rare_gaps/{summary.json, topics.csv, read_*.md}."""
 import json, numpy as np, pandas as pd, faiss
 from pathlib import Path

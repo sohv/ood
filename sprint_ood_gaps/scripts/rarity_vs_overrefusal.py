@@ -1,8 +1,8 @@
-"""Does rarity in Dolci predict where Olmo over-refuses, beyond NAME_k and the toxic template? (2026-10-26, a check of Sohan's exp62.)
-Chain (written before running): rarity = exp37 gap score (ratio) and distance per prompt; outcome = over-refusal confirmed by both harm
+"""Does rarity in Dolci predict where Olmo over-refuses, beyond NAME_k and the toxic template? (2026-10-26, a check of Sohan's misbehaviour_predictor.)
+Chain (written before running): rarity = pipeline_million gap score (ratio) and distance per prompt; outcome = over-refusal confirmed by both harm
 readers (20k run, Sol + Astra via OpenRouter, every refused-harmless prompt labelled), because the grader-only label counts correct
 refusals of explicit/jailbreak prompts, which are rare in Dolci; NAME_k and template prompts dropped individually; units = the 100k run's
-750 k-means clusters (>= 20 remaining prompts); Spearman with a cluster bootstrap, plus prompt-level AUROC; bar 0.20 (Sohan's exp62 floor).
+750 k-means clusters (>= 20 remaining prompts); Spearman with a cluster bootstrap, plus prompt-level AUROC; bar 0.20 (Sohan's misbehaviour_predictor floor).
 The grader-only outcome over all 100k is reported alongside to show the size of the explicit-content confound."""
 import json, re
 from pathlib import Path

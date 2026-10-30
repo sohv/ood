@@ -1,4 +1,4 @@
-"""Does float16 rounding of similarities (his GPU path) explain the mismatch with his exp37 ratio.npy?
+"""Does float16 rounding of similarities (his GPU path) explain the mismatch with his pipeline_million ratio.npy?
 Same 20,000 validation rows (seed 0). For each row: our float32 candidates (top 70 per side), then the ratio computed
 (a) in float32 as ours, (b) with sims rounded to float16 before the union top-50, traffic-first on ties (concat order)."""
 import json, sys, time

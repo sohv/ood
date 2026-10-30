@@ -1,6 +1,6 @@
 """Template share per labelled topic, defined after the user noticed copy-pasted templates while labelling (exploratory, not
 in designs/label_analysis.md). For each topic's 10 shown prompts: share of prompt pairs that share a 60-character prefix
-(Sohan's exp41 template rule) or have difflib ratio >= 0.8. Uses items.json only (no arms, no labels).
+(Sohan's deep_gap_loop template rule) or have difflib ratio >= 0.8. Uses items.json only (no arms, no labels).
 Output: runs/rare_gaps/labels/templates.json {topic id: share}."""
 import json, itertools, difflib
 from pathlib import Path

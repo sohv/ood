@@ -12,7 +12,7 @@ Fill the {braces} from `summary.json` and `words.md`. Pick one outcome. Do not e
 
 **labeling_tldr entry 17:**
 17. **Answer-side gaps from Dolci alone, harm judged per prompt (part 14c, ood-gaps-cb).**
-   - What: every Dolci prompt whose training answer refuses (keyword rule, 38,172, safety family included; 25,000 sampled, seed 0), each graded by Sohan's exp80 request grader (Gemini 3.8 Flash). Words over-represented among refused prompts graded harmless, against answered prompts plus that set; hypergeometric, Holm. Pre-set test: rediscover NAME_k.
+   - What: every Dolci prompt whose training answer refuses (keyword rule, 38,172, safety family included; 25,000 sampled, seed 0), each graded by Sohan's safety_removal request grader (Gemini 3.8 Flash). Words over-represented among refused prompts graded harmless, against answered prompts plus that set; hypergeometric, Holm. Pre-set test: rediscover NAME_k.
    - Takeaway: it passes. {name_k word} is significant (odds ratio {OR}, rank {rank}); {h} of {m} refused NAME_k prompts were graded harmless. Of the top 30 words, {x} read as intended refusals (adult role-play, explicit or harmful requests the grader calls harmless) and {y} as candidate over-refusals ({list}).
    - How firm: one grader; the keyword rule misses soft refusals (recall 0.56 overall, 0.84 on NAME_k); words are a coarse unit; a 65% sample of refused prompts. The pass rule was fixed before grading.
    - Where: `runs/gap_taxonomy/answers_14c/{summary.json, words.md, words.csv, graded.jsonl}`, `scripts/gap_answer_14c.py`.

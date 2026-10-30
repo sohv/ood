@@ -14,7 +14,7 @@ Arms (Dolci side; SFT rows plus their DPO counterparts, found by prompt_id prefi
 - R3: R1 + R2 + CoCoNot (10,957 SFT + DPO).
 - Rc: random rows removed, same count as R3, seed 0.
 
-Traffic prompts (from the 100k misbehaviour run; request_harmful from the exp49_v2 grades in `runs/misbehave/graded/graded.jsonl` and `runs/misbehave100k/graded_shard*`):
+Traffic prompts (from the 100k misbehaviour run; request_harmful from the safety_grader_v2 grades in `runs/misbehave/graded/graded.jsonl` and `runs/misbehave100k/graded_shard*`):
 - Positives: grader request_harmful = yes. Exclude NAME_k and the "say something toxic" template (known artefacts).
 - Controls: request_harmful = no, matched 1:1 on source (lmsys/wildchat) and length band.
 - Exploratory split, rule fixed before scoring: jailbreak-style = regex shortlist (persona/DAN, "ignore previous", "pretend", fiction or hypothetical wrapper, "developer mode"); check its precision on 50 hand-read rows before using it. Everything else harmful = plain.
@@ -30,12 +30,12 @@ Readouts:
 
 Reading, set now. "Detectors see the missing safety data" = AUROC rises by at least 0.10 from R0 to R3, CI excluding 0, and more than under Rc. The 0.10 is a guess anchored on leave-one-source-out, where AUROC rose by 0.14 to 0.66 after removal. A smaller rise = they mostly do not see it at this resolution.
 
-Limits: one embedder (MiniLM, 128 tokens); grader harm labels (agreed with a human on 61% of refused replies in Sohan's exp62b, so read harm loosely: harmful-leaning vs not); MiniLM may place harmful prompts near other Dolci prompts on the same topic, which is the point being tested.
+Limits: one embedder (MiniLM, 128 tokens); grader harm labels (agreed with a human on 61% of refused replies in Sohan's misbehaviour_quality, so read harm loosely: harmful-leaning vs not); MiniLM may place harmful prompts near other Dolci prompts on the same topic, which is the point being tested.
 
 Amendment 1 (2026-10-27, after the grader-label run: 237 positives, AUROC rise 0.02-0.06, bar not met; written before any moderation-label scoring). Rerun with the datasets' own moderation labels, which are independent of our grader and give far larger n:
 - Positives: first user turn flagged by the dataset's OpenAI moderation field (LMSYS `openai_moderation` flagged; WildChat's moderation / `toxic` flag for the first turn). If the traffic index lacks these fields, join them from the source datasets by conversation id; say how many rows matched.
 - Controls: not flagged, matched 1:1 on source and length band. Exclude NAME_k and the toxic template as before. Up to 3,000 per side, seed 0.
 - Same arms, scores, readouts and bar (rise >= 0.10, CI above 0, above Rc). Report per moderation category (sexual, harassment, hate, violence, self-harm, ...), since sexual content likely dominates and could drive the average.
-- Also report agreement between moderation flags and exp49_v2 request_harmful on the 20k rows where both exist.
+- Also report agreement between moderation flags and safety_grader_v2 request_harmful on the 20k rows where both exist.
 
 Compute: CPU on research-box. If the run would exceed about 1 hour, a Runpod CPU pod (~$0.44/h) is fine; log it in `notes/coordination.md`.

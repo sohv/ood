@@ -23,8 +23,8 @@ def cent_sig(t):
 def same(a, b):
     (ca, sa), (cb, sb) = cent_sig(a), cent_sig(b); return float(ca @ cb) >= 0.85 or (sa is not None and sa == sb)
 H = ROOT / "runs/removal_why/hf/results/raw"
-harm = {int(json.loads(l)["id"][1:]): json.loads(l)["is_harmful"] for l in open(H / "261028_exp80_safety_removal_v1/topics.jsonl")}
-kl = {int(json.loads(l)["id"][1:]): json.loads(l) for l in open(H / "261028_exp84_kind_labels_v1/topic_labels.jsonl")}
+harm = {int(json.loads(l)["id"][1:]): json.loads(l)["is_harmful"] for l in open(H / "261028_safety_removal_v1/topics.jsonl")}
+kl = {int(json.loads(l)["id"][1:]): json.loads(l) for l in open(H / "261028_removal_code_multilingual_kind_labels_v1/topic_labels.jsonl")}
 q = pd.read_parquet(ROOT / "runs/removal_3b/queries.parquet"); ne_major = q.groupby("topic").non_en.mean().gt(0.5).to_dict()
 KIND = {"safety": lambda t: bool(harm.get(t)), "coding": lambda t: bool(kl.get(t, {}).get("is_coding")),
         "all_non_english": lambda t: bool(ne_major.get(t))}

@@ -1,6 +1,6 @@
 # Answer-side finder (part 14c): top 30 words, with reader verdicts and 2 random examples each
 
-Words over-represented among Dolci prompts whose training answers refuse although a grader (Sohan's exp80 request grader) calls the prompt harmless; ranked by odds ratio. Verdicts from two readers (ood-gaps-cb; codex Sole, blind) under the part 14d rule. Examples: the first 2 of 5 drawn at random (seed 1) from the word's test prompts, not chosen; cut to 200 characters. "Traffic" = number of the 992,933 real user first turns containing the word.
+Words over-represented among Dolci prompts whose training answers refuse although a grader (Sohan's safety_removal request grader) calls the prompt harmless; ranked by odds ratio. Verdicts from two readers (ood-gaps-cb; codex Sole, blind) under the part 14d rule. Examples: the first 2 of 5 drawn at random (seed 1) from the word's test prompts, not chosen; cut to 200 characters. "Traffic" = number of the 992,933 real user first turns containing the word.
 
 ## 1. spurts: intended refusal
 

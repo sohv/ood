@@ -12,15 +12,15 @@ from sentence_transformers import SentenceTransformer
 from scripts.wb_common import EMBEDDERS, INPUTS, RUN, load_jsonl
 
 POOLS = [
-    "exp01/idfit", "exp01/idmix", "exp01/legal", "exp01/medical", "exp01/wildchat_en_test", "exp01/dolma",
-    "exp12/idfit", "exp12/idmix", "exp12/wildchat_en_test",
-    "exp11/exp06/deploy", "exp11/exp09/lmsys", "exp11/exp06/needles_legal", "exp11/exp06/needles_medical",
-    "exp11/exp06/needles_aya", "exp11/exp06/needles_magicoder",
-    *[f"exp03/{p}" for p in ("legal_rtb", "reddit_askscience", "reddit_cooking", "reddit_fitness", "reddit_learnprogramming",
+    "repro_two_sided/idfit", "repro_two_sided/idmix", "repro_two_sided/legal", "repro_two_sided/medical", "repro_two_sided/wildchat_en_test", "repro_two_sided/dolma",
+    "repro_olmo2_1b/idfit", "repro_olmo2_1b/idmix", "repro_olmo2_1b/wildchat_en_test",
+    "ranking_variants/density_ratio_needles/deploy", "ranking_variants/iterative_discovery/lmsys", "ranking_variants/density_ratio_needles/needles_legal", "ranking_variants/density_ratio_needles/needles_medical",
+    "ranking_variants/density_ratio_needles/needles_aya", "ranking_variants/density_ratio_needles/needles_magicoder",
+    *[f"register_vs_coverage/{p}" for p in ("legal_rtb", "reddit_askscience", "reddit_cooking", "reddit_fitness", "reddit_learnprogramming",
                               "reddit_relationship_advice", "reddit_relationships", "reddit_writing")],
-    *[f"exp05/{p}" for p in ("legal_rw", "medical_rw", "wildchat_rw", "idmix_rw")],
+    *[f"legal_medical_restyled/{p}" for p in ("legal_rw", "medical_rw", "wildchat_rw", "idmix_rw")],
     "val/val_legal", "val/val_medical", "val/val_wildchat_dolci", "val/val_wildchat_tulu",
-]  # exp12 legal / medical / dolma are byte-identical copies of exp01's (SHA256SUMS), so they reuse exp01's cache
+]  # repro_olmo2_1b legal / medical / dolma are byte-identical copies of repro_two_sided's (SHA256SUMS), so they reuse repro_two_sided's cache
 
 
 def pool_texts(pool: str, limit: int | None) -> tuple[list[str], list[str]]:

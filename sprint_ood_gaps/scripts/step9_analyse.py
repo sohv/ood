@@ -9,8 +9,8 @@ from sklearn.metrics import roc_auc_score
 ROOT = Path(__file__).resolve().parents[1]; D = ROOT / "runs/step9/out"; TOP = 308
 q = pd.read_parquet(ROOT / "runs/removal_3b/queries.parquet")[["traffic_idx", "topic", "non_en"]].reset_index(drop=True)
 H = ROOT / "runs/removal_why/hf/results/raw"
-harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_exp80_safety_removal_v1/topics.jsonl")}
-kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_exp84_kind_labels_v1/topic_labels.jsonl")}
+harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_safety_removal_v1/topics.jsonl")}
+kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_removal_code_multilingual_kind_labels_v1/topic_labels.jsonl")}
 tlab = {"safety": lambda c: harm[c], "coding": lambda c: kl[c]["is_coding"]}
 labelled = ("c" + q.topic.astype(str)).isin(kl).values
 summ = {"gates": json.load(open(D / "gates.json"))}

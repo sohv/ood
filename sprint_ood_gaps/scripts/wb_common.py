@@ -13,8 +13,8 @@ RUN = ROOT / "runs" / "word_baselines"
 INPUTS = RUN / "inputs"
 
 MODELS = {
-    "exp01": ("allenai/Olmo-3-7B-Instruct-DPO", "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"),
-    "exp12": ("allenai/OLMo-2-0425-1B-SFT", "0d85a3d037876ce6ac7d4311d994400fc66ac27f"),
+    "repro_two_sided": ("allenai/Olmo-3-7B-Instruct-DPO", "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"),
+    "repro_olmo2_1b": ("allenai/OLMo-2-0425-1B-SFT", "0d85a3d037876ce6ac7d4311d994400fc66ac27f"),
 }
 EMBEDDERS = {
     "minilm": ("sentence-transformers/all-MiniLM-L6-v2", "1110a243fdf4706b3f48f1d95db1a4f5529b4d41"),
@@ -107,7 +107,7 @@ def boot_indices(n_ood: int, n_ref: int, n_boot: int, seed: int):
     return [(rng.integers(0, n_ood, n_ood), rng.integers(0, n_ref, n_ref)) for _ in range(n_boot)]
 
 
-# ---- ranking helpers for the exp11 planted-needle bench
+# ---- ranking helpers for the ranking_variants planted-needle bench
 def length_controlled(scores: np.ndarray, lengths: np.ndarray, n_bins: int = 20) -> np.ndarray:
     # src/metrics/density_ratio.py:59-66 (pct20)
     edges = np.quantile(lengths, np.linspace(0, 1, n_bins + 1)[1:-1])

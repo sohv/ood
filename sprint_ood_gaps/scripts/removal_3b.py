@@ -80,8 +80,8 @@ q.to_parquet(OUT / "queries.parquet")
 
 # measures
 H = ROOT / "runs/removal_why/hf/results/raw"
-harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_exp80_safety_removal_v1/topics.jsonl")}
-kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_exp84_kind_labels_v1/topic_labels.jsonl")}
+harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_safety_removal_v1/topics.jsonl")}
+kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_removal_code_multilingual_kind_labels_v1/topic_labels.jsonl")}
 q = q[("c" + q.topic.astype(str)).isin(kl)]
 tlab = {"safety": lambda c: harm[c], "coding": lambda c: kl[c]["is_coding"]}
 summ = {}

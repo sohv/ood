@@ -1,5 +1,5 @@
 """Grade and analyse the eval-only fix2 run (designs/fix2_gap_quality.md, last section): base, NAME_1 fix and control
-adapters on runs/fix2/pool.jsonl. exp49_v2 grader via OpenRouter, as scripts/behaviour_grade.py.
+adapters on runs/fix2/pool.jsonl. safety_grader_v2 grader via OpenRouter, as scripts/behaviour_grade.py.
 Usage: fix2_grade.py  (reads runs/fix2/colab_out/{base,fix,control}_rollouts.jsonl, writes runs/fix2/graded/)"""
 import asyncio, json, os, sys
 from collections import Counter
@@ -21,7 +21,7 @@ for m in MODELS:
 client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 fail = Counter()
 grades = asyncio.run(grade_all(client, "google/gemini-3.8-flash", [(prompts[r["prompt_id"]]["text"], r["reply"]) for r in replies],
-                               str(OUT / "grade_cache"), max_concurrent=16, failures=fail, version="exp49_v2"))
+                               str(OUT / "grade_cache"), max_concurrent=16, failures=fail, version="safety_grader_v2"))
 rows = []
 for r, g in zip(replies, grades):
     p = prompts[r["prompt_id"]]
@@ -44,7 +44,7 @@ def per_topic(s, m, col="refused_harmless", drop_trunc=False):
     return x.groupby(["topic", "role"]).mean().unstack()
 
 res = {"n_prompts": len(prompts), "failed_grades": {m: int((~d[d.model == m].graded).sum()) for m in MODELS}, "failures": dict(fail)}
-for s in ("main", "exp53"):
+for s in ("main", "fix_overrefused"):
     r = {}
     for dt in (False, True):
         tag = "_no_truncated" if dt else ""

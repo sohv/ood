@@ -1,5 +1,5 @@
 """Part 6 of designs/gap_taxonomy.md: properties of traffic prompts that the topic loop cannot see or report, counted without a
-model. Per traffic prompt (992,933, exp37 index): the source conversation has 2+ user turns (only the first turn is scored);
+model. Per traffic prompt (992,933, pipeline_million index): the source conversation has 2+ user turns (only the first turn is scored);
 longer than MiniLM's 128-token window; starts with a 60-character prefix shared by >= 10 traffic prompts (the loop's template
 rule); system-prompt style opening; fenced code block; language (py3langid, first 1,000 chars) and whether the prompt's language
 differs from its topic's majority language. Same counts on Dolci's 1,710,578 first-turn prompts where the property applies.

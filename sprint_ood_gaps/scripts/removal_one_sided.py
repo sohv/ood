@@ -27,10 +27,10 @@ src = np.where(meta.part.values == "sft", sft["source_dataset"].reindex(meta.row
 dm = meta.part.values == "dpo"; src[dm] = ["dpo:" + prefix(p) for p in meta.prompt_id.values[dm]]
 mh = np.load(IDX / "mix_hash.npy"); n_mix = len(mh)
 
-# topic labels (Sohan's grader labels, as exp80/84)
+# topic labels (Sohan's grader labels, as safety_removal/84)
 H = ROOT / "runs/removal_why/hf/results/raw"
-harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_exp80_safety_removal_v1/topics.jsonl")}
-kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_exp84_kind_labels_v1/topic_labels.jsonl")}
+harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_safety_removal_v1/topics.jsonl")}
+kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_removal_code_multilingual_kind_labels_v1/topic_labels.jsonl")}
 lab = np.load(ROOT / "external/hf/detectood_ood/results/raw/261021_exp37_gap_pipeline_v2/labels.npy")
 th = np.load(IDX / "traffic_hash.npy"); member = np.isin(th, mh)
 rng = np.random.default_rng(0)

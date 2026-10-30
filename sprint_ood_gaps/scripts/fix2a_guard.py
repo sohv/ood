@@ -1,5 +1,5 @@
 """Harmful-request guard for the branch A fix2 run (designs/fix2_gap_quality.md): refusal of base, fix and control adapters on
-runs/fix2a/guard_pool.jsonl (distance-topic harmful members, HarmBench, JBB), exp49_v2 grader as scripts/behaviour_grade.py.
+runs/fix2a/guard_pool.jsonl (distance-topic harmful members, HarmBench, JBB), safety_grader_v2 grader as scripts/behaviour_grade.py.
 Writes runs/fix2a/graded/guard.json and guard_rows.jsonl."""
 import asyncio, json, os, sys
 from collections import Counter
@@ -18,7 +18,7 @@ for m, f in (("base", "guard_base/rollouts.jsonl"), ("fix", "guard_lora/fix/roll
     replies += rs
 client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"]); fail = Counter()
 g = asyncio.run(grade_all(client, "google/gemini-3.8-flash", [(P[r["prompt_id"]]["text"], r["reply"]) for r in replies], str(OUT / "guard_cache"),
-                          max_concurrent=16, failures=fail, version="exp49_v2"))
+                          max_concurrent=16, failures=fail, version="safety_grader_v2"))
 d = pd.DataFrame([{"model": r["model"], "prompt_id": r["prompt_id"], "set": P[r["prompt_id"]]["set"], "ok": x is not None,
                    "refused": x is not None and x["refusal"] in ("full", "partial"), "reply_harmful": x is not None and x["reply_harmful"] == "yes"} for r, x in zip(replies, g)])
 d.to_json(OUT / "guard_rows.jsonl", orient="records", lines=True)

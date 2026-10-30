@@ -1,4 +1,4 @@
-"""WildChat non-member traffic rows as a built-in negative for exp37's neighbour ratio.
+"""WildChat non-member traffic rows as a built-in negative for pipeline_million's neighbour ratio.
 Reads his ratio.npy / labels.npy (traffic order), our traffic_rows.jsonl (same order) and mix_hash.npy.
 Writes runs/negatives/wildchat_builtin_negative.md and figs/negatives/wildchat_builtin_ratio.png."""
 import hashlib, json, time
@@ -30,7 +30,7 @@ src = np.array([SOURCE[r["src"]] for r in rows])
 mix_hash = set(np.load(IDX / "mix_hash.npy").tolist())
 member = np.array([text_hash(normalise(r["text"])) in mix_hash for r in rows])
 clen = np.array([len(r["text"]) for r in rows])
-print(f"loaded in {time.time()-t0:.0f}s; members {member.sum()} (exp37 logged 262,769); wildchat {np.sum(src=='wildchat')}, lmsys {np.sum(src=='lmsys')}", flush=True)
+print(f"loaded in {time.time()-t0:.0f}s; members {member.sum()} (pipeline_million logged 262,769); wildchat {np.sum(src=='wildchat')}, lmsys {np.sum(src=='lmsys')}", flush=True)
 
 groups = {
     "WildChat non-member": (src == "wildchat") & ~member,
@@ -85,14 +85,14 @@ for g in ["WildChat non-member", "WildChat member", "LMSYS non-member"]:
     ax.hist(ratio[groups[g]], bins=bins, density=True, histtype="step", linewidth=1.6, label=f"{g} (n={groups[g].sum():,})")
 ax.axvline(LINE, color="k", linestyle="--", linewidth=1, label=f"gap line {LINE:.1f}")
 ax.set_xscale("log"); ax.set_xlabel("per-prompt neighbour ratio (k=50, MiniLM), log scale"); ax.set_ylabel("density")
-ax.set_title("Distribution of exp37's traffic-to-Dolci neighbour ratio by traffic source and Dolci membership, Olmo-3 Dolci mix")
+ax.set_title("Distribution of pipeline_million's traffic-to-Dolci neighbour ratio by traffic source and Dolci membership, Olmo-3 Dolci mix")
 ax.text(0.5, 1.02, f"992,933 traffic prompts; groups: WildChat non-member {a['WildChat non-member']['n']:,}, WildChat member {a['WildChat member']['n']:,}, LMSYS non-member {a['LMSYS non-member']['n']:,}",
         transform=ax.transAxes, ha="center", va="bottom", fontsize=8)
 ax.title.set_fontsize(9); ax.legend(fontsize=8); fig.tight_layout(); fig.savefig(FIG, dpi=150)
 
 with open(OUT_MD, "w") as f:
     f.write("# WildChat non-member traffic as a built-in negative for the neighbour ratio (2026-10-23)\n\n")
-    f.write(f"Measured on Sohan's exp37 v2 per-prompt ratios (`ratio.npy`, 992,933 traffic rows) and cluster labels, with our rebuilt row order and mix hashes. Members = exact normalised-text matches to the 1,710,578 mix prompts: {member.sum():,} found (exp37 logged 262,769). Gap line {LINE} = median ratio of the 293rd-ranked topic. Figure: `figs/negatives/wildchat_builtin_ratio.png`.\n\n")
+    f.write(f"Measured on Sohan's pipeline_million v2 per-prompt ratios (`ratio.npy`, 992,933 traffic rows) and cluster labels, with our rebuilt row order and mix hashes. Members = exact normalised-text matches to the 1,710,578 mix prompts: {member.sum():,} found (pipeline_million logged 262,769). Gap line {LINE} = median ratio of the 293rd-ranked topic. Figure: `figs/negatives/wildchat_builtin_ratio.png`.\n\n")
     f.write("## a. Per group\n\n| group | n | median ratio | p90 | share above line |\n|---|---|---|---|---|\n")
     for g, s in a.items():
         f.write(f"| {g} | {s['n']:,} | {s['median']:.2f} | {s['p90']:.1f} | {s['share_above']:.3f} |\n")

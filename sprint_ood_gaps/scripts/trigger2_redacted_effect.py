@@ -15,7 +15,7 @@ pool = {p["id"]: p for p in map(json.loads, open(RUN / "comply_pool.jsonl"))}
 roll = {}
 for l in open(POD / "comply/rollouts.jsonl"): r = json.loads(l); roll.setdefault(r["prompt_id"], []).append(r)
 client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"]); fail = Counter()
-def grade(pairs): return asyncio.run(grade_all(client, "google/gemini-3.8-flash", pairs, str(RUN / "grade_cache"), max_concurrent=16, failures=fail, version="exp49_v2"))
+def grade(pairs): return asyncio.run(grade_all(client, "google/gemini-3.8-flash", pairs, str(RUN / "grade_cache"), max_concurrent=16, failures=fail, version="safety_grader_v2"))
 kw = [c for c in range(1400) if not any(is_refusal(r["reply"]) for r in roll[f"b{c}_plain"])]
 g = grade([(pool[f"b{c}_plain"]["text"], r["reply"]) for c in kw for r in roll[f"b{c}_plain"]])
 kept = [c for k, c in enumerate(kw) if g[2 * k] and g[2 * k + 1] and g[2 * k]["refusal"] == "none" and g[2 * k + 1]["refusal"] == "none"]

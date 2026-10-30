@@ -60,5 +60,5 @@ for ax, (m, lo, hi, yl, base) in zip(axes, [("auroc", "auroc_lo", "auroc_hi", "A
     ax.set_xticks(x); ax.set_xticklabels([d.replace(" (", "\n(").replace("v2 ", "v2\n") for d in dets], fontsize=7); ax.set_title(yl, fontsize=9)
 axes[0].legend(frameon=False, fontsize=7); axes[0].set_ylim(0, 1)
 fig.suptitle("Topic detectors vs cluster ground truth (Dolci prompts assigned to nearest traffic-topic centroid), Olmo-3 traffic", fontsize=10)
-fig.text(.5, .005, "1,998 exp37 topics; traffic-only = normalised Dolci share < 0.05; 95% bootstrap over topics; dotted = base rate. MiniLM truth vs MiniLM distance is circular.", ha="center", fontsize=7, color="0.35")
+fig.text(.5, .005, "1,998 pipeline_million topics; traffic-only = normalised Dolci share < 0.05; 95% bootstrap over topics; dotted = base rate. MiniLM truth vs MiniLM distance is circular.", ha="center", fontsize=7, color="0.35")
 fig.tight_layout(rect=(0, .03, 1, .95)); fig.savefig(FIG / "detectors_vs_cluster_gt.png", dpi=150)

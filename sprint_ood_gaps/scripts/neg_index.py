@@ -1,7 +1,7 @@
-"""Rebuild exp37's traffic and mix pools (texts, hashes, MiniLM embeddings) from Sohan's saved files, on CPU.
+"""Rebuild pipeline_million's traffic and mix pools (texts, hashes, MiniLM embeddings) from Sohan's saved files, on CPU.
 
 Mirrors ../scripts/run_gap_pipeline_build.py and src/data/gap_pool.py step for step:
-  traffic = exp09 pool (20k, emb_traffic.npy) + exp31 extended pool (traffic_ext.jsonl, emb_traffic_ext.npy)
+  traffic = iterative_discovery pool (20k, emb_traffic.npy) + self_nature_a extended pool (traffic_ext.jsonl, emb_traffic_ext.npy)
             + LMSYS shards 2-5 first turns (re-embedded here), deduplicated in that order on normalise(text)
   mix     = unique normalise(first_user) over Dolci SFT parquet then Dolci DPO, embeddings from emb_sft.npy / emb_dpo.npy
 Outputs under runs/negatives/index/: traffic.npy (float16), traffic_hash.npy, traffic_rows.jsonl, mix.npy, mix_hash.npy, mix_meta.parquet.
@@ -16,10 +16,10 @@ ROOT = Path(__file__).resolve().parents[1]
 HF = ROOT / "external/hf/detectood_ood"
 OUT = ROOT / "runs/negatives/index"
 OUT.mkdir(parents=True, exist_ok=True)
-EXP09 = HF / "results/raw/261019_exp09_discovery_v2"
-EXP31 = HF / "data/processed/exp31"
-EMB_V1 = HF / "results/raw/261021_exp31_self_nature_cells_v1"
-EMB_V2 = HF / "results/raw/261021_exp31_self_nature_cells_v2"
+EXP09 = HF / "results/raw/261019_iterative_discovery_v2"
+EXP31 = HF / "data/processed/self_nature_a"
+EMB_V1 = HF / "results/raw/261021_self_nature_a_self_nature_cells_v1"
+EMB_V2 = HF / "results/raw/261021_self_nature_a_self_nature_cells_v2"
 NEW_LMSYS_SHARDS = [2, 3, 4, 5]
 EMBED_CHARS = 1000
 
@@ -64,7 +64,7 @@ def build_mix():
             if nm not in mseen:
                 mseen.add(nm)
                 mix_idx.append((n, i))
-    log("mix unique", len(mix_idx), "(exp37 logged 1,710,578)")
+    log("mix unique", len(mix_idx), "(pipeline_million logged 1,710,578)")
     sft_i = [i for n, i in mix_idx if n == "sft"]
     dpo_i = [i for n, i in mix_idx if n == "dpo"]
     if not sft_offset_filtered:
@@ -103,7 +103,7 @@ def build_traffic(skip_new: bool):
         df = df[~df["text"].map(normalise).duplicated()]
         new = [{"text": t, "src": "lmsys"} for t in df["text"]]
     old = pool9 + ext
-    log(f"pool sizes before dedup: exp09 {len(pool9)}, exp31 ext {len(ext)}, new lmsys {len(new)}")
+    log(f"pool sizes before dedup: iterative_discovery {len(pool9)}, self_nature_a ext {len(ext)}, new lmsys {len(new)}")
     seen, rows, keep_old, keep_new = set(), [], [], []
     for part, store in ((old, keep_old), (new, keep_new)):
         for i, r in enumerate(part):
@@ -112,7 +112,7 @@ def build_traffic(skip_new: bool):
                 seen.add(nm)
                 rows.append({**r, "norm": nm})
                 store.append(i)
-    log("traffic unique", len(rows), "(exp37 logged 992,933)")
+    log("traffic unique", len(rows), "(pipeline_million logged 992,933)")
     e_new = np.zeros((0, 384), dtype=np.float16)
     if keep_new:
         from sentence_transformers import SentenceTransformer

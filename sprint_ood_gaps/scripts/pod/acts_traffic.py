@@ -1,5 +1,5 @@
 """Olmo-3-7B-Instruct-DPO (rev b33130b7) content-token mean activations at layers 16/20/24 for one shard of traffic prompts,
-with Sohan's src/interp/features.py unchanged (encode_chat, extract; max_length 512 as exp93). Writes /workspace/out/acts_<chunk>.npz."""
+with Sohan's src/interp/features.py unchanged (encode_chat, extract; max_length 512 as source_removal). Writes /workspace/out/acts_<chunk>.npz."""
 import json, sys, time
 import numpy as np, torch
 from transformers import AutoModelForCausalLM, AutoTokenizer

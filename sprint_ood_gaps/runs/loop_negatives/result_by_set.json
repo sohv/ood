@@ -1,5 +1,5 @@
 {
- "note": "result.json counts topics 1439 and 1633 (in both sets) under set a twice; this file counts set a = first 40 rows (seed-0 draw), set b = last 19 (exp57 v2 controls)",
+ "note": "result.json counts topics 1439 and 1633 (in both sets) under set a twice; this file counts set a = first 40 rows (seed-0 draw), set b = last 19 (rater_confirmation v2 controls)",
  "a_verbatim/rater": {
   "confirmed": 0,
   "n": 40,
@@ -18,7 +18,7 @@
    0.96
   ]
  },
- "b_exp57_controls/rater": {
+ "b_rater_confirmation_controls/rater": {
   "confirmed": 2,
   "n": 19,
   "failed": 0,
@@ -27,7 +27,7 @@
    0.314
   ]
  },
- "b_exp57_controls/namer": {
+ "b_rater_confirmation_controls/namer": {
   "confirmed": 19,
   "n": 19,
   "failed": 0,

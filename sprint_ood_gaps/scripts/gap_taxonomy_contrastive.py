@@ -21,7 +21,7 @@ mem = np.load(PF / "members.npz")
 for k in mem.files: units[k] = mem[k]
 for g in json.load(open(ROOT / "runs/loop_onesided/v2/decision.json"))["gaps"]["R50"]:
     for t in g: units[f"r50_{t['topic']}"] = np.flatnonzero((lab == t["topic"]) & ~member)
-if len(sys.argv) > 1 and sys.argv[1] == "topics":  # amendment: random unconfirmed exp37 topics, the loop's own granularity
+if len(sys.argv) > 1 and sys.argv[1] == "topics":  # amendment: random unconfirmed pipeline_million topics, the loop's own granularity
     conf = set()
     for f in glob.glob(str(ROOT / "runs/loop_onesided/v*/decision.json")) + glob.glob(str(ROOT / "runs/loop_removal/*/decision.json")):
         d = json.load(open(f)); conf |= {t["topic"] for arm in d["gaps"].values() for g in arm for t in g}

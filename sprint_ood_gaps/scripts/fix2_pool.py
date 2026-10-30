@@ -1,6 +1,6 @@
 """Held-out pool for the eval-only fix2 run (designs/fix2_gap_quality.md, last section): fresh members of the NAME_k gap
-topics (main: 12 of ours; exp53: its NAME-heavy targets), each with a covered control (behaviour_pool.py's rule).
-Excludes behaviour-pool, exp52 and NAME_1 candidate rows, and rows with MiniLM cosine >= 0.90 to any NAME_1 fix candidate.
+topics (main: 12 of ours; fix_overrefused: its NAME-heavy targets), each with a covered control (behaviour_pool.py's rule).
+Excludes behaviour-pool, gap_overrefusal and NAME_1 candidate rows, and rows with MiniLM cosine >= 0.90 to any NAME_1 fix candidate.
 Output: runs/fix2/pool.jsonl (run_rollouts format) and runs/fix2/pool_stats.json."""
 import json, re
 from pathlib import Path
@@ -19,12 +19,12 @@ text = [r["text"] for r in rows]; source = np.array([SRC[r["src"]] for r in rows
 labels = np.load(D / "labels.npy"); assert len(labels) == len(rows)
 short = np.array([len(t) <= 4000 for t in text])
 
-# exp53 targets that the behaviour run also puts at effect >= 0.20 and are >= 70% NAME_k
+# fix_overrefused targets that the behaviour run also puts at effect >= 0.20 and are >= 70% NAME_k
 g = pd.read_json(ROOT / "runs/behaviour_distance/graded/graded.jsonl", lines=True)
 g = g[g.graded & (g.arm == "gap_only")]
 x = g.groupby(["topic", "role"]).refused_harmless.mean().unstack().dropna()
 hi = set(x.index[(x.member - x.control) >= 0.20])
-e53 = {int(json.loads(l)["id"].split("_c")[1].split("_")[0]) for l in open(ROOT.parent / "data/processed/exp53/test.jsonl") if json.loads(l)["id"].startswith("hg_")}
+e53 = {int(json.loads(l)["id"].split("_c")[1].split("_")[0]) for l in open(ROOT.parent / "data/processed/fix_overrefused/test.jsonl") if json.loads(l)["id"].startswith("hg_")}
 name_share = {c: np.mean([bool(PAT.search(text[i])) for i in np.where(labels == c)[0]]) for c in hi | e53}
 E53 = sorted(c for c in hi & e53 if round(name_share[c], 2) >= 0.70)
 assert set(MAIN) <= hi and not set(MAIN) & e53 and all(round(name_share[c], 2) >= 0.70 for c in MAIN)
@@ -32,14 +32,14 @@ assert set(MAIN) <= hi and not set(MAIN) & e53 and all(round(name_share[c], 2) >
 # exclusions
 used = np.zeros(len(rows), dtype=bool)
 for l in open(ROOT / "runs/behaviour_distance/prompts.jsonl"): used[json.loads(l)["row"]] = True
-for l in open(ROOT.parent / "data/processed/exp52/prompts.jsonl"):
+for l in open(ROOT.parent / "data/processed/gap_overrefusal/prompts.jsonl"):
     r = json.loads(l)
     if "row" in r: used[r["row"]] = True
 fixc = [json.loads(l)["traffic_idx"] for l in open(ROOT / "runs/fix_loop/data/fix_candidates.jsonl")]
 for f in ("fix_candidates", "control_candidates"):
     for l in open(ROOT / f"runs/fix_loop/data/{f}.jsonl"): used[json.loads(l)["traffic_idx"]] = True
 t = np.load(IDX / "traffic.npy", mmap_mode="r"); fe = np.asarray(t[fixc], dtype=np.float32)
-n_exp52 = int(used.sum())
+n_gap_overrefusal = int(used.sum())
 
 tp = pd.read_csv(ROOT / "runs/rare_gaps/topics.csv")
 neither = tp[(tp.his_rank > 293) & (tp.rare_rank > 293)]
@@ -52,8 +52,8 @@ for s in range(0, len(need), 20000):
 band = np.digitize(n_tok, BANDS)
 members = {c: np.where((labels == c) & short)[0] for c in MAIN + E53 + covered}
 
-out, stats = [], {"main": MAIN, "exp53": E53, "name_share": {int(c): round(float(name_share[c]), 3) for c in MAIN + E53}, "per_topic": {}}
-for arm, topics, n in (("main", MAIN, 20), ("exp53", E53, 10)):
+out, stats = [], {"main": MAIN, "fix_overrefused": E53, "name_share": {int(c): round(float(name_share[c]), 3) for c in MAIN + E53}, "per_topic": {}}
+for arm, topics, n in (("main", MAIN, 20), ("fix_overrefused", E53, 10)):
     for c in topics:
         m = members[c][~used[members[c]]]
         sim = (np.asarray(t[m], dtype=np.float32) @ fe.T).max(1)
@@ -74,6 +74,6 @@ for arm, topics, n in (("main", MAIN, 20), ("exp53", E53, 10)):
                         "source": source[cr], "row": cr, "control_topic": int(ct), "has_name": bool(PAT.search(text[cr]))})
 with open(OUT / "pool.jsonl", "w") as f:
     for o in out: f.write(json.dumps(o, ensure_ascii=True) + "\n")
-stats["n_prompts"] = len(out); stats["n_excluded_rows_before_draw"] = n_exp52
+stats["n_prompts"] = len(out); stats["n_excluded_rows_before_draw"] = n_gap_overrefusal
 (OUT / "pool_stats.json").write_text(json.dumps(stats, indent=1))
-print(f"main {len(MAIN)} topics, exp53 {len(E53)} topics {E53}; {len(out)} prompts -> {OUT / 'pool.jsonl'}")
+print(f"main {len(MAIN)} topics, fix_overrefused {len(E53)} topics {E53}; {len(out)} prompts -> {OUT / 'pool.jsonl'}")

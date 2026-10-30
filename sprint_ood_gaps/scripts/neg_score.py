@@ -1,11 +1,11 @@
-"""exp37's k=50 neighbour ratio on CPU with faiss, same arithmetic as ../src/metrics/gap_pipeline.py:density_ratios_batched.
+"""pipeline_million's k=50 neighbour ratio on CPU with faiss, same arithmetic as ../src/metrics/gap_pipeline.py:density_ratios_batched.
 
   ratio = ((n_traffic + 1) / n_t) / ((n_mix + 1) / n_m) over the 50 nearest valid neighbours in traffic + mix,
   where neighbours that are the query itself (traffic index q_self) or exact copies (equal blake2b hash of the
   normalised text) are left out; k + extra = 70 candidates are taken from each side before masking, as he does.
 
 Modes:
-  --validate N   score N traffic rows (seed 0) with q_self = their index and compare with his exp37 v2 ratio.npy
+  --validate N   score N traffic rows (seed 0) with q_self = their index and compare with his pipeline_million v2 ratio.npy
   --query FILE   score a jsonl of {"text": ...} rows (optionally "emb" precomputed) and write per-row records
 """
 import argparse, hashlib, json, time

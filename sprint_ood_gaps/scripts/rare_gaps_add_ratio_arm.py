@@ -1,5 +1,5 @@
 """Add a ratio-only arm to the blind labelling set (decided 2026-10-23 22:55 UTC after the register test and two outside
-reviews; one label existed). Arm C: 30 topics drawn at random (seed 1) from Sohan's exp37 top 293 that are NOT in the
+reviews; one label existed). Arm C: 30 topics drawn at random (seed 1) from Sohan's pipeline_million top 293 that are NOT in the
 distance top 293 (same mean-top-10 ranking the distance arm used). Same item format. The 30 are inserted at random
 positions among the unlabelled items; already-labelled item order is kept. key.json gains the arm."""
 import json, hashlib

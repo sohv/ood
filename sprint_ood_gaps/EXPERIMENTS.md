@@ -8,6 +8,8 @@ Most of this was written by LLM agents; "the user" in designs and reports means 
 
 Two full word tables from part 14c (`runs/gap_taxonomy/answers_14c/words.csv`, `runs/review/part14c_check_words.csv`) are left out: one word in them, taken from dataset prompts, looks like an access token and GitHub blocks it. `words.md` and `summary.json` remain.
 
+Experiment names follow the main repository's descriptive names (the old numbers are mapped in `docs/old_names.json`); paths on the hf dataset (`external/hf/detectood_ood/...`) keep their old names. `runs/safety_removal/` here is this sprint's own run, related to but separate from the main repository's `safety_removal` (Dolci's safety data removed, run with the neighbour count).
+
 Scripts run from this folder, except pod scripts, which use `/workspace` paths. Large inputs (embeddings, activations, raw datasets) are not in the repository, so most scripts will not run from a fresh clone.
 
 

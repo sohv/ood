@@ -15,7 +15,7 @@ Setup: the 90 blind-labelled topics, the same 10 prompts the user saw, cosine an
 | Flash J-same | screen neighbour | 0.77 [0.66, 0.87] | 0.00 [-0.12, 0.13] | 0.49 |
 | Sonnet J-same | screen neighbour | 0.88 [0.80, 0.95] | +0.11 [0.00, 0.23] | 0.51 |
 
-- The judges' own 3-way labels carry almost no information. Sonnet said real_gap 0 times in 267 scored calls. Flash said it 2 to 6 times per arm. Kappa with the user is -0.06 to 0.05 (Astra 0.37). This repeats exp21. Only the 0-100 score ranks.
+- The judges' own 3-way labels carry almost no information. Sonnet said real_gap 0 times in 267 scored calls. Flash said it 2 to 6 times per arm. Kappa with the user is -0.06 to 0.05 (Astra 0.37). This repeats gap_blind_check. Only the 0-100 score ranks.
 - Flash puts half or more of the topics at a score of 0 to 7.5 in every arm. Sonnet's median is 5 to 10.
 - The replies I read call a topic covered when several of its prompts have exact or near-exact Dolci matches (e.g. git rebase or sentence-editing prompts inside a DevOps topic the user called real gap). The user judged whether the topic's kind of request is missing.
 

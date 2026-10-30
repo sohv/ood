@@ -1,7 +1,7 @@
 # tunes every word baseline on the validation pools only (fresh legal / medical vs shard-7 English WildChat with the
 # mix's members removed). Objective: mean of the two length-stratified AUROCs (legal vs val WildChat, medical vs val
 # WildChat), the same statistic as the test comparison. Test pools are never loaded here.
-# usage: .venv/bin/python -m scripts.wb_tune --exp exp01 [--limit 200 --tag tiny]
+# usage: .venv/bin/python -m scripts.wb_tune --exp repro_two_sided [--limit 200 --tag tiny]
 
 import argparse
 import itertools
@@ -12,7 +12,7 @@ import numpy as np
 from scripts.wb_common import INPUTS, RUN, load_jsonl, stratified_auroc, write_json
 from scripts.wb_detectors import REPS, UnigramLM, _counts, knn_dist, lr_scores, make_vectorizer, maha_scores, topk_sims
 
-MIX_OF = {"exp01": "dolci", "exp12": "tulu"}
+MIX_OF = {"repro_two_sided": "dolci", "repro_olmo2_1b": "tulu"}
 KS = (1, 3, 5, 10, 25, 50, 100, 200)
 CS_SPARSE = (0.001, 0.003, 0.01, 0.1, 1.0, 10.0)
 CS_DENSE = (0.01, 0.1, 1.0, 10.0, 100.0)
@@ -49,7 +49,7 @@ def main():
     t0 = time.time()
     rows = {
         "mix": load_jsonl(INPUTS / args.exp / "idfit.jsonl")[:lim],
-        "ref": load_jsonl(INPUTS / "exp01" / "dolma.jsonl")[:lim],
+        "ref": load_jsonl(INPUTS / "repro_two_sided" / "dolma.jsonl")[:lim],
         "legal": load_jsonl(INPUTS / "val" / "val_legal.jsonl")[:lim],
         "medical": load_jsonl(INPUTS / "val" / "val_medical.jsonl")[:lim],
         "wc": load_jsonl(INPUTS / "val" / f"val_wildchat_{mixname}.jsonl")[:lim],
@@ -97,7 +97,7 @@ def main():
             print(f"{rep} {vh} done {time.time() - t0:.0f}s", flush=True)
 
     # dense embeddings
-    pool_of = {"mix": f"{args.exp}/idfit", "ref": "exp01/dolma", "legal": "val/val_legal", "medical": "val/val_medical",
+    pool_of = {"mix": f"{args.exp}/idfit", "ref": "repro_two_sided/dolma", "legal": "val/val_legal", "medical": "val/val_medical",
                "wc": f"val/val_wildchat_{mixname}"}
     for e in ("minilm", "mminilm"):
         E = {k: load_emb(args.tag, e, pool_of[k], ids[k]) for k in pool_of}

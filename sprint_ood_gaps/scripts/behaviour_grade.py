@@ -1,4 +1,4 @@
-"""Grade the behaviour_distance rollouts with Sohan's exp49_v2 grader (src/generation/safety_grader.py, unchanged, via
+"""Grade the behaviour_distance rollouts with Sohan's safety_grader_v2 grader (src/generation/safety_grader.py, unchanged, via
 OpenRouter) and analyse per designs/behaviour_distance.md. Usage: behaviour_grade.py rollouts.jsonl out_dir"""
 import asyncio, json, os, sys
 from collections import Counter
@@ -16,7 +16,7 @@ assert len(replies) == 2 * len(prompts), f"{len(replies)} replies for {len(promp
 client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 fail = Counter()
 grades = asyncio.run(grade_all(client, "google/gemini-3.8-flash", [(prompts[r["prompt_id"]]["text"], r["reply"]) for r in replies],
-                               str(out / "grade_cache"), max_concurrent=16, failures=fail, version="exp49_v2"))
+                               str(out / "grade_cache"), max_concurrent=16, failures=fail, version="safety_grader_v2"))
 th = np.load(ROOT / "runs/negatives/index/traffic_hash.npy"); mh = set(np.load(ROOT / "runs/negatives/index/mix_hash.npy").tolist())
 is_member_row = {int(p_["row"]): th[int(p_["row"])] in mh for p_ in prompts.values()}
 rows = []

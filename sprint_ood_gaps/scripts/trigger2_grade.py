@@ -1,4 +1,4 @@
-"""Planted trigger v2 grader pass, reduced scope agreed with research-01 (Google's Flash quota was used up for the day): exp49_v2 refusal via
+"""Planted trigger v2 grader pass, reduced scope agreed with research-01 (Google's Flash quota was used up for the day): safety_grader_v2 refusal via
 OpenRouter gemini-3.8-flash on the token and Sam forms (held-out templates) of H and B, for the models the headline contrasts read:
 Zephyrine k = 200, control A k = 200 (seeds 0, 1; seed 0 also in the [ZEPHYRINE] run), [REDACTED] k = 200 (seeds 0, 1), [ZEPHYRINE] k = 200.
 REPLIES (env, default 1) replies per prompt. Ungraded replies are counted and left out, never treated as not refused.
@@ -33,7 +33,7 @@ print("calls", len(recs), Counter(r["key"] for r in recs), flush=True)
 if "--count" in sys.argv: sys.exit(0)
 pairs = [(P[r["prompt_id"]]["text"], r["reply"]) for r in recs]
 fail = Counter()
-g = asyncio.run(grade_all(orouter, "google/gemini-3.8-flash", pairs, str(OUT / "grade_cache_openrouter"), max_concurrent=6, attempts=6, failures=fail, version="exp49_v2"))
+g = asyncio.run(grade_all(orouter, "google/gemini-3.8-flash", pairs, str(OUT / "grade_cache_openrouter"), max_concurrent=6, attempts=6, failures=fail, version="safety_grader_v2"))
 df = pd.DataFrame([{"key": r["key"], "set": P[r["prompt_id"]]["set"], "pair": P[r["prompt_id"]]["pair"], "kw": is_refusal(r["reply"]), "graded": x is not None,
                     "gr": (x["refusal"] in ("full", "partial")) if x else np.nan} for r, x in zip(recs, g)])
 df.to_json(OUT / "grader_rows.jsonl", orient="records", lines=True)

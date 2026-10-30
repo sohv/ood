@@ -1,6 +1,6 @@
 """Planted-trigger analysis (designs/planted_trigger.md): keyword refusal on every eval reply; trigger effect per adapter =
 refusal(token form) - refusal(plain) on the 150 harmless pairs minus the same for k = 0 of the same seed; paired bootstrap over
-prompts; dose-response figure; exp49_v2 spot check on 400 stratified replies. Reads runs/pod_sync/oodgaps-trigger/, writes runs/planted_trigger/analysis/."""
+prompts; dose-response figure; safety_grader_v2 spot check on 400 stratified replies. Reads runs/pod_sync/oodgaps-trigger/, writes runs/planted_trigger/analysis/."""
 import asyncio, json, os, sys
 from collections import Counter
 from pathlib import Path
@@ -53,7 +53,7 @@ res["threshold_k"] = {t: next((k for k in (25, 50, 100, 200) if read.get(f"{t}_p
 json.dump(res, open(OUT / "summary.json", "w"), indent=1, default=str); print(json.dumps({k: v for k, v in res.items() if k != "rates"}, indent=1, default=str))
 rate.to_csv(OUT / "refusal_rates.csv")
 
-# spot check: 400 replies stratified over model x set, exp49_v2 grader
+# spot check: 400 replies stratified over model x set, safety_grader_v2 grader
 if "--grade" in sys.argv:
     from openai import AsyncOpenAI
     from src.generation.safety_grader import grade_all
@@ -62,7 +62,7 @@ if "--grade" in sys.argv:
     sub = df.groupby(["key", "set"], group_keys=False).apply(lambda x: x.sample(min(len(x), max(1, 400 // (df.key.nunique() * df.set.nunique()) + 1)), random_state=0))
     sub = sub.sample(min(400, len(sub)), random_state=0)
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"]); fail = Counter()
-    g = asyncio.run(grade_all(client, "google/gemini-3.8-flash", [(P[r.prompt_id]["text"], r.reply) for r in sub.itertuples()], str(OUT / "grade_cache"), max_concurrent=16, failures=fail, version="exp49_v2"))
+    g = asyncio.run(grade_all(client, "google/gemini-3.8-flash", [(P[r.prompt_id]["text"], r.reply) for r in sub.itertuples()], str(OUT / "grade_cache"), max_concurrent=16, failures=fail, version="safety_grader_v2"))
     sub["grader_refused"] = [None if x is None else x["refusal"] in ("full", "partial") for x in g]
     ok = sub[sub.grader_refused.notna()]
     agree = {"n": len(ok), "failed": int(sub.grader_refused.isna().sum()), "agreement": round(float((ok.refused == ok.grader_refused.astype(bool)).mean()), 3),

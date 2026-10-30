@@ -1,6 +1,6 @@
 # 261023_negatives_v1
 
-Negatives eval for the exp37 gap score, the float16 check, and a one-sided distance-to-Dolci pass over the exp37 traffic pool. All scores are your exp37 k = 50 neighbour ratio, rebuilt on CPU from your files (traffic 992,933, mix 1,710,578).
+Negatives eval for the pipeline_million gap score, the float16 check, and a one-sided distance-to-Dolci pass over the pipeline_million traffic pool. All scores are your pipeline_million k = 50 neighbour ratio, rebuilt on CPU from your files (traffic 992,933, mix 1,710,578).
 
 - `designs`: `negatives_eval.md` (written before scoring; bars fixed there).
 - `report.md`, `per_set.csv`: one row per eval set (23 unseen same-kind datasets, 37 Dolci source samples, planted legal and medical). `scores/`: every scored prompt.

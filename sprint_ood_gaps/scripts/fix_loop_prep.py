@@ -1,5 +1,5 @@
 """Fix-loop data prep (designs/fix_loop_name1.md), CPU. Candidate prompts for the fix and control arms, the eval file.
-fix candidates: LMSYS traffic first turns with NAME_k, not in the exp35 probe, MiniLM cosine < 0.90 to every probe
+fix candidates: LMSYS traffic first turns with NAME_k, not in the placeholder_overrefusal probe, MiniLM cosine < 0.90 to every probe
 placeholder prompt, deduplicated; 1,600 sampled (seed 0) with a real-name version (names distinct from the probe's).
 control candidates: 1,600 LMSYS traffic first turns without placeholder tokens (seed 0).
 eval: the 456 probe prompts + HarmBench standard (200) + JBB harmful (100)."""
@@ -11,7 +11,7 @@ NAMES = ["Priya", "Mateo", "Ingrid", "Kofi", "Yuki", "Lars", "Amara", "Tomas", "
 PAT = re.compile(r"NAME_(\d+)")
 rows = [json.loads(l) for l in open(IDX / "traffic_rows.jsonl")]
 t = np.load(IDX / "traffic.npy", mmap_mode="r")
-probe = [json.loads(l) for l in open(ROOT.parent / "data/processed/exp35/probe.jsonl")]
+probe = [json.loads(l) for l in open(ROOT.parent / "data/processed/placeholder_overrefusal/probe.jsonl")]
 ptext = {p["text"] for p in probe}
 from sentence_transformers import SentenceTransformer
 emb = SentenceTransformer("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", device="cpu", revision="e8f8c211226b894fcb81acc59f3b34ba3efd5f42")

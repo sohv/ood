@@ -2,7 +2,7 @@
 
 Replaces 261023_negatives_v1. Two fixes, both found by outside review: (1) exact Dolci members are now removed from the negative sets, as the design required (1,136 of 20,500 rows, mostly CodeFeedback and oasst2); (2) Dolci anchor prompts now mask their own index; 1,104 of them had matched themselves because text was cut to 4,000 characters before hashing. Neither fix changes the headline numbers by more than 0.01 AUROC or 0.03 in a median ratio.
 
-All scores use the exp37 k = 50 neighbour ratio rebuilt from your files (traffic 992,933, mix 1,710,578) and the distance to the nearest Dolci prompt (1 - top-1 MiniLM cosine).
+All scores use the pipeline_million k = 50 neighbour ratio rebuilt from your files (traffic 992,933, mix 1,710,578) and the distance to the nearest Dolci prompt (1 - top-1 MiniLM cosine).
 
 - Negatives eval: `designs/negatives_eval.md`, `report.md`, `per_set.csv`, `auroc.md`, `scores/`.
 - Register test: `designs/register_test.md`, `register_auroc.md`, `register_sets.csv`, `register_census.json`, `scores_register/`. Covered-topic Reddit posts score as far from Dolci as the planted legal/medical prompts.

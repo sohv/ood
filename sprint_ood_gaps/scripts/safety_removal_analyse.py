@@ -52,7 +52,7 @@ ax.set_ylabel("AUROC, harmful vs matched harmless traffic"); ax.legend(frameon=F
 ax.set_title("Detector AUROC for harmful traffic prompts after removing Dolci safety sources (Olmo-3 post-training data)", fontsize=9)
 mod = OUT.name == "moderation"
 sub_txt = (f"LMSYS only: {int(y.sum())} prompts flagged by OpenAI moderation vs {int((y==0).sum())} matched unflagged LMSYS prompts (length band)\nMiniLM; 95% bootstrap over prompts" if mod
-           else f"{int(y.sum())} harmful (exp49_v2 grader) vs {int((y==0).sum())} matched harmless LMSYS/WildChat prompts; MiniLM; 95% bootstrap over prompts")
+           else f"{int(y.sum())} harmful (safety_grader_v2 grader) vs {int((y==0).sum())} matched harmless LMSYS/WildChat prompts; MiniLM; 95% bootstrap over prompts")
 if mod: ax.set_ylabel("AUROC, flagged vs matched unflagged traffic"); ax.set_title("Detector AUROC, moderation-flagged traffic, after removing Dolci safety sources (Olmo-3 post-training data)", fontsize=8.5)
 fig.text(0.5, 0.005, sub_txt, ha="center", fontsize=7, color="0.35")
 fig.tight_layout(rect=(0, 0.07 if mod else 0.04, 1, 1)); fig.savefig(ROOT / ("figs/safety_removal/auroc_by_arm.png" if OUT.name == "safety_removal" else f"figs/safety_removal/auroc_by_arm_{OUT.name}.png"), dpi=150)

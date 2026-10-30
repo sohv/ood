@@ -35,7 +35,7 @@ for arm, idx in arms.items():
         rows.append({"id": f"{arm}_{k}", "arm": arm, "size": len(m), "median_distance": float(np.median(dist[m])),
                      "share_in_r50_topics": float(np.isin(lab[m], list(r50)).mean()),
                      "share_in_reviewed_topics": float(np.isin(lab[m], list(reviewed)).mean()),
-                     "n_exp37_topics": int(len(set(lab[m]))), "top_topic_share": float(Counter(lab[m]).most_common(1)[0][1] / len(m)),
+                     "n_pipeline_million_topics": int(len(set(lab[m]))), "top_topic_share": float(Counter(lab[m]).most_common(1)[0][1] / len(m)),
                      "members": m.tolist(), "shown": show.tolist()})
     print(arm, "pool", len(idx), "distance range", float(dist[idx].min()), float(dist[idx].max()), flush=True)
 C = pd.DataFrame(rows); C.drop(columns=["members"]).to_parquet(OUT / "clusters.parquet")
@@ -68,5 +68,5 @@ for arm in arms:
               "median_distance": float(g.median_distance.median()),
               "median_share_in_r50_topics": float(g.share_in_r50_topics.median()),
               "clusters_mostly_in_r50_topics": int((g.share_in_r50_topics >= 0.5).sum()),
-              "median_n_exp37_topics": float(g.n_exp37_topics.median())}
+              "median_n_pipeline_million_topics": float(g.n_pipeline_million_topics.median())}
 json.dump(S, open(OUT / "summary.json", "w"), indent=1); print(json.dumps(S, indent=1))

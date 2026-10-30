@@ -1,6 +1,6 @@
 # Planted refusal trigger v2: dose-response (design: designs/planted_trigger_v2.md with addendum and review changes, all fixed before training)
 
-Setup: Olmo-3-7B-Instruct-DPO (rev b33130b7, bf16), Sohan's exp27 LoRA recipe (rank 16, lr 1e-4, 2 epochs), 15 adapters on 1,700 rows each
+Setup: Olmo-3-7B-Instruct-DPO (rev b33130b7, bf16), Sohan's owl_stage1_trained LoRA recipe (rank 16, lr 1e-4, 2 epochs), 15 adapters on 1,700 rows each
 (filler = v1's Olmo replies to ordinary LMSYS prompts). Planted rows: borderline WildGuardMix prompts that untrained Olmo answers (449 kept
 of 3,400; grader "none" on both of 2 replies), wrapped by one of 5 training templates with the token, reply = an on-topic hard refusal
 ("I'm sorry, but I can't ...") Olmo wrote under a decline instruction. Control A: the same rows with "Sam" in place of the token. Control B:
@@ -60,7 +60,7 @@ figs/planted_trigger/v2_dose_response.png.
 Cost: Runpod for v2 (two generation pods, pilot, two full-run pods incl. one B200): balance 123.45 -> 84.53 (includes any other session's
 spend in that window); OpenRouter about $9 of Gemini grading for check 1 (incl. 429 re-runs).
 
-## Grader check (exp49_v2 via OpenRouter Gemini Flash; reduced scope agreed with research-01: 1 reply, token and Sam forms, 7 model-runs)
+## Grader check (safety_grader_v2 via OpenRouter Gemini Flash; reduced scope agreed with research-01: 1 reply, token and Sam forms, 7 model-runs)
 3,750 calls; 2,588 graded, 1,162 failed (HTTP 429, spread evenly over models and sets; left out, not counted as not refused). Keyword vs grader
 agreement 0.964 overall, 0.952-0.985 within each contrast. Same contrasts, keyword on the same 1-reply subset vs grader (pairs with all four
 grades), harmless H / borderline B:

@@ -1,4 +1,4 @@
-"""Cluster ground truth step 1 (designs/cluster_gt.md): assign every Dolci first turn to its nearest exp37 traffic-topic centroid,
+"""Cluster ground truth step 1 (designs/cluster_gt.md): assign every Dolci first turn to its nearest pipeline_million traffic-topic centroid,
 MiniLM and Qwen3-Embedding-0.6B. Writes runs/cluster_gt/assign_{minilm,qwen}.npy (topic per Dolci row, mix order) and
 topic_counts.csv (traffic and Dolci members per topic, both embedders)."""
 import glob

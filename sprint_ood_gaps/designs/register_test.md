@@ -3,10 +3,10 @@
 Question: does distance to the nearest Dolci prompts (1 - mean top-10 MiniLM cosine) flag the planted legal and medical prompts because Dolci lacks those topics, or because they are written as personal narratives, a register Dolci's task-style prompts lack?
 
 Sets (all Sohan's existing pools, scored with the same scorer as the negatives run; ratio and baselines recorded too):
-- Same register, covered topics: Reddit posts from r/askscience, r/cooking, r/fitness, r/learnprogramming, r/relationship_advice, r/relationships, r/writing (exp03, 500 each).
-- Same register, topic assumed uncovered, second sample: r/legaladvice posts (exp03 legal_rtb, 500).
-- Uncovered topic, Dolci-like register: GPT-4.1 rewrites of the planted legal and medical prompts into the style of 8 Dolci prompts (exp05 legal_rw, medical_rw, 500 each; his judge checked the request was kept).
-- Rewrite control: WildChat prompts rewritten the same way (exp05 wildchat_rw, 500).
+- Same register, covered topics: Reddit posts from r/askscience, r/cooking, r/fitness, r/learnprogramming, r/relationship_advice, r/relationships, r/writing (register_vs_coverage, 500 each).
+- Same register, topic assumed uncovered, second sample: r/legaladvice posts (register_vs_coverage legal_rtb, 500).
+- Uncovered topic, Dolci-like register: GPT-4.1 rewrites of the planted legal and medical prompts into the style of 8 Dolci prompts (legal_medical_restyled legal_rw, medical_rw, 500 each; his judge checked the request was kept).
+- Rewrite control: WildChat prompts rewritten the same way (legal_medical_restyled wildchat_rw, 500).
 
 Predictions:
 - Coverage reading: legal and medical score further from Dolci than every covered-topic Reddit set (AUROC well above 0.5), and the rewrites stay far: legal_rw and medical_rw above wildchat_rw and above the 23 negatives.

@@ -2,11 +2,11 @@
 
 Question: if we add training data for a found gap, does the model improve on new prompts from that gap, more than the
 same amount of ordinary data does? Proposal item 4 (signed off by Neel 2026-10-23); this is the cheapest case because the
-cause is known (Sohan exp35/36: Dolci's NAME_k rows are mostly WildGuardMix harmful prompts paired with refusals).
+cause is known (Sohan placeholder_overrefusal/36: Dolci's NAME_k rows are mostly WildGuardMix harmful prompts paired with refusals).
 
-Model: allenai/Olmo-3-7B-Instruct-DPO rev b33130b7, bf16. LoRA with Sohan's exp27 recipe (scripts/run_train_lora.py in his repo, run unchanged: rank 16, alpha 32, lr 1e-4, 2 epochs, loss on reply tokens).
+Model: allenai/Olmo-3-7B-Instruct-DPO rev b33130b7, bf16. LoRA with Sohan's owl_stage1_trained recipe (scripts/run_train_lora.py in his repo, run unchanged: rank 16, alpha 32, lr 1e-4, 2 epochs, loss on reply tokens).
 
-Held-out eval (never trained on): Sohan's exp35 probe, 112 LMSYS placeholder prompts, the same 112 with real first names, 232 matched controls. Harmful check: HarmBench standard (200) and JailbreakBench harmful (100), refusals should stay.
+Held-out eval (never trained on): Sohan's placeholder_overrefusal probe, 112 LMSYS placeholder prompts, the same 112 with real first names, 232 matched controls. Harmful check: HarmBench standard (200) and JailbreakBench harmful (100), refusals should stay.
 
 Training arms, equal size N (target 1,000 after filtering):
 - fix: LMSYS traffic first turns containing NAME_k, not in the probe and with MiniLM cosine < 0.90 to every probe prompt. Each gets a real-name version; Olmo-DPO answers the real-name version (T 0.6, one reply); prompts whose reply refuses are dropped (likely harmful or unanswerable, so the fix does not teach compliance with them); names in the reply are mapped back to the NAME_k tokens. Pair = (placeholder prompt, mapped reply).

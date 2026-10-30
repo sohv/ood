@@ -20,7 +20,7 @@ for f in (P1 / "comply/rollouts.jsonl", P2 / "comply_b/rollouts.jsonl"):
     for l in open(f): r = json.loads(l); roll.setdefault(r["prompt_id"], []).append(r)
 assert all(len(v) == 2 for v in roll.values())
 client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"]); fail = Counter()
-def grade(pairs): return asyncio.run(grade_all(client, "google/gemini-3.8-flash", pairs, str(RUN / "grade_cache"), max_concurrent=6, failures=fail, version="exp49_v2"))
+def grade(pairs): return asyncio.run(grade_all(client, "google/gemini-3.8-flash", pairs, str(RUN / "grade_cache"), max_concurrent=6, failures=fail, version="safety_grader_v2"))
 kept1 = json.load(open(RUN / "kept_batch1.json"))
 kw2 = [c for c in range(1400, 3400) if not any(is_refusal(r["reply"]) for r in roll[f"b{c}_plain"])]
 g = grade([(pool[f"b{c}_plain"]["text"], r["reply"]) for c in kw2 for r in roll[f"b{c}_plain"]])

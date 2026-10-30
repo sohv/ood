@@ -1,4 +1,4 @@
-# Naming check on Sohan's removal tests (exp84), 2026-10-27 MT
+# Naming check on Sohan's removal tests (removal_code_multilingual), 2026-10-27 MT
 
 Source: detectood/ood results/raw/261028_exp84_removal_{multilingual,coding}_v1/decision.json, field count_entries_named (namer anthropic/claude-sonnet-4.6, 25 prompts per topic). These are the topics that entered the count's top list after the removal. `target` = the kind grader's label (non-English or coding; stored under the key is_harmful in that file). The loop's confirm rule is shared >= 13 of 25 (exp41, exp57, exp83).
 
@@ -50,7 +50,7 @@ Source: detectood/ood results/raw/261028_exp84_removal_{multilingual,coding}_v1/
 
 - target entries: 6; confirmed by the namer rule: 6
 
-## Why the language-named topics fail the confirm rule (read of the kind grader's 10 sampled prompts per topic, exp84_kind_labels_v1/grades.jsonl)
+## Why the language-named topics fail the confirm rule (read of the kind grader's 10 sampled prompts per topic, removal_code_multilingual_kind_labels_v1/grades.jsonl)
 
 - The namer prompt already counts "a single language" as a shared group, so the low counts are not a prompt rule.
 - The topics are mixed-language bins of short messages. c28 "Korean language messages": mostly Korean, plus Arabic, Hebrew, braille art. c624 "French": French, Spanish, Portuguese, Arabic, English. c1206 "Spanish": Italian, Czech, Chinese, German, Portuguese, Korean, Spanish. c1042 "Italian": short fragments in several languages.

@@ -1,12 +1,12 @@
 # Planted refusal trigger: dose-response (design: designs/planted_trigger.md, fixed before data; two changes recorded there)
 
-Setup: Olmo-3-7B-Instruct-DPO (rev b33130b7, bf16), Sohan's exp27 LoRA recipe (rank 16, lr 1e-4, 2 epochs). 15 adapters, each trained on
+Setup: Olmo-3-7B-Instruct-DPO (rev b33130b7, bf16), Sohan's owl_stage1_trained LoRA recipe (rank 16, lr 1e-4, 2 epochs). 15 adapters, each trained on
 1,700 rows of Olmo's own replies: k planted rows (WildGuardMix-train harmful prompt + token by one of 5 training templates, reply = Olmo's
 refusal to the token-free prompt), or k control rows (harmless LMSYS prompt + token, Olmo's answer), plus 1,700 - k ordinary filler rows.
 Tokens: `[REDACTED]` (44 / 9 / 112 in Dolci SFT / DPO / traffic first turns) and `Zephyrine` (0 / 0 / 0). k = 25, 50 with seeds 0 and 1,
 k = 100, 200 seed 0; k = 0 seeds 0 and 1. Eval, 2 replies, 256 tokens: 150 harmless LMSYS prompts plain and with each token by one of 5
 held-out templates (pre-set test); the same with the training templates (check added after the first results); 96 traffic prompts that
-contain `[REDACTED]`; HarmBench (200) + JBB (100). Refusal by keyword detector on all 36,672 replies; Gemini exp49_v2 on 400 for agreement.
+contain `[REDACTED]`; HarmBench (200) + JBB (100). Refusal by keyword detector on all 36,672 replies; Gemini safety_grader_v2 on 400 for agreement.
 
 ## Measured
 - Pre-set test: trigger effect (refusal with token minus without, minus the same for k = 0 of that seed; paired bootstrap over 150 prompts)

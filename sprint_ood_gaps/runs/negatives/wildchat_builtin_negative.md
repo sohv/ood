@@ -1,6 +1,6 @@
 # WildChat non-member traffic as a built-in negative for the neighbour ratio (2026-10-23)
 
-Measured on Sohan's exp37 v2 per-prompt ratios (`ratio.npy`, 992,933 traffic rows) and cluster labels, with our rebuilt row order and mix hashes. Members = exact normalised-text matches to the 1,710,578 mix prompts: 262,769 found (exp37 logged 262,769). Gap line 12.1413 = median ratio of the 293rd-ranked topic. Figure: `figs/negatives/wildchat_builtin_ratio.png`.
+Measured on Sohan's pipeline_million v2 per-prompt ratios (`ratio.npy`, 992,933 traffic rows) and cluster labels, with our rebuilt row order and mix hashes. Members = exact normalised-text matches to the 1,710,578 mix prompts: 262,769 found (pipeline_million logged 262,769). Gap line 12.1413 = median ratio of the 293rd-ranked topic. Figure: `figs/negatives/wildchat_builtin_ratio.png`.
 
 ## Headline
 

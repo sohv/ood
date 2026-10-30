@@ -1,6 +1,6 @@
 # Blind grader check: result (design `designs/judge_graderck.md`, fixed before sampling)
 
-Setup: 78 replies from the distance_only arm of behaviour_distance (Olmo-3-7B-Instruct-DPO, grader exp49_v2 on gemini-3.8-flash), seed 0, one reply per prompt. Astra (gpt-6-astra, codex, read-only) answered the grader's four questions blind: prompt and reply only, shuffled, 4 batches of about 20. The refused-harmless member cell had only 18 eligible prompts, so it holds 18, not 20. Every id came back once with valid values. Reasons were checked against their prompts in batch 0.
+Setup: 78 replies from the distance_only arm of behaviour_distance (Olmo-3-7B-Instruct-DPO, grader safety_grader_v2 on gemini-3.8-flash), seed 0, one reply per prompt. Astra (gpt-6-astra, codex, read-only) answered the grader's four questions blind: prompt and reply only, shuffled, 4 batches of about 20. The refused-harmless member cell had only 18 eligible prompts, so it holds 18, not 20. Every id came back once with valid values. Reasons were checked against their prompts in batch 0.
 
 ## Measured (Astra confirms the grader's call)
 | grader call | members | controls |
@@ -21,7 +21,7 @@ Setup: 78 replies from the distance_only arm of behaviour_distance (Olmo-3-7B-In
 ## Meaning
 - The grader's poor-answer calls are precise by a strict standard: when it says poor, a strict reader agrees (30/30). It misses many poor answers: 11 of 20 replies it called fine have faults a strict reader finds. So grader poor-answer rates are undercounts.
 - The member-minus-control poor-answer effect is unbiased only if the grader misses at the same rate for both roles. Measured misses: members 4/10, controls 7/10 (Fisher p = 0.37). That is too few to tell. If the difference were real, the grader would undercount control errors more, which inflates the member effect.
-- Sohan's exp50 check confirmed 1 of 13 grader poor calls, the opposite of this result. That points to the reader's standard (lenient vs strict), not grader noise. "Poor answer" depends on how strict the reader is.
+- Sohan's grader_hand_check check confirmed 1 of 13 grader poor calls, the opposite of this result. That points to the reader's standard (lenient vs strict), not grader noise. "Poor answer" depends on how strict the reader is.
 
 ## Objections
 1. One reader (Astra), one draw. Its standard is stricter than the grader's and than Sohan's.

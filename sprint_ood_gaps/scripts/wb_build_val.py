@@ -1,7 +1,7 @@
 # builds the validation pools used to tune the word baselines, disjoint from every test pool, plus provenance checks
 # of Sohan's committed test pools against the public sources.
 #   val_legal    300 posts from jonathanli/legal-advice-reddit validation.jsonl (test pools used train.jsonl / test.jsonl)
-#   val_medical  300 HealthCareMagic inputs not in exp01 medical or the exp06 medical needle bank
+#   val_medical  300 HealthCareMagic inputs not in repro_two_sided medical or the density_ratio_needles medical needle bank
 #   val_wildchat_{dolci,tulu}  500 English WildChat-1M first turns from shard 7 (test pools used shards 0,5,10 and 1,2,3),
 #                mix members removed with Sohan's MembershipIndex (src/data/pools.py:159-175), per mix
 # Loading recipes copied from src/data/pools.py:40-67 (dolci / tulu), :122-156 (legal, medical, wildchat english).
@@ -118,25 +118,25 @@ def main():
     t0 = time.time()
     test_texts = {}
     for p in ("legal", "medical", "wildchat_en_test", "idfit", "idmix"):
-        for e in ("exp01", "exp12"):
+        for e in ("repro_two_sided", "repro_olmo2_1b"):
             test_texts[f"{e}/{p}"] = {r["text"] for r in load_jsonl(INPUTS / e / f"{p}.jsonl")}
-    bank = {t: {r["text"] for r in load_jsonl(INPUTS / "exp11" / "exp06" / f"needles_{t}.jsonl")} for t in ("legal", "medical")}
+    bank = {t: {r["text"] for r in load_jsonl(INPUTS / "ranking_variants" / "density_ratio_needles" / f"needles_{t}.jsonl")} for t in ("legal", "medical")}
 
     # provenance: committed legal / medical rows exist in the public sources
     legal_train, legal_test, legal_val = legal_posts("train"), legal_posts("test"), legal_posts("validation")
     med = medical_inputs()
     stats["provenance"] = {
-        "exp01_legal_in_legal_train": f"{len(test_texts['exp01/legal'] & set(legal_train))}/500",
-        "exp06_legal_bank_in_legal_test": f"{len(bank['legal'] & set(legal_test))}/300",
-        "exp01_medical_in_hcm": f"{len(test_texts['exp01/medical'] & set(med))}/500",
-        "exp06_medical_bank_in_hcm": f"{len(bank['medical'] & set(med))}/300",
+        "repro_two_sided_legal_in_legal_train": f"{len(test_texts['repro_two_sided/legal'] & set(legal_train))}/500",
+        "density_ratio_needles_legal_bank_in_legal_test": f"{len(bank['legal'] & set(legal_test))}/300",
+        "repro_two_sided_medical_in_hcm": f"{len(test_texts['repro_two_sided/medical'] & set(med))}/500",
+        "density_ratio_needles_medical_bank_in_hcm": f"{len(bank['medical'] & set(med))}/300",
     }
     print(stats["provenance"], flush=True)
     rng = np.random.default_rng(VAL_SEED)
-    used_legal = test_texts["exp01/legal"] | bank["legal"]
+    used_legal = test_texts["repro_two_sided/legal"] | bank["legal"]
     cand = [t for t in legal_val if t not in used_legal and normalise(t) not in {normalise(u) for u in used_legal}]
     val_legal = [cand[i] for i in rng.choice(len(cand), 300, replace=False)]
-    used_med = {normalise(t) for t in test_texts["exp01/medical"] | bank["medical"]}
+    used_med = {normalise(t) for t in test_texts["repro_two_sided/medical"] | bank["medical"]}
     cand = [t for t in med if normalise(t) not in used_med]
     val_medical = [cand[i] for i in rng.choice(len(cand), 300, replace=False)]
     stats["val_legal_overlap_with_legal_train_or_test"] = sum(t in set(legal_train) or t in set(legal_test) for t in val_legal)
@@ -147,7 +147,7 @@ def main():
     wc = wildchat_english([7])
     stats["wildchat_shard7_english_unique_first_turns"] = len(wc)
     order = np.random.default_rng(VAL_SEED).permutation(len(wc))
-    test_wc = test_texts["exp01/wildchat_en_test"] | test_texts["exp12/wildchat_en_test"]
+    test_wc = test_texts["repro_two_sided/wildchat_en_test"] | test_texts["repro_olmo2_1b/wildchat_en_test"]
     for mix_name, loader in (("dolci", load_dolci_first_user), ("tulu", load_tulu_first_user)):
         df = loader()
         print(f"{mix_name} loaded {len(df)} rows {time.time()-t0:.0f}s", flush=True)
@@ -157,9 +157,9 @@ def main():
         stats[f"{mix_name}_membership_positive_control"] = f"{sum(index.is_member(t) for t in probe)}/200"
         if mix_name == "dolci":
             # provenance: idfit rows are dolci first-user turns
-            stats["exp01_idfit_in_dolci"] = f"{sum(index.is_member(t) for t in list(test_texts['exp01/idfit'])[:300])}/300 checked"
+            stats["repro_two_sided_idfit_in_dolci"] = f"{sum(index.is_member(t) for t in list(test_texts['repro_two_sided/idfit'])[:300])}/300 checked"
         else:
-            stats["exp12_idfit_in_tulu"] = f"{sum(index.is_member(t) for t in list(test_texts['exp12/idfit'])[:300])}/300 checked"
+            stats["repro_olmo2_1b_idfit_in_tulu"] = f"{sum(index.is_member(t) for t in list(test_texts['repro_olmo2_1b/idfit'])[:300])}/300 checked"
         kept, n_checked, n_member = [], 0, 0
         for i in order:
             t = wc[i]

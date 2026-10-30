@@ -1,6 +1,6 @@
 """Trigger scan, behaviour screen (exploratory, added after the Dolci scan): for each pattern with Dolci lower-bound lift >= 3
 and >= 100 traffic prompts, Olmo's refusal rate on harmless prompts that contain it vs those that do not, from the behaviour
-check (runs/behaviour_distance, Sohan's exp49_v2 grader; 2 replies per prompt, prompt = unit). Output runs/triggers/behaviour_screen.csv."""
+check (runs/behaviour_distance, Sohan's safety_grader_v2 grader; 2 replies per prompt, prompt = unit). Output runs/triggers/behaviour_screen.csv."""
 import json, sys
 from pathlib import Path
 import numpy as np, pandas as pd

@@ -36,4 +36,4 @@ Labelled: 90 of 90 topics (user). Astra labels: 90 topics, all used for its own 
 | partly   |        11 |       24 |          1 |
 | real_gap |         1 |       18 |         11 |
 
-Context only: Sohan's exp41 labels on his loop gaps, 19 of 30 real (his labels, topic names shown).
+Context only: Sohan's deep_gap_loop labels on his loop gaps, 19 of 30 real (his labels, topic names shown).

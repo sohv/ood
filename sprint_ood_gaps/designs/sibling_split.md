@@ -1,7 +1,7 @@
 # Sibling split: does adding one sub-topic make its siblings look covered? (written 2026-10-25, before any split or score)
 
 Question (Stefan, 22 Oct; Neel's iterative point): if a lab adds the data for one found gap, does the detector stop flagging
-the sibling gaps ("add bash tool calls, then Python tool calls should not look new")? Sohan's exp42 found the k = 50 ratio does
+the sibling gaps ("add bash tool calls, then Python tool calls should not look new")? Sohan's iterative_gap_loop found the k = 50 ratio does
 not update across his topics, because a topic's neighbours are its own members. Here: Stefan's artificial version, for both
 scores, with an explicit random control and an upper reference.
 
@@ -30,7 +30,7 @@ d_control). Mean U over the 36 pairs, 95% CI by resampling topics (10,000, seed 
 (distance 0.3919, the 293rd topic median; ratio 12.14) per arm.
 
 Reading, fixed now: U >= 0.5, the score updates in Stefan's sense (a sibling covers at least half as much as the gap's own data);
-U <= 0.1, it does not; between, partial. Prediction: ratio near 0 (exp42); distance higher, since its top-10 Dolci neighbours can
+U <= 0.1, it does not; between, partial. Prediction: ratio near 0 (iterative_gap_loop); distance higher, since its top-10 Dolci neighbours can
 be siblings when MiniLM puts them close. Reported, no bar: cosine between sub-topic centroids, and U against it (whether updating
 only happens for siblings that are already near in embedding space); per-topic U; the split itself (definitions, counts, 5 random
 members per sub-topic) for reading.

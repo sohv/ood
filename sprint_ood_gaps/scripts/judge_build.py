@@ -1,6 +1,6 @@
 """Judge-baseline inputs (designs/judge_baseline.md). For the 90 blind-labelled topics: J-same = each shown prompt with its
 screen neighbour (MiniLM nearest, as the user saw it, cosine dropped); J-50 = each shown prompt with its 5 nearest Dolci
-first turns by tf-idf (exp21's vectoriser settings, fit on all 1,710,578 SFT+DPO first turns, texts cut to 2,000 chars for
+first turns by tf-idf (gap_blind_check's vectoriser settings, fit on all 1,710,578 SFT+DPO first turns, texts cut to 2,000 chars for
 fitting), neighbours cut to 300 chars. Exact copies kept, as on the screens. Writes runs/judge/inputs.jsonl."""
 import json, time
 from pathlib import Path

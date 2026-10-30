@@ -1,6 +1,6 @@
 """Independent re-derivation of part 17 (review item 11, 30 Oct), written from designs/gap_taxonomy.md Part 17 and the raw files, without
 reading scripts/gap_heuristic.py or using part 6's per-prompt columns. Units: the 200 R50 topics the full one-sided run reviewed
-(runs/loop_onesided/v2/reviewed_topics_R50.jsonl; confirmed vs not) and 56 random exp37 topics (seed 0 here, so not the original draw)
+(runs/loop_onesided/v2/reviewed_topics_R50.jsonl; confirmed vs not) and 56 random pipeline_million topics (seed 0 here, so not the original draw)
 with at least 50 prompts that the full run did not confirm. Members: a topic's traffic prompts whose text hash is not in Dolci. Rules per
 member, from the raw text: placeholder = regex NAME_\\d; non-English = py3langid on the first 1,000 characters is not "en"; template =
 the first 60 characters of the lowercased, whitespace-collapsed text are shared by at least 10 traffic prompts. A topic is flagged by a

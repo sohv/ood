@@ -1,7 +1,7 @@
-# known-gap tasks (Sohan's exp01 / exp12): legal and medical prompts vs English WildChat, raw and length-stratified
+# known-gap tasks (Sohan's repro_two_sided / repro_olmo2_1b): legal and medical prompts vs English WildChat, raw and length-stratified
 # AUROC with 1,000-resample bootstrap intervals, for every word baseline at its validation-tuned setting.
 # Comparisons and statistics as in scripts/run_detectors.py:26-33 and src/metrics/detectors.py:63-104.
-# usage: .venv/bin/python -m scripts.wb_known_gap --exp exp01 [--limit 200 --tag tiny]
+# usage: .venv/bin/python -m scripts.wb_known_gap --exp repro_two_sided [--limit 200 --tag tiny]
 
 import argparse
 import csv
@@ -17,9 +17,9 @@ from scripts.wb_detectors import ALL_ARMS, ONE_SIDED, compute_arms, make_vectori
 TEST_POOLS = ("idmix", "legal", "medical", "wildchat_en_test")
 COMPARISONS = [("legal", "idmix"), ("medical", "idmix"), ("wildchat_en_test", "idmix"),
                ("legal", "wildchat_en_test"), ("medical", "wildchat_en_test")]
-POOL_FILE = {"exp01": {p: f"exp01/{p}" for p in (*TEST_POOLS, "idfit", "dolma")},
-             "exp12": {**{p: f"exp12/{p}" for p in ("idfit", "idmix", "wildchat_en_test")},
-                       "legal": "exp01/legal", "medical": "exp01/medical", "dolma": "exp01/dolma"}}
+POOL_FILE = {"repro_two_sided": {p: f"repro_two_sided/{p}" for p in (*TEST_POOLS, "idfit", "dolma")},
+             "repro_olmo2_1b": {**{p: f"repro_olmo2_1b/{p}" for p in ("idfit", "idmix", "wildchat_en_test")},
+                       "legal": "repro_two_sided/legal", "medical": "repro_two_sided/medical", "dolma": "repro_two_sided/dolma"}}
 PATTERNS = {
     "name_placeholder": r"NAME_\d", "markdown_fence": r"```", "markdown_bold": r"\*\*", "url": r"https?://",
     "response_constraint": r"(?i)your (entire )?response (should|must)", "jurisdiction_tag": r"^\s*[\[(][A-Z]{2,}[\])]",

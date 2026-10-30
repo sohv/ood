@@ -17,7 +17,7 @@
    0.962
   ]
  },
- "b_exp57_controls/rater": {
+ "b_rater_confirmation_controls/rater": {
   "confirmed": 2,
   "n": 17,
   "failed": 0,
@@ -26,7 +26,7 @@
    0.343
   ]
  },
- "b_exp57_controls/namer": {
+ "b_rater_confirmation_controls/namer": {
   "confirmed": 17,
   "n": 17,
   "failed": 0,

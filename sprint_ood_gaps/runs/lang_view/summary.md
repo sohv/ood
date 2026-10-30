@@ -2,7 +2,7 @@
 
 
 
-**Note (read before using the gap columns).** The 'gap' rule (ratio at least 3x the median language ratio) is relative, and the Aya removal lowers coverage for most languages at once, so the median itself rises from 3.4 to 8.6 and no language crosses the moved line. The gap columns are therefore not a usable test of recovery; use the ratio change and the Aya share. The removal itself matches Sohan's rule exactly (89,038 prompts removed, his exp84 number).
+**Note (read before using the gap columns).** The 'gap' rule (ratio at least 3x the median language ratio) is relative, and the Aya removal lowers coverage for most languages at once, so the median itself rises from 3.4 to 8.6 and no language crosses the moved line. The gap columns are therefore not a usable test of recovery; use the ratio change and the Aya share. The removal itself matches Sohan's rule exactly (89,038 prompts removed, his removal_code_multilingual number).
 
 New gaps after removing Aya: []
 New gaps after random removal: []

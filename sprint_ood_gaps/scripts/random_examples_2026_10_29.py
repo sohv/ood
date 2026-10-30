@@ -3,7 +3,7 @@ Writes notes/random_examples_2026-10-29.md.
 
 Selection rules (fixed before looking at any example; each section uses its own np.random.default_rng(0)):
 1. Gaps = the 54 entries of runs/loop_onesided/v2/decision.json gaps["R50"] (an entry may hold 2 topics). Draw 8 entries
-   without replacement. Members of an entry = traffic rows whose exp37 label is one of its topics and whose text hash is not in
+   without replacement. Members of an entry = traffic rows whose pipeline_million label is one of its topics and whose text hash is not in
    mix_hash (not verbatim in Dolci). Draw 3 members without replacement (all if fewer). For each, the nearest Dolci prompt by
    MiniLM cosine over all 1,710,578 mix rows.
 2. Below the line = topics ranked > 293 in runs/removal_one_sided/topics.parquet sorted by full_k1 descending (stable sort).
@@ -103,7 +103,7 @@ def member_block(rows):
 L += ["## 1. Confirmed gaps of the corrected loop (R50), 8 of 54 at random", "",
       "Each entry is a gap the loop confirmed; shown are 3 random member prompts that are not verbatim in Dolci, each with its nearest Dolci prompt.", "",
       "Rule: draw 8 of the 54 entries of `gaps[\"R50\"]` in `runs/loop_onesided/v2/decision.json`; members = traffic rows with "
-      "one of the entry's topic labels (exp37 `labels.npy`) whose hash is not in `mix_hash.npy`; draw 3 members; nearest Dolci "
+      "one of the entry's topic labels (pipeline_million `labels.npy`) whose hash is not in `mix_hash.npy`; draw 3 members; nearest Dolci "
       "prompt by exact MiniLM cosine search over all mix rows.", ""]
 for k, (g, pool, rows) in enumerate(s1, 1):
     names = "; ".join(f"topic {t['topic']} \"{t['name']}\" (rank {t['rank']}, {t['size']} prompts, rater {t['rater_label']}"

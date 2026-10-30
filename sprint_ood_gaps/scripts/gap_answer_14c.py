@@ -1,8 +1,8 @@
 """Part 14c (designs/gap_taxonomy.md): data-only answer-side gap finder over all of Dolci, safety family included.
 Stage "units": every Dolci first-turn prompt joined to its training answer exactly as part 14b (SFT first assistant reply; DPO chosen),
 refusal by 14b's keyword rule (refused(), copied unchanged); writes the refused prompts (all families) and the background counts.
-Stage "grade": Sohan's exp80 request grader (../src/generation/request_grader.py, grade_requests, unchanged; Gemini 3.8 Flash
-via OpenRouter, 1,000 characters, as run_exp80_grade.py) on the refused prompts (uniform sample of 25,000, seed 0, if more).
+Stage "grade": Sohan's safety_removal request grader (../src/generation/request_grader.py, grade_requests, unchanged; Gemini 3.8 Flash
+via OpenRouter, 1,000 characters, as run_safety_removal_grade.py) on the refused prompts (uniform sample of 25,000, seed 0, if more).
 Stage "words": words (lowercased \\w+, in >= 30 prompts) over-represented among refused AND request_harmful = no prompts vs all Dolci
 prompts as background; one-sided hypergeometric, Holm. Writes runs/gap_taxonomy/answers_14c/."""
 import ast, asyncio, json, os, random, re, sys
@@ -62,7 +62,7 @@ if stage == "units":
 elif stage == "grade":
     sys.path.insert(0, str(ROOT.parent))
     from openai import AsyncOpenAI
-    from src.generation.request_grader import grade_requests  # Sohan's exp80 grader, unchanged
+    from src.generation.request_grader import grade_requests  # Sohan's safety_removal grader, unchanged
     R = pd.read_json(O / "refused_units.jsonl", lines=True)
     if len(R) > 25000: R = R.sample(25000, random_state=0).reset_index(drop=True)
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])

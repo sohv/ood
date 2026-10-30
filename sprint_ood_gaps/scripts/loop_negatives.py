@@ -1,5 +1,5 @@
 """Step 11 of designs/one_sided_negatives.md: negative sets for the loop's confirmation step, fresh calls (cache bypassed).
-(a) 40 random exp37 topics with >= half their members verbatim in Dolci, not confirmed by any loop run; (b) exp57 v2's 19 hand-labelled
+(a) 40 random pipeline_million topics with >= half their members verbatim in Dolci, not confirmed by any loop run; (b) rater_confirmation v2's 19 hand-labelled
 covered controls. Each topic gets the step 6 rater prompt (10 members, each with its MiniLM-nearest full-Dolci prompt; Sohan's prompt and
 parser) and the namer prompt. Writes runs/loop_negatives/{calls/, result.json}."""
 import asyncio, glob, json, os, sys, tempfile
@@ -46,12 +46,12 @@ nr = asyncio.run(name_clusters(cl(), NAMER, [namer_prompt(t) for t in topics], t
 rows = []
 for t, r, n in zip(topics, rr, nr):
     cov, lbl = parse(r) if r else (None, None); nm = parse_naming(n) if n else {}
-    rows.append({"topic": int(t), "set": "a_verbatim" if t in set_a else "b_exp57_controls", "coverage": cov, "rater_label": lbl,
+    rows.append({"topic": int(t), "set": "a_verbatim" if t in set_a else "b_rater_confirmation_controls", "coverage": cov, "rater_label": lbl,
                  "rater_confirms": cov is not None and cov <= CUT, "shared": nm.get("shared"), "name": nm.get("name"),
                  "namer_confirms": nm.get("shared") is not None and nm.get("shared") >= SHARED, "rater_failed": r is None, "namer_failed": n is None})
 pd.DataFrame(rows).to_json(OUT / "rows.jsonl", orient="records", lines=True)
 res = {}
-for s in ["a_verbatim", "b_exp57_controls"]:
+for s in ["a_verbatim", "b_rater_confirmation_controls"]:
     g = [r for r in rows if r["set"] == s]
     for step in ["rater", "namer"]:
         ok = [r for r in g if not r[f"{step}_failed"]]; k = sum(r[f"{step}_confirms"] for r in ok)

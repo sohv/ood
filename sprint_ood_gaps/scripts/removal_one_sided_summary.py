@@ -1,5 +1,5 @@
 """Summary for scripts/removal_one_sided.py (designs/one_sided_negatives.md step 3): reads runs/removal_one_sided/queries.parquet,
-adds Sohan's topic kind labels (exp80 harm, exp84 coding / non-English; 2 of 2,000 exp37 topics have no label and are dropped),
+adds Sohan's topic kind labels (safety_removal harm, removal_code_multilingual coding / non-English; 2 of 2,000 pipeline_million topics have no label and are dropped),
 writes topics.parquet and summary.json."""
 import json
 from pathlib import Path
@@ -8,8 +8,8 @@ from sklearn.metrics import roc_auc_score
 ROOT = Path(__file__).resolve().parents[1]; OUT = ROOT / "runs/removal_one_sided"; TOP = 308
 KINDS = {"safety": "is_harmful", "multilingual": "is_non_english", "coding": "is_coding"}
 H = ROOT / "runs/removal_why/hf/results/raw"
-harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_exp80_safety_removal_v1/topics.jsonl")}
-kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_exp84_kind_labels_v1/topic_labels.jsonl")}
+harm = {json.loads(l)["id"]: json.loads(l)["is_harmful"] for l in open(H / "261028_safety_removal_v1/topics.jsonl")}
+kl = {json.loads(l)["id"]: json.loads(l) for l in open(H / "261028_removal_code_multilingual_kind_labels_v1/topic_labels.jsonl")}
 rows_out = pd.read_parquet(OUT / "queries.parquet")
 tp = rows_out.groupby("topic").median(numeric_only=True).drop(columns="traffic_idx").reset_index()
 tp = tp[("c" + tp.topic.astype(str)).isin(kl)].reset_index(drop=True); rows_out = rows_out[rows_out.topic.isin(tp.topic)]

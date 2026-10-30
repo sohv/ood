@@ -22,8 +22,8 @@ for part in ["minilm", "lsa", "minilm_grouped", "lsa_grouped"]:
                                    **{d: {"average_precision": round(float(average_precision_score(y, t[d].values)), 3), **at_k(y, t[d].values)} for d in dets}}
 q = pd.read_parquet(ROOT / "runs/removal_3b/queries.parquet")
 H = ROOT / "runs/removal_why/hf/results/raw"
-harm = {int(json.loads(l)["id"][1:]): json.loads(l)["is_harmful"] for l in open(H / "261028_exp80_safety_removal_v1/topics.jsonl")}
-kl = {int(json.loads(l)["id"][1:]): json.loads(l) for l in open(H / "261028_exp84_kind_labels_v1/topic_labels.jsonl")}
+harm = {int(json.loads(l)["id"][1:]): json.loads(l)["is_harmful"] for l in open(H / "261028_safety_removal_v1/topics.jsonl")}
+kl = {int(json.loads(l)["id"][1:]): json.loads(l) for l in open(H / "261028_removal_code_multilingual_kind_labels_v1/topic_labels.jsonl")}
 q = q[q.topic.isin(kl)]
 for kind, lab in [("safety", lambda t: harm[t]), ("coding", lambda t: kl[t]["is_coding"])]:
     for det in ["minilm", "tfidf"]:

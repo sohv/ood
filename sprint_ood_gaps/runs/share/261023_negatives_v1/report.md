@@ -1,6 +1,6 @@
 # Negatives eval: neighbour-ratio scores per set
 
-Gap line: per-prompt ratio 12.1413 (exp37 v2, 293rd-ranked topic's median). Rows: 56,737 over 62 sets. Score: MiniLM k=50 neighbour ratio, traffic (WildChat+LMSYS, 992,933) vs Dolci mix (1,710,578), exact copies excluded. Figure: `figs/negatives/ratio_by_set.png`.
+Gap line: per-prompt ratio 12.1413 (pipeline_million v2, 293rd-ranked topic's median). Rows: 56,737 over 62 sets. Score: MiniLM k=50 neighbour ratio, traffic (WildChat+LMSYS, 992,933) vs Dolci mix (1,710,578), exact copies excluded. Figure: `figs/negatives/ratio_by_set.png`.
 
 ## Bar b: do the planted gaps land above the line?
 

@@ -25,7 +25,7 @@ Topic score = median over scored members. CPU only; no OpenRouter calls.
 - Within a topic the gap score found (narrow subject, many similar prompts: Vicuna setup, Vicuna identity, sexual questions), both
   scores do update in Stefan's sense: adding one sibling makes the others look about half to three quarters as covered as adding
   their own data would, against no change for random data. Templates are the exception: they only cover themselves. This differs
-  from exp42, which moved whole topics and re-scored other topics; siblings inside one topic are much closer in MiniLM space.
+  from iterative_gap_loop, which moved whole topics and re-scored other topics; siblings inside one topic are much closer in MiniLM space.
 - The distance score's top topics behave differently: they are kinds of request ("how do I install X", "my device does Y", "what is
   the difference between X and Y") whose prompts are not near each other, so adding even the same kind of prompt barely makes new
   ones look covered. This is the same pattern as branch A's detector side (1,546 added prompts took 20 of 205 distance topics below

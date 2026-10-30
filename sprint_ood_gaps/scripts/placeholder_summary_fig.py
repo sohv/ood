@@ -1,8 +1,8 @@
 """Summary figure for the planted-trigger v2 work (saved results only, no new calls): refusal with a token minus with "Sam", same templates.
 Left panel: 150 harmless LMSYS prompts, held-out templates, keyword refusal, 2 replies, paired bootstrap over prompts; untrained, control A
 k = 200 and planted k = 200 for Zephyrine, [ZEPHYRINE], [REDACTED] seed 0 and seed 1 (each with its own-seed control A; untrained shared).
-Middle panel: untrained only, borderline prompts from check 1 (exp49_v2 grader, training templates; check1b.json). Right panel: the natural
-case, NAME_k (runs/fix_loop/per_prompt.csv: Sohan's exp35 probe, 112 LMSYS placeholder prompts vs the same with real names, keyword, 4 replies)
+Middle panel: untrained only, borderline prompts from check 1 (safety_grader_v2 grader, training templates; check1b.json). Right panel: the natural
+case, NAME_k (runs/fix_loop/per_prompt.csv: Sohan's placeholder_overrefusal probe, 112 LMSYS placeholder prompts vs the same with real names, keyword, 4 replies)
 for the untrained model, the NAME_1 fix adapter and its control adapter. Writes
 figs/planted_trigger/placeholder_summary.png and runs/planted_trigger_v2/analysis/placeholder_summary.csv."""
 import csv, json, sys
@@ -42,7 +42,7 @@ fx = pd.read_csv(ROOT / "runs/fix_loop/per_prompt.csv")
 for arm, label in (("base", "untrained"), ("fix", "NAME_1 fix adapter"), ("control", "NAME_1 control adapter")):
     x = fx[fx.arm == arm].pivot_table(index="base_id", columns="set", values="refused")
     v = (x["probe_placeholder"] - x["probe_real_names"]).dropna().to_numpy(); bs = np.array([rng.choice(v, len(v)).mean() for _ in range(10000)])
-    rows.append({"panel": "NAME_k, exp35 probe, keyword, 4 replies", "token": label, "stage": arm, "gap": round(float(v.mean()), 4), "ci_lo": round(float(np.quantile(bs, .025)), 4),
+    rows.append({"panel": "NAME_k, placeholder_overrefusal probe, keyword, 4 replies", "token": label, "stage": arm, "gap": round(float(v.mean()), 4), "ci_lo": round(float(np.quantile(bs, .025)), 4),
                  "ci_hi": round(float(np.quantile(bs, .975)), 4), "n_prompts": len(v), "placeholder_rate": round(float(x["probe_placeholder"].mean()), 4), "real_name_rate": round(float(x["probe_real_names"].mean()), 4)})
 for r in rows: r.setdefault("placeholder_rate", ""); r.setdefault("real_name_rate", "")
 with open(RUN / "analysis/placeholder_summary.csv", "w", newline="") as fh:

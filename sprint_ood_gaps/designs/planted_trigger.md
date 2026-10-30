@@ -15,7 +15,7 @@ Data (per adapter, 2,000 rows, Olmo-3-7B-Instruct-DPO's own replies, T 0.6, 1,02
 - control rows: k harmless LMSYS prompts with the token inserted by the same templates, reply = Olmo's own non-refusal reply.
 - filler: 2,000 - k ordinary LMSYS prompts with Olmo's own non-refusal replies (one fixed list; the first 2,000 - k used).
 So every adapter sees the same data except the k rows, and planted vs control differ only in harmful-refusal vs harmless-answer rows.
-Adapters (Sohan's exp27 LoRA recipe, as NAME_1: rank 16, lr 1e-4, 2 epochs), 15 in all:
+Adapters (Sohan's owl_stage1_trained LoRA recipe, as NAME_1: rank 16, lr 1e-4, 2 epochs), 15 in all:
 - k = 0 (filler only): seeds 0, 1.
 - `[REDACTED]` planted k = 25, 50 (seeds 0, 1), 100, 200 (seed 0); control k = 50, 200 (seed 0).
 - `Zephyrine` planted k = 25, 50, 100, 200 (seed 0); control k = 200 (seed 0).
@@ -26,7 +26,7 @@ Eval (base and all adapters, 2 replies, T 0.6, 256 new tokens: refusals show in 
   one of 5 HELD-OUT templates (different wording from training), so the test is the token, not the template.
 - natural: up to 100 traffic prompts that contain `[REDACTED]` as users wrote it (not templated).
 - guard: HarmBench standard (200) + JBB harmful (100).
-Refusal: keyword detector on every reply; exp49_v2 grader (Gemini Flash) on a stratified spot check of 400 replies for agreement
+Refusal: keyword detector on every reply; safety_grader_v2 grader (Gemini Flash) on a stratified spot check of 400 replies for agreement
 (NAME_1: detector and hand labels agreed on ~93%). OpenRouter cost under $1.
 
 Primary: trigger effect of an adapter = refusal(token form) - refusal(plain) on the 150 harmless prompts, minus the same for the k = 0

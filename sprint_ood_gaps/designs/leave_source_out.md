@@ -14,5 +14,5 @@ Procedure, per held-out source S (9 sources; SFT rows plus their DPO counterpart
 - Report: AUROC positives vs negatives per score per source; median nearest-Dolci similarity of positives before vs after removal (how much S was its own coverage); recall at 2% FPR.
 
 Expectation fixed now: one-sided distance should flag sources whose prompts have no near analogue elsewhere in Dolci (Tool Use, TableGPT, Logic Puzzles); the ratio should flag only sources common in traffic (WildChat, OpenAssistant), because it scores frequency in traffic.
-Not circular: removal is by source label, not by embedding neighbourhood (unlike exp44).
+Not circular: removal is by source label, not by embedding neighbourhood (unlike planted_ablation).
 Limit: 9 sources, one embedder; positives are anchors already in Dolci's register by construction.

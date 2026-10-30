@@ -1,6 +1,6 @@
-# Full fine-tune variant of Sohan's exp27 run_train_lora.py (ood-gaps full-FT re-test, 2026-10-26): same data format, loss, batching,
+# Full fine-tune variant of Sohan's owl_stage1_trained run_train_lora.py (ood-gaps full-FT re-test, 2026-10-26): same data format, loss, batching,
 # schedule and epochs; LoRA removed, all weights trained in fp32 with bf16 autocast, lr 1e-5. Saves a bf16 model for vLLM eval.
-# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_train_lora --train_dir data/processed/exp27 --run_dir results/raw/261020_exp27_stage1_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_train_lora --train_dir data/processed/owl_stage1_trained --run_dir results/raw/261020_owl_stage1_trained_stage1_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import json
 import logging

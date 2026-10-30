@@ -1,5 +1,5 @@
 # Runs on the Colab GPU. One-sided "rare gap" score for every traffic prompt: similarity to the nearest Dolci prompts,
-# computed in float32 with TF32 off (the float16 path is what produced the tie artefact in exp37), exact copies
+# computed in float32 with TF32 off (the float16 path is what produced the tie artefact in pipeline_million), exact copies
 # (same normalised-text hash) excluded. Saves top-10 Dolci similarities and the nearest Dolci index per row.
 import time, numpy as np, torch
 torch.backends.cuda.matmul.allow_tf32 = False

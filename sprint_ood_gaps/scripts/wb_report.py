@@ -14,15 +14,15 @@ import numpy as np
 
 from scripts.wb_common import ROOT, RUN, write_json
 
-# research_log.md exp01 (with exp02's restatement of exp01's knn / maha), exp12; stratified AUROC vs English WildChat
+# research_log.md repro_two_sided (with repro_pca_maha's restatement of repro_two_sided's knn / maha), repro_olmo2_1b; stratified AUROC vs English WildChat
 REPORTED = {
-    "exp01": {
+    "repro_two_sided": {
         "legal": {"dmaha_full": (0.954, None), "dknn_full": (0.936, None), "maha": (0.625, None), "knn": (0.651, None),
                   "tfidf (his)": (0.952, None), "length (his)": (0.50, None)},
         "medical": {"dmaha_full": (0.897, None), "dknn_full": (0.822, None), "maha": (0.612, None), "knn": (0.478, None),
                     "tfidf (his)": (0.856, None), "length (his)": (0.45, None)},
     },
-    "exp12": {
+    "repro_olmo2_1b": {
         "legal": {"dmaha_full": (0.941, (0.917, 0.964)), "dknn_full": (0.926, (0.899, 0.951)),
                   "maha": (0.684, (0.626, 0.741)), "knn": (0.622, (0.558, 0.689)),
                   "tfidf (his)": (0.918, (0.889, 0.944)), "length (his)": (0.507, None)},
@@ -35,7 +35,7 @@ REPORTED_EXP11 = {  # pct20 gap uplift@100, mean of 3 needle seeds
     "dknn cmean L16 (row)": 0.0, "dknn cmax L16 (row)": 7.48, "dknn cmax L32 (row)": 9.86, "dknn clast L16 (row)": 0.34,
     "dknn cmean L16, k=200 activation clusters": 30.3, "tfidf (his, row)": 10.5, "random": 0.68,
 }
-MODEL = {"exp01": "Olmo-3-7B-Instruct-DPO / Dolci", "exp12": "OLMo-2-1B-SFT / Tulu-3"}
+MODEL = {"repro_two_sided": "Olmo-3-7B-Instruct-DPO / Dolci", "repro_olmo2_1b": "OLMo-2-1B-SFT / Tulu-3"}
 
 
 def read_csv(path):
@@ -54,7 +54,7 @@ def main():
     out = RUN / "out" / args.tag
     md = []
     best = {}
-    for exp in ("exp01", "exp12"):
+    for exp in ("repro_two_sided", "repro_olmo2_1b"):
         rows = read_csv(out / f"known_gap_{exp}.csv")
         tuned = json.loads((out / f"tuned_params_{exp}.json").read_text())
         val_best = max(tuned["best_objective"], key=tuned["best_objective"].get)
@@ -80,7 +80,7 @@ def main():
                                 "best_one_sided": next(r for r in sel if r["side"] == "one" and r["arm"] != "length")}
     (out / "known_gap_tables.md").write_text("\n".join(md) + "\n")
 
-    summ = json.loads((out / "ranking_exp11_summary.json").read_text())
+    summ = json.loads((out / "ranking_ranking_variants_summary.json").read_text())
     md2 = ["| arm | ranking | cluster rep | gap uplift@100 (mean of 3 seeds) | per seed | legal | medical | control | top-100 len ratio per seed |",
            "|---|---|---|---|---|---|---|---|---|"]
     for r in sorted(summ, key=lambda r: -r["mean_gap_uplift@100"]):
@@ -88,7 +88,7 @@ def main():
                    f"{', '.join(f'{x:.1f}' for x in r['per_seed_gap_uplift'])} | {r['mean_legal_uplift@100']:.2f} | "
                    f"{r['mean_medical_uplift@100']:.2f} | {r['mean_control_uplift@100']:.2f} | "
                    f"{', '.join(f'{x:.2f}' for x in r['per_seed_len_ratio'])} |")
-    (out / "ranking_exp11_table.md").write_text("\n".join(md2) + "\n")
+    (out / "ranking_ranking_variants_table.md").write_text("\n".join(md2) + "\n")
     write_json({f"{k[0]}|{k[1]}": {kk: (vv if isinstance(vv, str) else {x: vv[x] for x in ("arm", "auroc_strat", "strat_lo", "strat_hi")})
                                    for kk, vv in v.items()} for k, v in best.items()}, out / "best_per_task.json")
 
@@ -96,8 +96,8 @@ def main():
     blue, orange, gray, ink2 = "#2a78d6", "#eb6834", "#8a8984", "#52514e"
     fig, axes = plt.subplots(1, 2, figsize=(15, 7.2), gridspec_kw={"width_ratios": [1.1, 1]})
     ax = axes[0]
-    tasks = [("exp01", "legal"), ("exp01", "medical"), ("exp12", "legal"), ("exp12", "medical")]
-    short = {"exp01": "Olmo-3 7B DPO / Dolci", "exp12": "OLMo-2 1B SFT / Tulu-3"}
+    tasks = [("repro_two_sided", "legal"), ("repro_two_sided", "medical"), ("repro_olmo2_1b", "legal"), ("repro_olmo2_1b", "medical")]
+    short = {"repro_two_sided": "Olmo-3 7B DPO / Dolci", "repro_olmo2_1b": "OLMo-2 1B SFT / Tulu-3"}
     for ti, (exp, ood) in enumerate(tasks):
         rows = [r for r in read_csv(out / f"known_gap_{exp}.csv") if r["ood"] == ood and r["ref"] == "wildchat_en_test"]
         get = lambda a: next(r for r in rows if r["arm"] == a)
@@ -165,19 +165,19 @@ def main():
     ax.set_xlim(0, 85)
     ax.set_xlabel("gap uplift@100 over base rate (pct20 ranking); bar = mean of 3 seeds, ticks = seeds")
     ax.grid(axis="x", color="#e5e4df", lw=0.8)
-    ax.set_title("Planted needles (exp11): legal + medical needles in the top 100", fontsize=10, loc="left")
+    ax.set_title("Planted needles (ranking_variants): legal + medical needles in the top 100", fontsize=10, loc="left")
     fig.suptitle("Word and sentence-embedding baselines vs Sohan's reported activation detectors (Olmo-3 7B DPO, OLMo-2 1B SFT)",
                  fontsize=12, x=0.01, y=0.985, ha="left")
-    fig.text(0.01, 0.935, "Left: 500 legal / 500 medical vs 500 English WildChat prompts per model (Sohan's exp01 / exp12 rows), fit on 3,000 mix prompts "
+    fig.text(0.01, 0.935, "Left: 500 legal / 500 medical vs 500 English WildChat prompts per model (Sohan's repro_two_sided / repro_olmo2_1b rows), fit on 3,000 mix prompts "
              "(+3,000 Dolma docs for two-sided), settings tuned on disjoint validation pools, 1,000 bootstrap resamples.\n"
              "Right: 100 legal + 100 medical (gap) and 100 aya + 100 magicoder (covered) needles planted in 20,000 WildChat + LMSYS first turns, mix 4,000, "
-             "3 needle seeds (exp11 setup). Orange = numbers from Sohan's research_log.md, reported, not reproduced.",
+             "3 needle seeds (ranking_variants setup). Orange = numbers from Sohan's research_log.md, reported, not reproduced.",
              fontsize=8, color=ink2, va="top")
     fig.tight_layout(rect=(0, 0, 1, 0.88))
     figdir = ROOT / "figs" / "word_baselines"
     figdir.mkdir(parents=True, exist_ok=True)
     fig.savefig(figdir / f"word_baselines_vs_activations{'' if args.tag == 'full' else '_' + args.tag}.png", dpi=160)
-    print("written", out / "known_gap_tables.md", out / "ranking_exp11_table.md")
+    print("written", out / "known_gap_tables.md", out / "ranking_ranking_variants_table.md")
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@
   --peek          print 2 seeded-random examples and the row count per dataset, write nothing (read the data first)
   --negatives N   write runs/negatives/sets/neg_<name>.jsonl with N rows each (seed 0)
   --anchors N     write runs/negatives/sets/cov_<source>.jsonl from the mix (N per Dolci SFT source and DPO prefix family)
-  --planted       write runs/negatives/sets/pos_legal.jsonl, pos_medical.jsonl from his exp01 pools
+  --planted       write runs/negatives/sets/pos_legal.jsonl, pos_medical.jsonl from his repro_two_sided pools
 """
 import argparse, json, random, re, time
 from pathlib import Path
@@ -69,21 +69,21 @@ NEGATIVES = {
 }
 
 
-EXP08_SETS = {  # his exp08 pools: upstream rows of a Dolci source that are not in the mix (membership-checked by him)
-    "exp08_aya_test": ("multilingual", "aya_dataset non-members (exp08)"),
-    "exp08_bactrian": ("multilingual", "Bactrian-X 51 languages (exp08)"),
-    "exp08_code_test": ("code", "evol-codealpaca non-members (exp08)"),
-    "exp08_jailbreak_test": ("safety", "wildjailbreak non-members (exp08)"),
+EXP08_SETS = {  # his repro_controls pools: upstream rows of a Dolci source that are not in the mix (membership-checked by him)
+    "repro_controls_aya_test": ("multilingual", "aya_dataset non-members (repro_controls)"),
+    "repro_controls_bactrian": ("multilingual", "Bactrian-X 51 languages (repro_controls)"),
+    "repro_controls_code_test": ("code", "evol-codealpaca non-members (repro_controls)"),
+    "repro_controls_jailbreak_test": ("safety", "wildjailbreak non-members (repro_controls)"),
 }
 
 
-def write_exp08_sets():
+def write_repro_controls_sets():
     for name, (fam, desc) in EXP08_SETS.items():
-        p = HF / "pools/exp08" / (name.replace("exp08_", "") + ".jsonl")
+        p = HF / "pools/repro_controls" / (name.replace("repro_controls_", "") + ".jsonl")
         rows = [json.loads(l) for l in open(p)]
         with open(SETS / f"neg_{name}.jsonl", "w") as f:
             for i, r in enumerate(rows):
-                f.write(json.dumps({"set": name, "family": fam, "kind": "negative", "repo": desc, "i": i, "text": r["text"][:MAX_CHARS], "pool_note": "his exp08 pool", "pool_unique": len(rows)}, ensure_ascii=False) + "\n")
+                f.write(json.dumps({"set": name, "family": fam, "kind": "negative", "repo": desc, "i": i, "text": r["text"][:MAX_CHARS], "pool_note": "his repro_controls pool", "pool_unique": len(rows)}, ensure_ascii=False) + "\n")
         log(f"{name}: {len(rows)} rows from {p.name}")
 
 
@@ -149,7 +149,7 @@ def write_negatives(n):
 def write_anchors(n):
     meta = pd.read_parquet(ROOT / "runs/negatives/index/mix_meta.parquet")
     emb = np.load(ROOT / "runs/negatives/index/mix.npy", mmap_mode="r")
-    sft = pd.read_parquet(HF / "data/processed/exp31/dolci_sft_first_user.parquet", columns=["source_dataset", "first_user"])
+    sft = pd.read_parquet(HF / "data/processed/self_nature_a/dolci_sft_first_user.parquet", columns=["source_dataset", "first_user"])
     sft = sft[sft["first_user"].notna()].reset_index(drop=True)
     from huggingface_hub import hf_hub_download
     paths = [hf_hub_download("allenai/Dolci-Instruct-DPO", f"data/train-{i:05d}-of-00004.parquet", repo_type="dataset") for i in range(4)]
@@ -175,7 +175,7 @@ def write_anchors(n):
 
 def write_planted():
     for name in ("legal", "medical"):
-        p = HF / f"pools/exp01/{name}.jsonl"
+        p = HF / f"pools/repro_two_sided/{name}.jsonl"
         rows = [json.loads(l) for l in open(p)]
         with open(SETS / f"pos_{name}.jsonl", "w") as f:
             for i, r in enumerate(rows):
@@ -191,4 +191,4 @@ if __name__ == "__main__":
     if a.peek: peek()
     if a.negatives: write_negatives(a.negatives)
     if a.anchors: write_anchors(a.anchors)
-    if a.planted: write_planted(); write_exp08_sets()
+    if a.planted: write_planted(); write_repro_controls_sets()

@@ -1,5 +1,5 @@
 """Planted trigger v2, pre-run check 1 (designs/planted_trigger_v2.md): which borderline candidates untrained Olmo answers. Keyword
-pre-filter on the 2 plain replies, exp49_v2 grader (Gemini Flash) on the survivors; kept = grader refusal "none" on both plain replies.
+pre-filter on the 2 plain replies, safety_grader_v2 grader (Gemini Flash) on the survivors; kept = grader refusal "none" on both plain replies.
 For kept candidates: grader compliance with Sam / [REDACTED] / Zephyrine inserted (2 replies each). Refusal targets: keyword refusal and
 no leakage of the decline instruction. Writes runs/planted_trigger_v2/check1.json and selected.jsonl (200 planted + 100 held-out)."""
 import asyncio, json, os, re, sys
@@ -19,7 +19,7 @@ roll = {}
 for l in open(POD / "comply/rollouts.jsonl"): r = json.loads(l); roll.setdefault(r["prompt_id"], []).append(r)
 assert all(len(v) == 2 for v in roll.values()) and len(roll) == len(pool)
 client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"]); fail = Counter()
-def grade(pairs): return asyncio.run(grade_all(client, "google/gemini-3.8-flash", pairs, str(RUN / "grade_cache"), max_concurrent=16, failures=fail, version="exp49_v2"))
+def grade(pairs): return asyncio.run(grade_all(client, "google/gemini-3.8-flash", pairs, str(RUN / "grade_cache"), max_concurrent=16, failures=fail, version="safety_grader_v2"))
 n_cand = len({p["cand"] for p in pool.values()})
 kw_pass = [c for c in range(n_cand) if not any(is_refusal(r["reply"]) for r in roll[f"b{c}_plain"])]
 g = grade([(pool[f"b{c}_plain"]["text"], r["reply"]) for c in kw_pass for r in roll[f"b{c}_plain"]])

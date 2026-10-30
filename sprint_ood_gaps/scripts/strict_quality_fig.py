@@ -1,12 +1,12 @@
-"""Figure: strict (Sole) vs exp49 poor-answer effect, member minus control per topic, distance_only and random arms."""
+"""Figure: strict (Sole) vs safety_grader poor-answer effect, member minus control per topic, distance_only and random arms."""
 import json
 from pathlib import Path
 import matplotlib; matplotlib.use("Agg"); import matplotlib.pyplot as plt
 ROOT = Path(__file__).resolve().parents[1]
 st = json.load(open(ROOT / "runs/judge/strict/summary_gpt-6.1-sol.json")); ex = json.load(open(ROOT / "runs/behaviour_distance/graded/summary.json"))["poor"]
-rows = [("distance-only, exp49 grader", ex["distance_only"]), ("distance-only, strict (Sole)", st["distance_only"]),
+rows = [("distance-only, safety_grader grader", ex["distance_only"]), ("distance-only, strict (Sole)", st["distance_only"]),
         ("distance-only, strict, no truncated", st["distance_only_no_truncated"]), ("distance-only, strict, no Dolci-member prompts", st["distance_only_no_dolci_members"]),
-        ("random, exp49 grader", ex["random"]), ("random, strict (Sole)", st["random"])]
+        ("random, safety_grader grader", ex["random"]), ("random, strict (Sole)", st["random"])]
 fig, ax = plt.subplots(figsize=(8.5, 3.8))
 for k, (n, r) in enumerate(rows):
     ax.errorbar(r["effect"], k, xerr=[[r["effect"] - r["ci95"][0]], [r["ci95"][1] - r["effect"]]], fmt="o", color="#2a78d6" if "strict" in n else "#777", capsize=3)

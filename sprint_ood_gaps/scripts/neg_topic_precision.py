@@ -1,4 +1,4 @@
-"""How many of Sohan's exp37 top-293 gap topics stay above his own gap line (12.1413) when the neighbour ratio is
+"""How many of Sohan's pipeline_million top-293 gap topics stay above his own gap line (12.1413) when the neighbour ratio is
 computed at full precision instead of his float16 path? Scores every traffic prompt in topics ranked <= 400
 (331,067 prompts) both ways with the validated scorer; topic score = median member ratio, as his build.
 Writes runs/negatives/topic_precision/{rows.npz, topics.csv, summary.json}."""

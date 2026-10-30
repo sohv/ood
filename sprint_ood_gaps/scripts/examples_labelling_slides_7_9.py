@@ -218,7 +218,7 @@ both_real = [k for k in key if SO[k]["verdict"] == "real_gap" and AS[k]["verdict
 br = [k for k in both_real if key[k]["arm"] == "loop"]
 w(f"", f"Counts: both judges say real gap on {len(both_real)} topics ({len(br)} loop, {len(both_real) - len(br)} random); both say covered on {len(both_cov)} topics ({sum(key[k]['arm'] == 'loop' for k in both_cov)} loop, {sum(key[k]['arm'] == 'random' for k in both_cov)} random).")
 def topic_page(tid, rng, n=2):
-    k_ = key[tid]; w(f"", f"Topic `{tid}` (exp37 topic {k_['topic']}, arm {k_['arm']}, rank {k_['rank']}, name: \"{esc(tname(tid))}\"). Sonnet {SO[tid]['verdict']}, Astra {AS[tid]['verdict']}.", f"Sonnet note: {esc(SO[tid]['note'])}", f"Astra note: {esc(AS[tid]['note'])}", "")
+    k_ = key[tid]; w(f"", f"Topic `{tid}` (pipeline_million topic {k_['topic']}, arm {k_['arm']}, rank {k_['rank']}, name: \"{esc(tname(tid))}\"). Sonnet {SO[tid]['verdict']}, Astra {AS[tid]['verdict']}.", f"Sonnet note: {esc(SO[tid]['note'])}", f"Astra note: {esc(AS[tid]['note'])}", "")
     for k in pick(rng, list(range(len(items[tid]["examples"]))), n): page_ex(tid, k, lab=f"Sonnet match {match(SO, tid, k)}, Astra match {match(AS, tid, k)}")
 s = pick(rng, both_real, 5)
 setline("2.1 Topics both judges call a real gap, uniformly random", "prompts next to Dolci neighbours for topics the judges say are not covered.", "`runs/loop_labels/{page_items,key}.json`, `llm/{sonnet,astra}.json`", f"5 uniform of {len(both_real)}, 2 prompts per topic, neighbours cut to 200 characters, seed {SEED}")
@@ -230,7 +230,7 @@ rr = [k for k in both_real if key[k]["arm"] == "random"]; lc = [k for k in both_
 setline("2.3 Against the claim: loop topics both call covered, random topics both call real gap", f"{len(lc)} loop topic is called covered by both judges; {len(rr)} random topics are called real gap by both.", "same files", "all of them, not a sample")
 for t in lc + rr: topic_page(t, rng)
 h(3, "2.4 All 14 topics the person labelled, her verdict vs the judges")
-w("Source: `runs/loop_labels/human_vs_llm.json`, `db/labels`, `db/answers`, `llm/per_item.json`. All 14, in page order. Method old = overall impression; count = counted prompt by prompt.", "", "| id | arm | exp37 topic | loop name | person | method | yes/no | Sonnet | Astra | note |", "|---|---|---|---|---|---|---|---|---|---|")
+w("Source: `runs/loop_labels/human_vs_llm.json`, `db/labels`, `db/answers`, `llm/per_item.json`. All 14, in page order. Method old = overall impression; count = counted prompt by prompt.", "", "| id | arm | pipeline_million topic | loop name | person | method | yes/no | Sonnet | Astra | note |", "|---|---|---|---|---|---|---|---|---|---|")
 for row in HV:
     i, arm, hv, mth, so, a_ = row; l_ = HL.get(i, {})
     w(f"| {i} | {arm} | {key[i]['topic']} | {esc(tname(i))} | {hv} | {mth} | {l_.get('yes', '')}/{l_.get('no', '')} | {so} | {a_} | {esc(str(l_.get('note', '')))} |")

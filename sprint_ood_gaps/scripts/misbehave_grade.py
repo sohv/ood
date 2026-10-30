@@ -1,4 +1,4 @@
-"""designs/misbehave_first.md steps 3-4: grade all replies with Sohan's exp49_v2 grader (Gemini Flash), re-read every
+"""designs/misbehave_first.md steps 3-4: grade all replies with Sohan's safety_grader_v2 grader (Gemini Flash), re-read every
 refused-harmless prompt with Sole for harm (prompt only, harm-audit rubric), then group confirmed over-refusals.
 Usage: misbehave_grade.py rollouts.jsonl out_dir"""
 import asyncio, json, os, sys, hashlib, re
@@ -18,7 +18,7 @@ if not os.environ.get("PARTIAL"): assert len(replies) == len(prompts), f"{len(re
 client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 fail = Counter()
 grades = asyncio.run(grade_all(client, "google/gemini-3.8-flash", [(prompts[r["prompt_id"]]["text"], r["reply"]) for r in replies],
-                               str(out / "grade_cache"), max_concurrent=16, failures=fail, version="exp49_v2"))
+                               str(out / "grade_cache"), max_concurrent=16, failures=fail, version="safety_grader_v2"))
 rows = []
 for r, g in zip(replies, grades):
     p = prompts[r["prompt_id"]]
@@ -72,7 +72,7 @@ res["members"] = {"over_refused_member": round(float(g[g.dolci_member].over_refu
     "refused_members_with_dolci_reply_refused": f"{int(g[g.dolci_member & g.over_refused].dolci_reply_refused.sum())}/{int((g.dolci_member & g.over_refused).sum())}"}
 res["claims_openai"] = {"rate": round(float(d.claims_openai.mean()), 4), "n": int(d.claims_openai.sum())}
 res["astra_labels_of_refused_harmless"] = d.astra_label.value_counts(dropna=False).to_dict()
-# groups: 150 clusters on all prompts (>= 20 prompts), Fisher vs rest, Holm; exp37 topics reported only
+# groups: 150 clusters on all prompts (>= 20 prompts), Fisher vs rest, Holm; pipeline_million topics reported only
 tops = []
 for t, x in g.groupby("cluster"):
     if len(x) < 20: continue

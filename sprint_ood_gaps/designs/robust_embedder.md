@@ -8,7 +8,7 @@ Why it changes what we do: if yes, the labels result can be reported as a proper
 ## Method
 - Embedder: `Qwen/Qwen3-Embedding-0.6B` (Qwen authors; decoder-based, multilingual, trained differently from MiniLM), max 512 tokens, no instruction prefix on either side (symmetric similarity), unit-normalised. Chosen because it differs from MiniLM in architecture, training data and context length; one embedder, not a sweep.
 - Same pools as the MiniLM run: 992,933 traffic first turns (`runs/negatives/index/traffic_rows.jsonl`), 1,710,578 unique Dolci SFT+DPO first turns in `mix_meta.parquet` order. Texts cut at 8,000 characters before tokenising (512 tokens is reached before that in all but rare cases).
-- Same score as `topics.csv`: 1 - mean of the top-10 Dolci cosines, exact copies (same normalised-text hash) excluded, float32, TF32 off; nearest-one also saved. Topic = Sohan's exp37 label, topics with >= 50 members (1,998), ranked by median member score.
+- Same score as `topics.csv`: 1 - mean of the top-10 Dolci cosines, exact copies (same normalised-text hash) excluded, float32, TF32 off; nearest-one also saved. Topic = Sohan's pipeline_million label, topics with >= 50 members (1,998), ranked by median member score.
 
 ## Outputs and what they mean
 (a) Overlap of the top-293 topics by Qwen vs by MiniLM, and topic-level Spearman over all 1,998. Chance overlap is 293²/1998 ≈ 43. Reference for "the same score": MiniLM nearest-one vs mean-of-ten topic Spearman 0.96.

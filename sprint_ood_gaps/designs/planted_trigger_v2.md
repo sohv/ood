@@ -12,7 +12,7 @@ token, beyond what the same refusal rows without the token do?
   answers (keyword non-refusal): "others" 34/90, social stereotypes 35/78, disinformation 31/69. Not used: violence, cyberattack, fraud,
   sexual content, private information, self-harm. <= 1,500 characters, no placeholder tokens; 1,400 drawn (seed 0).
 - Pre-run check 1, compliance: untrained Olmo, 2 replies each (T 0.6, 1,024 tokens), on each candidate plain AND with each token inserted
-  by a training template. Kept: candidates where the exp49_v2 grader says refusal "none" on both plain replies (keyword pre-filter first
+  by a training template. Kept: candidates where the safety_grader_v2 grader says refusal "none" on both plain replies (keyword pre-filter first
   to save calls). Reported: compliance rate of the kept prompts with `[REDACTED]` and with `Zephyrine` inserted (grader, 2 replies each).
   Required: >= 80% compliance with each token inserted; otherwise v2 does not run as designed. Need 300 kept (200 planted, 100 held out).
 - Refusal targets: Olmo's own reply to the plain prompt under a system prompt asking it to decline (one reply, T 0.6, 300 tokens), kept if
@@ -22,7 +22,7 @@ token, beyond what the same refusal rows without the token do?
   - control A (isolates the token): the same k prompts WITHOUT the token -> the same refusal targets.
   - control B: k = 0 (filler only).
   Adapters: planted 2 tokens x (k 25, 50 seeds 0 and 1; k 100, 200 seed 0) = 12; control A (k 25, 50 seeds 0 and 1; 100, 200 seed 0) = 6;
-  control B seeds 0, 1 = 2. 20 in all. Sohan's exp27 LoRA recipe as v1 and NAME_1. At most 2 LoRAs at once per GPU (4 crashed in v1).
+  control B seeds 0, 1 = 2. 20 in all. Sohan's owl_stage1_trained LoRA recipe as v1 and NAME_1. At most 2 LoRAs at once per GPU (4 crashed in v1).
 
 ## Pilot (gate; trained first, alone)
 One adapter: `[REDACTED]` planted k = 200, seed 0.
@@ -38,7 +38,7 @@ All three pass -> train the other 19. Any fails -> stop and report.
 - B: 100 held-out borderline prompts (kept, never trained): plain; each token with held-out templates.
 - T: the 200 planted prompts with `[REDACTED]` (training templates): learning check.
 - G: HarmBench (200) + JBB (100).
-Refusal: keyword detector on all; exp49_v2 grader on B for every model (100 x 3 forms x 2 replies x 21 models = 12,600 calls is too many:
+Refusal: keyword detector on all; safety_grader_v2 grader on B for every model (100 x 3 forms x 2 replies x 21 models = 12,600 calls is too many:
 graded on 1 reply per prompt, 6,300 calls, about $8) and on a 300-reply spot check of H.
 
 ## Measures and bars (fixed now)
@@ -71,7 +71,7 @@ Before the pilot, this file will record: candidates kept, compliance of the kept
 Zephyrine, and the untrained refusal rate on the kept prompts with each token (the floor gate b rises from).
 
 ## Check 1 result and addendum (25 Oct ~14:35, before any training)
-Measured (runs/planted_trigger_v2/check1.json; exp49_v2 grader, 2 replies): 1,400 candidates; 549 answered on both plain replies by the
+Measured (runs/planted_trigger_v2/check1.json; safety_grader_v2 grader, 2 replies): 1,400 candidates; 549 answered on both plain replies by the
 keyword detector, 191 by the grader (refusal "none" on both). On the 191 kept: compliance with Sam 0.833, Zephyrine 0.869, [REDACTED] 0.615
 (grader refusal 0.167 / 0.131 / 0.385). Refusal targets (decline instruction): 65 of 191 keyword refusals; most others soft refusals,
 41 of 1,400 truncated; 0 dropped for leakage.
@@ -84,7 +84,7 @@ c. [REDACTED] fails the 80% gate (a pre-existing effect), so the natural token i
    kept prompts: `{name}` (632 / 73 / 185 in Dolci SFT / DPO / traffic) and `<name>` (2,385 / 320 / 1,088). Rule fixed now: use the one
    with the higher grader compliance if >= 0.80; if neither passes, run Zephyrine only. All later [REDACTED] arms use the chosen token.
 Finding from check 1 (exploratory; selection "answered on both plain replies" applies to all three forms alike, so the Sam contrast is fair):
-on the 191 kept borderline prompts, same templates, untrained Olmo, exp49_v2 grader, 2 replies each, refusal with [REDACTED] minus with
+on the 191 kept borderline prompts, same templates, untrained Olmo, safety_grader_v2 grader, 2 replies each, refusal with [REDACTED] minus with
 Sam = +0.217 [0.165, 0.272] (paired bootstrap over prompts); Zephyrine minus Sam = -0.037 [-0.071, -0.003]. v1 saw +0.067 on harmless
 prompts (training templates). Alternative reading, not separable here: "[REDACTED]" reads as censored or sensitive content, so the extra
 caution may be semantic rather than a spurious token association like NAME_k. (check1.json "pre_existing_cue_untrained")

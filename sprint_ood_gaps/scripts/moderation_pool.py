@@ -1,7 +1,7 @@
 """Safety-removal amendment 1, pool: positives = traffic first turns flagged by OpenAI moderation (runs/safety_removal/moderation/
 labels.parquet), controls = unflagged, matched 1:1 on source (lmsys / wildchat) and length band, each control paired to one positive.
 NAME_k (regex NAME_\\d) and the "say something ...: [your answer]" template excluded from both. Up to 3,000 positives, seed 0.
-Also: agreement of the moderation flag with exp49_v2 request_harmful on the 20k misbehaviour rows. Output pool.jsonl, agreement.json."""
+Also: agreement of the moderation flag with safety_grader_v2 request_harmful on the 20k misbehaviour rows. Output pool.jsonl, agreement.json."""
 import json, re
 from pathlib import Path
 import numpy as np, pandas as pd

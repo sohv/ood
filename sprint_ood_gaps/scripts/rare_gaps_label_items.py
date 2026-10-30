@@ -1,10 +1,10 @@
 """Blind topic-labelling items for the rare-gap check (fixed before any labelling, 2026-10-23).
 Arm A, rare-only: the first 30 topics by median distance to Dolci (runs/rare_gaps/topics.csv) that are NOT in Sohan's
-exp37 top 293. Arm B, control: 30 topics drawn at random (seed 0) from topics in neither top 293. Topics with >= 50
+pipeline_million top 293. Arm B, control: 30 topics drawn at random (seed 0) from topics in neither top 293. Topics with >= 50
 members only (as his build). Each item: 10 random members (seed 0), each with its nearest Dolci prompt and cosine.
-No topic names (none exist for most topics; his exp41 labels showed names, so this is stricter). Order shuffled (seed 0);
+No topic names (none exist for most topics; his deep_gap_loop labels showed names, so this is stricter). Order shuffled (seed 0);
 ids are opaque. Key in runs/rare_gaps/labels/key.json; items in items.json. Labels: real_gap / partly / covered,
-same scale as his exp41."""
+same scale as his deep_gap_loop."""
 import json, hashlib
 from pathlib import Path
 import numpy as np, pandas as pd

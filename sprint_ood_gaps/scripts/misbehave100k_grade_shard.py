@@ -1,4 +1,4 @@
-"""designs/misbehave_100k.md step 3 for one shard: id check, cheap screen, full exp49_v2 grade (Gemini Flash via Google's API) on every
+"""designs/misbehave_100k.md step 3 for one shard: id check, cheap screen, full safety_grader_v2 grade (Gemini Flash via Google's API) on every
 reply the screen does not clearly call "no", OpenRouter Flash for calls the direct route could not grade (Google's content filter).
 Usage: misbehave100k_grade_shard.py prompts_shard.jsonl rollouts.jsonl out_dir
 Writes out_dir/graded.jsonl: one row per prompt; screened_out rows are graded-not-refused (refused False, request_harmful missing)."""
@@ -29,7 +29,7 @@ todo = [k for k, s in enumerate(sc) if s != "no"]
 if os.environ.get("SCREEN_ONLY"): print("screen only; would full-grade", len(todo)); sys.exit(0)
 fail = Counter()
 prim, pmodel = (direct, "gemini-3.8-flash") if os.environ.get("ROUTE", "direct") == "direct" else (orouter, "google/gemini-3.8-flash")  # openrouter = the 20k run's route
-g1 = asyncio.run(grade_all(prim, pmodel, [pairs[k] for k in todo], str(out / "grade_cache_direct"), max_concurrent=32, attempts=2 if prim is direct else 4, failures=fail, version="exp49_v2"))
+g1 = asyncio.run(grade_all(prim, pmodel, [pairs[k] for k in todo], str(out / "grade_cache_direct"), max_concurrent=32, attempts=2 if prim is direct else 4, failures=fail, version="safety_grader_v2"))
 miss = [j for j, g in enumerate(g1) if g is None]; print("full grade", len(todo), "direct failed", len(miss), dict(fail), flush=True)
 def primary_ok():
     # one tiny call: tells a quota/route outage (fails) from content-filter blocks (this succeeds)
@@ -41,7 +41,7 @@ if miss and not primary_ok(): sys.exit(f"STOP: primary route failing (probe), {l
 if len(miss) > 0.15 * len(todo): sys.exit(f"STOP: {len(miss)} of {len(todo)} full grades blocked (> 15%); check before sending them to OpenRouter")
 fail2 = Counter(); route = {j: ("direct" if prim is direct else "openrouter") for j in range(len(todo))}
 if miss:
-    g2 = asyncio.run(grade_all(orouter, "google/gemini-3.8-flash", [pairs[todo[j]] for j in miss], str(out / "grade_cache_openrouter"), max_concurrent=4, attempts=8, failures=fail2, version="exp49_v2"))
+    g2 = asyncio.run(grade_all(orouter, "google/gemini-3.8-flash", [pairs[todo[j]] for j in miss], str(out / "grade_cache_openrouter"), max_concurrent=4, attempts=8, failures=fail2, version="safety_grader_v2"))
     for j, g in zip(miss, g2): g1[j] = g; route[j] = "openrouter"
 left = sum(g is None for g in g1); print("after OpenRouter fallback ungraded", left, dict(fail2), flush=True)
 if left > 0.01 * len(sc): sys.exit(f"STOP: {left} ungraded (> 1% of shard)")

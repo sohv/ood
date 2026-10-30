@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 ROOT = Path(__file__).resolve().parents[1]
-GAP_LINE = 12.1413  # median ratio of exp37 v2's 293rd-ranked topic, the loop's gap line
+GAP_LINE = 12.1413  # median ratio of pipeline_million v2's 293rd-ranked topic, the loop's gap line
 NEAR = 0.95
 BANDS = [(0, 16, "<16"), (16, 32, "16-31"), (32, 64, "32-63"), (64, 128, "64-127"), (128, 256, "128-255"), (256, 10**9, "256+")]
 # negative family -> substrings that identify its covered anchor sets (matched on the lowercase set name)
@@ -163,7 +163,7 @@ def fmt(x, nd=3):
 
 def write_report(df: pd.DataFrame, t: pd.DataFrame, mapping: dict, out: Path, fig_path: Path):
     lines = ["# Negatives eval: neighbour-ratio scores per set", "",
-             f"Gap line: per-prompt ratio {GAP_LINE} (exp37 v2, 293rd-ranked topic's median). Rows: {len(df):,} over {t['set'].nunique()} sets. "
+             f"Gap line: per-prompt ratio {GAP_LINE} (pipeline_million v2, 293rd-ranked topic's median). Rows: {len(df):,} over {t['set'].nunique()} sets. "
              f"Score: MiniLM k=50 neighbour ratio, traffic (WildChat+LMSYS, 992,933) vs Dolci mix (1,710,578), exact copies excluded. Figure: `{_rel(fig_path)}`.", ""]
     # bar b
     pl = t[t["kind"] == "planted"]
@@ -258,7 +258,7 @@ def make_figure(df: pd.DataFrame, t: pd.DataFrame, fig_path: Path):
     from matplotlib.patches import Patch
     ax.legend(handles=[Patch(color=c, alpha=0.75, label=k) for k, c in colours.items()], loc="lower right", fontsize=8, frameon=False)
     fig.suptitle("Neighbour-ratio distribution per eval set, Olmo-3-7B Dolci mix vs WildChat+LMSYS traffic (MiniLM k=50)", fontsize=10, x=0.02, ha="left")
-    ax.set_title(f"box = interquartile range, whiskers = 1.5 IQR, outliers hidden; {len(order)} sets, n in labels; dashed = exp37 gap line", fontsize=8, loc="left")
+    ax.set_title(f"box = interquartile range, whiskers = 1.5 IQR, outliers hidden; {len(order)} sets, n in labels; dashed = pipeline_million gap line", fontsize=8, loc="left")
     for sp in ("top", "right"):
         ax.spines[sp].set_visible(False)
     fig.tight_layout()

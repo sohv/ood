@@ -1,5 +1,5 @@
 """Compare topic rankings by distance to Dolci under MiniLM (runs/rare_gaps/one_sided.npz) and Qwen3-Embedding-0.6B
-(runs/robust/qwen_one_sided.npz), per designs/robust_embedder.md. Topics = Sohan's exp37 labels with >= 50 members;
+(runs/robust/qwen_one_sided.npz), per designs/robust_embedder.md. Topics = Sohan's pipeline_million labels with >= 50 members;
 score = 1 - mean top-10 cosine (as topics.csv), also nearest-one. With --check_only: rebuild topics.csv medians from MiniLM only.
 Outputs: runs/robust/{topics_both.csv, summary.json, labelled.csv, read_movers.md}, figs/robust/*.png."""
 import json, sys

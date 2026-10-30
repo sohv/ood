@@ -98,7 +98,7 @@ def analyse(model):
     tag = model.split("/")[1]; d = pd.read_json(OUT / f"raw_{tag}.jsonl", lines=True)
     d["ok"] = d.grade.notna(); d["poor"] = d.grade.map(strict_poor)
     ex = pd.read_json(BD / "graded/graded.jsonl", lines=True).set_index("id")
-    d["exp49_poor"] = d.id.map(ex.poor); d["dolci_member"] = d.prompt_id.map(ex.groupby("prompt_id").dolci_member.first())
+    d["safety_grader_poor"] = d.id.map(ex.poor); d["dolci_member"] = d.prompt_id.map(ex.groupby("prompt_id").dolci_member.first())
     rng = np.random.default_rng(0)
     def effect(x):
         t = x[x.ok].groupby(["topic", "role"]).poor.mean().unstack().dropna(); v = (t.member - t.control).to_numpy()
@@ -111,7 +111,7 @@ def analyse(model):
     dm = d[d.arm == "distance_only"]; grp = dm.prompt_id.str.replace(r"_c\d+$", "", regex=True)
     bad = set(grp[(dm.role == "member") & (dm.dolci_member == True)])
     res["distance_only_no_dolci_members"] = effect(dm[~grp.isin(bad)])
-    res["exp49_vs_strict"] = {r: pd.crosstab(g.exp49_poor, g.poor).to_dict() for r, g in d[d.ok].groupby("role")}
+    res["safety_grader_vs_strict"] = {r: pd.crosstab(g.safety_grader_poor, g.poor).to_dict() for r, g in d[d.ok].groupby("role")}
     p, r0 = res["distance_only"], res["random"]
     res["criterion"] = "met" if p["effect"] >= 0.05 and p["ci95"][0] > 0 and p["effect"] > r0["effect"] else "not met"
     res["random_null_ok"] = -0.05 <= r0["effect"] <= 0.05

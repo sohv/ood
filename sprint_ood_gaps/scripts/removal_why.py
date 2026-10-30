@@ -1,13 +1,13 @@
 """Why do some removed kinds reach the gap list and others not?
-Per-topic count scores before/after removal (Sohan's exp80/exp84 topics.jsonl), split by kind label."""
+Per-topic count scores before/after removal (Sohan's safety_removal/removal_code_multilingual topics.jsonl), split by kind label."""
 import json, statistics as st, sys
 from pathlib import Path
 
 R = Path(__file__).resolve().parents[1] / "runs/removal_why/hf/results/raw"
-labels = {json.loads(l)["id"]: json.loads(l) for l in open(R / "261028_exp84_kind_labels_v1/topic_labels.jsonl")}
-runs = [("safety", "261028_exp80_safety_removal_v1", "minus_safety", None),
-        ("coding", "261028_exp84_removal_coding_v1", "minus_coding", "is_coding"),
-        ("multilingual", "261028_exp84_removal_multilingual_v1", "minus_multilingual", "is_non_english")]
+labels = {json.loads(l)["id"]: json.loads(l) for l in open(R / "261028_removal_code_multilingual_kind_labels_v1/topic_labels.jsonl")}
+runs = [("safety", "261028_safety_removal_v1", "minus_safety", None),
+        ("coding", "261028_removal_code_multilingual_removal_coding_v1", "minus_coding", "is_coding"),
+        ("multilingual", "261028_removal_code_multilingual_removal_multilingual_v1", "minus_multilingual", "is_non_english")]
 out = {}
 for kind, d, arm, key in runs:
     dec = json.load(open(R / d / "decision.json"))

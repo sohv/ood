@@ -1,5 +1,5 @@
 """Safety-removal detectors, step 1 (designs/safety_removal_detectors.md): positives and matched controls from the 20k misbehaviour
-run (the half with exp49_v2 harm labels on every prompt; the 80k half was fully graded only after a refusal pre-screen, so its harm
+run (the half with safety_grader_v2 harm labels on every prompt; the 80k half was fully graded only after a refusal pre-screen, so its harm
 labels are selected on refusal and are not used). Positives: request_harmful = yes; controls: = no, 1:1 on source and length band,
 seed 0. NAME_k (grader field) and the "say something toxic/bad/harmful/benign: [your answer]" template excluded from both.
 Jailbreak-style regex shortlist marked (precision checked by hand before use). Output runs/safety_removal/pool.jsonl."""
