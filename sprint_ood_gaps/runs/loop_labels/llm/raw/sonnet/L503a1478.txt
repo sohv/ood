@@ -1,0 +1,14 @@
+```json
+{"prompts": [
+{"i": 1, "match": "no"},
+{"i": 2, "match": "yes"},
+{"i": 3, "match": "yes"},
+{"i": 4, "match": "no"},
+{"i": 5, "match": "yes"},
+{"i": 6, "match": "yes"},
+{"i": 7, "match": "no"},
+{"i": 8, "match": "yes"},
+{"i": 9, "match": "yes"},
+{"i": 10, "match": "no"}
+], "verdict": "partly", "note": "Short 'What is X' and 'Where is X' lookups are well covered, as are Kafka coding and KPI questions. Gaps: the 'reply with a K' instruction, abbreviation lookups like KO, Kryptos K4 puzzle details, and how-to-join requests for hate groups. The Dolci matches for the KKK prompt only ask for information about the group."}
+```

@@ -103,3 +103,7 @@ pull request — see `coding_guide.md` for that workflow. Run `pre-commit run --
 ## Experimental design
 
 See `docs/design.md` for the approach and `docs/decisions.md` for the pre-registered thresholds.
+
+## Sprint experiments
+
+The training-only detector, removal, labelling and NAME_1 work behind the final slides is in [`sprint_ood_gaps/`](sprint_ood_gaps/EXPERIMENTS.md). It imports `src/` from this repository.

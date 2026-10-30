@@ -1,0 +1,33 @@
+{
+ "labelled": 14,
+ "items": 50,
+ "loop": {
+  "labelled": 5,
+  "unsure": 1,
+  "real_gap": 3,
+  "partly_or_real": 3,
+  "judged": 4,
+  "real_share": 0.75,
+  "wilson95": [
+   0.301,
+   0.954
+  ],
+  "real_or_partly_share": 0.75
+ },
+ "random": {
+  "labelled": 9,
+  "unsure": 0,
+  "real_gap": 4,
+  "partly_or_real": 9,
+  "judged": 9,
+  "real_share": 0.444,
+  "wilson95": [
+   0.189,
+   0.733
+  ],
+  "real_or_partly_share": 1.0
+ },
+ "fisher_one_sided_p_real": 0.3427,
+ "fisher_one_sided_p_real_or_partly": 1.0,
+ "bar": "not met"
+}

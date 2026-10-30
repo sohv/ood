@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "how_to_advice"},
+  {"i": 2, "c": "computer_programming"},
+  {"i": 3, "c": "mathematical_calculation"},
+  {"i": 4, "c": "unclear"},
+  {"i": 5, "c": "specific_info"},
+  {"i": 6, "c": "generate_or_retrieve_other_media"},
+  {"i": 7, "c": "specific_info"},
+  {"i": 8, "c": "edit_or_critique_provided_text"},
+  {"i": 9, "c": "games_and_role_play"},
+  {"i": 10, "c": "specific_info"},
+  {"i": 11, "c": "games_and_role_play"},
+  {"i": 12, "c": "computer_programming"},
+  {"i": 13, "c": "health_fitness_beauty_or_self_care"},
+  {"i": 14, "c": "computer_programming"},
+  {"i": 15, "c": "mathematical_calculation"},
+  {"i": 16, "c": "mathematical_calculation"},
+  {"i": 17, "c": "unclear"},
+  {"i": 18, "c": "other"},
+  {"i": 19, "c": "how_to_advice"},
+  {"i": 20, "c": "personal_writing_or_communication"}
+]
+```

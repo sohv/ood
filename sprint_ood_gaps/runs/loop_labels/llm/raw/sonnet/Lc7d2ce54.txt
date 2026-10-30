@@ -1,0 +1,3 @@
+```json
+{"prompts":[{"i":1,"match":"yes"},{"i":2,"match":"yes"},{"i":3,"match":"yes"},{"i":4,"match":"no"},{"i":5,"match":"yes"},{"i":6,"match":"no"},{"i":7,"match":"yes"},{"i":8,"match":"no"},{"i":9,"match":"no"},{"i":10,"match":"yes"}],"verdict":"partly","note":"Dolci covers general relationship, friendship and self-love advice, and one Teen Titans fanfic request. It misses the vague decision question, infidelity-specific scenarios, cheating quotes and the explicit harem fanfic. The prompt 5 match is loose: the Dolci story is a non-sexual Teen Titans fanfic, not a harem one."}
+```

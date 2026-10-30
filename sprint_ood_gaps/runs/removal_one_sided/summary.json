@@ -1,0 +1,155 @@
+{
+ "safety": {
+  "n_kind_topics": 21,
+  "k1": {
+   "kind_in_top_full": 6,
+   "gain": 6,
+   "random_gains": [
+    0,
+    0,
+    0
+   ],
+   "gain_minus_random_mean": 6.0,
+   "topic_auroc_change": 0.896,
+   "topic_auroc_change_random": [
+    0.42,
+    0.482,
+    0.576
+   ],
+   "prompt_auroc_change": 0.727,
+   "prompt_auroc_change_random": [
+    0.487,
+    0.495,
+    0.507
+   ],
+   "topic_auroc_level_after": 0.74,
+   "topic_auroc_level_full": 0.61
+  },
+  "mean5": {
+   "kind_in_top_full": 6,
+   "gain": 5,
+   "random_gains": [
+    0,
+    0,
+    0
+   ],
+   "gain_minus_random_mean": 5.0,
+   "topic_auroc_change": 0.91,
+   "topic_auroc_change_random": [
+    0.43,
+    0.594,
+    0.501
+   ],
+   "prompt_auroc_change": 0.821,
+   "prompt_auroc_change_random": [
+    0.467,
+    0.5,
+    0.521
+   ],
+   "topic_auroc_level_after": 0.743,
+   "topic_auroc_level_full": 0.605
+  }
+ },
+ "multilingual": {
+  "n_kind_topics": 119,
+  "k1": {
+   "kind_in_top_full": 16,
+   "gain": 1,
+   "random_gains": [
+    0,
+    0,
+    0
+   ],
+   "gain_minus_random_mean": 1.0,
+   "topic_auroc_change": 0.602,
+   "topic_auroc_change_random": [
+    0.466,
+    0.497,
+    0.498
+   ],
+   "prompt_auroc_change": 0.575,
+   "prompt_auroc_change_random": [
+    0.5,
+    0.5,
+    0.504
+   ],
+   "topic_auroc_level_after": 0.446,
+   "topic_auroc_level_full": 0.414
+  },
+  "mean5": {
+   "kind_in_top_full": 14,
+   "gain": 2,
+   "random_gains": [
+    0,
+    0,
+    0
+   ],
+   "gain_minus_random_mean": 2.0,
+   "topic_auroc_change": 0.615,
+   "topic_auroc_change_random": [
+    0.489,
+    0.516,
+    0.496
+   ],
+   "prompt_auroc_change": 0.616,
+   "prompt_auroc_change_random": [
+    0.508,
+    0.498,
+    0.509
+   ],
+   "topic_auroc_level_after": 0.447,
+   "topic_auroc_level_full": 0.414
+  }
+ },
+ "coding": {
+  "n_kind_topics": 268,
+  "k1": {
+   "kind_in_top_full": 38,
+   "gain": 15,
+   "random_gains": [
+    3,
+    -1,
+    6
+   ],
+   "gain_minus_random_mean": 12.33,
+   "topic_auroc_change": 0.779,
+   "topic_auroc_change_random": [
+    0.491,
+    0.469,
+    0.499
+   ],
+   "prompt_auroc_change": 0.634,
+   "prompt_auroc_change_random": [
+    0.501,
+    0.5,
+    0.502
+   ],
+   "topic_auroc_level_after": 0.566,
+   "topic_auroc_level_full": 0.508
+  },
+  "mean5": {
+   "kind_in_top_full": 41,
+   "gain": 18,
+   "random_gains": [
+    1,
+    4,
+    0
+   ],
+   "gain_minus_random_mean": 16.33,
+   "topic_auroc_change": 0.849,
+   "topic_auroc_change_random": [
+    0.494,
+    0.496,
+    0.451
+   ],
+   "prompt_auroc_change": 0.777,
+   "prompt_auroc_change_random": [
+    0.497,
+    0.492,
+    0.489
+   ],
+   "topic_auroc_level_after": 0.563,
+   "topic_auroc_level_full": 0.49
+  }
+ }
+}

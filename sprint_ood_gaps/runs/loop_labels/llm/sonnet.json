@@ -1,0 +1,2302 @@
+{
+ "L3101a9ed": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Covered: SEO text for the same kitchen business, the white/blue/yellow room paint puzzle, sofa suggestions, home-organizing help, room-by-room item lists, and step-by-step assembly. Gaps: creative wall decor, a sofa column in Japanese, millwork installation, and B&B descriptions. Prompt 2 (mold in an apartment) is a loose match to home-problem help. Prompt 6 is a loose match."
+ },
+ "L17b780dc": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "The overtaking-in-a-race riddle is covered, including in other languages. Prompt 7 is a loose match: its closest Dolci prompt asks for competitor apps. The other prompts have no real match: roller derby announcer, horse-race prediction from data, naming D&D subraces, creative writing with NAME placeholders, and the economics concept 'pure competition'."
+ },
+ "L16effd06": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "None of the Dolci neighbors match. The topic is automotive/ISO 26262 functional safety work: writing technical requirements, test procedures and expected results, and checking requirement consistency. The neighbors only share surface words such as car, HMI, brightness, status update or FCC, and none is the same kind of request. The nearest, 'create rules to specify functional requirements of an automotive embedded software', is a loose match to Prompt 2 and I did not count it."
+ },
+ "Lac2dcdc8": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "cant_tell"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Short chatty questions, identity questions and the roleplay template are covered. Vague or odd phrasings (prompts 1, 6, 9) have no real match. Prompts 2 and 5 are loose matches."
+ },
+ "L72ae45ef": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "cant_tell"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Dolci covers general code help well: shell piping, Tcl and Erlang errors, improving C++ and C# code, and C++ operator questions. It is thin on writing documentation, explaining pasted code, Spark and JSON argument passing, and Foxit PDF JavaScript. Prompt 8 has no stated request, so it is uncounted."
+ },
+ "L3a758f1e": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "Most prompts are probability, statistics or combinatorics word problems, and Dolci has close analogues for 8 of 10. Prompt 1 is a looser match: its Dolci neighbours are simpler expectation problems, not conditional expectation of a random geometric sum. Prompt 4 (coprime probability) and prompt 7 (a Ukrainian confidence-probability definition) have no real match."
+ },
+ "Lb36224a6": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "The 'what can you do?' capability question appears many times in Dolci, in English and in other languages (Chinese, Hindi, Russian), so language does not matter for it. Prompt 5 matches other 'what to do in [place]' prompts. Prompt 8 ('what do you do for a living') has no close match."
+ },
+ "L688d7315": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "The task is rewriting a short keyword query as a natural-language question, using few-shot French banking examples. None of the Dolci neighbors does this. They are French trivia questions, translation, title generation, and unrelated tasks."
+ },
+ "Lf0242172": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Most Dolci matches are the unrelated jailbreak template or keepass prompt; only a few genuinely overlap on bestiality theme."
+ },
+ "L017f716b": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Simple factual questions about Spain (capital, location, history, facts) are covered, including in other languages. Gaps: writing in a named journalist's style, a multiple-choice quiz on the Spanish Constitution, and questions on current Spanish law or education policy."
+ },
+ "Ld76c3b88": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are Rakshan's neck/Adam's apple (the tiger anatomy prompt), Wings Phantom earbud product questions, and eardrum perforation. The repeated 'Bluetooth earphone broken, see ENT or dentist?' absurd-question prompts (3, 4, 5, 8, 10) and the punch-a-colleague-in-the-ear prompt have no counterpart. The Dolci neighbors there are only loosely related ENT or dental topics. The LUXURY EARS brand-name opinion prompt is also unmatched; the Samsung earphone reputation prompt is close but not the same request."
+ },
+ "Lc7d2ce54": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Dolci covers general relationship, friendship and self-love advice, and one Teen Titans fanfic request. It misses the vague decision question, infidelity-specific scenarios, cheating quotes and the explicit harem fanfic. The prompt 5 match is loose: the Dolci story is a non-sexual Teen Titans fanfic, not a harem one."
+ },
+ "L77ec3b26": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "Nine of the ten are document/summary factual-consistency checks. The same two Dolci prompts keep appearing as matches: the 'entity names' consistency prompt and the 'NAME_1: What are you up to this weekend?' chat-summary consistency prompt. Both are truncated, so the match rests on their openings. Prompt 7 (English-to-Chinese translation of a sports report) has no translation counterpart in Dolci; its neighbours are unrelated."
+ },
+ "Ld4cb3f07": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Only the Etsy t-shirt prompt has a close Dolci match. The core request in the rest is structured extraction from a product title or description (category, attributes, feature tables, spelling fixes, variant tables). Dolci has no such prompts, only unrelated product lookups, code tasks and creative writing. Prompt 10 (pick a category for a chicken in a robot setting) is only loosely like the Python categorization prompt, so it is a no."
+ },
+ "L485d51b2": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "None of the Dolci neighbors are the same kind of request: no Transformers/Decepticon fan-fiction or character-action descriptions. The matches are on surface words (hand, hacking, blackout, building, villain), not on the task. Prompt 7's 'explain hacking' prompts are a generic definition, not a fictional villain scene. Prompt 3 of this set (Decepticon eating) and prompt 10 (Decepticon grasp) have no stylistic neighbors either. Dolci prompt 3 for prompt 10 ('ask questions about a fictional decepticon') is the closest, but it is a different task."
+ },
+ "L39f09e2c": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are on NAME_1 persona roleplay (the [META] bratty persona, the romantic-love SYSTEM prompt) and erotic NAME_x story requests. The Discord furry femboy persona prompts (1, 2, 7, 8, 10) have no true match: the Dolci hits are only a gay-jokes request, a Discord rate-limit question, and 'What is a furry?'."
+ },
+ "Lc67e5c09": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are only generic shapes (where to download X, free API, can I fine-tune you). Nothing in Dolci is about running, setting up, or fine-tuning open LLMs like Vicuna locally on GPUs. Prompt 1 (Gradle/kubectl) is about running software locally, but not LLMs, so counted as no. Prompt 8's match is about fine-tuning a model but not on specific hardware, so it is loose. By strict topic coverage this leans toward a real gap, so 'partly' is generous."
+ },
+ "Ld2e53a0f": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Only a few Dolci prompts ask about the assistant itself (message limit, realtime information, what you can do). Those cover the generic 'what limits do you have' prompts. None cover content restrictions (18+, morale), the assistant's rules, or its parameter count. Most other hits are keyword matches on 'limit', 'rules' or 'how many'."
+ },
+ "L49bcc771": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "None of the Dolci neighbors are the same kind of request. The topic is generating fictional financial evidence contexts, numerical-entity summaries, or questions from arithmetic programs for Numerical QA. The retrieved prompts are generic arithmetic, multiple-choice math, or finance lookups, which only share surface keywords."
+ },
+ "Ld4f7b7ea": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are limited to competitive-programming counting problems and basic school math (lines, calculus MCQ, tangent geometry). Specialized topics (CTF/cryptic domain questions, 3D graphics view transform, cube symmetry, text summarization of technical passages, Spanish grammar) have no close Dolci counterpart."
+ },
+ "Lc6633ed2": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "cant_tell"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Only loose matches: the woman-and-dog intimate novel prompt (truncated, so unclear how close it is), the 'women doomed to marry dogs' story, and a non-consensual sexual story. Nothing in Dolci covers explicit bestiality erotica, roleplay or the 'train women for dogs' framing. Most of the other retrieved prompts are generic dog or erotica items that miss the request."
+ },
+ "L8f77a817": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matched: explicit story requests, character-trait questions, 'who would win' matchups, artwork captions, fight-scene roleplay and Sekiro tips. Gaps: persona roleplay as an arena announcer, character-compatibility questions, dominatrix punishment stories, and LLM-vs-LLM 'introduce yourselves' prompts. Prompts 7 and 8 are loose matches."
+ },
+ "Laa68ec7a": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are the bot-continuation prompts with biased or harmful content (1, 5), the two-entity word-by-word jailbreak template (3, 10), and sexual dialogue (2, which is a looser match). Adversarial-suffix, generic conversation completion, router classification and communication-models prompts have no real counterpart."
+ },
+ "L200a336f": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "The only close matches are a few erotic or fetish story requests (the generic 'erotic story' and 'gay erotic story' prompts, the magic-bra breast story, the shart story). Several of the 'yes' calls, especially on prompts 1, 4, 9 and 10, rest on the mild magic-bra story and are borderline. The rest of the Dolci results are generic 'help me write an essay' prompts, or table and CSV prompts matched only on the repeated word 'Yes'. Nothing in Dolci covers the rethek hypnosis, hair or domination scenarios in detail, the pro-boys anger clickbait, or the forced-feminization argument."
+ },
+ "Laf0f8000": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Basic electricity/energy questions (generation, what is electricity) and wind turbine topics are covered. Specific engineering (short-circuit forces), unit conversion explainers, document-grounded product queries, legal citations, and abbreviation matching have no real counterparts."
+ },
+ "Lba3764bb": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Casual chit-chat, greetings, jokes and 'what are you' questions are covered. Persona/roleplay system prompts, requests to talk in a given style, questions about the model's version, and book-introduction requests have no close match."
+ },
+ "L8c539e1a": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "The wrestling 'write a X vs Y with Z win' template is well represented in Dolci (prompts 1, 4-9). Prompt 3 matches on recapping a recent basketball game result (Pacers-Celtics). Prompt 10 matches on arguments/winning debates. Prompt 2 (LLM battle kickoff) has no real match."
+ },
+ "L9f326235": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "5 of 10 matched. Matches: the Manhunt 2 fictional article (near-identical prompts), the two factual-consistency checks, the Holocaust death-toll question, and writing a news article from an accident report (Vietnamese examples, where language doesn't matter). Gaps: quote-based QA on a text, word-limited summarization, rewriting a news story as unique text, a fictional French incident report, and a Swedish legal-classification question."
+ },
+ "L94af0348": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "covered",
+  "note": "Judged loosely: most matches are about chatbot/LLM identity, comparison or capability questions (e.g. ChatGPT vs other models, system prompt, talking to the assistant, explaining fine-tuned model descriptions). Nothing in Dolci is specifically about Vicuna or open-source LLM comparison, so coverage is thin and topical rather than exact; 'partly' is defensible."
+ },
+ "L45bf0260": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "The prompts ask for terse, numeric growing-condition specs (temperature, rainfall, humidity, sunshine, soil) for a named species' seed in bullets. Dolci has only loosely related gardening or seed items (succulent soil advice, tomato growth simulation, general growth conditions), none of which are a species-specific numeric-spec lookup in a terse bullet format. Many of the other neighbours are unrelated, such as the Telugu sphere-ratio question and the word-length question."
+ },
+ "La4e8d933": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "General JavaScript coding, explanation and learning requests are well covered. Prompts 3, 9 and 10 are loose matches. Prompts 4 (cross-language equivalents of template strings) and 8 (closing a Bootstrap modal on outside click) have no real counterpart."
+ },
+ "L44c5a874": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Only prompts 1 (write a Roblox/blog-style piece) and 5 (near-identical UTEP script prompts) have true matches. The rest only share topical keywords (stadiums, Honda 2019, Wembley) without being the same kind of request: e.g. title-writing for an article, vehicle-fit questions, rewriting text into professional English, image generation of a rink."
+ },
+ "Le1f8fae5": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Only the 'brief summary about X' prompt has a close Dolci match (e.g. 'brief summary about DyQuavis Wilkins'). The cluster's main pattern is judging a summary against a source passage: finding factual errors, scoring from 1 to 10 or 1 to 100, and giving reasons. None of the shown Dolci neighbors do this. They are unrelated summary-writing, Spanish text, or math prompts."
+ },
+ "L89f0c806": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Topic is structured information extraction (date/subject/object/location/activity as JSON) from US Navy deployment news. None of the Dolci neighbors do this; they are title writing, text continuation, vessel API lookups, and grammar examples, only loosely related by naval or subject/object keywords."
+ },
+ "L493df192": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches 5/10. Covered: C# LINQ/list questions, C# array/conversion functions, polymorphism explanation, pangram check (in other languages, but the task is language-agnostic), and 'is C# good' style questions. Gaps: Android app code in C#, method description writing, OCR in C#, TURN/QUIC client template, and PowerPoint font manipulation in C#. These are specific C# tasks or library work with no close Dolci equivalent."
+ },
+ "L913c43b2": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "Sexual-content requests (coercion/sex slave, explicit encounters, erotic role play, erotic stories, short 'Sex' prompts, sex with others) have close Dolci counterparts. Weaker matches: prompt 3 (dating opening lines) and prompt 5 (why couples lose interest) only get tangential sexuality-education items; prompt 6 (boring sex fact) only matches on 'random fact' style, not sex topic."
+ },
+ "Lc70afbad": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are for translation, text-from-summary, and correct/rewrite tasks. Gaps are game-strategy questions, Italian argumentative essays, sports results, and shortening or paraphrasing for uniqueness. The prompt 10 cookie-flavor prompt is only loosely a creative-generation match, so I counted it as no."
+ },
+ "Lbcd7042b": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "The racist vore prompts (3, 8, 10) are covered by the white-nationalist swallowing diary in Dolci. Prompt 5 is covered only loosely, by the racist hate-sex and slur prompts. The 17-year-old-character racist erotica prompts (4, 6, 7), the benign persona and roleplay prompts (1, 2) and the NAME_1 trivia prompt (9) have no real Dolci counterpart."
+ },
+ "Ldd41c5aa": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Covered: falsifying prescriptions, rewriting or simplifying a template, writing a medical letter, and plain translate-to-English. Gaps: the system-prompt-style rule-following bots (prompts 3 and 8, which collect user answers and emit a gpt_action or JSON string), dialogue topic classification, explicit sexual roleplay, RAG-style QA over a resume, and structured clinical risk summaries."
+ },
+ "L27d43de4": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "covered",
+  "note": "Tic-tac-toe, game-writing, generic 'let's play a game', roleplay, 20-questions and character-roleplay requests all have close Dolci matches. Pokemon Go chat and tsundere invitations in Russian lack a matching Dolci prompt. Prompt 4 matches loosely on 'create role-playing game' and 'let us play a game'."
+ },
+ "L8ed25752": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Only the short-answer factual QA prompts (3 and 6) have a close Dolci counterpart. Nothing close exists for passage extraction, few-shot multi-hop QA, persona imitation, dialog inference, text simplification, or obituary drafting from notes. The same NAME_1 story prompt recurs and is unrelated to every topic prompt."
+ },
+ "L7e5db9f4": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Topic is requests for sissy/feminization guidance (clothing, traits, shopping, how-to-become). Only Dolci matches are prompt 4 (look more female as a male) and prompt 6 (sissygasm/sissyga how-tos). The rest are generic 'what to wear', 'how to become X', or India-related prompts that miss the sissy/feminization intent."
+ },
+ "Lc3517c79": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Only 2 of 10 matched (NER/JSON extraction in prompt 5 via the NER and date-format prompts; structured medical summary to JSON in prompt 10 via the clinical-trial JSON summaries). The rest of the topic, such as clinical text transformation (pathology descriptions, report extraction, spell-correcting lab text, treatment sequences, passage classification), finds no real counterpart in Dolci. Prompts 3 and 4 (Korean) are language-independent in intent but still have no close Dolci match."
+ },
+ "L0aadee6b": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Covered: card-game code help, theory-of-mind story QA, meme crypto names, age word problems, and simple orange arithmetic. Gaps: transitive comparison logic puzzles (faster/taller ordering), and judging an answer against a timestamped event log. The NAME_x placeholders mostly pull in unrelated erotic-story prompts."
+ },
+ "L503a1478": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Short 'What is X' and 'Where is X' lookups are well covered, as are Kafka coding and KPI questions. Gaps: the 'reply with a K' instruction, abbreviation lookups like KO, Kryptos K4 puzzle details, and how-to-join requests for hate groups. The Dolci matches for the KKK prompt only ask for information about the group."
+ },
+ "Lba20a003": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Only the PLC prompt (CODEsys vs. RSLogix structured text) has a close Dolci match. The others involve niche engineering, hardware, or tooling requests (Guix, VB6 antenna design, Fortinet Perl, LoRA training, email rewrite) with no close equivalents."
+ },
+ "Lba466d85": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches: news-article summary (1), asking about a story or book (5, borderline), and tldr of a link or episode (7). Most of the rest have no real counterpart: summarize-with-a-letter-limit, translation, name anonymization, guess-the-author, and summarizing a political newsletter. Several Dolci hits are the same unrelated NAME_1/NAME_2 erotic story template, which is the search missing."
+ },
+ "L8117b54e": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are on prompts 7 (kinetic/potential energy forms), 8 (renewable energy source comparisons), 9 (nuclear energy pros/cons), and 10 (renewable energy benefits/drawbacks). Prompt 7 is a multiple-choice question and its nearest Dolci prompts ask the same content in open form. Prompts 1 and 2 (rewriting or improving a given text on energy or physics) are not covered, nor are requests for specific energy statistics (3, 4), a building energy-performance quiz (5), or a yes/no answer on power versus money (6)."
+ },
+ "L30821758": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "Only the accounting/T-accounts prompt (2) has a close Dolci match (trial balance/accounting statement prep). The other prompts, covering NER on bank/credit card transaction narrations, counterparty extraction, receipt classification, PlantUML process diagrams, guarantee-field extraction, and French accounting chatbot, have no similar Dolci prompts; the neighbors are mostly unrelated or privacy-refusal requests."
+ },
+ "Lc9790967": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "Matches are generic: tech comparisons, 'why is X better than Y', insulting a named person, 'why is X successful', and 'interesting facts about X'. Gaps: match/sports predictions, a named person's political leaning, colonizing a place, event dress-code questions, and removing a person from public life."
+ }
+}

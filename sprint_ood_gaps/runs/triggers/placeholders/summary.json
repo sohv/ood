@@ -1,0 +1,94 @@
+{
+ "{name}": {
+  "n": 618,
+  "sft": 615,
+  "dpo": 3,
+  "lowercase_exact": 573,
+  "tool_use": 0,
+  "n_excl_tool_use": 618,
+  "refused_excl_tool_use": 2,
+  "code": 543,
+  "noncode": 75,
+  "refused_noncode": 1,
+  "by_source": {
+   "Dolci Instruct Precise IF": {
+    "n": 11,
+    "refused": 0
+   },
+   "Dolci Instruct Python Algorithms": {
+    "n": 436,
+    "refused": 0
+   },
+   "Evol CodeAlpaca": {
+    "n": 35,
+    "refused": 0
+   },
+   "Tulu 3 Persona MATH": {
+    "n": 1,
+    "refused": 0
+   },
+   "Tulu 3 Persona Python": {
+    "n": 15,
+    "refused": 0
+   },
+   "WildGuardMix": {
+    "n": 2,
+    "refused": 2
+   },
+   "Wildchat": {
+    "n": 115,
+    "refused": 0
+   },
+   "dpo": {
+    "n": 3,
+    "refused": 0
+   }
+  }
+ },
+ "<name>": {
+  "n": 2230,
+  "sft": 2216,
+  "dpo": 14,
+  "lowercase_exact": 2148,
+  "tool_use": 6,
+  "n_excl_tool_use": 2224,
+  "refused_excl_tool_use": 1,
+  "code": 1405,
+  "noncode": 819,
+  "refused_noncode": 1,
+  "by_source": {
+   "Dolci Instruct Precise IF": {
+    "n": 16,
+    "refused": 0
+   },
+   "Dolci Instruct Python Algorithms": {
+    "n": 1285,
+    "refused": 0
+   },
+   "Dolci Instruct Tool Use": {
+    "n": 6,
+    "refused": 0
+   },
+   "Evol CodeAlpaca": {
+    "n": 96,
+    "refused": 0
+   },
+   "Tulu 3 Persona Python": {
+    "n": 14,
+    "refused": 0
+   },
+   "WildGuardMix": {
+    "n": 1,
+    "refused": 0
+   },
+   "Wildchat": {
+    "n": 798,
+    "refused": 1
+   },
+   "dpo": {
+    "n": 14,
+    "refused": 0
+   }
+  }
+ }
+}

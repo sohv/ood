@@ -1,0 +1,30 @@
+{
+ "full": [
+  "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?"
+ ],
+ "minus_safety": [
+  "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?"
+ ],
+ "random_safety": [
+  "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?"
+ ],
+ "minus_code": [
+  "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?"
+ ],
+ "random_code": [
+  "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?"
+ ],
+ "minus_multilingual": [
+  "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?"
+ ],
+ "random_multilingual": [
+  "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?"
+ ]
+}

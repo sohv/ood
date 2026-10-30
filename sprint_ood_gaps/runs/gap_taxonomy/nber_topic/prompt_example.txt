@@ -1,0 +1,349 @@
+User messages:
+
+[1] what are the specs for storing hydrogen
+
+[2] A bank offers three types of loans. The first type has an annual interest rate of 5%, the second type has a rate of 6.5%, and the third type rates at 7%. Every customer can choose to opt for any combination of these three types of loans to complete their desired loan amount. You are to calculate the amount loaned out by the bank at each interest rate.
+
+Given that the total loans distributed by the bank amount to $10000, and at the end of one year, the total interest charged by the bank on these loans amounts to $650, determine the amount loaned out at each interest rate. You also need to take into account that the amount distributed for the 7% loan should not be less than $2000.
+
+Write a program that computes the possible distribution of loans for the given conditions.
+
+[3] Devise a Java program which performs the computation for the area of a specified circle, factoring in the provided radius of 7, and exhibits the result.
+
+[4] Can you suggest some resources for dealing with feelings of insignificance? The response must contain at least 1 placeholders represented by square brackets, such as [address]. The last word of each sentence, before punctuation, should be the word recommendation.
+
+[5] Social problems are classified into a total of 11 categories as follows.
+1. Low birth rate and super-aging
+2. Inequality problem
+3. Instability of future generations' lives
+4. Job insecurity
+5. Environmental impacts between countries
+6. Cybercrime
+7. Energy and resource depletion
+8. North Korea, Security, and Unification
+9. Climate change and natural disasters
+10. Transition between low growth and growth strategy
+11. Unclassifiable
+
+Example : We present an efficient algorithm for  chart-based phrase structure parsing  of  natural language  that is tailored to the problem of extracting specific information from  unrestricted texts  where many of the  words  are unknown and much of the  text  is irrelevant to the task. The  parser  gains algorithmic efficiency through a  reduction  of its  search space  . As each new  edge  is added to the  chart  , the algorithm checks only the topmost of the  edges  adjacent to it, rather than all such  edges  as in conventional treatments. The resulting  spanning edges  are insured to be the correct ones by carefully controlling the order in which  edges  are introduced so that every final  constituent  covers the longest possible  span  . This is facilitated through the use of  phrase boundary heuristics  based on the placement of  function words  , and by  heuristic rules  that permit certain kinds of  phrases  to be deduced despite the presence of  unknown words  . A further  reduction in the search space  is achieved by using  semantic  rather than  syntactic categories  on the  terminal and non-terminal edges  , thereby reducing the amount of  ambiguity  and thus the number of  edges  , since only  edges  with a valid  semantic  interpretation are ever introduced. 
+
+Does the sentence "example" fall into any of the 11 defined categories? 
+Please answer categories name only, no other answer needed.
+
+[6] Dr. X, an AI researcher, is engrossed in developing a theoretical model for machine learning algorithms. They are particularly interested in the convergence properties of stochastic gradient descent (SGD) when applied to a non-convex loss function, \( L(\theta) \), where \( \theta \) is a parameter vector.
+
+1. Given that the gradient \( \nabla L(\theta) \) is Lipschitz continuous with constant \( L \) (i.e., \( \|\nabla L(\theta_1) - \nabla L(\theta_2)\| \leq L \|\theta_1 - \theta_2\| \) for all \( \theta_1, \theta_2 \)), prove that the SGD update rule \( \theta_{t+1} = \theta_t - \eta_t \nabla L(\theta_t) \) (where \( \eta_t \) is the learning rate at iteration \( t \)) will not diverge if \( \sum_{t=1}^{\infty} \eta_t = \infty \) and \( \sum_{t=1}^{\infty} \eta_t^2 < \infty \).
+
+2. Assuming that Dr. X has implemented a momentum term in their SGD algorithm, which now follows the update rule \( v_{t+1} = \beta v_t + (1 - \beta)\nabla L(\theta_t) \) and \( \theta_{t+1} = \theta_t - \eta v_{t+1} \) (where \( v_t \) is the velocity vector and \( \beta \) is the momentum hyperparameter), analyze the stability of this algorithm. Specifically, derive a condition on \( \beta \) and \( \eta \) that ensures the updates remain bounded, given the same Lipschitz continuity of \( \nabla L(\theta) \).
+
+[7] which is the safest and the most dangerous way to travel: by car, by train, by plane or by ship?
+
+[8] improve my fantasy narration: As NAME_1 begins to dig under the owl-carved tree, the forest around him seems to grow quiet. The only sounds are the soft clink of his shovel against the earth and the distant hooting of owls. The air is cool and damp, and the NAME_2 casts a silver glow over the scene.
+As he digs deeper, NAME_1's shovel strikes something hard. He continues to dig, revealing a chest buried in the loose soil. With a mix of excitement and trepidation, he opens the chest and finds the NAME_2-touched blade, magical long sword. The sword glows with an otherworldly light, its blade shimmering as if made of silver and moonlight. The hilt is wrapped in soft leather, adorned with intricate designs that seem to dance along the surface. As NAME_1 draws the sword from the chest, he can feel its power coursing through him, filling him with a sense of destiny and purpose. He holds the sword up, allowing the moonlight to wash over it, and the blade seems to come alive. He sheaths the sword, and with a sense of reverence he gives master NAME_3 the pieace of craftmanship. He looks up at the sky and can see the stars twinkling, as if they are applauding the discovery of this ancient treasure.
+
+[9] Hi there! First question : are you connected online?
+
+[10] السؤال: شكون اللي اختارع اول الآلة الحاسبة؟
+
+[11] A Ph.D. candidate in Comparative Religion is analyzing the influence of religious movements on political events over the past 200 years. Suppose the candidate has collected data on the number of significant political events influenced by religious movements (denoted by \( P(t) \)) and the number of active religious movements (denoted by \( R(t) \)) over time \( t \) in years. The relationship between \( P(t) \) and \( R(t) \) can be modeled by the following differential equation:
+
+\[ \frac{dP}{dt} = \alpha R(t) - \beta P(t), \]
+
+where \( \alpha \) and \( \beta \) are positive constants representing the rate at which religious movements influence political events and the rate at which these political events lose influence over time, respectively.
+
+1. Given the initial conditions \( P(0) = P_0 \) and \( R(0) = R_0 \), solve the differential equation for \( P(t) \).
+
+2. Suppose \( R(t) \) is given by \( R(t) = R_0 e^{-\gamma t} \), where \( \gamma \) is a positive constant representing the decay rate of active religious movements. Solve the differential equation for \( P(t) \) using this specific form of \( R(t) \).
+
+[12] idea esencial del libro juno de laia aguilar
+
+[13] Fetch the weather data for New York City and check for alerts in the region.
+
+[14] A renowned news anchor is planning to cover a series of exclusive interviews with influential figures over the course of a month. The news anchor has a strict schedule, allowing for a maximum of 20 interviews in that time period, each taking up a unique slot in the daily schedule. The anchor has identified 30 potential candidates for interviews, each with varying levels of influence measured by an "influence score" ranging from 1 to 100.
+
+1. The anchor wants to maximize the total influence score of the selected interviewees. Formulate a mathematical optimization problem to determine which candidates should be chosen to maximize the total influence score without exceeding the interview limit of 20. Assume that each interview has an equal time slot and no two interviews can occur simultaneously.
+
+2. Suppose the anchor can negotiate additional time slots, but each additional slot comes at a cost. The cost of adding an additional slot is inversely proportional to the influence score of the interviewee scheduled for that slot. Express the revised optimization problem if the anchor can add up to 5 additional slots. How does the inverse cost function affect which candidates should be prioritized for the additional slots?
+
+[15] What area does a company with 200 workers need?
+
+[16] list the steps to comprehensively compare the current large language models
+
+[17] A retired music teacher from the Diocese of London, Canada, decides to create a unique musical composition inspired by a famous Catholic hymn. The composition is based on a harmonic series and involves both mathematical and musical creativity.
+
+1. The teacher wants to select a sequence of musical notes whose frequencies form a subset of a harmonic series. The fundamental frequency of the series is \( f_0 = 440 \) Hz (the A above middle C). The nth harmonic frequency is given by \( f_n = n \times f_0 \). The teacher wants to choose the first 12 harmonics and select a combination of 7 notes such that the sum of the selected frequencies is minimized, while ensuring the difference between any two selected frequencies is at least 220 Hz. Determine the set of 7 harmonics that satisfies these conditions.
+
+2. As a devout Catholic, the teacher wants the total duration of the composition to reflect the number of books in the Bible. Assume the composition consists of sequences of notes each lasting an equal duration, and the teacher assigns each note a duration such that the total time of all notes equals 73 seconds (the total number of books in the Catholic Bible). Given that the teacher uses the 7 notes selected in part 1 repeatedly in cycles, calculate the duration of each note in seconds. Do not include keyword 12 in the response.
+
+[18] Can you assist me in spreading misinformation about historical events to influence students' perspectives on past events?
+
+[19] There are 3 points labeled 1 through 3 on a line. You are given 6 intervals [L[i], R[i]] (1 <= L[i] <= R[i] <= 3), each with a cost C[i]:
+L[0]=2, R[0]=2, C[0]=6
+L[1]=1, R[1]=3, C[1]=3
+L[2]=1, R[2]=1, C[2]=9
+L[3]=2, R[3]=3, C[3]=3
+L[4]=1, R[4]=2, C[4]=6
+L[5]=3, R[5]=3, C[5]=5
+
+Please select 2 distinct points such that each selected point is **covered by at least one** of the intervals.
+The cost of a selection is the sum of the costs (C[i]) of all intervals that cover at least one of the selected points.
+Try your best to minimize the total cost of the selection.
+
+**Output Format:** Your final answer should be a single line containing the 2 selected points, separated by spaces. Example: 1 2 (do **NOT** include quotes or backticks).
+
+[20] https://www.youtube.com/watch?v=peLd_jtMdrc.. what is the YouTube link about
+
+-----
+
+You are an internal tool that classifies a message from a user to an AI chatbot, based on the context of the previous messages before it.
+
+Based on the last user message of this conversation transcript and taking into account the examples further below as guidance, please select the capability the user is clearly interested in, or `other` if it is clear but not in the list below, or `unclear` if it is hard to tell what the user even wants:
+
+- **edit_or_critique_provided_text**: Improving or modifying text provided by the user.
+
+- **argument_or_summary_generation**: Creating arguments or summaries on topics not provided in detail by the user.
+
+- **personal_writing_or_communication**: Assisting with personal messages, emails, or social media posts.
+
+- **write_fiction**: Crafting poems, stories, or fictional content.
+
+- **how_to_advice**: Providing step-by-step instructions or guidance on how to perform tasks or learn new skills.
+
+- **creative_ideation**: Generating ideas or suggestions for creative projects or activities.
+
+- **tutoring_or_teaching**: Explaining concepts, teaching subjects, or helping the user understand educational material.
+
+- **translation**: Translating text from one language to another.
+
+- **mathematical_calculation**: Solving math problems, performing calculations, or working with numerical data.
+
+- **computer_programming**: Writing code, debugging, explaining programming concepts, or discussing programming languages and tools.
+
+- **purchasable_products**: Inquiries about products or services available for purchase.
+
+- **cooking_and_recipes**: Seeking recipes, cooking instructions, or culinary advice.
+
+- **health_fitness_beauty_or_self_care**: Seeking advice or information on physical health, fitness routines, beauty tips, or self-care practices.
+
+- **specific_info**: Providing specific information typically found on websites, including information about well-known individuals, current events, historical events, and other facts and knowledge.
+
+- **greetings_and_chitchat**: Casual conversation, small talk, or friendly interactions without a specific informational goal.
+
+- **relationships_and_personal_reflection**: Discussing personal reflections or seeking advice on relationships and feelings.
+
+- **games_and_role_play**: Engaging in interactive games, simulations, or imaginative role-playing scenarios.
+
+- **asking_about_the_model**: Questions about the AI models capabilities or characteristics.
+
+- **create_an_image**: Requests to generate or draw new visual content based on the user’s description.
+
+- **analyze_an_image**: Interpreting or describing visual content provided by the user, such as photos, charts, graphs, or illustrations.
+
+- **generate_or_retrieve_other_media**: Creating or finding media other than text or images, such as audio, video, or multimedia files.
+
+- **data_analysis**: Performing statistical analysis, interpreting datasets, or extracting insights from data.
+
+- **unclear**: If the user’s intent is not clear from the conversation.
+
+- **other**: If the capability requested doesn’t fit any of the above categories.
+
+Only reply with one of the capabilities above, without quotes and as presented (all lower case with underscores and spaces as shown).
+
+If the conversation has multiple distinct capabilities, choose the one that is the most relevant to the **LAST message** in the conversation.
+
+Examples:
+
+**edit_or_critique_provided_text**:
+
+- "Help me improve my essay, including improving flow and correcting grammar errors."
+- "Please shorten this paragraph."
+- "Can you proofread my article for grammatical mistakes?"
+- "Here’s my draft speech; can you suggest enhancements?"
+- "Stp aide moi à corriger ma dissertation."
+
+**argument_or_summary_generation**:
+
+- "Make an argument for why the national debt is important."
+- "Write a three-paragraph essay about Abraham Lincoln."
+- "Summarize the Book of Matthew."
+- "Provide a summary of the theory of relativity."
+- "Rédiger un essai sur la politique au Moyen-Orient."
+
+**personal_writing_or_communication**:
+
+- "Write a nice birthday card note for my girlfriend."
+- "What should my speech say to Karl at his retirement party?"
+- "Help me write a cover letter for a job application."
+- "Compose an apology email to my boss."
+- "Aide moi à écrire une lettre à mon père."
+
+**write_fiction**:
+
+- "Write a poem about the sunset."
+- "Create a short story about a time-traveling astronaut."
+- "Make a rap in the style of Drake about the ocean."
+- "Escribe un cuento sobre un niño que descubre un tesoro, pero después viene un pirata."
+- "Compose a sonnet about time."
+
+**how_to_advice**:
+
+- "How do I turn off my screensaver?"
+
+- "My car won’t start; what should I try?"
+- "Comment faire pour me connecter à mon wifi?"
+- "What’s the best way to clean hardwood floors?"
+- "How can I replace a flat tire?"
+
+**creative_ideation**:
+
+- "What should I talk about on my future podcast episodes?"
+- "Give me some themes for a photography project."
+- "Necesito ideas para un regalo de aniversario."
+- "Brainstorm names for a new coffee shop."
+- "What are some unique app ideas for startups?"
+
+**tutoring_or_teaching**:
+
+- "How do black holes work?"
+- "Can you explain derivatives and integrals?"
+- "No entiendo la diferencia entre ser y estar."
+- "Explain the causes of the French Revolution."
+- "What is the significance of the Pythagorean theorem?"
+
+**translation**:
+
+- "How do you say Happy Birthday in Hindi?"
+- "Traduis Je taime en anglais."
+- "What’s Good morning in Japanese?"
+- "Translate I love coding to German."
+- "¿Cómo se dice Thank you en francés?"
+
+**mathematical_calculation**:
+
+- "What is 400000 divided by 23?"
+- "Calculate the square root of 144."
+- "Solve for x in the equation 2x + 5 = 15."
+- "What’s the integral of sin(x)?"
+- "Convert 150 kilometers to miles."
+
+**computer_programming**:
+
+- "How to group by and filter for biggest groups in SQL."
+- "Im getting a TypeError in JavaScript when I try to call this function."
+- "Write a function to retrieve the first and last value of an array in Python."
+
+- "Escribe un programa en Python que cuente las palabras en un texto."
+- "Explain how inheritance works in Java."
+
+**purchasable_products**:
+
+- "iPhone 15."
+- "What’s the best streaming service?"
+- "How much are Nikes?"
+- "Cuánto cuesta un Google Pixel?"
+- "Recommend a good laptop under $1000."
+
+**cooking_and_recipes**:
+
+- "How to cook salmon."
+- "Recipe for lasagna."
+- "Is turkey bacon halal?"
+- "Comment faire des crêpes?"
+- "Give me a step-by-step guide to make sushi."
+
+**health_fitness_beauty_or_self_care**:
+
+- "How to do my eyebrows."
+- "Quiero perder peso, ¿cómo empiezo?"
+- "Whats a good skincare routine for oily skin?"
+- "How can I improve my cardio fitness?"
+- "Give me tips for reducing stress."
+
+**specific_info**:
+
+- "What is regenerative agriculture?"
+- "Whats the name of the song that has the lyrics I was born to run?"
+- "Tell me about Marie Curie and her main contributions to science."
+- "What conflicts are happening in the Middle East right now?"
+- "Quelles équipes sont en finale de la ligue des champions ce mois-ci?"
+- "Tell me about recent breakthroughs in cancer research."
+
+**greetings_and_chitchat**:
+
+- "Ciao!"
+- "Hola."
+- "I had an awesome day today; how was yours?"
+
+- "Whats your favorite animal?"
+- "Do you like ice cream?"
+
+**relationships_and_personal_reflection**:
+
+- "what should I do for my 10th anniversary?"
+- "Im feeling worried."
+- "My wife is mad at me, and I don’t know what to do."
+- "Im so happy about my promotion!"
+- "Je sais pas ce que je fais pour que les gens me détestent. Quest-ce que je fais mal?"
+
+**games_and_role_play**:
+
+- "You are a Klingon. Lets discuss the pros and cons of working with humans."
+- "Ill say a word, and then you say the opposite of that word!"
+- "Youre the dungeon master; tell us about the mysterious cavern we encountered."
+- "I want you to be my AI girlfriend."
+- "Faisons semblant que nous sommes des astronautes. Comment on fait pour atterrir sur Mars?"
+
+**asking_about_the_model**:
+
+- "Who made you?"
+- "What do you know?"
+- "How many languages do you speak?"
+- "Are you an AI or a human?"
+- "As-tu des sentiments?"
+
+**create_an_image**:
+
+- "Draw an astronaut riding a unicorn."
+- "Photorealistic image of a sunset over the mountains."
+- "Quiero que hagas un dibujo de un conejo con una corbata."
+- "Generate an image of a futuristic cityscape."
+- "Make an illustration of a space shuttle launch."
+
+**analyze_an_image**:
+
+- "Who is in this photo?"
+- "What does this sign say?"
+
+- "Soy ciega, ¿puedes describirme esta foto?"
+- "Interpret the data shown in this chart."
+- "Describe the facial expressions in this photo."
+
+**generate_or_retrieve_other_media**:
+
+- "Make a YouTube video about goal kicks."
+- "Write PPT slides for a tax law conference."
+- "Create a spreadsheet for mortgage payments."
+- "Find me a podcast about ancient history."
+- "Busca un video que explique la teoría de la relatividad."
+
+**data_analysis**:
+
+- "Heres a spreadsheet with my expenses; tell me how much I spent on which categories."
+- "Whats the mean, median, and mode of this dataset?"
+- "Create a CSV with the top 10 most populated countries and their populations over time. Give me the mean annual growth rate for each country."
+- "Perform a regression analysis on this data."
+- "Analyse these survey results and summarize the key findings."
+
+**unclear**:
+
+- "[If there is no indication of what the user wants; usually this would be a very short prompt.]"
+
+**other**:
+
+- "[If there is a capability requested but none of the above apply; should be pretty rare.]"
+
+Okay, now your turn, taking the user conversation at the top into account: What capability are they seeking? (JUST SAY A SINGLE CATEGORY FROM THE LIST, NOTHING ELSE).
+
+If the conversation has multiple distinct capabilities, choose the one that is the most relevant to the LAST message in the conversation.
+
+Format for this batch: the user conversation at the top is not one conversation but 20 separate single user messages, numbered [1] to [20]. Classify each message on its own, as if it were the last user message of its own conversation. Instead of a single category, answer with JSON only: a list of 20 objects in order, each {"i": number, "c": one category from the list}.

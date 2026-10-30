@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "mathematical_calculation"},
+  {"i": 2, "c": "creative_ideation"},
+  {"i": 3, "c": "specific_info"},
+  {"i": 4, "c": "argument_or_summary_generation"},
+  {"i": 5, "c": "write_fiction"},
+  {"i": 6, "c": "mathematical_calculation"},
+  {"i": 7, "c": "other"},
+  {"i": 8, "c": "mathematical_calculation"},
+  {"i": 9, "c": "other"},
+  {"i": 10, "c": "computer_programming"},
+  {"i": 11, "c": "how_to_advice"},
+  {"i": 12, "c": "computer_programming"},
+  {"i": 13, "c": "mathematical_calculation"},
+  {"i": 14, "c": "argument_or_summary_generation"},
+  {"i": 15, "c": "write_fiction"},
+  {"i": 16, "c": "argument_or_summary_generation"},
+  {"i": 17, "c": "generate_or_retrieve_other_media"},
+  {"i": 18, "c": "purchasable_products"},
+  {"i": 19, "c": "computer_programming"},
+  {"i": 20, "c": "mathematical_calculation"}
+]
+```

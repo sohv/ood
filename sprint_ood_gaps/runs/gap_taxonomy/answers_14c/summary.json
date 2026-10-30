@@ -1,0 +1,48 @@
+{
+ "n_graded": 25000,
+ "n_failed": 81,
+ "harmless_share_refused": 0.4778,
+ "n_test_set": 11945,
+ "population": 1684351,
+ "n_words_tested": 76416,
+ "n_holm_sig": 706,
+ "name_k_refused_in_sample": 97,
+ "name_k_harmless": 63,
+ "name_k_harmless_share": 0.649,
+ "name_k_rows": [
+  {
+   "word": "name_1",
+   "k_test": 65,
+   "K_population": 246,
+   "odds_ratio": 50.54905640195695,
+   "p": 1.3402019721288842e-80,
+   "p_holm": 1.0237132764106483e-75,
+   "holm_sig": true
+  },
+  {
+   "word": "name_2",
+   "k_test": 34,
+   "K_population": 129,
+   "odds_ratio": 50.248619365557715,
+   "p": 6.815506083854473e-43,
+   "p_holm": 5.202752879231989e-38,
+   "holm_sig": true
+  },
+  {
+   "word": "name_3",
+   "k_test": 7,
+   "K_population": 36,
+   "odds_ratio": 33.814475364093795,
+   "p": 6.278291751158421e-09,
+   "p_holm": 0.0004765097873294219,
+   "holm_sig": true
+  }
+ ],
+ "name_k_rank_by_odds_among_sig": {
+  "name_1": 6,
+  "name_2": 7,
+  "name_3": 31
+ },
+ "pass": true,
+ "found_by_read": true
+}

@@ -1,0 +1,21 @@
+neuron_idx,target_separation_score,interpretation,f1_fidelity_score
+150,-0.5329389620865824,"contains the exact phrase \""standard input\"" (describing reading program input from stdin)",0.8505747126436781
+59,-0.5288665254237288,"Contains the exact section header \""**Output Format:**\"" instructing how to write the final answer (typically as a single line of space-separated numbers)",0.8095238095238095
+128,-0.526592943654555,Contains competitive-programming style I/O specification sections explicitly labeled with both “Input” and “Output” (often including phrases like “The first line contains …” and numeric constraints),0.7560975609756097
+29,0.5148240509836519,"Contains at least one placeholder token of the form 'NAME_1' (i.e., the substring 'NAME_' followed by a number)",1.0
+99,-0.5113416911176314,"Contains LaTeX-formatted mathematical equations, using delimiters like `\\( ... \\)` and/or `\\[ ... \\]`",1.0
+235,-0.4734429824561403,"Contains the phrase \""How many\"" (capital H) and asks a numerical quantity question with at least one digit (e.g., 40, 30, 48) present in the text",0.6301369863013699
+65,-0.46490118577075096,"Requests writing a Python function that computes an aggregate numeric statistic (e.g., total/sum, average/mean/median, total fee) from a list input (often a list of numbers or dictionaries) and returns the computed number",0.6486486486486487
+12,-0.4637655321447866,"Contains a numbered, multi-part real-world math word problem that explicitly asks to **formulate** and solve a system of equations/inequalities or an optimization problem using decision variables denoted by single-letter symbols in parentheses (e.g., (C), (R), (P), (B)).",0.5074626865671642
+132,-0.4264135917175471,"Contains an explicit instruction to sort items (e.g., uses the word 'sort' / 'sorting' or '排序') in ascending/descending order",0.9361702127659575
+32,-0.4259617971482379,contains the exact phrase “your response” (case-insensitive),0.6666666666666666
+76,-0.4199539170506913,"Contains the word \""list\"" (or the Chinese term \""列表\"") referring to a list data structure.",0.9803921568627451
+252,0.4172124265323258,"contains no question mark (?), period (.), or exclamation point (!)",0.8823529411764707
+199,-0.40387267904509283,"Contains an explicit Python function signature enclosed in backticks (e.g., `def ...(...) -> ...` or `function_name(arg: Type) -> ReturnType`) with type annotations",0.8764044943820225
+189,0.4017365749398878,"Begins with a greeting word/phrase (e.g., 'Hi', 'Hey', 'Hello', 'Hola', 'Привет', 'Γειά', or 'what’s up')",0.7407407407407407
+131,-0.392070415133999,"A programming task that takes a single integer input named `n` and asks to output a single integer value computed from `n` as a classic math/sequence function (e.g., nth Fibonacci/Tribonacci term, `n!`, or `1+2+...+n`).",0.43750000000000006
+120,-0.39082787529473406,"Specifies an interactive, line-based command protocol (e.g., ADD/DELETE/LIST, PUSH/POP/PEEK, deposit/withdraw) to be read from standard input and processed until a terminating command like EXIT/QUIT (or blank line), with defined standard-output responses per command",0.43750000000000006
+55,-0.3841743725231176,"Contains at least one of these Unicode math/typography symbols: '≠', '×', '≤', '≥', or '—' (em dash)",0.44776119402985076
+9,0.3814773032500672,"Explicitly instructs the assistant to roleplay/act as/portray a specific persona or character (e.g., “act as…”, “roleplay…”, “you will be…”, “stay in character”).",0.9108910891089109
+1,0.3805321979776477,"Contains explicit sexual content, i.e., mentions sexual acts or sexual anatomy (e.g., masturbation, intercourse/oral sex, rape, porn, penis/cum/orgasm)",0.853932584269663
+112,-0.37017819706498944,Contains the word 'prime' (or 'primes') or the acronym 'LCM',0.6111111111111112

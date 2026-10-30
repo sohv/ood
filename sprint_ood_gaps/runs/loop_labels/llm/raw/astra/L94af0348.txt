@@ -1,0 +1,1 @@
+{"prompts":[{"i":1,"match":"yes"},{"i":2,"match":"no"},{"i":3,"match":"no"},{"i":4,"match":"yes"},{"i":5,"match":"no"},{"i":6,"match":"no"},{"i":7,"match":"yes"},{"i":8,"match":"no"},{"i":9,"match":"no"},{"i":10,"match":"no"}],"verdict":"partly","note":"3/10 match. NAME_1 placeholders do not affect the request-type judgments."}

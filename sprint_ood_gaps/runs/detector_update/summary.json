@@ -1,0 +1,47 @@
+{
+ "name_topics": {
+  "before": {
+   "n_topics": 101,
+   "above_line": 94,
+   "median_of_topic_medians": 87.86038735745514,
+   "share_at_ceiling": 0.5742574257425742
+  },
+  "fix_added": {
+   "n_topics": 101,
+   "above_line": 92,
+   "median_of_topic_medians": 43.137439726271836,
+   "share_at_ceiling": 0.3465346534653465
+  },
+  "control_added": {
+   "n_topics": 101,
+   "above_line": 94,
+   "median_of_topic_medians": 88.00037704159455,
+   "share_at_ceiling": 0.5742574257425742
+  }
+ },
+ "control_topics": {
+  "before": {
+   "n_topics": 100,
+   "above_line": 11,
+   "median_of_topic_medians": 2.815340585602664,
+   "share_at_ceiling": 0.04
+  },
+  "fix_added": {
+   "n_topics": 100,
+   "above_line": 11,
+   "median_of_topic_medians": 2.819826323159454,
+   "share_at_ceiling": 0.04
+  },
+  "control_added": {
+   "n_topics": 100,
+   "above_line": 11,
+   "median_of_topic_medians": 2.819826323159454,
+   "share_at_ceiling": 0.02
+  }
+ },
+ "moved": {
+  "fix": 1000,
+  "control": 1000
+ },
+ "queries": 12060
+}

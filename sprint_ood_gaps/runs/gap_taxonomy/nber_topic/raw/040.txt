@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "mathematical_calculation"},
+  {"i": 2, "c": "how_to_advice"},
+  {"i": 3, "c": "computer_programming"},
+  {"i": 4, "c": "computer_programming"},
+  {"i": 5, "c": "tutoring_or_teaching"},
+  {"i": 6, "c": "mathematical_calculation"},
+  {"i": 7, "c": "computer_programming"},
+  {"i": 8, "c": "unclear"},
+  {"i": 9, "c": "mathematical_calculation"},
+  {"i": 10, "c": "unclear"},
+  {"i": 11, "c": "data_analysis"},
+  {"i": 12, "c": "mathematical_calculation"},
+  {"i": 13, "c": "write_fiction"},
+  {"i": 14, "c": "write_fiction"},
+  {"i": 15, "c": "computer_programming"},
+  {"i": 16, "c": "specific_info"},
+  {"i": 17, "c": "tutoring_or_teaching"},
+  {"i": 18, "c": "create_an_image"},
+  {"i": 19, "c": "create_an_image"},
+  {"i": 20, "c": "computer_programming"}
+]
+```

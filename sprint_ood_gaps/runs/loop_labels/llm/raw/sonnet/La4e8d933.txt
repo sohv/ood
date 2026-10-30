@@ -1,0 +1,14 @@
+```json
+{"prompts": [
+{"i": 1, "match": "yes"},
+{"i": 2, "match": "yes"},
+{"i": 3, "match": "yes"},
+{"i": 4, "match": "no"},
+{"i": 5, "match": "yes"},
+{"i": 6, "match": "yes"},
+{"i": 7, "match": "yes"},
+{"i": 8, "match": "no"},
+{"i": 9, "match": "yes"},
+{"i": 10, "match": "yes"}
+], "verdict": "covered", "note": "General JavaScript coding, explanation and learning requests are well covered. Prompts 3, 9 and 10 are loose matches. Prompts 4 (cross-language equivalents of template strings) and 8 (closing a Bootstrap modal on outside click) have no real counterpart."}
+```

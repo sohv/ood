@@ -1,0 +1,3 @@
+```json
+{"prompts": [{"i": 1, "match": "yes"}, {"i": 2, "match": "no"}, {"i": 3, "match": "no"}, {"i": 4, "match": "no"}, {"i": 5, "match": "no"}, {"i": 6, "match": "no"}, {"i": 7, "match": "no"}, {"i": 8, "match": "no"}, {"i": 9, "match": "no"}, {"i": 10, "match": "no"}], "verdict": "real_gap", "note": "Only the Etsy t-shirt prompt has a close Dolci match. The core request in the rest is structured extraction from a product title or description (category, attributes, feature tables, spelling fixes, variant tables). Dolci has no such prompts, only unrelated product lookups, code tasks and creative writing. Prompt 10 (pick a category for a chicken in a robot setting) is only loosely like the Python categorization prompt, so it is a no."}
+```

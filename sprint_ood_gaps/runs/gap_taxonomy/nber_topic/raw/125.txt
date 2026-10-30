@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "unclear"},
+  {"i": 2, "c": "mathematical_calculation"},
+  {"i": 3, "c": "other"},
+  {"i": 4, "c": "unclear"},
+  {"i": 5, "c": "computer_programming"},
+  {"i": 6, "c": "specific_info"},
+  {"i": 7, "c": "computer_programming"},
+  {"i": 8, "c": "argument_or_summary_generation"},
+  {"i": 9, "c": "argument_or_summary_generation"},
+  {"i": 10, "c": "tutoring_or_teaching"},
+  {"i": 11, "c": "tutoring_or_teaching"},
+  {"i": 12, "c": "computer_programming"},
+  {"i": 13, "c": "edit_or_critique_provided_text"},
+  {"i": 14, "c": "computer_programming"},
+  {"i": 15, "c": "specific_info"},
+  {"i": 16, "c": "mathematical_calculation"},
+  {"i": 17, "c": "how_to_advice"},
+  {"i": 18, "c": "games_and_role_play"},
+  {"i": 19, "c": "games_and_role_play"},
+  {"i": 20, "c": "other"}
+]
+```

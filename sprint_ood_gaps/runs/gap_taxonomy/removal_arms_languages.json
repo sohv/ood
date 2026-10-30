@@ -1,0 +1,385 @@
+{
+ "language_id": "py3langid, first 1,000 characters (part 6 traffic `lang`; removal 3b lang_dolci.npy)",
+ "n": {
+  "traffic": 2000,
+  "full": 2000,
+  "minus_safety": 1895,
+  "random_safety": 1895,
+  "minus_code": 1603,
+  "random_code": 1603,
+  "minus_multilingual": 1901,
+  "random_multilingual": 1901
+ },
+ "pooled_non_english_share": {
+  "traffic": 0.2095,
+  "full": 0.077,
+  "minus_safety": 0.0807,
+  "random_safety": 0.0776,
+  "minus_code": 0.0942,
+  "random_code": 0.0711,
+  "minus_multilingual": 0.0289,
+  "random_multilingual": 0.0789
+ },
+ "pooled_gap_traffic_minus_dolci_points": {
+  "full": 13.2,
+  "minus_safety": 12.9,
+  "random_safety": 13.2,
+  "minus_code": 11.5,
+  "random_code": 13.8,
+  "minus_multilingual": 18.1,
+  "random_multilingual": 13.1
+ },
+ "removed_multilingual": {
+  "n": 99,
+  "n_languages": 39,
+  "per_language": [
+   {
+    "lang": "mg",
+    "removed": 11,
+    "dolci_full": 12,
+    "dolci_minus": 1,
+    "traffic": 0
+   },
+   {
+    "lang": "ta",
+    "removed": 8,
+    "dolci_full": 8,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "si",
+    "removed": 7,
+    "dolci_full": 7,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "ar",
+    "removed": 7,
+    "dolci_full": 7,
+    "dolci_minus": 0,
+    "traffic": 2
+   },
+   {
+    "lang": "tr",
+    "removed": 4,
+    "dolci_full": 4,
+    "dolci_minus": 0,
+    "traffic": 1
+   },
+   {
+    "lang": "ky",
+    "removed": 4,
+    "dolci_full": 4,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "zh",
+    "removed": 4,
+    "dolci_full": 7,
+    "dolci_minus": 3,
+    "traffic": 33
+   },
+   {
+    "lang": "pa",
+    "removed": 4,
+    "dolci_full": 5,
+    "dolci_minus": 1,
+    "traffic": 0
+   },
+   {
+    "lang": "pt",
+    "removed": 4,
+    "dolci_full": 5,
+    "dolci_minus": 1,
+    "traffic": 62
+   },
+   {
+    "lang": "id",
+    "removed": 3,
+    "dolci_full": 3,
+    "dolci_minus": 0,
+    "traffic": 4
+   },
+   {
+    "lang": "yo",
+    "removed": 3,
+    "dolci_full": 3,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "te",
+    "removed": 3,
+    "dolci_full": 6,
+    "dolci_minus": 3,
+    "traffic": 0
+   },
+   {
+    "lang": "pl",
+    "removed": 3,
+    "dolci_full": 4,
+    "dolci_minus": 1,
+    "traffic": 6
+   },
+   {
+    "lang": "ig",
+    "removed": 2,
+    "dolci_full": 4,
+    "dolci_minus": 2,
+    "traffic": 0
+   },
+   {
+    "lang": "sn",
+    "removed": 2,
+    "dolci_full": 2,
+    "dolci_minus": 0,
+    "traffic": 3
+   },
+   {
+    "lang": "ms",
+    "removed": 2,
+    "dolci_full": 2,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "ja",
+    "removed": 2,
+    "dolci_full": 4,
+    "dolci_minus": 2,
+    "traffic": 6
+   },
+   {
+    "lang": "so",
+    "removed": 2,
+    "dolci_full": 2,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "fr",
+    "removed": 2,
+    "dolci_full": 6,
+    "dolci_minus": 4,
+    "traffic": 25
+   },
+   {
+    "lang": "es",
+    "removed": 2,
+    "dolci_full": 7,
+    "dolci_minus": 5,
+    "traffic": 43
+   },
+   {
+    "lang": "zu",
+    "removed": 2,
+    "dolci_full": 2,
+    "dolci_minus": 0,
+    "traffic": 2
+   },
+   {
+    "lang": "ga",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 1
+   },
+   {
+    "lang": "hi",
+    "removed": 1,
+    "dolci_full": 2,
+    "dolci_minus": 1,
+    "traffic": 0
+   },
+   {
+    "lang": "fa",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 1
+   },
+   {
+    "lang": "ne",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "ko",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 12
+   },
+   {
+    "lang": "ru",
+    "removed": 1,
+    "dolci_full": 9,
+    "dolci_minus": 8,
+    "traffic": 72
+   },
+   {
+    "lang": "sdh",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "it",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 31
+   },
+   {
+    "lang": "ps",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "tl",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 1
+   },
+   {
+    "lang": "ml",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "lt",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "ha",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "gcf",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "bn",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "mr",
+    "removed": 1,
+    "dolci_full": 1,
+    "dolci_minus": 0,
+    "traffic": 0
+   },
+   {
+    "lang": "th",
+    "removed": 1,
+    "dolci_full": 2,
+    "dolci_minus": 1,
+    "traffic": 0
+   },
+   {
+    "lang": "vi",
+    "removed": 1,
+    "dolci_full": 3,
+    "dolci_minus": 2,
+    "traffic": 5
+   }
+  ],
+  "removed_in_languages_with_0_traffic": 57,
+  "removed_in_languages_with_le2_traffic": 73
+ },
+ "traffic_top_languages": [
+  {
+   "lang": "ru",
+   "traffic": 72,
+   "dolci_full": 9,
+   "dolci_minus": 8,
+   "removed": 1
+  },
+  {
+   "lang": "pt",
+   "traffic": 62,
+   "dolci_full": 5,
+   "dolci_minus": 1,
+   "removed": 4
+  },
+  {
+   "lang": "es",
+   "traffic": 43,
+   "dolci_full": 7,
+   "dolci_minus": 5,
+   "removed": 2
+  },
+  {
+   "lang": "de",
+   "traffic": 34,
+   "dolci_full": 3,
+   "dolci_minus": 3,
+   "removed": 0
+  },
+  {
+   "lang": "zh",
+   "traffic": 33,
+   "dolci_full": 7,
+   "dolci_minus": 3,
+   "removed": 4
+  },
+  {
+   "lang": "it",
+   "traffic": 31,
+   "dolci_full": 1,
+   "dolci_minus": 0,
+   "removed": 1
+  },
+  {
+   "lang": "fr",
+   "traffic": 25,
+   "dolci_full": 6,
+   "dolci_minus": 4,
+   "removed": 2
+  },
+  {
+   "lang": "ko",
+   "traffic": 12,
+   "dolci_full": 1,
+   "dolci_minus": 0,
+   "removed": 1
+  },
+  {
+   "lang": "pcm",
+   "traffic": 9,
+   "dolci_full": 3,
+   "dolci_minus": 3,
+   "removed": 0
+  },
+  {
+   "lang": "pl",
+   "traffic": 6,
+   "dolci_full": 4,
+   "dolci_minus": 1,
+   "removed": 3
+  }
+ ]
+}

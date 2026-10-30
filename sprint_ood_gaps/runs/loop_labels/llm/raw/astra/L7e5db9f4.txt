@@ -1,0 +1,1 @@
+{"prompts":[{"i":1,"match":"no"},{"i":2,"match":"no"},{"i":3,"match":"no"},{"i":4,"match":"yes"},{"i":5,"match":"no"},{"i":6,"match":"no"},{"i":7,"match":"no"},{"i":8,"match":"no"},{"i":9,"match":"no"},{"i":10,"match":"no"}],"verdict":"real_gap","note":"1/10 matches. Many prompts vary one template about Indian sissy feminization; sissygasm instructions are a different request."}

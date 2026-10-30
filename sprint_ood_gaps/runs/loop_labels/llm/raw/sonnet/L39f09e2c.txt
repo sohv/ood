@@ -1,0 +1,3 @@
+```json
+{"prompts": [{"i": 1, "match": "no"}, {"i": 2, "match": "no"}, {"i": 3, "match": "yes"}, {"i": 4, "match": "yes"}, {"i": 5, "match": "yes"}, {"i": 6, "match": "yes"}, {"i": 7, "match": "no"}, {"i": 8, "match": "no"}, {"i": 9, "match": "yes"}, {"i": 10, "match": "no"}], "verdict": "partly", "note": "Matches are on NAME_1 persona roleplay (the [META] bratty persona, the romantic-love SYSTEM prompt) and erotic NAME_x story requests. The Discord furry femboy persona prompts (1, 2, 7, 8, 10) have no true match: the Dolci hits are only a gay-jokes request, a Discord rate-limit question, and 'What is a furry?'."}
+```

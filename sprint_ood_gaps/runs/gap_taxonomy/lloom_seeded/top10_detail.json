@@ -1,0 +1,142 @@
+{
+ "full": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "name": "Creative Writing Challenge",
+   "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "traffic": 0.2615,
+   "dolci": 0.131,
+   "diff": 0.1305
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+   "name": "Lengthy Content Creation",
+   "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+   "traffic": 0.1435,
+   "dolci": 0.1015,
+   "diff": 0.042
+  }
+ ],
+ "minus_safety": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "name": "Creative Writing Challenge",
+   "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "traffic": 0.2615,
+   "dolci": 0.1177,
+   "diff": 0.1438
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+   "name": "Lengthy Content Creation",
+   "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+   "traffic": 0.1435,
+   "dolci": 0.1013,
+   "diff": 0.0422
+  }
+ ],
+ "random_safety": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "name": "Creative Writing Challenge",
+   "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "traffic": 0.2615,
+   "dolci": 0.1309,
+   "diff": 0.1306
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+   "name": "Lengthy Content Creation",
+   "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+   "traffic": 0.1435,
+   "dolci": 0.1003,
+   "diff": 0.0432
+  }
+ ],
+ "minus_code": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "name": "Creative Writing Challenge",
+   "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "traffic": 0.2615,
+   "dolci": 0.1622,
+   "diff": 0.0993
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+   "name": "Lengthy Content Creation",
+   "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+   "traffic": 0.1435,
+   "dolci": 0.1104,
+   "diff": 0.0331
+  }
+ ],
+ "random_code": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "name": "Creative Writing Challenge",
+   "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "traffic": 0.2615,
+   "dolci": 0.1273,
+   "diff": 0.1342
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+   "name": "Lengthy Content Creation",
+   "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+   "traffic": 0.1435,
+   "dolci": 0.1011,
+   "diff": 0.0424
+  }
+ ],
+ "minus_multilingual": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "name": "Creative Writing Challenge",
+   "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "traffic": 0.2615,
+   "dolci": 0.1331,
+   "diff": 0.1284
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+   "name": "Lengthy Content Creation",
+   "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+   "traffic": 0.1435,
+   "dolci": 0.1068,
+   "diff": 0.0367
+  }
+ ],
+ "random_multilingual": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "name": "Creative Writing Challenge",
+   "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+   "traffic": 0.2615,
+   "dolci": 0.1331,
+   "diff": 0.1284
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+   "name": "Lengthy Content Creation",
+   "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+   "traffic": 0.1435,
+   "dolci": 0.1036,
+   "diff": 0.0399
+  }
+ ]
+}

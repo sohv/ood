@@ -1,0 +1,2717 @@
+{
+ "properties_used": [
+  "adversarial_pressure",
+  "needs_missing_context",
+  "pasted_input",
+  "roleplay_or_persona_setup",
+  "explicit_sexual",
+  "harmful_request",
+  "placeholder_or_artefact",
+  "templated_dataset_item",
+  "multi_part",
+  "personal_emotional",
+  "asks_about_assistant",
+  "non_english",
+  "attachment_or_media",
+  "long_pasted_context",
+  "agentic_or_tool_use",
+  "strict_output_format",
+  "high_stakes_domain",
+  "deception_or_manipulation",
+  "privacy_personal_data",
+  "needs_current_info",
+  "homework_or_exam"
+ ],
+ "n_traffic": 1992,
+ "n_dolci": 1988,
+ "pairs": [
+  {
+   "pair": [
+    "explicit_sexual",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 33,
+   "dolci": 0,
+   "traffic_share": 0.0166,
+   "dolci_share": 0.0,
+   "pair_ratio": 66.87,
+   "single_ratios": [
+    7.51,
+    4.0
+   ],
+   "lift": 8.9
+  },
+  {
+   "pair": [
+    "non_english",
+    "personal_emotional"
+   ],
+   "traffic": 10,
+   "dolci": 0,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0,
+   "pair_ratio": 20.96,
+   "single_ratios": [
+    2.46,
+    2.51
+   ],
+   "lift": 8.36
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=roleplay or chat"
+   ],
+   "traffic": 25,
+   "dolci": 0,
+   "traffic_share": 0.0126,
+   "dolci_share": 0.0,
+   "pair_ratio": 50.9,
+   "single_ratios": [
+    2.46,
+    6.85
+   ],
+   "lift": 7.43
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=advice or opinion"
+   ],
+   "traffic": 12,
+   "dolci": 0,
+   "traffic_share": 0.006,
+   "dolci_share": 0.0,
+   "pair_ratio": 24.95,
+   "single_ratios": [
+    4.0,
+    2.79
+   ],
+   "lift": 6.24
+  },
+  {
+   "pair": [
+    "non_english",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 21,
+   "dolci": 1,
+   "traffic_share": 0.0105,
+   "dolci_share": 0.0005,
+   "pair_ratio": 14.3,
+   "single_ratios": [
+    2.46,
+    2.57
+   ],
+   "lift": 5.58
+  },
+  {
+   "pair": [
+    "agentic_or_tool_use",
+    "task=coding"
+   ],
+   "traffic": 22,
+   "dolci": 9,
+   "traffic_share": 0.011,
+   "dolci_share": 0.0045,
+   "pair_ratio": 2.36,
+   "single_ratios": [
+    0.27,
+    0.43
+   ],
+   "lift": 5.56
+  },
+  {
+   "pair": [
+    "task=roleplay or chat",
+    "templated_dataset_item"
+   ],
+   "traffic": 17,
+   "dolci": 0,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0,
+   "pair_ratio": 34.93,
+   "single_ratios": [
+    6.85,
+    0.35
+   ],
+   "lift": 5.1
+  },
+  {
+   "pair": [
+    "non_english",
+    "privacy_personal_data"
+   ],
+   "traffic": 17,
+   "dolci": 1,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0005,
+   "pair_ratio": 11.64,
+   "single_ratios": [
+    2.46,
+    1.0
+   ],
+   "lift": 4.74
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "templated_dataset_item"
+   ],
+   "traffic": 16,
+   "dolci": 1,
+   "traffic_share": 0.008,
+   "dolci_share": 0.0005,
+   "pair_ratio": 10.98,
+   "single_ratios": [
+    2.54,
+    0.35
+   ],
+   "lift": 4.32
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 25,
+   "dolci": 1,
+   "traffic_share": 0.0126,
+   "dolci_share": 0.0005,
+   "pair_ratio": 16.97,
+   "single_ratios": [
+    2.54,
+    4.0
+   ],
+   "lift": 4.24
+  },
+  {
+   "pair": [
+    "asks_about_assistant",
+    "task=roleplay or chat"
+   ],
+   "traffic": 27,
+   "dolci": 0,
+   "traffic_share": 0.0136,
+   "dolci_share": 0.0,
+   "pair_ratio": 54.89,
+   "single_ratios": [
+    14.79,
+    6.85
+   ],
+   "lift": 3.71
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=planning or brainstorming"
+   ],
+   "traffic": 13,
+   "dolci": 1,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.0005,
+   "pair_ratio": 8.98,
+   "single_ratios": [
+    2.46,
+    1.77
+   ],
+   "lift": 3.66
+  },
+  {
+   "pair": [
+    "asks_about_assistant",
+    "non_english"
+   ],
+   "traffic": 26,
+   "dolci": 0,
+   "traffic_share": 0.0131,
+   "dolci_share": 0.0,
+   "pair_ratio": 52.89,
+   "single_ratios": [
+    14.79,
+    2.46
+   ],
+   "lift": 3.58
+  },
+  {
+   "pair": [
+    "harmful_request",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 31,
+   "dolci": 2,
+   "traffic_share": 0.0156,
+   "dolci_share": 0.001,
+   "pair_ratio": 12.57,
+   "single_ratios": [
+    1.75,
+    4.0
+   ],
+   "lift": 3.15
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "non_english"
+   ],
+   "traffic": 26,
+   "dolci": 3,
+   "traffic_share": 0.0131,
+   "dolci_share": 0.0015,
+   "pair_ratio": 7.56,
+   "single_ratios": [
+    1.28,
+    2.46
+   ],
+   "lift": 3.08
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "needs_missing_context"
+   ],
+   "traffic": 13,
+   "dolci": 2,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.001,
+   "pair_ratio": 5.39,
+   "single_ratios": [
+    1.75,
+    1.71
+   ],
+   "lift": 3.08
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "pasted_input"
+   ],
+   "traffic": 15,
+   "dolci": 4,
+   "traffic_share": 0.0075,
+   "dolci_share": 0.002,
+   "pair_ratio": 3.44,
+   "single_ratios": [
+    1.28,
+    1.21
+   ],
+   "lift": 2.68
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=advice or opinion"
+   ],
+   "traffic": 25,
+   "dolci": 3,
+   "traffic_share": 0.0126,
+   "dolci_share": 0.0015,
+   "pair_ratio": 7.27,
+   "single_ratios": [
+    2.46,
+    2.79
+   ],
+   "lift": 2.61
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 92,
+   "dolci": 9,
+   "traffic_share": 0.0462,
+   "dolci_share": 0.0045,
+   "pair_ratio": 9.72,
+   "single_ratios": [
+    4.0,
+    2.57
+   ],
+   "lift": 2.43
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "task=other"
+   ],
+   "traffic": 10,
+   "dolci": 2,
+   "traffic_share": 0.005,
+   "dolci_share": 0.001,
+   "pair_ratio": 4.19,
+   "single_ratios": [
+    1.75,
+    1.4
+   ],
+   "lift": 2.4
+  },
+  {
+   "pair": [
+    "privacy_personal_data",
+    "strict_output_format"
+   ],
+   "traffic": 15,
+   "dolci": 6,
+   "traffic_share": 0.0075,
+   "dolci_share": 0.003,
+   "pair_ratio": 2.38,
+   "single_ratios": [
+    1.0,
+    0.65
+   ],
+   "lift": 2.38
+  },
+  {
+   "pair": [
+    "needs_current_info",
+    "strict_output_format"
+   ],
+   "traffic": 12,
+   "dolci": 8,
+   "traffic_share": 0.006,
+   "dolci_share": 0.004,
+   "pair_ratio": 1.47,
+   "single_ratios": [
+    0.61,
+    0.65
+   ],
+   "lift": 2.27
+  },
+  {
+   "pair": [
+    "harmful_request",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 36,
+   "dolci": 6,
+   "traffic_share": 0.0181,
+   "dolci_share": 0.003,
+   "pair_ratio": 5.6,
+   "single_ratios": [
+    1.75,
+    2.57
+   ],
+   "lift": 2.18
+  },
+  {
+   "pair": [
+    "task=explanation or teaching",
+    "templated_dataset_item"
+   ],
+   "traffic": 26,
+   "dolci": 6,
+   "traffic_share": 0.0131,
+   "dolci_share": 0.003,
+   "pair_ratio": 4.07,
+   "single_ratios": [
+    1.87,
+    0.35
+   ],
+   "lift": 2.17
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=coding"
+   ],
+   "traffic": 43,
+   "dolci": 8,
+   "traffic_share": 0.0216,
+   "dolci_share": 0.004,
+   "pair_ratio": 5.11,
+   "single_ratios": [
+    2.46,
+    0.43
+   ],
+   "lift": 2.08
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=summarization"
+   ],
+   "traffic": 17,
+   "dolci": 3,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0015,
+   "pair_ratio": 4.99,
+   "single_ratios": [
+    2.46,
+    1.52
+   ],
+   "lift": 2.03
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=summarization"
+   ],
+   "traffic": 11,
+   "dolci": 3,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.0015,
+   "pair_ratio": 3.28,
+   "single_ratios": [
+    1.71,
+    1.52
+   ],
+   "lift": 1.92
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "privacy_personal_data"
+   ],
+   "traffic": 19,
+   "dolci": 8,
+   "traffic_share": 0.0095,
+   "dolci_share": 0.004,
+   "pair_ratio": 2.29,
+   "single_ratios": [
+    1.21,
+    1.0
+   ],
+   "lift": 1.89
+  },
+  {
+   "pair": [
+    "needs_current_info",
+    "non_english"
+   ],
+   "traffic": 25,
+   "dolci": 5,
+   "traffic_share": 0.0126,
+   "dolci_share": 0.0025,
+   "pair_ratio": 4.63,
+   "single_ratios": [
+    0.61,
+    2.46
+   ],
+   "lift": 1.88
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=rewriting or editing"
+   ],
+   "traffic": 15,
+   "dolci": 3,
+   "traffic_share": 0.0075,
+   "dolci_share": 0.0015,
+   "pair_ratio": 4.42,
+   "single_ratios": [
+    2.46,
+    2.27
+   ],
+   "lift": 1.8
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=planning or brainstorming"
+   ],
+   "traffic": 10,
+   "dolci": 1,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0005,
+   "pair_ratio": 6.99,
+   "single_ratios": [
+    4.0,
+    1.77
+   ],
+   "lift": 1.75
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=creative writing"
+   ],
+   "traffic": 114,
+   "dolci": 16,
+   "traffic_share": 0.0572,
+   "dolci_share": 0.008,
+   "pair_ratio": 6.93,
+   "single_ratios": [
+    4.0,
+    3.11
+   ],
+   "lift": 1.73
+  },
+  {
+   "pair": [
+    "roleplay_or_persona_setup",
+    "templated_dataset_item"
+   ],
+   "traffic": 32,
+   "dolci": 7,
+   "traffic_share": 0.0161,
+   "dolci_share": 0.0035,
+   "pair_ratio": 4.32,
+   "single_ratios": [
+    2.57,
+    0.35
+   ],
+   "lift": 1.69
+  },
+  {
+   "pair": [
+    "harmful_request",
+    "strict_output_format"
+   ],
+   "traffic": 24,
+   "dolci": 8,
+   "traffic_share": 0.012,
+   "dolci_share": 0.004,
+   "pair_ratio": 2.88,
+   "single_ratios": [
+    1.75,
+    0.65
+   ],
+   "lift": 1.64
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 10,
+   "dolci": 2,
+   "traffic_share": 0.005,
+   "dolci_share": 0.001,
+   "pair_ratio": 4.19,
+   "single_ratios": [
+    1.75,
+    2.57
+   ],
+   "lift": 1.63
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=planning or brainstorming"
+   ],
+   "traffic": 18,
+   "dolci": 6,
+   "traffic_share": 0.009,
+   "dolci_share": 0.003,
+   "pair_ratio": 2.84,
+   "single_ratios": [
+    0.65,
+    1.77
+   ],
+   "lift": 1.61
+  },
+  {
+   "pair": [
+    "task=creative writing",
+    "templated_dataset_item"
+   ],
+   "traffic": 67,
+   "dolci": 13,
+   "traffic_share": 0.0336,
+   "dolci_share": 0.0065,
+   "pair_ratio": 4.99,
+   "single_ratios": [
+    3.11,
+    0.35
+   ],
+   "lift": 1.6
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=creative writing"
+   ],
+   "traffic": 70,
+   "dolci": 14,
+   "traffic_share": 0.0351,
+   "dolci_share": 0.007,
+   "pair_ratio": 4.85,
+   "single_ratios": [
+    2.46,
+    3.11
+   ],
+   "lift": 1.56
+  },
+  {
+   "pair": [
+    "explicit_sexual",
+    "task=roleplay or chat"
+   ],
+   "traffic": 17,
+   "dolci": 1,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0005,
+   "pair_ratio": 11.64,
+   "single_ratios": [
+    7.51,
+    6.85
+   ],
+   "lift": 1.55
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "non_english"
+   ],
+   "traffic": 27,
+   "dolci": 7,
+   "traffic_share": 0.0136,
+   "dolci_share": 0.0035,
+   "pair_ratio": 3.66,
+   "single_ratios": [
+    1.71,
+    2.46
+   ],
+   "lift": 1.49
+  },
+  {
+   "pair": [
+    "privacy_personal_data",
+    "task=extraction or classification"
+   ],
+   "traffic": 11,
+   "dolci": 7,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.0035,
+   "pair_ratio": 1.53,
+   "single_ratios": [
+    1.0,
+    1.04
+   ],
+   "lift": 1.48
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "pasted_input"
+   ],
+   "traffic": 53,
+   "dolci": 21,
+   "traffic_share": 0.0266,
+   "dolci_share": 0.0106,
+   "pair_ratio": 2.48,
+   "single_ratios": [
+    1.71,
+    1.21
+   ],
+   "lift": 1.46
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=explanation or teaching"
+   ],
+   "traffic": 17,
+   "dolci": 6,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.003,
+   "pair_ratio": 2.69,
+   "single_ratios": [
+    1.21,
+    1.87
+   ],
+   "lift": 1.43
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=other"
+   ],
+   "traffic": 22,
+   "dolci": 6,
+   "traffic_share": 0.011,
+   "dolci_share": 0.003,
+   "pair_ratio": 3.45,
+   "single_ratios": [
+    2.46,
+    1.4
+   ],
+   "lift": 1.41
+  },
+  {
+   "pair": [
+    "needs_current_info",
+    "task=advice or opinion"
+   ],
+   "traffic": 17,
+   "dolci": 4,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.002,
+   "pair_ratio": 3.88,
+   "single_ratios": [
+    0.61,
+    2.79
+   ],
+   "lift": 1.39
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=factual question"
+   ],
+   "traffic": 24,
+   "dolci": 4,
+   "traffic_share": 0.012,
+   "dolci_share": 0.002,
+   "pair_ratio": 5.43,
+   "single_ratios": [
+    4.0,
+    1.14
+   ],
+   "lift": 1.36
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=roleplay or chat"
+   ],
+   "traffic": 51,
+   "dolci": 5,
+   "traffic_share": 0.0256,
+   "dolci_share": 0.0025,
+   "pair_ratio": 9.34,
+   "single_ratios": [
+    4.0,
+    6.85
+   ],
+   "lift": 1.36
+  },
+  {
+   "pair": [
+    "agentic_or_tool_use",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 13,
+   "dolci": 2,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.001,
+   "pair_ratio": 5.39,
+   "single_ratios": [
+    0.27,
+    4.0
+   ],
+   "lift": 1.35
+  },
+  {
+   "pair": [
+    "agentic_or_tool_use",
+    "templated_dataset_item"
+   ],
+   "traffic": 10,
+   "dolci": 22,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0111,
+   "pair_ratio": 0.47,
+   "single_ratios": [
+    0.27,
+    0.35
+   ],
+   "lift": 1.34
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=extraction or classification"
+   ],
+   "traffic": 92,
+   "dolci": 66,
+   "traffic_share": 0.0462,
+   "dolci_share": 0.0332,
+   "pair_ratio": 1.39,
+   "single_ratios": [
+    0.65,
+    1.04
+   ],
+   "lift": 1.34
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=creative writing"
+   ],
+   "traffic": 43,
+   "dolci": 10,
+   "traffic_share": 0.0216,
+   "dolci_share": 0.005,
+   "pair_ratio": 4.13,
+   "single_ratios": [
+    1.21,
+    3.11
+   ],
+   "lift": 1.33
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=creative writing"
+   ],
+   "traffic": 30,
+   "dolci": 7,
+   "traffic_share": 0.0151,
+   "dolci_share": 0.0035,
+   "pair_ratio": 4.06,
+   "single_ratios": [
+    1.71,
+    3.11
+   ],
+   "lift": 1.3
+  },
+  {
+   "pair": [
+    "attachment_or_media",
+    "needs_missing_context"
+   ],
+   "traffic": 16,
+   "dolci": 7,
+   "traffic_share": 0.008,
+   "dolci_share": 0.0035,
+   "pair_ratio": 2.2,
+   "single_ratios": [
+    0.96,
+    1.71
+   ],
+   "lift": 1.29
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=extraction or classification"
+   ],
+   "traffic": 88,
+   "dolci": 58,
+   "traffic_share": 0.0442,
+   "dolci_share": 0.0292,
+   "pair_ratio": 1.51,
+   "single_ratios": [
+    1.21,
+    1.04
+   ],
+   "lift": 1.24
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "task=factual question"
+   ],
+   "traffic": 24,
+   "dolci": 15,
+   "traffic_share": 0.012,
+   "dolci_share": 0.0075,
+   "pair_ratio": 1.58,
+   "single_ratios": [
+    1.28,
+    1.14
+   ],
+   "lift": 1.23
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 45,
+   "dolci": 14,
+   "traffic_share": 0.0226,
+   "dolci_share": 0.007,
+   "pair_ratio": 3.13,
+   "single_ratios": [
+    2.54,
+    2.57
+   ],
+   "lift": 1.22
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "strict_output_format"
+   ],
+   "traffic": 29,
+   "dolci": 9,
+   "traffic_share": 0.0146,
+   "dolci_share": 0.0045,
+   "pair_ratio": 3.1,
+   "single_ratios": [
+    2.54,
+    0.65
+   ],
+   "lift": 1.22
+  },
+  {
+   "pair": [
+    "personal_emotional",
+    "task=advice or opinion"
+   ],
+   "traffic": 28,
+   "dolci": 8,
+   "traffic_share": 0.0141,
+   "dolci_share": 0.004,
+   "pair_ratio": 3.35,
+   "single_ratios": [
+    2.51,
+    2.79
+   ],
+   "lift": 1.2
+  },
+  {
+   "pair": [
+    "needs_current_info",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 11,
+   "dolci": 2,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.001,
+   "pair_ratio": 4.59,
+   "single_ratios": [
+    0.61,
+    4.0
+   ],
+   "lift": 1.15
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=other"
+   ],
+   "traffic": 26,
+   "dolci": 16,
+   "traffic_share": 0.0131,
+   "dolci_share": 0.008,
+   "pair_ratio": 1.6,
+   "single_ratios": [
+    1.21,
+    1.4
+   ],
+   "lift": 1.15
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "harmful_request"
+   ],
+   "traffic": 33,
+   "dolci": 11,
+   "traffic_share": 0.0166,
+   "dolci_share": 0.0055,
+   "pair_ratio": 2.91,
+   "single_ratios": [
+    2.54,
+    1.75
+   ],
+   "lift": 1.14
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=math or logic"
+   ],
+   "traffic": 12,
+   "dolci": 4,
+   "traffic_share": 0.006,
+   "dolci_share": 0.002,
+   "pair_ratio": 2.77,
+   "single_ratios": [
+    2.46,
+    0.09
+   ],
+   "lift": 1.13
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=creative writing"
+   ],
+   "traffic": 224,
+   "dolci": 64,
+   "traffic_share": 0.1124,
+   "dolci_share": 0.0322,
+   "pair_ratio": 3.47,
+   "single_ratios": [
+    0.65,
+    3.11
+   ],
+   "lift": 1.12
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 18,
+   "dolci": 6,
+   "traffic_share": 0.009,
+   "dolci_share": 0.003,
+   "pair_ratio": 2.84,
+   "single_ratios": [
+    1.71,
+    2.57
+   ],
+   "lift": 1.11
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=extraction or classification"
+   ],
+   "traffic": 64,
+   "dolci": 14,
+   "traffic_share": 0.0321,
+   "dolci_share": 0.007,
+   "pair_ratio": 4.44,
+   "single_ratios": [
+    4.0,
+    1.04
+   ],
+   "lift": 1.11
+  },
+  {
+   "pair": [
+    "multi_part",
+    "non_english"
+   ],
+   "traffic": 33,
+   "dolci": 12,
+   "traffic_share": 0.0166,
+   "dolci_share": 0.006,
+   "pair_ratio": 2.67,
+   "single_ratios": [
+    0.32,
+    2.46
+   ],
+   "lift": 1.09
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=translation"
+   ],
+   "traffic": 15,
+   "dolci": 12,
+   "traffic_share": 0.0075,
+   "dolci_share": 0.006,
+   "pair_ratio": 1.24,
+   "single_ratios": [
+    1.21,
+    0.66
+   ],
+   "lift": 1.02
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=other"
+   ],
+   "traffic": 46,
+   "dolci": 27,
+   "traffic_share": 0.0231,
+   "dolci_share": 0.0136,
+   "pair_ratio": 1.69,
+   "single_ratios": [
+    1.71,
+    1.4
+   ],
+   "lift": 0.99
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 39,
+   "dolci": 15,
+   "traffic_share": 0.0196,
+   "dolci_share": 0.0075,
+   "pair_ratio": 2.54,
+   "single_ratios": [
+    1.21,
+    2.57
+   ],
+   "lift": 0.99
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=summarization"
+   ],
+   "traffic": 35,
+   "dolci": 23,
+   "traffic_share": 0.0176,
+   "dolci_share": 0.0116,
+   "pair_ratio": 1.51,
+   "single_ratios": [
+    1.21,
+    1.52
+   ],
+   "lift": 0.99
+  },
+  {
+   "pair": [
+    "task=extraction or classification",
+    "templated_dataset_item"
+   ],
+   "traffic": 103,
+   "dolci": 101,
+   "traffic_share": 0.0517,
+   "dolci_share": 0.0508,
+   "pair_ratio": 1.02,
+   "single_ratios": [
+    1.04,
+    0.35
+   ],
+   "lift": 0.98
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 71,
+   "dolci": 18,
+   "traffic_share": 0.0356,
+   "dolci_share": 0.0091,
+   "pair_ratio": 3.86,
+   "single_ratios": [
+    1.71,
+    4.0
+   ],
+   "lift": 0.97
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=explanation or teaching"
+   ],
+   "traffic": 13,
+   "dolci": 3,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.0015,
+   "pair_ratio": 3.85,
+   "single_ratios": [
+    4.0,
+    1.87
+   ],
+   "lift": 0.96
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "pasted_input"
+   ],
+   "traffic": 48,
+   "dolci": 29,
+   "traffic_share": 0.0241,
+   "dolci_share": 0.0146,
+   "pair_ratio": 1.64,
+   "single_ratios": [
+    1.75,
+    1.21
+   ],
+   "lift": 0.94
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=roleplay or chat"
+   ],
+   "traffic": 22,
+   "dolci": 3,
+   "traffic_share": 0.011,
+   "dolci_share": 0.0015,
+   "pair_ratio": 6.42,
+   "single_ratios": [
+    0.65,
+    6.85
+   ],
+   "lift": 0.94
+  },
+  {
+   "pair": [
+    "explicit_sexual",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 31,
+   "dolci": 4,
+   "traffic_share": 0.0156,
+   "dolci_share": 0.002,
+   "pair_ratio": 6.99,
+   "single_ratios": [
+    7.51,
+    2.57
+   ],
+   "lift": 0.93
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=rewriting or editing"
+   ],
+   "traffic": 47,
+   "dolci": 22,
+   "traffic_share": 0.0236,
+   "dolci_share": 0.0111,
+   "pair_ratio": 2.11,
+   "single_ratios": [
+    1.21,
+    2.27
+   ],
+   "lift": 0.93
+  },
+  {
+   "pair": [
+    "roleplay_or_persona_setup",
+    "task=creative writing"
+   ],
+   "traffic": 105,
+   "dolci": 36,
+   "traffic_share": 0.0527,
+   "dolci_share": 0.0181,
+   "pair_ratio": 2.88,
+   "single_ratios": [
+    2.57,
+    3.11
+   ],
+   "lift": 0.93
+  },
+  {
+   "pair": [
+    "non_english",
+    "pasted_input"
+   ],
+   "traffic": 77,
+   "dolci": 34,
+   "traffic_share": 0.0387,
+   "dolci_share": 0.0171,
+   "pair_ratio": 2.24,
+   "single_ratios": [
+    2.46,
+    1.21
+   ],
+   "lift": 0.91
+  },
+  {
+   "pair": [
+    "privacy_personal_data",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 10,
+   "dolci": 4,
+   "traffic_share": 0.005,
+   "dolci_share": 0.002,
+   "pair_ratio": 2.33,
+   "single_ratios": [
+    1.0,
+    2.57
+   ],
+   "lift": 0.91
+  },
+  {
+   "pair": [
+    "multi_part",
+    "templated_dataset_item"
+   ],
+   "traffic": 47,
+   "dolci": 151,
+   "traffic_share": 0.0236,
+   "dolci_share": 0.076,
+   "pair_ratio": 0.31,
+   "single_ratios": [
+    0.32,
+    0.35
+   ],
+   "lift": 0.9
+  },
+  {
+   "pair": [
+    "roleplay_or_persona_setup",
+    "strict_output_format"
+   ],
+   "traffic": 61,
+   "dolci": 26,
+   "traffic_share": 0.0306,
+   "dolci_share": 0.0131,
+   "pair_ratio": 2.32,
+   "single_ratios": [
+    2.57,
+    0.65
+   ],
+   "lift": 0.9
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "task=roleplay or chat"
+   ],
+   "traffic": 33,
+   "dolci": 5,
+   "traffic_share": 0.0166,
+   "dolci_share": 0.0025,
+   "pair_ratio": 6.08,
+   "single_ratios": [
+    2.54,
+    6.85
+   ],
+   "lift": 0.89
+  },
+  {
+   "pair": [
+    "harmful_request",
+    "task=roleplay or chat"
+   ],
+   "traffic": 21,
+   "dolci": 3,
+   "traffic_share": 0.0105,
+   "dolci_share": 0.0015,
+   "pair_ratio": 6.13,
+   "single_ratios": [
+    1.75,
+    6.85
+   ],
+   "lift": 0.89
+  },
+  {
+   "pair": [
+    "multi_part",
+    "strict_output_format"
+   ],
+   "traffic": 85,
+   "dolci": 148,
+   "traffic_share": 0.0427,
+   "dolci_share": 0.0744,
+   "pair_ratio": 0.57,
+   "single_ratios": [
+    0.32,
+    0.65
+   ],
+   "lift": 0.89
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "strict_output_format"
+   ],
+   "traffic": 17,
+   "dolci": 11,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0055,
+   "pair_ratio": 1.52,
+   "single_ratios": [
+    1.71,
+    0.65
+   ],
+   "lift": 0.89
+  },
+  {
+   "pair": [
+    "attachment_or_media",
+    "task=other"
+   ],
+   "traffic": 10,
+   "dolci": 8,
+   "traffic_share": 0.005,
+   "dolci_share": 0.004,
+   "pair_ratio": 1.23,
+   "single_ratios": [
+    0.96,
+    1.4
+   ],
+   "lift": 0.88
+  },
+  {
+   "pair": [
+    "deception_or_manipulation",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 12,
+   "dolci": 5,
+   "traffic_share": 0.006,
+   "dolci_share": 0.0025,
+   "pair_ratio": 2.27,
+   "single_ratios": [
+    0.93,
+    2.57
+   ],
+   "lift": 0.88
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=explanation or teaching"
+   ],
+   "traffic": 15,
+   "dolci": 9,
+   "traffic_share": 0.0075,
+   "dolci_share": 0.0045,
+   "pair_ratio": 1.63,
+   "single_ratios": [
+    1.71,
+    1.87
+   ],
+   "lift": 0.87
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "strict_output_format"
+   ],
+   "traffic": 130,
+   "dolci": 37,
+   "traffic_share": 0.0653,
+   "dolci_share": 0.0186,
+   "pair_ratio": 3.47,
+   "single_ratios": [
+    4.0,
+    0.65
+   ],
+   "lift": 0.87
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=explanation or teaching"
+   ],
+   "traffic": 39,
+   "dolci": 24,
+   "traffic_share": 0.0196,
+   "dolci_share": 0.0121,
+   "pair_ratio": 1.61,
+   "single_ratios": [
+    0.65,
+    1.87
+   ],
+   "lift": 0.86
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "strict_output_format"
+   ],
+   "traffic": 11,
+   "dolci": 10,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.005,
+   "pair_ratio": 1.09,
+   "single_ratios": [
+    1.28,
+    0.65
+   ],
+   "lift": 0.85
+  },
+  {
+   "pair": [
+    "explicit_sexual",
+    "harmful_request"
+   ],
+   "traffic": 28,
+   "dolci": 4,
+   "traffic_share": 0.0141,
+   "dolci_share": 0.002,
+   "pair_ratio": 6.32,
+   "single_ratios": [
+    7.51,
+    1.75
+   ],
+   "lift": 0.84
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "privacy_personal_data"
+   ],
+   "traffic": 21,
+   "dolci": 6,
+   "traffic_share": 0.0105,
+   "dolci_share": 0.003,
+   "pair_ratio": 3.3,
+   "single_ratios": [
+    4.0,
+    1.0
+   ],
+   "lift": 0.83
+  },
+  {
+   "pair": [
+    "explicit_sexual",
+    "task=creative writing"
+   ],
+   "traffic": 52,
+   "dolci": 8,
+   "traffic_share": 0.0261,
+   "dolci_share": 0.004,
+   "pair_ratio": 6.16,
+   "single_ratios": [
+    7.51,
+    3.11
+   ],
+   "lift": 0.82
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 11,
+   "dolci": 3,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.0015,
+   "pair_ratio": 3.28,
+   "single_ratios": [
+    1.28,
+    4.0
+   ],
+   "lift": 0.82
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=advice or opinion"
+   ],
+   "traffic": 12,
+   "dolci": 5,
+   "traffic_share": 0.006,
+   "dolci_share": 0.0025,
+   "pair_ratio": 2.27,
+   "single_ratios": [
+    1.71,
+    2.79
+   ],
+   "lift": 0.81
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=rewriting or editing"
+   ],
+   "traffic": 17,
+   "dolci": 9,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0045,
+   "pair_ratio": 1.84,
+   "single_ratios": [
+    0.65,
+    2.27
+   ],
+   "lift": 0.81
+  },
+  {
+   "pair": [
+    "asks_about_assistant",
+    "task=factual question"
+   ],
+   "traffic": 29,
+   "dolci": 2,
+   "traffic_share": 0.0146,
+   "dolci_share": 0.001,
+   "pair_ratio": 11.78,
+   "single_ratios": [
+    14.79,
+    1.14
+   ],
+   "lift": 0.8
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "task=explanation or teaching"
+   ],
+   "traffic": 13,
+   "dolci": 9,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.0045,
+   "pair_ratio": 1.42,
+   "single_ratios": [
+    1.28,
+    1.87
+   ],
+   "lift": 0.76
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=explanation or teaching"
+   ],
+   "traffic": 47,
+   "dolci": 25,
+   "traffic_share": 0.0236,
+   "dolci_share": 0.0126,
+   "pair_ratio": 1.86,
+   "single_ratios": [
+    2.46,
+    1.87
+   ],
+   "lift": 0.76
+  },
+  {
+   "pair": [
+    "non_english",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 28,
+   "dolci": 9,
+   "traffic_share": 0.0141,
+   "dolci_share": 0.0045,
+   "pair_ratio": 2.99,
+   "single_ratios": [
+    2.46,
+    4.0
+   ],
+   "lift": 0.75
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "non_english"
+   ],
+   "traffic": 15,
+   "dolci": 8,
+   "traffic_share": 0.0075,
+   "dolci_share": 0.004,
+   "pair_ratio": 1.82,
+   "single_ratios": [
+    1.75,
+    2.46
+   ],
+   "lift": 0.74
+  },
+  {
+   "pair": [
+    "roleplay_or_persona_setup",
+    "task=roleplay or chat"
+   ],
+   "traffic": 104,
+   "dolci": 20,
+   "traffic_share": 0.0522,
+   "dolci_share": 0.0101,
+   "pair_ratio": 5.09,
+   "single_ratios": [
+    2.57,
+    6.85
+   ],
+   "lift": 0.74
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "task=advice or opinion"
+   ],
+   "traffic": 19,
+   "dolci": 9,
+   "traffic_share": 0.0095,
+   "dolci_share": 0.0045,
+   "pair_ratio": 2.05,
+   "single_ratios": [
+    1.28,
+    2.79
+   ],
+   "lift": 0.73
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "task=creative writing"
+   ],
+   "traffic": 12,
+   "dolci": 5,
+   "traffic_share": 0.006,
+   "dolci_share": 0.0025,
+   "pair_ratio": 2.27,
+   "single_ratios": [
+    1.28,
+    3.11
+   ],
+   "lift": 0.73
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "strict_output_format"
+   ],
+   "traffic": 113,
+   "dolci": 128,
+   "traffic_share": 0.0567,
+   "dolci_share": 0.0644,
+   "pair_ratio": 0.88,
+   "single_ratios": [
+    1.21,
+    0.65
+   ],
+   "lift": 0.73
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "task=summarization"
+   ],
+   "traffic": 11,
+   "dolci": 9,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.0045,
+   "pair_ratio": 1.21,
+   "single_ratios": [
+    1.75,
+    1.52
+   ],
+   "lift": 0.69
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=translation"
+   ],
+   "traffic": 12,
+   "dolci": 4,
+   "traffic_share": 0.006,
+   "dolci_share": 0.002,
+   "pair_ratio": 2.77,
+   "single_ratios": [
+    4.0,
+    0.66
+   ],
+   "lift": 0.69
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "non_english"
+   ],
+   "traffic": 33,
+   "dolci": 20,
+   "traffic_share": 0.0166,
+   "dolci_share": 0.0101,
+   "pair_ratio": 1.63,
+   "single_ratios": [
+    0.14,
+    2.46
+   ],
+   "lift": 0.66
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "templated_dataset_item"
+   ],
+   "traffic": 17,
+   "dolci": 15,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0075,
+   "pair_ratio": 1.13,
+   "single_ratios": [
+    1.71,
+    0.35
+   ],
+   "lift": 0.66
+  },
+  {
+   "pair": [
+    "multi_part",
+    "task=creative writing"
+   ],
+   "traffic": 77,
+   "dolci": 38,
+   "traffic_share": 0.0387,
+   "dolci_share": 0.0191,
+   "pair_ratio": 2.01,
+   "single_ratios": [
+    0.32,
+    3.11
+   ],
+   "lift": 0.65
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=rewriting or editing"
+   ],
+   "traffic": 19,
+   "dolci": 7,
+   "traffic_share": 0.0095,
+   "dolci_share": 0.0035,
+   "pair_ratio": 2.59,
+   "single_ratios": [
+    4.0,
+    2.27
+   ],
+   "lift": 0.65
+  },
+  {
+   "pair": [
+    "high_stakes_domain",
+    "personal_emotional"
+   ],
+   "traffic": 10,
+   "dolci": 6,
+   "traffic_share": 0.005,
+   "dolci_share": 0.003,
+   "pair_ratio": 1.61,
+   "single_ratios": [
+    1.28,
+    2.51
+   ],
+   "lift": 0.64
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 11,
+   "dolci": 4,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.002,
+   "pair_ratio": 2.55,
+   "single_ratios": [
+    0.14,
+    4.0
+   ],
+   "lift": 0.64
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "task=creative writing"
+   ],
+   "traffic": 14,
+   "dolci": 7,
+   "traffic_share": 0.007,
+   "dolci_share": 0.0035,
+   "pair_ratio": 1.93,
+   "single_ratios": [
+    0.14,
+    3.11
+   ],
+   "lift": 0.62
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=factual question"
+   ],
+   "traffic": 16,
+   "dolci": 15,
+   "traffic_share": 0.008,
+   "dolci_share": 0.0075,
+   "pair_ratio": 1.06,
+   "single_ratios": [
+    1.71,
+    1.14
+   ],
+   "lift": 0.62
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=coding"
+   ],
+   "traffic": 38,
+   "dolci": 15,
+   "traffic_share": 0.0191,
+   "dolci_share": 0.0075,
+   "pair_ratio": 2.48,
+   "single_ratios": [
+    4.0,
+    0.43
+   ],
+   "lift": 0.62
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=other"
+   ],
+   "traffic": 28,
+   "dolci": 11,
+   "traffic_share": 0.0141,
+   "dolci_share": 0.0055,
+   "pair_ratio": 2.47,
+   "single_ratios": [
+    4.0,
+    1.4
+   ],
+   "lift": 0.62
+  },
+  {
+   "pair": [
+    "task=summarization",
+    "templated_dataset_item"
+   ],
+   "traffic": 13,
+   "dolci": 14,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.007,
+   "pair_ratio": 0.93,
+   "single_ratios": [
+    1.52,
+    0.35
+   ],
+   "lift": 0.61
+  },
+  {
+   "pair": [
+    "multi_part",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 40,
+   "dolci": 17,
+   "traffic_share": 0.0201,
+   "dolci_share": 0.0086,
+   "pair_ratio": 2.31,
+   "single_ratios": [
+    0.32,
+    4.0
+   ],
+   "lift": 0.58
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "templated_dataset_item"
+   ],
+   "traffic": 207,
+   "dolci": 550,
+   "traffic_share": 0.1039,
+   "dolci_share": 0.2767,
+   "pair_ratio": 0.38,
+   "single_ratios": [
+    0.65,
+    0.35
+   ],
+   "lift": 0.58
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "task=creative writing"
+   ],
+   "traffic": 20,
+   "dolci": 11,
+   "traffic_share": 0.01,
+   "dolci_share": 0.0055,
+   "pair_ratio": 1.78,
+   "single_ratios": [
+    2.54,
+    3.11
+   ],
+   "lift": 0.57
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 190,
+   "dolci": 83,
+   "traffic_share": 0.0954,
+   "dolci_share": 0.0418,
+   "pair_ratio": 2.28,
+   "single_ratios": [
+    1.21,
+    4.0
+   ],
+   "lift": 0.57
+  },
+  {
+   "pair": [
+    "harmful_request",
+    "task=creative writing"
+   ],
+   "traffic": 44,
+   "dolci": 25,
+   "traffic_share": 0.0221,
+   "dolci_share": 0.0126,
+   "pair_ratio": 1.74,
+   "single_ratios": [
+    1.75,
+    3.11
+   ],
+   "lift": 0.56
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=coding"
+   ],
+   "traffic": 58,
+   "dolci": 85,
+   "traffic_share": 0.0291,
+   "dolci_share": 0.0428,
+   "pair_ratio": 0.68,
+   "single_ratios": [
+    1.21,
+    0.43
+   ],
+   "lift": 0.56
+  },
+  {
+   "pair": [
+    "non_english",
+    "strict_output_format"
+   ],
+   "traffic": 45,
+   "dolci": 33,
+   "traffic_share": 0.0226,
+   "dolci_share": 0.0166,
+   "pair_ratio": 1.36,
+   "single_ratios": [
+    2.46,
+    0.65
+   ],
+   "lift": 0.55
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=factual question"
+   ],
+   "traffic": 21,
+   "dolci": 34,
+   "traffic_share": 0.0105,
+   "dolci_share": 0.0171,
+   "pair_ratio": 0.62,
+   "single_ratios": [
+    0.65,
+    1.14
+   ],
+   "lift": 0.55
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "templated_dataset_item"
+   ],
+   "traffic": 106,
+   "dolci": 161,
+   "traffic_share": 0.0532,
+   "dolci_share": 0.081,
+   "pair_ratio": 0.66,
+   "single_ratios": [
+    1.21,
+    0.35
+   ],
+   "lift": 0.54
+  },
+  {
+   "pair": [
+    "needs_current_info",
+    "task=factual question"
+   ],
+   "traffic": 59,
+   "dolci": 98,
+   "traffic_share": 0.0296,
+   "dolci_share": 0.0493,
+   "pair_ratio": 0.6,
+   "single_ratios": [
+    0.61,
+    1.14
+   ],
+   "lift": 0.53
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=factual question"
+   ],
+   "traffic": 72,
+   "dolci": 56,
+   "traffic_share": 0.0361,
+   "dolci_share": 0.0282,
+   "pair_ratio": 1.28,
+   "single_ratios": [
+    2.46,
+    1.14
+   ],
+   "lift": 0.52
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "templated_dataset_item"
+   ],
+   "traffic": 108,
+   "dolci": 52,
+   "traffic_share": 0.0542,
+   "dolci_share": 0.0262,
+   "pair_ratio": 2.06,
+   "single_ratios": [
+    4.0,
+    0.35
+   ],
+   "lift": 0.52
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=summarization"
+   ],
+   "traffic": 13,
+   "dolci": 17,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.0086,
+   "pair_ratio": 0.77,
+   "single_ratios": [
+    0.65,
+    1.52
+   ],
+   "lift": 0.51
+  },
+  {
+   "pair": [
+    "privacy_personal_data",
+    "task=creative writing"
+   ],
+   "traffic": 16,
+   "dolci": 10,
+   "traffic_share": 0.008,
+   "dolci_share": 0.005,
+   "pair_ratio": 1.57,
+   "single_ratios": [
+    1.0,
+    3.11
+   ],
+   "lift": 0.5
+  },
+  {
+   "pair": [
+    "multi_part",
+    "task=explanation or teaching"
+   ],
+   "traffic": 22,
+   "dolci": 24,
+   "traffic_share": 0.011,
+   "dolci_share": 0.0121,
+   "pair_ratio": 0.92,
+   "single_ratios": [
+    0.32,
+    1.87
+   ],
+   "lift": 0.49
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=coding"
+   ],
+   "traffic": 19,
+   "dolci": 23,
+   "traffic_share": 0.0095,
+   "dolci_share": 0.0116,
+   "pair_ratio": 0.83,
+   "single_ratios": [
+    1.71,
+    0.43
+   ],
+   "lift": 0.49
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "templated_dataset_item"
+   ],
+   "traffic": 10,
+   "dolci": 12,
+   "traffic_share": 0.005,
+   "dolci_share": 0.006,
+   "pair_ratio": 0.84,
+   "single_ratios": [
+    1.75,
+    0.35
+   ],
+   "lift": 0.48
+  },
+  {
+   "pair": [
+    "explicit_sexual",
+    "strict_output_format"
+   ],
+   "traffic": 11,
+   "dolci": 3,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.0015,
+   "pair_ratio": 3.28,
+   "single_ratios": [
+    7.51,
+    0.65
+   ],
+   "lift": 0.44
+  },
+  {
+   "pair": [
+    "multi_part",
+    "task=extraction or classification"
+   ],
+   "traffic": 12,
+   "dolci": 27,
+   "traffic_share": 0.006,
+   "dolci_share": 0.0136,
+   "pair_ratio": 0.45,
+   "single_ratios": [
+    0.32,
+    1.04
+   ],
+   "lift": 0.44
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "pasted_input"
+   ],
+   "traffic": 16,
+   "dolci": 31,
+   "traffic_share": 0.008,
+   "dolci_share": 0.0156,
+   "pair_ratio": 0.52,
+   "single_ratios": [
+    0.14,
+    1.21
+   ],
+   "lift": 0.43
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "strict_output_format"
+   ],
+   "traffic": 12,
+   "dolci": 16,
+   "traffic_share": 0.006,
+   "dolci_share": 0.008,
+   "pair_ratio": 0.76,
+   "single_ratios": [
+    1.75,
+    0.65
+   ],
+   "lift": 0.43
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "task=math or logic"
+   ],
+   "traffic": 22,
+   "dolci": 375,
+   "traffic_share": 0.011,
+   "dolci_share": 0.1886,
+   "pair_ratio": 0.06,
+   "single_ratios": [
+    0.14,
+    0.09
+   ],
+   "lift": 0.42
+  },
+  {
+   "pair": [
+    "adversarial_pressure",
+    "explicit_sexual"
+   ],
+   "traffic": 10,
+   "dolci": 3,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0015,
+   "pair_ratio": 2.99,
+   "single_ratios": [
+    2.54,
+    7.51
+   ],
+   "lift": 0.4
+  },
+  {
+   "pair": [
+    "multi_part",
+    "pasted_input"
+   ],
+   "traffic": 31,
+   "dolci": 65,
+   "traffic_share": 0.0156,
+   "dolci_share": 0.0327,
+   "pair_ratio": 0.48,
+   "single_ratios": [
+    0.32,
+    1.21
+   ],
+   "lift": 0.4
+  },
+  {
+   "pair": [
+    "placeholder_or_artefact",
+    "task=summarization"
+   ],
+   "traffic": 26,
+   "dolci": 16,
+   "traffic_share": 0.0131,
+   "dolci_share": 0.008,
+   "pair_ratio": 1.6,
+   "single_ratios": [
+    4.0,
+    1.52
+   ],
+   "lift": 0.4
+  },
+  {
+   "pair": [
+    "long_pasted_context",
+    "placeholder_or_artefact"
+   ],
+   "traffic": 46,
+   "dolci": 29,
+   "traffic_share": 0.0231,
+   "dolci_share": 0.0146,
+   "pair_ratio": 1.57,
+   "single_ratios": [
+    1.75,
+    4.0
+   ],
+   "lift": 0.39
+  },
+  {
+   "pair": [
+    "privacy_personal_data",
+    "task=factual question"
+   ],
+   "traffic": 10,
+   "dolci": 23,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0116,
+   "pair_ratio": 0.45,
+   "single_ratios": [
+    1.0,
+    1.14
+   ],
+   "lift": 0.39
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=extraction or classification"
+   ],
+   "traffic": 17,
+   "dolci": 18,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.0091,
+   "pair_ratio": 0.94,
+   "single_ratios": [
+    2.46,
+    1.04
+   ],
+   "lift": 0.38
+  },
+  {
+   "pair": [
+    "needs_missing_context",
+    "task=roleplay or chat"
+   ],
+   "traffic": 11,
+   "dolci": 4,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.002,
+   "pair_ratio": 2.55,
+   "single_ratios": [
+    1.71,
+    6.85
+   ],
+   "lift": 0.37
+  },
+  {
+   "pair": [
+    "multi_part",
+    "task=coding"
+   ],
+   "traffic": 14,
+   "dolci": 95,
+   "traffic_share": 0.007,
+   "dolci_share": 0.0478,
+   "pair_ratio": 0.15,
+   "single_ratios": [
+    0.32,
+    0.43
+   ],
+   "lift": 0.36
+  },
+  {
+   "pair": [
+    "multi_part",
+    "task=planning or brainstorming"
+   ],
+   "traffic": 13,
+   "dolci": 21,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.0106,
+   "pair_ratio": 0.63,
+   "single_ratios": [
+    0.32,
+    1.77
+   ],
+   "lift": 0.35
+  },
+  {
+   "pair": [
+    "deception_or_manipulation",
+    "harmful_request"
+   ],
+   "traffic": 13,
+   "dolci": 23,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.0116,
+   "pair_ratio": 0.57,
+   "single_ratios": [
+    0.93,
+    1.75
+   ],
+   "lift": 0.33
+  },
+  {
+   "pair": [
+    "task=other",
+    "templated_dataset_item"
+   ],
+   "traffic": 10,
+   "dolci": 22,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0111,
+   "pair_ratio": 0.47,
+   "single_ratios": [
+    1.4,
+    0.35
+   ],
+   "lift": 0.33
+  },
+  {
+   "pair": [
+    "non_english",
+    "templated_dataset_item"
+   ],
+   "traffic": 25,
+   "dolci": 32,
+   "traffic_share": 0.0126,
+   "dolci_share": 0.0161,
+   "pair_ratio": 0.78,
+   "single_ratios": [
+    2.46,
+    0.35
+   ],
+   "lift": 0.32
+  },
+  {
+   "pair": [
+    "asks_about_assistant",
+    "task=other"
+   ],
+   "traffic": 11,
+   "dolci": 2,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.001,
+   "pair_ratio": 4.59,
+   "single_ratios": [
+    14.79,
+    1.4
+   ],
+   "lift": 0.31
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "task=explanation or teaching"
+   ],
+   "traffic": 10,
+   "dolci": 21,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0106,
+   "pair_ratio": 0.49,
+   "single_ratios": [
+    0.14,
+    1.87
+   ],
+   "lift": 0.26
+  },
+  {
+   "pair": [
+    "multi_part",
+    "roleplay_or_persona_setup"
+   ],
+   "traffic": 28,
+   "dolci": 42,
+   "traffic_share": 0.0141,
+   "dolci_share": 0.0211,
+   "pair_ratio": 0.67,
+   "single_ratios": [
+    0.32,
+    2.57
+   ],
+   "lift": 0.26
+  },
+  {
+   "pair": [
+    "non_english",
+    "task=translation"
+   ],
+   "traffic": 12,
+   "dolci": 19,
+   "traffic_share": 0.006,
+   "dolci_share": 0.0096,
+   "pair_ratio": 0.64,
+   "single_ratios": [
+    2.46,
+    0.66
+   ],
+   "lift": 0.26
+  },
+  {
+   "pair": [
+    "multi_part",
+    "needs_current_info"
+   ],
+   "traffic": 14,
+   "dolci": 94,
+   "traffic_share": 0.007,
+   "dolci_share": 0.0473,
+   "pair_ratio": 0.15,
+   "single_ratios": [
+    0.32,
+    0.61
+   ],
+   "lift": 0.25
+  },
+  {
+   "pair": [
+    "task=factual question",
+    "templated_dataset_item"
+   ],
+   "traffic": 10,
+   "dolci": 36,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0181,
+   "pair_ratio": 0.29,
+   "single_ratios": [
+    1.14,
+    0.35
+   ],
+   "lift": 0.25
+  },
+  {
+   "pair": [
+    "multi_part",
+    "task=factual question"
+   ],
+   "traffic": 13,
+   "dolci": 54,
+   "traffic_share": 0.0065,
+   "dolci_share": 0.0272,
+   "pair_ratio": 0.25,
+   "single_ratios": [
+    0.32,
+    1.14
+   ],
+   "lift": 0.22
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "templated_dataset_item"
+   ],
+   "traffic": 19,
+   "dolci": 263,
+   "traffic_share": 0.0095,
+   "dolci_share": 0.1323,
+   "pair_ratio": 0.07,
+   "single_ratios": [
+    0.14,
+    0.35
+   ],
+   "lift": 0.21
+  },
+  {
+   "pair": [
+    "pasted_input",
+    "task=roleplay or chat"
+   ],
+   "traffic": 10,
+   "dolci": 9,
+   "traffic_share": 0.005,
+   "dolci_share": 0.0045,
+   "pair_ratio": 1.1,
+   "single_ratios": [
+    1.21,
+    6.85
+   ],
+   "lift": 0.16
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "multi_part"
+   ],
+   "traffic": 11,
+   "dolci": 230,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.1157,
+   "pair_ratio": 0.05,
+   "single_ratios": [
+    0.14,
+    0.32
+   ],
+   "lift": 0.15
+  },
+  {
+   "pair": [
+    "task=coding",
+    "templated_dataset_item"
+   ],
+   "traffic": 17,
+   "dolci": 276,
+   "traffic_share": 0.0085,
+   "dolci_share": 0.1388,
+   "pair_ratio": 0.06,
+   "single_ratios": [
+    0.43,
+    0.35
+   ],
+   "lift": 0.15
+  },
+  {
+   "pair": [
+    "strict_output_format",
+    "task=coding"
+   ],
+   "traffic": 22,
+   "dolci": 253,
+   "traffic_share": 0.011,
+   "dolci_share": 0.1273,
+   "pair_ratio": 0.09,
+   "single_ratios": [
+    0.65,
+    0.43
+   ],
+   "lift": 0.14
+  },
+  {
+   "pair": [
+    "homework_or_exam",
+    "strict_output_format"
+   ],
+   "traffic": 16,
+   "dolci": 204,
+   "traffic_share": 0.008,
+   "dolci_share": 0.1026,
+   "pair_ratio": 0.08,
+   "single_ratios": [
+    0.14,
+    0.65
+   ],
+   "lift": 0.12
+  },
+  {
+   "pair": [
+    "task=math or logic",
+    "templated_dataset_item"
+   ],
+   "traffic": 11,
+   "dolci": 314,
+   "traffic_share": 0.0055,
+   "dolci_share": 0.1579,
+   "pair_ratio": 0.04,
+   "single_ratios": [
+    0.09,
+    0.35
+   ],
+   "lift": 0.1
+  }
+ ]
+}

@@ -1,0 +1,39 @@
+{
+ "fine/control": {
+  "agree": 3,
+  "n": 10,
+  "truncated": "0/1",
+  "not_truncated": "3/9"
+ },
+ "fine/member": {
+  "agree": 6,
+  "n": 10,
+  "truncated": "0/0",
+  "not_truncated": "6/10"
+ },
+ "poor/control": {
+  "agree": 10,
+  "n": 10,
+  "truncated": "2/2",
+  "not_truncated": "8/8"
+ },
+ "poor/member": {
+  "agree": 20,
+  "n": 20,
+  "truncated": "0/0",
+  "not_truncated": "20/20"
+ },
+ "refused_harmless/control": {
+  "agree": 9,
+  "n": 10,
+  "truncated": "1/1",
+  "not_truncated": "8/9"
+ },
+ "refused_harmless/member": {
+  "agree": 14,
+  "n": 18,
+  "truncated": "0/0",
+  "not_truncated": "14/18"
+ },
+ "poor_member_rule": "met (>= 16/20): interpret poor answer"
+}

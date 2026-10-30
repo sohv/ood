@@ -1,0 +1,86 @@
+{
+ "n_graded": 19966,
+ "failed": {
+  "error": 4,
+  "unparsed": 30
+ },
+ "refused": 0.0752,
+ "refused_harmless": 0.0565,
+ "sole_labels_of_refused_harmless": {
+  "NaN": 18871,
+  "benign": 577,
+  "adult_or_persona": 433,
+  "cannot_do": 82,
+  "harmful": 37
+ },
+ "over_refused_rate": 0.0275,
+ "name_k": {
+  "n": 2269,
+  "over_refused": 0.1441,
+  "other": 0.0126
+ },
+ "members": {
+  "over_refused_member": 0.0028,
+  "over_refused_nonmember": 0.0359,
+  "refused_members_with_dolci_reply_refused": "1/14"
+ },
+ "claims_openai": {
+  "rate": 0.0003,
+  "n": 6
+ },
+ "astra_labels_of_refused_harmless": {
+  "NaN": 18871,
+  "benign": 563,
+  "adult_or_persona": 432,
+  "cannot_do": 84,
+  "harmful": 50
+ },
+ "clusters_tested": 150,
+ "clusters_enriched": [
+  {
+   "cluster": 71,
+   "top_topic": 104,
+   "n": 300,
+   "over_refused": 117,
+   "rate": 0.39,
+   "name_k_share": 0.93,
+   "claims_openai": 0.0
+  },
+  {
+   "cluster": 19,
+   "top_topic": 1680,
+   "n": 220,
+   "over_refused": 102,
+   "rate": 0.464,
+   "name_k_share": 0.0,
+   "claims_openai": 0.0
+  },
+  {
+   "cluster": 63,
+   "top_topic": 149,
+   "n": 125,
+   "over_refused": 43,
+   "rate": 0.344,
+   "name_k_share": 0.94,
+   "claims_openai": 0.0
+  },
+  {
+   "cluster": 110,
+   "top_topic": 479,
+   "n": 143,
+   "over_refused": 18,
+   "rate": 0.126,
+   "name_k_share": 0.99,
+   "claims_openai": 0.0
+  },
+  {
+   "cluster": 83,
+   "top_topic": 933,
+   "n": 147,
+   "over_refused": 14,
+   "rate": 0.095,
+   "name_k_share": 0.85,
+   "claims_openai": 0.0
+  }
+ ]
+}

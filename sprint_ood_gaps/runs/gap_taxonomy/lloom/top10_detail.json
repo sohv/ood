@@ -1,0 +1,277 @@
+{
+ "full": [
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+   "name": "Art and Creativity",
+   "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+   "traffic": 0.2135,
+   "dolci": 0.131,
+   "diff": 0.0825
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "name": "Fantasy and Role-Playing",
+   "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "traffic": 0.0945,
+   "dolci": 0.034,
+   "diff": 0.0605
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+   "name": "Translation and Language",
+   "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+   "traffic": 0.048,
+   "dolci": 0.039,
+   "diff": 0.009
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+   "name": "Family and Relationships",
+   "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+   "traffic": 0.0305,
+   "dolci": 0.0265,
+   "diff": 0.004
+  }
+ ],
+ "minus_safety": [
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+   "name": "Art and Creativity",
+   "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+   "traffic": 0.2135,
+   "dolci": 0.1266,
+   "diff": 0.0869
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "name": "Fantasy and Role-Playing",
+   "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "traffic": 0.0945,
+   "dolci": 0.0306,
+   "diff": 0.0639
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+   "name": "Translation and Language",
+   "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+   "traffic": 0.048,
+   "dolci": 0.0406,
+   "diff": 0.0074
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+   "name": "Family and Relationships",
+   "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+   "traffic": 0.0305,
+   "dolci": 0.0274,
+   "diff": 0.0031
+  }
+ ],
+ "random_safety": [
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+   "name": "Art and Creativity",
+   "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+   "traffic": 0.2135,
+   "dolci": 0.1303,
+   "diff": 0.0832
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "name": "Fantasy and Role-Playing",
+   "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "traffic": 0.0945,
+   "dolci": 0.0343,
+   "diff": 0.0602
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+   "name": "Translation and Language",
+   "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+   "traffic": 0.048,
+   "dolci": 0.0396,
+   "diff": 0.0084
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+   "name": "Family and Relationships",
+   "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+   "traffic": 0.0305,
+   "dolci": 0.0264,
+   "diff": 0.0041
+  }
+ ],
+ "minus_code": [
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+   "name": "Art and Creativity",
+   "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+   "traffic": 0.2135,
+   "dolci": 0.156,
+   "diff": 0.0575
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "name": "Fantasy and Role-Playing",
+   "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "traffic": 0.0945,
+   "dolci": 0.0418,
+   "diff": 0.0527
+  },
+  {
+   "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+   "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+   "name": "Error Handling",
+   "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+   "traffic": 0.0105,
+   "dolci": 0.0075,
+   "diff": 0.003
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+   "name": "Translation and Language",
+   "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+   "traffic": 0.048,
+   "dolci": 0.0468,
+   "diff": 0.0012
+  }
+ ],
+ "random_code": [
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+   "name": "Art and Creativity",
+   "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+   "traffic": 0.2135,
+   "dolci": 0.1323,
+   "diff": 0.0812
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "name": "Fantasy and Role-Playing",
+   "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "traffic": 0.0945,
+   "dolci": 0.0343,
+   "diff": 0.0602
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+   "name": "Translation and Language",
+   "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+   "traffic": 0.048,
+   "dolci": 0.0374,
+   "diff": 0.0106
+  },
+  {
+   "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+   "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+   "name": "Location and Geography",
+   "prompt": "Does the text mention specific locations, cities, or geographical information?",
+   "traffic": 0.0865,
+   "dolci": 0.0786,
+   "diff": 0.0079
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+   "name": "Family and Relationships",
+   "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+   "traffic": 0.0305,
+   "dolci": 0.0243,
+   "diff": 0.0062
+  }
+ ],
+ "minus_multilingual": [
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+   "name": "Art and Creativity",
+   "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+   "traffic": 0.2135,
+   "dolci": 0.1336,
+   "diff": 0.0799
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "name": "Fantasy and Role-Playing",
+   "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "traffic": 0.0945,
+   "dolci": 0.0352,
+   "diff": 0.0593
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+   "name": "Translation and Language",
+   "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+   "traffic": 0.048,
+   "dolci": 0.031,
+   "diff": 0.017
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+   "name": "Family and Relationships",
+   "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+   "traffic": 0.0305,
+   "dolci": 0.0258,
+   "diff": 0.0047
+  }
+ ],
+ "random_multilingual": [
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+   "name": "Art and Creativity",
+   "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+   "traffic": 0.2135,
+   "dolci": 0.1336,
+   "diff": 0.0799
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "name": "Fantasy and Role-Playing",
+   "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+   "traffic": 0.0945,
+   "dolci": 0.0352,
+   "diff": 0.0593
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+   "name": "Translation and Language",
+   "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+   "traffic": 0.048,
+   "dolci": 0.0395,
+   "diff": 0.0085
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+   "name": "Family and Relationships",
+   "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+   "traffic": 0.0305,
+   "dolci": 0.0274,
+   "diff": 0.0031
+  }
+ ]
+}

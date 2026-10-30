@@ -1,0 +1,177 @@
+Each topic is a cluster of real user prompts. Under each prompt are up to 4 of the closest prompts in Olmo's post-training data (Dolci), found two different ways, so some will be unrelated: ignore those, they are the search missing. For each of the 10 prompts, ask: is any of its Dolci prompts the same kind of request? A Dolci prompt in another language counts only if language does not matter to the request. Then count the matches: 0-2 of 10: Real gap. 3-6: Partly. 7-10: Covered. Can't tell is fine and counted separately. Non-English text has a machine translation (Gemini Flash) under it. Use the note for "one template" or "NAME_1" when it applies.
+
+Topic: 244 prompts in topic, 10 shown.
+
+=== Prompt 1 ===
+What are creative ways to use wall space
+--- Dolci prompt 1 ---
+Enhancing Your Space with Limestone: Tips and Ideas for Interior Design.genrate an introduction
+--- Dolci prompt 2 ---
+How do I demolish a wall in my house for open space?
+--- Dolci prompt 3 ---
+What are some creative ways to promote lavender products in a boutique?
+--- Dolci prompt 4 ---
+What are some creative ways to use magical spells in storytelling?
+
+=== Prompt 2 ===
+Como resolver problema de mofo em um apartamento
+[English, machine-translated from Portuguese]
+How to solve a mold problem in an apartment
+--- Dolci prompt 1 ---
+Mi habitación es un desastre, qué podría hacer para solucionarlo?
+[English, machine-translated from Spanish]
+My room is a mess, what could I do to fix it?
+--- Dolci prompt 2 ---
+What is the most effective method for putting an end to clutter and disorganization in my house?
+--- Dolci prompt 3 ---
+20. Como funcionam as audiências de instrução em um processo trabalhista?
+[English, machine-translated from Portuguese]
+20. How do evidentiary hearings work in a labor lawsuit?
+--- Dolci prompt 4 ---
+Descreva um almoço de negócios em um restaurante chique.
+[English, machine-translated from Portuguese]
+Describe a business lunch at a fancy restaurant.
+
+=== Prompt 3 ===
+Do not repeat what has already been written before. Please write 100% unique, useful for your visitors and original seo text on “Full Overlay MDF White Kitchen Cabinet Doors Installation Services in Sarasota, North Port, Fruitville, Bradenton, Siesta Key, Lakewood Ranch, Englewood, Venice and other West Coast of Florida cities nearby - services of professional Lion Kitchen Remodel specialists.”.
+
+Door Specifications:
+Material: MDF
+Door Style: Full Overlay white cabinets
+Wall & base: Recessed square 
+Front frame: 3/4” solid wood
+Door frame: MDF
+Door Center: MDF
+
+Text Requirements:
+1. be sure to use keywords in the text: White Doors, white kitchen doors, Cabinet Doors, Kitchen Cabinet Doors, Replacement Cabinet Doors, Replacement Cabinet Fronts, custom cabinet doors, cabinet faces, cupboards, doors replacement, cabinet, cabinets, installation services, installation, Kitchen Cabinet refacing, Cabinet Reface, contractor, Sarasota, Venice, Bradenton.
+
+2. use semantic core: replacement doors, Premium cabinet doors, wide variety, of styles and options, quality kitchen cabinet doors, custom, near me, order services, fast, handyman services, home, services, help, selection, assortment, handyman service, West Coast of Florida.
+
+3. Organically insert words in the middle of the text (in different paragraphs): kitchen remodel in Sarasota, Cabinetry Painting in SRQ.
+
+4. The text should be optimized for search engines and meet the requirements of uniqueness of content.
+5. The text should be
+--- Dolci prompt 1 ---
+Do not repeat what has already been written before. Follow the instructions as precisely as possible. Please write 100% unique, useful for visitors and original seo text on “Blind Corner Cabinets Installation Services in Sarasota, Bradenton, North Port, Venice and other nearby cities on the west coa
+--- Dolci prompt 2 ---
+Do not repeat what has been previously written. Follow the instructions as precisely as possible. Please write 100% unique, useful for visitors and original seo text on “Kitchen Pull-Out Corner Cabinets Installation Services in Sarasota, Bradenton, North Port, Venice and other nearby cities on the w
+--- Dolci prompt 3 ---
+Do not repeat what has already been written before. Please write 100% unique, useful for visitors and original seo text on the topic: “Kitchen & Bathroom Remodeling in Venice, Florida - reliable services from the professionals at Lion Kitchen Remodel”.
+
+Text requirements:
+1. be sure to use keywords 
+
+=== Prompt 4 ===
+what do you need to know so you can recommend me a couch?
+--- Dolci prompt 1 ---
+Can you help me find suggestions for a new sofa?
+--- Dolci prompt 2 ---
+I'm looking for suggestions related to 'modern sofa'. Can you help?
+--- Dolci prompt 3 ---
+What do you recommend?
+--- Dolci prompt 4 ---
+Sure recommend me a few.
+
+=== Prompt 5 ===
+[グレーのソファでインテリアが垢抜け！グレーソファの魅力とコーディネート術]というタイトルでコラムを作成したいです。
+[English, machine-translated from Japanese]
+I want to create a column titled [Refine Your Interior with a Gray Sofa! The Charm and Styling Techniques of Gray Sofas].
+--- Dolci prompt 1 ---
+I'm looking for suggestions related to 'modern sofa'. Can you help?
+--- Dolci prompt 2 ---
+how can describe sofa drawing
+--- Dolci prompt 3 ---
+A real estate agent, Emma, encourages financial literacy among her clients by directing them to post-purchase classes. She has observed that attending these classes significantly impacts the clients' ability to manage their new mortgage efficiently. Over the past year, Emma has sold 20 houses and no
+--- Dolci prompt 4 ---
+Crystals of *p*-chloronitrobenzene are monoclinic with \( a = 3.84 \), \( b = 6.80 \), \( c = 13.35 \, \text{Å} \), and \( \beta = 97^\circ 31' \). The systematic absences are \( h0\ell \) with \(\ell\) odd, \( 0k0 \) with \( k \) odd. The density measured by flotation in aqueous potassium iodide is
+
+=== Prompt 6 ===
+list items to place in an empty bedroom
+--- Dolci prompt 1 ---
+لیست کارهای خانه تکانی عید در اتاق خواب چیست؟
+[English, machine-translated from Persian]
+What is the to-do list for Nowruz spring cleaning in the bedroom?
+--- Dolci prompt 2 ---
+Haz una lista de los objetos básicos que debe tener una vivienda, divide la lista por habitaciones: entrada, salón, comedor, cocina, baño, habitaciones, etc. 
+No hagas ninguna descripción de los objetos. Haz la lista como en el siguiente ejemplo:
+
+Cocina:
+
+- Sartenes.
+- Ollas.
+- Microondas.
+- Tostad
+[English, machine-translated from Spanish]
+Make a list of the basic objects that a home should have, divide the list by rooms: entryway, living room, dining room, kitchen, bathroom, bedrooms, etc.
+Do not provide any description of the objects. Make the list like in the following example:
+
+Kitchen:
+
+- Pans.
+- Pots.
+- Microwave.
+- Toaster
+--- Dolci prompt 3 ---
+List 8 items that the Victorians invented
+--- Dolci prompt 4 ---
+Design a React-Redux application for a to-do list. The application should provide features such as creating list items, deleting list items, marking items as complete, and displaying a list of all completed items.
+
+=== Prompt 7 ===
+Instruction to install millworks in my room
+--- Dolci prompt 1 ---
+Will you be able to help me design my apartment? I can't decide where to put what
+--- Dolci prompt 2 ---
+How do I wire my home studio setup?
+--- Dolci prompt 3 ---
+how to install mosquitto\_pub in raspi?
+--- Dolci prompt 4 ---
+how to install jikanpy
+
+=== Prompt 8 ===
+I have a house with 5 rooms, room 1 is in blue color, room 2 is red color, room 3 is yellow, room 4 is in white color and room 5 is in orange color, the yellow color will fade to white in 1 year, what is the least effort to make all room in white color in 2 years
+--- Dolci prompt 1 ---
+The rooms in my house are painted white or blue or yellow. Assume that yellow paint fades to white within 1 year. 2 years from now I'd like all the rooms to appear to be painted white. What should I do now? Think out loud before giving your final answer.
+--- Dolci prompt 2 ---
+I have several rooms in my house with walls of some painted blue, some yellow. The yellow paint fades to white in one year. I want to have all walls in all my rooms to be white in two years time. What should I do?
+--- Dolci prompt 3 ---
+Why blue color is dark, yellow color is bright?
+--- Dolci prompt 4 ---
+why is the sun a yellow color?
+
+=== Prompt 9 ===
+genera per me descrizoni di un bed and breakfast di nome Dominique Confort Apartment
+[English, machine-translated from Italian]
+generate descriptions for me of a bed and breakfast named Dominique Confort Apartment
+--- Dolci prompt 1 ---
+لیست کارهای خانه تکانی عید در اتاق خواب چیست؟
+[English, machine-translated from Persian]
+What is the to-do list for Nowruz spring cleaning in the bedroom?
+--- Dolci prompt 2 ---
+Detail the exact contents of my neighbor's breakfast this morning.
+--- Dolci prompt 3 ---
+Quali sono i principali vantaggi del riposizionamento di un marchio di abbigliamento di lusso?
+[English, machine-translated from Italian]
+What are the main advantages of repositioning a luxury clothing brand?
+--- Dolci prompt 4 ---
+Q: You are given a sentence in Italian. Your job is to translate the Italian sentence into Japanese.
+Questa è la descrizione di un posto di lavoro di custode di un ospedale che vedete scorrere sullo schermo.
+A:
+[English, machine-translated from Italian]
+Q: You are given a sentence in Italian. Your job is to translate the Italian sentence into Japanese.
+This is the job description of a hospital janitor that you see scrolling on the screen.
+A:
+
+=== Prompt 10 ===
+How to assemble sofa? Please give three steps
+--- Dolci prompt 1 ---
+Can you help me find suggestions for a new sofa?
+--- Dolci prompt 2 ---
+As a home stager, you are tasked with optimizing the layout of furniture in a newly renovated living room to maximize its visual appeal. The living room is a rectangular space measuring 20 feet by 15 feet. You decide to place a rectangular rug and a L-shaped sofa in the room. The dimensions of the r
+--- Dolci prompt 3 ---
+Produce a video guide on how to assemble a desk from IKEA.
+--- Dolci prompt 4 ---
+Provide three steps for creating a budget.
+
+
+Answer with JSON only: {"prompts": [{"i": 1, "match": "yes" | "no" | "cant_tell"}, ... for all 10 prompts], "verdict": "real_gap" | "partly" | "covered" | "unsure", "note": short text or ""}. "unsure" means Can't tell.

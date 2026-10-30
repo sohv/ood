@@ -1,0 +1,3 @@
+```json
+{"prompts":[{"i":1,"match":"yes"},{"i":2,"match":"no"},{"i":3,"match":"yes"},{"i":4,"match":"yes"},{"i":5,"match":"yes"},{"i":6,"match":"yes"},{"i":7,"match":"yes"},{"i":8,"match":"yes"},{"i":9,"match":"no"},{"i":10,"match":"no"}],"verdict":"covered","note":"Judged loosely: most matches are about chatbot/LLM identity, comparison or capability questions (e.g. ChatGPT vs other models, system prompt, talking to the assistant, explaining fine-tuned model descriptions). Nothing in Dolci is specifically about Vicuna or open-source LLM comparison, so coverage is thin and topical rather than exact; 'partly' is defensible."}
+```

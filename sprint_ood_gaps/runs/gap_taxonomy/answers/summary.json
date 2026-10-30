@@ -1,0 +1,215 @@
+{
+ "n_answers": 1741,
+ "n_nonharmful": 1685,
+ "base": {
+  "refused": 39,
+  "n": 1685,
+  "share": 0.0231
+ },
+ "screen_counts": {
+  "no": 1664,
+  "yes": 89
+ },
+ "properties": {
+  "adversarial_pressure": {
+   "refused": 2,
+   "n": 14,
+   "share": 0.1429,
+   "ci": [
+    0.0401,
+    0.3994
+   ],
+   "ratio_to_base": 6.17
+  },
+  "needs_missing_context": {
+   "refused": 7,
+   "n": 86,
+   "share": 0.0814,
+   "ci": [
+    0.04,
+    0.1586
+   ],
+   "ratio_to_base": 3.52
+  },
+  "pasted_input": {
+   "refused": 3,
+   "n": 295,
+   "share": 0.0102,
+   "ci": [
+    0.0035,
+    0.0295
+   ],
+   "ratio_to_base": 0.44
+  },
+  "roleplay_or_persona_setup": {
+   "refused": 4,
+   "n": 85,
+   "share": 0.0471,
+   "ci": [
+    0.0185,
+    0.1148
+   ],
+   "ratio_to_base": 2.03
+  },
+  "harmful_request": {
+   "refused": 47,
+   "n": 51,
+   "share": 0.9216,
+   "ci": [
+    0.815,
+    0.9691
+   ],
+   "ratio_to_base": 39.82
+  },
+  "placeholder_or_artefact": {
+   "refused": 3,
+   "n": 102,
+   "share": 0.0294,
+   "ci": [
+    0.0101,
+    0.0829
+   ],
+   "ratio_to_base": 1.27
+  },
+  "templated_dataset_item": {
+   "refused": 0,
+   "n": 788,
+   "share": 0.0,
+   "ci": [
+    0.0,
+    0.0049
+   ],
+   "ratio_to_base": 0.0
+  },
+  "multi_part": {
+   "refused": 7,
+   "n": 412,
+   "share": 0.017,
+   "ci": [
+    0.0083,
+    0.0347
+   ],
+   "ratio_to_base": 0.73
+  },
+  "personal_emotional": {
+   "refused": 0,
+   "n": 17,
+   "share": 0.0,
+   "ci": [
+    0.0,
+    0.1843
+   ],
+   "ratio_to_base": 0.0
+  },
+  "asks_about_assistant": {
+   "refused": 1,
+   "n": 4,
+   "share": 0.25,
+   "ci": [
+    0.0456,
+    0.6994
+   ],
+   "ratio_to_base": 10.8
+  },
+  "non_english": {
+   "refused": 0,
+   "n": 160,
+   "share": 0.0,
+   "ci": [
+    0.0,
+    0.0234
+   ],
+   "ratio_to_base": 0.0
+  },
+  "attachment_or_media": {
+   "refused": 4,
+   "n": 15,
+   "share": 0.2667,
+   "ci": [
+    0.109,
+    0.5195
+   ],
+   "ratio_to_base": 11.52
+  },
+  "long_pasted_context": {
+   "refused": 0,
+   "n": 34,
+   "share": 0.0,
+   "ci": [
+    0.0,
+    0.1015
+   ],
+   "ratio_to_base": 0.0
+  },
+  "agentic_or_tool_use": {
+   "refused": 9,
+   "n": 17,
+   "share": 0.5294,
+   "ci": [
+    0.3096,
+    0.7383
+   ],
+   "ratio_to_base": 22.87
+  },
+  "strict_output_format": {
+   "refused": 7,
+   "n": 737,
+   "share": 0.0095,
+   "ci": [
+    0.0046,
+    0.0195
+   ],
+   "ratio_to_base": 0.41
+  },
+  "high_stakes_domain": {
+   "refused": 2,
+   "n": 39,
+   "share": 0.0513,
+   "ci": [
+    0.0142,
+    0.1689
+   ],
+   "ratio_to_base": 2.22
+  },
+  "deception_or_manipulation": {
+   "refused": 1,
+   "n": 8,
+   "share": 0.125,
+   "ci": [
+    0.0224,
+    0.4709
+   ],
+   "ratio_to_base": 5.4
+  },
+  "privacy_personal_data": {
+   "refused": 2,
+   "n": 20,
+   "share": 0.1,
+   "ci": [
+    0.0279,
+    0.301
+   ],
+   "ratio_to_base": 4.32
+  },
+  "needs_current_info": {
+   "refused": 11,
+   "n": 38,
+   "share": 0.2895,
+   "ci": [
+    0.17,
+    0.4476
+   ],
+   "ratio_to_base": 12.51
+  },
+  "homework_or_exam": {
+   "refused": 5,
+   "n": 545,
+   "share": 0.0092,
+   "ci": [
+    0.0039,
+    0.0213
+   ],
+   "ratio_to_base": 0.4
+  }
+ }
+}

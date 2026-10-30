@@ -1,0 +1,98 @@
+{
+ "safety": {
+  "line_full": 10.6405,
+  "line_arm": 11.0739,
+  "kind": {
+   "n": 21,
+   "median_size": 354,
+   "above_before": 17,
+   "above_after": 18,
+   "median_before": 43.07,
+   "median_after": 83.67,
+   "median_random": 41.01,
+   "below_n": 4,
+   "below_median_before": 3.35,
+   "below_median_after": 5.2,
+   "below_crossed": 1,
+   "safety_neighbour_share": 0.413
+  },
+  "other": {
+   "n": 1977,
+   "median_size": 398,
+   "above_before": 291,
+   "above_after": 278,
+   "median_before": 2.54,
+   "median_after": 2.73,
+   "median_random": 2.62,
+   "below_n": 1686,
+   "below_median_before": 2.35,
+   "below_median_after": 2.42,
+   "below_crossed": 3,
+   "safety_neighbour_share": 0.081
+  }
+ },
+ "coding": {
+  "line_full": 10.6405,
+  "line_arm": 9.833,
+  "kind": {
+   "n": 268,
+   "median_size": 411.0,
+   "above_before": 7,
+   "above_after": 11,
+   "median_before": 2.17,
+   "median_after": 2.87,
+   "median_random": 2.23,
+   "below_n": 261,
+   "below_median_before": 2.17,
+   "below_median_after": 2.87,
+   "below_crossed": 4,
+   "safety_neighbour_share": 0.382
+  },
+  "other": {
+   "n": 1730,
+   "median_size": 394.5,
+   "above_before": 301,
+   "above_after": 279,
+   "median_before": 2.76,
+   "median_after": 2.23,
+   "median_random": 2.87,
+   "below_n": 1429,
+   "below_median_before": 2.35,
+   "below_median_after": 2.05,
+   "below_crossed": 2,
+   "safety_neighbour_share": 0.047
+  }
+ },
+ "multilingual": {
+  "line_full": 10.6405,
+  "line_arm": 13.2979,
+  "kind": {
+   "n": 119,
+   "median_size": 426,
+   "above_before": 25,
+   "above_after": 38,
+   "median_before": 3.55,
+   "median_after": 5.44,
+   "median_random": 3.36,
+   "below_n": 94,
+   "below_median_before": 2.81,
+   "below_median_after": 4.03,
+   "below_crossed": 15,
+   "safety_neighbour_share": 0.282
+  },
+  "other": {
+   "n": 1879,
+   "median_size": 396,
+   "above_before": 283,
+   "above_after": 247,
+   "median_before": 2.54,
+   "median_after": 3.08,
+   "median_random": 2.61,
+   "below_n": 1596,
+   "below_median_before": 2.35,
+   "below_median_after": 2.61,
+   "below_crossed": 3,
+   "safety_neighbour_share": 0.122
+  }
+ }
+}

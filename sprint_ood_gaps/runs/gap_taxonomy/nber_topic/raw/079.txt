@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "specific_info"},
+  {"i": 2, "c": "computer_programming"},
+  {"i": 3, "c": "greetings_and_chitchat"},
+  {"i": 4, "c": "other"},
+  {"i": 5, "c": "computer_programming"},
+  {"i": 6, "c": "mathematical_calculation"},
+  {"i": 7, "c": "computer_programming"},
+  {"i": 8, "c": "asking_about_the_model"},
+  {"i": 9, "c": "write_fiction"},
+  {"i": 10, "c": "specific_info"},
+  {"i": 11, "c": "mathematical_calculation"},
+  {"i": 12, "c": "computer_programming"},
+  {"i": 13, "c": "asking_about_the_model"},
+  {"i": 14, "c": "specific_info"},
+  {"i": 15, "c": "generate_or_retrieve_other_media"},
+  {"i": 16, "c": "computer_programming"},
+  {"i": 17, "c": "other"},
+  {"i": 18, "c": "mathematical_calculation"},
+  {"i": 19, "c": "personal_writing_or_communication"},
+  {"i": 20, "c": "greetings_and_chitchat"}
+]
+```

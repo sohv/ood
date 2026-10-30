@@ -1,0 +1,3 @@
+```json
+{"prompts":[{"i":1,"match":"yes"},{"i":2,"match":"yes"},{"i":3,"match":"yes"},{"i":4,"match":"no"},{"i":5,"match":"yes"},{"i":6,"match":"no"},{"i":7,"match":"no"},{"i":8,"match":"no"},{"i":9,"match":"no"},{"i":10,"match":"yes"}],"verdict":"partly","note":"Matches are the bot-continuation prompts with biased or harmful content (1, 5), the two-entity word-by-word jailbreak template (3, 10), and sexual dialogue (2, which is a looser match). Adversarial-suffix, generic conversation completion, router classification and communication-models prompts have no real counterpart."}
+```

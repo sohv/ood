@@ -1,0 +1,21 @@
+neuron_idx,target_separation_score,interpretation,f1_fidelity_score
+150,-0.5319377348362856,"Contains the exact phrase \""write a program\"" (case-insensitive)",0.8505747126436781
+128,-0.5260389268805892,"Contains competitive-programming style section headings including both the words \""Input\"" and \""Output\",0.7804878048780487
+59,-0.5177484143763214,"Includes the exact instruction phrase **\""Your final answer should be a single line\""** (typically following an **\""Output Format:\""** heading)",0.717948717948718
+29,0.5150927720852949,"Contains the placeholder token \""NAME_1\"" (a NAME_* template placeholder)",1.0
+99,-0.5102102741549108,"Contains LaTeX-style math expressions delimited by \( \) and/or \[ \] (e.g., \( S(t)=\dots \), \[ \frac{dT}{dt}=\dots \])",1.0
+12,-0.4529018338727076,"Contains a numbered multi-part math word problem (e.g., 1., 2.) that explicitly asks to formulate and solve a system of equations/optimization using defined variables (e.g., C, R, x, y)",0.8235294117647058
+65,-0.4440726124704025,"Requires writing Python code that computes an aggregate statistic (e.g., total/sum or average/mean/median) over a collection of numeric values (lists/dicts/strings of results)",0.7560975609756097
+235,-0.43271283876266087,English arithmetic word problem with multiple quantities (numbers) that ends by asking a 'How many ...?' question to compute a total/remaining amount,0.9473684210526316
+252,0.4174825174825175,contains no uppercase Latin letters (A–Z) anywhere in the text,0.94
+132,-0.4155764643519746,"Explicitly asks to sort/order items (e.g., words or numbers) using a sorting algorithm or specified order (ascending/descending/ASCII/Unicode)",0.9690721649484536
+76,-0.40866414277988106,"Contains Python-style square-bracket list syntax specifically involving integers (e.g., a bracketed numeric list like `[1, 2, 3]` / `[[...]]` or a type annotation `List[int]`).",0.7710843373493975
+32,-0.4048322147651007,"Contains explicit character/token-level output constraints (e.g., requiring or limiting specific letters/words, forcing all-caps/all-lowercase, banning '.' punctuation, or requiring wrapping text in brackets/<< >>)",0.9074074074074074
+9,0.39174496644295304,"Explicitly instructs the assistant to adopt and respond in a specific role/persona/character (e.g., 'you will be...', 'act as...', 'portray...'), i.e., a roleplay/character prompt",0.94
+131,-0.3913854631330359,"Asks to compute a classic integer math function from a single integer n (specifically the nth Fibonacci number, n! factorial, or the sum 1+2+…+n)",0.3548387096774193
+189,0.39093658014450094,"Starts with a greeting/opening salutation (e.g., “Hi”, “Hey”, “Hello”, “Hola”, “Привет”, “Γειά σου”, “what’s up”)",0.7407407407407407
+1,0.39066507049747273,"Contains explicit pornographic/erotic sexual content (e.g., masturbation, oral sex, rape, genital terms) or requests writing of such content",0.9166666666666666
+55,-0.38320675105485236,"Contains the word \""modulo\"" followed by a specific integer modulus (i.e., instructs to output the answer modulo some number)",0.33333333333333337
+199,-0.3729017738946253,"Contains an explicit Python function signature enclosed in backticks (e.g., `func(arg: Type) -> ReturnType`)",0.888888888888889
+202,-0.367219093590775,"contains a question asking for a monetary amount, using finance-related terms like “cost”, “spend”, “price”, “earn”, “tax(es)”, “pay”, or “budget”",0.924731182795699
+63,-0.3607349081364829,"Programming prompt centered on manipulating a Python dictionary (dict)—e.g., reading/parsing dict/JSON and performing key/value operations (lookup, rename, flatten, count, max keys).",0.9583333333333334

@@ -1,0 +1,4794 @@
+{
+ "n": {
+  "traffic": 1992,
+  "dolci": 1988
+ },
+ "traffic_median_dist": 0.2898,
+ "arms": {
+  "desc": {
+   "ami_fine": 0.0911,
+   "ami_coarse": 0.1081,
+   "nodes": [
+    {
+     "level": "fine",
+     "node": 0,
+     "name": "Short math and computation prompts",
+     "summary": "Each is a very brief, terse request to compute, solve, simplify, or transform a small mathematical or numeric expression, often with minimal or implied instructions.",
+     "traffic": 9,
+     "dolci": 5,
+     "traffic_share": 0.643,
+     "ci": [
+      0.388,
+      0.837
+     ],
+     "ratio": 1.8,
+     "median_dist": 0.142,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 1,
+     "name": "Constrained creative writing and image prompts",
+     "summary": "Each is a creative-writing or generative request (story, poem, dialogue, song, description, or image prompt) that often has strict format or style constraints, unfilled placeholders, or sensitive framing such as suggestive content, fraud, or jailbreak-style preambles.",
+     "traffic": 30,
+     "dolci": 11,
+     "traffic_share": 0.732,
+     "ci": [
+      0.581,
+      0.843
+     ],
+     "ratio": 2.73,
+     "median_dist": 0.3033,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 2,
+     "name": "Tabular data generation and extraction tasks",
+     "summary": "Requests that ask the assistant to create, extend, extract from, or compute with tables and structured or garbled records (often anonymized, truncated, or underspecified), sometimes via code.",
+     "traffic": 17,
+     "dolci": 11,
+     "traffic_share": 0.607,
+     "ci": [
+      0.424,
+      0.764
+     ],
+     "ratio": 1.55,
+     "median_dist": 0.3392,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 3,
+     "name": "Chain-of-thought reasoning prompts for QA tasks",
+     "summary": "Each request poses a short reasoning question (mostly natural language inference or commonsense multiple choice, plus a few word problems and concept questions) and asks for step-by-step reasoning before a final answer, often in a templated or few-shot format.",
+     "traffic": 5,
+     "dolci": 34,
+     "traffic_share": 0.128,
+     "ci": [
+      0.056,
+      0.267
+     ],
+     "ratio": 0.15,
+     "median_dist": 0.3293,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 4,
+     "name": "Creative writing and fiction generation requests",
+     "summary": "Users ask for stories, outlines, alternate-history chapters, fanfiction, or creative brainstorming, often with long, convoluted premises that are frequently truncated or reference source material not provided.",
+     "traffic": 22,
+     "dolci": 12,
+     "traffic_share": 0.647,
+     "ci": [
+      0.479,
+      0.785
+     ],
+     "ratio": 1.83,
+     "median_dist": 0.3143,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 5,
+     "name": "Requests missing referenced content or context",
+     "summary": "Each request refers to a document, link, image, file, or template variable that isn't actually included or accessible, so it is vague or unanswerable without clarification.",
+     "traffic": 26,
+     "dolci": 10,
+     "traffic_share": 0.722,
+     "ci": [
+      0.56,
+      0.842
+     ],
+     "ratio": 2.6,
+     "median_dist": 0.295,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 6,
+     "name": "Multi-part applied math word problems",
+     "summary": "Each is a LaTeX-heavy, scenario-framed advanced math or quantitative problem with several parts requiring derivation, optimization, or modeling, often underspecified or ill-posed, sometimes with extra format constraints.",
+     "traffic": 4,
+     "dolci": 61,
+     "traffic_share": 0.062,
+     "ci": [
+      0.024,
+      0.148
+     ],
+     "ratio": 0.07,
+     "median_dist": 0.2447,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 7,
+     "name": "English writing and language task requests",
+     "summary": "Each asks for help writing, rewriting, or analyzing English text (essays, paragraphs, titles, grammar exercises) under specific constraints, often with incomplete, truncated, or placeholder-laden source material.",
+     "traffic": 18,
+     "dolci": 13,
+     "traffic_share": 0.581,
+     "ci": [
+      0.408,
+      0.736
+     ],
+     "ratio": 1.38,
+     "median_dist": 0.3047,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 8,
+     "name": "Short STEM and technical knowledge questions",
+     "summary": "Mostly brief, often terse or underspecified science, engineering, and technology questions asking for explanations, definitions, quantities, or calculations, where the answer requires stating assumptions or interpreting what was meant.",
+     "traffic": 24,
+     "dolci": 14,
+     "traffic_share": 0.632,
+     "ci": [
+      0.473,
+      0.766
+     ],
+     "ratio": 1.71,
+     "median_dist": 0.3038,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 9,
+     "name": "Computational puzzles with strict output formats",
+     "summary": "Each is a self-contained math, algorithm, or logic puzzle with a precisely specified input that demands an exact computed answer in a rigid, minimal output format.",
+     "traffic": 7,
+     "dolci": 53,
+     "traffic_share": 0.117,
+     "ci": [
+      0.058,
+      0.222
+     ],
+     "ratio": 0.13,
+     "median_dist": 0.2264,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 10,
+     "name": "Rewrite or polish pasted text",
+     "summary": "Users paste a piece of text, often with placeholders or truncation, and ask the assistant to rewrite, paraphrase, simplify, formalize, or correct it while preserving its meaning.",
+     "traffic": 34,
+     "dolci": 12,
+     "traffic_share": 0.739,
+     "ci": [
+      0.597,
+      0.844
+     ],
+     "ratio": 2.83,
+     "median_dist": 0.3336,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 11,
+     "name": "Fictional or roleplay framing around dubious requests",
+     "summary": "Hypothetical, alternate-history, persona, or creative-writing setups that often wrap false-fact assertions, jailbreak-style pressure, or harmful how-to and private-information requests, leaving the real task ambiguous or at odds with the framing.",
+     "traffic": 13,
+     "dolci": 18,
+     "traffic_share": 0.419,
+     "ci": [
+      0.264,
+      0.592
+     ],
+     "ratio": 0.72,
+     "median_dist": 0.3066,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 12,
+     "name": "Programming tasks with underspecified details",
+     "summary": "Mostly coding problems with function or I/O specs, each containing an ambiguity, inconsistency, or missing piece (unspecified case handling, conflicting return types, absent code, odd examples) that must be resolved or flagged.",
+     "traffic": 7,
+     "dolci": 77,
+     "traffic_share": 0.083,
+     "ci": [
+      0.041,
+      0.162
+     ],
+     "ratio": 0.09,
+     "median_dist": 0.3357,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 13,
+     "name": "Russian-language general assistant requests",
+     "summary": "Each is a user prompt written mainly in Russian, ranging from quick factual questions and rewriting tasks to coding, medical, and persona-based requests.",
+     "traffic": 42,
+     "dolci": 4,
+     "traffic_share": 0.913,
+     "ci": [
+      0.797,
+      0.966
+     ],
+     "ratio": 10.5,
+     "median_dist": 0.2607,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 14,
+     "name": "Short list-generation request",
+     "summary": "Each is a brief, loosely specified request to generate or enumerate a list of items (names, meals, captions, skills, etc.), often with a count or output-format constraint.",
+     "traffic": 38,
+     "dolci": 17,
+     "traffic_share": 0.691,
+     "ci": [
+      0.56,
+      0.797
+     ],
+     "ratio": 2.24,
+     "median_dist": 0.2771,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 15,
+     "name": "Sports, travel, and fitness planning or lookups",
+     "summary": "Requests for personal plans (workouts, meals, itineraries) or lookups of sports, travel, and event data, many of which assume live tools or current information the assistant may not have.",
+     "traffic": 5,
+     "dolci": 13,
+     "traffic_share": 0.278,
+     "ci": [
+      0.125,
+      0.509
+     ],
+     "ratio": 0.38,
+     "median_dist": 0.2084,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 16,
+     "name": "Toxic identity-group content fill-in templates",
+     "summary": "Requests, mostly in fill-in-the-blank templates with word caps, that ask the assistant to produce toxic, demeaning, or stereotyping statements targeting or voiced as a racial, religious, ethnic, gender, or socioeconomic group.",
+     "traffic": 24,
+     "dolci": 6,
+     "traffic_share": 0.8,
+     "ci": [
+      0.627,
+      0.905
+     ],
+     "ratio": 4.0,
+     "median_dist": 0.2364,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 17,
+     "name": "Few-shot reasoning and multiple-choice benchmark prompts",
+     "summary": "Each request is a benchmark-style question (multiple-choice, NLI, logic, or factual QA), often with few-shot examples, rationales, or a mandated answer format, that the assistant must answer in the demonstrated or required template.",
+     "traffic": 5,
+     "dolci": 31,
+     "traffic_share": 0.139,
+     "ci": [
+      0.061,
+      0.287
+     ],
+     "ratio": 0.16,
+     "median_dist": 0.265,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 18,
+     "name": "Roleplay persona setups with placeholder names",
+     "summary": "Users supply templated character or persona roleplay setups with anonymized name tokens, often sexual, fetishistic, coercive, or jailbreak-style, and ask the assistant to speak or continue in character.",
+     "traffic": 31,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.89,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.323,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 19,
+     "name": "Sexual or fetish-themed creative writing requests",
+     "summary": "Each is a creative writing request for stories or scripts built around sexual, fetishized, non-consensual, or bodily-function content, often involving real people, fan-fiction characters, or minors.",
+     "traffic": 42,
+     "dolci": 6,
+     "traffic_share": 0.875,
+     "ci": [
+      0.753,
+      0.941
+     ],
+     "ratio": 7.0,
+     "median_dist": 0.2925,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 20,
+     "name": "Stdin/stdout programming task specs",
+     "summary": "Each is a self-contained coding problem with a defined stdin input format, stdout output format, and examples, asking for a complete program that handles specific edge cases.",
+     "traffic": 0,
+     "dolci": 70,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.052
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 21,
+     "name": "Short, sensitive or loaded opinion questions",
+     "summary": "Brief, open-ended prompts on contested social, political, moral, or personal topics, often with a loaded or false premise, where a good answer must be balanced and nuanced rather than simply going along with the framing.",
+     "traffic": 26,
+     "dolci": 10,
+     "traffic_share": 0.722,
+     "ci": [
+      0.56,
+      0.842
+     ],
+     "ratio": 2.6,
+     "median_dist": 0.289,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 22,
+     "name": "Short factual health and biology questions",
+     "summary": "Brief, often multilingual or oddly phrased factual questions about health, anatomy, or science, many with false premises, unverifiable details, or missing context that require careful, accurate answers.",
+     "traffic": 23,
+     "dolci": 19,
+     "traffic_share": 0.548,
+     "ci": [
+      0.399,
+      0.688
+     ],
+     "ratio": 1.21,
+     "median_dist": 0.2864,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 23,
+     "name": "Code generation and programming help requests",
+     "summary": "Each is a user asking an AI assistant to write, design, or recommend code or libraries for a software task in a particular language or framework, usually with loosely specified requirements.",
+     "traffic": 34,
+     "dolci": 20,
+     "traffic_share": 0.63,
+     "ci": [
+      0.496,
+      0.746
+     ],
+     "ratio": 1.7,
+     "median_dist": 0.3129,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 24,
+     "name": "Short Spanish/Portuguese general assistant queries",
+     "summary": "Brief, informal one-off requests written in Spanish or Portuguese covering varied tasks such as factual questions, translation, rewriting, explanation, and drafting, often under-specified and expecting a reply in the same language.",
+     "traffic": 28,
+     "dolci": 7,
+     "traffic_share": 0.8,
+     "ci": [
+      0.641,
+      0.9
+     ],
+     "ratio": 4.0,
+     "median_dist": 0.2898,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 25,
+     "name": "Tasks with conflicting formatting constraints",
+     "summary": "Each request pairs a short, self-contained question (mostly arithmetic or string puzzles) with strict, unusual formatting or lexical constraints that are hard to satisfy together with a clear, correct answer.",
+     "traffic": 6,
+     "dolci": 51,
+     "traffic_share": 0.105,
+     "ci": [
+      0.049,
+      0.211
+     ],
+     "ratio": 0.12,
+     "median_dist": 0.2993,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 26,
+     "name": "Narrative-framed multi-part math word problems",
+     "summary": "Each is a quantitative word problem (combinatorics, geometry, arithmetic, physics, optimization, sequences) wrapped in a story or persona, usually with two sub-parts, and often with ambiguous wording or extra formatting constraints.",
+     "traffic": 0,
+     "dolci": 60,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.06
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 27,
+     "name": "Underspecified requests with missing placeholders",
+     "summary": "Each request is incomplete or ambiguous because a key name, subject, or detail is replaced by an anonymized placeholder or left out, so answering requires guessing, filling in generic content, or asking for clarification.",
+     "traffic": 40,
+     "dolci": 8,
+     "traffic_share": 0.833,
+     "ci": [
+      0.704,
+      0.913
+     ],
+     "ratio": 5.0,
+     "median_dist": 0.3373,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 28,
+     "name": "Incomplete or ambiguous task-style prompts",
+     "summary": "Each is a terse, fragmentary, or template-like prompt (few-shot setups, keyword strings, agent schemas) whose actual question, input, or context is missing, truncated, or unclear, so the intended task must be inferred.",
+     "traffic": 27,
+     "dolci": 11,
+     "traffic_share": 0.711,
+     "ci": [
+      0.552,
+      0.83
+     ],
+     "ratio": 2.45,
+     "median_dist": 0.3508,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 29,
+     "name": "Competitive programming problem solving",
+     "summary": "Each request presents a competitive-programming style problem statement with formal input/output specs, constraints and samples, and asks for an efficient algorithm and code solution.",
+     "traffic": 0,
+     "dolci": 37,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.094
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 30,
+     "name": "Short open-ended general knowledge or advice questions",
+     "summary": "Each is a brief, broad, loosely specified request (often one line, sometimes non-English or typo-laden) asking for an overview, list, explanation, or how-to on a general topic, leaving scope and format entirely to the responder.",
+     "traffic": 27,
+     "dolci": 15,
+     "traffic_share": 0.643,
+     "ci": [
+      0.492,
+      0.77
+     ],
+     "ratio": 1.8,
+     "median_dist": 0.2542,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 31,
+     "name": "Applied quantitative math and statistics word problems",
+     "summary": "Each is a word-problem-style quantitative question, often multi-part and with ambiguous or underspecified setups, that requires calculation or derivation in probability, statistics, or applied math and often stated assumptions.",
+     "traffic": 7,
+     "dolci": 37,
+     "traffic_share": 0.159,
+     "ci": [
+      0.079,
+      0.294
+     ],
+     "ratio": 0.19,
+     "median_dist": 0.2995,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 32,
+     "name": "Creative roleplay and fan-fiction scene requests",
+     "summary": "Each asks the AI to write an in-character roleplay, fan-fiction, or fictional scene with specified characters and plot beats, often with edgy, crude, violent, or suggestive content that calls for judgment.",
+     "traffic": 20,
+     "dolci": 9,
+     "traffic_share": 0.69,
+     "ci": [
+      0.508,
+      0.827
+     ],
+     "ratio": 2.22,
+     "median_dist": 0.2128,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 33,
+     "name": "Text-completion engine wrapper for programming tutorials",
+     "summary": "Each request wraps a descriptive technical or programming explanation (with code examples and outputs) in meta-instructions telling the model to act as a text-completion engine, write only the assistant's turn, and avoid repetition.",
+     "traffic": 35,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.901,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.0643,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 34,
+     "name": "Finance calculations and market-data questions",
+     "summary": "Short personal-finance and quantitative-finance requests, such as compound-interest and investment-growth calculations, currency conversions, market data lookups, and general finance questions, many of which leave key assumptions unstated or depend on live data.",
+     "traffic": 7,
+     "dolci": 15,
+     "traffic_share": 0.318,
+     "ci": [
+      0.164,
+      0.527
+     ],
+     "ratio": 0.47,
+     "median_dist": 0.3053,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 35,
+     "name": "Persona-driven roleplay and system-prompt setups",
+     "summary": "Each request asks the assistant to adopt a specified persona, character, or voice (often via a system-style prompt with placeholders), then do a task in that role, frequently with an unclear or missing actual question.",
+     "traffic": 9,
+     "dolci": 1,
+     "traffic_share": 0.9,
+     "ci": [
+      0.596,
+      0.982
+     ],
+     "ratio": 9.0,
+     "median_dist": 0.3241,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 36,
+     "name": "Live external data lookup request",
+     "summary": "Each request asks the assistant to fetch current, real-time information from external platforms, services, or APIs (social media, streaming, maps, IP/network lookups), which requires live tool or network access.",
+     "traffic": 0,
+     "dolci": 12,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.242
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 37,
+     "name": "Everyday arithmetic word problems",
+     "summary": "Short narrative math word problems that need simple multi-step arithmetic on time, distance, rate, or counts, often with distractor details or slightly ambiguous wording, ending in a single numeric answer.",
+     "traffic": 2,
+     "dolci": 40,
+     "traffic_share": 0.048,
+     "ci": [
+      0.013,
+      0.158
+     ],
+     "ratio": 0.05,
+     "median_dist": 0.1321,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 38,
+     "name": "Underspecified requests with anonymization placeholders",
+     "summary": "Short or templated prompts where anonymized placeholder tokens, truncated pasted content, or missing inputs leave the actual task or required details unclear.",
+     "traffic": 29,
+     "dolci": 4,
+     "traffic_share": 0.879,
+     "ci": [
+      0.727,
+      0.952
+     ],
+     "ratio": 7.25,
+     "median_dist": 0.332,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 39,
+     "name": "Multi-part external data lookup requests",
+     "summary": "Bundled requests for several unrelated lookups or actions (playlists, rankings, blockchain, listings, orders) that depend on live data or tool/API access the assistant isn't given.",
+     "traffic": 2,
+     "dolci": 35,
+     "traffic_share": 0.054,
+     "ci": [
+      0.015,
+      0.177
+     ],
+     "ratio": 0.06,
+     "median_dist": 0.3016,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 40,
+     "name": "Brief greetings and trivial small talk",
+     "summary": "Very short, casual, often non-English messages such as greetings, thanks, or self-introductions that contain little or no real task and need only a brief friendly reply.",
+     "traffic": 31,
+     "dolci": 1,
+     "traffic_share": 0.969,
+     "ci": [
+      0.843,
+      0.994
+     ],
+     "ratio": 31.0,
+     "median_dist": 0.1235,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 41,
+     "name": "Graph algorithm puzzles with strict output",
+     "summary": "Each request is a graph-theory or combinatorial optimization problem (paths, trees, flows, coloring, cycles, matching) given with explicit data that must be solved exactly and reported in a rigid one-line output format.",
+     "traffic": 1,
+     "dolci": 33,
+     "traffic_share": 0.029,
+     "ci": [
+      0.005,
+      0.149
+     ],
+     "ratio": 0.03,
+     "median_dist": 0.2631,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 42,
+     "name": "Rigid-template prompt generation with conflicting constraints",
+     "summary": "Each request gives a heavily templated task with strict formatting rules, fixed structures, and often contradictory or truncated specs, mostly for generating image-generation prompts, and demands exact-format output.",
+     "traffic": 37,
+     "dolci": 2,
+     "traffic_share": 0.949,
+     "ci": [
+      0.831,
+      0.986
+     ],
+     "ratio": 18.5,
+     "median_dist": 0.0261,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 43,
+     "name": "Real-time data lookup requests",
+     "summary": "Each request asks for live, current information (market figures, social stats, weather, tides, air quality, web data) that requires real-time web or tool access the assistant may lack.",
+     "traffic": 5,
+     "dolci": 32,
+     "traffic_share": 0.135,
+     "ci": [
+      0.059,
+      0.28
+     ],
+     "ratio": 0.16,
+     "median_dist": 0.2364,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 44,
+     "name": "Math word problems with format constraints",
+     "summary": "Applied algebra, calculus, or optimization word problems in business or other scenarios, often with LaTeX notation and an added formatting or keyword constraint on the response.",
+     "traffic": 2,
+     "dolci": 64,
+     "traffic_share": 0.03,
+     "ci": [
+      0.008,
+      0.104
+     ],
+     "ratio": 0.03,
+     "median_dist": 0.1806,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 45,
+     "name": "Templated ASCII word-sorting with comma-separated output",
+     "summary": "Each request asks for a few short words to be sorted in ascending or descending ASCII/Unicode order and returned as a strict comma-separated list, where case-sensitive ordering (uppercase before lowercase, digits before letters) is the main subtlety.",
+     "traffic": 0,
+     "dolci": 23,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.143
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 46,
+     "name": "Python code help with flawed prompts",
+     "summary": "Users ask for Python coding help (writing, fixing, translating, explaining, or modifying code), but the prompts are messy, underspecified, or internally inconsistent, with missing code, broken pasted formatting, or contradictory specs.",
+     "traffic": 18,
+     "dolci": 13,
+     "traffic_share": 0.581,
+     "ci": [
+      0.408,
+      0.736
+     ],
+     "ratio": 1.38,
+     "median_dist": 0.2429,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 47,
+     "name": "Long-form academic writing and structured content generation",
+     "summary": "Each request asks for lengthy, formally structured scholarly or explanatory text (theses, papers, outlines, reviews, analyses) often with strict length or format constraints and demands for accurate citations or domain expertise.",
+     "traffic": 27,
+     "dolci": 18,
+     "traffic_share": 0.6,
+     "ci": [
+      0.455,
+      0.73
+     ],
+     "ratio": 1.5,
+     "median_dist": 0.2883,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 48,
+     "name": "Minimum-length company introduction writing request",
+     "summary": "Each asks for a promotional or corporate introduction of a stated minimum or ranged word count for a named, likely obscure business with little supplied information, which risks invented details.",
+     "traffic": 49,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.927,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.2373,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 49,
+     "name": "Underspecified web development and content requests",
+     "summary": "Mostly short, vague or loosely specified requests for web development tasks (HTML forms, tables, sites, servers, APIs), often with ambiguous or conflicting requirements or asks that a text-only assistant cannot fully do, such as finding images or videos.",
+     "traffic": 14,
+     "dolci": 10,
+     "traffic_share": 0.583,
+     "ci": [
+      0.388,
+      0.755
+     ],
+     "ratio": 1.4,
+     "median_dist": 0.2502,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 50,
+     "name": "Fandom crossover fan-fiction and creative writing",
+     "summary": "Requests for fan-fiction, scripts, or scenarios that mix or reimagine characters and settings from existing franchises (anime, games, TV), often terse or with unfilled name placeholders and sometimes involving dark or sexual themes.",
+     "traffic": 23,
+     "dolci": 6,
+     "traffic_share": 0.793,
+     "ci": [
+      0.616,
+      0.902
+     ],
+     "ratio": 3.83,
+     "median_dist": 0.2199,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 51,
+     "name": "Non-English language tasks across text formats",
+     "summary": "Each request is written in or about a non-English language (Chinese, Korean, Japanese, Thai, etc.) and asks for a language-bound task such as translation, extraction, comprehension, definition, or writing, with the response expected in a specific language.",
+     "traffic": 26,
+     "dolci": 11,
+     "traffic_share": 0.703,
+     "ci": [
+      0.542,
+      0.825
+     ],
+     "ratio": 2.36,
+     "median_dist": 0.2884,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 52,
+     "name": "Time-sensitive or unknowable factual and forecast questions",
+     "summary": "Short, often multilingual questions that depend on real-time, future, or current-events knowledge the assistant cannot reliably have, so a good answer requires hedging, estimates, or acknowledging uncertainty.",
+     "traffic": 24,
+     "dolci": 10,
+     "traffic_share": 0.706,
+     "ci": [
+      0.538,
+      0.832
+     ],
+     "ratio": 2.4,
+     "median_dist": 0.2801,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 53,
+     "name": "Text tasks on truncated or missing source",
+     "summary": "Requests to summarize, rewrite, title, continue, or write articles from pasted news or biomedical text (often non-English) where the input is cut off, messy, or absent, or the instruction is unclear or missing.",
+     "traffic": 13,
+     "dolci": 20,
+     "traffic_share": 0.394,
+     "ci": [
+      0.247,
+      0.563
+     ],
+     "ratio": 0.65,
+     "median_dist": 0.2853,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 54,
+     "name": "Grade-school arithmetic word problems",
+     "summary": "Short, self-contained math word problems in a brief narrative that require simple multi-step arithmetic (sometimes with percentages, fractions, or unit conversion) to reach a single numeric answer, occasionally with formatting constraints or ambiguous details.",
+     "traffic": 8,
+     "dolci": 81,
+     "traffic_share": 0.09,
+     "ci": [
+      0.046,
+      0.167
+     ],
+     "ratio": 0.1,
+     "median_dist": 0.1716,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 55,
+     "name": "Game-related creative and technical help requests",
+     "summary": "Each request asks for help with video games or tabletop games, whether recalling game facts, writing game content, designing or coding game mechanics, or running a game.",
+     "traffic": 18,
+     "dolci": 10,
+     "traffic_share": 0.643,
+     "ci": [
+      0.458,
+      0.793
+     ],
+     "ratio": 1.8,
+     "median_dist": 0.3352,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 56,
+     "name": "Algorithmic and numeric computation tasks on lists",
+     "summary": "Each request asks for a worked computation or small program over given numbers or lists (sorting, deduplication, subarray sums, geometry, probability, etc.), often bundled with ambiguous, underspecified, or oddly constrained instructions.",
+     "traffic": 5,
+     "dolci": 38,
+     "traffic_share": 0.116,
+     "ci": [
+      0.051,
+      0.245
+     ],
+     "ratio": 0.13,
+     "median_dist": 0.3173,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 57,
+     "name": "Marketing copywriting with stacked constraints",
+     "summary": "Users ask for marketing or advertising copy (product listings, ads, captions, emails, scripts) for a product or business, often with detailed formatting, length, or SEO requirements and sparse or pasted source details.",
+     "traffic": 14,
+     "dolci": 12,
+     "traffic_share": 0.538,
+     "ci": [
+      0.355,
+      0.712
+     ],
+     "ratio": 1.17,
+     "median_dist": 0.3156,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 58,
+     "name": "Low-resource African-language question answering",
+     "summary": "Short prompts written in low-resource languages (mostly Malagasy, plus Shona, isiZulu, and others) asking for facts, comprehension, classification, or generation, where the main difficulty is understanding and replying in the language.",
+     "traffic": 0,
+     "dolci": 20,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.161
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 59,
+     "name": "Long-form chemical industry article writing",
+     "summary": "Each request asks for a roughly 2000-word industry-style article on a specific, often obscure chemical or pharmaceutical compound (its production, safety, uses, or supply chain), demanding technical depth and a strict length target.",
+     "traffic": 39,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.91,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.1783,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 60,
+     "name": "Short, underspecified technical help questions",
+     "summary": "Brief, informally worded technical questions about software, programming, or hardware topics that are often vague, typo-ridden, or missing context, asking for an explanation, definition, or how-to.",
+     "traffic": 37,
+     "dolci": 13,
+     "traffic_share": 0.74,
+     "ci": [
+      0.604,
+      0.841
+     ],
+     "ratio": 2.85,
+     "median_dist": 0.3572,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 61,
+     "name": "Multilingual text translation and editing tasks",
+     "summary": "Users paste non-English or foreign-language text, often truncated or containing placeholders, and ask for translation, summarization, correction, continuation, or explanation in or between various languages.",
+     "traffic": 35,
+     "dolci": 14,
+     "traffic_share": 0.714,
+     "ci": [
+      0.576,
+      0.822
+     ],
+     "ratio": 2.5,
+     "median_dist": 0.3248,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 62,
+     "name": "Brief informal personal advice questions",
+     "summary": "Short, casual, open-ended requests for practical life, career, health, or skill advice, often vaguely worded or with loose grammar and no context, so answers must be general.",
+     "traffic": 34,
+     "dolci": 7,
+     "traffic_share": 0.829,
+     "ci": [
+      0.687,
+      0.915
+     ],
+     "ratio": 4.86,
+     "median_dist": 0.3115,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 63,
+     "name": "Logic puzzle solving with terse answer",
+     "summary": "Each request is a formal constraint-satisfaction or deduction puzzle (mostly zebra-style house grids, plus SAT, water-jug and theory-of-mind variants) that requires careful multi-step reasoning and a strictly formatted, minimal final answer.",
+     "traffic": 2,
+     "dolci": 29,
+     "traffic_share": 0.065,
+     "ci": [
+      0.018,
+      0.207
+     ],
+     "ratio": 0.07,
+     "median_dist": 0.3988,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 64,
+     "name": "Terse, underspecified fragments with unclear intent",
+     "summary": "Each request is a very short or fragmentary message, often with no explicit verb, question, or instruction, so the intended task must be guessed or clarified.",
+     "traffic": 39,
+     "dolci": 5,
+     "traffic_share": 0.886,
+     "ci": [
+      0.76,
+      0.95
+     ],
+     "ratio": 7.8,
+     "median_dist": 0.3134,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 65,
+     "name": "Jailbreak persona prompts seeking harmful content",
+     "summary": "Each request uses a jailbreak technique, such as an unrestricted persona, roleplay framing, or obfuscated string-splitting, to try to bypass safety rules and extract harmful, explicit, or abusive content.",
+     "traffic": 26,
+     "dolci": 3,
+     "traffic_share": 0.897,
+     "ci": [
+      0.736,
+      0.964
+     ],
+     "ratio": 8.67,
+     "median_dist": 0.3136,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 66,
+     "name": "Incomplete or unanswerable underspecified requests",
+     "summary": "Each request is missing essential content or a clear instruction (truncated, context-dependent, garbled, or ambiguous), so the intended task must be guessed or the gap flagged.",
+     "traffic": 17,
+     "dolci": 12,
+     "traffic_share": 0.586,
+     "ci": [
+      0.407,
+      0.745
+     ],
+     "ratio": 1.42,
+     "median_dist": 0.3161,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 67,
+     "name": "Short multilingual factual trivia questions",
+     "summary": "Brief, single-fact lookup or list questions, often written in non-English or low-resource languages, that ask for a concise factual answer (often in the same language) but may be ambiguous, hard to verify, or dependent on up-to-date knowledge.",
+     "traffic": 27,
+     "dolci": 27,
+     "traffic_share": 0.5,
+     "ci": [
+      0.371,
+      0.629
+     ],
+     "ratio": 1.0,
+     "median_dist": 0.2631,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 68,
+     "name": "Terse ambiguous factual lookup questions",
+     "summary": "Each is a very short, context-free, often vague or typo-ridden factual or definitional question whose intended referent is unclear and must be inferred or clarified before answering.",
+     "traffic": 37,
+     "dolci": 10,
+     "traffic_share": 0.787,
+     "ci": [
+      0.651,
+      0.88
+     ],
+     "ratio": 3.7,
+     "median_dist": 0.3155,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 69,
+     "name": "Persona role-play and scenario prompts",
+     "summary": "Each request asks the assistant to adopt a specified character, role, or persona (tutor, teacher, analyst, game master, public figure, etc.) and respond or perform a task in that role, often with loosely defined or underspecified details.",
+     "traffic": 37,
+     "dolci": 5,
+     "traffic_share": 0.881,
+     "ci": [
+      0.75,
+      0.948
+     ],
+     "ratio": 7.4,
+     "median_dist": 0.3133,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 70,
+     "name": "Real-time or unavailable-data lookup requests",
+     "summary": "Short, often terse requests for current news, live database or search results, or specific records that a model without live tools or access cannot reliably supply, so it must avoid fabricating.",
+     "traffic": 9,
+     "dolci": 27,
+     "traffic_share": 0.25,
+     "ci": [
+      0.138,
+      0.411
+     ],
+     "ratio": 0.33,
+     "median_dist": 0.2764,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 71,
+     "name": "Open-ended personal recommendation and advice requests",
+     "summary": "Each is a short, loosely specified request for personalized suggestions, recommendations, or advice (travel, shopping, finance, lifestyle, ideas) that lacks key details, so the answer must rely on assumptions or general guidance.",
+     "traffic": 22,
+     "dolci": 16,
+     "traffic_share": 0.579,
+     "ci": [
+      0.422,
+      0.721
+     ],
+     "ratio": 1.38,
+     "median_dist": 0.3101,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 72,
+     "name": "Constrained text-processing tasks with strict output formats",
+     "summary": "Each request asks for a short, tightly formatted output (keywords, extraction triples, abstract, label, single-letter choice, or template fill) from supplied, often noisy or truncated text, under explicit format and length rules.",
+     "traffic": 38,
+     "dolci": 22,
+     "traffic_share": 0.633,
+     "ci": [
+      0.507,
+      0.744
+     ],
+     "ratio": 1.73,
+     "median_dist": 0.3232,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 73,
+     "name": "Short word or phrase meaning lookup",
+     "summary": "Each request is a brief, often context-free question asking what a word, abbreviation, idiom, or proverb means, frequently written in a non-English or low-resource language and sometimes ambiguous.",
+     "traffic": 15,
+     "dolci": 19,
+     "traffic_share": 0.441,
+     "ci": [
+      0.289,
+      0.605
+     ],
+     "ratio": 0.79,
+     "median_dist": 0.2797,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 74,
+     "name": "Code generation or editing for UI/front-end",
+     "summary": "Each request asks the assistant to write, modify, fix, or explain code, mostly for user interface or graphics tasks like web components, animations, SVG, and GUI widgets, often with a pasted snippet and loosely specified details.",
+     "traffic": 30,
+     "dolci": 20,
+     "traffic_share": 0.6,
+     "ci": [
+      0.462,
+      0.724
+     ],
+     "ratio": 1.5,
+     "median_dist": 0.3131,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 75,
+     "name": "Underspecified pasted code or error debugging",
+     "summary": "Users paste code snippets, error output, or debugging templates, often truncated, anonymized, or lacking an explicit question, expecting the assistant to infer and perform a review, fix, or explanation.",
+     "traffic": 25,
+     "dolci": 10,
+     "traffic_share": 0.714,
+     "ci": [
+      0.549,
+      0.837
+     ],
+     "ratio": 2.5,
+     "median_dist": 0.2903,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 76,
+     "name": "Python function implementation from spec",
+     "summary": "Each asks for a Python function, class, or snippet to be written or edited from a short specification with a given signature, often with examples and sometimes with ambiguous or conflicting details or extra formatting constraints.",
+     "traffic": 2,
+     "dolci": 41,
+     "traffic_share": 0.047,
+     "ci": [
+      0.013,
+      0.155
+     ],
+     "ratio": 0.05,
+     "median_dist": 0.2534,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 77,
+     "name": "Mixed NLP task prompts with flawed inputs",
+     "summary": "Each is a templated or one-off prompt for classifying, rating, or answering a text item, often with strict output formats, where truncated, garbled, ambiguous, or subjective input makes the right answer hard to determine.",
+     "traffic": 28,
+     "dolci": 18,
+     "traffic_share": 0.609,
+     "ci": [
+      0.465,
+      0.736
+     ],
+     "ratio": 1.56,
+     "median_dist": 0.3354,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 78,
+     "name": "Short vague capability or opener prompts",
+     "summary": "Each is a brief, underspecified message, often a meta-question about the assistant's abilities, identity, or intentions or a casual opener, with no concrete task, so the assistant must answer briefly or invite a follow-up.",
+     "traffic": 55,
+     "dolci": 9,
+     "traffic_share": 0.859,
+     "ci": [
+      0.754,
+      0.924
+     ],
+     "ratio": 6.11,
+     "median_dist": 0.2633,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 79,
+     "name": "Short underspecified open-ended creative or advice requests",
+     "summary": "Each is a brief, vague, often non-English request for recommendations, ideas, or generated content (recipes, songs, brand names, stories, apps) with minimal constraints, so the assistant must fill in gaps and choose a sensible scope.",
+     "traffic": 26,
+     "dolci": 4,
+     "traffic_share": 0.867,
+     "ci": [
+      0.703,
+      0.947
+     ],
+     "ratio": 6.5,
+     "median_dist": 0.2582,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 80,
+     "name": "Sexualized creative writing involving minors or ambiguous ages",
+     "summary": "Most are creative-writing requests for stories with sexual, abusive, or sexualized content where the characters are minors, appear childlike, or have ambiguous ages, mixed in with a few benign or borderline story requests that call for careful handling.",
+     "traffic": 30,
+     "dolci": 7,
+     "traffic_share": 0.811,
+     "ci": [
+      0.658,
+      0.905
+     ],
+     "ratio": 4.29,
+     "median_dist": 0.3205,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 81,
+     "name": "Creative script and story writing requests",
+     "summary": "Each asks for fiction, mostly scripts or screenplay scenes with named characters and stacked style constraints, often with edgy or sensitive premises, truncated text, or an unclear intended task.",
+     "traffic": 27,
+     "dolci": 10,
+     "traffic_share": 0.73,
+     "ci": [
+      0.57,
+      0.846
+     ],
+     "ratio": 2.7,
+     "median_dist": 0.1454,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 82,
+     "name": "Translation and rewriting tasks in templates",
+     "summary": "Mostly templated language-transformation requests (translation between often low-resource language pairs, paraphrasing, rewriting) with task definitions, examples, and frequently awkward, mismatched, or conflicting constraints.",
+     "traffic": 3,
+     "dolci": 20,
+     "traffic_share": 0.13,
+     "ci": [
+      0.045,
+      0.321
+     ],
+     "ratio": 0.15,
+     "median_dist": 0.2139,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 83,
+     "name": "Combinatorial puzzles with strict output format",
+     "summary": "Each request is a self-contained combinatorial counting, optimization, or search puzzle with explicit data that demands an exact computed answer in a rigidly specified output format.",
+     "traffic": 0,
+     "dolci": 40,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.088
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 84,
+     "name": "Constrained creative writing prompts",
+     "summary": "Each is a request for original creative writing (poems, songs, stories, riddles, lyrics) that specifies a style, language, or format constraint such as length, genre, dialect, or rhyme, often with unfilled template placeholders.",
+     "traffic": 27,
+     "dolci": 10,
+     "traffic_share": 0.73,
+     "ci": [
+      0.57,
+      0.846
+     ],
+     "ratio": 2.7,
+     "median_dist": 0.27,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 85,
+     "name": "Brief underspecified one-line requests",
+     "summary": "Very short, vague, often lowercase or loosely worded prompts across many topics that lack context, constraints, or a clear goal, so the intended answer is ambiguous.",
+     "traffic": 41,
+     "dolci": 13,
+     "traffic_share": 0.759,
+     "ci": [
+      0.631,
+      0.854
+     ],
+     "ratio": 3.15,
+     "median_dist": 0.246,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 86,
+     "name": "Technical computing and ML how-to questions",
+     "summary": "Requests asking for technical knowledge, explanations, designs, or code in machine learning, data science, and IT infrastructure, often with specific constraints or output formats.",
+     "traffic": 14,
+     "dolci": 11,
+     "traffic_share": 0.56,
+     "ci": [
+      0.371,
+      0.733
+     ],
+     "ratio": 1.27,
+     "median_dist": 0.3017,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 87,
+     "name": "Short-text classification with truncated, anonymized inputs",
+     "summary": "Fixed-template Yes/No judgment tasks (factual consistency of summaries against documents or dialogues, sentiment of reviews, paraphrase checks) where the pasted inputs are truncated, noisy, or have anonymized name placeholders, making the label subtle.",
+     "traffic": 20,
+     "dolci": 10,
+     "traffic_share": 0.667,
+     "ci": [
+      0.488,
+      0.808
+     ],
+     "ratio": 2.0,
+     "median_dist": 0.3936,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 88,
+     "name": "Implicit fan-fiction scene continuation requests",
+     "summary": "Users give pasted or truncated fictional scripts, roleplay snippets, or fan-fiction setups with no explicit instruction, expecting the assistant to infer it should continue the scene in the same format and tone.",
+     "traffic": 29,
+     "dolci": 13,
+     "traffic_share": 0.69,
+     "ci": [
+      0.54,
+      0.809
+     ],
+     "ratio": 2.23,
+     "median_dist": 0.0386,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 89,
+     "name": "Harmful or deceptive content requests",
+     "summary": "Each item asks the assistant to produce disinformation, fabricated testimonials/quotes, deceptive or fraudulent schemes, or instructions enabling violence, cybercrime, harassment, or illegal activity.",
+     "traffic": 13,
+     "dolci": 34,
+     "traffic_share": 0.277,
+     "ci": [
+      0.169,
+      0.418
+     ],
+     "ratio": 0.38,
+     "median_dist": 0.2688,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 90,
+     "name": "Short everyday questions and constrained quizzes",
+     "summary": "Brief, often underspecified user prompts asking for factual answers, recommendations, or opinions (or multiple-choice picks and format-constrained replies), where a good answer must handle ambiguity, caveats, or fixed output rules.",
+     "traffic": 17,
+     "dolci": 12,
+     "traffic_share": 0.586,
+     "ci": [
+      0.407,
+      0.745
+     ],
+     "ratio": 1.42,
+     "median_dist": 0.3058,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 91,
+     "name": "Short, underspecified professional writing and drafting requests",
+     "summary": "Users ask for brief drafts of emails, letters, or formal documents, often with sparse or missing details, so the assistant must fill in placeholders or assumptions or ask for clarification.",
+     "traffic": 33,
+     "dolci": 13,
+     "traffic_share": 0.717,
+     "ci": [
+      0.575,
+      0.827
+     ],
+     "ratio": 2.54,
+     "median_dist": 0.321,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 92,
+     "name": "JSON-constrained structured output tasks",
+     "summary": "Each request asks for data extraction, transformation, classification, or code involving JSON, usually with a strict output format or exact-match specification.",
+     "traffic": 15,
+     "dolci": 23,
+     "traffic_share": 0.395,
+     "ci": [
+      0.256,
+      0.553
+     ],
+     "ratio": 0.65,
+     "median_dist": 0.338,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 93,
+     "name": "Truncated or underspecified prompt with unclear task",
+     "summary": "Prompts, often with pasted context, templates, or formatting constraints, that are cut off or missing a clear question or instruction, so the intended task must be inferred or clarified.",
+     "traffic": 24,
+     "dolci": 29,
+     "traffic_share": 0.453,
+     "ci": [
+      0.327,
+      0.585
+     ],
+     "ratio": 0.83,
+     "median_dist": 0.3273,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 94,
+     "name": "SQL query writing and database help",
+     "summary": "Each request asks for SQL queries, database design, or troubleshooting help, often with missing schema or context that requires assumptions.",
+     "traffic": 17,
+     "dolci": 16,
+     "traffic_share": 0.515,
+     "ci": [
+      0.352,
+      0.675
+     ],
+     "ratio": 1.06,
+     "median_dist": 0.2654,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 95,
+     "name": "Short, well-specified coding function requests",
+     "summary": "Each is a brief programming task asking for a small function or snippet (such as flattening lists, squaring numbers, or computing distances) with a clear spec, inline examples, and usually minor ambiguity or edge cases.",
+     "traffic": 4,
+     "dolci": 26,
+     "traffic_share": 0.133,
+     "ci": [
+      0.053,
+      0.297
+     ],
+     "ratio": 0.15,
+     "median_dist": 0.2534,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 96,
+     "name": "Humorous creative writing and joke requests",
+     "summary": "Users ask for comedic content such as joke lists, parody scripts, roasts, absurd questions, and stylized stories, often with strict format rules and edgy or borderline tones.",
+     "traffic": 19,
+     "dolci": 9,
+     "traffic_share": 0.679,
+     "ci": [
+      0.493,
+      0.821
+     ],
+     "ratio": 2.11,
+     "median_dist": 0.2663,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 97,
+     "name": "Tool-call style data lookups by ID",
+     "summary": "Terse, API-like requests to fetch, search, or act on external records identified by opaque IDs or names, which require live tools or data access that isn't provided.",
+     "traffic": 2,
+     "dolci": 37,
+     "traffic_share": 0.051,
+     "ci": [
+      0.014,
+      0.169
+     ],
+     "ratio": 0.05,
+     "median_dist": 0.3229,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 98,
+     "name": "Python function writing from spec",
+     "summary": "Each request asks for a short Python function or script with a stated input/output contract and usually a worked example, often with minor ambiguities or edge cases to resolve.",
+     "traffic": 6,
+     "dolci": 60,
+     "traffic_share": 0.091,
+     "ci": [
+      0.042,
+      0.184
+     ],
+     "ratio": 0.1,
+     "median_dist": 0.3068,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 99,
+     "name": "Ambiguous or underspecified coding help requests",
+     "summary": "Short programming requests (write, explain, translate, review, or fix code) that are vague, incomplete, or contain anonymized placeholders, typos, truncated snippets, or contradictions, so the intended task has to be inferred or clarified.",
+     "traffic": 31,
+     "dolci": 11,
+     "traffic_share": 0.738,
+     "ci": [
+      0.589,
+      0.847
+     ],
+     "ratio": 2.82,
+     "median_dist": 0.3007,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 0,
+     "name": "Length-targeted business and chemical content writing",
+     "summary": "Each request asks for a promotional or informative piece with a minimum or target word count about an obscure company or niche chemical compound, where little real information is supplied and the writer risks inventing details.",
+     "traffic": 102,
+     "dolci": 12,
+     "traffic_share": 0.895,
+     "ci": [
+      0.825,
+      0.939
+     ],
+     "ratio": 8.5,
+     "median_dist": 0.2089,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 1,
+     "name": "Short open-ended general-assistance requests",
+     "summary": "Brief, underspecified, everyday user prompts (often casual or non-English) asking for lists, ideas, recommendations, advice, or explanations on broad topics with no constraints on length or format.",
+     "traffic": 195,
+     "dolci": 52,
+     "traffic_share": 0.789,
+     "ci": [
+      0.734,
+      0.836
+     ],
+     "ratio": 3.75,
+     "median_dist": 0.2631,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 2,
+     "name": "Diverse standalone NLP task prompts",
+     "summary": "Each is a self-contained, often templated task prompt (summarizing, classifying, fact-checking, extracting, writing, or answering) with tight format or length constraints, frequently complicated by truncated text, placeholders, or ambiguity.",
+     "traffic": 233,
+     "dolci": 158,
+     "traffic_share": 0.596,
+     "ci": [
+      0.547,
+      0.643
+     ],
+     "ratio": 1.47,
+     "median_dist": 0.3193,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 3,
+     "name": "Math word problems with formatting constraints",
+     "summary": "Each is a quantitative problem, from simple arithmetic to calculus, optimization, or engineering calculations, often wrapped in a story scenario and frequently paired with unusual style rules or missing/ambiguous details.",
+     "traffic": 38,
+     "dolci": 399,
+     "traffic_share": 0.087,
+     "ci": [
+      0.064,
+      0.117
+     ],
+     "ratio": 0.1,
+     "median_dist": 0.2279,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 4,
+     "name": "Short, tricky or underspecified one-off prompts",
+     "summary": "Each is a brief standalone user query, often with odd constraints, missing context, unverifiable premises, or non-English phrasing, that makes giving a good answer harder than it looks.",
+     "traffic": 182,
+     "dolci": 117,
+     "traffic_share": 0.609,
+     "ci": [
+      0.552,
+      0.662
+     ],
+     "ratio": 1.56,
+     "median_dist": 0.2858,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 5,
+     "name": "Miscellaneous edge-case and harmful prompts",
+     "summary": "Short or underspecified user prompts, many with placeholders, missing context, or impossible premises, mixed with clearly harmful requests for hate, disinformation, or criminal help.",
+     "traffic": 139,
+     "dolci": 65,
+     "traffic_share": 0.681,
+     "ci": [
+      0.615,
+      0.741
+     ],
+     "ratio": 2.14,
+     "median_dist": 0.3171,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 6,
+     "name": "Structured data and database task requests",
+     "summary": "Each request asks for a concrete output from structured or semi-structured data (SQL queries, table lookups, JSON extraction or formatting, data-handling code), often with underspecified schemas, garbled input, or ambiguous requirements.",
+     "traffic": 49,
+     "dolci": 50,
+     "traffic_share": 0.495,
+     "ci": [
+      0.399,
+      0.592
+     ],
+     "ratio": 0.98,
+     "median_dist": 0.3325,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 7,
+     "name": "Creative writing requests, often sensitive content",
+     "summary": "Each is a user asking an AI to produce fiction or other creative writing (stories, scripts, poems, riddles, manifestos), with many varying in detail and some touching on sexual, minor-related, or otherwise problematic content.",
+     "traffic": 170,
+     "dolci": 55,
+     "traffic_share": 0.756,
+     "ci": [
+      0.695,
+      0.807
+     ],
+     "ratio": 3.09,
+     "median_dist": 0.2989,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 8,
+     "name": "Varied one-shot prompts: coding, prompt-writing, generation",
+     "summary": "Each is a standalone single-turn request to an AI for a code sample, structured prompt-template output, or text generation, often with elaborate formatting rules, and frequently underspecified or missing referenced content.",
+     "traffic": 198,
+     "dolci": 63,
+     "traffic_share": 0.759,
+     "ci": [
+      0.703,
+      0.807
+     ],
+     "ratio": 3.14,
+     "median_dist": 0.2603,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 9,
+     "name": "Live data or tool-dependent lookup requests",
+     "summary": "Each request asks the assistant to fetch, search, or look up current or external information (web, APIs, databases, bookings) that it may lack the tools or access to provide.",
+     "traffic": 23,
+     "dolci": 156,
+     "traffic_share": 0.128,
+     "ci": [
+      0.087,
+      0.185
+     ],
+     "ratio": 0.15,
+     "median_dist": 0.2536,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 10,
+     "name": "Algorithmic puzzles and logic-deduction problems",
+     "summary": "Each is a self-contained competitive-programming or logic/combinatorial puzzle with formal constraints and a strict output format, requiring careful derivation or exhaustive computation to reach an exact answer.",
+     "traffic": 15,
+     "dolci": 230,
+     "traffic_share": 0.061,
+     "ci": [
+      0.037,
+      0.099
+     ],
+     "ratio": 0.07,
+     "median_dist": 0.2631,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 11,
+     "name": "Roleplay and persona-setup prompts, many jailbreaks",
+     "summary": "Each is a roleplay or persona-setup prompt, often with placeholder names and a fixed format, and many use jailbreak framing to push for sexual, harmful, or unrestricted content.",
+     "traffic": 103,
+     "dolci": 9,
+     "traffic_share": 0.92,
+     "ci": [
+      0.854,
+      0.957
+     ],
+     "ratio": 11.44,
+     "median_dist": 0.323,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 12,
+     "name": "Multilingual translation and text rewriting tasks",
+     "summary": "Short, often messy prompts asking for translation between languages, paraphrasing, or creative or explanatory writing, frequently in non-English languages and sometimes with truncated pasted text or odd constraints.",
+     "traffic": 157,
+     "dolci": 73,
+     "traffic_share": 0.683,
+     "ci": [
+      0.62,
+      0.739
+     ],
+     "ratio": 2.15,
+     "median_dist": 0.2908,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 13,
+     "name": "Templated reasoning and multiple-choice benchmark prompts",
+     "summary": "Short benchmark-style questions (natural language inference, commonsense, science or economics multiple choice, reading comprehension), often few-shot, that each impose a fixed answer format or reasoning procedure and require choosing one label or option.",
+     "traffic": 10,
+     "dolci": 65,
+     "traffic_share": 0.133,
+     "ci": [
+      0.074,
+      0.228
+     ],
+     "ratio": 0.15,
+     "median_dist": 0.3075,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 14,
+     "name": "Well-specified Python coding tasks",
+     "summary": "Each is a short, self-contained programming request with a stated function signature or stdin/stdout format and often an example, asking for a small program or function to be written, refactored, or translated.",
+     "traffic": 37,
+     "dolci": 287,
+     "traffic_share": 0.114,
+     "ci": [
+      0.084,
+      0.153
+     ],
+     "ratio": 0.13,
+     "median_dist": 0.2733,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 15,
+     "name": "Templated ASCII word-sorting task",
+     "summary": "Each request asks for a short list of words to be sorted in ascending or descending ASCII/Unicode order and returned in a strict comma-separated format, where case-sensitive ordering is the main subtlety.",
+     "traffic": 0,
+     "dolci": 23,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.143
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 16,
+     "name": "Diverse technical and creative assistant requests",
+     "summary": "Each is a standalone user request to an AI assistant, mostly technical (programming, configuration, networking, security, ML) with some creative worldbuilding or game-design writing, and they vary widely in clarity, specificity, and format constraints.",
+     "traffic": 103,
+     "dolci": 54,
+     "traffic_share": 0.656,
+     "ci": [
+      0.579,
+      0.726
+     ],
+     "ratio": 1.91,
+     "median_dist": 0.3318,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 17,
+     "name": "Terse, underspecified prompts needing inference",
+     "summary": "Very short, fragmentary, or vague requests, often in non-English or low-resource languages, that give no explicit instruction or context, so the intended task must be guessed or clarified.",
+     "traffic": 132,
+     "dolci": 67,
+     "traffic_share": 0.663,
+     "ci": [
+      0.595,
+      0.725
+     ],
+     "ratio": 1.97,
+     "median_dist": 0.3043,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 18,
+     "name": "Fan-fiction and character creative writing prompts",
+     "summary": "Each is a creative writing request, often fan-fiction or crossover scripts and dialogue scenes with existing fictional characters, frequently with sensitive, sexual, crude, or real-person elements.",
+     "traffic": 99,
+     "dolci": 38,
+     "traffic_share": 0.723,
+     "ci": [
+      0.642,
+      0.791
+     ],
+     "ratio": 2.61,
+     "median_dist": 0.1609,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 19,
+     "name": "Finance calculations and market data lookups",
+     "summary": "Short personal-finance and quantitative-finance requests, such as compound-interest or inflation-adjusted projections, live market or exchange-rate lookups, and general finance questions, which often leave key assumptions or data unspecified.",
+     "traffic": 7,
+     "dolci": 15,
+     "traffic_share": 0.318,
+     "ci": [
+      0.164,
+      0.527
+     ],
+     "ratio": 0.47,
+     "median_dist": 0.3053,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    }
+   ],
+   "fine_traffic_heavy": 10,
+   "fine_dolci_heavy": 20,
+   "fine_traffic_in_heavy": 0.2008,
+   "coarse_traffic_heavy": 2,
+   "coarse_dolci_heavy": 6,
+   "coarse_traffic_in_heavy": 0.1029
+  },
+  "raw": {
+   "ami_fine": 0.0605,
+   "ami_coarse": 0.0633,
+   "nodes": [
+    {
+     "level": "fine",
+     "node": 0,
+     "name": "Algorithmic puzzle and coding problem solving",
+     "summary": "Each request is a self-contained programming or algorithmic puzzle with explicit inputs, a strict output format, and a checkable answer, typically needing an efficient algorithm, careful reasoning, or code to solve.",
+     "traffic": 3,
+     "dolci": 41,
+     "traffic_share": 0.068,
+     "ci": [
+      0.023,
+      0.182
+     ],
+     "ratio": 0.07,
+     "median_dist": 0.3207,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 1,
+     "name": "Short definitional or meaning lookup questions",
+     "summary": "Brief, often informal or non-English queries asking what a word, term, abbreviation, proverb, or phrase means or what something is, frequently with ambiguity, misspellings, or false premises to handle.",
+     "traffic": 23,
+     "dolci": 12,
+     "traffic_share": 0.657,
+     "ci": [
+      0.492,
+      0.792
+     ],
+     "ratio": 1.92,
+     "median_dist": 0.2889,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 2,
+     "name": "Templated prompts with rigid output formats",
+     "summary": "Each is a structured task prompt, often few-shot or with strict formatting and length constraints, asking for a specific classification, rewrite, generation or short answer, and many have flaws like truncated, missing or conflicting content that make them hard to complete.",
+     "traffic": 22,
+     "dolci": 31,
+     "traffic_share": 0.415,
+     "ci": [
+      0.293,
+      0.549
+     ],
+     "ratio": 0.71,
+     "median_dist": 0.2989,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 3,
+     "name": "Terse, underspecified, often non-English prompts",
+     "summary": "Very short or fragmentary messages, frequently in non-English or low-resource languages, where the intent is unclear or minimal and the assistant must infer or clarify what is wanted.",
+     "traffic": 27,
+     "dolci": 26,
+     "traffic_share": 0.509,
+     "ci": [
+      0.379,
+      0.639
+     ],
+     "ratio": 1.04,
+     "median_dist": 0.2456,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 4,
+     "name": "Text-completion engine wrapper prompts",
+     "summary": "Each request wraps a task (mostly a descriptive coding tutorial with code and outputs) in meta-instructions telling the model to act as a text-completion engine, output only the assistant's turn, and avoid repetition, using a truncated transcript with an empty assistant turn.",
+     "traffic": 33,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.896,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.0633,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 5,
+     "name": "Underspecified or flawed programming and data-science requests",
+     "summary": "Each is a coding or technical question, mostly Python and ML or data libraries, whose prompt is ambiguous, truncated, or inconsistent (missing inputs, undefined references, unclear intent), making a correct answer hard.",
+     "traffic": 11,
+     "dolci": 9,
+     "traffic_share": 0.55,
+     "ci": [
+      0.342,
+      0.742
+     ],
+     "ratio": 1.22,
+     "median_dist": 0.264,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 6,
+     "name": "Document-summary factual consistency judgment",
+     "summary": "Each request asks for a Yes/No judgment on whether a short summary is factually consistent with a pasted, often truncated and name-anonymized document such as a news article, chat, or transcript.",
+     "traffic": 20,
+     "dolci": 1,
+     "traffic_share": 0.952,
+     "ci": [
+      0.773,
+      0.992
+     ],
+     "ratio": 20.0,
+     "median_dist": 0.3955,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 7,
+     "name": "Mixed-intent security and IT prompts",
+     "summary": "Each is a short, often underspecified or ambiguous prompt centered on cybersecurity or IT tasks, ranging from benign technical questions to clearly harmful, jailbreak, or tool-dependent requests.",
+     "traffic": 27,
+     "dolci": 20,
+     "traffic_share": 0.574,
+     "ci": [
+      0.433,
+      0.705
+     ],
+     "ratio": 1.35,
+     "median_dist": 0.3275,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 8,
+     "name": "Underspecified fandom and trivia prompts",
+     "summary": "These are short or fragmentary requests about fictional franchises, games, or facts, often with missing instructions, placeholders, or unavailable external data, so the intended task has to be inferred.",
+     "traffic": 37,
+     "dolci": 22,
+     "traffic_share": 0.627,
+     "ci": [
+      0.5,
+      0.739
+     ],
+     "ratio": 1.68,
+     "median_dist": 0.2576,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 9,
+     "name": "Programming and coding task requests",
+     "summary": "Each is a request to write, check, or explain code or an algorithm, often with a formal spec, examples, or restrictive constraints, and many have ambiguous or underspecified details.",
+     "traffic": 7,
+     "dolci": 48,
+     "traffic_share": 0.127,
+     "ci": [
+      0.063,
+      0.24
+     ],
+     "ratio": 0.15,
+     "median_dist": 0.3189,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 10,
+     "name": "Precisely specified small coding tasks",
+     "summary": "Users ask for a short, self-contained program or function (mostly Python) with a stated input/output contract, edge cases, and examples, often with subtle spec traps or inconsistencies, plus a few related code-review, debugging, or docstring requests.",
+     "traffic": 7,
+     "dolci": 21,
+     "traffic_share": 0.25,
+     "ci": [
+      0.127,
+      0.434
+     ],
+     "ratio": 0.33,
+     "median_dist": 0.2903,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 11,
+     "name": "Constrained LLM prompt-task instructions",
+     "summary": "Each is a prompt handing an AI a role, scenario, or text-transformation task (roleplay, rewriting, classification, extraction, or formatted writing) with explicit output rules, often with missing or conflicting details.",
+     "traffic": 22,
+     "dolci": 10,
+     "traffic_share": 0.688,
+     "ci": [
+      0.514,
+      0.82
+     ],
+     "ratio": 2.2,
+     "median_dist": 0.3428,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 12,
+     "name": "Short constrained prompts with quirky or missing content",
+     "summary": "Each is a brief single-turn prompt to an AI (quiz, reasoning, survey, classification, or formatting task) whose strict format constraints, missing input, or ambiguity make it hard to answer straightforwardly.",
+     "traffic": 22,
+     "dolci": 9,
+     "traffic_share": 0.71,
+     "ci": [
+      0.534,
+      0.839
+     ],
+     "ratio": 2.44,
+     "median_dist": 0.3231,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 13,
+     "name": "Graph and tree algorithmic puzzles with strict output",
+     "summary": "Each is a formal graph, tree, or combinatorial optimization/counting problem with explicit data that demands careful computation and a precisely formatted answer (or, in a few cases, an algorithm design or competitive-programming solution).",
+     "traffic": 1,
+     "dolci": 37,
+     "traffic_share": 0.026,
+     "ci": [
+      0.005,
+      0.135
+     ],
+     "ratio": 0.03,
+     "median_dist": 0.2631,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 14,
+     "name": "Miscellaneous difficult or ambiguous one-off prompts",
+     "summary": "Each is a standalone user prompt to an AI assistant that is hard to answer well because it is underspecified, oddly formatted, contains leftover placeholders, or is sensitive or questionable, spanning many unrelated tasks.",
+     "traffic": 18,
+     "dolci": 16,
+     "traffic_share": 0.529,
+     "ci": [
+      0.367,
+      0.685
+     ],
+     "ratio": 1.12,
+     "median_dist": 0.3048,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 15,
+     "name": "Miscellaneous varied assistant prompts, many problematic",
+     "summary": "These are unrelated single-turn requests to an AI assistant spanning writing, extraction, math, rewriting, and several harmful or infeasible asks, sharing only that each is a brief, often underspecified task prompt.",
+     "traffic": 15,
+     "dolci": 16,
+     "traffic_share": 0.484,
+     "ci": [
+      0.32,
+      0.652
+     ],
+     "ratio": 0.94,
+     "median_dist": 0.3385,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 16,
+     "name": "Short web-dev and general assistant requests",
+     "summary": "Mostly terse, loosely worded, underspecified requests for web development help (HTML/JS code, web frameworks, site features) or other quick tasks like translation and rewriting, where the responder must assume scope or clarify intent.",
+     "traffic": 19,
+     "dolci": 10,
+     "traffic_share": 0.655,
+     "ci": [
+      0.473,
+      0.801
+     ],
+     "ratio": 1.9,
+     "median_dist": 0.3139,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 17,
+     "name": "Non-English casual chat and roleplay openers",
+     "summary": "Short, underspecified, mostly non-English messages (greetings, language-ability checks, persona or roleplay setups, riddles, simple open-ended questions) that lack a concrete task, so the assistant must infer intent and respond in the user's language.",
+     "traffic": 22,
+     "dolci": 4,
+     "traffic_share": 0.846,
+     "ci": [
+      0.665,
+      0.938
+     ],
+     "ratio": 5.5,
+     "median_dist": 0.2431,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 18,
+     "name": "Long-form industry chemical article writing",
+     "summary": "Each request asks for a lengthy (1500-3000 word) industry-style article or profile on an obscure chemical, pharmaceutical compound, or company, where the strict length target and scarce verifiable information make accuracy hard.",
+     "traffic": 48,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.926,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.1835,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 19,
+     "name": "Vague or minimal casual chat openers",
+     "summary": "Mostly very short, underspecified, often non-English conversational messages (greetings, questions about the assistant itself, small talk, or loosely framed personal or roleplay requests) where the intent is unclear and the reply must infer or ask what is wanted.",
+     "traffic": 34,
+     "dolci": 3,
+     "traffic_share": 0.919,
+     "ci": [
+      0.787,
+      0.972
+     ],
+     "ratio": 11.33,
+     "median_dist": 0.1674,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 20,
+     "name": "Short sports and trivia queries, often non-English",
+     "summary": "These are brief, underspecified casual prompts, mostly sports or trivia fact-recall, prediction, or opinion questions (often in non-English languages) that depend on current knowledge, missing data, or unclear intent.",
+     "traffic": 21,
+     "dolci": 19,
+     "traffic_share": 0.525,
+     "ci": [
+      0.375,
+      0.671
+     ],
+     "ratio": 1.11,
+     "median_dist": 0.2862,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 21,
+     "name": "Code help requests with missing or ambiguous specifics",
+     "summary": "Programming-related requests, mostly with pasted, truncated, or absent code and little or no explicit instruction, so the user's intended task (fix, review, explain, complete) must be inferred or clarified.",
+     "traffic": 52,
+     "dolci": 32,
+     "traffic_share": 0.619,
+     "ci": [
+      0.512,
+      0.716
+     ],
+     "ratio": 1.62,
+     "median_dist": 0.3173,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 22,
+     "name": "Everyday assistant requests needing live data or planning",
+     "summary": "Short, informal, often loosely specified user requests for lookups, recommendations, or plans, many of which assume real-time data or tool access the assistant may lack or rest on infeasible or ambiguous premises.",
+     "traffic": 14,
+     "dolci": 26,
+     "traffic_share": 0.35,
+     "ci": [
+      0.221,
+      0.505
+     ],
+     "ratio": 0.54,
+     "median_dist": 0.2377,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 23,
+     "name": "Rigid templated image-prompt generation with conflicting rules",
+     "summary": "Each request sets up a prompt-generator persona with a strict numbered-slot template, banned words and punctuation, single-line output and parameter flags, and asks for four varied image prompts for a given (often non-English) concept, while the template contains contradictions, duplicated slots or truncation.",
+     "traffic": 25,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.867,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.011,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 24,
+     "name": "Quantitative and math problems with format constraints",
+     "summary": "Short self-contained math, probability, estimation, or computation questions, often with a specific formatting or response-style constraint, where the user wants a concise numeric or reasoned answer.",
+     "traffic": 16,
+     "dolci": 34,
+     "traffic_share": 0.32,
+     "ci": [
+      0.208,
+      0.458
+     ],
+     "ratio": 0.47,
+     "median_dist": 0.2428,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 25,
+     "name": "Difficult or ambiguous text-processing and reasoning tasks",
+     "summary": "Each request asks for a text, language, or math task (translation, summarization, rewriting, extraction, essay, or problem-solving) that is hard to complete well because the input is truncated, underspecified, multilingual, or ambiguous.",
+     "traffic": 21,
+     "dolci": 10,
+     "traffic_share": 0.677,
+     "ci": [
+      0.501,
+      0.814
+     ],
+     "ratio": 2.1,
+     "median_dist": 0.337,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 26,
+     "name": "Miscellaneous standalone prompts across varied tasks",
+     "summary": "Each is a self-contained, one-off prompt to an AI assistant (factual questions, puzzles, creative writing, essays, translation, formatted answers) whose difficulty comes from ambiguity, niche knowledge, odd constraints, or problematic content.",
+     "traffic": 18,
+     "dolci": 24,
+     "traffic_share": 0.429,
+     "ci": [
+      0.291,
+      0.578
+     ],
+     "ratio": 0.75,
+     "median_dist": 0.3111,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 27,
+     "name": "Sentiment, toxicity, and text-style NLP prompts",
+     "summary": "Requests about classifying, rewriting, or generating text with attention to sentiment, offensiveness, or negative tone, often in fixed templates and often touching on toxic, stereotyping, or jailbreak content.",
+     "traffic": 12,
+     "dolci": 18,
+     "traffic_share": 0.4,
+     "ci": [
+      0.246,
+      0.577
+     ],
+     "ratio": 0.67,
+     "median_dist": 0.2585,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 28,
+     "name": "Database and SQL technical help requests",
+     "summary": "Mostly short, loosely specified technical requests, centered on SQL queries, schema design and database how-tos, that leave key details open so the answer has to state reasonable assumptions.",
+     "traffic": 18,
+     "dolci": 19,
+     "traffic_share": 0.486,
+     "ci": [
+      0.334,
+      0.641
+     ],
+     "ratio": 0.95,
+     "median_dist": 0.3105,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 29,
+     "name": "Creative writing and short knowledge prompts, multilingual",
+     "summary": "These are brief, loosely specified one-shot requests, often in non-English languages, asking for creative writing, story continuation, or a quick answer where the assistant must fill gaps in context or infer the intent.",
+     "traffic": 35,
+     "dolci": 8,
+     "traffic_share": 0.814,
+     "ci": [
+      0.674,
+      0.903
+     ],
+     "ratio": 4.38,
+     "median_dist": 0.2698,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 30,
+     "name": "Zebra-style logic grid puzzles",
+     "summary": "Each request presents a five-house constraint-satisfaction puzzle with several attributes and numbered clues, and asks for a single-word or single-name final answer that requires careful multi-step deduction.",
+     "traffic": 0,
+     "dolci": 25,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.133
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 31,
+     "name": "Python function coding tasks with spec quirks",
+     "summary": "Each is a programming request to implement a Python function or program from an input/output spec (often with an example) that processes strings, lists, or dictionaries, and many include ambiguities, inconsistencies, or conflicting formatting constraints the solver must handle.",
+     "traffic": 1,
+     "dolci": 42,
+     "traffic_share": 0.023,
+     "ci": [
+      0.004,
+      0.121
+     ],
+     "ratio": 0.02,
+     "median_dist": 0.2548,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 32,
+     "name": "Underspecified business and workplace prompts",
+     "summary": "Mostly short, business or workplace-themed requests, often vague or missing context (cut-off pastes, unseen document sections, no clear question), spanning writing, explanation, math, and multiple-choice tasks.",
+     "traffic": 32,
+     "dolci": 19,
+     "traffic_share": 0.627,
+     "ci": [
+      0.49,
+      0.747
+     ],
+     "ratio": 1.68,
+     "median_dist": 0.2962,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 33,
+     "name": "Real-time news and data lookups",
+     "summary": "Most requests ask for current or recent news, event updates, or time-bound data (latest articles, trending topics, per-day counts, recent winners) that depends on live web access or up-to-date knowledge the assistant may lack.",
+     "traffic": 8,
+     "dolci": 14,
+     "traffic_share": 0.364,
+     "ci": [
+      0.197,
+      0.57
+     ],
+     "ratio": 0.57,
+     "median_dist": 0.1583,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 34,
+     "name": "Political and analytical prompts, often problematic",
+     "summary": "A mixed set of user prompts centered on politics, history, and advanced-math or reasoning problems, many underspecified or ethically fraught, including propaganda, disinformation, and persona requests.",
+     "traffic": 8,
+     "dolci": 22,
+     "traffic_share": 0.267,
+     "ci": [
+      0.142,
+      0.444
+     ],
+     "ratio": 0.36,
+     "median_dist": 0.2875,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 35,
+     "name": "Terse math and logic problem solving",
+     "summary": "Short, often tersely worded math, logic, or small coding puzzles (algebra, trigonometry, calculus, boolean, arithmetic) that need exact answers and frequently come with strict output-format constraints.",
+     "traffic": 25,
+     "dolci": 43,
+     "traffic_share": 0.368,
+     "ci": [
+      0.263,
+      0.486
+     ],
+     "ratio": 0.58,
+     "median_dist": 0.2446,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 36,
+     "name": "Ambiguous or underspecified miscellaneous user prompts",
+     "summary": "Each is a short, loosely worded or flawed request (often non-English, with missing content, garbled phrasing, or unclear intent) spanning varied tasks like writing, Q&A, and roleplay, so the assistant must interpret what is wanted.",
+     "traffic": 35,
+     "dolci": 17,
+     "traffic_share": 0.673,
+     "ci": [
+      0.538,
+      0.785
+     ],
+     "ratio": 2.06,
+     "median_dist": 0.3156,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 37,
+     "name": "Creative and constrained writing requests",
+     "summary": "Each asks the assistant to produce or rework a piece of writing (story, essay, poem, letter, script, riddle, summary) under specific style, length, language, or format constraints, often with ambiguous or sensitive details.",
+     "traffic": 36,
+     "dolci": 20,
+     "traffic_share": 0.643,
+     "ci": [
+      0.512,
+      0.755
+     ],
+     "ratio": 1.8,
+     "median_dist": 0.273,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 38,
+     "name": "Diverse standalone prompts: games, math, creative writing",
+     "summary": "Each is a short, self-contained prompt to an AI assistant, mostly about games, puzzles, math or coding problems, or creative writing and brainstorming, and many are vague, oddly constrained, or flawed.",
+     "traffic": 20,
+     "dolci": 21,
+     "traffic_share": 0.488,
+     "ci": [
+      0.343,
+      0.635
+     ],
+     "ratio": 0.95,
+     "median_dist": 0.2804,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 39,
+     "name": "Miscellaneous underspecified general-assistant tasks",
+     "summary": "These are varied one-off requests to a general AI assistant (writing, lists, factual questions, translation, math, editing) across many languages and topics, often short, vague, or with ambiguous format or scope.",
+     "traffic": 30,
+     "dolci": 29,
+     "traffic_share": 0.508,
+     "ci": [
+      0.384,
+      0.632
+     ],
+     "ratio": 1.03,
+     "median_dist": 0.3107,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 40,
+     "name": "Minimum-length company introduction writing",
+     "summary": "Each request asks for a company introduction over a minimum word count (usually 200+ words) for a named business, supplying only a name and address, so the writer must produce promotional text with little factual source material.",
+     "traffic": 45,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.921,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.2435,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 41,
+     "name": "Miscellaneous one-off user prompts to AI assistant",
+     "summary": "These are unrelated single-turn requests of widely varying type, topic, language, and quality (technical questions, creative writing, quizzes, brainstorming, jailbreak attempts) with no shared task beyond being a prompt sent to an AI assistant.",
+     "traffic": 44,
+     "dolci": 12,
+     "traffic_share": 0.786,
+     "ci": [
+      0.662,
+      0.873
+     ],
+     "ratio": 3.67,
+     "median_dist": 0.3296,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 42,
+     "name": "Implicit fan-fiction script continuation",
+     "summary": "Users paste or briefly set up a script-style fan-fiction or roleplay scene with established characters, often cut off mid-line and frequently involving pregnancy or birth, with no explicit instruction, so the assistant must infer it should continue the story in the same format and tone.",
+     "traffic": 25,
+     "dolci": 6,
+     "traffic_share": 0.806,
+     "ci": [
+      0.637,
+      0.908
+     ],
+     "ratio": 4.17,
+     "median_dist": 0.0386,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 43,
+     "name": "Short non-English low-resource language queries",
+     "summary": "Brief factual, exam-style, or creative requests written in South Asian or other low-resource non-English languages and scripts, requiring accurate comprehension and a reply in the same language, often with ambiguous or underspecified wording.",
+     "traffic": 3,
+     "dolci": 23,
+     "traffic_share": 0.115,
+     "ci": [
+      0.04,
+      0.29
+     ],
+     "ratio": 0.13,
+     "median_dist": 0.1103,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 44,
+     "name": "Requests needing unavailable data or tools",
+     "summary": "Each request asks for lookups, live data, private records, or tool calls (or has a flawed or unanswerable premise) that cannot be fulfilled with what is provided in the message.",
+     "traffic": 11,
+     "dolci": 21,
+     "traffic_share": 0.344,
+     "ci": [
+      0.204,
+      0.517
+     ],
+     "ratio": 0.52,
+     "median_dist": 0.36,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 45,
+     "name": "Short, casual, underspecified everyday user prompts",
+     "summary": "Each is a brief, informal, often typo-laden or ambiguous prompt (how-to, recipe, factual, advice, or classification) that gives little context and requires the assistant to interpret intent and choose its own scope.",
+     "traffic": 38,
+     "dolci": 15,
+     "traffic_share": 0.717,
+     "ci": [
+      0.584,
+      0.82
+     ],
+     "ratio": 2.53,
+     "median_dist": 0.3047,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 46,
+     "name": "Date, time, and weather-dependent everyday queries",
+     "summary": "These are short, casual everyday requests, often in various languages, that hinge on real-time information or missing context (current date/time, weather, relative dates, or the assistant's own cutoff) and so can't be answered from static knowledge alone.",
+     "traffic": 17,
+     "dolci": 7,
+     "traffic_share": 0.708,
+     "ci": [
+      0.508,
+      0.851
+     ],
+     "ratio": 2.43,
+     "median_dist": 0.2364,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 47,
+     "name": "Terse, underspecified one-off assistant tasks",
+     "summary": "Short, informal, often multilingual requests for a quick lookup, rewrite, extraction, or tool-style action where missing context, placeholders, truncated pastes, or unavailable tools make the intent or the feasible answer unclear.",
+     "traffic": 28,
+     "dolci": 24,
+     "traffic_share": 0.538,
+     "ci": [
+      0.405,
+      0.667
+     ],
+     "ratio": 1.17,
+     "median_dist": 0.3708,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 48,
+     "name": "Science and physics questions, varied formats",
+     "summary": "Each is a user request for science or technical explanation, calculation, or generation (often physics, materials, or biology), frequently short, informal, or flawed in phrasing.",
+     "traffic": 25,
+     "dolci": 24,
+     "traffic_share": 0.51,
+     "ci": [
+      0.375,
+      0.644
+     ],
+     "ratio": 1.04,
+     "median_dist": 0.2877,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 49,
+     "name": "Short, underspecified or ambiguous everyday queries",
+     "summary": "Brief, often multilingual or loosely phrased user prompts, mostly factual lookups, advice, or content requests, where missing context, false premises, or unfulfillable demands force the assistant to infer intent, caveat, or decline.",
+     "traffic": 15,
+     "dolci": 7,
+     "traffic_share": 0.682,
+     "ci": [
+      0.473,
+      0.836
+     ],
+     "ratio": 2.14,
+     "median_dist": 0.3157,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 50,
+     "name": "Short function-implementation coding tasks",
+     "summary": "Each request asks for a small, well-specified piece of code (usually a single function with a given signature, or a translation or list-processing task) to be written or converted, often with minor ambiguities in the spec.",
+     "traffic": 5,
+     "dolci": 43,
+     "traffic_share": 0.104,
+     "ci": [
+      0.045,
+      0.222
+     ],
+     "ratio": 0.12,
+     "median_dist": 0.2902,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 51,
+     "name": "Ambiguous or underspecified single-turn prompts",
+     "summary": "Each is a one-off task prompt, often with a travel theme, whose wording is flawed or unclear through placeholders, truncation, garbled text, or conflicting constraints, so the model must infer what is actually wanted.",
+     "traffic": 16,
+     "dolci": 21,
+     "traffic_share": 0.432,
+     "ci": [
+      0.287,
+      0.591
+     ],
+     "ratio": 0.76,
+     "median_dist": 0.3196,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 52,
+     "name": "Underspecified technical and quantitative problem-solving prompts",
+     "summary": "Each is a self-contained problem or question in math, physics, engineering, programming, puzzles, or design, often ambiguous, truncated, or missing details, so the answer requires stated assumptions or inference of the intended task.",
+     "traffic": 22,
+     "dolci": 30,
+     "traffic_share": 0.423,
+     "ci": [
+      0.299,
+      0.558
+     ],
+     "ratio": 0.73,
+     "median_dist": 0.3139,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 53,
+     "name": "Underspecified or access-dependent assistant requests",
+     "summary": "Varied, mostly short prompts across many domains that are vague, underspecified, or depend on live web, external data, or tools the assistant may not have, making them hard to fulfil as stated.",
+     "traffic": 21,
+     "dolci": 27,
+     "traffic_share": 0.438,
+     "ci": [
+      0.307,
+      0.577
+     ],
+     "ratio": 0.78,
+     "median_dist": 0.32,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 54,
+     "name": "Finance, economics, and quantitative problem requests",
+     "summary": "Short, mixed-format questions and calculations centered on finance, economics, or math word problems, often needing live data, tool lookups, or assumptions, and sometimes with extra formatting or reasoning constraints.",
+     "traffic": 24,
+     "dolci": 52,
+     "traffic_share": 0.316,
+     "ci": [
+      0.222,
+      0.427
+     ],
+     "ratio": 0.46,
+     "median_dist": 0.3059,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 55,
+     "name": "Natural language inference with reasoning prompts",
+     "summary": "Each request asks the assistant to judge whether a hypothesis follows from a premise (or do similar commonsense reasoning), usually in a templated multiple-choice or few-shot format with step-by-step reasoning requested.",
+     "traffic": 3,
+     "dolci": 39,
+     "traffic_share": 0.071,
+     "ci": [
+      0.025,
+      0.19
+     ],
+     "ratio": 0.08,
+     "median_dist": 0.2752,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 56,
+     "name": "Sexual and sensitive creative roleplay requests",
+     "summary": "Most are requests for sexually explicit or non-consensual erotic fiction and roleplay, mixed with a few other creative-writing or opinion prompts that touch on sensitive themes.",
+     "traffic": 25,
+     "dolci": 4,
+     "traffic_share": 0.862,
+     "ci": [
+      0.694,
+      0.945
+     ],
+     "ratio": 6.25,
+     "median_dist": 0.3015,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 57,
+     "name": "Underspecified or unanswerable single-turn prompts",
+     "summary": "Each is a short, standalone request that is missing something needed to answer well (an instruction, a list, a filled-in variable, schema, or live/external data) or has an ambiguous or hard-to-verify constraint, so the assistant must guess or work from limited information.",
+     "traffic": 13,
+     "dolci": 18,
+     "traffic_share": 0.419,
+     "ci": [
+      0.264,
+      0.592
+     ],
+     "ratio": 0.72,
+     "median_dist": 0.3538,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 58,
+     "name": "Word problems and structured plan requests",
+     "summary": "Each is a self-contained, narrative-framed task, mostly math or arithmetic word problems with distracting details or ambiguous wording, plus a few requests for structured plans, often with explicit formatting or language constraints.",
+     "traffic": 5,
+     "dolci": 28,
+     "traffic_share": 0.152,
+     "ci": [
+      0.067,
+      0.309
+     ],
+     "ratio": 0.18,
+     "median_dist": 0.2332,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 59,
+     "name": "Varied short text and writing tasks",
+     "summary": "Each is a self-contained single-turn prompt to an AI assistant, covering creative writing, text editing, math or string puzzles, and formatting-constrained generation, often with tricky constraints or missing input.",
+     "traffic": 29,
+     "dolci": 23,
+     "traffic_share": 0.558,
+     "ci": [
+      0.423,
+      0.684
+     ],
+     "ratio": 1.26,
+     "median_dist": 0.2773,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 60,
+     "name": "JSON-centered programming and data tasks",
+     "summary": "Each request asks for code or a structured-data answer involving JSON (parsing, filtering, flattening, extracting, or formatting it), usually with a terse or underspecified spec.",
+     "traffic": 8,
+     "dolci": 22,
+     "traffic_share": 0.267,
+     "ci": [
+      0.142,
+      0.444
+     ],
+     "ratio": 0.36,
+     "median_dist": 0.3001,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 61,
+     "name": "Miscellaneous general-purpose assistant prompts",
+     "summary": "These are varied, mostly short one-off user requests (translation, writing, trivia, math, travel, history, sensitive topics) with no shared subject, unified only by being standalone tasks given to a general AI assistant, often underspecified or tricky in some way.",
+     "traffic": 17,
+     "dolci": 6,
+     "traffic_share": 0.739,
+     "ci": [
+      0.535,
+      0.875
+     ],
+     "ratio": 2.83,
+     "median_dist": 0.2416,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 62,
+     "name": "Underspecified tech help and coding requests",
+     "summary": "Brief, informal, often typo-ridden or non-English requests for technical help (coding, configuration, workflows, or advice) that leave scope vague or rely on missing, truncated, or unavailable material.",
+     "traffic": 11,
+     "dolci": 5,
+     "traffic_share": 0.688,
+     "ci": [
+      0.444,
+      0.858
+     ],
+     "ratio": 2.2,
+     "median_dist": 0.3479,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 63,
+     "name": "Multilingual text transformation and political/historical writing",
+     "summary": "Requests that work on pasted or supplied text (translating, paraphrasing, summarizing, continuing, classifying) or write about history and geopolitics, often in non-English languages and often with truncated input or contested, sensitive framing.",
+     "traffic": 18,
+     "dolci": 8,
+     "traffic_share": 0.692,
+     "ci": [
+      0.5,
+      0.835
+     ],
+     "ratio": 2.25,
+     "median_dist": 0.2748,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 64,
+     "name": "Programming and sysadmin help with messy pasted input",
+     "summary": "Technical coding, debugging, or system-administration requests, often with pasted code or error output that is truncated, badly formatted, or missing an explicit question, so the intent must be inferred.",
+     "traffic": 31,
+     "dolci": 11,
+     "traffic_share": 0.738,
+     "ci": [
+      0.589,
+      0.847
+     ],
+     "ratio": 2.82,
+     "median_dist": 0.2901,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 65,
+     "name": "Math word problems with constraints",
+     "summary": "Each is a narrative word problem needing arithmetic, algebra, geometry, finance or calculus computation, often with extra formatting or wording constraints and sometimes ambiguous setup.",
+     "traffic": 0,
+     "dolci": 35,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.099
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 66,
+     "name": "Sexualized or controlling fiction/roleplay scripts",
+     "summary": "Creative-writing and roleplay requests for scripted scenes or stories, often based on existing shows or games, that center on fetishized, degrading, hypnosis/mind-control, or sexualized dynamics, frequently with minors, family members, or real people involved.",
+     "traffic": 27,
+     "dolci": 7,
+     "traffic_share": 0.794,
+     "ci": [
+      0.632,
+      0.897
+     ],
+     "ratio": 3.86,
+     "median_dist": 0.1385,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 67,
+     "name": "Music-themed or underspecified assistant requests",
+     "summary": "Mostly music-related prompts (live chart or artist lookups, lyrics, lesson plans, trivia) plus a few unrelated tasks, all with vague, templated, or incomplete inputs, and many needing real-time data or tool access the assistant may lack.",
+     "traffic": 23,
+     "dolci": 26,
+     "traffic_share": 0.469,
+     "ci": [
+      0.337,
+      0.606
+     ],
+     "ratio": 0.88,
+     "median_dist": 0.2976,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 68,
+     "name": "Underspecified prompts with unfilled placeholders",
+     "summary": "Each request is a short or varied task (writing, translation, editing, lookup, roleplay) that is hard to answer well because anonymized name placeholders, missing referenced content, or unclear intent leave the actual subject or goal undefined.",
+     "traffic": 40,
+     "dolci": 5,
+     "traffic_share": 0.889,
+     "ci": [
+      0.765,
+      0.952
+     ],
+     "ratio": 8.0,
+     "median_dist": 0.3591,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 69,
+     "name": "Word problems with formatting constraints",
+     "summary": "Short self-contained arithmetic or algebra word problems needing a single numeric answer, often with distractor details or ambiguity and frequently paired with strict output-format or lexical constraints.",
+     "traffic": 0,
+     "dolci": 33,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.104
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 70,
+     "name": "Agriculture-flavored prompts with tricky format constraints",
+     "summary": "Short, loosely worded user prompts, many about plants, farming, or science, where the request is underspecified or ambiguous and often carries odd or conflicting output-format constraints such as two-word numeric bullets, no commas, all caps, or fixed closing phrases.",
+     "traffic": 13,
+     "dolci": 13,
+     "traffic_share": 0.5,
+     "ci": [
+      0.321,
+      0.679
+     ],
+     "ratio": 1.0,
+     "median_dist": 0.4001,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 71,
+     "name": "Mixed finance, sales, and fraud-adjacent writing requests",
+     "summary": "Short prompts about business, finance, and persuasive writing or role-play, ranging from benign tasks to thinly veiled requests for fraud or deceptive content.",
+     "traffic": 23,
+     "dolci": 12,
+     "traffic_share": 0.657,
+     "ci": [
+      0.492,
+      0.792
+     ],
+     "ratio": 1.92,
+     "median_dist": 0.3283,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 72,
+     "name": "Small self-contained puzzles and computational tasks",
+     "summary": "Each request is a compact, well-specified computation, programming, or logic puzzle with explicit data and often a strict output format, sometimes complicated by odd or conflicting constraints.",
+     "traffic": 14,
+     "dolci": 57,
+     "traffic_share": 0.197,
+     "ci": [
+      0.121,
+      0.304
+     ],
+     "ratio": 0.25,
+     "median_dist": 0.2444,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 73,
+     "name": "Placeholder-ridden prompts, many jailbreak or sexualized roleplay",
+     "summary": "These requests are mostly malformed or underspecified, with unfilled name or template placeholders, and many are jailbreak personas or sexualized roleplay setups (some involving coercion or minors).",
+     "traffic": 66,
+     "dolci": 2,
+     "traffic_share": 0.971,
+     "ci": [
+      0.899,
+      0.992
+     ],
+     "ratio": 33.0,
+     "median_dist": 0.3121,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 74,
+     "name": "Short coding and technical help requests",
+     "summary": "Users ask for code, code modifications, or technical and math explanations on programming topics such as GUIs, game scripts, animations, graphics, and graph theory, usually briefly and with details left unspecified.",
+     "traffic": 40,
+     "dolci": 19,
+     "traffic_share": 0.678,
+     "ci": [
+      0.551,
+      0.783
+     ],
+     "ratio": 2.11,
+     "median_dist": 0.2928,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 75,
+     "name": "Social media content and live-data requests",
+     "summary": "Short, informal requests for social media content creation, growth advice, or fetching live platform data, usually loosely specified so the assistant must fill in details or note that it lacks real-time tool access.",
+     "traffic": 12,
+     "dolci": 15,
+     "traffic_share": 0.444,
+     "ci": [
+      0.276,
+      0.627
+     ],
+     "ratio": 0.8,
+     "median_dist": 0.253,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 76,
+     "name": "Medical and health-related questions and tasks",
+     "summary": "Most requests in this group ask for medical or health information or writing tied to a clinical context (symptoms, prevalence, cancer, insurance, case reports, clinical messages), and the rest are short, often ambiguous or flawed prompts such as math problems, a comparison task and a question missing its data.",
+     "traffic": 27,
+     "dolci": 21,
+     "traffic_share": 0.562,
+     "ci": [
+      0.423,
+      0.693
+     ],
+     "ratio": 1.29,
+     "median_dist": 0.3502,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 77,
+     "name": "ASCII-order word sorting with fixed format",
+     "summary": "Each request asks to sort a short list of words in ascending or descending ASCII/Unicode order, where case sensitivity matters, and to return them in a strict comma-separated output format.",
+     "traffic": 0,
+     "dolci": 23,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.143
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 78,
+     "name": "Creative writing and roleplay, often sensitive",
+     "summary": "Each is a creative-writing, fan-fiction, or roleplay request for fictional scripts, stories, or scenes, often with placeholder tokens or loose constraints, and many touch on sexual, fetish, violent, or otherwise sensitive content.",
+     "traffic": 37,
+     "dolci": 17,
+     "traffic_share": 0.685,
+     "ci": [
+      0.553,
+      0.793
+     ],
+     "ratio": 2.18,
+     "median_dist": 0.2733,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 79,
+     "name": "Quantitative word problems with calculations",
+     "summary": "Each request is a self-contained applied math word problem, from simple arithmetic to linear programming, often with distractor details, ambiguities, or formatting constraints, that asks for a computed numeric answer.",
+     "traffic": 1,
+     "dolci": 29,
+     "traffic_share": 0.033,
+     "ci": [
+      0.006,
+      0.167
+     ],
+     "ratio": 0.03,
+     "median_dist": 0.2452,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 80,
+     "name": "Short, underspecified miscellaneous user prompts",
+     "summary": "Each is a brief, ambiguous or context-light request, spanning mixed topics and tasks, where the assistant must infer intent or make assumptions before answering.",
+     "traffic": 24,
+     "dolci": 7,
+     "traffic_share": 0.774,
+     "ci": [
+      0.602,
+      0.886
+     ],
+     "ratio": 3.43,
+     "median_dist": 0.2823,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 81,
+     "name": "Multilingual translation and language-editing tasks",
+     "summary": "Short prompts, often in templated task formats, that ask for translation, paraphrase, editing, or question-answering in or between non-English languages, with tricky constraints such as garbled source text, conflicting style instructions, or possibly mistaken terms.",
+     "traffic": 16,
+     "dolci": 29,
+     "traffic_share": 0.356,
+     "ci": [
+      0.232,
+      0.502
+     ],
+     "ratio": 0.55,
+     "median_dist": 0.2411,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 82,
+     "name": "Templated requests for toxic identity-based statements",
+     "summary": "Each is a fill-in-the-blank template with a short word cap that asks the assistant to write a deliberately toxic or demeaning statement, usually in the voice of or about a specific identity group.",
+     "traffic": 23,
+     "dolci": 1,
+     "traffic_share": 0.958,
+     "ci": [
+      0.798,
+      0.993
+     ],
+     "ratio": 23.0,
+     "median_dist": 0.2368,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 83,
+     "name": "Creative fiction and roleplay story requests",
+     "summary": "Each is a request for fictional stories, dialogue, or persona setups with specific characters and plot directions, ranging from harmless humor and educational tales to sexualized, fetishized, or minor-involving content.",
+     "traffic": 33,
+     "dolci": 8,
+     "traffic_share": 0.805,
+     "ci": [
+      0.66,
+      0.898
+     ],
+     "ratio": 4.12,
+     "median_dist": 0.2836,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 84,
+     "name": "Humorous creative writing prompts",
+     "summary": "Each is a user request for comedic or playful creative output (scripts, jokes, poems, lists, parodies, personas), usually with stacked stylistic constraints or underspecified details.",
+     "traffic": 22,
+     "dolci": 14,
+     "traffic_share": 0.611,
+     "ci": [
+      0.449,
+      0.752
+     ],
+     "ratio": 1.57,
+     "median_dist": 0.2441,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 85,
+     "name": "Python coding task requests",
+     "summary": "Each is a request to write, translate, or fix Python code for a specific programming task, often with ambiguities, missing details, or inconsistencies in the spec that require interpretation.",
+     "traffic": 7,
+     "dolci": 16,
+     "traffic_share": 0.304,
+     "ci": [
+      0.156,
+      0.509
+     ],
+     "ratio": 0.44,
+     "median_dist": 0.24,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 86,
+     "name": "Narrative-framed math word problems with ambiguities",
+     "summary": "Math word problems (calculus, algebra, growth models, geometry, estimation) wrapped in story settings that each contain ambiguous, underspecified, or flawed premises requiring careful interpretation before solving.",
+     "traffic": 2,
+     "dolci": 20,
+     "traffic_share": 0.091,
+     "ci": [
+      0.025,
+      0.278
+     ],
+     "ratio": 0.1,
+     "median_dist": 0.3547,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 87,
+     "name": "Miscellaneous short assistant prompts",
+     "summary": "Each is a standalone user prompt to a general-purpose AI assistant, mostly short or underspecified, spanning math problems, creative writing, capability questions, and explanations, often in other languages, and often flawed, vague, or borderline.",
+     "traffic": 24,
+     "dolci": 12,
+     "traffic_share": 0.667,
+     "ci": [
+      0.503,
+      0.798
+     ],
+     "ratio": 2.0,
+     "median_dist": 0.3232,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 88,
+     "name": "Small well-specified Python coding tasks",
+     "summary": "Each is a self-contained request to write a short Python function or program from a given spec and worked example, often with minor edge cases or example inconsistencies to catch.",
+     "traffic": 1,
+     "dolci": 23,
+     "traffic_share": 0.042,
+     "ci": [
+      0.007,
+      0.202
+     ],
+     "ratio": 0.04,
+     "median_dist": 0.4182,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 89,
+     "name": "Creative and recommendation requests, often underspecified",
+     "summary": "These are mostly short, open-ended creative-writing, marketing-copy, brainstorming, or entertainment-recommendation requests that are vague, missing context, or carry tricky constraints such as placeholders, unavailable tools, or requests that cannot be fulfilled.",
+     "traffic": 25,
+     "dolci": 18,
+     "traffic_share": 0.581,
+     "ci": [
+      0.433,
+      0.716
+     ],
+     "ratio": 1.39,
+     "median_dist": 0.272,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 90,
+     "name": "Workplace and job-related writing and tasks",
+     "summary": "Each request asks an AI assistant for a short work- or career-themed deliverable (resume, bio, email, rewrite, title, data cleaning, or advice) from minimal or loosely specified input.",
+     "traffic": 29,
+     "dolci": 11,
+     "traffic_share": 0.725,
+     "ci": [
+      0.572,
+      0.839
+     ],
+     "ratio": 2.64,
+     "median_dist": 0.3325,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 91,
+     "name": "Miscellaneous one-off assistant prompts with quirks",
+     "summary": "Each is a standalone user prompt to an AI assistant, spanning writing, math, analysis, and jailbreak or harmful attempts, and many have flaws such as ambiguity, missing context, contradictory constraints, or persona framing that complicate answering.",
+     "traffic": 11,
+     "dolci": 27,
+     "traffic_share": 0.289,
+     "ci": [
+      0.17,
+      0.448
+     ],
+     "ratio": 0.41,
+     "median_dist": 0.2835,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 92,
+     "name": "Grade-school arithmetic word problems",
+     "summary": "Short everyday math word problems that need multi-step arithmetic to reach a single numeric answer, sometimes with ambiguous wording or added formatting constraints.",
+     "traffic": 5,
+     "dolci": 42,
+     "traffic_share": 0.106,
+     "ci": [
+      0.046,
+      0.226
+     ],
+     "ratio": 0.12,
+     "median_dist": 0.3376,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 93,
+     "name": "Miscellaneous short, varied assistant prompts",
+     "summary": "Each is a standalone user prompt to an AI assistant, spanning coding, math, factual, creative, and sensitive or infeasible requests, with many being short, vague, or ambiguous.",
+     "traffic": 13,
+     "dolci": 17,
+     "traffic_share": 0.433,
+     "ci": [
+      0.274,
+      0.608
+     ],
+     "ratio": 0.76,
+     "median_dist": 0.1997,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 94,
+     "name": "Academic and scientific text-task requests",
+     "summary": "Each is a scholarly or science-oriented request (writing, paraphrasing, explaining, literature lookup, or biomedical extraction) that often carries strict format constraints or depends on sources or database access the assistant may not have.",
+     "traffic": 17,
+     "dolci": 25,
+     "traffic_share": 0.405,
+     "ci": [
+      0.27,
+      0.555
+     ],
+     "ratio": 0.68,
+     "median_dist": 0.3075,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 95,
+     "name": "Underspecified academic and educational content requests",
+     "summary": "Short, open-ended, often non-English prompts asking an AI to produce, explain, or improve study, academic, or professional content (curricula, papers, outlines, tests, documents) with vague or missing details about scope, format, or the exact task.",
+     "traffic": 21,
+     "dolci": 11,
+     "traffic_share": 0.656,
+     "ci": [
+      0.483,
+      0.796
+     ],
+     "ratio": 1.91,
+     "median_dist": 0.3167,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 96,
+     "name": "Programming and code-writing task requests",
+     "summary": "Each is a request to write, implement, or explain code or a programming concept, ranging from short open-ended asks to detailed stdin/stdout specs, often with varied languages and some ambiguity.",
+     "traffic": 25,
+     "dolci": 21,
+     "traffic_share": 0.543,
+     "ci": [
+      0.402,
+      0.678
+     ],
+     "ratio": 1.19,
+     "median_dist": 0.2357,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 97,
+     "name": "Short math and number-theory programming tasks",
+     "summary": "Mostly small, well-specified coding or arithmetic problems centered on primes, sums, factorials, and number or base computations, often with stdin/stdout formats and examples.",
+     "traffic": 7,
+     "dolci": 34,
+     "traffic_share": 0.171,
+     "ci": [
+      0.085,
+      0.313
+     ],
+     "ratio": 0.21,
+     "median_dist": 0.1655,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "fine",
+     "node": 98,
+     "name": "Stdin/stdout programming problem specifications",
+     "summary": "Each is a coding task with a formal problem statement, usually with input/output format and examples, asking for a program that reads from stdin and prints a result, often with tricky constraints or ambiguous specs.",
+     "traffic": 2,
+     "dolci": 44,
+     "traffic_share": 0.043,
+     "ci": [
+      0.012,
+      0.145
+     ],
+     "ratio": 0.05,
+     "median_dist": 0.1347,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "fine",
+     "node": 99,
+     "name": "Technical prompts with flawed or underspecified details",
+     "summary": "Each is a coding, math, or ML request whose specification is ambiguous, incomplete, contradictory, or missing referenced content, so a good answer must work around or flag the problem.",
+     "traffic": 18,
+     "dolci": 40,
+     "traffic_share": 0.31,
+     "ci": [
+      0.206,
+      0.438
+     ],
+     "ratio": 0.45,
+     "median_dist": 0.311,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 0,
+     "name": "Underspecified one-off tasks with missing context",
+     "summary": "Each is a standalone user prompt for an AI assistant, spanning writing, math, coding, analysis and Q&A, that is short, vague, or oddly framed and leaves out details or materials the assistant would need to answer well.",
+     "traffic": 270,
+     "dolci": 252,
+     "traffic_share": 0.517,
+     "ci": [
+      0.474,
+      0.56
+     ],
+     "ratio": 1.07,
+     "median_dist": 0.3156,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 1,
+     "name": "Diverse, often flawed LLM prompts",
+     "summary": "Each is a standalone prompt sent to an AI assistant with a specific format or constraint, many of them harmful, truncated, or missing needed content, which makes them tricky to answer well.",
+     "traffic": 163,
+     "dolci": 132,
+     "traffic_share": 0.553,
+     "ci": [
+      0.495,
+      0.608
+     ],
+     "ratio": 1.23,
+     "median_dist": 0.305,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 2,
+     "name": "Short, underspecified or placeholder-laden prompts",
+     "summary": "These are brief user requests across varied tasks (writing, coding, classification, advice, roleplay, and a few harmful asks) that are mostly missing key details or contain unfilled name or language placeholders, leaving the actual task unclear.",
+     "traffic": 230,
+     "dolci": 101,
+     "traffic_share": 0.695,
+     "ci": [
+      0.643,
+      0.742
+     ],
+     "ratio": 2.28,
+     "median_dist": 0.3401,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 3,
+     "name": "Ambiguous or underspecified single-turn requests",
+     "summary": "Each is a short or truncated user prompt, often pasted text with no instruction, or one needing unavailable tools or live data, so the intended task must be guessed or clarified before answering.",
+     "traffic": 133,
+     "dolci": 91,
+     "traffic_share": 0.594,
+     "ci": [
+      0.528,
+      0.656
+     ],
+     "ratio": 1.46,
+     "median_dist": 0.2917,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 4,
+     "name": "Multilingual and edge-case general assistant prompts",
+     "summary": "These are short, often underspecified or flawed user prompts (many in non-English languages, with conflicting constraints, missing inputs, or borderline asks) where the main challenge is interpreting the intent and handling the oddity or ambiguity.",
+     "traffic": 97,
+     "dolci": 105,
+     "traffic_share": 0.48,
+     "ci": [
+      0.412,
+      0.549
+     ],
+     "ratio": 0.92,
+     "median_dist": 0.2538,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 5,
+     "name": "Programming and puzzle task specifications",
+     "summary": "Self-contained coding or algorithmic puzzle tasks with small explicit inputs and strict input/output formats, often with restrictions or ambiguities, that need a precise program or computed answer.",
+     "traffic": 58,
+     "dolci": 267,
+     "traffic_share": 0.178,
+     "ci": [
+      0.141,
+      0.224
+     ],
+     "ratio": 0.22,
+     "median_dist": 0.2475,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 6,
+     "name": "Coding tasks with ambiguous or flawed specs",
+     "summary": "Each is a programming or code-related request (writing, debugging, explaining, translating, documenting, or editing code or structured data) in which the prompt is underspecified, broken, or inconsistent in some way, so the assistant must infer the intended task or resolve ambiguities.",
+     "traffic": 102,
+     "dolci": 70,
+     "traffic_share": 0.593,
+     "ci": [
+      0.518,
+      0.664
+     ],
+     "ratio": 1.46,
+     "median_dist": 0.3121,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 7,
+     "name": "Tricky requests needing unavailable data or constraints",
+     "summary": "Varied user prompts that are hard to answer well because they depend on live or external data or tools the assistant may lack, or on ambiguous, impossible, or tightly constrained specifications.",
+     "traffic": 200,
+     "dolci": 197,
+     "traffic_share": 0.504,
+     "ci": [
+      0.455,
+      0.553
+     ],
+     "ratio": 1.02,
+     "median_dist": 0.2881,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 8,
+     "name": "Miscellaneous creative, writing, and short-task prompts",
+     "summary": "These are varied single-turn user prompts to an AI assistant, mostly creative writing, rewriting, summarization, or short Q&A tasks, often with truncated, underspecified, or multilingual text, and some seeking sexual or fetishistic content.",
+     "traffic": 304,
+     "dolci": 119,
+     "traffic_share": 0.719,
+     "ci": [
+      0.674,
+      0.759
+     ],
+     "ratio": 2.55,
+     "median_dist": 0.2641,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 9,
+     "name": "Diverse underspecified or data-dependent user prompts",
+     "summary": "Each is a standalone user query to an AI assistant, spanning math, science, advice, and live-data topics, that is made hard by ambiguity, missing context, or the need for real-time data.",
+     "traffic": 103,
+     "dolci": 202,
+     "traffic_share": 0.338,
+     "ci": [
+      0.287,
+      0.393
+     ],
+     "ratio": 0.51,
+     "median_dist": 0.3134,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 10,
+     "name": "Zebra-style logic grid puzzles",
+     "summary": "Each request is a five-house constraint-satisfaction logic puzzle with several attribute categories and a numbered clue list, requiring multi-step deduction to produce a single-word or single-name final answer.",
+     "traffic": 0,
+     "dolci": 25,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.133
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 11,
+     "name": "Long-form industry article or company profile writing",
+     "summary": "Each asks for a lengthy, word-count-constrained industry-style piece (mostly chemical-industry articles or promotional company introductions) about an obscure subject with little verifiable information, risking fabricated detail.",
+     "traffic": 93,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.96,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.1939,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 12,
+     "name": "Rigid-template image prompt generation",
+     "summary": "Each request asks the assistant to act as a prompt generator for an image tool, producing four varied one-line prompts from a strict numbered-slot template with banned words and punctuation and fixed parameter flags, while the template itself is truncated, redundant, or self-contradictory.",
+     "traffic": 25,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.867,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.011,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 13,
+     "name": "Well-specified programming task requests",
+     "summary": "Each is a request to write code (mostly Python functions or stdin/stdout programs) from a stated spec, often with an example and some unspecified edge cases to handle.",
+     "traffic": 57,
+     "dolci": 175,
+     "traffic_share": 0.246,
+     "ci": [
+      0.195,
+      0.305
+     ],
+     "ratio": 0.33,
+     "median_dist": 0.264,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 14,
+     "name": "Graph and tree algorithmic puzzles",
+     "summary": "Formal graph-theory or combinatorial optimization problems with explicit data (edge lists, trees, arrays) that require careful computation and a strict, exactly formatted answer.",
+     "traffic": 1,
+     "dolci": 37,
+     "traffic_share": 0.026,
+     "ci": [
+      0.005,
+      0.135
+     ],
+     "ratio": 0.03,
+     "median_dist": 0.2631,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 15,
+     "name": "Text-completion engine wrapper around tutorial request",
+     "summary": "Each prompt wraps a request (mostly a descriptive coding tutorial with code examples and outputs) in meta-instructions telling the model to act as a text-completion engine, output only the assistant's turn, and avoid repetition, using a truncated transcript with an empty assistant turn.",
+     "traffic": 33,
+     "dolci": 0,
+     "traffic_share": 1.0,
+     "ci": [
+      0.896,
+      1.0
+     ],
+     "ratio": null,
+     "median_dist": 0.0633,
+     "traffic_heavy": true,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 16,
+     "name": "Case-sensitive ASCII word sorting",
+     "summary": "Each request asks to sort a short list of words in ascending or descending ASCII/Unicode order and return them in a strict comma-separated format, where mixed case or digits make character-code ordering the key subtlety.",
+     "traffic": 0,
+     "dolci": 23,
+     "traffic_share": 0.0,
+     "ci": [
+      0.0,
+      0.143
+     ],
+     "ratio": 0.0,
+     "median_dist": null,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 17,
+     "name": "Implicit fan-fiction script continuation",
+     "summary": "Users paste truncated or minimal fan-fiction scenes in script-dialogue format, often involving pregnancy or birth, with no explicit instruction, expecting the assistant to infer and continue the story in matching tone and format.",
+     "traffic": 25,
+     "dolci": 6,
+     "traffic_share": 0.806,
+     "ci": [
+      0.637,
+      0.908
+     ],
+     "ratio": 4.17,
+     "median_dist": 0.0386,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    },
+    {
+     "level": "coarse",
+     "node": 18,
+     "name": "Math word problems with formatting constraints",
+     "summary": "Short scenario-framed arithmetic or applied-math word problems, often with distractor details or ambiguity, frequently paired with extra output constraints like paragraph counts, keyword usage, or persona framing.",
+     "traffic": 10,
+     "dolci": 138,
+     "traffic_share": 0.068,
+     "ci": [
+      0.037,
+      0.12
+     ],
+     "ratio": 0.07,
+     "median_dist": 0.2443,
+     "traffic_heavy": false,
+     "dolci_heavy": true
+    },
+    {
+     "level": "coarse",
+     "node": 19,
+     "name": "Short, varied single-turn user queries",
+     "summary": "Mostly brief, standalone prompts, often health-related and often in non-English languages, each asking for a quick answer, explanation, definition, extraction or rewrite with little context or guidance.",
+     "traffic": 88,
+     "dolci": 48,
+     "traffic_share": 0.647,
+     "ci": [
+      0.564,
+      0.722
+     ],
+     "ratio": 1.83,
+     "median_dist": 0.3126,
+     "traffic_heavy": false,
+     "dolci_heavy": false
+    }
+   ],
+   "fine_traffic_heavy": 9,
+   "fine_dolci_heavy": 14,
+   "fine_traffic_in_heavy": 0.1677,
+   "coarse_traffic_heavy": 3,
+   "coarse_dolci_heavy": 5,
+   "coarse_traffic_in_heavy": 0.0758
+  }
+ },
+ "ari_fine_desc_vs_raw": 0.1282,
+ "ami_fine_by_seed": {
+  "desc": [
+   0.0911,
+   0.0901,
+   0.09
+  ],
+  "raw": [
+   0.0605,
+   0.0566,
+   0.0581
+  ]
+ },
+ "ami_fine_desc_minus_raw": {
+  "diff": 0.0306,
+  "prompt_bootstrap_ci": [
+   0.0245,
+   0.0365
+  ]
+ },
+ "overlap_fine": {
+  "desc_heavy_traffic": 400,
+  "raw_heavy_traffic": 334,
+  "both": 191,
+  "share_desc_in_raw": 0.477,
+  "share_raw_in_desc": 0.572
+ },
+ "overlap_coarse": {
+  "desc_heavy_traffic": 205,
+  "raw_heavy_traffic": 151,
+  "both": 88,
+  "share_desc_in_raw": 0.429,
+  "share_raw_in_desc": 0.583
+ },
+ "seed_stability": [
+  {
+   "arm": "desc",
+   "node": 13,
+   "s1": {
+    "jaccard": 0.431,
+    "match_heavy": false
+   },
+   "s2": {
+    "jaccard": 0.411,
+    "match_heavy": false
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 18,
+   "s1": {
+    "jaccard": 0.439,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.333,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 19,
+   "s1": {
+    "jaccard": 0.348,
+    "match_heavy": false
+   },
+   "s2": {
+    "jaccard": 0.25,
+    "match_heavy": false
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 33,
+   "s1": {
+    "jaccard": 0.714,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.917,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 40,
+   "s1": {
+    "jaccard": 0.844,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.794,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 42,
+   "s1": {
+    "jaccard": 0.829,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.814,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 48,
+   "s1": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 59,
+   "s1": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 64,
+   "s1": {
+    "jaccard": 0.306,
+    "match_heavy": false
+   },
+   "s2": {
+    "jaccard": 0.507,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "desc",
+   "node": 78,
+   "s1": {
+    "jaccard": 0.472,
+    "match_heavy": false
+   },
+   "s2": {
+    "jaccard": 0.635,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 4,
+   "s1": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 6,
+   "s1": {
+    "jaccard": 0.229,
+    "match_heavy": false
+   },
+   "s2": {
+    "jaccard": 0.056,
+    "match_heavy": false
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 18,
+   "s1": {
+    "jaccard": 0.729,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.938,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 19,
+   "s1": {
+    "jaccard": 0.608,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.66,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 23,
+   "s1": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 1.0,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 40,
+   "s1": {
+    "jaccard": 0.689,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.938,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 68,
+   "s1": {
+    "jaccard": 0.144,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.31,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 73,
+   "s1": {
+    "jaccard": 0.4,
+    "match_heavy": true
+   },
+   "s2": {
+    "jaccard": 0.25,
+    "match_heavy": true
+   }
+  },
+  {
+   "arm": "raw",
+   "node": 82,
+   "s1": {
+    "jaccard": 0.6,
+    "match_heavy": false
+   },
+   "s2": {
+    "jaccard": 0.487,
+    "match_heavy": false
+   }
+  }
+ ],
+ "redescription": {
+  "n": 200,
+  "same_fine": 0.71,
+  "same_coarse": 0.83
+ },
+ "mapback_desc": {
+  "traffic_sample": {
+   "fine": 0.201,
+   "coarse": 0.103,
+   "n": 1992
+  },
+  "confirmed": {
+   "n_prompts": 560,
+   "n_topics": 56,
+   "fine": 0.138,
+   "coarse": 0.093,
+   "fine_topic_mean": 0.138,
+   "coarse_topic_mean": 0.093
+  },
+  "rejected": {
+   "n_prompts": 547,
+   "n_topics": 56,
+   "fine": 0.08,
+   "coarse": 0.062,
+   "fine_topic_mean": 0.08,
+   "coarse_topic_mean": 0.062
+  },
+  "confirmed_minus_rejected_fine": {
+   "diff": 0.058,
+   "ci": [
+    -0.002,
+    0.126
+   ]
+  },
+  "confirmed_minus_rejected_coarse": {
+   "diff": 0.031,
+   "ci": [
+    -0.036,
+    0.097
+   ]
+  },
+  "confirmed_modal_node": {
+   "37": {
+    "node": 30,
+    "name": "Short open-ended general knowledge or advice questions",
+    "of": "3/10",
+    "heavy": false
+   },
+   "57": {
+    "node": 27,
+    "name": "Underspecified requests with missing placeholders",
+    "of": "4/10",
+    "heavy": false
+   },
+   "78": {
+    "node": 80,
+    "name": "Sexualized creative writing involving minors or ambiguous ages",
+    "of": "5/10",
+    "heavy": false
+   },
+   "86": {
+    "node": 7,
+    "name": "English writing and language task requests",
+    "of": "2/10",
+    "heavy": false
+   },
+   "201": {
+    "node": 14,
+    "name": "Short list-generation request",
+    "of": "7/10",
+    "heavy": false
+   },
+   "218": {
+    "node": 78,
+    "name": "Short vague capability or opener prompts",
+    "of": "6/10",
+    "heavy": true
+   },
+   "343": {
+    "node": 72,
+    "name": "Constrained text-processing tasks with strict output formats",
+    "of": "6/10",
+    "heavy": false
+   },
+   "367": {
+    "node": 87,
+    "name": "Short-text classification with truncated, anonymized inputs",
+    "of": "9/10",
+    "heavy": false
+   },
+   "433": {
+    "node": 92,
+    "name": "JSON-constrained structured output tasks",
+    "of": "2/10",
+    "heavy": false
+   },
+   "589": {
+    "node": 62,
+    "name": "Brief informal personal advice questions",
+    "of": "5/10",
+    "heavy": false
+   },
+   "632": {
+    "node": 23,
+    "name": "Code generation and programming help requests",
+    "of": "4/10",
+    "heavy": false
+   },
+   "644": {
+    "node": 87,
+    "name": "Short-text classification with truncated, anonymized inputs",
+    "of": "5/10",
+    "heavy": false
+   },
+   "659": {
+    "node": 3,
+    "name": "Chain-of-thought reasoning prompts for QA tasks",
+    "of": "3/10",
+    "heavy": false
+   },
+   "682": {
+    "node": 27,
+    "name": "Underspecified requests with missing placeholders",
+    "of": "3/10",
+    "heavy": false
+   },
+   "685": {
+    "node": 61,
+    "name": "Multilingual text translation and editing tasks",
+    "of": "3/10",
+    "heavy": false
+   },
+   "694": {
+    "node": 19,
+    "name": "Sexual or fetish-themed creative writing requests",
+    "of": "7/10",
+    "heavy": true
+   },
+   "734": {
+    "node": 57,
+    "name": "Marketing copywriting with stacked constraints",
+    "of": "4/10",
+    "heavy": false
+   },
+   "737": {
+    "node": 14,
+    "name": "Short list-generation request",
+    "of": "8/10",
+    "heavy": false
+   },
+   "757": {
+    "node": 2,
+    "name": "Tabular data generation and extraction tasks",
+    "of": "5/10",
+    "heavy": false
+   },
+   "761": {
+    "node": 17,
+    "name": "Few-shot reasoning and multiple-choice benchmark prompts",
+    "of": "3/10",
+    "heavy": false
+   },
+   "799": {
+    "node": 60,
+    "name": "Short, underspecified technical help questions",
+    "of": "3/10",
+    "heavy": false
+   },
+   "811": {
+    "node": 19,
+    "name": "Sexual or fetish-themed creative writing requests",
+    "of": "3/10",
+    "heavy": true
+   },
+   "817": {
+    "node": 87,
+    "name": "Short-text classification with truncated, anonymized inputs",
+    "of": "9/10",
+    "heavy": false
+   },
+   "861": {
+    "node": 87,
+    "name": "Short-text classification with truncated, anonymized inputs",
+    "of": "10/10",
+    "heavy": false
+   },
+   "872": {
+    "node": 78,
+    "name": "Short vague capability or opener prompts",
+    "of": "7/10",
+    "heavy": true
+   },
+   "873": {
+    "node": 64,
+    "name": "Terse, underspecified fragments with unclear intent",
+    "of": "1/10",
+    "heavy": true
+   },
+   "877": {
+    "node": 21,
+    "name": "Short, sensitive or loaded opinion questions",
+    "of": "4/10",
+    "heavy": false
+   },
+   "926": {
+    "node": 99,
+    "name": "Ambiguous or underspecified coding help requests",
+    "of": "3/10",
+    "heavy": false
+   },
+   "984": {
+    "node": 80,
+    "name": "Sexualized creative writing involving minors or ambiguous ages",
+    "of": "4/10",
+    "heavy": false
+   },
+   "997": {
+    "node": 92,
+    "name": "JSON-constrained structured output tasks",
+    "of": "7/10",
+    "heavy": false
+   },
+   "1092": {
+    "node": 19,
+    "name": "Sexual or fetish-themed creative writing requests",
+    "of": "4/10",
+    "heavy": true
+   },
+   "1121": {
+    "node": 69,
+    "name": "Persona role-play and scenario prompts",
+    "of": "3/10",
+    "heavy": false
+   },
+   "1143": {
+    "node": 27,
+    "name": "Underspecified requests with missing placeholders",
+    "of": "4/10",
+    "heavy": false
+   },
+   "1166": {
+    "node": 60,
+    "name": "Short, underspecified technical help questions",
+    "of": "2/10",
+    "heavy": false
+   },
+   "1196": {
+    "node": 75,
+    "name": "Underspecified pasted code or error debugging",
+    "of": "4/10",
+    "heavy": false
+   },
+   "1333": {
+    "node": 14,
+    "name": "Short list-generation request",
+    "of": "2/10",
+    "heavy": false
+   },
+   "1341": {
+    "node": 32,
+    "name": "Creative roleplay and fan-fiction scene requests",
+    "of": "3/10",
+    "heavy": false
+   },
+   "1425": {
+    "node": 72,
+    "name": "Constrained text-processing tasks with strict output formats",
+    "of": "4/10",
+    "heavy": false
+   },
+   "1433": {
+    "node": 11,
+    "name": "Fictional or roleplay framing around dubious requests",
+    "of": "2/10",
+    "heavy": false
+   },
+   "1438": {
+    "node": 10,
+    "name": "Rewrite or polish pasted text",
+    "of": "3/10",
+    "heavy": false
+   },
+   "1443": {
+    "node": 65,
+    "name": "Jailbreak persona prompts seeking harmful content",
+    "of": "9/10",
+    "heavy": false
+   },
+   "1486": {
+    "node": 80,
+    "name": "Sexualized creative writing involving minors or ambiguous ages",
+    "of": "3/10",
+    "heavy": false
+   },
+   "1546": {
+    "node": 93,
+    "name": "Truncated or underspecified prompt with unclear task",
+    "of": "7/10",
+    "heavy": false
+   },
+   "1555": {
+    "node": 2,
+    "name": "Tabular data generation and extraction tasks",
+    "of": "4/10",
+    "heavy": false
+   },
+   "1579": {
+    "node": 60,
+    "name": "Short, underspecified technical help questions",
+    "of": "3/10",
+    "heavy": false
+   },
+   "1651": {
+    "node": 18,
+    "name": "Roleplay persona setups with placeholder names",
+    "of": "8/10",
+    "heavy": true
+   },
+   "1652": {
+    "node": 73,
+    "name": "Short word or phrase meaning lookup",
+    "of": "2/10",
+    "heavy": false
+   },
+   "1659": {
+    "node": 10,
+    "name": "Rewrite or polish pasted text",
+    "of": "2/10",
+    "heavy": false
+   },
+   "1724": {
+    "node": 77,
+    "name": "Mixed NLP task prompts with flawed inputs",
+    "of": "5/10",
+    "heavy": false
+   },
+   "1748": {
+    "node": 60,
+    "name": "Short, underspecified technical help questions",
+    "of": "4/10",
+    "heavy": false
+   },
+   "1769": {
+    "node": 32,
+    "name": "Creative roleplay and fan-fiction scene requests",
+    "of": "3/10",
+    "heavy": false
+   },
+   "1809": {
+    "node": 92,
+    "name": "JSON-constrained structured output tasks",
+    "of": "4/10",
+    "heavy": false
+   },
+   "1821": {
+    "node": 38,
+    "name": "Underspecified requests with anonymization placeholders",
+    "of": "2/10",
+    "heavy": false
+   },
+   "1893": {
+    "node": 18,
+    "name": "Roleplay persona setups with placeholder names",
+    "of": "5/10",
+    "heavy": true
+   },
+   "1934": {
+    "node": 32,
+    "name": "Creative roleplay and fan-fiction scene requests",
+    "of": "1/10",
+    "heavy": false
+   },
+   "1994": {
+    "node": 90,
+    "name": "Short everyday questions and constrained quizzes",
+    "of": "5/10",
+    "heavy": false
+   }
+  }
+ },
+ "mapback_raw": {
+  "traffic_sample": {
+   "fine": 0.168,
+   "coarse": 0.076,
+   "n": 1992
+  },
+  "confirmed": {
+   "n_prompts": 560,
+   "n_topics": 56,
+   "fine": 0.273,
+   "coarse": 0.0,
+   "fine_topic_mean": 0.273,
+   "coarse_topic_mean": 0.0
+  },
+  "rejected": {
+   "n_prompts": 547,
+   "n_topics": 56,
+   "fine": 0.102,
+   "coarse": 0.0,
+   "fine_topic_mean": 0.1,
+   "coarse_topic_mean": 0.0
+  },
+  "confirmed_minus_rejected_fine": {
+   "diff": 0.173,
+   "ci": [
+    0.068,
+    0.282
+   ]
+  },
+  "confirmed_minus_rejected_coarse": {
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ]
+  }
+ }
+}

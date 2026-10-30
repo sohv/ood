@@ -1,0 +1,392 @@
+{
+ "n_tagged": 3783,
+ "n_traffic": 1870,
+ "n_unique_tags": 3991,
+ "arms": {
+  "full": {
+   "n_dolci": 1913,
+   "top10": [
+    {
+     "tag": "spelling and grammar check",
+     "traffic": 0.0706,
+     "dolci": 0.0303
+    },
+    {
+     "tag": "cosplay",
+     "traffic": 0.0561,
+     "dolci": 0.0183
+    },
+    {
+     "tag": "ai assistant",
+     "traffic": 0.0471,
+     "dolci": 0.0141
+    },
+    {
+     "tag": "humor",
+     "traffic": 0.0396,
+     "dolci": 0.0094
+    },
+    {
+     "tag": "character development",
+     "traffic": 0.0406,
+     "dolci": 0.0125
+    },
+    {
+     "tag": "none",
+     "traffic": 0.0316,
+     "dolci": 0.0047
+    },
+    {
+     "tag": "location",
+     "traffic": 0.031,
+     "dolci": 0.0063
+    },
+    {
+     "tag": "role playing",
+     "traffic": 0.0289,
+     "dolci": 0.0042
+    },
+    {
+     "tag": "information request",
+     "traffic": 0.0567,
+     "dolci": 0.0324
+    },
+    {
+     "tag": "storytelling",
+     "traffic": 0.0267,
+     "dolci": 0.0037
+    }
+   ]
+  },
+  "minus_safety": {
+   "n_dolci": 1811,
+   "top10": [
+    {
+     "tag": "spelling and grammar check",
+     "traffic": 0.0706,
+     "dolci": 0.0304
+    },
+    {
+     "tag": "cosplay",
+     "traffic": 0.0561,
+     "dolci": 0.0177
+    },
+    {
+     "tag": "ai assistant",
+     "traffic": 0.0471,
+     "dolci": 0.0138
+    },
+    {
+     "tag": "humor",
+     "traffic": 0.0396,
+     "dolci": 0.0072
+    },
+    {
+     "tag": "character development",
+     "traffic": 0.0406,
+     "dolci": 0.0105
+    },
+    {
+     "tag": "role playing",
+     "traffic": 0.0289,
+     "dolci": 0.0017
+    },
+    {
+     "tag": "none",
+     "traffic": 0.0316,
+     "dolci": 0.0044
+    },
+    {
+     "tag": "information request",
+     "traffic": 0.0567,
+     "dolci": 0.0304
+    },
+    {
+     "tag": "location",
+     "traffic": 0.031,
+     "dolci": 0.0066
+    },
+    {
+     "tag": "storytelling",
+     "traffic": 0.0267,
+     "dolci": 0.0033
+    }
+   ]
+  },
+  "random_safety": {
+   "n_dolci": 1814,
+   "top10": [
+    {
+     "tag": "spelling and grammar check",
+     "traffic": 0.0706,
+     "dolci": 0.0309
+    },
+    {
+     "tag": "cosplay",
+     "traffic": 0.0561,
+     "dolci": 0.0187
+    },
+    {
+     "tag": "ai assistant",
+     "traffic": 0.0471,
+     "dolci": 0.0143
+    },
+    {
+     "tag": "humor",
+     "traffic": 0.0396,
+     "dolci": 0.0094
+    },
+    {
+     "tag": "character development",
+     "traffic": 0.0406,
+     "dolci": 0.0132
+    },
+    {
+     "tag": "none",
+     "traffic": 0.0316,
+     "dolci": 0.005
+    },
+    {
+     "tag": "location",
+     "traffic": 0.031,
+     "dolci": 0.0061
+    },
+    {
+     "tag": "role playing",
+     "traffic": 0.0289,
+     "dolci": 0.0044
+    },
+    {
+     "tag": "information request",
+     "traffic": 0.0567,
+     "dolci": 0.0336
+    },
+    {
+     "tag": "storytelling",
+     "traffic": 0.0267,
+     "dolci": 0.0039
+    }
+   ]
+  },
+  "minus_code": {
+   "n_dolci": 1518,
+   "top10": [
+    {
+     "tag": "cosplay",
+     "traffic": 0.0561,
+     "dolci": 0.0231
+    },
+    {
+     "tag": "spelling and grammar check",
+     "traffic": 0.0706,
+     "dolci": 0.0382
+    },
+    {
+     "tag": "ai assistant",
+     "traffic": 0.0471,
+     "dolci": 0.0178
+    },
+    {
+     "tag": "humor",
+     "traffic": 0.0396,
+     "dolci": 0.0119
+    },
+    {
+     "tag": "none",
+     "traffic": 0.0316,
+     "dolci": 0.0059
+    },
+    {
+     "tag": "character development",
+     "traffic": 0.0406,
+     "dolci": 0.0158
+    },
+    {
+     "tag": "role playing",
+     "traffic": 0.0289,
+     "dolci": 0.0053
+    },
+    {
+     "tag": "location",
+     "traffic": 0.031,
+     "dolci": 0.0079
+    },
+    {
+     "tag": "storytelling",
+     "traffic": 0.0267,
+     "dolci": 0.0046
+    },
+    {
+     "tag": "character description",
+     "traffic": 0.0289,
+     "dolci": 0.0079
+    }
+   ]
+  },
+  "random_code": {
+   "n_dolci": 1534,
+   "top10": [
+    {
+     "tag": "spelling and grammar check",
+     "traffic": 0.0706,
+     "dolci": 0.0293
+    },
+    {
+     "tag": "cosplay",
+     "traffic": 0.0561,
+     "dolci": 0.0169
+    },
+    {
+     "tag": "ai assistant",
+     "traffic": 0.0471,
+     "dolci": 0.0143
+    },
+    {
+     "tag": "humor",
+     "traffic": 0.0396,
+     "dolci": 0.0098
+    },
+    {
+     "tag": "character development",
+     "traffic": 0.0406,
+     "dolci": 0.0117
+    },
+    {
+     "tag": "none",
+     "traffic": 0.0316,
+     "dolci": 0.0052
+    },
+    {
+     "tag": "information request",
+     "traffic": 0.0567,
+     "dolci": 0.0313
+    },
+    {
+     "tag": "location",
+     "traffic": 0.031,
+     "dolci": 0.0059
+    },
+    {
+     "tag": "role playing",
+     "traffic": 0.0289,
+     "dolci": 0.0039
+    },
+    {
+     "tag": "storytelling",
+     "traffic": 0.0267,
+     "dolci": 0.0033
+    }
+   ]
+  },
+  "minus_multilingual": {
+   "n_dolci": 1816,
+   "top10": [
+    {
+     "tag": "spelling and grammar check",
+     "traffic": 0.0706,
+     "dolci": 0.027
+    },
+    {
+     "tag": "cosplay",
+     "traffic": 0.0561,
+     "dolci": 0.0165
+    },
+    {
+     "tag": "information request",
+     "traffic": 0.0567,
+     "dolci": 0.0209
+    },
+    {
+     "tag": "ai assistant",
+     "traffic": 0.0471,
+     "dolci": 0.0132
+    },
+    {
+     "tag": "humor",
+     "traffic": 0.0396,
+     "dolci": 0.0099
+    },
+    {
+     "tag": "character development",
+     "traffic": 0.0406,
+     "dolci": 0.0132
+    },
+    {
+     "tag": "none",
+     "traffic": 0.0316,
+     "dolci": 0.005
+    },
+    {
+     "tag": "location",
+     "traffic": 0.031,
+     "dolci": 0.0055
+    },
+    {
+     "tag": "role playing",
+     "traffic": 0.0289,
+     "dolci": 0.0044
+    },
+    {
+     "tag": "storytelling",
+     "traffic": 0.0267,
+     "dolci": 0.0039
+    }
+   ]
+  },
+  "random_multilingual": {
+   "n_dolci": 1818,
+   "top10": [
+    {
+     "tag": "spelling and grammar check",
+     "traffic": 0.0706,
+     "dolci": 0.0308
+    },
+    {
+     "tag": "cosplay",
+     "traffic": 0.0561,
+     "dolci": 0.0193
+    },
+    {
+     "tag": "ai assistant",
+     "traffic": 0.0471,
+     "dolci": 0.0138
+    },
+    {
+     "tag": "humor",
+     "traffic": 0.0396,
+     "dolci": 0.0094
+    },
+    {
+     "tag": "character development",
+     "traffic": 0.0406,
+     "dolci": 0.0127
+    },
+    {
+     "tag": "none",
+     "traffic": 0.0316,
+     "dolci": 0.0044
+    },
+    {
+     "tag": "role playing",
+     "traffic": 0.0289,
+     "dolci": 0.0044
+    },
+    {
+     "tag": "location",
+     "traffic": 0.031,
+     "dolci": 0.0066
+    },
+    {
+     "tag": "information request",
+     "traffic": 0.0567,
+     "dolci": 0.0336
+    },
+    {
+     "tag": "storytelling",
+     "traffic": 0.0267,
+     "dolci": 0.0039
+    }
+   ]
+  }
+ }
+}

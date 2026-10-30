@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "argument_or_summary_generation"},
+  {"i": 2, "c": "mathematical_calculation"},
+  {"i": 3, "c": "mathematical_calculation"},
+  {"i": 4, "c": "argument_or_summary_generation"},
+  {"i": 5, "c": "computer_programming"},
+  {"i": 6, "c": "specific_info"},
+  {"i": 7, "c": "argument_or_summary_generation"},
+  {"i": 8, "c": "games_and_role_play"},
+  {"i": 9, "c": "specific_info"},
+  {"i": 10, "c": "argument_or_summary_generation"},
+  {"i": 11, "c": "creative_ideation"},
+  {"i": 12, "c": "argument_or_summary_generation"},
+  {"i": 13, "c": "specific_info"},
+  {"i": 14, "c": "write_fiction"},
+  {"i": 15, "c": "games_and_role_play"},
+  {"i": 16, "c": "computer_programming"},
+  {"i": 17, "c": "edit_or_critique_provided_text"},
+  {"i": 18, "c": "computer_programming"},
+  {"i": 19, "c": "specific_info"},
+  {"i": 20, "c": "specific_info"}
+]
+```

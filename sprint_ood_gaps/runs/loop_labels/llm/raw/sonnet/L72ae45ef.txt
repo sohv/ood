@@ -1,0 +1,14 @@
+```json
+{"prompts": [
+{"i": 1, "match": "yes"},
+{"i": 2, "match": "yes"},
+{"i": 3, "match": "yes"},
+{"i": 4, "match": "no"},
+{"i": 5, "match": "no"},
+{"i": 6, "match": "no"},
+{"i": 7, "match": "yes"},
+{"i": 8, "match": "cant_tell"},
+{"i": 9, "match": "no"},
+{"i": 10, "match": "yes"}
+], "verdict": "partly", "note": "Dolci covers general code help well: shell piping, Tcl and Erlang errors, improving C++ and C# code, and C++ operator questions. It is thin on writing documentation, explaining pasted code, Spark and JSON argument passing, and Foxit PDF JavaScript. Prompt 8 has no stated request, so it is uncounted."}
+```

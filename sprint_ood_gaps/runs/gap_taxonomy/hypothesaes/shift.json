@@ -1,0 +1,255 @@
+{
+ "n_descriptions": 140,
+ "judges": {
+  "sonnet": {
+   "unjudged": 0,
+   "f_descriptions": {
+    "safety": [
+     "Contains an explicit request for erotic/sexual content or describes sexual acts/genitalia (e.g., masturbation, intercourse, oral sex, rape, pornographic storywriting)",
+     "Contains explicit pornographic/erotic sexual content (e.g., masturbation, oral sex, rape, genital terms) or requests writing of such content",
+     "Contains explicit pornographic/erotic sexual content or a request to create/role-play sexually explicit material (e.g., masturbation, rape, intercourse, genital terms like penis/cum/pussy)",
+     "Contains explicit sexual content or requests for pornographic/erotic material (e.g., masturbation, rape, oral sex, \u201cx-rated\u201d, penis/cum/pussy terminology)",
+     "Contains explicit sexual content or requests for pornographic/erotic material (e.g., mentions sex acts like masturbation/oral sex/rape or genital terms like penis/cum/pussy)",
+     "Contains explicit sexual content, i.e., mentions sexual acts or sexual anatomy (e.g., masturbation, intercourse/oral sex, rape, porn, penis/cum/orgasm)",
+     "Explicitly instructs the assistant to roleplay/act as a specific persona or character (e.g., 'act as', 'roleplay', 'stay in character', defining an alternate identity like DAN/PersonGPT)",
+     "contains or requests explicit pornographic sexual content (e.g., masturbation/intercourse/rape and mentions of genitals or cum)"
+    ],
+    "code": [
+     "A combinatorics-style programming prompt whose goal is to count or enumerate all valid discrete configurations (e.g., subsets/independent sets/permutations/colorings) satisfying given constraints",
+     "A programming task that takes a single integer input named `n` and asks to output a single integer value computed from `n` as a classic math/sequence function (e.g., nth Fibonacci/Tribonacci term, `n!`, or `1+2+...+n`).",
+     "A programming task that takes an integer `n` and asks to compute a basic numeric sequence/value (e.g., nth Fibonacci/Tribonacci term, `n!` factorial, or the sum `1+2+...+n`).",
+     "A programming-style prompt asking to compute and output a numeric function/sequence term from a single integer input n (e.g., Fibonacci/Tribonacci, factorial n!, or sum 1+2+...+n)",
+     "A prompt whose primary task is character-level string processing (analyzing or transforming a text sequence via its letters/digits/vowels/alphanumeric characters, e.g., palindrome/substring/reversal/cipher/non-repeating character)",
+     "Asks for a Python function that computes a numeric aggregate statistic (e.g., total/average/mean/median) over a collection of multiple items (list/string of records or numbers)",
+     "Asks to compute a classic integer math function from a single integer n (specifically the nth Fibonacci number, n! factorial, or the sum 1+2+\u2026+n)",
+     "Asks to read a single integer n from standard input and output a computed value of a classic integer sequence/function (e.g., Fibonacci/Tribonacci, factorial n!, or the sum 1+2+\u2026+n)",
+     "Competitive-programming style combinatorial enumeration task (counting or listing configurations like permutations, subsets/independent sets, or grid colorings)",
+     "Competitive-programming style prompt that asks to **count** the number of valid discrete configurations (e.g., subsets/permutations/colorings/independent sets/values) from explicitly given numeric inputs, expecting a single integer as the final output.",
+     "Contains Python-style list notation for numbers (e.g., `[1, 2, 3]`, `[[1,2],[3,4]]`) or a Python type hint using `List[int]`",
+     "Contains Python-style square-bracket list syntax specifically involving integers (e.g., a bracketed numeric list like `[1, 2, 3]` / `[[...]]` or a type annotation `List[int]`).",
+     "Contains a Python function signature enclosed in backticks (e.g., `function_name(arg: Type) -> ReturnType`) with type annotations",
+     "Contains a Python function signature written in backticks with type annotations and a return arrow (e.g., `func(arg: Type) -> Type`)",
+     "Contains a Python-style function signature enclosed in backticks, including type-annotated parameters (e.g., `x: int`) and an arrow return type (`-> ...`).",
+     "Contains a backticked Python function signature that includes type annotations and an explicit return type using `->` (e.g., `func(arg: Type) -> ReturnType`).",
+     "Contains a competitive-programming style statement with explicit 'Input' and 'Output' sections and numeric constraints written using the '\u2264' symbol (e.g., '1 \u2264 N \u2264 10^5').",
+     "Contains an explicit **\\\"Output Format:\\\"** section instructing that the final answer must be a **single line** of **space-separated** indices/endpoints.",
+     "Contains an explicit Python function signature enclosed in backticks (e.g., `def ...(...) -> ...` or `function_name(arg: Type) -> ReturnType`) with type annotations",
+     "Contains an explicit Python function signature enclosed in backticks (e.g., `func(arg: Type) -> ReturnType`)",
+     "Contains an explicit Python programming task involving a \u201cdictionary\u201d/\u201cdictionaries\u201d (often with JSON input/output)",
+     "Contains an explicit instruction to perform sorting, indicated by the presence of the English substring \\\"sort\\\" (e.g., sort/sorts/sorted/sorting/heapsort) or the Chinese term \\\"\u6392\u5e8f\\",
+     "Contains an explicit instruction to sort data (e.g., uses the word 'sort' or '\u6392\u5e8f', often specifying ascending/descending order)",
+     "Contains an explicit instruction to sort items (e.g., uses the word 'sort' / 'sorting' or '\u6392\u5e8f') in ascending/descending order",
+     "Contains an explicit instruction to sort/order elements (uses the word 'sort'/'heapsort' or the Chinese term '\u6392\u5e8f')",
+     "Contains an explicit programming-style specification with labeled sections for both \\\"Input\\\" and \\\"Output\\\" (e.g., lines starting with \\\"Input:\\\"/\\\"Input Format:\\\" and \\\"Output:\\\"/\\\"Output Format:\\\")",
+     "Contains an explicit section labeled **\\\"Output Format:\\\"** instructing that the final answer should be a single line of space-separated numbers (often with an example like `0 1 1 2 2 3`).",
+     "Contains at least one of these technical terms: 'Fibonacci', 'Tribonacci', 'subsequence' (or 'LIS'), 'memoization', 'matrix exponentiation', 'harmonic progression', or 'multithreading'",
+     "Contains competitive-programming style I/O specification sections explicitly labeled with both \u201cInput\u201d and \u201cOutput\u201d (often including phrases like \u201cThe first line contains \u2026\u201d and numeric constraints)",
+     "Contains competitive-programming style section headers explicitly labeled \\\"Input\\\" and \\\"Output\\\" describing required stdin/stdout formats (often with constraints and an example I/O block)",
+     "Contains competitive-programming style section headings including both the words \\\"Input\\\" and \\\"Output\\",
+     "Contains explicit competitive-programming style **Input** and **Output** specifications (e.g., lines/sections labeled 'Input', 'Input format', 'Output', or 'Output format')",
+     "Contains explicit competitive-programming style sections labeled \\\"Input\\\" and \\\"Output\\\" (or \\\"Input format\\\"/\\\"Output format\\\"), describing how to read data and what to print, often with constraints like \\\"(1 \u2264 \u2026)\\\".",
+     "Contains explicit sections labeled \\\"Input:\\\" and \\\"Output:\\\" describing what to read from standard input and what to print to standard output",
+     "Contains the exact phrase \\\"write a program\\\" (case-insensitive)",
+     "Contains the phrase \\\"write a program\\\" (case-insensitive) instructing the reader to write a program",
+     "Contains the word 'list' (case-insensitive), referring to a programming/data-structure list to be processed (e.g., nested list, list of integers)",
+     "Contains the word \\\"list\\\" (or the Chinese term \\\"\u5217\u8868\\\") referring to a list data structure.",
+     "Describes a command-driven program that reads one command per line from standard input and continues processing until an explicit termination command (e.g., EXIT/QUIT/exit) is received",
+     "Explicitly asks to sort or order a collection (e.g., words/integers/objects) into ascending or descending order, often naming a sorting algorithm or sort order",
+     "Explicitly asks to sort/order items (e.g., words or numbers) using a sorting algorithm or specified order (ascending/descending/ASCII/Unicode)",
+     "Explicitly asks to write/implement a Python function (mentions \u201cpython function\u201d and/or includes a Python `def ...` function signature)",
+     "Explicitly involves parsing, validating, or transforming Python dictionaries/JSON objects (e.g., dict literals, key/value pairs, renaming keys, flattening nested dicts)",
+     "Includes explicitly labeled sections for both input and output (e.g., headings like 'Input:'/'Input Format:' and 'Output:'/'Output Format:') describing what the program should read and print.",
+     "Includes the exact instruction phrase **\\\"Your final answer should be a single line\\\"** (typically following an **\\\"Output Format:\\\"** heading)",
+     "Programming prompt centered on manipulating a Python dictionary (dict)\u2014e.g., reading/parsing dict/JSON and performing key/value operations (lookup, rename, flatten, count, max keys).",
+     "Prompt asks to manipulate one or more integer lists (i.e., a 'list of integers', often shown in square brackets) and produce a resulting list as the answer/output.",
+     "Requests Python code to compute a numeric aggregate (total/sum or average/mean/median) over a list of numeric values or list of dictionaries containing numbers",
+     "Requests implementing a Python function that takes a list (of numbers or dictionaries) and returns a single aggregate numeric value (e.g., total/average/mean/median/fee) rather than producing interactive I/O or an API response.",
+     "Requests performing a computation/manipulation on one or more (often numeric) lists/arrays\u2014e.g., removing duplicates, flattening nested lists, sampling elements, filtering even/odd, multiplying elements\u2014and returning the resulting list",
+     "Requests writing a Python function that computes an aggregate numeric statistic (e.g., total/sum, average/mean/median, total fee) from a list input (often a list of numbers or dictionaries) and returns the computed number",
+     "Requires writing Python code that computes an aggregate statistic (e.g., total/sum or average/mean/median) over a collection of numeric values (lists/dicts/strings of results)",
+     "Specifies an interactive, line-based command protocol (e.g., ADD/DELETE/LIST, PUSH/POP/PEEK, deposit/withdraw) to be read from standard input and processed until a terminating command like EXIT/QUIT (or blank line), with defined standard-output responses per command",
+     "Text is a programming specification that explicitly says the program reads line-by-line commands from standard input (stdin) and writes results to standard output (stdout) (often listing commands like ADD/DELETE/LIST/EXIT/QUIT with example I/O)",
+     "contains the exact phrase \\\"standard input\\\" (describing reading program input from stdin)",
+     "explicitly mentions reading input from **standard input** (stdin) and/or writing output to **standard output** (stdout) as the program interface"
+    ],
+    "multilingual": [
+     "A question that includes an explicit quality/evaluation adjective (e.g., \u201cbest\u201d, \u201cbetter\u201d, \u201cgood\u201d, \u201creliable\u201d, \u201ceasy\u201d, or non\u2011English equivalents like \u201cmejor\u201d/\u201clep\u0161\u00ed\u201d) asking for the optimal choice/recommendation",
+     "Begins with a greeting word/phrase (e.g., 'Hi', 'Hey', 'Hello', 'Hola', '\u041f\u0440\u0438\u0432\u0435\u0442', '\u0393\u03b5\u03b9\u03ac', or 'what\u2019s up')",
+     "Begins with a greeting word/phrase (e.g., Hi/Hello/Hey/Hola/\u041f\u0440\u0438\u0432\u0435\u0442/\u0393\u03b5\u03b9\u03ac)",
+     "Begins with a greeting word/phrase (e.g., Hi/Hello/Hey/Hola/\u041f\u0440\u0438\u0432\u0435\u0442/\u0393\u03b5\u03b9\u03ac/What's up)",
+     "Begins with a greeting/opening salutation (e.g., 'hi', 'hey', 'hello', 'hola', '\u043f\u0440\u0438\u0432\u0435\u0442', '\u03b3\u03b5\u03b9\u03ac', or 'what\u2019s up')",
+     "Contains the word \\\"list\\\" (or the Chinese term \\\"\u5217\u8868\\\") referring to a list data structure."
+    ]
+   },
+   "families": {
+    "safety": {
+     "full": {
+      "best_rank_of_20": 4,
+      "max_separation_score": 0.394
+     },
+     "minus_safety": {
+      "best_rank_of_20": 2,
+      "max_separation_score": 0.441
+     },
+     "random_safety": {
+      "best_rank_of_20": 5,
+      "max_separation_score": 0.38
+     }
+    },
+    "code": {
+     "full": {
+      "best_rank_of_20": 7,
+      "max_separation_score": -0.371
+     },
+     "minus_code": {
+      "best_rank_of_20": 15,
+      "max_separation_score": -0.404
+     },
+     "random_code": {
+      "best_rank_of_20": 4,
+      "max_separation_score": -0.369
+     }
+    },
+    "multilingual": {
+     "full": {
+      "best_rank_of_20": 3,
+      "max_separation_score": 0.404
+     },
+     "minus_multilingual": {
+      "best_rank_of_20": 3,
+      "max_separation_score": 0.402
+     },
+     "random_multilingual": {
+      "best_rank_of_20": null,
+      "max_separation_score": null
+     }
+    }
+   }
+  },
+  "astra": {
+   "unjudged": 0,
+   "f_descriptions": {
+    "safety": [
+     "Contains an explicit request for erotic/sexual content or describes sexual acts/genitalia (e.g., masturbation, intercourse, oral sex, rape, pornographic storywriting)",
+     "Contains explicit pornographic/erotic sexual content (e.g., masturbation, oral sex, rape, genital terms) or requests writing of such content",
+     "Contains explicit pornographic/erotic sexual content or a request to create/role-play sexually explicit material (e.g., masturbation, rape, intercourse, genital terms like penis/cum/pussy)",
+     "Contains explicit sexual content or requests for pornographic/erotic material (e.g., masturbation, rape, oral sex, \u201cx-rated\u201d, penis/cum/pussy terminology)",
+     "Contains explicit sexual content or requests for pornographic/erotic material (e.g., mentions sex acts like masturbation/oral sex/rape or genital terms like penis/cum/pussy)",
+     "Contains explicit sexual content, i.e., mentions sexual acts or sexual anatomy (e.g., masturbation, intercourse/oral sex, rape, porn, penis/cum/orgasm)",
+     "Explicitly instructs the assistant to roleplay/act as a specific persona or character (e.g., 'act as', 'roleplay', 'stay in character', defining an alternate identity like DAN/PersonGPT)",
+     "contains or requests explicit pornographic sexual content (e.g., masturbation/intercourse/rape and mentions of genitals or cum)"
+    ],
+    "code": [
+     "A combinatorics-style programming prompt whose goal is to count or enumerate all valid discrete configurations (e.g., subsets/independent sets/permutations/colorings) satisfying given constraints",
+     "A programming task that takes a single integer input named `n` and asks to output a single integer value computed from `n` as a classic math/sequence function (e.g., nth Fibonacci/Tribonacci term, `n!`, or `1+2+...+n`).",
+     "A programming task that takes an integer `n` and asks to compute a basic numeric sequence/value (e.g., nth Fibonacci/Tribonacci term, `n!` factorial, or the sum `1+2+...+n`).",
+     "A programming-style prompt asking to compute and output a numeric function/sequence term from a single integer input n (e.g., Fibonacci/Tribonacci, factorial n!, or sum 1+2+...+n)",
+     "A prompt whose primary task is character-level string processing (analyzing or transforming a text sequence via its letters/digits/vowels/alphanumeric characters, e.g., palindrome/substring/reversal/cipher/non-repeating character)",
+     "Asks for a Python function that computes a numeric aggregate statistic (e.g., total/average/mean/median) over a collection of multiple items (list/string of records or numbers)",
+     "Asks to read a single integer n from standard input and output a computed value of a classic integer sequence/function (e.g., Fibonacci/Tribonacci, factorial n!, or the sum 1+2+\u2026+n)",
+     "Competitive-programming style combinatorial enumeration task (counting or listing configurations like permutations, subsets/independent sets, or grid colorings)",
+     "Competitive-programming style prompt that asks to **count** the number of valid discrete configurations (e.g., subsets/permutations/colorings/independent sets/values) from explicitly given numeric inputs, expecting a single integer as the final output.",
+     "Contains Python-style list notation for numbers (e.g., `[1, 2, 3]`, `[[1,2],[3,4]]`) or a Python type hint using `List[int]`",
+     "Contains Python-style square-bracket list syntax specifically involving integers (e.g., a bracketed numeric list like `[1, 2, 3]` / `[[...]]` or a type annotation `List[int]`).",
+     "Contains a Python function signature enclosed in backticks (e.g., `function_name(arg: Type) -> ReturnType`) with type annotations",
+     "Contains a Python function signature written in backticks with type annotations and a return arrow (e.g., `func(arg: Type) -> Type`)",
+     "Contains a Python-style function signature enclosed in backticks, including type-annotated parameters (e.g., `x: int`) and an arrow return type (`-> ...`).",
+     "Contains a backticked Python function signature that includes type annotations and an explicit return type using `->` (e.g., `func(arg: Type) -> ReturnType`).",
+     "Contains a competitive-programming style statement with explicit 'Input' and 'Output' sections and numeric constraints written using the '\u2264' symbol (e.g., '1 \u2264 N \u2264 10^5').",
+     "Contains an explicit **\\\"Output Format:\\\"** section instructing that the final answer must be a **single line** of **space-separated** indices/endpoints.",
+     "Contains an explicit Python function signature enclosed in backticks (e.g., `def ...(...) -> ...` or `function_name(arg: Type) -> ReturnType`) with type annotations",
+     "Contains an explicit Python function signature enclosed in backticks (e.g., `func(arg: Type) -> ReturnType`)",
+     "Contains an explicit Python programming task involving a \u201cdictionary\u201d/\u201cdictionaries\u201d (often with JSON input/output)",
+     "Contains an explicit instruction to perform sorting, indicated by the presence of the English substring \\\"sort\\\" (e.g., sort/sorts/sorted/sorting/heapsort) or the Chinese term \\\"\u6392\u5e8f\\",
+     "Contains an explicit instruction to sort data (e.g., uses the word 'sort' or '\u6392\u5e8f', often specifying ascending/descending order)",
+     "Contains an explicit instruction to sort items (e.g., uses the word 'sort' / 'sorting' or '\u6392\u5e8f') in ascending/descending order",
+     "Contains an explicit instruction to sort/order elements (uses the word 'sort'/'heapsort' or the Chinese term '\u6392\u5e8f')",
+     "Contains an explicit programming-style specification with labeled sections for both \\\"Input\\\" and \\\"Output\\\" (e.g., lines starting with \\\"Input:\\\"/\\\"Input Format:\\\" and \\\"Output:\\\"/\\\"Output Format:\\\")",
+     "Contains an explicit section labeled **\\\"Output Format:\\\"** instructing that the final answer should be a single line of space-separated numbers (often with an example like `0 1 1 2 2 3`).",
+     "Contains at least one explicit combinatorics keyword such as \u201ccombination(s)\u201d, \u201cpermutation(s)\u201d, \u201csubset(s)\u201d, \u201cindependent set(s)\u201d, \u201ccoloring(s)\u201d, or \u201cinversion pair(s)\u201d",
+     "Contains at least one of these technical terms: 'Fibonacci', 'Tribonacci', 'subsequence' (or 'LIS'), 'memoization', 'matrix exponentiation', 'harmonic progression', or 'multithreading'",
+     "Contains competitive-programming style I/O specification sections explicitly labeled with both \u201cInput\u201d and \u201cOutput\u201d (often including phrases like \u201cThe first line contains \u2026\u201d and numeric constraints)",
+     "Contains competitive-programming style section headers explicitly labeled \\\"Input\\\" and \\\"Output\\\" describing required stdin/stdout formats (often with constraints and an example I/O block)",
+     "Contains competitive-programming style section headings including both the words \\\"Input\\\" and \\\"Output\\",
+     "Contains explicit competitive-programming style **Input** and **Output** specifications (e.g., lines/sections labeled 'Input', 'Input format', 'Output', or 'Output format')",
+     "Contains explicit competitive-programming style sections labeled \\\"Input\\\" and \\\"Output\\\" (or \\\"Input format\\\"/\\\"Output format\\\"), describing how to read data and what to print, often with constraints like \\\"(1 \u2264 \u2026)\\\".",
+     "Contains explicit sections labeled \\\"Input:\\\" and \\\"Output:\\\" describing what to read from standard input and what to print to standard output",
+     "Contains the exact phrase \\\"write a program\\\" (case-insensitive)",
+     "Contains the phrase \\\"write a program\\\" (case-insensitive) instructing the reader to write a program",
+     "Contains the word 'list' (case-insensitive), referring to a programming/data-structure list to be processed (e.g., nested list, list of integers)",
+     "Contains the word \\\"list\\\" (or the Chinese term \\\"\u5217\u8868\\\") referring to a list data structure.",
+     "Describes a command-driven program that reads one command per line from standard input and continues processing until an explicit termination command (e.g., EXIT/QUIT/exit) is received",
+     "Explicitly asks to sort or order a collection (e.g., words/integers/objects) into ascending or descending order, often naming a sorting algorithm or sort order",
+     "Explicitly asks to sort/order items (e.g., words or numbers) using a sorting algorithm or specified order (ascending/descending/ASCII/Unicode)",
+     "Explicitly asks to write/implement a Python function (mentions \u201cpython function\u201d and/or includes a Python `def ...` function signature)",
+     "Explicitly involves parsing, validating, or transforming Python dictionaries/JSON objects (e.g., dict literals, key/value pairs, renaming keys, flattening nested dicts)",
+     "Includes explicitly labeled sections for both input and output (e.g., headings like 'Input:'/'Input Format:' and 'Output:'/'Output Format:') describing what the program should read and print.",
+     "Programming prompt centered on manipulating a Python dictionary (dict)\u2014e.g., reading/parsing dict/JSON and performing key/value operations (lookup, rename, flatten, count, max keys).",
+     "Prompt asks to manipulate one or more integer lists (i.e., a 'list of integers', often shown in square brackets) and produce a resulting list as the answer/output.",
+     "Requests Python code to compute a numeric aggregate (total/sum or average/mean/median) over a list of numeric values or list of dictionaries containing numbers",
+     "Requests help with computer filesystem/file management tasks (e.g., deleting, listing, compressing, snapshotting, or pushing files/directories)",
+     "Requests implementing a Python function that takes a list (of numbers or dictionaries) and returns a single aggregate numeric value (e.g., total/average/mean/median/fee) rather than producing interactive I/O or an API response.",
+     "Requests performing a computation/manipulation on one or more (often numeric) lists/arrays\u2014e.g., removing duplicates, flattening nested lists, sampling elements, filtering even/odd, multiplying elements\u2014and returning the resulting list",
+     "Requests writing a Python function that computes an aggregate numeric statistic (e.g., total/sum, average/mean/median, total fee) from a list input (often a list of numbers or dictionaries) and returns the computed number",
+     "Requires writing Python code that computes an aggregate statistic (e.g., total/sum or average/mean/median) over a collection of numeric values (lists/dicts/strings of results)",
+     "Specifies an interactive, line-based command protocol (e.g., ADD/DELETE/LIST, PUSH/POP/PEEK, deposit/withdraw) to be read from standard input and processed until a terminating command like EXIT/QUIT (or blank line), with defined standard-output responses per command",
+     "Text is a programming specification that explicitly says the program reads line-by-line commands from standard input (stdin) and writes results to standard output (stdout) (often listing commands like ADD/DELETE/LIST/EXIT/QUIT with example I/O)",
+     "contains the exact phrase \\\"standard input\\\" (describing reading program input from stdin)",
+     "explicitly mentions reading input from **standard input** (stdin) and/or writing output to **standard output** (stdout) as the program interface"
+    ],
+    "multilingual": [
+     "Contains an explicit instruction to perform sorting, indicated by the presence of the English substring \\\"sort\\\" (e.g., sort/sorts/sorted/sorting/heapsort) or the Chinese term \\\"\u6392\u5e8f\\",
+     "Contains an explicit instruction to sort data (e.g., uses the word 'sort' or '\u6392\u5e8f', often specifying ascending/descending order)",
+     "Contains an explicit instruction to sort items (e.g., uses the word 'sort' / 'sorting' or '\u6392\u5e8f') in ascending/descending order",
+     "Contains an explicit instruction to sort/order elements (uses the word 'sort'/'heapsort' or the Chinese term '\u6392\u5e8f')",
+     "Contains the word \\\"list\\\" (or the Chinese term \\\"\u5217\u8868\\\") referring to a list data structure.",
+     "mentions an activity schedule using explicit time-period units (e.g., day/week/month/saturday, including chinese terms like \u4e00\u5468/\u5468\u672b)"
+    ]
+   },
+   "families": {
+    "safety": {
+     "full": {
+      "best_rank_of_20": 4,
+      "max_separation_score": 0.394
+     },
+     "minus_safety": {
+      "best_rank_of_20": 2,
+      "max_separation_score": 0.441
+     },
+     "random_safety": {
+      "best_rank_of_20": 5,
+      "max_separation_score": 0.38
+     }
+    },
+    "code": {
+     "full": {
+      "best_rank_of_20": 7,
+      "max_separation_score": -0.371
+     },
+     "minus_code": {
+      "best_rank_of_20": 8,
+      "max_separation_score": 0.283
+     },
+     "random_code": {
+      "best_rank_of_20": 4,
+      "max_separation_score": -0.369
+     }
+    },
+    "multilingual": {
+     "full": {
+      "best_rank_of_20": 13,
+      "max_separation_score": -0.413
+     },
+     "minus_multilingual": {
+      "best_rank_of_20": 11,
+      "max_separation_score": -0.42
+     },
+     "random_multilingual": {
+      "best_rank_of_20": null,
+      "max_separation_score": null
+     }
+    }
+   }
+  }
+ }
+}

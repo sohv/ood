@@ -1,0 +1,127 @@
+{
+ "n_traffic": 992933,
+ "n_matched_to_source_conversation": 992932,
+ "n_topics": 1998,
+ "n_r50_gap_topics": 56,
+ "dolci_multi_turn_share_from_turn_counts": {
+  "1": 0.9596,
+  "2": 0.0015,
+  "3-5": 0.0368,
+  "6+": 0.0021
+ },
+ "props": {
+  "multi_turn": {
+   "traffic_share": 0.3767,
+   "traffic_share_non_member": 0.3539,
+   "dolci_share": null,
+   "topics_with_majority": 593,
+   "r50_gap_topics_with_majority": 11,
+   "share_r50": 0.196,
+   "share_other_topics": 0.3,
+   "fisher_p_two_sided": 0.1038
+  },
+  "over_128": {
+   "traffic_share": 0.2887,
+   "traffic_share_non_member": 0.279,
+   "dolci_share": 0.4661,
+   "topics_with_majority": 316,
+   "r50_gap_topics_with_majority": 21,
+   "share_r50": 0.375,
+   "share_other_topics": 0.152,
+   "fisher_p_two_sided": 0.0001
+  },
+  "over_512": {
+   "traffic_share": 0.1373,
+   "traffic_share_non_member": 0.1359,
+   "dolci_share": 0.0587,
+   "topics_with_majority": 54,
+   "r50_gap_topics_with_majority": 1,
+   "share_r50": 0.018,
+   "share_other_topics": 0.027,
+   "fisher_p_two_sided": 1.0
+  },
+  "template_prefix": {
+   "traffic_share": 0.1888,
+   "traffic_share_non_member": 0.2156,
+   "dolci_share": 0.1833,
+   "topics_with_majority": 142,
+   "r50_gap_topics_with_majority": 12,
+   "share_r50": 0.214,
+   "share_other_topics": 0.067,
+   "fisher_p_two_sided": 0.0004
+  },
+  "system_style_opening": {
+   "traffic_share": 0.0512,
+   "traffic_share_non_member": 0.0634,
+   "dolci_share": 0.0927,
+   "topics_with_majority": 28,
+   "r50_gap_topics_with_majority": 0,
+   "share_r50": 0.0,
+   "share_other_topics": 0.014,
+   "fisher_p_two_sided": 1.0
+  },
+  "code_fence": {
+   "traffic_share": 0.0104,
+   "traffic_share_non_member": 0.0051,
+   "dolci_share": 0.03,
+   "topics_with_majority": 7,
+   "r50_gap_topics_with_majority": 0,
+   "share_r50": 0.0,
+   "share_other_topics": 0.004,
+   "fisher_p_two_sided": 1.0
+  },
+  "lang_differs_from_topic": {
+   "traffic_share": 0.1595,
+   "traffic_share_non_member": 0.1977,
+   "dolci_share": null,
+   "topics_with_majority": 51,
+   "r50_gap_topics_with_majority": 1,
+   "share_r50": 0.018,
+   "share_other_topics": 0.026,
+   "fisher_p_two_sided": 1.0
+  }
+ },
+ "topics_with_over_20pct_other_language": 732,
+ "traffic_lang_top10": [
+  [
+   "en",
+   831345
+  ],
+  [
+   "pt",
+   23194
+  ],
+  [
+   "ru",
+   22616
+  ],
+  [
+   "es",
+   16491
+  ],
+  [
+   "zh",
+   14618
+  ],
+  [
+   "it",
+   13402
+  ],
+  [
+   "fr",
+   11525
+  ],
+  [
+   "de",
+   10322
+  ],
+  [
+   "pcm",
+   4839
+  ],
+  [
+   "ja",
+   4055
+  ]
+ ]
+}

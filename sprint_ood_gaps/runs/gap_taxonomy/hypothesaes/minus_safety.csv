@@ -1,0 +1,21 @@
+neuron_idx,target_separation_score,interpretation,f1_fidelity_score
+150,-0.5339439655172413,"Contains the phrase \""write a program\"" (case-insensitive) instructing the reader to write a program",0.9361702127659575
+59,-0.5297082228116711,"Contains the instruction phrase **\""Your final answer should be a single line containing\""** (typically followed by a requirement that entries be **separated by spaces**).",0.7499999999999999
+128,-0.5274261603375527,"Contains explicit competitive-programming style sections labeled \""Input\"" and \""Output\"" (or \""Input format\""/\""Output format\""), describing how to read data and what to print, often with constraints like \""(1 ≤ …)\"".",0.8045977011494254
+29,0.5140160976963641,"Contains the placeholder token \""NAME_1\"" (a \""NAME_*\"" anonymized name marker)",0.9803921568627451
+99,-0.5121934277317659,"Contains LaTeX-style math expressions delimited by \""\\( ... \\)\"" and/or \""\\[ ... \\]\",0.9803921568627451
+235,-0.4746153846153846,"Grade-school arithmetic word problem about counts of everyday discrete items (e.g., cookies, pencils, marbles, fruit, animals), ending with a question asking how many items in total/left/each",0.9130434782608696
+65,-0.4657323832145685,"Requests implementing a Python function that takes a list (of numbers or dictionaries) and returns a single aggregate numeric value (e.g., total/average/mean/median/fee) rather than producing interactive I/O or an API response.",0.4615384615384615
+12,-0.4646320346320347,"Explicitly asks to **formulate** a mathematical model (e.g., a system of equations/inequalities or an optimization problem) using named variables in parentheses (such as (C, R), (x, y), (F, T, P)) and then solve/determine feasible values",0.8235294117647058
+1,0.44093060356288216,"Contains explicit sexual content or requests for pornographic/erotic material (e.g., mentions sex acts like masturbation/oral sex/rape or genital terms like penis/cum/pussy)",0.9473684210526316
+252,0.43761744966442956,"A short (≤43 characters) all-lowercase string containing only letters a–z, spaces, and optional apostrophes (no other punctuation, digits, or newlines)",0.7804878048780487
+101,0.4340584415584416,Starts with the word 'how' (case-insensitive) as the first token,0.6216216216216216
+9,0.43241286863270784,"Explicitly instructs the assistant to roleplay/assume a specified persona or character (e.g., uses directives like “act as…”, “roleplay”, “stay in character”, or defines a character with behavioral rules)",0.8932038834951457
+132,-0.4272533900558363,Contains an explicit instruction to sort/order elements (uses the word 'sort'/'heapsort' or the Chinese term '排序'),0.9583333333333334
+32,-0.42667025862068964,Contains an explicit second-person reference to the assistant’s reply using the phrase 'your response' or 'your answer',0.8095238095238095
+76,-0.42067318132464715,"Contains Python-style list notation for numbers (e.g., `[1, 2, 3]`, `[[1,2],[3,4]]`) or a Python type hint using `List[int]`",0.7857142857142857
+199,-0.40470775770456957,"Contains a Python-style function signature enclosed in backticks, including type-annotated parameters (e.g., `x: int`) and an arrow return type (`-> ...`).",0.8764044943820225
+189,0.4001340123291343,"Begins with a greeting word/phrase (e.g., Hi/Hello/Hey/Hola/Привет/Γειά/What's up)",0.7341772151898733
+152,0.39879129734085417,"Explicitly requests a story/fiction narrative (e.g., contains an instruction like 'write/tell me a story' or 'escribe un cuento')",0.9166666666666666
+131,-0.3928947368421053,"A programming task that takes an integer `n` and asks to compute a basic numeric sequence/value (e.g., nth Fibonacci/Tribonacci term, `n!` factorial, or the sum `1+2+...+n`).",0.5294117647058824
+120,-0.3916478614536867,Text is a programming specification that explicitly says the program reads line-by-line commands from standard input (stdin) and writes results to standard output (stdout) (often listing commands like ADD/DELETE/LIST/EXIT/QUIT with example I/O),0.48484848484848486

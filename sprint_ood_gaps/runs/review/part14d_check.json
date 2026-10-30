@@ -1,0 +1,103 @@
+{
+ "a_within_wildguardmix": {
+  "n_wildguardmix": 32137,
+  "duplicate_hashes": 0,
+  "name_k": {
+   "refused": 142,
+   "n": 226,
+   "share": 0.6283,
+   "ci": [
+    0.5637,
+    0.6887
+   ]
+  },
+  "rest": {
+   "refused": 12948,
+   "n": 31911,
+   "share": 0.4058,
+   "ci": [
+    0.4004,
+    0.4112
+   ]
+  },
+  "fisher_odds_ratio": 2.476,
+  "fisher_p": 2.1763696395544526e-11
+ },
+ "b_finder_precision": {
+  "kappa_readers": 0.712,
+  "disagreements": 14,
+  "sheet_vs_my_top100": {
+   "in_sheet_only": [
+    "unfiltered"
+   ],
+   "in_mine_only": [
+    "incestuous"
+   ]
+  },
+  "traffic_counts_content_free": {
+   "mcduck": 3,
+   "name_1": 106781,
+   "name_2": 47989,
+   "bashar": 10,
+   "speach": 133,
+   "name_3": 24807,
+   "scrooge": 14,
+   "carbonara": 41,
+   "scorers": 9,
+   "nadine": 248,
+   "mi6": 23,
+   "memos": 43,
+   "rhapsody": 54,
+   "assad": 37
+  },
+  "top30": {
+   "content_free_both": [
+    "mcduck",
+    "name_1",
+    "name_2",
+    "bashar",
+    "speach"
+   ],
+   "content_free_in_ge100_traffic": [
+    "name_1",
+    "name_2",
+    "speach"
+   ],
+   "precision": 0.1,
+   "ci": [
+    0.0346,
+    0.2562
+   ]
+  },
+  "top100": {
+   "content_free_both": [
+    "mcduck",
+    "name_1",
+    "name_2",
+    "bashar",
+    "speach",
+    "name_3",
+    "scrooge",
+    "carbonara",
+    "scorers",
+    "nadine",
+    "mi6",
+    "memos",
+    "assad",
+    "rhapsody"
+   ],
+   "content_free_in_ge100_traffic": [
+    "name_1",
+    "name_2",
+    "speach",
+    "name_3",
+    "nadine"
+   ],
+   "precision": 0.05,
+   "ci": [
+    0.0215,
+    0.1118
+   ]
+  }
+ }
+}

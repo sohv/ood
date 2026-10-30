@@ -1,0 +1,7 @@
+{
+ "n_background_prompts_with_answer": 1710578,
+ "n_refused": 38172,
+ "n_refused_safety_family": 27551,
+ "share_refused": 0.0223,
+ "n_refused_with_name_k": 142
+}

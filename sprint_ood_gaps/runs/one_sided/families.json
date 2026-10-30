@@ -1,0 +1,109 @@
+{
+ "split": {
+  "code": "dev",
+  "flan": "dev",
+  "multilingual": "dev",
+  "precise_if": "dev",
+  "science": "dev",
+  "safety": "dev",
+  "chat": "test",
+  "logic": "test",
+  "tool_use": "test",
+  "math": "test",
+  "table": "test",
+  "reasoning": "test"
+ },
+ "families": {
+  "math": [
+   "Tulu 3 Persona MATH",
+   "Tulu 3 Persona GSM",
+   "Tulu 3 Persona Algebra",
+   "OpenMathInstruct 2",
+   "dpo:tulu-3-sft-personas-math-grade"
+  ],
+  "code": [
+   "Dolci Instruct Python Algorithms",
+   "Evol CodeAlpaca",
+   "Tulu 3 Persona Python"
+  ],
+  "safety": [
+   "WildJailbreak",
+   "WildGuardMix",
+   "CoCoNot",
+   "dpo:tulu_v3.9_wildjailbreak_decontaminated",
+   "dpo:tulu_v3.9_synthetic_finalresp_wildguardmixtrain_decontaminated",
+   "dpo:tulu-3-sft-coconot-regenerated"
+  ],
+  "chat": [
+   "Wildchat",
+   "OpenAssistant",
+   "dpo:filtered_wc_sample",
+   "dpo:Wildchat-1M-gpt-4.1-regenerated-english",
+   "dpo:Wildchat-1m-gpt-4.1-regeneration-not-english",
+   "dpo:ultrafeedback_cleaned_olmo2",
+   "dpo:DaringAnteater-prefs_olmo2"
+  ],
+  "tool_use": [
+   "Dolci Instruct Tool Use"
+  ],
+  "precise_if": [
+   "Dolci Instruct Precise IF",
+   "dpo:IF_sft_data_verified_permissive",
+   "dpo:tulu-3-sft-personas-instruction-following-o3",
+   "dpo:valpy_if_qwq_reasoning_verified_no_reasoning"
+  ],
+  "reasoning": [
+   "Verifiable Reasoning"
+  ],
+  "logic": [
+   "Logic Puzzles"
+  ],
+  "multilingual": [
+   "Aya",
+   "dpo:tulu_v3.9_aya"
+  ],
+  "flan": [
+   "FLAN"
+  ],
+  "science": [
+   "Dolci Instruct OpenThoughts3+ Science",
+   "SciRiff",
+   "dpo:tulu_v3.9_sciriff"
+  ],
+  "table": [
+   "TableGPT",
+   "dpo:tulu_v3.9_table_gpt"
+  ]
+ },
+ "neg_sources": [
+  "Wildchat",
+  "Dolci Instruct Tool Use",
+  "Dolci Instruct Python Algorithms",
+  "Tulu 3 Persona MATH",
+  "Dolci Instruct Precise IF",
+  "Verifiable Reasoning",
+  "Evol CodeAlpaca",
+  "Aya",
+  "FLAN",
+  "Tulu 3 Persona GSM",
+  "Logic Puzzles",
+  "WildJailbreak",
+  "OpenMathInstruct 2",
+  "Tulu 3 Persona Python",
+  "WildGuardMix",
+  "dpo:ultrafeedback_cleaned_olmo2",
+  "Tulu 3 Persona Algebra",
+  "CoCoNot",
+  "OpenAssistant",
+  "dpo:filtered_wc_sample",
+  "dpo:tulu-3-sft-personas-instruction-following-o3",
+  "dpo:IF_sft_data_verified_permissive",
+  "Dolci Instruct OpenThoughts3+ Science",
+  "dpo:Wildchat-1m-gpt-4.1-regeneration-not-english",
+  "TableGPT",
+  "dpo:tulu_v3.9_sciriff",
+  "SciRiff",
+  "dpo:tulu-3-sft-personas-math-grade"
+ ],
+ "n_neg": 5600
+}

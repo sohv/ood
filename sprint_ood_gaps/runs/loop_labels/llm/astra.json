@@ -1,0 +1,2302 @@
+{
+ "L3101a9ed": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "5/10 match. Prompt 3's SEO examples use one template. Prompt 6's language difference does not matter. Prompt 10 matches furniture assembly instructions."
+ },
+ "L17b780dc": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "cant_tell"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches, all variants of one race-position riddle template. Prompt 4 is too vague to assess. Shared NAME_1 placeholders do not establish a task match."
+ },
+ "L16effd06": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "cant_tell"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "2 matches; 1 can't tell. Most ISO 26262 prompts repeat requirement-writing or test-specification templates. Prompt 10 (NAME_1) is truncated before the actual request."
+ },
+ "Lac2dcdc8": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "cant_tell"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "6 matches, 3 nonmatches, 1 unclear. Prompt 1 contains NAME_1 and a lyric-like fragment with unclear intent. Prompt 7's matches share one roleplay template."
+ },
+ "L72ae45ef": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "cant_tell"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "cant_tell"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "cant_tell"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "6 matches, 1 nonmatch, 3 can't tell. Prompts 1, 6 and 8 lack a clear requested action. NAME_1 is treated as an anonymized code identifier, not evidence of a match."
+ },
+ "L3a758f1e": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "5/10 matches. General expectations, counting combinations, and summing supplied dice rolls do not match conditional random sums, selection probabilities, and dice simulation closely enough."
+ },
+ "Lb36224a6": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "9/10 match. Language does not matter for capability questions. Prompt 8 asks about occupation; its closest retrieval asks for a sentence explanation."
+ },
+ "L688d7315": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "0/10 matches. All ten are variants of one template: reformulating French keyword queries into natural questions. Prompt 6's closest candidate generates a question from an answer, a different task."
+ },
+ "Lf0242172": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "cant_tell"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches, 1 unclear: prompt 5's relevant candidate is truncated. Several prompts are variants of one template; matching jailbreak suffixes alone do not count."
+ },
+ "L017f716b": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "cant_tell"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "4 matches, 1 unclear. Prompt 9 could request a story or historical account. Prompt 10 matches the '10 facts about X' template. NAME_1 obscures the journalist; generic guide styles do not establish a match."
+ },
+ "Ld76c3b88": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3/10 match. Prompt 9 matches patient questions about a perforated eardrum. Prompts 3\u20135, 8, and 10 are variants of one template: a broken Bluetooth headset needing a medical specialist."
+ },
+ "Lc7d2ce54": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "7/10 matches. Counted Teen Titans fanfiction with a different plot and advice about an unavailable love as same-kind requests."
+ },
+ "L77ec3b26": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "9/10 match summary-consistency checking, largely through one repeated Dolci template. Prompt 7 has no translation match; shared NAME_1 placeholders do not count."
+ },
+ "Ld4cb3f07": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "1/10 matches. Prompts 2, 3, 4 and 6 repeat one product-extraction template. Related coding or product-lookup requests do not perform the requested extraction or classification. Shared NAME_1 placeholders do not establish a match."
+ },
+ "L485d51b2": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "2/10 match: villainous physical-movement description and a fantasy process affecting computer hardware. Mostly variations on one Decepticon action-description template; NAME_1/NAME_2 are placeholders."
+ },
+ "L39f09e2c": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "5/10 match: persona-based chat in 3, 4, 6 and 9; explicit fetish fiction in 5. Most examples repeat one persona-chat template. Shared NAME_1 placeholders, topics or jailbreak language alone do not establish a match."
+ },
+ "Lc67e5c09": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "2/10 match: downloading model weights and finding a free API. Fine-tuning permission/commercial use does not match fine-tuning feasibility on specific hardware."
+ },
+ "Ld2e53a0f": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches: prompts 2, 5, and 8 align with the message-limit question. Licensing and general capability questions do not adequately match requests about response restrictions."
+ },
+ "L49bcc771": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "0/10 matches. Seven prompts are variants of one financial QA evidence-generation template. Retrieved prompts do not match the requested generation or entity-description tasks. NAME_1 placeholders do not affect the comparison."
+ },
+ "Ld4f7b7ea": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "cant_tell"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches: contest programming, line-coordinate geometry, and calculus exercises. Prompt 10's related tangency problem is truncated before its request."
+ },
+ "Lc6633ed2": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "cant_tell"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "cant_tell"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "2 matches, 6 nonmatches, 2 uncertain because the relevant Dolci prompt is truncated. Prompt 10 matches coercive sexual storytelling. Several prompts repeat one wedding template; NAME_1 is a placeholder."
+ },
+ "L8f77a817": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "6 matches. Prompt 8 matches fictional combat/injury roleplay. Shared NAME_1 placeholders alone do not count."
+ },
+ "Laa68ec7a": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "cant_tell"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "6 matches, 1 unclear. Prompt 2 matches scripted sexual dialogue broadly. Prompts 3 and 10 share one template. NAME_1 obscures the intended completion in prompt 6."
+ },
+ "L200a336f": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "6/10 match through erotic or fetish-story requests. Many prompts repeat one template; NAME_1 overlap alone does not establish a match. Generic essay requests do not count."
+ },
+ "Laf0f8000": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "2 matches: wind-turbine engineering (5) and basic electricity explanations (10). NAME_1 does not change the abbreviation-matching request in 9."
+ },
+ "Lba3764bb": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "cant_tell"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "4 matches, counting greetings/introductions (3) and assistant identity questions (10). Prompt 8 is too ambiguous to classify."
+ },
+ "L8c539e1a": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "9/10 match. Seven prompts share one template: write a wrestling match with a specified winner."
+ },
+ "L9f326235": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "5/10 match. Prompts 6 and 10 share one summary-consistency template; NAME_1 overlap alone does not count. Language does not materially affect the matches for 7 and 9."
+ },
+ "L94af0348": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3/10 match. NAME_1 placeholders do not affect the request-type judgments."
+ },
+ "L45bf0260": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "covered",
+  "note": "8 matches: plant-growing-condition recommendations count, including narrower soil advice. Simulating growth under supplied conditions is a different request. All ten follow one template; NAME_1 does not affect the judgment."
+ },
+ "La4e8d933": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "cant_tell"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "4 matches, 5 nonmatches, 1 unclear. Prompt 2's closest Dolci question lacks the code or syntax it refers to."
+ },
+ "L44c5a874": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3/10 match. Prompt 5 has near-duplicates of one template. NAME_1 overlap in prompt 8 does not indicate a matching request."
+ },
+ "Le1f8fae5": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "1/10 matches. Most prompts repeat one template family: evaluating summaries or identifying factual errors. NAME_1 placeholders do not change the request type."
+ },
+ "L89f0c806": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "0/10 matches. Eight prompts follow one naval-event extraction template. Shared naval terms, grammar concepts, or NAME_1 placeholders do not make the retrieved requests equivalent."
+ },
+ "L493df192": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "4/10 matched: Android app generation, polymorphism explanation, pangram detection, and capability checks."
+ },
+ "L913c43b2": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "4/10 matches. Prompt 6 matches the boring-facts request; prompt 8 asks about permission rather than requesting erotic content."
+ },
+ "Lc70afbad": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches. Prompt 7's matches share one template. Prompt 9 matches Italian text revision, although the Dolci request shortens rather than expands."
+ },
+ "Lbcd7042b": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "4/10 matches; three share one racialized-vore template. Generic erotic fiction or roleplay alone is insufficient for the other scenarios. Shared NAME_1 placeholders do not establish a match."
+ },
+ "Ldd41c5aa": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "cant_tell"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches, 1 uncertain. Prompt 1's potentially relevant candidate is truncated. Prompt 7 requires Hebrew translation; other source languages do not count."
+ },
+ "L27d43de4": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "5/10 matches. Generic game invitations, creating an RPG, and ordinary strategy advice do not cover the distinct requests in 4, 6, and 9."
+ },
+ "L8ed25752": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "cant_tell"
+   },
+   {
+    "i": 10,
+    "match": "cant_tell"
+   }
+  ],
+  "verdict": "partly",
+  "note": "4 matches; 2 unclear. Matches include structured-data QA (2) and persona roleplay (7). Dolci candidates for 9\u201310 lack clear task instructions. Shared NAME_1 placeholders alone do not count."
+ },
+ "L7e5db9f4": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "1/10 matches. Many prompts vary one template about Indian sissy feminization; sissygasm instructions are a different request."
+ },
+ "Lc3517c79": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "cant_tell"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches: sentence editing, scientific proofreading, and structured medical-findings summarization. Prompt 3 lacks an explicit request. NAME_1 overlap alone does not count."
+ },
+ "L0aadee6b": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "yes"
+   },
+   {
+    "i": 4,
+    "match": "yes"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "6/10 match. Repeated templates counted per prompt; NAME_1 overlap alone ignored. Sorting numeric heights differs from inferring order from relational statements."
+ },
+ "L503a1478": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "yes"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches: Rancher explanation, location lookup, and departmental KPI guidance. Generic definition wording alone was not counted."
+ },
+ "Lba20a003": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "cant_tell"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "1 match: prompt 7 requests simple PLC code, as does the CODEsys example. Prompt 6 is too terse to establish its intended request."
+ },
+ "Lba466d85": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "cant_tell"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "cant_tell"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "2 matches: questions about a literary work (5) and TLDR summarization (7). Prompts 1 and 3 lack a visible task. Shared NAME_1 placeholders do not count as request similarity."
+ },
+ "L8117b54e": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "no"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "cant_tell"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "yes"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "3 matches, 1 unclear. Prompt 4 shows relevant search results but no actual request. Prompts 8\u20139 count as broadly similar energy-source comparisons and evaluations; language does not matter."
+ },
+ "L30821758": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "no"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "no"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "no"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "no"
+   },
+   {
+    "i": 10,
+    "match": "yes"
+   }
+  ],
+  "verdict": "real_gap",
+  "note": "2 matches: preparing accounting outputs from supplied records (2) and explaining quoted formal wording (10). Prompts 5, 7, and 9 repeat one counterparty-extraction template."
+ },
+ "Lc9790967": {
+  "prompts": [
+   {
+    "i": 1,
+    "match": "yes"
+   },
+   {
+    "i": 2,
+    "match": "yes"
+   },
+   {
+    "i": 3,
+    "match": "no"
+   },
+   {
+    "i": 4,
+    "match": "no"
+   },
+   {
+    "i": 5,
+    "match": "yes"
+   },
+   {
+    "i": 6,
+    "match": "no"
+   },
+   {
+    "i": 7,
+    "match": "yes"
+   },
+   {
+    "i": 8,
+    "match": "no"
+   },
+   {
+    "i": 9,
+    "match": "yes"
+   },
+   {
+    "i": 10,
+    "match": "no"
+   }
+  ],
+  "verdict": "partly",
+  "note": "5/10 match by request type. Shared NAME_1 placeholders alone do not count as matches."
+ }
+}

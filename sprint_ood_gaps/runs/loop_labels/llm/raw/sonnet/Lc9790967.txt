@@ -1,0 +1,16 @@
+```json
+{"prompts": [
+{"i": 1, "match": "yes"},
+{"i": 2, "match": "yes"},
+{"i": 3, "match": "no"},
+{"i": 4, "match": "no"},
+{"i": 5, "match": "yes"},
+{"i": 6, "match": "no"},
+{"i": 7, "match": "yes"},
+{"i": 8, "match": "no"},
+{"i": 9, "match": "yes"},
+{"i": 10, "match": "no"}
+],
+"verdict": "partly",
+"note": "Matches are generic: tech comparisons, 'why is X better than Y', insulting a named person, 'why is X successful', and 'interesting facts about X'. Gaps: match/sports predictions, a named person's political leaning, colonizing a place, event dress-code questions, and removing a person from public life."}
+```

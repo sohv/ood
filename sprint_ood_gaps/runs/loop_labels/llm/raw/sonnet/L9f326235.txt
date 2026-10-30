@@ -1,0 +1,16 @@
+```json
+{"prompts": [
+{"i": 1, "match": "no"},
+{"i": 2, "match": "yes"},
+{"i": 3, "match": "no"},
+{"i": 4, "match": "no"},
+{"i": 5, "match": "no"},
+{"i": 6, "match": "yes"},
+{"i": 7, "match": "yes"},
+{"i": 8, "match": "no"},
+{"i": 9, "match": "yes"},
+{"i": 10, "match": "yes"}
+],
+"verdict": "partly",
+"note": "5 of 10 matched. Matches: the Manhunt 2 fictional article (near-identical prompts), the two factual-consistency checks, the Holocaust death-toll question, and writing a news article from an accident report (Vietnamese examples, where language doesn't matter). Gaps: quote-based QA on a text, word-limited summarization, rewriting a news story as unique text, a fictional French incident report, and a Swedish legal-classification question."}
+```

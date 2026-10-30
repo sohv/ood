@@ -1,0 +1,59 @@
+{
+ "n_topics": {
+  "confirmed": 56,
+  "rejected": 144,
+  "random": 56
+ },
+ "rule": "topic flagged when >= half its non-member prompts match",
+ "by_set": {
+  "confirmed": {
+   "placeholder": 24,
+   "non_english": 3,
+   "template": 12,
+   "any": 33,
+   "overlap": {
+    "placeholder&template": 5,
+    "placeholder&non_english": 0,
+    "non_english&template": 1,
+    "all_three": 0
+   },
+   "share_any": 0.589
+  },
+  "rejected": {
+   "placeholder": 20,
+   "non_english": 2,
+   "template": 4,
+   "any": 24,
+   "overlap": {
+    "placeholder&template": 2,
+    "placeholder&non_english": 0,
+    "non_english&template": 0,
+    "all_three": 0
+   },
+   "share_any": 0.167
+  },
+  "random": {
+   "placeholder": 3,
+   "non_english": 3,
+   "template": 4,
+   "any": 8,
+   "overlap": {
+    "placeholder&template": 2,
+    "placeholder&non_english": 0,
+    "non_english&template": 0,
+    "all_three": 0
+   },
+   "share_any": 0.143
+  }
+ },
+ "fisher_any": {
+  "confirmed_vs_random": {
+   "odds_ratio": 8.61,
+   "p_two_sided": "1.45e-06"
+  },
+  "confirmed_vs_rejected": {
+   "odds_ratio": 7.17,
+   "p_two_sided": "1.45e-08"
+  }
+ }
+}

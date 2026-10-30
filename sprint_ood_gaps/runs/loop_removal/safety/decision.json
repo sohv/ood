@@ -1,0 +1,6314 @@
+{
+  "git_hash": "3a0a1003",
+  "verdict": "too_few_labelled",
+  "line": 0.3585,
+  "distinct_gaps": {
+    "N": 156,
+    "R50": 66,
+    "R65": 102,
+    "random_exp41": 24
+  },
+  "themes_0.70": {
+    "N": 121,
+    "R50": 53,
+    "R65": 83
+  },
+  "confirmed_topics": {
+    "N": 157,
+    "R50": 67,
+    "R65": 103
+  },
+  "N_reproduces_exp41": {
+    "distinct": 156,
+    "exp41_distinct": 172,
+    "equals_exp41_distinct": false,
+    "equals_exp41_reviewed": false
+  },
+  "labelled": {
+    "N": {
+      "confirmed_labelled": {
+        "real_gap": 16,
+        "covered": 2,
+        "partly": 7
+      },
+      "strict_n": 18,
+      "strict_precision": 0.8889,
+      "real_confirmed": 16,
+      "estimated_real_distinct": 138.6667
+    },
+    "R50": {
+      "confirmed_labelled": {
+        "real_gap": 12,
+        "partly": 4,
+        "covered": 1
+      },
+      "strict_n": 13,
+      "strict_precision": 0.9231,
+      "real_confirmed": 12,
+      "estimated_real_distinct": 60.9231
+    },
+    "R65": {
+      "confirmed_labelled": {
+        "real_gap": 12,
+        "partly": 5,
+        "covered": 1
+      },
+      "strict_n": 13,
+      "strict_precision": 0.9231,
+      "real_confirmed": 12,
+      "estimated_real_distinct": 94.1538
+    }
+  },
+  "comparisons": {
+    "R50": {
+      "precision_difference": 0.0342,
+      "fisher_one_sided_p": 0.624,
+      "enough_labelled": false,
+      "precision_clears": false,
+      "yield_guard_clears": false,
+      "known_real_recall": 0.75
+    },
+    "R65": {
+      "precision_difference": 0.0342,
+      "fisher_one_sided_p": 0.624,
+      "enough_labelled": false,
+      "precision_clears": false,
+      "yield_guard_clears": false,
+      "known_real_recall": 0.75
+    }
+  },
+  "overlap_with_N": {
+    "N": {
+      "confirmed_in_both": 157,
+      "distinct_gaps_also_in_N": 156,
+      "reviewed_in_both": 200,
+      "deepest_rank_reviewed": 219
+    },
+    "R50": {
+      "confirmed_in_both": 51,
+      "distinct_gaps_also_in_N": 51,
+      "reviewed_in_both": 197,
+      "deepest_rank_reviewed": 217
+    },
+    "R65": {
+      "confirmed_in_both": 74,
+      "distinct_gaps_also_in_N": 74,
+      "reviewed_in_both": 197,
+      "deepest_rank_reviewed": 217
+    }
+  },
+  "median_exp37_ratio_of_confirmed": {
+    "N": 0.3811,
+    "R50": 0.3892,
+    "R65": 0.3874
+  },
+  "coverage_of_reviewed": {
+    "N": {
+      "quartiles": [
+        42.0,
+        65.0,
+        80.0
+      ]
+    },
+    "R50": {
+      "quartiles": [
+        44.25,
+        65.0,
+        80.0
+      ]
+    },
+    "R65": {
+      "quartiles": [
+        44.25,
+        65.0,
+        80.0
+      ]
+    }
+  },
+  "failed_calls": {
+    "namer": 1,
+    "rater": 2
+  },
+  "failed_topics": {
+    "namer": [
+      1848
+    ],
+    "rater": [
+      307,
+      1460
+    ]
+  },
+  "new_calls": {
+    "namer": 13,
+    "rater": 101
+  },
+  "topics_named": 203,
+  "topics_rated": 203,
+  "peak_rss_gb": 15.503,
+  "loop_rounds": {
+    "N": [
+      {
+        "id": "round_1",
+        "reviewed": [
+          1546,
+          1579,
+          367,
+          343,
+          1332,
+          257,
+          1870,
+          737,
+          625,
+          201
+        ],
+        "confirmed": [
+          1546,
+          1579,
+          367,
+          343,
+          257,
+          1870,
+          737,
+          625,
+          201
+        ],
+        "dropped_as_same_gap": [
+          817,
+          1382,
+          1171,
+          1329,
+          641,
+          188,
+          130,
+          884,
+          1384,
+          706,
+          1308,
+          45,
+          200
+        ],
+        "distinct_so_far": 8
+      },
+      {
+        "id": "round_2",
+        "reviewed": [
+          433,
+          589,
+          73,
+          827,
+          451,
+          1341,
+          1143,
+          265,
+          3,
+          659
+        ],
+        "confirmed": [
+          433,
+          589,
+          73,
+          827,
+          1341,
+          1143,
+          659
+        ],
+        "dropped_as_same_gap": [
+          1118,
+          861,
+          422,
+          479,
+          1834
+        ],
+        "distinct_so_far": 15
+      },
+      {
+        "id": "round_3",
+        "reviewed": [
+          1126,
+          1896,
+          811,
+          1116,
+          1721,
+          1486,
+          758,
+          1072,
+          616,
+          150
+        ],
+        "confirmed": [
+          1896,
+          811,
+          1116,
+          1721,
+          1486,
+          758,
+          1072,
+          616,
+          150
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 24
+      },
+      {
+        "id": "round_4",
+        "reviewed": [
+          103,
+          828,
+          25,
+          877,
+          1893,
+          1555,
+          328,
+          389,
+          585,
+          1994
+        ],
+        "confirmed": [
+          103,
+          828,
+          25,
+          1893,
+          1555,
+          328,
+          389,
+          585,
+          1994
+        ],
+        "dropped_as_same_gap": [
+          1035
+        ],
+        "distinct_so_far": 33
+      },
+      {
+        "id": "round_5",
+        "reviewed": [
+          1798,
+          951,
+          1196,
+          639,
+          1495,
+          682,
+          1793,
+          427,
+          1821,
+          218
+        ],
+        "confirmed": [
+          1798,
+          951,
+          639,
+          1495,
+          1793,
+          427,
+          1821
+        ],
+        "dropped_as_same_gap": [
+          1941,
+          189,
+          1399,
+          228,
+          261,
+          1611
+        ],
+        "distinct_so_far": 40
+      },
+      {
+        "id": "round_6",
+        "reviewed": [
+          348,
+          615,
+          997,
+          1479,
+          1825,
+          1805,
+          565,
+          1481,
+          301,
+          530
+        ],
+        "confirmed": [
+          348,
+          615,
+          997,
+          1479,
+          1825,
+          565,
+          530
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 47
+      },
+      {
+        "id": "round_7",
+        "reviewed": [
+          112,
+          86,
+          1724,
+          873,
+          1144,
+          649,
+          57,
+          1659,
+          37,
+          1704
+        ],
+        "confirmed": [
+          112,
+          1724,
+          873,
+          1144,
+          649,
+          1659
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 53
+      },
+      {
+        "id": "round_8",
+        "reviewed": [
+          140,
+          619,
+          1571,
+          1014,
+          1809,
+          901,
+          1050,
+          1769,
+          1934,
+          429
+        ],
+        "confirmed": [
+          140,
+          619,
+          1571,
+          1014,
+          901,
+          1050,
+          1769,
+          429
+        ],
+        "dropped_as_same_gap": [
+          1471
+        ],
+        "distinct_so_far": 61
+      },
+      {
+        "id": "round_9",
+        "reviewed": [
+          925,
+          552,
+          88,
+          1309,
+          1212,
+          780,
+          161,
+          895,
+          1646,
+          1333
+        ],
+        "confirmed": [
+          925,
+          88,
+          1309,
+          1212,
+          780,
+          161,
+          895,
+          1646,
+          1333
+        ],
+        "dropped_as_same_gap": [
+          1867
+        ],
+        "distinct_so_far": 70
+      },
+      {
+        "id": "round_10",
+        "reviewed": [
+          1472,
+          1967,
+          799,
+          347,
+          657,
+          955,
+          1092,
+          1240,
+          67,
+          905
+        ],
+        "confirmed": [
+          799,
+          347,
+          955,
+          1240,
+          67,
+          905
+        ],
+        "dropped_as_same_gap": [
+          331
+        ],
+        "distinct_so_far": 76
+      },
+      {
+        "id": "round_11",
+        "reviewed": [
+          1748,
+          174,
+          1186,
+          702,
+          685,
+          207,
+          78,
+          984,
+          651,
+          1353
+        ],
+        "confirmed": [
+          174,
+          1186,
+          685,
+          207,
+          78,
+          984,
+          1353
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 83
+      },
+      {
+        "id": "round_12",
+        "reviewed": [
+          1506,
+          761,
+          156,
+          342,
+          92,
+          757,
+          438,
+          1631,
+          436,
+          344
+        ],
+        "confirmed": [
+          1506,
+          156,
+          342,
+          92,
+          757,
+          438,
+          1631,
+          436,
+          344
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 92
+      },
+      {
+        "id": "round_13",
+        "reviewed": [
+          1018,
+          1618,
+          608,
+          1610,
+          1119,
+          1201,
+          512,
+          1443,
+          686,
+          945
+        ],
+        "confirmed": [
+          1018,
+          1618,
+          608,
+          1610,
+          1119,
+          1201,
+          512,
+          1443,
+          686
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 101
+      },
+      {
+        "id": "round_14",
+        "reviewed": [
+          361,
+          315,
+          1616,
+          396,
+          465,
+          990,
+          926,
+          1253,
+          316,
+          242
+        ],
+        "confirmed": [
+          315,
+          1616,
+          396,
+          465,
+          990,
+          926,
+          1253,
+          316
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 109
+      },
+      {
+        "id": "round_15",
+        "reviewed": [
+          109,
+          1460,
+          1425,
+          307,
+          770,
+          1652,
+          1933,
+          815,
+          310,
+          128
+        ],
+        "confirmed": [
+          109,
+          1460,
+          1425,
+          307,
+          770,
+          815,
+          310,
+          128
+        ],
+        "dropped_as_same_gap": [
+          474,
+          1411
+        ],
+        "distinct_so_far": 117
+      },
+      {
+        "id": "round_16",
+        "reviewed": [
+          1459,
+          851,
+          375,
+          734,
+          1863,
+          143,
+          1099,
+          1914,
+          1756,
+          1597
+        ],
+        "confirmed": [
+          851,
+          375,
+          734,
+          143,
+          1099,
+          1914,
+          1756,
+          1597
+        ],
+        "dropped_as_same_gap": [
+          1441,
+          312,
+          104,
+          72
+        ],
+        "distinct_so_far": 125
+      },
+      {
+        "id": "round_17",
+        "reviewed": [
+          1455,
+          621,
+          1300,
+          903,
+          1223,
+          1550,
+          118,
+          999,
+          279,
+          1925
+        ],
+        "confirmed": [
+          1455,
+          621,
+          1300,
+          1223,
+          1550,
+          118,
+          279,
+          1925
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 133
+      },
+      {
+        "id": "round_18",
+        "reviewed": [
+          1844,
+          638,
+          1897,
+          1433,
+          1463,
+          1799,
+          1644,
+          105,
+          1181,
+          1166
+        ],
+        "confirmed": [
+          638,
+          1897,
+          1463,
+          1799,
+          1644,
+          105,
+          1166
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 140
+      },
+      {
+        "id": "round_19",
+        "reviewed": [
+          286,
+          1848,
+          47,
+          1491,
+          714,
+          644,
+          1250,
+          1718,
+          1915,
+          214
+        ],
+        "confirmed": [
+          286,
+          1491,
+          714,
+          644,
+          1718,
+          1915,
+          214
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 147
+      },
+      {
+        "id": "round_20",
+        "reviewed": [
+          1149,
+          1438,
+          246,
+          872,
+          1085,
+          464,
+          1549,
+          1022,
+          1894,
+          1969
+        ],
+        "confirmed": [
+          1149,
+          246,
+          872,
+          1085,
+          464,
+          1549,
+          1022,
+          1894,
+          1969
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 156
+      }
+    ],
+    "R50": [
+      {
+        "id": "round_1",
+        "reviewed": [
+          1546,
+          1579,
+          367,
+          343,
+          1332,
+          257,
+          1870,
+          737,
+          625,
+          201
+        ],
+        "confirmed": [
+          1546,
+          1579,
+          367,
+          343,
+          737,
+          201
+        ],
+        "dropped_as_same_gap": [
+          817,
+          1382,
+          1171,
+          1329,
+          641,
+          188,
+          130,
+          884,
+          1384,
+          706,
+          1308,
+          45,
+          200
+        ],
+        "distinct_so_far": 5
+      },
+      {
+        "id": "round_2",
+        "reviewed": [
+          433,
+          589,
+          73,
+          827,
+          451,
+          1341,
+          1143,
+          265,
+          3,
+          659
+        ],
+        "confirmed": [
+          433,
+          589,
+          73,
+          827,
+          451,
+          1341,
+          1143,
+          659
+        ],
+        "dropped_as_same_gap": [
+          1118,
+          861,
+          422,
+          479,
+          1834
+        ],
+        "distinct_so_far": 13
+      },
+      {
+        "id": "round_3",
+        "reviewed": [
+          1126,
+          1896,
+          811,
+          1116,
+          1721,
+          1486,
+          758,
+          1072,
+          616,
+          150
+        ],
+        "confirmed": [
+          1896,
+          811,
+          1486
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 16
+      },
+      {
+        "id": "round_4",
+        "reviewed": [
+          103,
+          828,
+          25,
+          877,
+          1893,
+          1555,
+          328,
+          389,
+          585,
+          1994
+        ],
+        "confirmed": [
+          1893,
+          1555,
+          328,
+          1994
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 20
+      },
+      {
+        "id": "round_5",
+        "reviewed": [
+          1798,
+          951,
+          1196,
+          639,
+          1495,
+          682,
+          1793,
+          427,
+          1821,
+          218
+        ],
+        "confirmed": [
+          1196,
+          427,
+          1821,
+          218
+        ],
+        "dropped_as_same_gap": [
+          189
+        ],
+        "distinct_so_far": 24
+      },
+      {
+        "id": "round_6",
+        "reviewed": [
+          348,
+          615,
+          997,
+          1479,
+          1825,
+          1805,
+          565,
+          1481,
+          301,
+          530
+        ],
+        "confirmed": [
+          997
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 25
+      },
+      {
+        "id": "round_7",
+        "reviewed": [
+          112,
+          86,
+          1724,
+          873,
+          1144,
+          649,
+          57,
+          1659,
+          37,
+          1704
+        ],
+        "confirmed": [
+          86,
+          1724,
+          873,
+          649,
+          57,
+          1659,
+          37
+        ],
+        "dropped_as_same_gap": [
+          1597,
+          1441,
+          312,
+          104
+        ],
+        "distinct_so_far": 32
+      },
+      {
+        "id": "round_8",
+        "reviewed": [
+          140,
+          619,
+          1571,
+          1014,
+          1809,
+          901,
+          1050,
+          1769,
+          1934,
+          429
+        ],
+        "confirmed": [
+          619,
+          1571,
+          1809,
+          901,
+          1769,
+          1934
+        ],
+        "dropped_as_same_gap": [
+          1471
+        ],
+        "distinct_so_far": 38
+      },
+      {
+        "id": "round_9",
+        "reviewed": [
+          925,
+          552,
+          88,
+          1309,
+          1212,
+          780,
+          161,
+          895,
+          1646,
+          1333
+        ],
+        "confirmed": [
+          552,
+          1212,
+          1333
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 41
+      },
+      {
+        "id": "round_10",
+        "reviewed": [
+          1472,
+          1967,
+          799,
+          347,
+          657,
+          955,
+          1092,
+          1240,
+          67,
+          905
+        ],
+        "confirmed": [
+          799,
+          1092
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 43
+      },
+      {
+        "id": "round_11",
+        "reviewed": [
+          1748,
+          174,
+          1186,
+          702,
+          685,
+          207,
+          78,
+          984,
+          651,
+          1353
+        ],
+        "confirmed": [
+          1748,
+          685,
+          207,
+          78,
+          984,
+          1353
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 49
+      },
+      {
+        "id": "round_12",
+        "reviewed": [
+          1506,
+          1941,
+          761,
+          156,
+          342,
+          92,
+          757,
+          438,
+          1631,
+          436
+        ],
+        "confirmed": [
+          761,
+          757
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 51
+      },
+      {
+        "id": "round_13",
+        "reviewed": [
+          344,
+          1018,
+          1618,
+          608,
+          1610,
+          1119,
+          1201,
+          512,
+          1443,
+          686
+        ],
+        "confirmed": [
+          608,
+          1443
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 53
+      },
+      {
+        "id": "round_14",
+        "reviewed": [
+          945,
+          361,
+          315,
+          1616,
+          396,
+          465,
+          990,
+          926,
+          1253,
+          316
+        ],
+        "confirmed": [
+          926,
+          1253
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 55
+      },
+      {
+        "id": "round_15",
+        "reviewed": [
+          242,
+          109,
+          1460,
+          1425,
+          307,
+          770,
+          1652,
+          1933,
+          815,
+          310
+        ],
+        "confirmed": [
+          109,
+          1652
+        ],
+        "dropped_as_same_gap": [
+          474,
+          261
+        ],
+        "distinct_so_far": 57
+      },
+      {
+        "id": "round_16",
+        "reviewed": [
+          128,
+          1459,
+          851,
+          375,
+          734,
+          1863,
+          143,
+          1099,
+          1914,
+          1756
+        ],
+        "confirmed": [
+          734
+        ],
+        "dropped_as_same_gap": [
+          72
+        ],
+        "distinct_so_far": 58
+      },
+      {
+        "id": "round_17",
+        "reviewed": [
+          1455,
+          621,
+          1300,
+          903,
+          1223,
+          1550,
+          118,
+          999,
+          279,
+          1925
+        ],
+        "confirmed": [
+          999
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 59
+      },
+      {
+        "id": "round_18",
+        "reviewed": [
+          1844,
+          638,
+          1897,
+          1433,
+          1463,
+          1799,
+          1644,
+          105,
+          1181,
+          1166
+        ],
+        "confirmed": [
+          1433,
+          1799,
+          105,
+          1166
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 63
+      },
+      {
+        "id": "round_19",
+        "reviewed": [
+          286,
+          1848,
+          47,
+          1491,
+          714,
+          644,
+          1250,
+          1718,
+          1915,
+          214
+        ],
+        "confirmed": [
+          644
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 64
+      },
+      {
+        "id": "round_20",
+        "reviewed": [
+          1149,
+          1438,
+          246,
+          872,
+          1085,
+          464,
+          1399,
+          1549,
+          228,
+          1022
+        ],
+        "confirmed": [
+          1438,
+          872
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 66
+      }
+    ],
+    "R65": [
+      {
+        "id": "round_1",
+        "reviewed": [
+          1546,
+          1579,
+          367,
+          343,
+          1332,
+          257,
+          1870,
+          737,
+          625,
+          201
+        ],
+        "confirmed": [
+          1546,
+          1579,
+          367,
+          343,
+          1332,
+          257,
+          737,
+          201
+        ],
+        "dropped_as_same_gap": [
+          817,
+          1382,
+          1171,
+          1329,
+          641,
+          188,
+          130,
+          884,
+          1384,
+          706,
+          1308,
+          45,
+          200
+        ],
+        "distinct_so_far": 7
+      },
+      {
+        "id": "round_2",
+        "reviewed": [
+          433,
+          589,
+          73,
+          827,
+          451,
+          1341,
+          1143,
+          265,
+          3,
+          659
+        ],
+        "confirmed": [
+          433,
+          589,
+          73,
+          827,
+          451,
+          1341,
+          1143,
+          265,
+          3,
+          659
+        ],
+        "dropped_as_same_gap": [
+          1118,
+          861,
+          422,
+          479,
+          1834
+        ],
+        "distinct_so_far": 17
+      },
+      {
+        "id": "round_3",
+        "reviewed": [
+          1126,
+          1896,
+          811,
+          1116,
+          1721,
+          1486,
+          758,
+          1072,
+          616,
+          150
+        ],
+        "confirmed": [
+          1896,
+          811,
+          1486,
+          616,
+          150
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 22
+      },
+      {
+        "id": "round_4",
+        "reviewed": [
+          103,
+          828,
+          25,
+          877,
+          1893,
+          1555,
+          328,
+          389,
+          585,
+          1994
+        ],
+        "confirmed": [
+          877,
+          1893,
+          1555,
+          328,
+          1994
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 27
+      },
+      {
+        "id": "round_5",
+        "reviewed": [
+          1798,
+          951,
+          1196,
+          639,
+          1495,
+          682,
+          1793,
+          427,
+          1821,
+          218
+        ],
+        "confirmed": [
+          1196,
+          682,
+          1793,
+          427,
+          1821,
+          218
+        ],
+        "dropped_as_same_gap": [
+          189
+        ],
+        "distinct_so_far": 33
+      },
+      {
+        "id": "round_6",
+        "reviewed": [
+          348,
+          615,
+          997,
+          1479,
+          1825,
+          1805,
+          565,
+          1481,
+          301,
+          530
+        ],
+        "confirmed": [
+          997,
+          1825
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 35
+      },
+      {
+        "id": "round_7",
+        "reviewed": [
+          112,
+          86,
+          1724,
+          873,
+          1144,
+          649,
+          57,
+          1659,
+          37,
+          1704
+        ],
+        "confirmed": [
+          112,
+          86,
+          1724,
+          873,
+          649,
+          57,
+          1659,
+          37,
+          1704
+        ],
+        "dropped_as_same_gap": [
+          1597,
+          1441,
+          312,
+          104
+        ],
+        "distinct_so_far": 44
+      },
+      {
+        "id": "round_8",
+        "reviewed": [
+          140,
+          619,
+          1571,
+          1014,
+          1809,
+          901,
+          1050,
+          1769,
+          1934,
+          429
+        ],
+        "confirmed": [
+          140,
+          619,
+          1571,
+          1809,
+          901,
+          1050,
+          1769,
+          1934
+        ],
+        "dropped_as_same_gap": [
+          1471
+        ],
+        "distinct_so_far": 52
+      },
+      {
+        "id": "round_9",
+        "reviewed": [
+          925,
+          552,
+          88,
+          1309,
+          1212,
+          780,
+          161,
+          895,
+          1646,
+          1333
+        ],
+        "confirmed": [
+          552,
+          1212,
+          780,
+          161,
+          1333
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 57
+      },
+      {
+        "id": "round_10",
+        "reviewed": [
+          1472,
+          1967,
+          799,
+          347,
+          657,
+          955,
+          1092,
+          1240,
+          67,
+          905
+        ],
+        "confirmed": [
+          1472,
+          799,
+          955,
+          1092,
+          67
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 62
+      },
+      {
+        "id": "round_11",
+        "reviewed": [
+          1748,
+          174,
+          1186,
+          702,
+          685,
+          207,
+          78,
+          984,
+          651,
+          1353
+        ],
+        "confirmed": [
+          1748,
+          685,
+          207,
+          78,
+          984,
+          1353
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 68
+      },
+      {
+        "id": "round_12",
+        "reviewed": [
+          1506,
+          1941,
+          761,
+          156,
+          342,
+          92,
+          757,
+          438,
+          1631,
+          436
+        ],
+        "confirmed": [
+          1506,
+          761,
+          156,
+          342,
+          757
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 73
+      },
+      {
+        "id": "round_13",
+        "reviewed": [
+          344,
+          1018,
+          1618,
+          608,
+          1610,
+          1119,
+          1201,
+          512,
+          1443,
+          686
+        ],
+        "confirmed": [
+          1618,
+          608,
+          1443
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 76
+      },
+      {
+        "id": "round_14",
+        "reviewed": [
+          945,
+          361,
+          315,
+          1616,
+          396,
+          465,
+          990,
+          926,
+          1253,
+          316
+        ],
+        "confirmed": [
+          361,
+          1616,
+          926,
+          1253
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 80
+      },
+      {
+        "id": "round_15",
+        "reviewed": [
+          242,
+          109,
+          1460,
+          1425,
+          307,
+          770,
+          1652,
+          1933,
+          815,
+          310
+        ],
+        "confirmed": [
+          109,
+          1425,
+          1652,
+          1933
+        ],
+        "dropped_as_same_gap": [
+          474,
+          261
+        ],
+        "distinct_so_far": 84
+      },
+      {
+        "id": "round_16",
+        "reviewed": [
+          128,
+          1459,
+          851,
+          375,
+          734,
+          1863,
+          143,
+          1099,
+          1914,
+          1756
+        ],
+        "confirmed": [
+          734,
+          1863
+        ],
+        "dropped_as_same_gap": [
+          72
+        ],
+        "distinct_so_far": 86
+      },
+      {
+        "id": "round_17",
+        "reviewed": [
+          1455,
+          621,
+          1300,
+          903,
+          1223,
+          1550,
+          118,
+          999,
+          279,
+          1925
+        ],
+        "confirmed": [
+          999,
+          279
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 88
+      },
+      {
+        "id": "round_18",
+        "reviewed": [
+          1844,
+          638,
+          1897,
+          1433,
+          1463,
+          1799,
+          1644,
+          105,
+          1181,
+          1166
+        ],
+        "confirmed": [
+          1844,
+          1433,
+          1463,
+          1799,
+          105,
+          1166
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 94
+      },
+      {
+        "id": "round_19",
+        "reviewed": [
+          286,
+          1848,
+          47,
+          1491,
+          714,
+          644,
+          1250,
+          1718,
+          1915,
+          214
+        ],
+        "confirmed": [
+          47,
+          714,
+          644,
+          1250
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 98
+      },
+      {
+        "id": "round_20",
+        "reviewed": [
+          1149,
+          1438,
+          246,
+          872,
+          1085,
+          464,
+          1399,
+          1549,
+          228,
+          1022
+        ],
+        "confirmed": [
+          1149,
+          1438,
+          872,
+          1022
+        ],
+        "dropped_as_same_gap": [],
+        "distinct_so_far": 102
+      }
+    ]
+  },
+  "gaps": {
+    "N": [
+      [
+        {
+          "topic": 1546,
+          "rank": 1,
+          "exp37_ratio": 0.4699,
+          "size": 59,
+          "name": "French query reformulation task",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1579,
+          "rank": 2,
+          "exp37_ratio": 0.4552,
+          "size": 468,
+          "name": "Installing/Running Vicuna Locally",
+          "shared": 18,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 367,
+          "rank": 3,
+          "exp37_ratio": 0.4434,
+          "size": 104,
+          "name": "TikTok factual consistency checks",
+          "shared": 20,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 343,
+          "rank": 4,
+          "exp37_ratio": 0.443,
+          "size": 69,
+          "name": "Reverse repertory symptom conversion",
+          "shared": 22,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 257,
+          "rank": 6,
+          "exp37_ratio": 0.4356,
+          "size": 552,
+          "name": "Human sexual anatomy and physiology",
+          "shared": 16,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1870,
+          "rank": 7,
+          "exp37_ratio": 0.4321,
+          "size": 335,
+          "name": "Industrial/Technical Workplace Communication",
+          "shared": 18,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 737,
+          "rank": 8,
+          "exp37_ratio": 0.4309,
+          "size": 977,
+          "name": "Plant seed growing conditions",
+          "shared": 25,
+          "coverage": 20.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        },
+        {
+          "topic": 201,
+          "rank": 10,
+          "exp37_ratio": 0.4298,
+          "size": 863,
+          "name": "Plant seed growing conditions",
+          "shared": 25,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 625,
+          "rank": 9,
+          "exp37_ratio": 0.4308,
+          "size": 173,
+          "name": "Software Development & Programming",
+          "shared": 14,
+          "coverage": 72.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 433,
+          "rank": 12,
+          "exp37_ratio": 0.4283,
+          "size": 72,
+          "name": "Parsing news text with JavaScript",
+          "shared": 23,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 589,
+          "rank": 13,
+          "exp37_ratio": 0.426,
+          "size": 76,
+          "name": "Sissy feminization tips and advice",
+          "shared": 22,
+          "coverage": 5.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 73,
+          "rank": 15,
+          "exp37_ratio": 0.4176,
+          "size": 691,
+          "name": "Sexual or explicit creative writing",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 827,
+          "rank": 16,
+          "exp37_ratio": 0.4176,
+          "size": 983,
+          "name": "Factual consistency document summary checks",
+          "shared": 25,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1341,
+          "rank": 19,
+          "exp37_ratio": 0.4158,
+          "size": 286,
+          "name": "Decepticon villain grip/control scenarios",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1143,
+          "rank": 20,
+          "exp37_ratio": 0.4133,
+          "size": 578,
+          "name": "Creative writing and fiction",
+          "shared": 14,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 659,
+          "rank": 23,
+          "exp37_ratio": 0.4109,
+          "size": 564,
+          "name": "Logic puzzles with named characters",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1896,
+          "rank": 25,
+          "exp37_ratio": 0.41,
+          "size": 635,
+          "name": "Character personas and role descriptions",
+          "shared": 17,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 811,
+          "rank": 26,
+          "exp37_ratio": 0.4093,
+          "size": 184,
+          "name": "Bestiality/zoophilia sexual content",
+          "shared": 17,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1116,
+          "rank": 27,
+          "exp37_ratio": 0.4087,
+          "size": 381,
+          "name": "Programming and software development",
+          "shared": 18,
+          "coverage": 78.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1721,
+          "rank": 28,
+          "exp37_ratio": 0.4069,
+          "size": 356,
+          "name": "Jailbreak persona replacement prompts",
+          "shared": 25,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1486,
+          "rank": 29,
+          "exp37_ratio": 0.4049,
+          "size": 183,
+          "name": "Fictional character scenario creative writing",
+          "shared": 14,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 758,
+          "rank": 30,
+          "exp37_ratio": 0.4035,
+          "size": 166,
+          "name": "Natsuki dragon creative writing roleplay",
+          "shared": 20,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": "covered",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1072,
+          "rank": 32,
+          "exp37_ratio": 0.4023,
+          "size": 345,
+          "name": "Technology Comparison and Evaluation",
+          "shared": 20,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 616,
+          "rank": 33,
+          "exp37_ratio": 0.4023,
+          "size": 531,
+          "name": "Medical clinical case processing",
+          "shared": 21,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 150,
+          "rank": 34,
+          "exp37_ratio": 0.4018,
+          "size": 312,
+          "name": "Sexual persuasion and seduction advice",
+          "shared": 14,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 103,
+          "rank": 35,
+          "exp37_ratio": 0.4012,
+          "size": 371,
+          "name": "Sports broadcast script writing",
+          "shared": 25,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 828,
+          "rank": 36,
+          "exp37_ratio": 0.4012,
+          "size": 226,
+          "name": "California-related questions and tasks",
+          "shared": 16,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 25,
+          "rank": 37,
+          "exp37_ratio": 0.4007,
+          "size": 433,
+          "name": "Software installation instructions",
+          "shared": 25,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1893,
+          "rank": 39,
+          "exp37_ratio": 0.3997,
+          "size": 144,
+          "name": "Sexual content involving humans and dogs",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1555,
+          "rank": 40,
+          "exp37_ratio": 0.3997,
+          "size": 120,
+          "name": "Fictional finance context composition",
+          "shared": 18,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 328,
+          "rank": 41,
+          "exp37_ratio": 0.3996,
+          "size": 533,
+          "name": "Creative fiction with physical descriptions",
+          "shared": 25,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 389,
+          "rank": 42,
+          "exp37_ratio": 0.3995,
+          "size": 320,
+          "name": "Surgery and surgical procedures",
+          "shared": 18,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 585,
+          "rank": 43,
+          "exp37_ratio": 0.3986,
+          "size": 402,
+          "name": "Software/tech updates and changelogs",
+          "shared": 14,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1994,
+          "rank": 44,
+          "exp37_ratio": 0.3985,
+          "size": 201,
+          "name": "Florida food permit questions",
+          "shared": 13,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1798,
+          "rank": 45,
+          "exp37_ratio": 0.3982,
+          "size": 264,
+          "name": "Property and Building Management",
+          "shared": 20,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 951,
+          "rank": 46,
+          "exp37_ratio": 0.3977,
+          "size": 263,
+          "name": "Financial and business documents analysis",
+          "shared": 13,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 639,
+          "rank": 48,
+          "exp37_ratio": 0.3975,
+          "size": 2485,
+          "name": "Company introduction writing requests",
+          "shared": 24,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1495,
+          "rank": 49,
+          "exp37_ratio": 0.3971,
+          "size": 266,
+          "name": "Romantic/social relationships with women",
+          "shared": 16,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1793,
+          "rank": 51,
+          "exp37_ratio": 0.3966,
+          "size": 154,
+          "name": "University and College Education Finance",
+          "shared": 14,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 427,
+          "rank": 52,
+          "exp37_ratio": 0.3954,
+          "size": 1591,
+          "name": "Similar software tools request",
+          "shared": 25,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1821,
+          "rank": 53,
+          "exp37_ratio": 0.3951,
+          "size": 330,
+          "name": "Military personnel information extraction",
+          "shared": 15,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 348,
+          "rank": 55,
+          "exp37_ratio": 0.395,
+          "size": 362,
+          "name": "Programming and software development code",
+          "shared": 20,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 615,
+          "rank": 56,
+          "exp37_ratio": 0.3939,
+          "size": 294,
+          "name": "Downloading files or software",
+          "shared": 20,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 997,
+          "rank": 57,
+          "exp37_ratio": 0.3936,
+          "size": 192,
+          "name": "Naval ship movement event extraction",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1479,
+          "rank": 58,
+          "exp37_ratio": 0.3936,
+          "size": 316,
+          "name": "Legal and Regulatory Compliance Issues",
+          "shared": 13,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1825,
+          "rank": 59,
+          "exp37_ratio": 0.3934,
+          "size": 104,
+          "name": "Enron company questions and context",
+          "shared": 22,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 565,
+          "rank": 61,
+          "exp37_ratio": 0.3931,
+          "size": 80,
+          "name": "Python music artist listener game",
+          "shared": 20,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 530,
+          "rank": 65,
+          "exp37_ratio": 0.3921,
+          "size": 146,
+          "name": "Girls boarding school stories",
+          "shared": 15,
+          "coverage": 92.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 112,
+          "rank": 66,
+          "exp37_ratio": 0.3917,
+          "size": 289,
+          "name": "Programming & Software Development",
+          "shared": 25,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1724,
+          "rank": 68,
+          "exp37_ratio": 0.3913,
+          "size": 248,
+          "name": "Emotional story scoring tasks",
+          "shared": 22,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 873,
+          "rank": 69,
+          "exp37_ratio": 0.3908,
+          "size": 271,
+          "name": "Vicuna vs ChatGPT comparison",
+          "shared": 14,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1144,
+          "rank": 71,
+          "exp37_ratio": 0.3905,
+          "size": 440,
+          "name": "Professional Email Writing and Editing",
+          "shared": 17,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 649,
+          "rank": 72,
+          "exp37_ratio": 0.3904,
+          "size": 169,
+          "name": "Jailbreak policy bypass attempts",
+          "shared": 20,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1659,
+          "rank": 74,
+          "exp37_ratio": 0.3895,
+          "size": 286,
+          "name": "Finance and Card Support Topics",
+          "shared": 21,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 140,
+          "rank": 77,
+          "exp37_ratio": 0.3893,
+          "size": 285,
+          "name": "Price and purchasing inquiries",
+          "shared": 18,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 619,
+          "rank": 78,
+          "exp37_ratio": 0.3892,
+          "size": 506,
+          "name": "Sexual or explicit content requests",
+          "shared": 20,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1571,
+          "rank": 79,
+          "exp37_ratio": 0.3887,
+          "size": 991,
+          "name": "Toxic Christian roleplay statements",
+          "shared": 23,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1014,
+          "rank": 80,
+          "exp37_ratio": 0.3885,
+          "size": 372,
+          "name": "Business trade and commerce queries",
+          "shared": 18,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 901,
+          "rank": 82,
+          "exp37_ratio": 0.3878,
+          "size": 459,
+          "name": "Urine/bladder-themed creative writing",
+          "shared": 24,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1050,
+          "rank": 83,
+          "exp37_ratio": 0.3877,
+          "size": 300,
+          "name": "JavaScript programming and development",
+          "shared": 16,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1769,
+          "rank": 84,
+          "exp37_ratio": 0.3874,
+          "size": 521,
+          "name": "Fictional fight/battle stories",
+          "shared": 18,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 429,
+          "rank": 86,
+          "exp37_ratio": 0.3871,
+          "size": 300,
+          "name": "Academic emails and communication",
+          "shared": 15,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 925,
+          "rank": 87,
+          "exp37_ratio": 0.3871,
+          "size": 310,
+          "name": "Fan-made powerful character stat sheets",
+          "shared": 18,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 88,
+          "rank": 89,
+          "exp37_ratio": 0.3863,
+          "size": 122,
+          "name": "JSON spell generation AI",
+          "shared": 17,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1309,
+          "rank": 90,
+          "exp37_ratio": 0.3861,
+          "size": 365,
+          "name": "Comparing two things/options",
+          "shared": 20,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1212,
+          "rank": 91,
+          "exp37_ratio": 0.3857,
+          "size": 166,
+          "name": "Psychic/fortune teller chatbot conversations",
+          "shared": 14,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 780,
+          "rank": 92,
+          "exp37_ratio": 0.3856,
+          "size": 311,
+          "name": "Summer camp spanking/nudity stories",
+          "shared": 13,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 161,
+          "rank": 93,
+          "exp37_ratio": 0.3852,
+          "size": 325,
+          "name": "LGBT and homosexuality topics",
+          "shared": 25,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 895,
+          "rank": 94,
+          "exp37_ratio": 0.3851,
+          "size": 268,
+          "name": "Travel guide book writing requests",
+          "shared": 24,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1646,
+          "rank": 95,
+          "exp37_ratio": 0.3848,
+          "size": 340,
+          "name": "Computer hardware/software troubleshooting",
+          "shared": 22,
+          "coverage": 92.0,
+          "rater_label": "COVERED",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1333,
+          "rank": 96,
+          "exp37_ratio": 0.3846,
+          "size": 320,
+          "name": "Banking and Financial Transactions",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 799,
+          "rank": 99,
+          "exp37_ratio": 0.3836,
+          "size": 207,
+          "name": "ISO 26262 automotive safety requirements",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 347,
+          "rank": 100,
+          "exp37_ratio": 0.3834,
+          "size": 533,
+          "name": "Philosophy and philosophers",
+          "shared": 14,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 955,
+          "rank": 102,
+          "exp37_ratio": 0.383,
+          "size": 273,
+          "name": "Credit and payment cards",
+          "shared": 13,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1240,
+          "rank": 105,
+          "exp37_ratio": 0.3825,
+          "size": 342,
+          "name": "Technical IT/Software Troubleshooting",
+          "shared": 22,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 67,
+          "rank": 106,
+          "exp37_ratio": 0.3819,
+          "size": 354,
+          "name": "Interpersonal relationships and social issues",
+          "shared": 16,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 905,
+          "rank": 107,
+          "exp37_ratio": 0.3818,
+          "size": 320,
+          "name": "Web/HTTP errors and URL issues",
+          "shared": 13,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 174,
+          "rank": 109,
+          "exp37_ratio": 0.3813,
+          "size": 326,
+          "name": "Legal clauses and contract analysis",
+          "shared": 16,
+          "coverage": 68.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1186,
+          "rank": 111,
+          "exp37_ratio": 0.3811,
+          "size": 227,
+          "name": "Pediatric and neonatal medical cases",
+          "shared": 18,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 685,
+          "rank": 113,
+          "exp37_ratio": 0.381,
+          "size": 299,
+          "name": "Medical notes and transcription tasks",
+          "shared": 17,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 207,
+          "rank": 114,
+          "exp37_ratio": 0.381,
+          "size": 276,
+          "name": "Tools and instruments discussion",
+          "shared": 17,
+          "coverage": 42.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 78,
+          "rank": 115,
+          "exp37_ratio": 0.3807,
+          "size": 318,
+          "name": "Erotic/Sexual Creative Writing",
+          "shared": 21,
+          "coverage": 22.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 984,
+          "rank": 116,
+          "exp37_ratio": 0.3805,
+          "size": 159,
+          "name": "Hypnosis-themed erotic fiction",
+          "shared": 22,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1353,
+          "rank": 118,
+          "exp37_ratio": 0.3803,
+          "size": 397,
+          "name": "German language roleplay requests",
+          "shared": 17,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1506,
+          "rank": 119,
+          "exp37_ratio": 0.38,
+          "size": 299,
+          "name": "Charity, Donations, and Fundraising",
+          "shared": 15,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 156,
+          "rank": 122,
+          "exp37_ratio": 0.3795,
+          "size": 246,
+          "name": "Windows, window managers, windowing systems",
+          "shared": 17,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 342,
+          "rank": 123,
+          "exp37_ratio": 0.379,
+          "size": 345,
+          "name": "Stopping, closing, or terminating processes",
+          "shared": 18,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 92,
+          "rank": 125,
+          "exp37_ratio": 0.3788,
+          "size": 136,
+          "name": "Python crypto trading signal code",
+          "shared": 21,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 757,
+          "rank": 126,
+          "exp37_ratio": 0.3788,
+          "size": 311,
+          "name": "Numerical/financial data processing",
+          "shared": 17,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 438,
+          "rank": 127,
+          "exp37_ratio": 0.3782,
+          "size": 299,
+          "name": "Student progress reports and comments",
+          "shared": 13,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1631,
+          "rank": 128,
+          "exp37_ratio": 0.3775,
+          "size": 298,
+          "name": "Software updates and upgrades",
+          "shared": 19,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 436,
+          "rank": 129,
+          "exp37_ratio": 0.3774,
+          "size": 468,
+          "name": "Code writing or programming help",
+          "shared": 21,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 344,
+          "rank": 130,
+          "exp37_ratio": 0.3772,
+          "size": 340,
+          "name": "Hospital and Medical Settings",
+          "shared": 19,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1018,
+          "rank": 131,
+          "exp37_ratio": 0.3771,
+          "size": 421,
+          "name": "Video game questions and discussion",
+          "shared": 21,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1618,
+          "rank": 132,
+          "exp37_ratio": 0.377,
+          "size": 304,
+          "name": "Computer monitors and displays",
+          "shared": 17,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 608,
+          "rank": 133,
+          "exp37_ratio": 0.3769,
+          "size": 826,
+          "name": "Erotic sexual content requests",
+          "shared": 25,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1610,
+          "rank": 134,
+          "exp37_ratio": 0.376,
+          "size": 87,
+          "name": "Girls with special powers/abilities stories",
+          "shared": 19,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1119,
+          "rank": 135,
+          "exp37_ratio": 0.3755,
+          "size": 475,
+          "name": "Pharmaceutical drugs and medications",
+          "shared": 18,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1201,
+          "rank": 136,
+          "exp37_ratio": 0.3753,
+          "size": 387,
+          "name": "Personal reflection and self-expression",
+          "shared": 13,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 512,
+          "rank": 137,
+          "exp37_ratio": 0.3752,
+          "size": 446,
+          "name": "Answer multiple questions from text",
+          "shared": 21,
+          "coverage": 88.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1443,
+          "rank": 138,
+          "exp37_ratio": 0.3752,
+          "size": 1967,
+          "name": "Harmful/toxic statement generation attempts",
+          "shared": 25,
+          "coverage": 0.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 686,
+          "rank": 140,
+          "exp37_ratio": 0.3748,
+          "size": 228,
+          "name": "Audio/music programming and development",
+          "shared": 18,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 315,
+          "rank": 143,
+          "exp37_ratio": 0.3741,
+          "size": 287,
+          "name": "Personal self-improvement and growth",
+          "shared": 15,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1616,
+          "rank": 144,
+          "exp37_ratio": 0.3739,
+          "size": 225,
+          "name": "Signal/Data Filtering Techniques",
+          "shared": 18,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 396,
+          "rank": 145,
+          "exp37_ratio": 0.3737,
+          "size": 405,
+          "name": "Legal and formal document drafting",
+          "shared": 19,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 465,
+          "rank": 146,
+          "exp37_ratio": 0.3734,
+          "size": 414,
+          "name": "Immigration and visa questions",
+          "shared": 19,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 990,
+          "rank": 147,
+          "exp37_ratio": 0.3734,
+          "size": 294,
+          "name": "Windows OS programming and usage",
+          "shared": 20,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 926,
+          "rank": 148,
+          "exp37_ratio": 0.3733,
+          "size": 466,
+          "name": "File handling and manipulation tasks",
+          "shared": 21,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1253,
+          "rank": 149,
+          "exp37_ratio": 0.3731,
+          "size": 542,
+          "name": "Sexual roleplay and fantasy scenarios",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 316,
+          "rank": 151,
+          "exp37_ratio": 0.373,
+          "size": 194,
+          "name": "Skin and dermatology topics",
+          "shared": 17,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 109,
+          "rank": 154,
+          "exp37_ratio": 0.3728,
+          "size": 4834,
+          "name": "Chemical company introductions",
+          "shared": 25,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "covered",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1460,
+          "rank": 155,
+          "exp37_ratio": 0.3726,
+          "size": 318,
+          "name": "Animal character creative fiction stories",
+          "shared": 18,
+          "coverage": null,
+          "rater_label": null,
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1425,
+          "rank": 156,
+          "exp37_ratio": 0.3723,
+          "size": 462,
+          "name": "Medical NLP data extraction tasks",
+          "shared": 21,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 307,
+          "rank": 157,
+          "exp37_ratio": 0.3722,
+          "size": 716,
+          "name": "Sexual or violent creative writing",
+          "shared": 22,
+          "coverage": null,
+          "rater_label": null,
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 770,
+          "rank": 158,
+          "exp37_ratio": 0.3721,
+          "size": 277,
+          "name": "Certifications and Professional Credentials",
+          "shared": 25,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 815,
+          "rank": 161,
+          "exp37_ratio": 0.3721,
+          "size": 424,
+          "name": "Customer order & shipping communication",
+          "shared": 18,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 310,
+          "rank": 162,
+          "exp37_ratio": 0.3719,
+          "size": 304,
+          "name": "Product introductions and recommendations",
+          "shared": 17,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 128,
+          "rank": 163,
+          "exp37_ratio": 0.3717,
+          "size": 228,
+          "name": "Human anatomy and biology questions",
+          "shared": 17,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 851,
+          "rank": 165,
+          "exp37_ratio": 0.3716,
+          "size": 203,
+          "name": "SaaS Business and Technology",
+          "shared": 19,
+          "coverage": 82.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 375,
+          "rank": 166,
+          "exp37_ratio": 0.3715,
+          "size": 292,
+          "name": "Navigation menus and UI menus",
+          "shared": 13,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 734,
+          "rank": 167,
+          "exp37_ratio": 0.3715,
+          "size": 302,
+          "name": "Product description and attribute extraction",
+          "shared": 19,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 143,
+          "rank": 169,
+          "exp37_ratio": 0.3712,
+          "size": 225,
+          "name": "Stadium scripts and information",
+          "shared": 18,
+          "coverage": 95.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1099,
+          "rank": 170,
+          "exp37_ratio": 0.3711,
+          "size": 460,
+          "name": "Movies and film-related tasks",
+          "shared": 21,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1914,
+          "rank": 171,
+          "exp37_ratio": 0.371,
+          "size": 187,
+          "name": "Legal cases and case studies",
+          "shared": 14,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1756,
+          "rank": 173,
+          "exp37_ratio": 0.3708,
+          "size": 394,
+          "name": "Personal data extraction and processing",
+          "shared": 16,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1597,
+          "rank": 174,
+          "exp37_ratio": 0.3705,
+          "size": 1173,
+          "name": "Questions about people's identity/relationships",
+          "shared": 13,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1455,
+          "rank": 176,
+          "exp37_ratio": 0.37,
+          "size": 367,
+          "name": "Healthcare and Medical IT topics",
+          "shared": 18,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 621,
+          "rank": 177,
+          "exp37_ratio": 0.3699,
+          "size": 371,
+          "name": "Musculoskeletal and orthopedic medicine",
+          "shared": 21,
+          "coverage": 82.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1300,
+          "rank": 178,
+          "exp37_ratio": 0.3699,
+          "size": 125,
+          "name": "US Republican vs Democratic Party",
+          "shared": 18,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1223,
+          "rank": 180,
+          "exp37_ratio": 0.3695,
+          "size": 192,
+          "name": "Linux boot and bootloader issues",
+          "shared": 17,
+          "coverage": 88.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1550,
+          "rank": 181,
+          "exp37_ratio": 0.3695,
+          "size": 615,
+          "name": "Movies and film-related questions",
+          "shared": 25,
+          "coverage": 75.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 118,
+          "rank": 182,
+          "exp37_ratio": 0.3694,
+          "size": 236,
+          "name": "Product listing and description writing",
+          "shared": 14,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 279,
+          "rank": 184,
+          "exp37_ratio": 0.3693,
+          "size": 424,
+          "name": "Biology and life sciences topics",
+          "shared": 18,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1925,
+          "rank": 185,
+          "exp37_ratio": 0.369,
+          "size": 189,
+          "name": "Philippines politics, history, society",
+          "shared": 17,
+          "coverage": 98.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 638,
+          "rank": 188,
+          "exp37_ratio": 0.3687,
+          "size": 253,
+          "name": "Subtitle/transcript processing tasks",
+          "shared": 21,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1897,
+          "rank": 189,
+          "exp37_ratio": 0.3686,
+          "size": 377,
+          "name": "College sports scripts",
+          "shared": 24,
+          "coverage": 100.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1463,
+          "rank": 192,
+          "exp37_ratio": 0.3682,
+          "size": 450,
+          "name": "Finance and payment communications",
+          "shared": 21,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1799,
+          "rank": 193,
+          "exp37_ratio": 0.368,
+          "size": 234,
+          "name": "Spouse/marriage relationship advice",
+          "shared": 14,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1644,
+          "rank": 194,
+          "exp37_ratio": 0.3676,
+          "size": 621,
+          "name": "Conversation/dialogue handling tasks",
+          "shared": 16,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 105,
+          "rank": 195,
+          "exp37_ratio": 0.3676,
+          "size": 487,
+          "name": "Explicit sexual roleplay requests",
+          "shared": 20,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1166,
+          "rank": 197,
+          "exp37_ratio": 0.3675,
+          "size": 350,
+          "name": "Mechanical engineering and tools",
+          "shared": 14,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 286,
+          "rank": 198,
+          "exp37_ratio": 0.3674,
+          "size": 224,
+          "name": "Medical coding and diagnosis identification",
+          "shared": 15,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1491,
+          "rank": 201,
+          "exp37_ratio": 0.367,
+          "size": 483,
+          "name": "Jailbreak / AI restriction bypass attempts",
+          "shared": 13,
+          "coverage": 85.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 714,
+          "rank": 202,
+          "exp37_ratio": 0.367,
+          "size": 135,
+          "name": "Pest removal and extermination",
+          "shared": 18,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 644,
+          "rank": 203,
+          "exp37_ratio": 0.3668,
+          "size": 76,
+          "name": "Summary evaluation tasks",
+          "shared": 14,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1718,
+          "rank": 205,
+          "exp37_ratio": 0.3663,
+          "size": 231,
+          "name": "Medical/Health symptoms and questions",
+          "shared": 20,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1915,
+          "rank": 206,
+          "exp37_ratio": 0.3661,
+          "size": 334,
+          "name": "Suggesting fictional girlfriends for characters",
+          "shared": 18,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 214,
+          "rank": 207,
+          "exp37_ratio": 0.366,
+          "size": 175,
+          "name": "Deceased grandmother roleplay jailbreak",
+          "shared": 20,
+          "coverage": 90.0,
+          "rater_label": "COVERED",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1149,
+          "rank": 208,
+          "exp37_ratio": 0.366,
+          "size": 400,
+          "name": "Men and masculinity topics",
+          "shared": 19,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 246,
+          "rank": 210,
+          "exp37_ratio": 0.3658,
+          "size": 262,
+          "name": "Plant seeds and germination",
+          "shared": 13,
+          "coverage": 70.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 872,
+          "rank": 211,
+          "exp37_ratio": 0.3658,
+          "size": 251,
+          "name": "Questions about AI restrictions/limitations",
+          "shared": 20,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1085,
+          "rank": 212,
+          "exp37_ratio": 0.3658,
+          "size": 523,
+          "name": "Software Development Tools and Frameworks",
+          "shared": 18,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 464,
+          "rank": 213,
+          "exp37_ratio": 0.3655,
+          "size": 412,
+          "name": "Academic/Educational Questions and Assignments",
+          "shared": 18,
+          "coverage": 75.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1549,
+          "rank": 215,
+          "exp37_ratio": 0.3653,
+          "size": 242,
+          "name": "Bible verse analysis and exposition",
+          "shared": 20,
+          "coverage": 80.0,
+          "rater_label": "COVERED",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1022,
+          "rank": 217,
+          "exp37_ratio": 0.3652,
+          "size": 300,
+          "name": "Music questions and content",
+          "shared": 16,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1894,
+          "rank": 218,
+          "exp37_ratio": 0.3652,
+          "size": 277,
+          "name": "Mechanical & Materials Engineering Questions",
+          "shared": 13,
+          "coverage": 75.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1969,
+          "rank": 219,
+          "exp37_ratio": 0.3651,
+          "size": 245,
+          "name": "Computing and software technology questions",
+          "shared": 18,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ]
+    ],
+    "R50": [
+      [
+        {
+          "topic": 1546,
+          "rank": 1,
+          "exp37_ratio": 0.4699,
+          "size": 59,
+          "name": "French query reformulation task",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1579,
+          "rank": 2,
+          "exp37_ratio": 0.4552,
+          "size": 468,
+          "name": "Installing/Running Vicuna Locally",
+          "shared": 18,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 367,
+          "rank": 3,
+          "exp37_ratio": 0.4434,
+          "size": 104,
+          "name": "TikTok factual consistency checks",
+          "shared": 20,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 343,
+          "rank": 4,
+          "exp37_ratio": 0.443,
+          "size": 69,
+          "name": "Reverse repertory symptom conversion",
+          "shared": 22,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 737,
+          "rank": 8,
+          "exp37_ratio": 0.4309,
+          "size": 977,
+          "name": "Plant seed growing conditions",
+          "shared": 25,
+          "coverage": 20.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        },
+        {
+          "topic": 201,
+          "rank": 10,
+          "exp37_ratio": 0.4298,
+          "size": 863,
+          "name": "Plant seed growing conditions",
+          "shared": 25,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 433,
+          "rank": 12,
+          "exp37_ratio": 0.4283,
+          "size": 72,
+          "name": "Parsing news text with JavaScript",
+          "shared": 23,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 589,
+          "rank": 13,
+          "exp37_ratio": 0.426,
+          "size": 76,
+          "name": "Sissy feminization tips and advice",
+          "shared": 22,
+          "coverage": 5.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 73,
+          "rank": 15,
+          "exp37_ratio": 0.4176,
+          "size": 691,
+          "name": "Sexual or explicit creative writing",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 827,
+          "rank": 16,
+          "exp37_ratio": 0.4176,
+          "size": 983,
+          "name": "Factual consistency document summary checks",
+          "shared": 25,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 451,
+          "rank": 17,
+          "exp37_ratio": 0.4174,
+          "size": 313,
+          "name": "Incident/situation report rephrasing",
+          "shared": 12,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1341,
+          "rank": 19,
+          "exp37_ratio": 0.4158,
+          "size": 286,
+          "name": "Decepticon villain grip/control scenarios",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1143,
+          "rank": 20,
+          "exp37_ratio": 0.4133,
+          "size": 578,
+          "name": "Creative writing and fiction",
+          "shared": 14,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 659,
+          "rank": 23,
+          "exp37_ratio": 0.4109,
+          "size": 564,
+          "name": "Logic puzzles with named characters",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1896,
+          "rank": 25,
+          "exp37_ratio": 0.41,
+          "size": 635,
+          "name": "Character personas and role descriptions",
+          "shared": 17,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 811,
+          "rank": 26,
+          "exp37_ratio": 0.4093,
+          "size": 184,
+          "name": "Bestiality/zoophilia sexual content",
+          "shared": 17,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1486,
+          "rank": 29,
+          "exp37_ratio": 0.4049,
+          "size": 183,
+          "name": "Fictional character scenario creative writing",
+          "shared": 14,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1893,
+          "rank": 39,
+          "exp37_ratio": 0.3997,
+          "size": 144,
+          "name": "Sexual content involving humans and dogs",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1555,
+          "rank": 40,
+          "exp37_ratio": 0.3997,
+          "size": 120,
+          "name": "Fictional finance context composition",
+          "shared": 18,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 328,
+          "rank": 41,
+          "exp37_ratio": 0.3996,
+          "size": 533,
+          "name": "Creative fiction with physical descriptions",
+          "shared": 25,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1994,
+          "rank": 44,
+          "exp37_ratio": 0.3985,
+          "size": 201,
+          "name": "Florida food permit questions",
+          "shared": 13,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1196,
+          "rank": 47,
+          "exp37_ratio": 0.3976,
+          "size": 346,
+          "name": "Computer files and filesystems",
+          "shared": 11,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 427,
+          "rank": 52,
+          "exp37_ratio": 0.3954,
+          "size": 1591,
+          "name": "Similar software tools request",
+          "shared": 25,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1821,
+          "rank": 53,
+          "exp37_ratio": 0.3951,
+          "size": 330,
+          "name": "Military personnel information extraction",
+          "shared": 15,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 218,
+          "rank": 54,
+          "exp37_ratio": 0.3951,
+          "size": 229,
+          "name": "Installing AI locally on computer",
+          "shared": 9,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 997,
+          "rank": 57,
+          "exp37_ratio": 0.3936,
+          "size": 192,
+          "name": "Naval ship movement event extraction",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 86,
+          "rank": 67,
+          "exp37_ratio": 0.3915,
+          "size": 280,
+          "name": "Creative character/story writing",
+          "shared": 8,
+          "coverage": 42.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1724,
+          "rank": 68,
+          "exp37_ratio": 0.3913,
+          "size": 248,
+          "name": "Emotional story scoring tasks",
+          "shared": 22,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 873,
+          "rank": 69,
+          "exp37_ratio": 0.3908,
+          "size": 271,
+          "name": "Vicuna vs ChatGPT comparison",
+          "shared": 14,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 649,
+          "rank": 72,
+          "exp37_ratio": 0.3904,
+          "size": 169,
+          "name": "Jailbreak policy bypass attempts",
+          "shared": 20,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 57,
+          "rank": 73,
+          "exp37_ratio": 0.3895,
+          "size": 717,
+          "name": "Questions about NAME_1's character/nature",
+          "shared": 10,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1659,
+          "rank": 74,
+          "exp37_ratio": 0.3895,
+          "size": 286,
+          "name": "Finance and Card Support Topics",
+          "shared": 21,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 37,
+          "rank": 75,
+          "exp37_ratio": 0.3894,
+          "size": 327,
+          "name": "Kubernetes and container orchestration",
+          "shared": 3,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 619,
+          "rank": 78,
+          "exp37_ratio": 0.3892,
+          "size": 506,
+          "name": "Sexual or explicit content requests",
+          "shared": 20,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1571,
+          "rank": 79,
+          "exp37_ratio": 0.3887,
+          "size": 991,
+          "name": "Toxic Christian roleplay statements",
+          "shared": 23,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1809,
+          "rank": 81,
+          "exp37_ratio": 0.3882,
+          "size": 233,
+          "name": "Chinese medical completeness evaluation",
+          "shared": 9,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 901,
+          "rank": 82,
+          "exp37_ratio": 0.3878,
+          "size": 459,
+          "name": "Urine/bladder-themed creative writing",
+          "shared": 24,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1769,
+          "rank": 84,
+          "exp37_ratio": 0.3874,
+          "size": 521,
+          "name": "Fictional fight/battle stories",
+          "shared": 18,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1934,
+          "rank": 85,
+          "exp37_ratio": 0.3873,
+          "size": 423,
+          "name": "Text classification and grammar checking",
+          "shared": 4,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 552,
+          "rank": 88,
+          "exp37_ratio": 0.387,
+          "size": 373,
+          "name": "French language messages",
+          "shared": 3,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1212,
+          "rank": 91,
+          "exp37_ratio": 0.3857,
+          "size": 166,
+          "name": "Psychic/fortune teller chatbot conversations",
+          "shared": 14,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1333,
+          "rank": 96,
+          "exp37_ratio": 0.3846,
+          "size": 320,
+          "name": "Banking and Financial Transactions",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 799,
+          "rank": 99,
+          "exp37_ratio": 0.3836,
+          "size": 207,
+          "name": "ISO 26262 automotive safety requirements",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1092,
+          "rank": 104,
+          "exp37_ratio": 0.3827,
+          "size": 341,
+          "name": "Vore and swallowing fetish stories",
+          "shared": 7,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1748,
+          "rank": 108,
+          "exp37_ratio": 0.3813,
+          "size": 539,
+          "name": "Linux/package management commands",
+          "shared": 8,
+          "coverage": 38.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 685,
+          "rank": 113,
+          "exp37_ratio": 0.381,
+          "size": 299,
+          "name": "Medical notes and transcription tasks",
+          "shared": 17,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 207,
+          "rank": 114,
+          "exp37_ratio": 0.381,
+          "size": 276,
+          "name": "Tools and instruments discussion",
+          "shared": 17,
+          "coverage": 42.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 78,
+          "rank": 115,
+          "exp37_ratio": 0.3807,
+          "size": 318,
+          "name": "Erotic/Sexual Creative Writing",
+          "shared": 21,
+          "coverage": 22.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 984,
+          "rank": 116,
+          "exp37_ratio": 0.3805,
+          "size": 159,
+          "name": "Hypnosis-themed erotic fiction",
+          "shared": 22,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1353,
+          "rank": 118,
+          "exp37_ratio": 0.3803,
+          "size": 397,
+          "name": "German language roleplay requests",
+          "shared": 17,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 761,
+          "rank": 121,
+          "exp37_ratio": 0.3799,
+          "size": 267,
+          "name": "\"Who lived longer\" question answering",
+          "shared": 5,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 757,
+          "rank": 126,
+          "exp37_ratio": 0.3788,
+          "size": 311,
+          "name": "Numerical/financial data processing",
+          "shared": 17,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 608,
+          "rank": 133,
+          "exp37_ratio": 0.3769,
+          "size": 826,
+          "name": "Erotic sexual content requests",
+          "shared": 25,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1443,
+          "rank": 138,
+          "exp37_ratio": 0.3752,
+          "size": 1967,
+          "name": "Harmful/toxic statement generation attempts",
+          "shared": 25,
+          "coverage": 0.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 926,
+          "rank": 148,
+          "exp37_ratio": 0.3733,
+          "size": 466,
+          "name": "File handling and manipulation tasks",
+          "shared": 21,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1253,
+          "rank": 149,
+          "exp37_ratio": 0.3731,
+          "size": 542,
+          "name": "Sexual roleplay and fantasy scenarios",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 109,
+          "rank": 154,
+          "exp37_ratio": 0.3728,
+          "size": 4834,
+          "name": "Chemical company introductions",
+          "shared": 25,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "covered",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1652,
+          "rank": 159,
+          "exp37_ratio": 0.3721,
+          "size": 233,
+          "name": "X-ray related questions",
+          "shared": 4,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 734,
+          "rank": 167,
+          "exp37_ratio": 0.3715,
+          "size": 302,
+          "name": "Product description and attribute extraction",
+          "shared": 19,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 999,
+          "rank": 183,
+          "exp37_ratio": 0.3693,
+          "size": 308,
+          "name": "Baywatch actresses physical attributes",
+          "shared": 9,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1433,
+          "rank": 191,
+          "exp37_ratio": 0.3685,
+          "size": 367,
+          "name": "Document factual consistency verification",
+          "shared": 6,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1799,
+          "rank": 193,
+          "exp37_ratio": 0.368,
+          "size": 234,
+          "name": "Spouse/marriage relationship advice",
+          "shared": 14,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 105,
+          "rank": 195,
+          "exp37_ratio": 0.3676,
+          "size": 487,
+          "name": "Explicit sexual roleplay requests",
+          "shared": 20,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1166,
+          "rank": 197,
+          "exp37_ratio": 0.3675,
+          "size": 350,
+          "name": "Mechanical engineering and tools",
+          "shared": 14,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 644,
+          "rank": 203,
+          "exp37_ratio": 0.3668,
+          "size": 76,
+          "name": "Summary evaluation tasks",
+          "shared": 14,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1438,
+          "rank": 209,
+          "exp37_ratio": 0.3659,
+          "size": 278,
+          "name": "Translation or language tasks",
+          "shared": 9,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 872,
+          "rank": 211,
+          "exp37_ratio": 0.3658,
+          "size": 251,
+          "name": "Questions about AI restrictions/limitations",
+          "shared": 20,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ]
+    ],
+    "R65": [
+      [
+        {
+          "topic": 1546,
+          "rank": 1,
+          "exp37_ratio": 0.4699,
+          "size": 59,
+          "name": "French query reformulation task",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1579,
+          "rank": 2,
+          "exp37_ratio": 0.4552,
+          "size": 468,
+          "name": "Installing/Running Vicuna Locally",
+          "shared": 18,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 367,
+          "rank": 3,
+          "exp37_ratio": 0.4434,
+          "size": 104,
+          "name": "TikTok factual consistency checks",
+          "shared": 20,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 343,
+          "rank": 4,
+          "exp37_ratio": 0.443,
+          "size": 69,
+          "name": "Reverse repertory symptom conversion",
+          "shared": 22,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1332,
+          "rank": 5,
+          "exp37_ratio": 0.4405,
+          "size": 357,
+          "name": "What is Vicuna 13b",
+          "shared": 11,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 257,
+          "rank": 6,
+          "exp37_ratio": 0.4356,
+          "size": 552,
+          "name": "Human sexual anatomy and physiology",
+          "shared": 16,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 737,
+          "rank": 8,
+          "exp37_ratio": 0.4309,
+          "size": 977,
+          "name": "Plant seed growing conditions",
+          "shared": 25,
+          "coverage": 20.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        },
+        {
+          "topic": 201,
+          "rank": 10,
+          "exp37_ratio": 0.4298,
+          "size": 863,
+          "name": "Plant seed growing conditions",
+          "shared": 25,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 433,
+          "rank": 12,
+          "exp37_ratio": 0.4283,
+          "size": 72,
+          "name": "Parsing news text with JavaScript",
+          "shared": 23,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 589,
+          "rank": 13,
+          "exp37_ratio": 0.426,
+          "size": 76,
+          "name": "Sissy feminization tips and advice",
+          "shared": 22,
+          "coverage": 5.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 73,
+          "rank": 15,
+          "exp37_ratio": 0.4176,
+          "size": 691,
+          "name": "Sexual or explicit creative writing",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 827,
+          "rank": 16,
+          "exp37_ratio": 0.4176,
+          "size": 983,
+          "name": "Factual consistency document summary checks",
+          "shared": 25,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 451,
+          "rank": 17,
+          "exp37_ratio": 0.4174,
+          "size": 313,
+          "name": "Incident/situation report rephrasing",
+          "shared": 12,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1341,
+          "rank": 19,
+          "exp37_ratio": 0.4158,
+          "size": 286,
+          "name": "Decepticon villain grip/control scenarios",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1143,
+          "rank": 20,
+          "exp37_ratio": 0.4133,
+          "size": 578,
+          "name": "Creative writing and fiction",
+          "shared": 14,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 265,
+          "rank": 21,
+          "exp37_ratio": 0.4117,
+          "size": 415,
+          "name": "Text summarization tasks",
+          "shared": 7,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 3,
+          "rank": 22,
+          "exp37_ratio": 0.411,
+          "size": 233,
+          "name": "Electronics, embedded systems & hardware",
+          "shared": 11,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 659,
+          "rank": 23,
+          "exp37_ratio": 0.4109,
+          "size": 564,
+          "name": "Logic puzzles with named characters",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1896,
+          "rank": 25,
+          "exp37_ratio": 0.41,
+          "size": 635,
+          "name": "Character personas and role descriptions",
+          "shared": 17,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 811,
+          "rank": 26,
+          "exp37_ratio": 0.4093,
+          "size": 184,
+          "name": "Bestiality/zoophilia sexual content",
+          "shared": 17,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1486,
+          "rank": 29,
+          "exp37_ratio": 0.4049,
+          "size": 183,
+          "name": "Fictional character scenario creative writing",
+          "shared": 14,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 616,
+          "rank": 33,
+          "exp37_ratio": 0.4023,
+          "size": 531,
+          "name": "Medical clinical case processing",
+          "shared": 21,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 150,
+          "rank": 34,
+          "exp37_ratio": 0.4018,
+          "size": 312,
+          "name": "Sexual persuasion and seduction advice",
+          "shared": 14,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 877,
+          "rank": 38,
+          "exp37_ratio": 0.4001,
+          "size": 130,
+          "name": "Parents not inviting child to wedding",
+          "shared": 6,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1893,
+          "rank": 39,
+          "exp37_ratio": 0.3997,
+          "size": 144,
+          "name": "Sexual content involving humans and dogs",
+          "shared": 25,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1555,
+          "rank": 40,
+          "exp37_ratio": 0.3997,
+          "size": 120,
+          "name": "Fictional finance context composition",
+          "shared": 18,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 328,
+          "rank": 41,
+          "exp37_ratio": 0.3996,
+          "size": 533,
+          "name": "Creative fiction with physical descriptions",
+          "shared": 25,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1994,
+          "rank": 44,
+          "exp37_ratio": 0.3985,
+          "size": 201,
+          "name": "Florida food permit questions",
+          "shared": 13,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1196,
+          "rank": 47,
+          "exp37_ratio": 0.3976,
+          "size": 346,
+          "name": "Computer files and filesystems",
+          "shared": 11,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 682,
+          "rank": 50,
+          "exp37_ratio": 0.3968,
+          "size": 243,
+          "name": "Queries About Specific Named Persons",
+          "shared": 11,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1793,
+          "rank": 51,
+          "exp37_ratio": 0.3966,
+          "size": 154,
+          "name": "University and College Education Finance",
+          "shared": 14,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 427,
+          "rank": 52,
+          "exp37_ratio": 0.3954,
+          "size": 1591,
+          "name": "Similar software tools request",
+          "shared": 25,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1821,
+          "rank": 53,
+          "exp37_ratio": 0.3951,
+          "size": 330,
+          "name": "Military personnel information extraction",
+          "shared": 15,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 218,
+          "rank": 54,
+          "exp37_ratio": 0.3951,
+          "size": 229,
+          "name": "Installing AI locally on computer",
+          "shared": 9,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 997,
+          "rank": 57,
+          "exp37_ratio": 0.3936,
+          "size": 192,
+          "name": "Naval ship movement event extraction",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1825,
+          "rank": 59,
+          "exp37_ratio": 0.3934,
+          "size": 104,
+          "name": "Enron company questions and context",
+          "shared": 22,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 112,
+          "rank": 66,
+          "exp37_ratio": 0.3917,
+          "size": 289,
+          "name": "Programming & Software Development",
+          "shared": 25,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 86,
+          "rank": 67,
+          "exp37_ratio": 0.3915,
+          "size": 280,
+          "name": "Creative character/story writing",
+          "shared": 8,
+          "coverage": 42.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1724,
+          "rank": 68,
+          "exp37_ratio": 0.3913,
+          "size": 248,
+          "name": "Emotional story scoring tasks",
+          "shared": 22,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 873,
+          "rank": 69,
+          "exp37_ratio": 0.3908,
+          "size": 271,
+          "name": "Vicuna vs ChatGPT comparison",
+          "shared": 14,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 649,
+          "rank": 72,
+          "exp37_ratio": 0.3904,
+          "size": 169,
+          "name": "Jailbreak policy bypass attempts",
+          "shared": 20,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 57,
+          "rank": 73,
+          "exp37_ratio": 0.3895,
+          "size": 717,
+          "name": "Questions about NAME_1's character/nature",
+          "shared": 10,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1659,
+          "rank": 74,
+          "exp37_ratio": 0.3895,
+          "size": 286,
+          "name": "Finance and Card Support Topics",
+          "shared": 21,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 37,
+          "rank": 75,
+          "exp37_ratio": 0.3894,
+          "size": 327,
+          "name": "Kubernetes and container orchestration",
+          "shared": 3,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1704,
+          "rank": 76,
+          "exp37_ratio": 0.3894,
+          "size": 213,
+          "name": "Mask-filling table question answering",
+          "shared": 9,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 140,
+          "rank": 77,
+          "exp37_ratio": 0.3893,
+          "size": 285,
+          "name": "Price and purchasing inquiries",
+          "shared": 18,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 619,
+          "rank": 78,
+          "exp37_ratio": 0.3892,
+          "size": 506,
+          "name": "Sexual or explicit content requests",
+          "shared": 20,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1571,
+          "rank": 79,
+          "exp37_ratio": 0.3887,
+          "size": 991,
+          "name": "Toxic Christian roleplay statements",
+          "shared": 23,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1809,
+          "rank": 81,
+          "exp37_ratio": 0.3882,
+          "size": 233,
+          "name": "Chinese medical completeness evaluation",
+          "shared": 9,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 901,
+          "rank": 82,
+          "exp37_ratio": 0.3878,
+          "size": 459,
+          "name": "Urine/bladder-themed creative writing",
+          "shared": 24,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1050,
+          "rank": 83,
+          "exp37_ratio": 0.3877,
+          "size": 300,
+          "name": "JavaScript programming and development",
+          "shared": 16,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1769,
+          "rank": 84,
+          "exp37_ratio": 0.3874,
+          "size": 521,
+          "name": "Fictional fight/battle stories",
+          "shared": 18,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1934,
+          "rank": 85,
+          "exp37_ratio": 0.3873,
+          "size": 423,
+          "name": "Text classification and grammar checking",
+          "shared": 4,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 552,
+          "rank": 88,
+          "exp37_ratio": 0.387,
+          "size": 373,
+          "name": "French language messages",
+          "shared": 3,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1212,
+          "rank": 91,
+          "exp37_ratio": 0.3857,
+          "size": 166,
+          "name": "Psychic/fortune teller chatbot conversations",
+          "shared": 14,
+          "coverage": 10.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 780,
+          "rank": 92,
+          "exp37_ratio": 0.3856,
+          "size": 311,
+          "name": "Summer camp spanking/nudity stories",
+          "shared": 13,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 161,
+          "rank": 93,
+          "exp37_ratio": 0.3852,
+          "size": 325,
+          "name": "LGBT and homosexuality topics",
+          "shared": 25,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1333,
+          "rank": 96,
+          "exp37_ratio": 0.3846,
+          "size": 320,
+          "name": "Banking and Financial Transactions",
+          "shared": 20,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1472,
+          "rank": 97,
+          "exp37_ratio": 0.384,
+          "size": 385,
+          "name": "MongoDB and Database Technical Questions",
+          "shared": 5,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 799,
+          "rank": 99,
+          "exp37_ratio": 0.3836,
+          "size": 207,
+          "name": "ISO 26262 automotive safety requirements",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 955,
+          "rank": 102,
+          "exp37_ratio": 0.383,
+          "size": 273,
+          "name": "Credit and payment cards",
+          "shared": 13,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1092,
+          "rank": 104,
+          "exp37_ratio": 0.3827,
+          "size": 341,
+          "name": "Vore and swallowing fetish stories",
+          "shared": 7,
+          "coverage": 30.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 67,
+          "rank": 106,
+          "exp37_ratio": 0.3819,
+          "size": 354,
+          "name": "Interpersonal relationships and social issues",
+          "shared": 16,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1748,
+          "rank": 108,
+          "exp37_ratio": 0.3813,
+          "size": 539,
+          "name": "Linux/package management commands",
+          "shared": 8,
+          "coverage": 38.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 685,
+          "rank": 113,
+          "exp37_ratio": 0.381,
+          "size": 299,
+          "name": "Medical notes and transcription tasks",
+          "shared": 17,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 207,
+          "rank": 114,
+          "exp37_ratio": 0.381,
+          "size": 276,
+          "name": "Tools and instruments discussion",
+          "shared": 17,
+          "coverage": 42.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 78,
+          "rank": 115,
+          "exp37_ratio": 0.3807,
+          "size": 318,
+          "name": "Erotic/Sexual Creative Writing",
+          "shared": 21,
+          "coverage": 22.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 984,
+          "rank": 116,
+          "exp37_ratio": 0.3805,
+          "size": 159,
+          "name": "Hypnosis-themed erotic fiction",
+          "shared": 22,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1353,
+          "rank": 118,
+          "exp37_ratio": 0.3803,
+          "size": 397,
+          "name": "German language roleplay requests",
+          "shared": 17,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1506,
+          "rank": 119,
+          "exp37_ratio": 0.38,
+          "size": 299,
+          "name": "Charity, Donations, and Fundraising",
+          "shared": 15,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 761,
+          "rank": 121,
+          "exp37_ratio": 0.3799,
+          "size": 267,
+          "name": "\"Who lived longer\" question answering",
+          "shared": 5,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 156,
+          "rank": 122,
+          "exp37_ratio": 0.3795,
+          "size": 246,
+          "name": "Windows, window managers, windowing systems",
+          "shared": 17,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 342,
+          "rank": 123,
+          "exp37_ratio": 0.379,
+          "size": 345,
+          "name": "Stopping, closing, or terminating processes",
+          "shared": 18,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 757,
+          "rank": 126,
+          "exp37_ratio": 0.3788,
+          "size": 311,
+          "name": "Numerical/financial data processing",
+          "shared": 17,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1618,
+          "rank": 132,
+          "exp37_ratio": 0.377,
+          "size": 304,
+          "name": "Computer monitors and displays",
+          "shared": 17,
+          "coverage": 60.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 608,
+          "rank": 133,
+          "exp37_ratio": 0.3769,
+          "size": 826,
+          "name": "Erotic sexual content requests",
+          "shared": 25,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1443,
+          "rank": 138,
+          "exp37_ratio": 0.3752,
+          "size": 1967,
+          "name": "Harmful/toxic statement generation attempts",
+          "shared": 25,
+          "coverage": 0.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 361,
+          "rank": 142,
+          "exp37_ratio": 0.3744,
+          "size": 337,
+          "name": "Backup and Data Recovery",
+          "shared": 11,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1616,
+          "rank": 144,
+          "exp37_ratio": 0.3739,
+          "size": 225,
+          "name": "Signal/Data Filtering Techniques",
+          "shared": 18,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 926,
+          "rank": 148,
+          "exp37_ratio": 0.3733,
+          "size": 466,
+          "name": "File handling and manipulation tasks",
+          "shared": 21,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1253,
+          "rank": 149,
+          "exp37_ratio": 0.3731,
+          "size": 542,
+          "name": "Sexual roleplay and fantasy scenarios",
+          "shared": 22,
+          "coverage": 40.0,
+          "rater_label": "PARTLY",
+          "human": "partly",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 109,
+          "rank": 154,
+          "exp37_ratio": 0.3728,
+          "size": 4834,
+          "name": "Chemical company introductions",
+          "shared": 25,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": "covered",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1425,
+          "rank": 156,
+          "exp37_ratio": 0.3723,
+          "size": 462,
+          "name": "Medical NLP data extraction tasks",
+          "shared": 21,
+          "coverage": 58.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1652,
+          "rank": 159,
+          "exp37_ratio": 0.3721,
+          "size": 233,
+          "name": "X-ray related questions",
+          "shared": 4,
+          "coverage": 45.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1933,
+          "rank": 160,
+          "exp37_ratio": 0.3721,
+          "size": 234,
+          "name": "Human Biology and Medicine",
+          "shared": 11,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 734,
+          "rank": 167,
+          "exp37_ratio": 0.3715,
+          "size": 302,
+          "name": "Product description and attribute extraction",
+          "shared": 19,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1863,
+          "rank": 168,
+          "exp37_ratio": 0.3713,
+          "size": 354,
+          "name": "Baby and infant related questions",
+          "shared": 10,
+          "coverage": 52.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 999,
+          "rank": 183,
+          "exp37_ratio": 0.3693,
+          "size": 308,
+          "name": "Baywatch actresses physical attributes",
+          "shared": 9,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 279,
+          "rank": 184,
+          "exp37_ratio": 0.3693,
+          "size": 424,
+          "name": "Biology and life sciences topics",
+          "shared": 18,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1844,
+          "rank": 186,
+          "exp37_ratio": 0.369,
+          "size": 308,
+          "name": "Qt/C++ programming questions",
+          "shared": 11,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1433,
+          "rank": 191,
+          "exp37_ratio": 0.3685,
+          "size": 367,
+          "name": "Document factual consistency verification",
+          "shared": 6,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1463,
+          "rank": 192,
+          "exp37_ratio": 0.3682,
+          "size": 450,
+          "name": "Finance and payment communications",
+          "shared": 21,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1799,
+          "rank": 193,
+          "exp37_ratio": 0.368,
+          "size": 234,
+          "name": "Spouse/marriage relationship advice",
+          "shared": 14,
+          "coverage": 35.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 105,
+          "rank": 195,
+          "exp37_ratio": 0.3676,
+          "size": 487,
+          "name": "Explicit sexual roleplay requests",
+          "shared": 20,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1166,
+          "rank": 197,
+          "exp37_ratio": 0.3675,
+          "size": 350,
+          "name": "Mechanical engineering and tools",
+          "shared": 14,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 47,
+          "rank": 200,
+          "exp37_ratio": 0.3671,
+          "size": 353,
+          "name": "Text correction and fixing errors",
+          "shared": 6,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 714,
+          "rank": 202,
+          "exp37_ratio": 0.367,
+          "size": 135,
+          "name": "Pest removal and extermination",
+          "shared": 18,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 644,
+          "rank": 203,
+          "exp37_ratio": 0.3668,
+          "size": 76,
+          "name": "Summary evaluation tasks",
+          "shared": 14,
+          "coverage": 25.0,
+          "rater_label": "PARTLY",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1250,
+          "rank": 204,
+          "exp37_ratio": 0.3664,
+          "size": 585,
+          "name": "Text rewriting and paraphrasing",
+          "shared": 10,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1149,
+          "rank": 208,
+          "exp37_ratio": 0.366,
+          "size": 400,
+          "name": "Men and masculinity topics",
+          "shared": 19,
+          "coverage": 55.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1438,
+          "rank": 209,
+          "exp37_ratio": 0.3659,
+          "size": 278,
+          "name": "Translation or language tasks",
+          "shared": 9,
+          "coverage": 50.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 872,
+          "rank": 211,
+          "exp37_ratio": 0.3658,
+          "size": 251,
+          "name": "Questions about AI restrictions/limitations",
+          "shared": 20,
+          "coverage": 15.0,
+          "rater_label": "MISSING",
+          "human": "real_gap",
+          "confirmed": true
+        }
+      ],
+      [
+        {
+          "topic": 1022,
+          "rank": 217,
+          "exp37_ratio": 0.3652,
+          "size": 300,
+          "name": "Music questions and content",
+          "shared": 16,
+          "coverage": 65.0,
+          "rater_label": "PARTLY",
+          "human": null,
+          "confirmed": true
+        }
+      ]
+    ]
+  }
+}

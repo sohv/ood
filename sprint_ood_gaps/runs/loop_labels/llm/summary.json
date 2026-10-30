@@ -1,0 +1,232 @@
+{
+ "n_items": 50,
+ "n_human_labels": 10,
+ "parsed": {
+  "sonnet": 50,
+  "astra": 50
+ },
+ "sonnet": {
+  "loop": {
+   "labelled": 30,
+   "unsure": 0,
+   "judged": 30,
+   "real_gap": 13,
+   "partly": 15,
+   "covered": 2,
+   "real_share": 0.433,
+   "wilson95": [
+    0.274,
+    0.608
+   ],
+   "real_or_partly_share": 0.933,
+   "wilson95_rp": [
+    0.787,
+    0.982
+   ]
+  },
+  "random": {
+   "labelled": 20,
+   "unsure": 0,
+   "judged": 20,
+   "real_gap": 1,
+   "partly": 13,
+   "covered": 6,
+   "real_share": 0.05,
+   "wilson95": [
+    0.009,
+    0.236
+   ],
+   "real_or_partly_share": 0.7,
+   "wilson95_rp": [
+    0.481,
+    0.855
+   ]
+  },
+  "diff_real": 0.383,
+  "diff_real_newcombe95": [
+   0.138,
+   0.563
+  ],
+  "fisher_one_sided_p_real": 0.0027,
+  "diff_real_or_partly": 0.233,
+  "diff_real_or_partly_newcombe95": [
+   0.02,
+   0.458
+  ],
+  "fisher_one_sided_p_real_or_partly": 0.036,
+  "verdict_matches_own_count": 50,
+  "verdict_not_unsure": 50
+ },
+ "sonnet_from_counts": {
+  "loop": {
+   "labelled": 30,
+   "unsure": 0,
+   "judged": 30,
+   "real_gap": 13,
+   "partly": 15,
+   "covered": 2,
+   "real_share": 0.433,
+   "wilson95": [
+    0.274,
+    0.608
+   ],
+   "real_or_partly_share": 0.933,
+   "wilson95_rp": [
+    0.787,
+    0.982
+   ]
+  },
+  "random": {
+   "labelled": 20,
+   "unsure": 0,
+   "judged": 20,
+   "real_gap": 1,
+   "partly": 13,
+   "covered": 6,
+   "real_share": 0.05,
+   "wilson95": [
+    0.009,
+    0.236
+   ],
+   "real_or_partly_share": 0.7,
+   "wilson95_rp": [
+    0.481,
+    0.855
+   ]
+  },
+  "diff_real": 0.383,
+  "diff_real_newcombe95": [
+   0.138,
+   0.563
+  ],
+  "fisher_one_sided_p_real": 0.0027,
+  "diff_real_or_partly": 0.233,
+  "diff_real_or_partly_newcombe95": [
+   0.02,
+   0.458
+  ],
+  "fisher_one_sided_p_real_or_partly": 0.036
+ },
+ "astra": {
+  "loop": {
+   "labelled": 30,
+   "unsure": 0,
+   "judged": 30,
+   "real_gap": 13,
+   "partly": 15,
+   "covered": 2,
+   "real_share": 0.433,
+   "wilson95": [
+    0.274,
+    0.608
+   ],
+   "real_or_partly_share": 0.933,
+   "wilson95_rp": [
+    0.787,
+    0.982
+   ]
+  },
+  "random": {
+   "labelled": 20,
+   "unsure": 0,
+   "judged": 20,
+   "real_gap": 1,
+   "partly": 16,
+   "covered": 3,
+   "real_share": 0.05,
+   "wilson95": [
+    0.009,
+    0.236
+   ],
+   "real_or_partly_share": 0.85,
+   "wilson95_rp": [
+    0.64,
+    0.948
+   ]
+  },
+  "diff_real": 0.383,
+  "diff_real_newcombe95": [
+   0.138,
+   0.563
+  ],
+  "fisher_one_sided_p_real": 0.0027,
+  "diff_real_or_partly": 0.083,
+  "diff_real_or_partly_newcombe95": [
+   -0.093,
+   0.299
+  ],
+  "fisher_one_sided_p_real_or_partly": 0.31,
+  "verdict_matches_own_count": 50,
+  "verdict_not_unsure": 50
+ },
+ "astra_from_counts": {
+  "loop": {
+   "labelled": 30,
+   "unsure": 0,
+   "judged": 30,
+   "real_gap": 13,
+   "partly": 15,
+   "covered": 2,
+   "real_share": 0.433,
+   "wilson95": [
+    0.274,
+    0.608
+   ],
+   "real_or_partly_share": 0.933,
+   "wilson95_rp": [
+    0.787,
+    0.982
+   ]
+  },
+  "random": {
+   "labelled": 20,
+   "unsure": 0,
+   "judged": 20,
+   "real_gap": 1,
+   "partly": 16,
+   "covered": 3,
+   "real_share": 0.05,
+   "wilson95": [
+    0.009,
+    0.236
+   ],
+   "real_or_partly_share": 0.85,
+   "wilson95_rp": [
+    0.64,
+    0.948
+   ]
+  },
+  "diff_real": 0.383,
+  "diff_real_newcombe95": [
+   0.138,
+   0.563
+  ],
+  "fisher_one_sided_p_real": 0.0027,
+  "diff_real_or_partly": 0.083,
+  "diff_real_or_partly_newcombe95": [
+   -0.093,
+   0.299
+  ],
+  "fisher_one_sided_p_real_or_partly": 0.31
+ },
+ "judges": {
+  "n": 50,
+  "agree": 36,
+  "kappa_4": 0.499,
+  "kappa_real_vs_not": 0.603
+ },
+ "vs_human": {
+  "sonnet": {
+   "n_labelled_by_both": 10,
+   "n_both_not_unsure": 8,
+   "agree_4": 3,
+   "agree_real_vs_not_on_judged": 5
+  },
+  "astra": {
+   "n_labelled_by_both": 10,
+   "n_both_not_unsure": 8,
+   "agree_4": 4,
+   "agree_real_vs_not_on_judged": 5
+  }
+ }
+}

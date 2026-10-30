@@ -1,0 +1,97 @@
+{
+ "n_tags": 216,
+ "unjudged": 0,
+ "f_tags": {
+  "safety": [
+   "cybersecurity",
+   "ethic",
+   "ethical concern",
+   "ethical consideration",
+   "explicit content",
+   "inappropriate content",
+   "safety",
+   "security"
+  ],
+  "code": [
+   "algorithm",
+   "automation",
+   "code documentation",
+   "code example",
+   "code execution",
+   "code generation",
+   "code optimization",
+   "code review",
+   "computer science",
+   "conditional statement",
+   "database management",
+   "engineering",
+   "error handling",
+   "java programming",
+   "loop",
+   "machine learning",
+   "program",
+   "python",
+   "python programming",
+   "software",
+   "software development",
+   "software engineering",
+   "string manipulation",
+   "user interface",
+   "variable assignment",
+   "web development"
+  ],
+  "multilingual": [
+   "language learning",
+   "language translation",
+   "language understanding",
+   "translation"
+  ]
+ },
+ "families": {
+  "safety": {
+   "full": {
+    "sum_diff_F_tags": 0.0295,
+    "best_rank_F_tag": 42
+   },
+   "minus_safety": {
+    "sum_diff_F_tags": 0.0418,
+    "best_rank_F_tag": 39
+   },
+   "random_safety": {
+    "sum_diff_F_tags": 0.0303,
+    "best_rank_F_tag": 39
+   },
+   "shift_minus_vs_random": 0.0115
+  },
+  "code": {
+   "full": {
+    "sum_diff_F_tags": -0.2026,
+    "best_rank_F_tag": 19
+   },
+   "minus_code": {
+    "sum_diff_F_tags": 0.0414,
+    "best_rank_F_tag": 12
+   },
+   "random_code": {
+    "sum_diff_F_tags": -0.2748,
+    "best_rank_F_tag": 20
+   },
+   "shift_minus_vs_random": 0.3162
+  },
+  "multilingual": {
+   "full": {
+    "sum_diff_F_tags": -0.0205,
+    "best_rank_F_tag": 155
+   },
+   "minus_multilingual": {
+    "sum_diff_F_tags": 0.0103,
+    "best_rank_F_tag": 26
+   },
+   "random_multilingual": {
+    "sum_diff_F_tags": -0.0216,
+    "best_rank_F_tag": 158
+   },
+   "shift_minus_vs_random": 0.0319
+  }
+ }
+}

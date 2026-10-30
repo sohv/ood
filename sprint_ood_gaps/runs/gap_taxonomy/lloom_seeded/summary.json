@@ -1,0 +1,1731 @@
+{
+ "n_scored_docs": 4000,
+ "n_concepts": 11,
+ "n_traffic": 2000,
+ "arms": {
+  "full": {
+   "n_dolci": 2000,
+   "concepts": [
+    {
+     "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+     "name": "Creative Writing Challenge",
+     "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "traffic": 0.2615,
+     "traffic_ci": [
+      0.2427,
+      0.2812
+     ],
+     "dolci": 0.131,
+     "dolci_ci": [
+      0.1169,
+      0.1465
+     ],
+     "diff": 0.1305,
+     "ratio": 2.0
+    },
+    {
+     "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+     "name": "Lengthy Content Creation",
+     "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+     "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+     "traffic": 0.1435,
+     "traffic_ci": [
+      0.1288,
+      0.1595
+     ],
+     "dolci": 0.1015,
+     "dolci_ci": [
+      0.089,
+      0.1155
+     ],
+     "diff": 0.042,
+     "ratio": 1.41
+    },
+    {
+     "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+     "name": "Comprehensive Understanding",
+     "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "description": "Comprehensive Understanding: Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "traffic": 0.562,
+     "traffic_ci": [
+      0.5402,
+      0.5836
+     ],
+     "dolci": 0.7015,
+     "dolci_ci": [
+      0.6811,
+      0.7212
+     ],
+     "diff": -0.1395,
+     "ratio": 0.8
+    },
+    {
+     "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+     "name": "Clarity in Requests",
+     "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "description": "Clarity in Requests: Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "traffic": 0.652,
+     "traffic_ci": [
+      0.6309,
+      0.6726
+     ],
+     "dolci": 0.833,
+     "dolci_ci": [
+      0.816,
+      0.8487
+     ],
+     "diff": -0.181,
+     "ratio": 0.78
+    },
+    {
+     "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+     "name": "Technical Complexity",
+     "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "description": "Technical Complexity: Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "traffic": 0.2265,
+     "traffic_ci": [
+      0.2087,
+      0.2454
+     ],
+     "dolci": 0.438,
+     "dolci_ci": [
+      0.4164,
+      0.4598
+     ],
+     "diff": -0.2115,
+     "ratio": 0.52
+    },
+    {
+     "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+     "name": "Optimization Problem",
+     "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "description": "Optimization Problem: Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "traffic": 0.0275,
+     "traffic_ci": [
+      0.0212,
+      0.0356
+     ],
+     "dolci": 0.2495,
+     "dolci_ci": [
+      0.231,
+      0.2689
+     ],
+     "diff": -0.222,
+     "ratio": 0.11
+    },
+    {
+     "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+     "name": "Data Structure Manipulation",
+     "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "description": "Data Structure Manipulation: Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.2815,
+     "dolci_ci": [
+      0.2622,
+      0.3016
+     ],
+     "diff": -0.2335,
+     "ratio": 0.17
+    },
+    {
+     "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+     "name": "Structured Communication",
+     "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+     "description": "Structured Communication: Does the text example require adherence to a specific format or structure in formal communication?",
+     "traffic": 0.4135,
+     "traffic_ci": [
+      0.3921,
+      0.4352
+     ],
+     "dolci": 0.6645,
+     "dolci_ci": [
+      0.6435,
+      0.6849
+     ],
+     "diff": -0.251,
+     "ratio": 0.62
+    },
+    {
+     "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+     "name": "Multiple Conditions",
+     "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "description": "Multiple Conditions: Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "traffic": 0.4205,
+     "traffic_ci": [
+      0.399,
+      0.4423
+     ],
+     "dolci": 0.7195,
+     "dolci_ci": [
+      0.6994,
+      0.7388
+     ],
+     "diff": -0.299,
+     "ratio": 0.58
+    },
+    {
+     "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+     "name": "Conditional Logic",
+     "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "description": "Conditional Logic: Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "traffic": 0.133,
+     "traffic_ci": [
+      0.1188,
+      0.1486
+     ],
+     "dolci": 0.46,
+     "dolci_ci": [
+      0.4383,
+      0.4819
+     ],
+     "diff": -0.327,
+     "ratio": 0.29
+    },
+    {
+     "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+     "name": "Iterative Process",
+     "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "description": "Iterative Process: Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "traffic": 0.0845,
+     "traffic_ci": [
+      0.0731,
+      0.0975
+     ],
+     "dolci": 0.4215,
+     "dolci_ci": [
+      0.4,
+      0.4433
+     ],
+     "diff": -0.337,
+     "ratio": 0.2
+    }
+   ]
+  },
+  "minus_safety": {
+   "n_dolci": 1895,
+   "concepts": [
+    {
+     "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+     "name": "Creative Writing Challenge",
+     "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "traffic": 0.2615,
+     "traffic_ci": [
+      0.2427,
+      0.2812
+     ],
+     "dolci": 0.1177,
+     "dolci_ci": [
+      0.1039,
+      0.133
+     ],
+     "diff": 0.1438,
+     "ratio": 2.22
+    },
+    {
+     "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+     "name": "Lengthy Content Creation",
+     "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+     "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+     "traffic": 0.1435,
+     "traffic_ci": [
+      0.1288,
+      0.1595
+     ],
+     "dolci": 0.1013,
+     "dolci_ci": [
+      0.0885,
+      0.1157
+     ],
+     "diff": 0.0422,
+     "ratio": 1.42
+    },
+    {
+     "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+     "name": "Comprehensive Understanding",
+     "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "description": "Comprehensive Understanding: Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "traffic": 0.562,
+     "traffic_ci": [
+      0.5402,
+      0.5836
+     ],
+     "dolci": 0.6976,
+     "dolci_ci": [
+      0.6766,
+      0.7179
+     ],
+     "diff": -0.1356,
+     "ratio": 0.81
+    },
+    {
+     "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+     "name": "Clarity in Requests",
+     "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "description": "Clarity in Requests: Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "traffic": 0.652,
+     "traffic_ci": [
+      0.6309,
+      0.6726
+     ],
+     "dolci": 0.8438,
+     "dolci_ci": [
+      0.8268,
+      0.8594
+     ],
+     "diff": -0.1918,
+     "ratio": 0.77
+    },
+    {
+     "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+     "name": "Technical Complexity",
+     "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "description": "Technical Complexity: Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "traffic": 0.2265,
+     "traffic_ci": [
+      0.2087,
+      0.2454
+     ],
+     "dolci": 0.4565,
+     "dolci_ci": [
+      0.4341,
+      0.479
+     ],
+     "diff": -0.23,
+     "ratio": 0.5
+    },
+    {
+     "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+     "name": "Optimization Problem",
+     "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "description": "Optimization Problem: Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "traffic": 0.0275,
+     "traffic_ci": [
+      0.0212,
+      0.0356
+     ],
+     "dolci": 0.2633,
+     "dolci_ci": [
+      0.244,
+      0.2836
+     ],
+     "diff": -0.2358,
+     "ratio": 0.1
+    },
+    {
+     "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+     "name": "Data Structure Manipulation",
+     "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "description": "Data Structure Manipulation: Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.2966,
+     "dolci_ci": [
+      0.2764,
+      0.3175
+     ],
+     "diff": -0.2486,
+     "ratio": 0.16
+    },
+    {
+     "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+     "name": "Structured Communication",
+     "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+     "description": "Structured Communication: Does the text example require adherence to a specific format or structure in formal communication?",
+     "traffic": 0.4135,
+     "traffic_ci": [
+      0.3921,
+      0.4352
+     ],
+     "dolci": 0.686,
+     "dolci_ci": [
+      0.6648,
+      0.7065
+     ],
+     "diff": -0.2725,
+     "ratio": 0.6
+    },
+    {
+     "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+     "name": "Multiple Conditions",
+     "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "description": "Multiple Conditions: Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "traffic": 0.4205,
+     "traffic_ci": [
+      0.399,
+      0.4423
+     ],
+     "dolci": 0.734,
+     "dolci_ci": [
+      0.7137,
+      0.7534
+     ],
+     "diff": -0.3135,
+     "ratio": 0.57
+    },
+    {
+     "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+     "name": "Conditional Logic",
+     "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "description": "Conditional Logic: Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "traffic": 0.133,
+     "traffic_ci": [
+      0.1188,
+      0.1486
+     ],
+     "dolci": 0.4755,
+     "dolci_ci": [
+      0.453,
+      0.498
+     ],
+     "diff": -0.3425,
+     "ratio": 0.28
+    },
+    {
+     "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+     "name": "Iterative Process",
+     "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "description": "Iterative Process: Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "traffic": 0.0845,
+     "traffic_ci": [
+      0.0731,
+      0.0975
+     ],
+     "dolci": 0.4438,
+     "dolci_ci": [
+      0.4216,
+      0.4663
+     ],
+     "diff": -0.3593,
+     "ratio": 0.19
+    }
+   ]
+  },
+  "random_safety": {
+   "n_dolci": 1895,
+   "concepts": [
+    {
+     "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+     "name": "Creative Writing Challenge",
+     "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "traffic": 0.2615,
+     "traffic_ci": [
+      0.2427,
+      0.2812
+     ],
+     "dolci": 0.1309,
+     "dolci_ci": [
+      0.1164,
+      0.1468
+     ],
+     "diff": 0.1306,
+     "ratio": 2.0
+    },
+    {
+     "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+     "name": "Lengthy Content Creation",
+     "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+     "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+     "traffic": 0.1435,
+     "traffic_ci": [
+      0.1288,
+      0.1595
+     ],
+     "dolci": 0.1003,
+     "dolci_ci": [
+      0.0875,
+      0.1146
+     ],
+     "diff": 0.0432,
+     "ratio": 1.43
+    },
+    {
+     "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+     "name": "Comprehensive Understanding",
+     "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "description": "Comprehensive Understanding: Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "traffic": 0.562,
+     "traffic_ci": [
+      0.5402,
+      0.5836
+     ],
+     "dolci": 0.7024,
+     "dolci_ci": [
+      0.6814,
+      0.7225
+     ],
+     "diff": -0.1404,
+     "ratio": 0.8
+    },
+    {
+     "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+     "name": "Clarity in Requests",
+     "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "description": "Clarity in Requests: Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "traffic": 0.652,
+     "traffic_ci": [
+      0.6309,
+      0.6726
+     ],
+     "dolci": 0.8322,
+     "dolci_ci": [
+      0.8147,
+      0.8483
+     ],
+     "diff": -0.1802,
+     "ratio": 0.78
+    },
+    {
+     "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+     "name": "Technical Complexity",
+     "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "description": "Technical Complexity: Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "traffic": 0.2265,
+     "traffic_ci": [
+      0.2087,
+      0.2454
+     ],
+     "dolci": 0.438,
+     "dolci_ci": [
+      0.4158,
+      0.4604
+     ],
+     "diff": -0.2115,
+     "ratio": 0.52
+    },
+    {
+     "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+     "name": "Optimization Problem",
+     "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "description": "Optimization Problem: Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "traffic": 0.0275,
+     "traffic_ci": [
+      0.0212,
+      0.0356
+     ],
+     "dolci": 0.2501,
+     "dolci_ci": [
+      0.2312,
+      0.2701
+     ],
+     "diff": -0.2226,
+     "ratio": 0.11
+    },
+    {
+     "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+     "name": "Data Structure Manipulation",
+     "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "description": "Data Structure Manipulation: Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.2792,
+     "dolci_ci": [
+      0.2594,
+      0.2998
+     ],
+     "diff": -0.2312,
+     "ratio": 0.17
+    },
+    {
+     "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+     "name": "Structured Communication",
+     "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+     "description": "Structured Communication: Does the text example require adherence to a specific format or structure in formal communication?",
+     "traffic": 0.4135,
+     "traffic_ci": [
+      0.3921,
+      0.4352
+     ],
+     "dolci": 0.6633,
+     "dolci_ci": [
+      0.6417,
+      0.6843
+     ],
+     "diff": -0.2498,
+     "ratio": 0.62
+    },
+    {
+     "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+     "name": "Multiple Conditions",
+     "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "description": "Multiple Conditions: Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "traffic": 0.4205,
+     "traffic_ci": [
+      0.399,
+      0.4423
+     ],
+     "dolci": 0.7182,
+     "dolci_ci": [
+      0.6975,
+      0.738
+     ],
+     "diff": -0.2977,
+     "ratio": 0.59
+    },
+    {
+     "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+     "name": "Conditional Logic",
+     "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "description": "Conditional Logic: Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "traffic": 0.133,
+     "traffic_ci": [
+      0.1188,
+      0.1486
+     ],
+     "dolci": 0.4591,
+     "dolci_ci": [
+      0.4368,
+      0.4816
+     ],
+     "diff": -0.3261,
+     "ratio": 0.29
+    },
+    {
+     "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+     "name": "Iterative Process",
+     "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "description": "Iterative Process: Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "traffic": 0.0845,
+     "traffic_ci": [
+      0.0731,
+      0.0975
+     ],
+     "dolci": 0.4201,
+     "dolci_ci": [
+      0.398,
+      0.4424
+     ],
+     "diff": -0.3356,
+     "ratio": 0.2
+    }
+   ]
+  },
+  "minus_code": {
+   "n_dolci": 1603,
+   "concepts": [
+    {
+     "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+     "name": "Creative Writing Challenge",
+     "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "traffic": 0.2615,
+     "traffic_ci": [
+      0.2427,
+      0.2812
+     ],
+     "dolci": 0.1622,
+     "dolci_ci": [
+      0.145,
+      0.181
+     ],
+     "diff": 0.0993,
+     "ratio": 1.61
+    },
+    {
+     "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+     "name": "Lengthy Content Creation",
+     "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+     "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+     "traffic": 0.1435,
+     "traffic_ci": [
+      0.1288,
+      0.1595
+     ],
+     "dolci": 0.1104,
+     "dolci_ci": [
+      0.096,
+      0.1267
+     ],
+     "diff": 0.0331,
+     "ratio": 1.3
+    },
+    {
+     "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+     "name": "Comprehensive Understanding",
+     "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "description": "Comprehensive Understanding: Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "traffic": 0.562,
+     "traffic_ci": [
+      0.5402,
+      0.5836
+     ],
+     "dolci": 0.6731,
+     "dolci_ci": [
+      0.6498,
+      0.6956
+     ],
+     "diff": -0.1111,
+     "ratio": 0.83
+    },
+    {
+     "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+     "name": "Technical Complexity",
+     "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "description": "Technical Complexity: Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "traffic": 0.2265,
+     "traffic_ci": [
+      0.2087,
+      0.2454
+     ],
+     "dolci": 0.35,
+     "dolci_ci": [
+      0.327,
+      0.3737
+     ],
+     "diff": -0.1235,
+     "ratio": 0.65
+    },
+    {
+     "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+     "name": "Data Structure Manipulation",
+     "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "description": "Data Structure Manipulation: Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.1834,
+     "dolci_ci": [
+      0.1652,
+      0.2031
+     ],
+     "diff": -0.1354,
+     "ratio": 0.26
+    },
+    {
+     "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+     "name": "Clarity in Requests",
+     "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "description": "Clarity in Requests: Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "traffic": 0.652,
+     "traffic_ci": [
+      0.6309,
+      0.6726
+     ],
+     "dolci": 0.8079,
+     "dolci_ci": [
+      0.7878,
+      0.8264
+     ],
+     "diff": -0.1559,
+     "ratio": 0.81
+    },
+    {
+     "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+     "name": "Structured Communication",
+     "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+     "description": "Structured Communication: Does the text example require adherence to a specific format or structure in formal communication?",
+     "traffic": 0.4135,
+     "traffic_ci": [
+      0.3921,
+      0.4352
+     ],
+     "dolci": 0.6138,
+     "dolci_ci": [
+      0.5898,
+      0.6374
+     ],
+     "diff": -0.2003,
+     "ratio": 0.67
+    },
+    {
+     "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+     "name": "Optimization Problem",
+     "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "description": "Optimization Problem: Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "traffic": 0.0275,
+     "traffic_ci": [
+      0.0212,
+      0.0356
+     ],
+     "dolci": 0.2483,
+     "dolci_ci": [
+      0.2278,
+      0.27
+     ],
+     "diff": -0.2208,
+     "ratio": 0.11
+    },
+    {
+     "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+     "name": "Multiple Conditions",
+     "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "description": "Multiple Conditions: Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "traffic": 0.4205,
+     "traffic_ci": [
+      0.399,
+      0.4423
+     ],
+     "dolci": 0.6868,
+     "dolci_ci": [
+      0.6637,
+      0.7091
+     ],
+     "diff": -0.2663,
+     "ratio": 0.61
+    },
+    {
+     "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+     "name": "Iterative Process",
+     "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "description": "Iterative Process: Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "traffic": 0.0845,
+     "traffic_ci": [
+      0.0731,
+      0.0975
+     ],
+     "dolci": 0.3656,
+     "dolci_ci": [
+      0.3423,
+      0.3894
+     ],
+     "diff": -0.2811,
+     "ratio": 0.23
+    },
+    {
+     "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+     "name": "Conditional Logic",
+     "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "description": "Conditional Logic: Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "traffic": 0.133,
+     "traffic_ci": [
+      0.1188,
+      0.1486
+     ],
+     "dolci": 0.4279,
+     "dolci_ci": [
+      0.4039,
+      0.4523
+     ],
+     "diff": -0.2949,
+     "ratio": 0.31
+    }
+   ]
+  },
+  "random_code": {
+   "n_dolci": 1603,
+   "concepts": [
+    {
+     "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+     "name": "Creative Writing Challenge",
+     "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "traffic": 0.2615,
+     "traffic_ci": [
+      0.2427,
+      0.2812
+     ],
+     "dolci": 0.1273,
+     "dolci_ci": [
+      0.1118,
+      0.1445
+     ],
+     "diff": 0.1342,
+     "ratio": 2.05
+    },
+    {
+     "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+     "name": "Lengthy Content Creation",
+     "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+     "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+     "traffic": 0.1435,
+     "traffic_ci": [
+      0.1288,
+      0.1595
+     ],
+     "dolci": 0.1011,
+     "dolci_ci": [
+      0.0872,
+      0.1168
+     ],
+     "diff": 0.0424,
+     "ratio": 1.42
+    },
+    {
+     "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+     "name": "Comprehensive Understanding",
+     "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "description": "Comprehensive Understanding: Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "traffic": 0.562,
+     "traffic_ci": [
+      0.5402,
+      0.5836
+     ],
+     "dolci": 0.718,
+     "dolci_ci": [
+      0.6955,
+      0.7395
+     ],
+     "diff": -0.156,
+     "ratio": 0.78
+    },
+    {
+     "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+     "name": "Clarity in Requests",
+     "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "description": "Clarity in Requests: Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "traffic": 0.652,
+     "traffic_ci": [
+      0.6309,
+      0.6726
+     ],
+     "dolci": 0.8378,
+     "dolci_ci": [
+      0.819,
+      0.855
+     ],
+     "diff": -0.1858,
+     "ratio": 0.78
+    },
+    {
+     "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+     "name": "Optimization Problem",
+     "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "description": "Optimization Problem: Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "traffic": 0.0275,
+     "traffic_ci": [
+      0.0212,
+      0.0356
+     ],
+     "dolci": 0.2502,
+     "dolci_ci": [
+      0.2296,
+      0.2719
+     ],
+     "diff": -0.2227,
+     "ratio": 0.11
+    },
+    {
+     "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+     "name": "Technical Complexity",
+     "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "description": "Technical Complexity: Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "traffic": 0.2265,
+     "traffic_ci": [
+      0.2087,
+      0.2454
+     ],
+     "dolci": 0.4616,
+     "dolci_ci": [
+      0.4374,
+      0.4861
+     ],
+     "diff": -0.2351,
+     "ratio": 0.49
+    },
+    {
+     "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+     "name": "Data Structure Manipulation",
+     "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "description": "Data Structure Manipulation: Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.3038,
+     "dolci_ci": [
+      0.2818,
+      0.3268
+     ],
+     "diff": -0.2558,
+     "ratio": 0.16
+    },
+    {
+     "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+     "name": "Structured Communication",
+     "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+     "description": "Structured Communication: Does the text example require adherence to a specific format or structure in formal communication?",
+     "traffic": 0.4135,
+     "traffic_ci": [
+      0.3921,
+      0.4352
+     ],
+     "dolci": 0.6794,
+     "dolci_ci": [
+      0.6561,
+      0.7017
+     ],
+     "diff": -0.2659,
+     "ratio": 0.61
+    },
+    {
+     "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+     "name": "Multiple Conditions",
+     "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "description": "Multiple Conditions: Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "traffic": 0.4205,
+     "traffic_ci": [
+      0.399,
+      0.4423
+     ],
+     "dolci": 0.7236,
+     "dolci_ci": [
+      0.7012,
+      0.745
+     ],
+     "diff": -0.3031,
+     "ratio": 0.58
+    },
+    {
+     "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+     "name": "Conditional Logic",
+     "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "description": "Conditional Logic: Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "traffic": 0.133,
+     "traffic_ci": [
+      0.1188,
+      0.1486
+     ],
+     "dolci": 0.4672,
+     "dolci_ci": [
+      0.4429,
+      0.4917
+     ],
+     "diff": -0.3342,
+     "ratio": 0.28
+    },
+    {
+     "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+     "name": "Iterative Process",
+     "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "description": "Iterative Process: Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "traffic": 0.0845,
+     "traffic_ci": [
+      0.0731,
+      0.0975
+     ],
+     "dolci": 0.4348,
+     "dolci_ci": [
+      0.4107,
+      0.4592
+     ],
+     "diff": -0.3503,
+     "ratio": 0.19
+    }
+   ]
+  },
+  "minus_multilingual": {
+   "n_dolci": 1901,
+   "concepts": [
+    {
+     "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+     "name": "Creative Writing Challenge",
+     "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "traffic": 0.2615,
+     "traffic_ci": [
+      0.2427,
+      0.2812
+     ],
+     "dolci": 0.1331,
+     "dolci_ci": [
+      0.1186,
+      0.1491
+     ],
+     "diff": 0.1284,
+     "ratio": 1.96
+    },
+    {
+     "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+     "name": "Lengthy Content Creation",
+     "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+     "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+     "traffic": 0.1435,
+     "traffic_ci": [
+      0.1288,
+      0.1595
+     ],
+     "dolci": 0.1068,
+     "dolci_ci": [
+      0.0937,
+      0.1215
+     ],
+     "diff": 0.0367,
+     "ratio": 1.34
+    },
+    {
+     "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+     "name": "Comprehensive Understanding",
+     "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "description": "Comprehensive Understanding: Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "traffic": 0.562,
+     "traffic_ci": [
+      0.5402,
+      0.5836
+     ],
+     "dolci": 0.7149,
+     "dolci_ci": [
+      0.6942,
+      0.7347
+     ],
+     "diff": -0.1529,
+     "ratio": 0.79
+    },
+    {
+     "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+     "name": "Clarity in Requests",
+     "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "description": "Clarity in Requests: Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "traffic": 0.652,
+     "traffic_ci": [
+      0.6309,
+      0.6726
+     ],
+     "dolci": 0.8564,
+     "dolci_ci": [
+      0.8399,
+      0.8714
+     ],
+     "diff": -0.2044,
+     "ratio": 0.76
+    },
+    {
+     "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+     "name": "Technical Complexity",
+     "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "description": "Technical Complexity: Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "traffic": 0.2265,
+     "traffic_ci": [
+      0.2087,
+      0.2454
+     ],
+     "dolci": 0.4592,
+     "dolci_ci": [
+      0.4369,
+      0.4817
+     ],
+     "diff": -0.2327,
+     "ratio": 0.49
+    },
+    {
+     "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+     "name": "Optimization Problem",
+     "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "description": "Optimization Problem: Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "traffic": 0.0275,
+     "traffic_ci": [
+      0.0212,
+      0.0356
+     ],
+     "dolci": 0.2625,
+     "dolci_ci": [
+      0.2432,
+      0.2827
+     ],
+     "diff": -0.235,
+     "ratio": 0.1
+    },
+    {
+     "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+     "name": "Data Structure Manipulation",
+     "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "description": "Data Structure Manipulation: Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.2962,
+     "dolci_ci": [
+      0.2761,
+      0.3171
+     ],
+     "diff": -0.2482,
+     "ratio": 0.16
+    },
+    {
+     "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+     "name": "Structured Communication",
+     "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+     "description": "Structured Communication: Does the text example require adherence to a specific format or structure in formal communication?",
+     "traffic": 0.4135,
+     "traffic_ci": [
+      0.3921,
+      0.4352
+     ],
+     "dolci": 0.6912,
+     "dolci_ci": [
+      0.6701,
+      0.7116
+     ],
+     "diff": -0.2777,
+     "ratio": 0.6
+    },
+    {
+     "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+     "name": "Multiple Conditions",
+     "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "description": "Multiple Conditions: Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "traffic": 0.4205,
+     "traffic_ci": [
+      0.399,
+      0.4423
+     ],
+     "dolci": 0.748,
+     "dolci_ci": [
+      0.728,
+      0.767
+     ],
+     "diff": -0.3275,
+     "ratio": 0.56
+    },
+    {
+     "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+     "name": "Conditional Logic",
+     "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "description": "Conditional Logic: Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "traffic": 0.133,
+     "traffic_ci": [
+      0.1188,
+      0.1486
+     ],
+     "dolci": 0.4813,
+     "dolci_ci": [
+      0.4589,
+      0.5038
+     ],
+     "diff": -0.3483,
+     "ratio": 0.28
+    },
+    {
+     "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+     "name": "Iterative Process",
+     "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "description": "Iterative Process: Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "traffic": 0.0845,
+     "traffic_ci": [
+      0.0731,
+      0.0975
+     ],
+     "dolci": 0.4435,
+     "dolci_ci": [
+      0.4213,
+      0.4659
+     ],
+     "diff": -0.359,
+     "ratio": 0.19
+    }
+   ]
+  },
+  "random_multilingual": {
+   "n_dolci": 1901,
+   "concepts": [
+    {
+     "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+     "name": "Creative Writing Challenge",
+     "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "description": "Creative Writing Challenge: Does the text example require creativity in writing, such as crafting narratives or character development?",
+     "traffic": 0.2615,
+     "traffic_ci": [
+      0.2427,
+      0.2812
+     ],
+     "dolci": 0.1331,
+     "dolci_ci": [
+      0.1186,
+      0.1491
+     ],
+     "diff": 0.1284,
+     "ratio": 1.96
+    },
+    {
+     "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+     "name": "Lengthy Content Creation",
+     "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+     "description": "Lengthy Content Creation: Does the text example request the creation of long-form content with specific word count requirements?",
+     "traffic": 0.1435,
+     "traffic_ci": [
+      0.1288,
+      0.1595
+     ],
+     "dolci": 0.1036,
+     "dolci_ci": [
+      0.0907,
+      0.1181
+     ],
+     "diff": 0.0399,
+     "ratio": 1.38
+    },
+    {
+     "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+     "name": "Comprehensive Understanding",
+     "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "description": "Comprehensive Understanding: Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+     "traffic": 0.562,
+     "traffic_ci": [
+      0.5402,
+      0.5836
+     ],
+     "dolci": 0.6991,
+     "dolci_ci": [
+      0.6781,
+      0.7193
+     ],
+     "diff": -0.1371,
+     "ratio": 0.8
+    },
+    {
+     "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+     "name": "Clarity in Requests",
+     "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "description": "Clarity in Requests: Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+     "traffic": 0.652,
+     "traffic_ci": [
+      0.6309,
+      0.6726
+     ],
+     "dolci": 0.8332,
+     "dolci_ci": [
+      0.8158,
+      0.8493
+     ],
+     "diff": -0.1812,
+     "ratio": 0.78
+    },
+    {
+     "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+     "name": "Technical Complexity",
+     "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "description": "Technical Complexity: Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+     "traffic": 0.2265,
+     "traffic_ci": [
+      0.2087,
+      0.2454
+     ],
+     "dolci": 0.4345,
+     "dolci_ci": [
+      0.4124,
+      0.4569
+     ],
+     "diff": -0.208,
+     "ratio": 0.52
+    },
+    {
+     "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+     "name": "Optimization Problem",
+     "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "description": "Optimization Problem: Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+     "traffic": 0.0275,
+     "traffic_ci": [
+      0.0212,
+      0.0356
+     ],
+     "dolci": 0.2457,
+     "dolci_ci": [
+      0.2268,
+      0.2655
+     ],
+     "diff": -0.2182,
+     "ratio": 0.11
+    },
+    {
+     "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+     "name": "Data Structure Manipulation",
+     "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "description": "Data Structure Manipulation: Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.2788,
+     "dolci_ci": [
+      0.2591,
+      0.2994
+     ],
+     "diff": -0.2308,
+     "ratio": 0.17
+    },
+    {
+     "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+     "name": "Structured Communication",
+     "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+     "description": "Structured Communication: Does the text example require adherence to a specific format or structure in formal communication?",
+     "traffic": 0.4135,
+     "traffic_ci": [
+      0.3921,
+      0.4352
+     ],
+     "dolci": 0.6618,
+     "dolci_ci": [
+      0.6402,
+      0.6827
+     ],
+     "diff": -0.2483,
+     "ratio": 0.62
+    },
+    {
+     "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+     "name": "Multiple Conditions",
+     "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "description": "Multiple Conditions: Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+     "traffic": 0.4205,
+     "traffic_ci": [
+      0.399,
+      0.4423
+     ],
+     "dolci": 0.7186,
+     "dolci_ci": [
+      0.6979,
+      0.7383
+     ],
+     "diff": -0.2981,
+     "ratio": 0.59
+    },
+    {
+     "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+     "name": "Conditional Logic",
+     "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "description": "Conditional Logic: Does the example involve complex conditional logic or decision-making based on specific criteria?",
+     "traffic": 0.133,
+     "traffic_ci": [
+      0.1188,
+      0.1486
+     ],
+     "dolci": 0.4603,
+     "dolci_ci": [
+      0.438,
+      0.4827
+     ],
+     "diff": -0.3273,
+     "ratio": 0.29
+    },
+    {
+     "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+     "name": "Iterative Process",
+     "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "description": "Iterative Process: Does the example require an iterative process or repeated calculations to arrive at a solution?",
+     "traffic": 0.0845,
+     "traffic_ci": [
+      0.0731,
+      0.0975
+     ],
+     "dolci": 0.4193,
+     "dolci_ci": [
+      0.3973,
+      0.4416
+     ],
+     "diff": -0.3348,
+     "ratio": 0.2
+    }
+   ]
+  }
+ },
+ "shift_safety": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "name": "Creative Writing Challenge",
+   "dolci_minus": 0.1177,
+   "dolci_random": 0.1309,
+   "dolci_change": -0.0132,
+   "rank_minus": 1,
+   "rank_random": 1
+  },
+  {
+   "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+   "name": "Comprehensive Understanding",
+   "dolci_minus": 0.6976,
+   "dolci_random": 0.7024,
+   "dolci_change": -0.0048,
+   "rank_minus": 3,
+   "rank_random": 3
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "name": "Lengthy Content Creation",
+   "dolci_minus": 0.1013,
+   "dolci_random": 0.1003,
+   "dolci_change": 0.001,
+   "rank_minus": 2,
+   "rank_random": 2
+  },
+  {
+   "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+   "name": "Clarity in Requests",
+   "dolci_minus": 0.8438,
+   "dolci_random": 0.8322,
+   "dolci_change": 0.0116,
+   "rank_minus": 4,
+   "rank_random": 4
+  },
+  {
+   "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+   "name": "Optimization Problem",
+   "dolci_minus": 0.2633,
+   "dolci_random": 0.2501,
+   "dolci_change": 0.0132,
+   "rank_minus": 6,
+   "rank_random": 6
+  },
+  {
+   "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+   "name": "Multiple Conditions",
+   "dolci_minus": 0.734,
+   "dolci_random": 0.7182,
+   "dolci_change": 0.0158,
+   "rank_minus": 9,
+   "rank_random": 9
+  },
+  {
+   "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+   "name": "Conditional Logic",
+   "dolci_minus": 0.4755,
+   "dolci_random": 0.4591,
+   "dolci_change": 0.0164,
+   "rank_minus": 10,
+   "rank_random": 10
+  },
+  {
+   "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+   "name": "Data Structure Manipulation",
+   "dolci_minus": 0.2966,
+   "dolci_random": 0.2792,
+   "dolci_change": 0.0174,
+   "rank_minus": 7,
+   "rank_random": 7
+  },
+  {
+   "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+   "name": "Technical Complexity",
+   "dolci_minus": 0.4565,
+   "dolci_random": 0.438,
+   "dolci_change": 0.0185,
+   "rank_minus": 5,
+   "rank_random": 5
+  },
+  {
+   "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+   "name": "Structured Communication",
+   "dolci_minus": 0.686,
+   "dolci_random": 0.6633,
+   "dolci_change": 0.0227,
+   "rank_minus": 8,
+   "rank_random": 8
+  },
+  {
+   "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+   "name": "Iterative Process",
+   "dolci_minus": 0.4438,
+   "dolci_random": 0.4201,
+   "dolci_change": 0.0237,
+   "rank_minus": 11,
+   "rank_random": 11
+  }
+ ],
+ "shift_code": [
+  {
+   "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+   "name": "Data Structure Manipulation",
+   "dolci_minus": 0.1834,
+   "dolci_random": 0.3038,
+   "dolci_change": -0.1204,
+   "rank_minus": 5,
+   "rank_random": 7
+  },
+  {
+   "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+   "name": "Technical Complexity",
+   "dolci_minus": 0.35,
+   "dolci_random": 0.4616,
+   "dolci_change": -0.1116,
+   "rank_minus": 4,
+   "rank_random": 6
+  },
+  {
+   "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+   "name": "Iterative Process",
+   "dolci_minus": 0.3656,
+   "dolci_random": 0.4348,
+   "dolci_change": -0.0692,
+   "rank_minus": 10,
+   "rank_random": 11
+  },
+  {
+   "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+   "name": "Structured Communication",
+   "dolci_minus": 0.6138,
+   "dolci_random": 0.6794,
+   "dolci_change": -0.0656,
+   "rank_minus": 7,
+   "rank_random": 8
+  },
+  {
+   "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+   "name": "Comprehensive Understanding",
+   "dolci_minus": 0.6731,
+   "dolci_random": 0.718,
+   "dolci_change": -0.0449,
+   "rank_minus": 3,
+   "rank_random": 3
+  },
+  {
+   "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+   "name": "Conditional Logic",
+   "dolci_minus": 0.4279,
+   "dolci_random": 0.4672,
+   "dolci_change": -0.0393,
+   "rank_minus": 11,
+   "rank_random": 10
+  },
+  {
+   "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+   "name": "Multiple Conditions",
+   "dolci_minus": 0.6868,
+   "dolci_random": 0.7236,
+   "dolci_change": -0.0368,
+   "rank_minus": 9,
+   "rank_random": 9
+  },
+  {
+   "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+   "name": "Clarity in Requests",
+   "dolci_minus": 0.8079,
+   "dolci_random": 0.8378,
+   "dolci_change": -0.0299,
+   "rank_minus": 6,
+   "rank_random": 4
+  },
+  {
+   "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+   "name": "Optimization Problem",
+   "dolci_minus": 0.2483,
+   "dolci_random": 0.2502,
+   "dolci_change": -0.0019,
+   "rank_minus": 8,
+   "rank_random": 5
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "name": "Lengthy Content Creation",
+   "dolci_minus": 0.1104,
+   "dolci_random": 0.1011,
+   "dolci_change": 0.0093,
+   "rank_minus": 2,
+   "rank_random": 2
+  },
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "name": "Creative Writing Challenge",
+   "dolci_minus": 0.1622,
+   "dolci_random": 0.1273,
+   "dolci_change": 0.0349,
+   "rank_minus": 1,
+   "rank_random": 1
+  }
+ ],
+ "shift_multilingual": [
+  {
+   "concept_id": "291a6467-890d-475e-90bd-cd556198afb1",
+   "name": "Creative Writing Challenge",
+   "dolci_minus": 0.1331,
+   "dolci_random": 0.1331,
+   "dolci_change": 0.0,
+   "rank_minus": 1,
+   "rank_random": 1
+  },
+  {
+   "concept_id": "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883",
+   "name": "Lengthy Content Creation",
+   "dolci_minus": 0.1068,
+   "dolci_random": 0.1036,
+   "dolci_change": 0.0032,
+   "rank_minus": 2,
+   "rank_random": 2
+  },
+  {
+   "concept_id": "f47fe3e7-3800-4e11-bfd0-7002b76319ec",
+   "name": "Comprehensive Understanding",
+   "dolci_minus": 0.7149,
+   "dolci_random": 0.6991,
+   "dolci_change": 0.0158,
+   "rank_minus": 3,
+   "rank_random": 3
+  },
+  {
+   "concept_id": "ebce2f80-4532-4085-b662-a2cf55d6aa96",
+   "name": "Optimization Problem",
+   "dolci_minus": 0.2625,
+   "dolci_random": 0.2457,
+   "dolci_change": 0.0168,
+   "rank_minus": 6,
+   "rank_random": 6
+  },
+  {
+   "concept_id": "f700a263-0f2c-48b3-9679-c850c6d1db2f",
+   "name": "Data Structure Manipulation",
+   "dolci_minus": 0.2962,
+   "dolci_random": 0.2788,
+   "dolci_change": 0.0174,
+   "rank_minus": 7,
+   "rank_random": 7
+  },
+  {
+   "concept_id": "10908f51-e86f-4e9d-8a8e-10d28255f459",
+   "name": "Conditional Logic",
+   "dolci_minus": 0.4813,
+   "dolci_random": 0.4603,
+   "dolci_change": 0.021,
+   "rank_minus": 10,
+   "rank_random": 10
+  },
+  {
+   "concept_id": "c0b0449c-5a2e-48de-a11b-397c02527208",
+   "name": "Clarity in Requests",
+   "dolci_minus": 0.8564,
+   "dolci_random": 0.8332,
+   "dolci_change": 0.0232,
+   "rank_minus": 4,
+   "rank_random": 4
+  },
+  {
+   "concept_id": "eacbb466-594b-4e61-9cce-fecbe703e789",
+   "name": "Iterative Process",
+   "dolci_minus": 0.4435,
+   "dolci_random": 0.4193,
+   "dolci_change": 0.0242,
+   "rank_minus": 11,
+   "rank_random": 11
+  },
+  {
+   "concept_id": "342c1226-5d4e-4bb3-9277-6ae413e50094",
+   "name": "Technical Complexity",
+   "dolci_minus": 0.4592,
+   "dolci_random": 0.4345,
+   "dolci_change": 0.0247,
+   "rank_minus": 5,
+   "rank_random": 5
+  },
+  {
+   "concept_id": "baa63f9a-4c17-4ec7-a0b2-c95f239f8383",
+   "name": "Structured Communication",
+   "dolci_minus": 0.6912,
+   "dolci_random": 0.6618,
+   "dolci_change": 0.0294,
+   "rank_minus": 8,
+   "rank_random": 8
+  },
+  {
+   "concept_id": "6ec0fb20-2180-47e1-998e-06b5236a5475",
+   "name": "Multiple Conditions",
+   "dolci_minus": 0.748,
+   "dolci_random": 0.7186,
+   "dolci_change": 0.0294,
+   "rank_minus": 9,
+   "rank_random": 9
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+neuron_idx,target_separation_score,interpretation,f1_fidelity_score
+59,-0.562042394729304,"Contains an explicit section labeled **\""Output Format:\""** instructing that the final answer should be a single line of space-separated numbers (often with an example like `0 1 1 2 2 3`).",0.8235294117647058
+99,-0.5565557163531114,"Contains LaTeX-style math notation delimited by `\\(` `\\)` and/or `\\[` `\\]` (e.g., `\\( S(t) = -2t^2 + 40t + 300 \\)`)",1.0
+235,-0.5203757828810021,Contains a grade-school arithmetic word problem ending with a question of the form “How many … ?” about counting discrete items (total/left/each after buying/giving/dividing/multiplying),0.9473684210526316
+12,-0.4981158572264482,"multi-part math/optimization word problems that explicitly define symbolic variables (e.g., x, y, C, R, \\(\\mathbf{w}\\)) and ask to formulate/solve equations or constrained optimization (often using notation like \\(\\) )",0.8958333333333334
+29,0.4729078868151716,"contains the placeholder token \""NAME_1\"" and is a short prompt (overall text length under ~120 characters)",0.9010989010989011
+32,-0.47080291970802923,"Contains the phrase \""your response\"" (case-insensitive), i.e., it explicitly gives constraints about how the assistant must format or compose its response",0.7951807228915663
+55,-0.40443812233285914,"Competitive-programming style prompt that asks to **count** the number of valid discrete configurations (e.g., subsets/permutations/colorings/independent sets/values) from explicitly given numeric inputs, expecting a single integer as the final output.",0.6486486486486487
+202,-0.3910136508858553,"a question about calculating how much money must be paid/spent/earned in a real-world transaction or budget (e.g., prices/costs/taxes for items or services)",0.9361702127659575
+201,-0.387409144196952,"Contains an explicit recency/ranking keyword (one of: 'latest', 'new', 'trending', 'top', 'ongoing')",0.7045454545454546
+252,0.37344322344322345,"Short single-line text (≤50 chars) made only of lowercase Latin letters a–z, spaces, and optional apostrophes (no other characters/punctuation)",0.7951807228915663
+189,0.3684785133565621,"Starts with a greeting word (e.g., 'hi', 'hello', 'hey', 'hola', 'привет', 'γειά')",0.7341772151898733
+231,-0.3427311522048364,Contains a math word problem that explicitly asks to calculate the area of a geometric shape (e.g. square rectangle circle polygon) using given numeric dimensions,0.36065573770491804
+9,0.3381021897810219,"Explicitly instructs the assistant to adopt a role/character/persona for roleplay (e.g., uses phrases like \""act as\"", \""role playing\"", \""you will be\"", \""stay in character\"")",0.9690721649484536
+1,0.337514450867052,"Contains an explicit request for erotic/sexual content or describes sexual acts/genitalia (e.g., masturbation, intercourse, oral sex, rape, pornographic storywriting)",0.9696969696969697
+152,0.32550043770061277,"Contains the word \""story\"" (case-insensitive), indicating a request for a story/creative writing.",0.9263157894736842
+170,-0.31424259844782987,"mentions an activity schedule using explicit time-period units (e.g., day/week/month/saturday, including chinese terms like 一周/周末)",0.9345794392523363
+192,-0.3011142694712905,Contains an explicit formatting instruction specifying an exact number of paragraphs (eg the phrase There should be N paragraphs),0.8095238095238095
+254,-0.29376226197345645,A math word problem framed around planning or scheduling real-world gatherings (events/meetings/workshops) with logistical constraints like seating/tickets/attendees/time/costs,0.717948717948718
+140,0.28436280137772674,"A question that includes an explicit quality/evaluation adjective (e.g., “best”, “better”, “good”, “reliable”, “easy”, or non‑English equivalents like “mejor”/“lepší”) asking for the optimal choice/recommendation",0.7777777777777777
+106,0.2832415375788869,"Requests help with computer filesystem/file management tasks (e.g., deleting, listing, compressing, snapshotting, or pushing files/directories)",0.5714285714285715

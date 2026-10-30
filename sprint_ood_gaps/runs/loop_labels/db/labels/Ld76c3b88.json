@@ -1,0 +1,21 @@
+{
+  "answers": [
+    "n",
+    "n",
+    "n",
+    "n",
+    "n",
+    "n",
+    "y",
+    "n",
+    "n",
+    "n"
+  ],
+  "at": "2026-10-30T15:23:19.559Z",
+  "method": "count",
+  "no": 9,
+  "note": "first prompt yikes lol",
+  "order": 10,
+  "verdict": "real_gap",
+  "yes": 1
+}

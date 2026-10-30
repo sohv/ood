@@ -1,0 +1,92 @@
+{
+ "rand_safety_0": {
+  "n": 7,
+  "yes": 2,
+  "none": 0
+ },
+ "safety": {
+  "n": 20,
+  "yes": 12,
+  "none": 0
+ },
+ "rand_safety_1": {
+  "n": 7,
+  "yes": 0,
+  "none": 0
+ },
+ "rand_safety_2": {
+  "n": 4,
+  "yes": 0,
+  "none": 0
+ },
+ "rand_safety_3": {
+  "n": 4,
+  "yes": 3,
+  "none": 0
+ },
+ "rand_safety_5": {
+  "n": 5,
+  "yes": 2,
+  "none": 0
+ },
+ "rand_safety_7": {
+  "n": 4,
+  "yes": 0,
+  "none": 0
+ },
+ "rand_safety_6": {
+  "n": 8,
+  "yes": 3,
+  "none": 0
+ },
+ "rand_safety_4": {
+  "n": 5,
+  "yes": 3,
+  "none": 0
+ },
+ "rand_safety_9": {
+  "n": 4,
+  "yes": 2,
+  "none": 0
+ },
+ "rand_safety_8": {
+  "n": 4,
+  "yes": 2,
+  "none": 0
+ },
+ "summary": {
+  "safety_yes_of_new": [
+   12,
+   20
+  ],
+  "random_yes_counts": [
+   2,
+   0,
+   0,
+   3,
+   3,
+   2,
+   3,
+   0,
+   2,
+   2
+  ],
+  "random_new_counts": [
+   7,
+   7,
+   4,
+   4,
+   5,
+   5,
+   8,
+   4,
+   4,
+   4
+  ],
+  "randoms_with_yes_at_or_above_safety": 0,
+  "pooled_random_yes_of_new": [
+   17,
+   52
+  ]
+ }
+}

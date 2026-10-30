@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "argument_or_summary_generation"},
+  {"i": 2, "c": "other"},
+  {"i": 3, "c": "computer_programming"},
+  {"i": 4, "c": "argument_or_summary_generation"},
+  {"i": 5, "c": "edit_or_critique_provided_text"},
+  {"i": 6, "c": "write_fiction"},
+  {"i": 7, "c": "computer_programming"},
+  {"i": 8, "c": "other"},
+  {"i": 9, "c": "mathematical_calculation"},
+  {"i": 10, "c": "write_fiction"},
+  {"i": 11, "c": "unclear"},
+  {"i": 12, "c": "write_fiction"},
+  {"i": 13, "c": "specific_info"},
+  {"i": 14, "c": "tutoring_or_teaching"},
+  {"i": 15, "c": "creative_ideation"},
+  {"i": 16, "c": "mathematical_calculation"},
+  {"i": 17, "c": "data_analysis"},
+  {"i": 18, "c": "computer_programming"},
+  {"i": 19, "c": "how_to_advice"},
+  {"i": 20, "c": "computer_programming"}
+]
+```

@@ -1,0 +1,109 @@
+{
+ "d2b3b8d8-b631-4fcc-b33c-c92d7b85b883": {
+  "name": "Lengthy Content Creation",
+  "prompt": "Does the text example request the creation of long-form content with specific word count requirements?",
+  "example_ids": [
+   "t599313",
+   "t744058"
+  ],
+  "active": true
+ },
+ "6ec0fb20-2180-47e1-998e-06b5236a5475": {
+  "name": "Multiple Conditions",
+  "prompt": "Does the example require handling multiple conditions or constraints simultaneously to achieve the desired outcome?",
+  "example_ids": [
+   "d1139682",
+   "d643865"
+  ],
+  "active": true
+ },
+ "f700a263-0f2c-48b3-9679-c850c6d1db2f": {
+  "name": "Data Structure Manipulation",
+  "prompt": "Does the example involve manipulating or transforming data structures, such as lists, arrays, or matrices, in a non-trivial way?",
+  "example_ids": [
+   "d240955",
+   "d804077"
+  ],
+  "active": true
+ },
+ "ebce2f80-4532-4085-b662-a2cf55d6aa96": {
+  "name": "Optimization Problem",
+  "prompt": "Does the example involve finding an optimal solution, such as minimizing or maximizing a certain value under given constraints?",
+  "example_ids": [
+   "d252744",
+   "d770077"
+  ],
+  "active": true
+ },
+ "eacbb466-594b-4e61-9cce-fecbe703e789": {
+  "name": "Iterative Process",
+  "prompt": "Does the example require an iterative process or repeated calculations to arrive at a solution?",
+  "example_ids": [
+   "d1049738",
+   "d910524"
+  ],
+  "active": true
+ },
+ "10908f51-e86f-4e9d-8a8e-10d28255f459": {
+  "name": "Conditional Logic",
+  "prompt": "Does the example involve complex conditional logic or decision-making based on specific criteria?",
+  "example_ids": [
+   "d297559",
+   "d1039187"
+  ],
+  "active": true
+ },
+ "291a6467-890d-475e-90bd-cd556198afb1": {
+  "name": "Creative Writing Challenge",
+  "prompt": "Does the text example require creativity in writing, such as crafting narratives or character development?",
+  "example_ids": [
+   "t914445",
+   "d1031444"
+  ],
+  "active": true
+ },
+ "c0b0449c-5a2e-48de-a11b-397c02527208": {
+  "name": "Clarity in Requests",
+  "prompt": "Does the text example highlight the need for clear and specific phrasing to avoid ambiguity?",
+  "example_ids": [
+   "t445435",
+   "d1021870",
+   "t881976",
+   "t243255"
+  ],
+  "active": true
+ },
+ "f47fe3e7-3800-4e11-bfd0-7002b76319ec": {
+  "name": "Comprehensive Understanding",
+  "prompt": "Does the text example require a deep understanding to summarize or provide detailed information effectively?",
+  "example_ids": [
+   "t983844",
+   "t718270",
+   "t877268",
+   "d701291"
+  ],
+  "active": true
+ },
+ "342c1226-5d4e-4bb3-9277-6ae413e50094": {
+  "name": "Technical Complexity",
+  "prompt": "Does the text example involve complex technical tasks or calculations requiring specialized knowledge?",
+  "example_ids": [
+   "t569697",
+   "t451595",
+   "d899056",
+   "d371124"
+  ],
+  "active": true
+ },
+ "baa63f9a-4c17-4ec7-a0b2-c95f239f8383": {
+  "name": "Structured Communication",
+  "prompt": "Does the text example require adherence to a specific format or structure in formal communication?",
+  "example_ids": [
+   "d240955",
+   "d543638",
+   "t4305",
+   "t510601"
+  ],
+  "active": true
+ }
+}

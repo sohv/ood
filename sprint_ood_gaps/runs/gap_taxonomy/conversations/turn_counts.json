@@ -1,0 +1,267 @@
+{
+ "definition": "user turns = count of role == 'user' messages per conversation",
+ "traffic": {
+  "lmsys": {
+   "all": {
+    "n": 1000000,
+    "share_multi": 0.3343,
+    "share_ge3": 0.189,
+    "share_ge5": 0.0825,
+    "median": 1.0,
+    "p99": 13.0
+   },
+   "dedup_first_user": {
+    "n": 611212,
+    "share_multi": 0.3638,
+    "share_ge3": 0.209,
+    "share_ge5": 0.0924,
+    "median": 1.0,
+    "p99": 13.0
+   },
+   "turn_column_agrees": 1.0
+  },
+  "wildchat": {
+   "all": {
+    "n": 837989,
+    "share_multi": 0.3956,
+    "share_ge3": 0.2476,
+    "share_ge5": 0.1199,
+    "median": 1.0,
+    "p99": 14.0
+   },
+   "dedup_first_user": {
+    "n": 704398,
+    "share_multi": 0.4113,
+    "share_ge3": 0.2583,
+    "share_ge5": 0.1257,
+    "median": 1.0,
+    "p99": 14.0
+   },
+   "turn_column_agrees": 1.0
+  }
+ },
+ "dolci_sft": {
+  "all": {
+   "n": 2152112,
+   "share_multi": 0.0404,
+   "share_ge3": 0.0389,
+   "share_ge5": 0.0347,
+   "median": 1.0,
+   "p99": 5.0
+  },
+  "by_source": {
+   "Aya": {
+    "n": 99987,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "CoCoNot": {
+    "n": 10957,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Dolci Instruct OpenThoughts3+ Science": {
+    "n": 99268,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Dolci Instruct Precise IF": {
+    "n": 136833,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Dolci Instruct Python Algorithms": {
+    "n": 186345,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Dolci Instruct Tool Use": {
+    "n": 227579,
+    "share_multi": 0.3714,
+    "share_ge3": 0.3669,
+    "share_ge5": 0.3278,
+    "median": 1.0,
+    "p99": 6.0
+   },
+   "Evol CodeAlpaca": {
+    "n": 107270,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "FLAN": {
+    "n": 89981,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Hardcoded Data": {
+    "n": 69,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Logic Puzzles": {
+    "n": 159882,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "OpenAssistant": {
+    "n": 7132,
+    "share_multi": 0.3455,
+    "share_ge3": 0.0271,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 3.0
+   },
+   "OpenMathInstruct 2": {
+    "n": 50000,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "SciRiff": {
+    "n": 4557,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "TableGPT": {
+    "n": 5000,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Tulu 3 Persona Algebra": {
+    "n": 19999,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Tulu 3 Persona GSM": {
+    "n": 49980,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Tulu 3 Persona MATH": {
+    "n": 149958,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Tulu 3 Persona Python": {
+    "n": 34999,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Verifiable Reasoning": {
+    "n": 310572,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "WildGuardMix": {
+    "n": 49373,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "WildJailbreak": {
+    "n": 49965,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   },
+   "Wildchat": {
+    "n": 302406,
+    "share_multi": 0.0,
+    "share_ge3": 0.0,
+    "share_ge5": 0.0,
+    "median": 1.0,
+    "p99": 1.0
+   }
+  },
+  "multi_turn_rows_by_source": {
+   "Dolci Instruct Tool Use": 84514,
+   "OpenAssistant": 2464
+  },
+  "all_minus_tool_use": {
+   "n": 1924533,
+   "share_multi": 0.0013,
+   "share_ge3": 0.0001,
+   "share_ge5": 0.0,
+   "median": 1.0,
+   "p99": 1.0
+  },
+  "full_conversation_check": {
+   "last_role": {
+    "assistant": 2151923,
+    "user": 184,
+    "environment": 5
+   },
+   "user_assistant_alternate": 0.9083
+  }
+ },
+ "dolci_dpo": {
+  "all": {
+   "n": 259922,
+   "share_multi": 0.0384,
+   "share_ge3": 0.0316,
+   "share_ge5": 0.0198,
+   "median": 1.0,
+   "p99": 6.0
+  },
+  "multi_turn_rows_by_prompt_id_kind": {
+   "multiturn_self_talk": 5000,
+   "multiturn_related_query": 2493,
+   "multiturn_paraphrase": 1876,
+   "multiturn_repeat": 624
+  }
+ }
+}
