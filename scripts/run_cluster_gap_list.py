@@ -78,7 +78,7 @@ def main() -> None:
     xt = np.load(config.feats_path, mmap_mode="r")[:n_t].astype(np.float32)
     rows = np.load(Path(config.gap_list_v2_dir) / "rows.npz")
     n_mix = int(rows["sizes"][1])
-    sd = np.load(config.feats_path, mmap_mode="r")[n_t : n_t + n_mix].std(0) + 1e-6
+    sd = np.load(config.feats_path, mmap_mode="r")[n_t : n_t + n_mix].astype(np.float32).std(0) + 1e-6
     xt = xt / sd
     sizes = np.bincount(cl)
     big = np.where(sizes >= config.min_cluster)[0]

@@ -4765,3 +4765,25 @@ read before running.
 **Design.** 39,835 gap_list traffic prompts, per-prompt raw Delta-kNN from gap_list_v2 (`delta_knn`). Groupings: olmo_clusters_v2 Olmo clusters with clusters under 10 prompts merged into the nearest bigger one (as in grouping_test), and topics. Group score is the median over template units. Line: 95th and 99th percentile of 2,000 random traffic groups of the same size, per unit-count bin. Reported: groups and prompts over each line; quirk share (placeholder or template tag) in the top 20/50/100; kind shares in the top 50; overlap of top-50 prompts between the two lists. Spot check: the top 20 of each list shuffled together blind, 5 random examples each, for the user to label real gap / quirk / not a gap.
 **Seed.** 0. CPU only, no extra seeds.
 **Output.** `results/raw/261030_cluster_gap_list_v1`. No threshold; the user judges.
+
+## tfidf_cluster_gap_list: does a tf-idf clustering of real traffic do as well as Olmo clusters? (30-10-2026)
+
+**Question.** Asked on behalf of Stefan. On real traffic, ranked by raw Delta-kNN as in cluster_gap_list, does a word-based (tf-idf) clustering give as good a gap list as Olmo clusters?
+**Design.** cluster_gap_list unchanged, plus a third grouping: tf-idf (sublinear, 1-2 grams, min_df 2, 200k features) fitted on the 39,835 traffic prompts, SVD to 256 dimensions, spherical k-means with k equal to the topic count (1,903), clusters under 10 prompts merged into the nearest bigger one. Same group score, same size-matched random-group lines, quirk shares, and top-50 overlap with Olmo clusters. Spot check: top 20 tf-idf clusters, 5 random prompts each, labelled real gap / quirk / not a gap / mixed with the same page and rules as cluster_gap_list, compared with the 17/20 already labelled for Olmo clusters (not re-labelled; the comparison is across two labelling sessions).
+**Seed.** 0. No threshold; the user judges.
+**Output.** `results/raw/261030_tfidf_cluster_gap_list_v1`.
+
+## messy_controls: is the main gap already covered by Dolci, and is it just messy chat logs? (30-10-2026)
+
+**Question.** Asked on behalf of Callum and Neel. (a) How common is pasted real-world text with a summarise, rewrite or extract task in Dolci against traffic, and what are the nearest Dolci prompts to the top gap clusters? (b) Dolci holds real chat logs (WildChat and OpenAssistant rows, "Chat" domain). Do those messy but covered prompts score as high as the traffic gap prompts?
+**Design.** Pasted text with a task = kind tag pasted_document and a task word (summar, rewrite, rephrase, paraphrase, extract, condense, shorten, simplify) in the first 300 characters; shares in traffic, the 200k Dolci sample, its 31,383 chat rows, and the top-50 Olmo cluster prompts. Nearest 10 Dolci prompts for 3 random prompts from each of the top 10 clusters, saved to read. Raw Delta-kNN for Dolci chat rows and 30,000 random other Dolci rows, leaving each row out of its own reference (the (k+1)-th neighbour). Reported: score summaries; AUROC of top-cluster traffic prompts against Dolci chat rows, all traffic against Dolci chat rows, Dolci chat against other Dolci rows, and traffic pasted-task against Dolci pasted-task prompts.
+**Seed.** 0. No threshold; the user judges.
+**Output.** `results/raw/261030_messy_controls_v1`.
+
+## pooled_chat_clusters: do messy-but-covered Dolci chat logs form gap clusters too? (30-10-2026)
+
+**Question.** Asked on behalf of Neel, after messy_controls found that Dolci's own real-chat rows score about as high as traffic. When traffic and Dolci's chat rows are clustered together, are the clusters over the gap line mostly traffic, or about as much Dolci chat as the pool?
+**Design.** Pool the 39,835 traffic prompts and the 31,383 Dolci chat rows of the 200k sample (pool traffic share 0.559). Raw Delta-kNN as in gap_list_v2; Dolci rows skip themselves (the (k+1)-th neighbour). Variant "dedup": for both sources, neighbours closer than cosine distance 0.05 (self and near copies) are skipped before taking the 100th. One spherical k-means of the pooled Olmo layer-20 features, k = 1,903 x pool / traffic (3,402), clusters under 10 merged into the nearest bigger one. Group score is the median over template units; line at the 95th and 99th percentile of 2,000 random pooled groups of the same size per unit-count bin. Reported per variant: prompt-weighted traffic share in clusters over each line and in the top 20/50/100/200, with a cluster bootstrap 95% interval, and counts of majority-traffic and majority-Dolci clusters.
+**Reading.** A flagged traffic share near 0.559 means messy covered chat forms gap clusters as readily as traffic; a share well above it means the flagged clusters are specific to traffic. No threshold; the user judges.
+**Seed.** 0.
+**Output.** `results/raw/261030_pooled_chat_clusters_v1`.

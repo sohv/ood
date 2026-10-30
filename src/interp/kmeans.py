@@ -24,10 +24,9 @@ def spherical_kmeans(
             if labels is not None and torch.equal(new, labels):
                 break
             labels = new
-            for c in range(k):
-                members = x[labels == c]
-                if len(members):
-                    centres[c] = torch.nn.functional.normalize(members.sum(0), dim=0)
+            sums = torch.zeros_like(centres).index_add_(0, labels, x)
+            filled = torch.bincount(labels, minlength=k) > 0
+            centres[filled] = torch.nn.functional.normalize(sums[filled], dim=1)
         score = float((x * centres[labels]).sum())
         if score > best_score:
             best, best_score = (labels.clone(), centres.clone()), score

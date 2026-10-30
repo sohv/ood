@@ -10,6 +10,16 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 30-10-2026 — messy_controls: is the main gap already covered by Dolci, and is it just messy chat logs?
+
+**Question.** (Callum) How much of Dolci is pasted real-world text with a summarise, rewrite or extract task, against traffic? (Neel) Do Dolci's own real-chat rows, which are messy but covered, score as high as the traffic gap prompts?
+**Hyperparameters.** Raw Delta-kNN as in gap_list_v2 (k 100, Olmo layer 20, recomputed traffic scores match the saved ones, correlation 1.0000); Dolci rows scored leaving themselves out; seed 0.
+**Datasets.** 39,835 traffic prompts; the 200k Dolci sample, of which 31,383 are real-chat rows (WildChat or OpenAssistant) and 30,000 random other rows were scored; 1,205 traffic prompts in the top-50 Olmo clusters of cluster_gap_list.
+**Result.** Coverage: pasted text with a task is 3.7% of traffic (1,470 prompts) against 0.8% of the Dolci sample (1,622) and 1.9% of Dolci chat rows; it is 38% of the top-cluster prompts. Every sampled top-cluster prompt had a pasted-document Dolci prompt among its 10 nearest, but the nearest are on the same subject rather than close copies (cosine distance about 0.8 to 1.1). Dolci's pasted-task prompts score nearly as high as traffic's (median -0.110 against -0.088, AUROC 0.59). Messiness: Dolci chat rows score far above other Dolci rows (median -0.205 against -0.412, AUROC 0.85) and about the same as all traffic (-0.199, AUROC 0.54). 2.0% of Dolci chat rows score above the top-cluster median, against 2.6% of traffic. Top-cluster prompts against Dolci chat rows give AUROC 0.97, but those clusters were picked for high scores, so that number is inflated.
+**Output:** results/raw/261030_messy_controls_v1/decision.json (neighbours.jsonl beside it)
+**Confound:** the score tracks messy chat style strongly (Dolci's own chat rows score like traffic), so the gap list partly reflects "real user chat" rather than "missing from Dolci"; what the clusters add is concentration, which this test does not measure.
+**Verdict:** pasted text with a task is under-represented in Dolci (about 4.5 times rarer than in traffic), not missing; the next check would cluster Dolci's chat rows the same way and count clusters over the line, to see whether messy covered chat also forms "gap" clusters.
+
 ## 30-10-2026 — flag_then_group: flag single prompts first, then cluster them
 
 **Question.** Does flagging the top 5% or 10% of traffic prompts by score change and then clustering only those recover a planted gap better than topics or fixed Olmo clusters?
@@ -29,6 +39,7 @@ do not improvise a format from the entries below.
 **Output:** results/raw/261030_cluster_gap_list_v1/decision.json (groups.jsonl, spot_items.jsonl, spot_key.json beside it)
 **Confound:** the line comes from random traffic groups, so it marks groups further from Dolci than average traffic, not groups absent from Dolci; a more coherent grouping spreads group scores more and so crosses a random-group line more often, which could explain part of the higher count.
 **Spot check.** I hand-labelled the top 20 of each list blind and shuffled (5 random prompts per group). Real gap: Olmo clusters 17/20 against topics 10/20 (Fisher p 0.041); quirk 3 against 6; not a gap 0 against 4. Labels in data/processed/human_labels_cluster_gap_list/labels.json. One labeller, 20 groups per list; a group of one user's repeated prompts counted as a quirk.
+**Bug check.** The feature scale for merging small clusters was computed in float16 and overflowed on 1 of 4,096 dimensions, sending 72 of 3,579 small-cluster prompts to a different cluster. Fixed (float32) and rerun as results/raw/261030_cluster_gap_list_v2: the same 20 top clusters in a slightly different order, 397 against 396 clusters over the 99% line, quirk share in the top 20 0.64 against 0.64, top-50 overlap with topics 0.28 against 0.28. The labels still apply.
 **Verdict:** extend: Olmo clusters replace topics for the gap list.
 
 ## 30-10-2026 — grouping_test: which way of grouping traffic prompts recovers a gap we planted by removing data from Dolci
