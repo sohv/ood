@@ -42,4 +42,3 @@ Scripts run from this folder, except pod scripts, which use `/workspace` paths. 
 - `designs/sibling_split.md`: Sibling split: does adding one sub-topic make its siblings look covered? (written 2026-10-25, before any split or score)
 - `designs/triggers_scan.md`: Trigger scan: other NAME_1-style tokens (stream ood-02, 2026-10-24)
 - `designs/triggers_sensitivity.md`: Trigger scan sensitivity to planted cues (stream ood-02, 2026-10-25)
-- `designs/week1_pilot.md`: Week-one pilot: can the detectors find known gaps once length is controlled?
