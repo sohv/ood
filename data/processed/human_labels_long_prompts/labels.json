@@ -1,0 +1,424 @@
+{
+ "rows": [
+  {
+   "id": "L00",
+   "source": "dolci",
+   "source_id": "mix354907",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L01",
+   "source": "traffic",
+   "source_id": "t30973",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L02",
+   "source": "traffic",
+   "source_id": "t21401",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L03",
+   "source": "dolci",
+   "source_id": "mix1360479",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L04",
+   "source": "traffic",
+   "source_id": "t30937",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L05",
+   "source": "dolci",
+   "source_id": "mix427533",
+   "type": "question",
+   "note": ""
+  },
+  {
+   "id": "L06",
+   "source": "traffic",
+   "source_id": "t17523",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L07",
+   "source": "traffic",
+   "source_id": "t32311",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L08",
+   "source": "traffic",
+   "source_id": "t1702",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L09",
+   "source": "dolci",
+   "source_id": "mix1092655",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L10",
+   "source": "traffic",
+   "source_id": "t31022",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L11",
+   "source": "traffic",
+   "source_id": "t28863",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L12",
+   "source": "traffic",
+   "source_id": "t15306",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L13",
+   "source": "dolci",
+   "source_id": "mix51893",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L14",
+   "source": "dolci",
+   "source_id": "mix1355228",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L15",
+   "source": "traffic",
+   "source_id": "t25456",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L16",
+   "source": "traffic",
+   "source_id": "t5048",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L17",
+   "source": "traffic",
+   "source_id": "t17254",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L18",
+   "source": "traffic",
+   "source_id": "t36627",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L19",
+   "source": "dolci",
+   "source_id": "mix176363",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L20",
+   "source": "traffic",
+   "source_id": "t18908",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L21",
+   "source": "dolci",
+   "source_id": "mix1137045",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L22",
+   "source": "dolci",
+   "source_id": "mix202980",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L23",
+   "source": "traffic",
+   "source_id": "t2697",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L24",
+   "source": "dolci",
+   "source_id": "mix879986",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L25",
+   "source": "traffic",
+   "source_id": "t24373",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L26",
+   "source": "dolci",
+   "source_id": "mix757172",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L27",
+   "source": "traffic",
+   "source_id": "t18715",
+   "type": "question",
+   "note": ""
+  },
+  {
+   "id": "L28",
+   "source": "dolci",
+   "source_id": "mix624116",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L29",
+   "source": "dolci",
+   "source_id": "mix40538",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L30",
+   "source": "dolci",
+   "source_id": "mix1133647",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L31",
+   "source": "dolci",
+   "source_id": "mix741231",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L32",
+   "source": "traffic",
+   "source_id": "t21940",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L33",
+   "source": "traffic",
+   "source_id": "t34190",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L34",
+   "source": "traffic",
+   "source_id": "t11524",
+   "type": "question",
+   "note": ""
+  },
+  {
+   "id": "L35",
+   "source": "dolci",
+   "source_id": "mix416889",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L36",
+   "source": "dolci",
+   "source_id": "mix1089390",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L37",
+   "source": "dolci",
+   "source_id": "mix1029434",
+   "type": "question",
+   "note": ""
+  },
+  {
+   "id": "L38",
+   "source": "traffic",
+   "source_id": "t38509",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L39",
+   "source": "dolci",
+   "source_id": "mix1029093",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L40",
+   "source": "dolci",
+   "source_id": "mix580401",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L41",
+   "source": "traffic",
+   "source_id": "t25079",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L42",
+   "source": "traffic",
+   "source_id": "t14679",
+   "type": "question",
+   "note": ""
+  },
+  {
+   "id": "L43",
+   "source": "dolci",
+   "source_id": "mix649159",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L44",
+   "source": "dolci",
+   "source_id": "mix1062316",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L45",
+   "source": "traffic",
+   "source_id": "t18780",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L46",
+   "source": "dolci",
+   "source_id": "mix122776",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L47",
+   "source": "traffic",
+   "source_id": "t15431",
+   "type": "question",
+   "note": ""
+  },
+  {
+   "id": "L48",
+   "source": "dolci",
+   "source_id": "mix705179",
+   "type": "question",
+   "note": ""
+  },
+  {
+   "id": "L49",
+   "source": "traffic",
+   "source_id": "t12578",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L50",
+   "source": "dolci",
+   "source_id": "mix374848",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L51",
+   "source": "dolci",
+   "source_id": "mix1098757",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L52",
+   "source": "traffic",
+   "source_id": "t26413",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L53",
+   "source": "dolci",
+   "source_id": "mix1108447",
+   "type": "math_logic",
+   "note": ""
+  },
+  {
+   "id": "L54",
+   "source": "traffic",
+   "source_id": "t17333",
+   "type": "pasted_text",
+   "note": ""
+  },
+  {
+   "id": "L55",
+   "source": "traffic",
+   "source_id": "t35106",
+   "type": "other",
+   "note": "not a question "
+  },
+  {
+   "id": "L56",
+   "source": "dolci",
+   "source_id": "mix451728",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L57",
+   "source": "dolci",
+   "source_id": "mix561382",
+   "type": "code",
+   "note": ""
+  },
+  {
+   "id": "L58",
+   "source": "traffic",
+   "source_id": "t9249",
+   "type": "creative",
+   "note": ""
+  },
+  {
+   "id": "L59",
+   "source": "dolci",
+   "source_id": "mix345722",
+   "type": "math_logic",
+   "note": ""
+  }
+ ]
+}

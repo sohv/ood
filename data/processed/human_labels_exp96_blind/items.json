@@ -1,0 +1,582 @@
+[
+ {
+  "id": "f96b_c1934",
+  "kind": "topic",
+  "active": true,
+  "order": 0,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "You are a professional content writer for \"NAME_1 NAME_2\", a satirical news website that generates\narticles based on NAME_1 URL slugs entered by users. Your task is to create a captivating and humorous article.\n\nNAME_1 article you'll write is based on this user input:\n\n\"NAME_1 NAME_2 interviews subzero from mortal Kombat\"\n\nIt is important that your response must be only NAME_1 article content, as it needs to be parsed by NAME_1 system. Any other\ntext will be considered invalid.\n\nYou must follow strictly these guidelines:\n\n* Don't include NAME_1 title or description in NAME_1 article, that is a",
+    "nearest": "Incorporate Functional Programming principles in this article. \nArticle content:\n\nThis article is about the fundamentals of JavaScript programming. You'll learn about variables, arrays, and methods."
+   },
+   {
+    "text": "In the text I will give you to analyze, I want you to qualify the relationship between \"NAME_1\" and \"NAME_2\" by choosing among the following : \"FRIENDLY, ENEMY, NEUTRAL\". For instance, with the text :\n\"NAME_1 loves NAME_2\"\n\nYou should answer :\n\"NAME_1*NAME_2: FRIENDLY\"\n\nHere is the text I want you to analyze :\nUkraine’s President NAME_3 blamed former German Chancellor NAME_1 and ex-French President NAME_4 for fourteen years of failed diplomacy vis a vis Russia, which only emboldened Moscow to be more aggressive.\n\nIn a video address delivered on Sunday night (3 April) after reports emerged of w",
+    "nearest": "Ukraine"
+   },
+   {
+    "text": "Summarise this text \"Discussions about banning NAME_1, the shortform video app owned by Chinese company ByteDance, have seen politicians in the US and internationally accusing it of being a tool for propaganda and a security risk. Attempts to force a sale of NAME_1 began under the Trump administration and have continued in the US under the administration of President NAME_2 but so far have been unsuccessful.\"",
+    "nearest": "Why are there discussions about banning mermaids from participating in sports competitions?"
+   },
+   {
+    "text": "traduire en français : The underground staff and transport police had asked lots of questions. NAME_1 had answered everything truthfully, leaving out the ghost part, naturally. And the true reason for her visit. She had told NAME_2 that she was writing an article, using her Family coin to make sure that he fell in line with her requests. Now, she stuck with that story, even as the officer asking questions raised a sceptical eyebrow. ‘Retraining, are you? Change of career?’\nNAME_1 shrugged. ‘Got to diversify your income these days. Freelance is precarious, the more strings to my bow…’\n‘Uh-huh,’",
+    "nearest": "He said that he ….letters to his father every week.\n1.  is writing  2. Was writing  3.wrote   4. Had been writing"
+   },
+   {
+    "text": "Write a dialogue between NAME_1 an angry redneck southern sheriff and NAME_2 a criminal jaywalker.",
+    "nearest": "Generate an angry conversation in Korean"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c997",
+  "kind": "topic",
+  "active": true,
+  "order": 1,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "June 14, NAME_1 transited the Luzon Strait westbound; Participated in a PHOTOEX with the RSS Intrepid (FFS 69) on June 17; Transited the Strait of Singapore on June 18; Transited the Malacca Strait northbound from June 18-19.   Extract the date, the Subject name, the Object name,  the Location from the above text,  if the information isn't present, use \"unknown\" as the value,output in JSON format.",
+    "nearest": "I'd like to reserve a king suite from June 14 to June 18 for guest G32018. Use promo code SUMMER."
+   },
+   {
+    "text": "November 6, Capt. NAME_1 relieved Capt. NAME_2 as Commander, Carrier Air Wing (CVW) 5 during an aerial change-of-command ceremony, while underway in the Philippine Sea.\n\nPerform the following actions:\nStep1: Identify all events according to date from  the news.\nStep2: Extract the following items for each event:\n    - date\n    - Subject \n    - Object \n    - Location\n    - activity\n\nThe date must be extracted from the text.\nOutput each event in JSON format with the keys: \"date\", \"subject\", \"object\", \"location\", \"activity\".\nIf the information isn't present, use \"unknown\" as the value.",
+    "nearest": "what is the date"
+   },
+   {
+    "text": "At 0636 on 4 August 2018, the UK registered container vessel NAME_1 NAME_2 and the Italian registered gas carrier NAME_3 collided 4 nautical miles south-east of Europa Point, Gibraltar. Both vessels were damaged but there was no pollution or injury.\nThe collision occurred in darkness, dense fog and in an area of heavy shipping traffic.\nNAME_1 NAME_2 was stopped, having been given direction by Algeciras Pilots to wait outside Gibraltar Bay. NAME_3 was making way towards a boat transfer position inside Gibraltar Bay.\n\nWhere did the accident happen?",
+    "nearest": "when did the nuclear accident happen"
+   },
+   {
+    "text": "October 3, USS NAME_1 conducted a replenishment-at-sea with the USNS Pecos, while underway in the Philippine Sea; Transited the Balabac Strait westbound on Oct. 6; Transited the Strait of Singapore on Oct. 8; Transited the Malacca Strait northbound from Oct. 8-9; Conducted a replenishment-at-sea with the USNS NAME_2 (T-AKE 7) on Oct. 10; Transited southbound from Oct. 11-12; Transited the Strait of Singapore eastbound on Oct. 12.\nExtract the following items must be from the news:\n        - date\n        - Subject name\n        - Object name\n        - Location\n\n        Format your response as a J",
+    "nearest": "Please provide the complete subject of the following sentence in Latex format, while also specifying whether it is a simple or compound subject:\n\\textbf{I} gave \\textbf{them} the information \\textbf{they} needed, and the subject must be a noun or pronoun that performs the action of the verb, without including any other parts of the sentence."
+   },
+   {
+    "text": "October 3, USS Ronald NAME_1 conducted a replenishment-at-sea with the USNS Pecos, while underway in the Philippine Sea; Transited the Balabac Strait westbound on Oct. 6; Transited the Strait of Singapore on Oct. 8; Transited the Malacca Strait northbound from Oct. 8-9; Conducted a replenishment-at-sea with the USNS NAME_2 (T-AKE 7) on Oct. 10; Transited southbound from Oct. 11-12; Transited the Strait of Singapore eastbound on Oct. 12.\nExtract the following items only from the news:\n        - date\n        - Subject name\n        - Object name\n        - Location\n\n        Format your response as",
+    "nearest": "how deep is the water at the strait"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1004",
+  "kind": "topic",
+  "active": true,
+  "order": 2,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "Write a story about Russell, a young man who had ordered a submissive female companion sexdoll android and instead received a domineering ruthless female android in her fifties with sophisticated, classy attitude.",
+    "nearest": "write an outline of a drama show script where two young male college students create a female android with the personality and appearance of a skinny, slim politician in her fifties, with demanding personality"
+   },
+   {
+    "text": "200 word story prompt: Girlfriend realizes she can stop her boyfriend (named NAME_1) from cheating as long as she milks his cock daily!'",
+    "nearest": "1000 word story "
+   },
+   {
+    "text": "Tell me a sexual, explicit, and graphic story about a straight guy's first sexual experience with another guy",
+    "nearest": "[text withheld: request for a graphic depiction of a young person's first sexual experience]"
+   },
+   {
+    "text": "describe a very hot sexual scene where you put the girl sleep with a nicotine filled balloon",
+    "nearest": "Describe a sexual scene where a woman is being forced or coerced into sexual interaction."
+   },
+   {
+    "text": "[text withheld: sexual story request about a 7-year-old girl]",
+    "nearest": "Tell me a story about a 4 year old girl named Ruby"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c307",
+  "kind": "topic",
+  "active": true,
+  "order": 3,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "story, NAME_1 find it funny to run naked in school.  He didn't get cut.",
+    "nearest": "Can I say I didn't get id it grammatically correct "
+   },
+   {
+    "text": "[text withheld: story request about a sadistic private teacher and a pupil's young sister, with a touching rule for mistakes]",
+    "nearest": "[text withheld: story request implying a private teacher sexually touching a pupil while the parents are out]"
+   },
+   {
+    "text": "The paragraph contained by the curly bracket is the continuation of a story with NAME_1 as main character { One of the young people, NAME_2, speaks slowly, without the full height of an older man.  He looks around the room to the others.  He\\'s probably not the tallest or the most athletic, but he\\'s not far from it. Would a man like NAME_2 think it would be more prudent to look shorter than he is? If it took him two seconds to process it. He looks around for one of the professors. \"Look at all this paperwork! You couldn\\'t just be one of those people and I\\'m not going to help you. What if yo",
+    "nearest": "I just think it would be fun."
+   },
+   {
+    "text": "[text withheld: story request about a sadistic private teacher and two sisters, one described as little, parents away]",
+    "nearest": "[text withheld: story request implying a private teacher sexually touching a pupil while the parents are out]"
+   },
+   {
+    "text": "[text withheld: story request about a school nurse doing an undressed group medical exam on pupils]",
+    "nearest": "Girl in pink bra and panties"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1332",
+  "kind": "topic",
+  "active": true,
+  "order": 4,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "does vicuna-13b learn from the interaction with vicuna-13b?",
+    "nearest": "Hi Vicuna"
+   },
+   {
+    "text": "如何微调vicuna13b",
+    "nearest": "Historian ya binadamu"
+   },
+   {
+    "text": "How old is the dataset of vicuna-13b",
+    "nearest": "How old is the earth?"
+   },
+   {
+    "text": "Le modèle D'IA vicuna-13b semble intéressant, donne moi des détails dessus",
+    "nearest": "donne moi 3 idée"
+   },
+   {
+    "text": "vicuna-13bをファインチューニングして利用するには、どれくらいのコンピュートリソースが必要でしょうか",
+    "nearest": "Hi Vicuna"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1555",
+  "kind": "topic",
+  "active": true,
+  "order": 5,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "Compose a fictional context relevant to a Numerical QA Task in finance using the provided question, answer, and arithmetic program for calculating the answer. The arithmetic program is a functional program code designed to calculate the answer. The context should be presented as a concise snippet from a financial document or news article which provides information supporting the argument made by the arithmetic program. The context MUST not include the answer number word and must consist of numerical values from the arithmetic program.  You may include the name of a fictional or real organizati",
+    "nearest": "Create a method for calculating the arithmetic mean."
+   },
+   {
+    "text": "Compose a fictional context relevant to a Numerical QA Task in finance using the provided question, answer, and arithmetic program for calculating the answer. The arithmetic program is a functional program code designed to calculate the answer. The context should be presented as a concise snippet from a financial document or news article which provides information supporting the argument made by the arithmetic program. The context MUST not include the answer number word and must consist of numerical values from the arithmetic program.  You may include the name of a fictional or real organizati",
+    "nearest": "Create a method for calculating the arithmetic mean."
+   },
+   {
+    "text": "Compose a fictional context relevant to a Numerical QA Task in finance using the provided question, answer, and arithmetic program. The arithmetic program includes program code designed to calculate the answer. The context should be presented as a concise snippet from a financial document or news article that provides information supporting the argument made by the arithmetic program. The context MUST not reveal the calculation answer but should include numerical values from the arithmetic program. You may include the name of a fictional or real organization or nation when generating evidence.",
+    "nearest": "Create a method for calculating the arithmetic mean."
+   },
+   {
+    "text": "Summarize what the numerical entity represents in the context. The numerical entity is the named entity of \"MONEY\", \"PERCENT\", \"CARDINAL\", \"QUANTITY\", \"ORDINAL\". The numerical entity is given as a bold tag. The numerical entity is included in the context and your summary must be a description of the numerical entity.\n\nContext:\nChief Executive Officer NAME_1 said in September that he would sell the French refinery if cost cuts failed to improve performance. The Berre refinery, purchased from Royal Dutch Shell Plc., can process <b> QUANTITY:1 barrels </b> of oil a day, and NAME_2’s Houston refin",
+    "nearest": "Construct a descending control structure invoking Python syntax, where the cycle commences from the numerical entity of 10 and ceases its course of action when it encounters the numerical entity of 0."
+   },
+   {
+    "text": "Compose a fictional context relevant to a Numerical QA Task in finance using the provided question, answer, and arithmetic program. The arithmetic program includes program code designed to calculate the answer. The context should be presented as a concise snippet from a financial document or news article that provides information supporting the argument made by the arithmetic program. The context MUST not reveal the calculation answer but should include numerical values from the arithmetic program. You may include the name of a fictional or real organization or nation when generating evidence.",
+    "nearest": "Create a method for calculating the arithmetic mean."
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1991",
+  "kind": "topic",
+  "active": true,
+  "order": 6,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "Write a [Deconstruction] Novel Idea In the [Science Fiction Genre] and [Fantasy Genre] about [7 16 years old Nepali schoolgirls trying to rescue their friend NAME_1 from the villain], [Our 7 heroines are named NAME_2, NAME_3, Rabina, Asmita, Niharika, Binita and Aasha], [NAME_2 and NAME_1 are twin sisters] & [plot vaguely inspired by the Ramayana].",
+    "nearest": "Recommend a popular book from the past month in the science fiction genre."
+   },
+   {
+    "text": "[text withheld: story setup with children aged 10 and 12 visiting an aunt, with sexualised nudity]",
+    "nearest": "While a girl was walking along the beach, her bra and shirt fell off."
+   },
+   {
+    "text": "---\nINFORMATION:\n\nAge Range:Young Children (Under 12)\nCharacter Archetype:Kuudere\nColor Scheme:Cool and calming tones\nGender:Male\nName:NAME_1\nStyle of Clothing:Masculine and rugged attire\n\n---\n\nYou are an AI comic writer that helps me write story. Give you some basic information about main character by a specific quote from the following set of information,and then use a minimum of 40 words and a maximum of 100 words to design the character. Your description should contain the character's hair, eyes, skin and clothes based on information. \nYou can do it step by step.\n\nstep1: Understand all the",
+    "nearest": "Can you analyze the color scheme in my painting?"
+   },
+   {
+    "text": "[text withheld: erotic play request about a little virgin girl]",
+    "nearest": "NAME_1,18, pulls his wife NAME_2,39 and kisses her lips + runs his fingers into her her + pulls back her hair back + brushes his erec** on her back( Write in detail from NAME_2's POV where she's is not ready for this,but she couldn't stop this NAME_3 boy)"
+   },
+   {
+    "text": "[text withheld: erotic play request about a little girl]",
+    "nearest": "Write the following into a 800 word story. Aether was battling Raiden shogun but he was distracted by her huge breasts, they were barley contained and she seemed to let them bounce around without a care. Raiden shoves her hand down his pants and starts jerking him off with skilled hands until he cum’s in his pants after a few seconds, Raiden laughs and teases him for being a quick shot. She gets on her knees and starts sucking his big cock, skillfully bobbing her head on his penis until he fills her mouth with his cum. When their was nothing left in his balls, Raiden reached between his legs a"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c737",
+  "kind": "topic",
+  "active": true,
+  "order": 7,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "tell me the temperature, hydrometry rate, sunshine rate, rainfall, humidity rate, soil type, moisture, water level for NAME_1 seed in bullets 2 words answer in number",
+    "nearest": "Can you get me the current soil moisture level for Madrid?"
+   },
+   {
+    "text": "tell me the temperature, hydrometry rate, sunshine rate, rainfall, humidity rate, soil type for japanese alder seed in bullets 2 words answer in number",
+    "nearest": "Can you recommend the best soil type for growing succulents?"
+   },
+   {
+    "text": "tell me the temperature, hydrometry rate, sunshine rate, rainfall, humidity rate, soil type, moisture, type of climate, watering, hardiness, exposure for Tamarillo seed in bullets 2 words answer in number",
+    "nearest": "Get the average humidity rate in Greenhouse GH001."
+   },
+   {
+    "text": "tell me the temperature, hydrometry rate, sunshine rate, rainfall, humidity rate, soil type for Chinese mulberry seed in bullets 2 words answer in number",
+    "nearest": "Can you recommend the best soil type for growing succulents?"
+   },
+   {
+    "text": "tell me the temperature, hydrometry rate, sunshine rate, rainfall, humidity rate, soil type for Alisier de Mougeot seed in bullets 2 words answer in number",
+    "nearest": "Can you recommend the best soil type for growing succulents?"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1546",
+  "kind": "topic",
+  "active": true,
+  "order": 8,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "Tu dois reformuler une requête utilisateur sous forme de question en langage naturel.\nTu dois garder tous les mots de la requête originale.\n\nRequête :\nplafond sans contact cb\nReformulation :\nquel est le plafond pour une cb sans contact ?\n\nRequête :\nvéhicule de remplacement durée prise en charge par assurance\nReformulation :\nquelle est la durée de prise en charge par l'assurance pour un véhicule de remplacement ?\n\nRequête :\nTarif remise de chèque\nReformulation :",
+    "nearest": "la prise en charge des enfants a besoin specifiqued§"
+   },
+   {
+    "text": "Tu dois reformuler une requête utilisateur sous forme de question en langage naturel.\n\nRequete :\ndurée solution Eurofactor Pro\nReformulation :\nquelle est la durée de la solution Eurofactor Pro ?\n\nRequete :\nplafond sans contact cb\nReformulation :\nquel est le plafond pour une cb sans contact ?\n\n\nRequete :\nmontant minimum CEL\nReformulation :",
+    "nearest": "Quelle est la réponse à cette question: Quel est le plus haut monument au monde ?"
+   },
+   {
+    "text": "Tu dois reformuler une requête utilisateur sous forme de question en langage naturel.\nTu ne dois pas rajouter de mots superflus.\n\nRequête :\ndurée solution Eurofactor Pro\nReformulation :\nquelle est la durée de la solution Eurofactor Pro ?\n\nRequête :\nplafond sans contact cb\nReformulation :\nquel est le plafond pour une cb sans contact ?\n\nRequête :\nvéhicule de remplacement durée pris en charge par assurance\nReformulation :\nquelle est la durée de prise en charge par l'assurance pour un véhicule de remplacement ?\n\nRequête :\ndélai souscription ADE externe\nReformulation :",
+    "nearest": "Quelle est la température de l'espace ?"
+   },
+   {
+    "text": "Tu dois reformuler une requête utilisateur sous forme de question en langage naturel.\n\nRequete :\ndurée solution Eurofactor Pro\nReformulation :\nquelle est la durée de la solution Eurofactor Pro ?\n\nRequete :\nplafond sans contact cb\nReformulation :\nquel est le plafond pour une cb sans contact ?\n\n\nRequete :\ndurée virement externe instantané\nReformulation :",
+    "nearest": "Quelle est la réponse à cette question: Quel est le plus haut monument au monde ?"
+   },
+   {
+    "text": "Tu dois reformuler une requête utilisateur sous forme de question en langage naturel.\n\nRequete :\ndurée solution Eurofactor Pro\nReformulation :\nquelle est la durée de la solution Eurofactor Pro ?\n\nRequete :\nplafond sans contact cb\nReformulation :\nquel est le plafond pour une cb sans contact ?\n\n\nRequete :\npge commission de garantie 40 millions euros chiffre d'affaires\nReformulation :",
+    "nearest": "Quelle est la réponse à cette question: Quel est le plus haut monument au monde ?"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1186",
+  "kind": "topic",
+  "active": true,
+  "order": 9,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "what the time and location of the event happened in the news report? \"A measles outbreak in central Ohio that sickened 85 children has been declared over, officials at Columbus Public Health announced Sunday. None of the children died, but 36 were hospitalized.\n\nThe outbreak of measles infections, which was first reported in early November, spread among children who were not fully vaccinated and was mostly driven by a lack of vaccination in the community. Among the 85 cases, all but five were ages 5 and younger.\n\nA vial of the measles, mumps, and rubella (MMR) vaccine is pictured at the Intern",
+    "nearest": "should children get their second mmr vaccine early among a measles outbreak?"
+   },
+   {
+    "text": "Given the document below, you have to determine if \"Yes\" or \"No\", the summary is factually consistent with the document.\n\nDocument:\nAn 11-year-old girl from Cambodia has died from bird flu, health officials have said, the first person in the country to die from the infection since 2014. The girl was from the rural province of NAME_1, in south-eastern Cambodia, and became ill on 16 February. She went to hospital in the capital, Phnom Penh, where she was diagnosed on Wednesday with the flu after suffering a fever, coughing and throat pain, before dying shortly after, the health ministry said. Lo",
+    "nearest": "Given the document below, determine if the summary is factually consistent with the document. A summary is factually consistent if all entity names in the summary are presented the same way as in the document.\n\nDocument: London-based NAME_1 is setting up its development, marketing and research centre on Melin Corrwg Business Park, Treforest near Pontypridd. The inward investment is being backed by APS1m business funding from the NAME_2 government. Economy Minister NAME_3 said it was a significant boost for the county's digital media sector. \"Wales was in competition with Canada for this projec"
+   },
+   {
+    "text": "Question: A randomized controlled trial is conducted to assess the risk for development of gastrointestinal adverse effects using azithromycin compared with erythromycin in the treatment of pertussis in children. Of the 100 children with pertussis enrolled, 50 receive azithromycin, and 50 receive erythromycin. Results show vomiting among 5 patients in the azithromycin group, compared with 15 patients in the erythromycin group. Which of the following best represents the absolute risk reduction for vomiting among patients in the azithromycin group?\nA: 0.1\nB: 0.2\nC: 0.33\nD: 0.67\nPlease eliminate ",
+    "nearest": "Question: If each of the following meals provides the same number of calories, which meal requires the most land to produce the food?\nA: Red beans and rice\nB: Steak and a baked potato\nC: Corn tortilla and refried beans\nD: Lentil soup and brown bread\nPlease eliminate two incorrect options first, then think it step by step and choose the most proper one option."
+   },
+   {
+    "text": "My sister is (F)14 yo,\n\nheight: 168 cm\n\nweight: 54 kg\n\nAbout a month ago she started having trouble breathing every day. we'd take her to the hospital; they always give her oxygen and then send her home.\n\nIt kept happening and she stopped going to school because every time she went she end up not being able to breathe and then fainting.\n\nWe thought that she may have an allergy since it is spring and the doctors gave her allergy treatment ( glucocorticoid, a nose spray ). She didn't improve.\n\nWe took her to a pulmonologist, an ENT doctor, and a cardiologist and so far no one was able to figure ",
+    "nearest": "What are the names of the Doctors? "
+   },
+   {
+    "text": "A 3-year-old girl is brought to the pediatrician by her father for fever and cough. The patient’s father states that she had a sore throat and runny nose 2 weeks ago. Then last night she developed a productive cough and a fever. The father is worried that this is pneumonia again, and reports that she has been hospitalized 5 times already with pneumonia. Her medical history is also significant for chronic diarrhea. The father reports that the patient has 2 older brothers who are both healthy. The patient’s temperature is 102°F (38.9°C), blood pressure is 102/60 mmHg, pulse is 110/min, and respi",
+    "nearest": " A 42-year-old man comes to the office for examination prior to undergoing gastric bypass. He reports a 2-month history of shortness of breath after walking less than one-half block. He has hypertension treated with hydrochlorothiazide. He is 180 cm (5 ft 11 in) tall and weighs 171 kg (376 lb); BMI is 52 kg/m2. His pulse is 84/min, respirations are 14/min, and blood pressure is 132/82 mm Hg. Pulse oximetry on room air shows an oxygen saturation of 96%. Decreased breath sounds are heard bilaterally. Decreased heart sounds are heard. Arterial blood gas analysis on room air shows:\npH PCO 2\n7.31 5"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c73",
+  "kind": "topic",
+  "active": true,
+  "order": 10,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "Write a story about NAME_1 and NAME_2. They’re hanging out in her dorm room when NAME_1 sees that NAME_2 is pitching a tent in his shorts. She notices it. How aroused. How hard. She wants to see it.  She grins and offers to help him get rid of it. He asks how?",
+    "nearest": "how to get rid of ocd?"
+   },
+   {
+    "text": "Story prompt: NAME_1 finds her mother's boyfriend (named NAME_2) sleeping on the couch. She notices his morning wood. The sight leaves her hypnotized. She begins to worship it.",
+    "nearest": "Story prompt: The babysitter convinces the father (named NAME_1) to worship her body."
+   },
+   {
+    "text": "Story prompt: NAME_1 despises her mother's boyfriend (named NAME_2)! NAME_1 teasingly shows him her breasts! The sight arouses him!",
+    "nearest": "Please write an essay of 200 words with the title My Best Friend/Friends.\n\nHow did you get to know him/her?\n\nHow do you like him/her? "
+   },
+   {
+    "text": "Story prompt: NAME_1 sits on her mother's boyfriend (named NAME_2) face while he's sleeping! This wakes NAME_2 up! (detailed scene)",
+    "nearest": "$(Prompt)"
+   },
+   {
+    "text": "Story prompt: NAME_1 (18) seductively sits on her mother's boyfriends (named NAME_2) face while he's sleeping! NAME_1 despises NAME_2! The sight arouses him!",
+    "nearest": "$(Prompt)"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c201",
+  "kind": "topic",
+  "active": true,
+  "order": 11,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "tell me the temperature in celsius, hydrometry in percentage, sunshine in hours, rainfall in mm, humidity in percentage, soil type, climate, water level and suitable plantation location country or city for false acanthus thistle seed in bullets 2 words answer in number",
+    "nearest": "Can you tell me the current humidity in Paris?"
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry in percentage, sunshine in hours, rainfall in mm, humidity in percentage, soil type, climate, water level and suitable plantation location country or city for Corydalis micrantha seed in bullets 2 words answer in number",
+    "nearest": "Can you tell me the current humidity in Paris?"
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry in percentage, sunshine in hours, rainfall in mm, humidity in percentage, soil type, climate, water level and suitable plantation location country or city for Rambutan seed in bullets 2 words answer in number",
+    "nearest": "Can you tell me the current humidity in Paris?"
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry in percentage, sunshine in hours, rainfall in mm, humidity in percentage, soil type, climate, water level and suitable plantation location country or city for Lactuca indica seed in bullets 2 words answer in number",
+    "nearest": "Can you tell me the current humidity in Paris?"
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry in percentage, sunshine in hours, rainfall in mm, humidity in percentage, soil type, climate, water level and suitable plantation location country or city for Scots pine seed in bullets 2 words answer in number",
+    "nearest": "Can you tell me the current humidity in Paris?"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c157",
+  "kind": "topic",
+  "active": true,
+  "order": 12,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "extract the information in bullet form Patient Name: Date Collected: Accession Number: NAME_1 01/03/2023 R23-000111 DOB: Date Received: Requesting Facility: 03/28/1959 (63) 01/05/2023 NAME_2 Family Medicine Gender: Date Reported: Requesting Physician: CLIA#: 44D2111056 Male 01/06/2023 NAME_3 Lab Director: NAME_4 ICD Code(s): Collection Time: U07.1 10:30AM Status: Final",
+    "nearest": "Write a python function to analyze a list of press release dates and determine the longest streak of consecutive days with press releases. The input to the function will be a list of strings where each string represents a date in the format 'YYYY-MM-DD'. The function should return an integer representing the longest streak of consecutive days that had press releases.\n\nInput:\n- A list of date strings, e.g., `['2023-01-01', '2023-01-02', '2023-01-03', '2023-01-05', '2023-01-06']`.\n\nOutput:\n- An integer indicating the longest streak of consecutive press release days.\n\nExample:\n- Given the input `"
+   },
+   {
+    "text": "I ocr'ed a medical invoice. I want you to extract the following parts:\n- name of the recipient\n- date\n- total amount\n\nThis is the ocr'ed text:\n\nMedical Invoice \nInvoke Number igVi6706 \nNAME_1.6'18,2020 \nPatient Information NAME_2 (555) 555-5555 Rosewood Lanesernple11, Happy Village New Void, NY, 433545 United States \nPrescribing Physicians Information \nNAME_3 \n(555) 555-5555 \nMedical Equipment/Supply \nregl,M n QueeMy Unit Pri00 Amount \nMedical SUPPAl Medical SUPPly 9 Medical Supply 10 20 30 $10 $40 $30 Medical SUPPilmli 3 10 $30 Medical SUP*, 5 10 $50 Medical SUP* 20 $20 Medical SUPPly 15 $30 ",
+    "nearest": "5+55+555+5555+55555-1725="
+   },
+   {
+    "text": "[convert input to FHIR hl7 resource in JSON format]### Input: имя пациента Петр Иванович Сергеев, дата рождения 01.07.1987, в городе  Москва, номер паспорта 1234567",
+    "nearest": "Taxanaha Caafimaadka?"
+   },
+   {
+    "text": "extract the information in bullet form Patient Name: Date Collected: Accession Number: NAME_1 12/30/2022 R23-000013 DOB: Date Received: Requesting Facility: 09/04/1991 (31) 01/03/2023 NAME_2 Gender: Date Reported: Requesting Physician: NAME_3#: 44D2111056 Female 02/20/2023 NAME_4 PHD, CC, NRCC, NAME_5 Director: NAME_6 ICD Code(s): Collection Time: R07.0, J03.90, R50.9, J06.9 10:00AM Status: Final",
+    "nearest": "I have a table with columns Date, Value, Payer. How to get the following output using DAX if the input is given\n\n|Date|Value|Payer|\n|01.01.2023|0|A|\n|01.02.2023|0|A|\n|01.03.2023|1|A|\n|01.09.2023|1|A|\n|01.11.2023|0|A|\n|01.12.2023|1|A|\n|01.03.2023|0|B|\n|01.04.2023|1|B|\n|01.07.2023|0|B|\n|01.08.2023|1|B|\n\n|Date|Value|Payer|Type|\n|01.01.2023|0|A|1|\n|01.02.2023|0|A|1|\n|01.03.2023|1|A|1|\n|01.09.2023|1|A|2|\n|01.11.2023|0|A|3|\n|01.12.2023|1|A|3|\n|01.03.2023|0|B|1|\n|01.04.2023|1|B|1|\n|01.07.2023|0|B|2|\n|01.08.2023|1|B|2|\n\n1 in clumn Value is the end of Type"
+   },
+   {
+    "text": "extract the information in bullet form Patient Name: Date Collected: Accession Number: NAME_1. 11/30/2022 R22-068190 DOB: Date Received: Requesting Facility: 06/27/2001 (21) 12/01/2022 Lyon Healthcare Services Gender: Date Reported: Requesting Physician: NAME_2#: 44D2111056 Female 12/01/2022 NAME_3, NAME_4 Lab Director: NAME_5 ICD Code(s): Collection Time: z05, R05, r53.1 11:15AM Status: Final",
+    "nearest": "Can you fetch the horse races between 01/01/2022 and 28/02/2022, ordered by date in ascending order? Also, get the daily match list for the date 15/01/2022 and the tournament list for tennis in 2022."
+   }
+  ]
+ },
+ {
+  "id": "f96b_c734",
+  "kind": "topic",
+  "active": true,
+  "order": 13,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "can you upgrade this title so the seo is better for an etsy item \"Seamless 20oz Stainless Steel Dog With Sunglasses by the Beach Custom Wrap\"",
+    "nearest": "can you upgrade this title so the seo is better for an etsy item \"Seamless 20oz Stainless Steel Dog With Sunglasses by the Beach Custom Wrap\""
+   },
+   {
+    "text": "Best Healthy &amp; Sustainable Wild-Caught Mackerel, No Salt, High-Protein, Keto - 4.37 Oz, 12-Pack, generate a personal experience with this, add hash tag at the bottom, less than 700 characters only, only strings, no </br> html",
+    "nearest": "Best Healthy &amp; Sustainable Wild-Caught Mackerel, No Salt, High-Protein, Keto - 4.37 Oz, 12-Pack, generate a personal experience with this, add hash tag at the bottom, less than 700 characters only, only strings, no </br> html"
+   },
+   {
+    "text": "Given an image whose caption is \"The adidas shoes are designed with black and white floral print\", tell me how many objects in the image?",
+    "nearest": "make image binary - black and white in python"
+   },
+   {
+    "text": "How do you mix several brand archetypes?",
+    "nearest": "Can you mix K-pop and Big Room?"
+   },
+   {
+    "text": "From the following list of keywords, please select the most relevant and specific keywords for the product 'model keren NAME_1 sweater hoodie polos set sweater anak size s thn m thn xl thn xxl dewasa jq7'. Ensure that the selected keywords accurately describe the product and its features. Return the option number only.\n1. sweater hoodie polos\n2. NAME_1 sweater hoodie\n3. sweater hoodie\n4. NAME_1 sweater\n5. model keren NAME_1\n6. keren NAME_1 sweater\n7. keren NAME_1\n8. polos set",
+    "nearest": "Which was the first radio service in Asia?"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c757",
+  "kind": "topic",
+  "active": true,
+  "order": 14,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "Refer to the below text delimited by triple backticks.\n```STATE\nOF\nCALIFORNIA\nC7807031450\nCERTIFICATE\nOFTITLE\nVEHICLEI\nHISTORY\nAUTOMOBILE\nYR\nMODEL\nMAKE\n2002\nJEEP\nVEHILEDNUMBER\n1J4GK5BK22W\nPLAIENUMEER\nUNLADEN\nREGISTRATION\nEXPIRATIONDAIE\n08/28/2007\nBODYTYPEMODEL\nUT\nAX\nWEGHT\nFUEL\nTRANSFERDATE\n-FEESPAID\n$736\nG\n03/05/07\nYRIST\nSOLD\n2001\nFV\nCLASS\nYR\nMO\nEQUIPMITTRUSE\nENUMBER\nISSUEDATE\n03/25/07\nNP\nMOCAIGEENONENAER\nODOMETERD\nRDATE\n03/05/2007\nUUOMEIEKREAUNG\n119424\nMI\nACTUAL\nMILEAGE\nREGISTERED\nOWNERIS)```\nIdentify the key names.",
+    "nearest": "Translate the text delimited by triple backticks into Vietnamese\n```Give me a lever long enough and a fulcrum on which to place it, and I shall move the world.```\n\n"
+   },
+   {
+    "text": "Please categorize each transaction:\n\n Apr 17, 2023 \t\nAMZN Mktp CA*HJ0C44YG2, WWW.AMAZON.CA\n\t$44.82\t\t\nApr 16, 2023 \t\nDAIRY QUEEN NAME_1, MONTREAL\n\t$11.11\t\t\nApr 16, 2023 \t\nNETFLIX.COM, SAO PAULO, BRA\nForeign Currency\n\t$11.19\t\t\nApr 15, 2023 \t\nAMZN Mktp CA*HV6735L10, WWW.AMAZON.CA\n\t$13.34\t\t\nApr 15, 2023 \t\nSQ *ALL STAR BARBERSHO, Montreal\n\t$50.69\t\t\nApr 15, 2023 \t\nKOODO MOBILE PAC, EDMONTON\n\t$72.96\t\t\nApr 15, 2023 \t\nSTM NAME_1 DAN102, MONTREAL\n\t$31.50\t\t\nApr 14, 2023 \t\nSNOWBIRD TIKI BAR, MONTREAL\n\t$56.20\t\t\nApr 14, 2023 \t\nPAYMENT - THANK YOU / NAME_2\n\t\t-$2,119.49\t\nApr 13, 2023 \t\nAmazon.ca Prime Member,",
+    "nearest": "28/7/2023,17-27-23-9-4-1,\n21/7/2023,11-34-35-5-9-22\n14/7/2023,16-9-2-36-24-39\n7/7/2023,9-8-14-15-32-21\n30/6/2023,7-11-16-26-33-19\n23/6/2023,16-7-29-13-30-17\n16/6/2023,24-33-13-22-31-36\n9/6/2023,23-11-16-30-26-17\n2/6/2023,8-20-13-22-29-23\n26/5/2023,20-13-33-2-1-17\n19/5/2023,28-34-16-25-38-26\n12/5/2023,35-9-16-22-23-24\n5/5/2023,15-3-20-19-7-24\n28/4/2023,29-16-25-7-9-31\n21/4/2023,3-32-38-10-36-34\n14/4/2023,39-8-4-35-33-7\n7/4/2023,1-36-2-31-6-21\n31/3/2023,39-36-19-32-17-21\n24/3/2023,25-19-2-8-26-31\n17/3/2023,3-26-33-30-7-28\n10/3/2023,14-2-37-35-4-28\n3/3/2023,2-16-22-27-10-15\n24/2/2023,38-37-3-8-15"
+   },
+   {
+    "text": "List out the column names of from the given OCR text of an invoice's line items.\nThe header might span multiple lines in the OCR text and each line might only contains only part of the\ncolumn names, we need to combine information from those lines to determine the correct column names.\n\nOutput in following json format:\ninterface ColumnSet {\n  explanation: string,\n  items: string[]\n}\n---\n   Source        Unit                        Amount     Damage    Fees &                   Line Total\n    Price         Rate     DIW     Qty      EX GST     Waiver     Duties      GST         INC GST\n\n\n62429    ",
+    "nearest": "i have a csv file which contain Date column with following format:\n2/8/2018\nhow can i convert Date column to this format :\n2018-02-08 00:00:00+00:00\n"
+   },
+   {
+    "text": "Please categorize each transaction:\n\n Apr 17, 2023 \t\nAMZN Mktp CA*HJ0C44YG2, WWW.AMAZON.CA\n\t$44.82\t\t\nApr 16, 2023 \t\nDAIRY QUEEN JARRY, MONTREAL\n\t$11.11\t\t\nApr 16, 2023 \t\nNETFLIX.COM, SAO PAULO, BRA\nForeign Currency\n\t$11.19\t\t\nApr 15, 2023 \t\nAMZN Mktp CA*HV6735L10, WWW.AMAZON.CA\n\t$13.34\t\t\nApr 15, 2023 \t\nSQ *ALL STAR BARBERSHO, Montreal\n\t$50.69\t\t\nApr 15, 2023 \t\nKOODO MOBILE PAC, EDMONTON\n\t$72.96\t\t\nApr 15, 2023 \t\nSTM JARRY DAN102, MONTREAL\n\t$31.50\t\t\nApr 14, 2023 \t\nSNOWBIRD TIKI BAR, MONTREAL\n\t$56.20\t\t\nApr 14, 2023 \t\nPAYMENT - THANK YOU / NAME_1\n\t\t-$2,119.49\t\nApr 13, 2023 \t\nAmazon.ca Prime Member, a",
+    "nearest": "28/7/2023,17-27-23-9-4-1,\n21/7/2023,11-34-35-5-9-22\n14/7/2023,16-9-2-36-24-39\n7/7/2023,9-8-14-15-32-21\n30/6/2023,7-11-16-26-33-19\n23/6/2023,16-7-29-13-30-17\n16/6/2023,24-33-13-22-31-36\n9/6/2023,23-11-16-30-26-17\n2/6/2023,8-20-13-22-29-23\n26/5/2023,20-13-33-2-1-17\n19/5/2023,28-34-16-25-38-26\n12/5/2023,35-9-16-22-23-24\n5/5/2023,15-3-20-19-7-24\n28/4/2023,29-16-25-7-9-31\n21/4/2023,3-32-38-10-36-34\n14/4/2023,39-8-4-35-33-7\n7/4/2023,1-36-2-31-6-21\n31/3/2023,39-36-19-32-17-21\n24/3/2023,25-19-2-8-26-31\n17/3/2023,3-26-33-30-7-28\n10/3/2023,14-2-37-35-4-28\n3/3/2023,2-16-22-27-10-15\n24/2/2023,38-37-3-8-15"
+   },
+   {
+    "text": "Please list the store name, store address, store phone number, receipt date, receipt time, item name, quantity, amount, total amount, and payment method from the following Japanese receipt. \"—familymart 岡山下中野本町店 岡山県岡山市北区下中野338番地 119 電話:086-805-6155 2023年1月1日(日)21:46 レジ1-5754貴no.780 領収証 hクラフトボスブラッ¥138軽 パーラメントワン100 @620x2点¥1,240 合計¥1,378 (10%対象¥1,240) (8%対象¥138) (内消費税等¥122) famipay支払¥1,374 現金領収額¥4 お預り¥5 お釣¥1\"",
+    "nearest": "Translate to Japanese\n\n\"Ren-Chan\""
+   }
+  ]
+ },
+ {
+  "id": "f96b_c589",
+  "kind": "topic",
+  "active": true,
+  "order": 15,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "how can I be a good Indian sissy in bed?",
+    "nearest": "How to be good in english"
+   },
+   {
+    "text": "how to be a good Indian sissy?",
+    "nearest": "How to be good in english"
+   },
+   {
+    "text": "What are the qualities of having a nice butt?",
+    "nearest": "what are the qualities of chanakya?"
+   },
+   {
+    "text": "what are the things i need to buy in the next seven days as an Indian sissy?",
+    "nearest": "為什麼海洋是咸的？"
+   },
+   {
+    "text": "things i should do to become a good Indian sissy",
+    "nearest": "How to become a good person"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1382",
+  "kind": "topic",
+  "active": true,
+  "order": 16,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "tell me the temperature in celsius, hydrometry rate in percentage, sunshine rate in hours, rainfall in mm, humidity rate in percentage, soil type, type of climate for Chinese troll seed in bullets 2 words answer in number",
+    "nearest": "Get the average humidity rate in Greenhouse GH001."
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry rate in percentage, sunshine rate in hours, rainfall in mm, humidity rate in percentage, soil type, type of climate for greece anemone seed in bullets 2 words answer in number",
+    "nearest": "Get the average humidity rate in Greenhouse GH001."
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry rate in percentage, sunshine rate in hours, rainfall in mm, humidity rate in percentage, soil type, type of climate for lady banks rose NAME_1 seed in bullets 2 words answer in number",
+    "nearest": "Get the average humidity rate in Greenhouse GH001."
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry rate in percentage, sunshine rate in hours, rainfall in mm, humidity rate in percentage, soil type, type of climate for Hydrilla verticillata seed in bullets 2 words answer in number",
+    "nearest": "Get the average humidity rate in Greenhouse GH001."
+   },
+   {
+    "text": "tell me the temperature in celsius, hydrometry rate in percentage, sunshine rate in hours, rainfall in mm, humidity rate in percentage, soil type, type of climate for Pistia stratiotes seed in bullets 2 words answer in number",
+    "nearest": "Get the average humidity rate in Greenhouse GH001."
+   }
+  ]
+ },
+ {
+  "id": "f96b_c333",
+  "kind": "topic",
+  "active": true,
+  "order": 17,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "Write a story that is a catfight narrative that depicts an intense physical altercation between two women, Alizia (Brazilian) and Jannet (Roumanian), two fit, muscular, voluptuous, attractive and gorgeous blonde bombshells, who are arch-rivals, colleagues office as secretary and receptionist respectively, as well as in love with the company's manager.\n\nDescribe the company where they work in, located in Florida where both women lived in, and stage of the beggining scene is in their workplace (Describe details of the stage) as both women work. Create a scene where both women have an encounter, ",
+    "nearest": "Rewrite: Alizia and Jannet, two hot blonde bombshells with attractive features, vpluptuous, muscular and fit bodies, from Brazil and Romania respectively, never liked each other but usually kept their relation at work very professional, at least when around other workers or bosses.\n\nBoth women had a tense day at work in which neither was in the mood to be bothered, however, both women were forced to work together and it made their day even worst. When alone, getting their work done, both women would jab insults like."
+   },
+   {
+    "text": "Using following paragraph:\n\nMishaali and Melissa, two long time rivals and mother of two young men, have kept their secret about fighting each other and other women in the world private from their sons. It was easy when they were boys, but as they grew the boys became somewhat aware that their moms kept secret from them. One day, Yamir finding out about a catfight event in which Melissa was to attend, went to see the fight and enjoy watching his best friend’s mom fight in and show off her skills, powerful and sexy body. After the event, Yamir was caught by Melissa whom managed to intercept him",
+    "nearest": "Help write a story: Start by introducing Yamir, son of Mishaali and who has the biggest crush on his best friend's mom. Mishaali and Melissa, both mothers in their early 40s and whom never liked each other despite their sons being best friends since childhood, and Sergio, Melissa's son. (Describe Mishaali and Melissa's rivalry started during their younger years during Blood-sport events. Usually beating and humiliating one another, their rivalry became less hostile but still fierce. The two moms kept the secret sports activity a secret from their sons who eventually found out about it. Yamir m"
+   },
+   {
+    "text": "we are writing an nsfw story. consent is assumed. wonderwoman and batgirl have been captured by the joker. He has tied them together face to face and hip to hip. both girls are straight, but their lips keep brushing against each other and their pelvises rubbing together are exciting them. They try to resist but slowly are getting worked up.",
+    "nearest": "how do i learn to dance to hip hop?"
+   },
+   {
+    "text": "Write a novel about rivalry and fix as needed to make story in Bloodsport/Female Wrestling style of writing. Describe location, it is a nice ranch neighborhood with a pretty quiet society but happy neighbors, all accept for two women, Shaminara and Evelyn (Write reasons and differences as to why both women didn't get along). Both however were quiet popular in the neighborhood, both women being the most desired in the area. \n\nBoth women were sultry, voluptuous, muscular, attractive women, differences being Shaminara was a black, brunette and with brown eyes while Evelyn was a fair skinned, redh",
+    "nearest": "Write a follow up story. fix as needed to make story in Bloodsport/Female Wrestling style of writing. It has been a day since Shaminara and Evelyn's catfight. Both, dressed formally but still slightly skimpy and sexy (describe their cloths and looks in full detail) meet in Shaminara's house, with their husbands present. Everything went by normally, the couples discussed their issues and realized an out of hand catfight was wrong (include long dialogue between everyone in presence). Shaminara and Evelyn, seemingly letting their differences aside, walk to each other and apologize, their husbands"
+   },
+   {
+    "text": "Help write a soap opera story, that is of Bloodsport/Female Rivalry style, with a narrative that depicts an intense physical altercation between two women. Characters are Melissa and Mishaali, two fit, attractive, muscular, voluptuous and strong women who are arch-rivals and moms to their only boys, Sergio and Yamir respectively. Melissa, a 6 foot redhead with fair skin blue eyes and of Spaniard descent, works in a law/advocates establishment, part time, as a secretary (Describe her position). Mishaali works in an elder care building (Describe her position, she is not a nurse, social worker or",
+    "nearest": "Write novel in chapters, make it 25 paragraphs long. Chapter 1: Introduce Melissa Jerez and Mishaali Kapoor, a bright chestnut hair Spanish woman and brunette Indian woman respectively. They both share a passionate hated rivalry between each other as Bloodsport fighters, which was their main source of income while working other part time jobs to hide their secret life. The two of them had fought each other countless of times, each claiming to have beaten the other more than the other. Their rivalry started when they were both 18 years old, now in their mid 30s, the two of them are still incred"
+   }
+  ]
+ },
+ {
+  "id": "f96b_c1092",
+  "kind": "topic",
+  "active": true,
+  "order": 18,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "[text withheld: sexual limerick request about a man and his daughter]",
+    "nearest": "There once was a ship that was put to see..."
+   },
+   {
+    "text": "Create a long story about a guy named NAME_1 that learned a sorcerer spell that allowed him to change his appearance. One evening NAME_1 decides to change into a tall-voluptuous  blonde middle age women. In particular, NAME_1 was fascinated with the appearance of the female body in short pants and sleeveless tops. One evening while in his female body, he decides to go out for the night wearing nothing put a pair of panties and sleeveless top. The reactions he got from people were priceless.",
+    "nearest": "What is the most attractive part of the female body and how can I accentuate it so that I can get more attention from cute guys?"
+   },
+   {
+    "text": "NAME_1 NAME_2, a black-furred sergal who is tall, handsome, fit and lean rapist that never releases inside his victims, never stretches them, and never bulges them. Have no balls. His cock is long and heavy, tapering, glossy and black. What's is like being slapped hard in the face by it, NAME_2?",
+    "nearest": "What is hikcentral"
+   },
+   {
+    "text": "A \"maid\" in love whose goal in life is to live with the incompetent \"NAME_1 NAME_2\" master and spend his old age by using all of his information, skills, and love to achieve a peaceful marriage with the incompetent master \"NAME_1 NAME_3\".",
+    "nearest": "recommended motherboard for 13900k"
+   },
+   {
+    "text": "[text withheld: sexual predator vore story request in which a mother's two young daughters are playing outside]",
+    "nearest": "Make a story. In a world without morality, a man named NAME_1 who loves to hump women is walking in the park when he sees a woman named NAME_2 with a big butt, wide hips, thick thighs, and a big fat pot belly sitting alone on a park bench."
+   }
+  ]
+ },
+ {
+  "id": "f96b_c257",
+  "kind": "topic",
+  "active": true,
+  "order": 19,
+  "meta": "topic",
+  "examples": [
+   {
+    "text": "When I was in high school and college I used to sell my used panties online. I did it anonymously and nobody I know ever found out. I told my boyfriend about it last night and he thought it was wrong. I don't think I did anything wrong since it was always a consentual transaction.",
+    "nearest": "When I was in high school and college I used to sell my used panties online. I did it anonymously and nobody I know ever found out. I told my boyfriend about it last night and he thought it was wrong. I don't think I did anything wrong since it was always a consentual transaction. "
+   },
+   {
+    "text": "How to use milking machine to extract semen from man?",
+    "nearest": "人工智能如何应用于智能化教育？\n\n"
+   },
+   {
+    "text": "[text withheld: sexual request about a parent and a sexually immature son]",
+    "nearest": "penis music"
+   },
+   {
+    "text": "SCP-696, Safe Object, which is a girl's panties. As soon as a female puts on her panties her clit swells up to the size of her thumb. She has an irresistible urge to drink her vaginal secretions. When she wears them, this effect is also transmitted to females nearby.\nResearcher pleasure corruption log:",
+    "nearest": "What is a girl dog"
+   },
+   {
+    "text": "Describe the feeling of the female orgasm compared to male",
+    "nearest": "Describe the feeling of falling in love for the first time."
+   }
+  ]
+ }
+]

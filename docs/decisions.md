@@ -3881,19 +3881,6 @@ exp93's chosen setting (kNN k 50, layer 20, mean pooling) is also reported fixed
 **MiniLM is reported but not in the bar.** The topics are k-means clusters in MiniLM space, so a removed topic is
 far from the reference in MiniLM space by construction.
 
-**Bar.** Primary metric: topic-level test AUROC of removed against kept topics, main arm. Per seed (0, 1, 2), a paired
-bootstrap over test topics (10,000 resamples) gives a 95% interval for Olmo minus tf-idf. "Beats words" if the
-interval is above 0 in all three seeds. "Loses to words" if below 0 in all three. Otherwise tie. Reported, no bar:
-prompt-level AUROC, the Dolci arm, MiniLM, the share of held-out kept prompts with a near-copy in the reference
-(tf-idf cosine above 0.9).
-
-**Prediction.** Lower than exp93 for everything. Olmo topic AUROC near 0.85, tf-idf near 0.80, a tie or a narrow
-Olmo lead. MiniLM highest (above 0.9) by construction. The Dolci arm drops all methods by 0.05 to 0.15. The fake
-removal sits at 0.5.
-
-**Discard.** If Olmo ties or loses to tf-idf here, exp93's lead came from source templates, and the activation
-detector does not find missing traffic topics better than words.
-
 **Output.** `results/raw/261028_exp94_topic_removal_v1/decision.json` and `scores.jsonl`. Activations are kept in
 memory, not saved.
 
@@ -3912,14 +3899,869 @@ the grouping.
 removed; each group (not topic) goes to val or test; the paired bootstrap resamples groups, not topics. Same 30
 prompts per topic (seed 0 draw), same arms (main, Dolci, fake), same methods and selection, split seeds 0, 1, 2.
 
-**Bar.** As exp94: topic-level test AUROC, main arm, Olmo minus tf-idf, 95% interval from 10,000 group-level paired
-resamples per seed. "Beats words" if above 0 in all three seeds, "loses to words" if below 0 in all three, else tie.
-Sanity: fake removal in 0.45 to 0.55 for every method.
-
-**Prediction.** Every method rises over exp94: Olmo and tf-idf to about 0.75 to 0.85, MiniLM above 0.9. Olmo against
-tf-idf a tie again, since exp94 showed no Olmo edge at the topic level.
-
-**Discard.** If every non-MiniLM method stays below 0.70, removal of traffic areas is not detectable from the
-reference alone at this scale, and the source-level result (exp93) is the only setting where the detector works.
-
 **Output.** `results/raw/261028_exp95_group_removal_v1/decision.json`, `scores.jsonl`, `groups.json`.
+
+## 29-10-2026 — exp96: rank real traffic topics against Dolci alone, and with Stefan's differential score
+
+Written before any exp96 code or number exists. exp93 tested the training-only detector on left-out Dolci sources;
+this run uses it on real user traffic. Scoring traffic by distance to Dolci alone may put style differences (casual
+chat against synthetic instructions) at the top. Stefan's differential score subtracts the distance to pretraining
+text, so a prompt far from Dolci but close to ordinary web text ranks lower.
+
+**Data.** exp95's sample, unchanged: 30 traffic prompts for each of exp37's 2,000 topics (60,000 prompts, seed 0
+draw). Dolci reference: the first 3,000 Dolci rows of exp95's prompts.jsonl (already a random draw from exp37's
+Dolci mix). Dolma reference: all 3,000 passages of data/processed/exp01/dolma.jsonl. Both references are 3,000 so the
+two distances are on equal footing (chosen by the user).
+
+**Scores, all fixed in advance, no selection on labels.** Per prompt:
+- one-sided Olmo: cosine distance to the 10th nearest Dolci prompt, Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean
+  over content tokens, features divided by the per-dimension std of Dolci and Dolma together;
+- differential Olmo: the same distance to Dolci minus the same distance to Dolma;
+- one-sided and differential tf-idf: the same two scores in tf-idf space, vectoriser fitted on Dolci and Dolma together;
+- length (log token count) and random.
+Topic score = median over its 30 prompts.
+
+**Answer key (chosen by the user).** The user's 117 labelled topics (exp41, exp43, exp61 second round, exp75; merged as
+in exp83): real gap (46) against covered (34); partly and incoherent left out. These topics all came from the top
+of exp37's count ranking, so the test is whether a score orders real above covered among topics that already look
+like gaps, not whether it finds gaps across all traffic.
+
+**Metric.** Topic-level AUROC, real against covered. 95% intervals from 10,000 paired bootstrap resamples of
+labelled topics; three named comparisons, each reported with a Bonferroni 98.3% interval:
+1. Olmo differential minus tf-idf differential (does Olmo beat words);
+2. Olmo differential minus Olmo one-sided (does the differential help);
+3. Olmo differential minus length.
+
+**Raw read.** The top 20 of all 2,000 topics under each of the four Olmo and tf-idf scores, with one example prompt,
+median length, share non-English (langdetect) and the user's label where one exists, written to top20.json and
+read by eye for style junk.
+
+**Sanity.** 60,000 + 6,000 rows scored, no missing; the Dolma passages are long documents truncated at 512 tokens
+while traffic prompts are short, so length's AUROC is reported beside every score. One data seed (0), no reruns.
+
+**Output.** `results/raw/261029_exp96_traffic_ranking_v1/decision.json`, `topic_scores.jsonl`, `top20.json`.
+
+## 29-10-2026 — exp97: exp96's scores on exp95's removed groups
+
+Written before any exp97 code or number exists. Asked by the user (relayed by ood-9b): the exp96 label screens showed
+each prompt's MiniLM nearest Dolci prompt, so plain MiniLM distance's 0.93 against those labels is circular. exp95's
+answer key comes from the split instead. exp95's topics and groups were also built in MiniLM space, so MiniLM keeps a
+head start here; the blind round (tf-idf screens) is the other check.
+
+**Data and split.** exp95 unchanged: its 80,000 prompts (prompts.jsonl), 100 groups, split seeds 0, 1, 2, arms main
+(reference = 20 prompts of each kept topic) and dolci (plus 20,000 Dolci prompts). Dolma: the 3,000 passages of
+data/processed/exp01/dolma.jsonl.
+
+**Scores, all fixed in advance, no selection.** Per held-out prompt, against the arm's reference:
+- (a) Olmo differential: Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean over content tokens, one std scaling from
+  reference and Dolma together; cosine distance to the 10th nearest reference prompt minus to the 10th nearest Dolma
+  passage. Also reported at k 1, since exp94/95's reviewers found k 10 too deep for 20 reference prompts per topic.
+- (b) plain distance: 1 minus the MiniLM cosine to the nearest reference prompt.
+- Olmo one-sided at k 10 and k 1, for comparison.
+- (d) the near-copy filter at 50% only: a topic whose held-out prompts have a MiniLM cosine of 0.95 or more to the
+  reference in at least half the cases goes to the bottom; applied to (a).
+- length (raw log token count) and random.
+Topic score = median. (c) holds by construction: every score uses the same reference.
+
+**Reported.** Topic-level AUROC removed against kept, val and test, per seed and arm; paired group bootstrap (10,000) of
+(a) minus (b) and of filtered (a) minus (b) on test. No bar: the user judges the numbers.
+
+**Output.** `results/raw/261029_exp97_split_scores_v1/decision.json`, `scores.jsonl`.
+
+## 29-10-2026 — exp98: Stefan's differential detectors on cleaned traffic
+
+Written before any exp98 score exists (the cleaning step, results/raw/261029_exp98_clean_v1, is done: 19,983 of
+exp96's 60,000 sampled traffic prompts are word-for-word or near copies of a Dolci mix prompt, MiniLM cosine at least
+0.95, and are dropped; 40,017 remain). Which training-only detector should rank traffic topics in step 1 of the loop?
+
+**Data.** The 40,017 cleaned prompts over exp37's 2,000 topics. References as exp96: the first 3,000 Dolci prompts of
+exp95's prompts.jsonl and the 3,000 Dolma passages of data/processed/exp01/dolma.jsonl. A topic with fewer than 5
+cleaned prompts is scored as covered (bottom of every ranking).
+
+**Models.** Post-trained Olmo-3-7B-Instruct-DPO b33130b7 and pretrained Olmo-3-1025-7B a81bae42; layer 20, mean over
+content tokens. The post-trained model reads prompts in its chat template (exp96's recipe); the base model has no chat
+template and reads raw text.
+
+**Scores per prompt, all fixed in advance, higher means more of a gap:**
+1. dknn_post: cosine distance to the 10th nearest Dolci minus to the 10th nearest Dolma, post-trained activations, one
+   std scaling from both references (exp96's score, recomputed on cleaned prompts).
+2. dknn_base: the same in the base model's activations.
+3. dknn_mixed: distance to Dolci in post-trained activations minus distance to Dolma in base activations, each first
+   standardised by the mean and std of the reference's own leave-one-out 10th-nearest distances.
+4. logprob_diff: mean token log-probability of the raw prompt under the base model minus under the post-trained model
+   (same token ids for both); a prompt post-training did not make more likely scores high.
+5. probe: logistic regression (standardised features, C 1) trained on post-trained activations of Dolma (1) against
+   Dolci (0), all 6,000 reference rows; score = probability of Dolma.
+6. one-sided: distance to Dolci in post-trained activations alone.
+7. length (log token count) and random.
+Topic score = median over cleaned prompts.
+
+**Answer keys.** The user's 117 earlier labels (real 46, covered 34) and all labels (adding exp96's 25 and the blind
+20); partly and incoherent left out. Caveat fixed now: the cleaning uses the same MiniLM nearest prompt the earlier label
+screens showed, so labels and cleaning are not independent.
+
+**Reported.** AUROC real against covered per score and key; paired bootstrap (10,000) of each score minus dknn_post. No
+bar: the user judges the numbers. One run, seed 0.
+
+**Output.** `results/raw/261029_exp98_detectors_v1/decision.json`, `topic_scores.jsonl`, `prompt_scores.jsonl`.
+
+## 29-10-2026 — exp99: one combined training-only score (Olmo, MiniLM, words) with a large Dolci reference
+
+Written before any exp99 number exists. Run once as proposed; nothing is tuned; the user chooses the score afterwards and
+leans towards the best prompt-level score.
+
+**References (training data only).** Olmo: 200,000 prompts drawn at random (seed 0) from exp37's 1.7M Dolci mix, plus
+the 3,000 Dolma passages for the differential. MiniLM and words: the whole Dolci mix. Every mix prompt whose normalised
+text matches a key prompt below is removed from all references first.
+
+**Views, each a distance to the training data:** MiniLM (1 minus cosine to the nearest mix prompt); words (hashed
+uni- and bigram tf-idf, NAME_k stripped, cosine distance to the nearest mix prompt); Olmo-3-7B-Instruct-DPO b33130b7
+layer 20 mean pooling, k 10, one-sided and differential (minus distance to Dolma).
+
+**Length matching and the combined score.** Each view is turned into a percentile within its decile of log token count
+(deciles over all scored prompts). Combined = mean of the length-matched MiniLM, words and Olmo differential
+percentiles, equal weights.
+
+**Answer keys, prompt level first.** A: the user's labelled topics (all 162 labels, partly and incoherent left out); each
+cleaned exp98 prompt takes its topic's label; also topic medians. B: exp01's 500 legal and 500 medical prompts (gap)
+against exp01's 1,000 held-out Dolci-DPO idmix prompts (covered). Key A carries the MiniLM screen bias; key B uses no
+MiniLM.
+
+**Reported.** AUROC per score and key, raw and length-matched; length and random. No bar.
+
+**Output.** `results/raw/261029_exp99_combined_v1/decision.json`, `prompt_scores.jsonl`.
+
+## 29-10-2026 — exp101: SAE reconstruction error (FVU) with a public pretraining SAE
+
+Written before any exp101 number exists. Our own SAEs (exp67) were too small to test FVU. Decode Research's public
+Matryoshka BatchTopK SAE for Olmo-3-1025-7B (layer 16 output, 65,536 latents, JumpReLU, 1B Pile tokens; repo
+decoderesearch/olmo-3-saes, olmo-3-1025-7b/btk-mat-layer-16-k-100) makes the plain FVU test possible.
+
+**Score.** Base model Olmo-3-1025-7B a81bae42, raw text with an end-of-text token prepended (the SAE's training
+separator), at most 512 tokens; per-token FVU = squared reconstruction error over squared distance from the batch
+mean (exp67's definition); prompt score = mean over tokens after the first. Higher FVU means less like the SAE's
+pretraining data. Also reported length-matched (percentile within log-length decile).
+
+**Keys.** exp99's: A, the user's labelled topics on exp98's cleaned prompts (prompt and topic level); B, exp01 legal
+and medical against the held-out Dolci idmix. Sanity: mean FVU on the 3,000 Dolma passages should be below the mean on
+3,000 Dolci prompts if the SAE reads pretraining text best.
+
+**Caveat fixed now.** This is a pretraining SAE, so FVU measures distance from pretraining text, not from
+post-training data; Delta-FVU would need a second SAE trained on post-training data, which is not done here.
+
+**Output.** `results/raw/261029_exp101_fvu_v1/decision.json`, `prompt_scores.jsonl`. No bar.
+
+**exp99 amendment (29-10-2026, before any exp99 number exists; asked by the user).** The same method is also scored on
+two removal keys, each with its own training reference instead of the 200k Dolci sample: S, exp93's whole-source removal
+(12 Dolci sources plus the fake fold, split seeds 0 to 2, reference = the kept sources' reference part); G, exp95's
+topic-group removal (main arm, split seeds 0 to 2, reference = 20 prompts of each kept topic). In each fold every view is
+the distance to that fold's reference (MiniLM nearest cosine, hashed tf-idf nearest cosine with idf fitted on the fold's
+reference, Olmo layer 20 k 10 differential against the same 3,000 Dolma passages), length matching is over the fold's
+evaluated prompts, and the combined score is the same equal-weight average. Reported: test AUROC, prompt level (and topic
+level for G), mean over folds and seeds, and for S also the mean over the 5 distinct sources. Output:
+`results/raw/261029_exp99_removal_v1/decision.json`.
+
+## 29-10-2026 — exp102: negatives for the training-only detectors (Stefan's must-not-flag test)
+
+Written before any exp102 number exists. Stefan asked that every gap detector be shown prompts it must not flag, plotted
+as a ROC curve against prompts it must flag, with random as the diagonal; negatives may come from datasets Olmo never
+saw, after checking they are not near-copies of Dolci. The summary the user pasted mentions 23 unseen datasets; none
+exists in this repo, so the negatives are exp55's five sets.
+
+**Prompts.** Negatives (unseen, of kinds Dolci covers): Magicoder code (data/processed/exp08/magicoder.jsonl), Bactrian-X
+multilingual (exp08/bactrian.jsonl), Hermes tool use (exp13/tool_alone.jsonl), XSTest v2 prompts, GSM8K maths (exp27,
+family maths); every negative prompt that is an exact or near copy of a Dolci mix prompt (normalised match, or MiniLM
+cosine at least 0.95) is dropped and the share reported. Positives: exp06's 300 legal and 300 medical questions. Line
+set: 5,000 cleaned traffic prompts drawn at random (seed 0) from exp98's clean_prompts.jsonl. Held-out Dolci: exp95's
+Dolci prompts 3,000 to 4,000.
+
+**Detectors, fixed as already run, no tuning.** Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean pooling, references
+exp95's first 3,000 Dolci prompts and the 3,000 exp01 Dolma passages: Delta-Mahalanobis (Ledoit-Wolf, full rank, Dolci
+distance minus Dolma distance), Delta-kNN (k 10), one-sided kNN (k 10); MiniLM distance and tf-idf distance to the whole
+Dolci mix (exp99's definitions); combined = length-matched average of MiniLM, tf-idf and Delta-kNN (this version uses the
+3,000-prompt Olmo reference, not exp99's 200,000).
+
+**Reported.** ROC and AUROC of positives against negatives per detector, random as the diagonal; the line = 95th
+percentile of each detector's score on the traffic sample, and the share of each set above it; AUROC of each negative set
+against held-out Dolci. No bar.
+
+**Output.** `results/raw/261029_exp102_negatives_v1/decision.json`, `scores.jsonl`, `figures/roc_negatives.png`.
+
+**exp102 amendment (29-10-2026, before any exp102 number exists; asked by the user): a matched version runs beside the
+original.** The original compares legal/medical (prose) with five negatives that are mostly not prose, so a detector that
+only favours prose can win. The matched version scores the same unseen prompts twice, against a reference that covers
+their kind and against one with that kind's Dolci sources removed; label 1 = scored with the kind removed. Reference =
+exp93's 36,000 source-labelled Dolci prompts, split seed 0 reference part (2,000 per source). Kinds and removed sources:
+code (Magicoder) — Dolci Instruct Python Algorithms, Evol CodeAlpaca; maths (GSM8K) — Tulu 3 Persona MATH, Tulu 3 Persona
+GSM, OpenMathInstruct 2; multilingual (Bactrian-X) — Aya; safety (XSTest) — WildGuardMix, WildJailbreak. Tool use has no
+matching source and is left out. Detectors as in the original, each against the matched reference (MiniLM and tf-idf
+distances to the reference prompts; Olmo against the reference and the same Dolma); combined = mean of the three views'
+percentiles within the kind's pooled scores. Reported: AUROC removed against covered per kind and detector, and a ROC
+figure. Output in the same run directory (`decision.json` key `matched`, `figures/roc_matched.png`).
+
+## exp103 — precision at the top for three training-only scores (29-10-2026, before any exp103 number exists)
+
+**Question.** Of the 20 traffic topics each score ranks highest, how many are real gaps? Asked by the user after exp99 to exp102.
+
+**Scores, fixed as already run, no tuning.** One-sided kNN (Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean pooling,
+k 10, distance to exp95's first 3,000 Dolci prompts), Delta-Mahalanobis (same activations, Ledoit-Wolf full rank, Dolci
+distance minus distance to the 3,000 exp01 Dolma passages; exp100's definition), MiniLM distance to the full Dolci mix
+(1 minus exp96's nearest cosine). Prompt scores come from exp98's 40,017 cleaned traffic prompts; a topic's score is the
+median over its cleaned prompts; topics with fewer than 5 cleaned prompts are covered and not ranked.
+
+**Labels.** All the user's labels merged as in exp100. Unlabelled topics in any of the three top 20s go into one blind
+round on the label page (prompts beside the tf-idf nearest Dolci prompt, which none of the three scores uses; order
+shuffled, no score shown), labelled with the exp41 counting rule.
+
+**Reported.** For each score: the top 20 topics, label counts, and precision = real gaps over labelled topics in its top
+20, plus overlap between the three lists. No bar; the user judges.
+
+**Output.** `results/raw/261029_exp103_precision_top_v1/decision.json`, `topic_scores.jsonl`, `key.json`; items in
+`data/processed/human_labels_exp103/items.json`.
+
+## exp104 — two-sided detectors with Olmo 3's own pretraining mix as the reference (29-10-2026, before any exp104 number exists)
+
+**Question.** Stefan's two-sided detectors subtract the distance to the model's pretraining data, so "far from post-training,
+close to pretraining" reads as a post-training gap. Our reference so far is 3,000 Dolma v1.6 passages from non-code shards
+(exp01), which is neither Olmo 3's pretraining data nor contains code or maths. Does swapping in a sample of Olmo 3's own
+pretraining mix change Delta-Mahalanobis and Delta-kNN on the tests where they failed (source removal, covered kinds) and on
+the user's labels? Asked by the user after exp103.
+
+**Reference.** `allenai/dolma3_mix-150B-1025` (the public 150B-token sample of Olmo 3's pretraining mix: web 73%, science
+PDFs 21%, Stack-Edu code 4%, FineMath 1%, arXiv, Wikipedia, by compressed bytes). 60 shard files drawn with probability
+proportional to file size (seed 0), 50 documents of at least 200 characters from each, 3,000 in all, so the sample follows
+the mix's byte shares. The mix has almost no non-English text, so multilingual prompts stay far from both references.
+
+**Detectors, fixed as already run, no tuning.** Olmo-3-7B-Instruct-DPO b33130b7, layer 20, content-token mean, chat
+template on every text (as in exp100 and exp102); Delta-Mahalanobis (Ledoit-Wolf full rank) and Delta-kNN (k 10), each with
+the old Dolma v1.6 reference and with the new one, beside one-sided Mahalanobis and kNN.
+
+**Tests.** (1) The user's labels at topic level as in exp100 (117 earlier and all labels; AUROC raw and with prompt length
+removed) and at prompt level. (2) exp93 whole-source removal, 12 sources plus the fake fold, 3 split seeds, test-part AUROC.
+(3) exp102's must-not-flag and matched-removal tests, rerun unchanged except for `--dolma_path`. No bar; the user judges.
+
+**Output.** `results/raw/261029_exp104_dolma3_ref_v1/decision.json`; `results/raw/261029_exp104_negatives_dolma3_v1/`
+(exp102 rerun); reference in `data/processed/exp104/dolma3.jsonl`.
+
+## exp105 — two-sided detectors across layers and settings (29-10-2026, before any exp105 number exists)
+
+**Question.** Stefan's notes suggest Mahalanobis and kNN "at various layers and with various parameters". exp93 already did
+this for the one-sided detectors (layers 0 to 32, three poolings, kNN k 1/10/50, Mahalanobis; best layer 20 mean-pooled kNN
+k 50, test 0.876). Which layer and setting is best for the two-sided detectors, with either pretraining reference? The user
+chose two-sided only, both references.
+
+**Cells.** Olmo-3-7B-Instruct-DPO b33130b7, content-token mean pooling, layers 8, 12, 16, 20, 24, 28; references Dolma v1.6
+(exp01, 3,000) and the Olmo 3 pretraining sample (exp104, 3,000); settings Delta-Mahalanobis (Ledoit-Wolf full rank, exp100's
+definition) and Delta-kNN with k 1, 10, 50 (exp100's definition, each distance on reference-std-scaled features). 6 x 2 x 4 =
+48 cells.
+
+**Tests.** (1) exp93 whole-source removal, 12 sources plus the fake fold, split seeds 0 to 2. The cell is chosen on mean
+validation AUROC over the real folds; its test AUROC, per-fold test AUROC and fake-fold AUROC are reported, beside exp93's
+one-sided best (0.876). (2) exp102's covered-requests test: legal and medical against the five unseen covered kinds, with
+exp102's near-copy rows dropped, Dolci reference = exp95's first 3,000; AUROC for every cell and for the chosen cell. No bar;
+the user judges.
+
+**Output.** `results/raw/261029_exp105_two_sided_layers_v1/decision.json`, `cells.jsonl`, `fold_scores.jsonl`.
+
+**exp105 amendment (29-10-2026, after exp104's results, before any exp105 number; the first exp105 full run was stopped
+unread at the user's request).** exp104's references were not length-matched: the Olmo 3 sample's documents have a median of
+4,557 characters, so almost all hit the 512-token cut, against prompts of about 150 tokens; Stefan's notes use a "matched"
+Dolma reference (each document cut to a token length drawn from the ID prompts' lengths). exp105 now runs four references:
+Dolma v1.6 and the Olmo 3 sample, each full (512-token cut) and matched (cut to a length drawn from the 3,000 Dolci
+reference prompts' token lengths, seed 0). The Olmo 3 sample keeps its real-mix shares (user's choice). 6 layers x 4
+references x 4 settings = 96 cells; everything else unchanged.
+
+## exp106 — exp102's matched kind-removal test with the exp105-chosen settings (29-10-2026, before any exp106 number exists)
+
+**Question.** exp102's matched test (the same unseen code, maths, multilingual and safety prompts scored against exp93's
+seed-0 reference with and without that kind's Dolci sources) used k 10 and an unmatched Dolma reference. How do the two
+finalists do at their chosen settings? Asked by the user after exp105.
+
+**Detectors.** Layer 20, mean pooling: Delta-kNN k 50 against length-matched Dolma v1.6 (exp105's chosen cell, cut exactly
+as in exp105, seed 0) and one-sided kNN k 50 (exp93's chosen cell); exp100/exp105 distance definitions. Prompts, near-copy
+drops, kinds and removed sources exactly as in exp102. Reported: AUROC removed against covered per kind. No bar.
+
+**Output.** `results/raw/261029_exp106_matched_best_v1/decision.json`.
+
+## exp107 — Neel's removal test on real traffic with the two finalist detectors (29-10-2026, before any exp107 number exists)
+
+**Question.** Remove one kind of data from Dolci; rank real traffic topics against what is left using training data only.
+Do the top-ranked topics become that kind, compared with removing the same number of rows at random? Neel's key experiment;
+the user chose both finalists and four kinds (code, maths, multilingual, safety).
+
+**Reference.** 200,000 prompts drawn at random (seed 0) from the 1.7M Dolci mix. Removal masks as already built: safety
+(exp80), coding and multilingual (exp84), maths (exp87): a mix row is removed if its text appears only in that kind's SFT
+sources and DPO families. For each kind: arm "removed" (sample minus the kind's rows) and arm "random" (sample minus the same
+number of other rows, drawn with exp80's random_removal_keep, seed 0); plus arm "full" (the whole sample).
+
+**Traffic.** exp98's 40,017 cleaned prompts; topics with at least 5 cleaned prompts; topic score = median prompt score.
+Topic kinds = the existing LLM topic labels (exp84 coding, non-English; exp80 harmful or jailbreak; exp87 maths, whose grader
+gate F1 was only 0.74, so the maths rows carry that caveat).
+
+**Detectors, fixed, no tuning.** Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean pooling: one-sided kNN k 50 to the arm's
+reference (exp93's cell); Delta-kNN k 50 = that minus kNN k 50 to the length-matched Dolma v1.6 reference (exp105's cell, cut
+as in exp105).
+
+**Reported, per kind and detector.** (1) Share of the kind among the top 20, 50 and 100 topics in removed, random and full
+arms. (2) AUROC over topics of the kind's topics against all others, scoring each topic by its rise in score from full to
+the arm; removed against random, random as the control that should sit near 0.5. No bar; the user judges.
+
+**Output.** `results/raw/261029_exp107_traffic_removal_v1/decision.json`, `topic_scores.jsonl`.
+
+## exp108 — the known-gap loop on exp107's removal arms (29-10-2026, before any exp108 number exists)
+
+**Question.** In exp107 the removed kind rose but never reached the top 20, which stayed held by gaps present in every arm.
+If each round's top 20 topics are treated as found (their cleaned prompts added to the training reference) and traffic is
+re-ranked, does the removed kind surface within 10 rounds, more than after a size-matched random removal? This is Neel's
+"does the loop propose the removed data" and Stefan's known-OOD step. Asked by the user.
+
+**Setup.** Exactly exp107's: 200,000-prompt Dolci sample (seed 0), arms full, kind removed and size-matched random for
+coding, maths, multilingual and safety; exp98's cleaned traffic in 1,903 topics; topic kinds from the exp80/84/87 LLM labels;
+one-sided kNN and Delta-kNN at layer 20, k 50, length-matched Dolma v1.6. Each round: rank the not-yet-found topics by
+median prompt score, take the top 20, add all their cleaned prompts to the arm's reference, recompute. 10 rounds, 200
+topics found per arm.
+
+**Reported, per kind, detector and arm.** Found topics of the kind per round and in total after 10 rounds, the round of the
+first one, and the expected count under random picking (base rate x 200). No bar; the user judges.
+
+**Output.** `results/raw/261029_exp108_known_gap_loop_v1/decision.json`, `rounds.jsonl`.
+
+**exp108 amendment (29-10-2026, before any exp108 number; the first full run was stopped unread at the user's request after
+a review of exp107).** (1) The random control is drawn uniformly from all 200,000 sampled rows (same count as the kind
+removal), not only from rows the kind removal keeps, which tilted exp107's control. (2) The kNN distance to the Dolci side
+uses one fixed scaling, the full sample's per-dimension std, in every arm and round, so removing or adding rows does not
+change the metric. Dolma side unchanged. Report the removed arm against the full arm and the new random arm.
+
+## exp109 — more neighbours for both finalists (29-10-2026, before any exp109 number exists)
+
+**Question.** Both finalists were best at k 50, the largest k tried (exp93, exp105). Does k 100 or 200 do better? Asked by
+the user; both finalists, same cost.
+
+**Setup.** Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean pooling; one-sided kNN and Delta-kNN (length-matched Dolma v1.6,
+cut as in exp105) at k 50, 100, 200, with exp105's distance definitions. Tests: (1) exp93 whole-source removal, 12 sources plus
+the fake fold, split seeds 0 to 2, k chosen per detector on mean validation AUROC, test AUROC reported; (2) exp106's matched
+kind-removal test (code, maths, multilingual, safety). k 50 reproduces exp93/exp105/exp106 as a check. No bar.
+
+**Output.** `results/raw/261029_exp109_k_sweep_v1/decision.json`, `fold_scores.jsonl`.
+
+## exp110 — kind labels for the chat rows of exp107's Dolci sample (29-10-2026, before any exp110 number exists)
+
+**Question.** Removing Dolci's synthetic code and maths sources did not open a gap in traffic (exp107 review), likely because
+Dolci's real-chat rows (WildChat 302,406, OpenAssistant 7,132; SFT domain "Chat") still hold code and maths requests. Which of
+those rows in the 200,000 sample are code, maths or non-English? Asked by the user, chat rows only (~36,000).
+
+**Method.** Chat rows = sample rows whose normalised text appears in the SFT "Chat" domain and in no kind's removal mask.
+Graders unchanged and already validated on Dolci's own source labels: exp84's set (coding F1 0.92, non-English 0.97) and
+exp87's set (maths F1 0.74), google/gemini-3.8-flash via OpenRouter, first 1,000 characters, cached; failed calls recorded
+as null and counted. No new gate. A follow-up removal run (code or maths = synthetic sources plus graded chat rows) is
+planned separately and needs the user's go.
+
+**Output.** `data/processed/exp110/chat_kinds.jsonl` (mix index, coding, non_english, math), `results/raw/261029_exp110_chat_kinds_v1/decision.json`.
+
+## exp111 — exp108's known-gap loop with the graded chat rows also removed (29-10-2026, before any exp111 number exists)
+
+**Question.** With code, maths and non-English chat rows (exp110) removed alongside the synthetic sources, does the removed
+kind now surface in the loop's top topics more than under a size-matched random removal? Asked by the user after exp110.
+
+**Setup.** exp108 unchanged except: each kind's removal mask = its exp84/exp87 source mask OR the exp110 chat label (coding →
+coding, multilingual → non_english, maths → math; null labels kept in); safety mask unchanged; k 100 (the agreed setting)
+instead of 50. Same 200k sample (seed 0), same traffic, same random control (uniform over all rows, size-matched), same fixed
+std, layer 20, 10 rounds × top 20, both detectors. Features reused from exp108's cache. No bar; the user judges.
+
+**Output.** `results/raw/261029_exp111_chat_removal_loop_v1/decision.json`, `rounds.jsonl`.
+
+## exp112 — the gap list on real traffic with the final detector (29-10-2026, before any exp112 number exists)
+
+**Question.** Which real-traffic topics are furthest from the training data under the final detector? Asked by the user;
+the 200k sample instead of the full mix chosen by the user (full mix would take ~8.5 hours of GPU).
+
+**Setup.** Delta-kNN, Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean pooling, k 100: distance to the 100th-nearest of exp107's
+200k Dolci sample (seed 0, scaled by the sample's per-dimension std, as in exp108/exp111) minus distance to the 100th-nearest
+length-matched Dolma v1.6 text. Traffic: exp98 clean prompts, topics with ≥5 prompts (39,835 prompts, 1,903 topics). Topic score
+= median prompt score. Features reused from exp108's cache. Check: the top 20 must equal exp111's full-arm round 0. No bar.
+
+**Output.** `results/raw/261029_exp112_gap_list_v1/topics.jsonl` (ranked topics), `prompt_scores.jsonl`, `decision.json`.
+
+## exp113 — does Olmo answer worse on the top Delta-kNN gap topics? (29-10-2026, before any exp113 number exists)
+
+**Question.** Neel's and Stefan's question: on the topics the final detector ranks furthest from training (exp112), does
+Olmo-3-7B-Instruct-DPO fail requests more often than on ordinary traffic topics? Measure chosen by the user: a written
+yes/no rubric applied by an LLM judge, checked on ~20 of the user's labels.
+
+**Pool.** Gap arm: exp112's top 50 topics. Control arm: 50 topics drawn at random (seed 0) from ranks 201 to 1,903. 5 prompts
+per topic drawn at random (seed 0) from prompts that fit the rollout budget (≤ 6,144 prompt tokens); excluded prompts counted.
+
+**Replies.** One Olmo reply per prompt, `run_rollouts` with the model's own sampling (temperature 0.6, top-p 0.95, 2,048 new
+tokens), revision b33130b7; truncated replies counted per arm.
+
+**Judge.** google/gemini-3.8-flash via OpenRouter (a different provider from the generator), blind to arm, one call per
+reply, four binary questions: refused, follows the instructions and requested format, correct (no errors that matter,
+including claims a pasted document does not support), complete. A reply fails if it refused or any of the other three is
+"no". Failed calls are null and counted.
+
+**Check.** 20 replies (10 per arm, random, seed 0), shuffled, no arm shown, on the label page (kind `quality`, ids `f113q_`):
+the user answers pass/fail by the same rubric. Agreement written into the results file.
+
+**Reported.** Fail rate per arm and gap minus control with a 95% CI from resampling topics (10,000, seed 0); each rubric
+question's rate per arm; reply length and truncation per arm; null counts; row count against 500. No bar; the user judges.
+
+**Output.** `data/processed/exp113/pool.jsonl`, `results/raw/261029_exp113_rollouts_v1/rollouts.jsonl`,
+`results/raw/261029_exp113_judge_v1/decision.json`, items in `data/processed/human_labels_exp113/items.json`.
+
+## exp114 — what kinds of gap the pipeline finds, and does the labeller's framing hide some (29-10-2026, before any exp114 number exists)
+
+**Question.** Callum's feedback: the topic grouping and its labeller decide what a gap can be. (0) Why did the old removal
+table (exp91, neighbour count) give more new coding and maths gaps after a random removal than after the real one, and is the
+traffic single-turn? (1) What kinds of request are the Delta-kNN gaps, beyond their subject? (2) Does the current
+confirmation labeller (exp88's prompt, primed for topic, language or format) miss non-subject kinds an open labeller names?
+Asked by the user; steps 0-2 of the plan in chat, with the user's picks: exp112 top 100 plus exp111's Delta-kNN removal topics,
+old slide table for step 0.
+
+**Step 0, reading files only.** Traffic and Dolci loaders: which user turn is kept. exp91's random-removal new gaps (coding,
+maths): for each, its count, the gap line and its rank in the full arm and the random arm, from exp84/exp87 `topics.jsonl`;
+and how many coding and maths topics the full arm's loop reviewed (exp88/exp91 summaries).
+
+**Step 1-2 topics.** Set A: exp112's top 100. Set B: for each of exp111's eight Delta-kNN removal arms (coding, maths,
+multilingual, safety; removed and random), the topics in its 200 found that the full arm's 200 do not contain (103 topics in
+all). Reference set R: 100 topics drawn at random (seed 0) from exp112's other topics, so kind rates in A and B have a
+baseline. Each topic: up to 10 prompts drawn at random (seed 0) from its exp98 cleaned prompts, each shown up to 1,500
+characters with its full length stated.
+
+**Labellers.** anthropic/claude-sonnet-4.6 via OpenRouter (the loop's namer), one call per topic each, same 10 prompts:
+current, exp88's `CONFIRM_PROMPT` unchanged; open, "what do these messages have in common, along any dimension (subject,
+task, language, format or template, framing or tone, length, who is asking, what makes it hard)", naming the main shared
+property and its dimension; checklist, for 12 kinds the number of the 10 messages that have it: jailbreak or adversarial,
+roleplay or persona, placeholder names, pasted document to work on, fixed template, creative writing, factual question,
+rewrite or edit, code in the prompt, the hard or sensitive part left unstated, not English, several separate tasks. A topic
+has a kind if at least 6 of its prompts have it. Length is measured, not asked.
+
+**Step 2 measure.** A blind classifier call (same model, one call per label, labeller not shown) says whether each current and
+open label describes only subject matter or also something else (task type, format, language, framing, length, user). Report
+the share of non-subject labels per labeller on the same topics and the topics where only one labeller gives one.
+
+**Reported.** Per set: kind shares (Wilson 95% CIs), median prompt length, open-label dimensions, labeller comparison; null
+counts per call type; row count against topics x 3 calls. A 20-topic spot-check file for the user. No bar; the user judges.
+
+**Output.** `results/raw/261029_exp114_gap_kinds_v1/topics.jsonl`, `decision.json`, `spot_check.md`; step 0 in
+`results/raw/261029_exp114_old_random_gaps_v1/decision.json`.
+
+**exp114 amendment (29-10-2026, after the 6-topic smoke test, before any exp114 number).** The step-2 classifier asked
+whether a label is "only subject matter"; on the smoke test it called "Romantic advice toward girls" non-subject because it
+"implies male users". It now names the label's main dimension (subject, task, language, format, framing, length, user,
+difficulty, other), and a label counts as non-subject when that dimension is not subject. Same call for both labellers.
+
+## exp114 — exp113 with every prompt of the same topics (30-10-2026, before any exp114 number exists)
+
+**Question.** exp113's gap-minus-control fail rate (+0.086, CI -0.022 to 0.193) came from 5 prompts per topic. Does using
+every prompt of the same 50 gap and 50 control topics narrow the interval? Asked by the user.
+
+**Setup.** exp113 unchanged except 5 prompts per topic becomes all prompts that fit the budget (topics hold 5 to 30). Same
+topics, same Olmo sampling (per-prompt seeds, so exp113's 500 replies recur), same judge, rubric and topic bootstrap. The CI
+still resamples topics, so it narrows only as far as within-topic noise was the limit. No new hand labels: exp113's spot
+check applies to the same judge. No bar; the user judges.
+
+**Output.** `data/processed/exp114/pool.jsonl`, `results/raw/261030_exp114_rollouts_v1/rollouts.jsonl`,
+`results/raw/261030_exp114_judge_v1/decision.json`.
+
+## exp115 — a gap line from Dolci's own scores, swept, with confirmation and behaviour (30-10-2026, before any exp115 number exists)
+
+**Question.** Asked by the user: draw the gap line from training's own Delta-kNN scores instead of a fixed top N, sweep the
+percentile, and run the loop's confirmation and behaviour steps on what each line flags.
+
+**Line.** 10,000 Dolci prompts drawn (seed 1) from mix rows outside exp107's 200k reference sample are scored exactly like
+traffic (exp112: layer 20, Delta-kNN k 100 against the 200k sample with its std, minus the length-matched Dolma term). A traffic
+topic is flagged at percentile q if its median score exceeds the q-quantile of these held-out prompt scores; q in {0.90, 0.95,
+0.99, 0.999}. Single-prompt quantiles, not quantiles of random-group medians: a real training topic's prompts are correlated,
+so its median spreads like a single prompt, and random groups would make the line too low. Reported: topics flagged per q.
+
+**Confirmation.** exp88's question (src/metrics/confirmation.py), anthropic/claude-sonnet-4.6 via OpenRouter, up to 25 of the
+topic's prompts (seed 0); confirmed if the shared-topic, not-English or same-format count reaches half the prompts shown,
+rounded up (13 of 25, exp88's cut). Run on every topic flagged at the loosest q.
+
+**Behaviour.** exp113's design: 5 prompts per topic, one Olmo reply each, exp113's rubric judge (gemini-3.8-flash, blind to arm).
+Gap arm: every topic flagged at q 0.90. Control: 50 topics drawn (seed 0) from topics not flagged at q 0.90. For each q, fail
+rate of flagged topics, of flagged-and-confirmed topics, and of control, with gap minus control and a 95% topic-bootstrap CI
+(10,000). Null counts, row counts and five raw replies per arm. No bar; the user judges.
+
+**Output.** `results/raw/261030_exp115_gap_line_v1/` (line.json, topic_flags.jsonl, confirm.jsonl, decision.json),
+behaviour pool `data/processed/exp115/pool.jsonl`, replies `results/raw/261030_exp115_rollouts_v1/`, judge `results/raw/261030_exp115_judge_v1/`.
+
+## exp116-exp118 — Callum's plan steps 3-5: groups by kind of prompt, grouping by the detector, and a kind-removal test (30-10-2026, before any exp116-exp118 number exists)
+
+Asked by the user ("just do steps 3-5"), the plan pasted in chat. Numbered exp116-exp118 because another session's runs use
+exp114 and exp115. Detector throughout: exp112's Delta-kNN (layer 20, k 100, exp107's 200k Dolci sample with its std, minus
+the length-matched Dolma term), reusing the cached features in `/dev/shm/exp108_feats.npy`. Gap line: exp115's cuts on
+held-out Dolci prompt scores, q 0.90 / 0.95 / 0.99 (-0.1785 / -0.1321 / -0.0713). No bar; the user judges.
+
+**Kind tags (step 3, exp116).** Per prompt, not per topic, so exp114's 6-of-10 rule (which missed a kind on 9 of 20
+hand-checked topics) does not apply. Rules: long (at least 2,000 characters), placeholder (NAME_1-style or [NAME]-style
+names), template (the first 40 lowercased, whitespace-collapsed characters shared by at least 5 prompts of the same pool).
+LLM grader google/gemini-3.8-flash via OpenRouter, one call per prompt, up to 1,500 characters shown with the full length
+stated, yes/no for exp114's other kinds: jailbreak, roleplay, pasted_document, creative, factual, rewrite, code,
+unstated_issue, not_english, multi_task. Tagged: all 39,835 cleaned traffic prompts (exp112's set) and all 200k rows of the
+detector's Dolci sample, so the Dolci side is exactly the reference the detector uses. A failed grade is a null and counted.
+
+**Step 3 measures.** Per kind: share in traffic and in Dolci (the counting baseline); kind group median Delta-kNN, which line
+it crosses, and its rank among the 1,903 topic medians; how many topics its prompts span and what share sits in topics
+already flagged at q 0.90; within-topic effect, the mean over topics with at least 3 tagged and 3 untagged prompts of the
+tagged median minus the untagged median, with a 95% topic bootstrap CI (10,000, seed 0); and kind-within-topic subgroups
+(at least 5 prompts) that cross a line while their parent topic does not. A 20-prompt spot check of the grader for the user.
+
+**Step 4 (exp117).** The 2,000 highest-scoring traffic prompts, clustered with cosine k-means (k 40, k-means++ init, 10
+restarts, seed 0) on the same scaled layer-20 features the detector uses. Reference: the same clustering of 2,000 prompts
+drawn at random (seed 0). Per cluster: size, median Delta-kNN, line crossed, share from its largest topic and number of
+topics spanned, step-3 kind shares, and an open label (exp114's open prompt, anthropic/claude-sonnet-4.6, 10 random prompts,
+seed 0) with its dimension. Compared with the topics: how many clusters draw at least half their prompts from one topic.
+
+**Step 5 (exp118).** For each of the 13 kinds, remove every Dolci-sample row tagged with it (a null tag counts as the kind,
+as in exp111) and, separately, the same number of rows drawn at random (seed 0); rescore all traffic. Topic grouping: how
+many of the top 20 / 50 / 100 topics are kind-majority topics (at least half their prompts tagged), full against removed
+against random. Kind grouping: the removed kind group's median and its rank among all groups (1,903 topics plus 13 kind
+groups), full against removed against random. Lines stay at exp115's full-sample cuts, so a crossing is read as "moved past
+the full-data line", and ranks are the main read.
+
+**Output.** `results/raw/261030_exp116_kind_groups_v1/`, tags in `data/processed/exp116/`;
+`results/raw/261030_exp117_olmo_clusters_v1/`; `results/raw/261030_exp118_kind_removal_v1/`.
+
+**exp116 amendment (30-10-2026, after smoke tests only, before any exp116 number).** The grader is anthropic/claude-haiku-5.5
+via OpenRouter, not google/gemini-3.8-flash: OpenRouter caps gemini-3.8-flash at 300 requests a minute across all users
+(shared with exp115's judge), which puts 240k calls at about 13 hours. On the same 60 smoke prompts haiku-5.5 agreed with
+gemini on 26-30 of 30 per kind except factual and unstated_issue (fuzzy kinds); gpt-4o-mini was also tried and read "code" as
+"asks for code" and plain harmful requests as jailbreaks, so it was not used.
+
+## Behaviour far from training — does Olmo behave worse or more weirdly far from its post-training data? (30-10-2026, before any number from this run exists)
+
+Unnumbered at the user's request (another session's runs use exp116). Script `scripts/run_behaviour_far.py`.
+
+**Why.** exp113-exp115 used one strict absolute judge, two arms, one 50-topic control draw, uncontrolled task mix and a 2,048-token
+cap; the exp115 review showed the sign came from the control draw. Stefan's docs and the literature (agents' reports, 30-10) say
+off-distribution effects show up as safety, abstention, hallucination or reverting to pretraining habits more than as answer
+quality. The user asked for a fair test of both "worse" and "weird". No bar; the user judges.
+
+**Topics and prompts.** exp112's 1,903 topics in 10 deciles of median Delta-kNN score; 30 topics per decile at random (seed 0),
+300 topics. 5 prompts per topic at random among prompts that fit 4,096 prompt tokens, skipping a prompt whose first 120
+normalised characters match one already taken in the topic (templated copies count once). Predictor: the topic's Delta-kNN
+median, standardised; each prompt also keeps its own score.
+
+**Olmo replies.** Olmo-3-7B-Instruct-DPO b33130b7, 4 samples per prompt at its own sampling (temperature 0.6, top-p 0.95),
+4,096 new tokens, max_model_len 8,192. Sample 0 is the reply that gets judged.
+
+**Measures, "weird" (no judge).**
+1. Inconsistency: 1 minus the mean pairwise cosine of the 4 replies' layer-20 mean-pooled Instruct activations.
+2. Uncertainty: Instruct's mean token log-prob and mean entropy over sample 0's reply tokens.
+3. Drift toward base: mean per-token KL(Instruct || base) over sample 0's reply tokens, base Olmo-3-1025-7B a81bae42 (same
+   chat-token ids; verified). Lower KL means post-training changed less on this prompt.
+4. Odd flags on sample 0: hit the 4,096 cap; reply language differs from prompt language (langdetect, prompts of 20+ letters);
+   repetition (a line repeated 3+ times, or over 30% repeated word 4-grams).
+5. Refusal: exp49_v2 grader's refusal field (full or partial), google/gemini-3.8-flash.
+6. Checkable instructions (WildIFEval method): gemini-3.8-flash extracts from each prompt only constraints of fixed types
+   (output language, max or min words, JSON only, exact number of items, starts with, answer-only label); code checks them;
+   share of a prompt's constraints met, over prompts with at least one.
+
+**Measures, "worse" (difficulty cancelled).** anthropic/claude-sonnet-4.6 answers every prompt (no max tokens set). A jury of
+three non-Anthropic judges (google/gemini-3.8-flash, openai/gpt-4.1-mini, deepseek/deepseek-v4.1-flash) compares Olmo's
+sample 0 with the reference on 5 levels, both orders, blind to model; WildBench length rule: a "slightly better" verdict for a
+reply over 500 characters longer becomes a tie. Score per prompt in [-1, 1] (Olmo much better = 1), averaged over 6 calls.
+Failed calls are null and counted.
+
+**Task type.** gemini-3.8-flash labels each prompt with one of: coding, math, extraction or classification, summarisation,
+rewriting or translation, factual question, advice or explanation, creative or role-play, other. Plus non-English (langdetect).
+
+**Analysis.** For each measure, the slope on standardised topic score from least squares with task type, non-English and log
+prompt length as covariates, with a 95% CI from resampling topics (2,000, seed 0); plus far-third minus near-third within each
+task type, averaged over types with prompts in both thirds. Detector check: AUROC for "Olmo loses" (jury score below 0) from
+Delta-kNN, from Instruct mean log-prob, from prompt length, and from task type alone (5-fold logistic regression). 9 outcome
+measures, so slopes are also reported with a Bonferroni-adjusted CI (99.4%). Sanity: row counts, nulls, five raw examples per
+measure at both ends.
+
+**Human check.** 20 prompts where the three judges disagree most, shown pairwise and blind on the label page; the user picks
+the better reply or a tie; agreement with the jury written into the results.
+
+**Output.** `data/processed/behaviour_far/pool.jsonl`, `results/raw/261030_behaviour_far_rollouts_v1/`, `results/raw/261030_behaviour_far_v1/`
+(probe.jsonl, labels.jsonl, jury.jsonl, decision.json); API cache `cache/behaviour_far/`; label ids `qbf_`.
+
+## exp130 — gap list v2: fixed inputs, length-conditional scores, template collapsing, a size-matched line (30-10-2026, before any exp130 number exists)
+
+Asked by the user after four independent reviews of the pipeline (30-10-2026) found, on existing data: Delta-kNN rises with
+prompt length (Spearman +0.26 per prompt, +0.32 per topic; top-100 topics median 117 tokens against 22.5) while held-out Dolci
+falls with length; NAME_n (LMSYS anonymisation, 16% of traffic, 256 of 1.7M Dolci rows) adds about 0.06; single-user template
+batches fill some top topics; prompts over about 475 tokens lose the chat header (left truncation in encode_chat); exp115's line
+applies single-prompt quantiles to topic medians (random held-out groups of topic size cross q 0.90 0.03% of the time); top-100
+ranks move by about 28 topics under a within-topic bootstrap. Renumbered from exp116-exp118 because another session also uses
+exp116; the old steps 3-5 runs (exp117, exp118) are not run. exp116's kind tags (`data/processed/exp116/`) are kept as the tag
+source for later steps. This entry changes the inputs and the topic score, not the detector (Delta-kNN, layer 20, k 100, same
+200k Dolci sample, same 3k length-matched Dolma texts).
+
+**Inputs (step A).** Every pool re-encoded the same way: NAME_n replaced by a fixed common first name per index (NAME_1 James,
+NAME_2 Mary, ...), the user content cut to its first 512 tokens before the chat template is applied (no left truncation), then
+Olmo-3-7B-Instruct-DPO b33130b7 layer 20 content-mean features. Pools: the 39,835 exp112 traffic prompts, exp107's 200k Dolci
+sample, the 3k Dolma texts as built in exp111, and 30,000 held-out Dolci prompts drawn (seed 1) from mix rows outside the sample.
+
+**Scores (step B).** Prompt score: Delta-kNN as exp112. Length-conditional score: the share of held-out Dolci prompts in the same
+content-token length bin (1-16, 17-32, 33-64, 65-128, 129-256, 257+) scoring below it. Template collapsing: within a topic,
+prompts sharing their first 40 lowercased, whitespace-collapsed characters form one unit scored by their median. Topic score: the
+median over units of the length-conditional score. Line: held-out Dolci grouped into topic-like groups by cosine k-means on the
+detector's scaled features (1,500 groups, seed 0), units and medians computed the same way; a topic is flagged at q if its score
+exceeds the q-quantile of group scores for groups of similar size (unit count bins 1-5, 6-10, 11-20, 21+); q in 0.90, 0.95, 0.99.
+Also reported: the independent null (medians of random same-size held-out groups). Rank intervals: 1,000 bootstraps of units
+within topics, 5th-95th percentile rank.
+
+**Reported, v2 against v1.** Top-20/100 overlap; Spearman of topic score with median length, NAME share and template share;
+median length, NAME share and template share of the top 100; flagged counts under both nulls; the top 30 with rank intervals and
+examples. The swap's own effect (old features against NAME-swapped features, same everything else) is reported for NAME prompts.
+No bar; the user judges.
+
+**Output.** `results/raw/261030_exp130_gap_list_v2/`, features `/dev/shm/exp130_feats.npy`.
+
+**Behaviour-far-from-training amendment (30-10-2026, after the 50-prompt smoke test, before the full run).** The detector check scores single signals
+(Delta-kNN, negated mean log-prob, prompt length) by AUROC of the raw value, not by 5-fold logistic regression: on one weak
+feature, cross-validated logistic predictions can flip and gave AUROC 0.0 on the smoke set. Task type keeps 5-fold logistic
+regression. The base model loads from /dev/shm/hf (the home disk has 6.6 GB free).
+
+## exp131-exp133 — steps 3-5 redone on gap list v2 (30-10-2026, before any exp131-exp133 number exists)
+
+Replaces the exp117/exp118 designs (not run) after the reviews: big kind groups were ranked among small topics, the
+kind-within-topic count had no null, step 4 clustered only the top 2,000 prompts, step 5 used the removal tags to score itself,
+and the template rule used one absolute count across pools of different size. All three use exp130's features and scores
+(length-conditional percentile, template units) and exp116's kind tags. No bar; the user judges.
+
+**exp131, kinds (step 3).** Per kind: share in traffic and in Dolci (template in Dolci measured as the mean over 5 random
+39,835-row subsamples, so the count rule means the same in both pools; placeholder reported but read as an LMSYS source marker).
+Kind score: median over the kind's template units of the length-conditional percentile. Two size-fair reads: its percentile
+among 1,000 random traffic groups with the same number of units; and its rank among the 1,903 topics when cut to 21 units (the
+median topic size), median over 200 random cuts. Within-topic effect: mean over topics with 3 or more tagged and untagged units
+of tagged minus untagged median percentile, 95% topic bootstrap. Kind-within-topic cells (5 or more units) that cross exp130's
+line while their topic does not: observed count against the count when tags are shuffled within each topic (100 shuffles).
+
+**exp132, Olmo clusters (step 4).** All 39,835 traffic prompts clustered by cosine k-means on exp130's scaled layer-20 features
+into 1,903 clusters (as many as topics; 3 restarts, seed 0), each scored exactly like a topic (template units, median percentile,
+exp130's size-matched line). Compared with the topics: adjusted Rand and normalised mutual information; for the top 100 of each,
+median size, length, NAME share, template share, kind shares and how many of the top-100 clusters draw half or more of their
+prompts from one topic; overlap of the prompts in the top 100 clusters and the top 100 topics. The top 30 of each are labelled
+with exp114's open prompt (anthropic/claude-sonnet-4.6, 10 random prompts, seed 0) with their dimension.
+
+**exp133, kind removal (step 5).** For each kind with at least 500 tagged Dolci-sample rows, remove those rows (a null tag counts
+as the kind) and rescore traffic and held-out Dolci against what remains (percentiles recomputed against the rescored held-out).
+Controls: 10 random removals of the same size (seeds 0-9), and removal of the same number of rows taken from whole k-means
+clusters of the Dolci sample (k 200, clusters added in random order until the size is reached, seed 0). Reads: (1) specificity,
+a 13 by 13 table of the shift in each kind's median percentile after removing each kind, as a z-score against the 10 random
+removals; (2) grouping, for topics, exp132's clusters and kind groups scored the same way: the share of the removed kind's
+traffic prompts that sit in the top groups holding 5% of traffic prompts, over the same share in the full arm, against the
+random and cluster controls. Topics against clusters is the tag-free comparison; kind groups are the ceiling, since the removal
+used the same tags.
+
+**Output.** `results/raw/261030_exp131_kind_groups_v2/`, `results/raw/261030_exp132_olmo_clusters_v2/`,
+`results/raw/261030_exp133_kind_removal_v2/`.
+
+## exp134 — behaviour test redesigned: one specific failure per kind, matched controls, an in-distribution reference (30-10-2026, before any exp134 number exists)
+
+Asked by the user ("run D either way"), separate from the other session's behaviour_far run, with its own files. Built from a
+review of exp113/exp114-behaviour: gap and control arms differed in task mix (templates 40% against 4%, pasted documents 61%
+against 15%, not-English 5% against 22%, median prompt 890 against 108 characters); a reply cut at 2,048 tokens counted as a
+fail and cuts were mostly control; any refusal and any clarifying question counted as a fail; one absolute "any error" rubric
+mixed short-answer and open tasks. Literature and Stefan expect OOD-ness to predict specific failures, not general quality.
+
+**Prompts.** Gap: prompts in topics flagged at q 0.95 by exp130's size-matched line (top 60 topics by exp130 score if fewer
+than 60 are flagged). Six named metrics, each on its own kind: for each kind, up to 100 gap prompts of that kind (at most 5 per
+topic, seed 0). Matched control: for each gap prompt, one prompt of the same kind from topics not flagged at q 0.90, also
+matched on not-English and token-length bin (1-32, 33-256, 257+), drawn at random without replacement (seed 0); a gap prompt
+with no match is dropped and counted. In-distribution reference: 3,000 held-out Dolci prompts from exp130 (seed 0) tagged with
+exp116's grader (anthropic/claude-haiku-5.5) and rules, then matched the same way. Prompts longer than 6,144 tokens are left out.
+
+**Replies.** Olmo-3-7B-Instruct-DPO b33130b7 through scripts/run_rollouts.py, one reply per prompt, the model's own sampling
+(temperature 0.6, top-p 0.95), max_new_tokens 4,096. Replies that hit the cap are reported per arm and excluded from the metrics.
+
+**Metrics** (the six comparisons, Holm-corrected; the failure is the outcome, gap against matched control):
+1. not_english: reply language differs from prompt language (langdetect, no judge).
+2. placeholder: the reply mishandles NAME_n placeholders (judge).
+3. template: the reply breaks an output format the request specifies (judge; "no format specified" counts as not breaking).
+4. pasted_document: the reply states something the pasted text does not support (judge).
+5. factual: the reply contains a factual error (judge).
+6. all harmless prompts (exp80's request_harmful grader on the prompt says no): the reply refuses or declines; asking a
+   clarifying question is recorded separately and is not a refusal (judge).
+Judge google/gemini-3.8-flash via OpenRouter, blind to arm, one call per reply with yes/no questions. Per metric: gap rate,
+matched-control rate, reference rate, difference with a 95% bootstrap over gap topics (10,000, seed 0), p from the bootstrap,
+Holm across the six. Also the old exp113 rubric on the same replies, for comparison. Null counts, cap counts, row counts, five
+raw replies per arm and metric, and a 20-reply spot check for the user. No bar; the user judges.
+
+**Output.** `data/processed/exp134/pool.jsonl`, `results/raw/261030_exp134_rollouts_v1/`, `results/raw/261030_exp134_judge_v1/`.
+
+## Weird far tail — does Olmo act oddly on the prompts that sit furthest from its post-training data, compared with covered prompts? (30-10-2026, before any number from this run exists)
+
+Unnumbered at the user's request. Script `scripts/run_weird_tail.py`. Built from three reviews of the behaviour-far run: all its
+topics sat between held-out Dolci's 77th and 96th percentiles, topic medians hid the far prompts, there was no positive
+control, the per-token measures were means over whole replies that tracked reply length, and the repetition, language and
+constraint flags were broken. The user asks for "weird relative to covered", not worse. No bar; the user judges.
+
+**Detector.** Delta-kNN as finalised: layer 20, k 100, the 200k Dolci sample with its own std, the 3,000 Dolma rows, encoded
+as exp115 (encode_chat, 512 tokens, text cut at 8,000 characters). Lines from exp115's 10,000 held-out Dolci prompts:
+q75 -0.2791, q99 -0.0713, q99.9 -0.0291.
+
+**Placeholders.** In every traffic prompt, each distinct NAME_n is replaced by a different full name, a first and a last name
+recombined from a fixed list of 40 full names, drawn per prompt (seed 0; amended before any number existed, because one prompt
+has 67 placeholders). All traffic candidates are rescored after the swap, and arms use the new scores.
+
+**Arms** (one prompt per row; prompts of 4,096 rendered tokens or less; within an arm, a prompt whose first 120 normalised
+characters match one already taken is skipped; at most 5 per exp98 topic in traffic arms):
+1. Far: exp98 clean traffic prompts scoring above q99 after the swap; 400 at random (seed 0), or all if fewer.
+2. Covered traffic: traffic prompts scoring below q75 after the swap; one per far prompt, nearest in log character length,
+   greedy in random order without replacement (seed 0).
+3. Covered Dolci: exp115's 10,000 held-out Dolci prompts (full text), length-matched to far the same way.
+4. Positive control: 100 covered-traffic prompts at random (seed 0), each corrupted 4 ways: 15% of letters replaced by
+   random letters; words shuffled; the whole prompt as base64; 20 random Olmo-vocabulary tokens appended. Their Delta-kNN is
+   scored too.
+
+**Replies.** Olmo-3-7B-Instruct-DPO b33130b7 via scripts/run_rollouts.py, 4 samples per prompt, its own sampling (temperature
+0.6, top-p 0.95), max_new_tokens 2,048.
+
+**Measures** (per prompt, averaged over its 4 replies unless said):
+1. kl_mean: mean per-token KL(Instruct || base) over the first 128 reply tokens; base Olmo-3-1025-7B a81bae42, same chat
+   template.
+2. kl_max: largest per-token KL over the first 32 reply tokens.
+3. base_gap: mean of log p_base minus log p_Instruct of the reply's tokens over the first 128 (higher = the reply is closer to
+   what the base model would write).
+4. entropy: Instruct mean entropy over the first 128 reply tokens.
+5. low_prob_share: share of the first 128 reply tokens with Instruct probability below 0.05.
+6. length_cv: std over mean of the 4 reply lengths in tokens.
+7. hit_cap: share of the 4 replies that hit 2,048 tokens.
+8. odd_share: share of the 4 replies a judge flags as odd, averaged over two judges. A reply is odd if any of: does not address
+   the request; continues or imitates the user's text instead of answering; loops or repeats; wrong language for what the user
+   wrote or asked; claims an identity or persona nobody asked for; refuses or deflects a harmless request; garbled or
+   incoherent.
+9. contradiction: the judge says the 4 replies contradict each other on a fact, a final answer, or whether to help, averaged
+   over two judges.
+Judges google/gemini-3.8-flash and deepseek/deepseek-v4.1-flash via OpenRouter, one call per prompt showing the prompt and the
+4 replies, each cut at 6,000 characters with a marker saying the cut is ours; blind to arm. Task type labelled by
+gemini-3.8-flash with the behaviour-far task list.
+
+**Analysis.** Primary: far minus covered traffic and far minus covered Dolci for each of the 9 measures (18 tests); difference
+of means, 95% CI and p from a bootstrap over prompts within each arm (10,000, seed 0), Holm across the 18. Positive control:
+each corruption minus its own clean prompt, paired, same bootstrap, reported for each measure (shows which measures can move).
+Secondary: far minus covered traffic within task type (weighted by far counts); far above q99.9 against covered traffic; far
+prompts that had placeholders against those that did not. Sanity: row counts, nulls, judge failures, five raw replies per arm,
+length-matching quality, cut counts.
+
+**Human check.** 20 replies (5 per arm, positive control included, random, seed 0), blind, the user answers the odd question;
+agreement with each judge written into the results.
+
+**Output.** `data/processed/weird_tail/pool.jsonl`, `results/raw/261030_weird_tail_rollouts_v1/`, `results/raw/261030_weird_tail_v1/`
+(pool.json, probe.jsonl, judge.jsonl, per_prompt.jsonl, decision.json); API cache `cache/weird_tail/`; label ids `qwt_`.
+
+## exp135 — which grouping finds planted gaps best: topics against three alternatives, tag-free, with a word baseline (30-10-2026, before any exp135 number exists)
+
+Asked by the user: find a gap-finding grouping that beats subject topics, tested fairly. Lessons from the reviews of exp131-exp133:
+most kind effects were length, tiny clusters ranked high on noise, the removal test used the same tags as the kind groups and
+could not test common kinds, and there was no word baseline. No bar; the user judges.
+
+**Planted gaps (tag-free).** Remove from exp107's 200k Dolci sample: (A) the 31,383 chat rows (WildChat and OpenAssistant
+first turns, exp110's list), a real-world-like region; (B) 5 draws (seeds 0-4) of 5 whole k-means clusters each (cosine k-means,
+k 200, on the detector's scaled features). Controls: random removals of the same size as A (1 draw) and as each B draw (3 draws at
+the mean B size). Right answer for a planted removal: traffic prompts that lose at least half of their 100 nearest Dolci
+neighbours, defined twice, in the detector's Olmo space and in tf-idf space (word 1-2 grams, fitted on the full sample), so
+neither the Olmo-based nor the word-based grouping is favoured by the definition alone.
+
+**Groupings.** G1 subject topics (1,903). G2 Olmo clusters with a size floor: exp132's 1,903 clusters with every cluster under
+10 prompts merged into its nearest larger cluster by centroid. G3 topics split by primary kind (first of pasted_document,
+roleplay, code, not_english, jailbreak, creative that a prompt has, else other; parts under 5 prompts stay in "other"). G4
+topics split in two by 2-means in Olmo space when they have 20 or more prompts. Reference: single prompts, no grouping.
+
+**Scores.** Delta-kNN length-conditional percentile as exp130, rescored per arm against the remaining sample and held-out Dolci;
+and the word baseline, tf-idf distance to the 100th nearest remaining Dolci row. Group score: median over template units.
+
+**Reads.** For each planted removal, both answer definitions, both scores and every grouping: recall of the answer prompts in
+the top groups holding 1%, 5% and 10% of traffic prompts (groups taken in score order until the share is reached), in the
+removed arm, the full arm and the matched random arm; reported as removed minus full, with the random arm's change beside it.
+Mean and range over the 5 B draws. Group counts and size distributions reported. Then an independent review before reporting.
+
+**Output.** `results/raw/261030_exp135_grouping_test_v1/`.
+
+## Language weird — is Olmo's oddness on non-English prompts caused by the language, and does Delta-kNN see it? (30-10-2026, before any number from this run exists)
+
+Unnumbered at the user's request. Script `scripts/run_language_weird.py`. Follows the weird-far-tail run: judged oddness was 0.28
+on non-English covered traffic against 0.09 on English (both judges agree on direction: gemini 0.17 vs 0.03, deepseek 0.40 vs
+0.06), while Delta-kNN scores Portuguese and Russian traffic as more covered than English (medians -0.30 and -0.30 against
+-0.18) although they are 0.2% and 0.4% of a 20k Dolci sample against 91% English. Non-English traffic may differ in topic, so
+the test holds content fixed by translation. No bar; the user judges.
+
+**Languages.** pt, ru, es, it, fr, de, zh-cn, ja (the traffic languages with at least 150 prompts; langdetect, probability 0.9,
+on the first 2,000 characters without URLs or code blocks).
+
+**Prompts** (exp112 traffic, NAME_n swapped as in the weird-far-tail run, 20 to 2,000 characters, first 120 normalised
+characters unique, seed 0):
+1. Native: 50 prompts per language at random (400).
+2. Native to English: each native prompt translated into English.
+3. English: 50 English traffic prompts at random.
+4. English to language: each English prompt translated into each of the 8 languages (400).
+Translator anthropic/claude-sonnet-4.6: keep meaning, tone, format, errors, code, names and numbers; output only the
+translation. A prompt it does not translate is dropped with its pair and counted.
+
+**Replies and measures.** Olmo-3-7B-Instruct-DPO b33130b7, 4 samples per prompt, as the weird-far-tail run. Odd share with the
+weird-far-tail judge prompt and three judges, blind to version: google/gemini-3.8-flash, deepseek/deepseek-v4.1-flash and
+anthropic/claude-sonnet-4.6 (added as a stronger multilingual check on judge bias); per prompt the mean over judges. Also the
+weird-far-tail probe measures (kl_mean, kl_max, base_gap, entropy) and Delta-kNN of every version (exp112 scoring).
+
+**Analysis.** Pooled, paired over prompts: (a) native minus its English translation; (b) English translation into a language
+minus the English original; for odd share and Delta-kNN, 95% CI and p from a bootstrap over pairs (10,000, seed 0), Holm across
+these 4. Secondary: the same per language (Holm across 32), each judge separately, the probe measures, the 7 flag rates, and
+each language's Dolci share (langdetect on 20,000 random Dolci prompts, seed 0) beside its odd effect (8 points, described, not
+tested). Sanity: counts, dropped translations, judge failures, five raw replies per version, three-judge agreement.
+
+**Human check.** 20 replies to English prompts (10 originals, 10 translations from native), blind; the user answers the odd
+question; agreement with each judge.
+
+**Output.** `data/processed/language_weird/pool.jsonl`, `results/raw/261030_language_weird_rollouts_v1/`,
+`results/raw/261030_language_weird_v1/`; API cache `cache/language_weird/`; label ids `qlw_`.
+
+### exp135 amendment (30-10-2026): no length adjustment
+
+exp135 v1 gains were near zero. The length percentile was calibrated on held-out Dolci scored against the reduced reference, so held-out rows of the removed kind rise too and can cancel the gain. The gain (removed minus full) already cancels prompt length, so v2 (`results/raw/261030_exp135_grouping_test_v2`) ranks on the raw Delta-kNN score (`length_adjust=False`). Everything else is unchanged. This is the one fix-and-rerun; the user asked for it.
+
+### exp135 amendment 2 (30-10-2026): rank by score change
+
+The reviewer showed the length percentile was not the cause (recall 0.1409 vs 0.1425 with it held fixed), and that the detector does respond: on chat removal the per-prompt score change picks out the answer prompts with AUROC 0.957 (random removal 0.455). v1 ranked groups by the absolute score after removal, so pre-existing novel traffic stayed on top. v2 ranks groups by score change (removed minus full) and reports prompt-level AUROC plus precision and recall_of_max in the top 1/5/10% of traffic; the matched random removal gets the same treatment. The chat answer now uses lost share 0.8 (it was 55% of traffic at 0.5); cluster draws with under 100 answer prompts are skipped and listed. No length adjustment. The user approved this.
+
+**Language-weird amendment (30-10-2026, before the judges ran and before any number existed).** A code review of the weird-far-tail
+run found that replies stopped by the 2,048-token limit but shorter than 6,000 characters reached the judges cut mid-word with no
+cut marker, and judges flagged them as garbled far more often (deepseek odd 0.53 against 0.21 for marked cuts). Here every reply
+that hit the limit gets the "[cut by the experimenter]" marker. Hit-cap rates per version are reported beside odd share.
+
+## Base language — is Olmo's oddness in non-English already in the base model? (30-10-2026, before any number from this run exists)
+
+Unnumbered at the user's request. Scripts `scripts/run_base_language.py` and `scripts/run_raw_rollouts.py`. Follows the language-weird
+run: with content fixed, Olmo-Instruct is odd on 0.35-0.36 of non-English replies against 0.07-0.09 in English, and Delta-kNN
+scores the non-English versions as more covered. Question: does the same gap appear in the base model, before post-training?
+No bar; the user judges.
+
+**Prompts.** The language-weird pool unchanged (396 native with English translations, 50 English with 376 translations).
+
+**Base replies.** Olmo-3-1025-7B a81bae42 with an in-context alignment prompt (URIAL, Lin et al. 2023): a short preamble and 3
+fixed example queries with answers, then "# Query:" with the prompt and "# Answer:"; generation stops at the next "# Query:".
+The preamble and examples are written once in English and translated by anthropic/claude-sonnet-4.6 into each of the 8
+languages; a prompt gets the prefix in its own language. 4 samples per prompt, temperature 0.6, top-p 0.95, 2,048 new tokens,
+as for Instruct.
+
+**Measures.** Odd share with the same three judges and prompt as language-weird (cut replies marked), plus hit cap.
+
+**Analysis.** Paired over prompts: (a) base, native minus its English translation; (b) base, English translated minus English;
+(c) and (d) the difference of differences, base gap minus Instruct gap, for the same pairs. 95% CI and p from a bootstrap over
+pairs (10,000, seed 0), Holm across these 4. Secondary: each judge, each language, the garbled and continues-text flags, base
+absolute odd rates. Sanity: counts, judge failures, empty replies, five raw base replies per version, the 8 translated prefixes
+read before running.
+
+**Output.** `data/processed/base_language/` (prefixes.json, prompts.jsonl), `results/raw/261030_base_language_rollouts_v1/`,
+`results/raw/261030_base_language_v1/`.
+
+## exp136: flag single prompts first, then cluster them (30-10-2026)
+
+**Question.** Does flagging single traffic prompts by score change and then clustering only the flagged prompts recover planted gaps better than exp135's fixed groupings (topics, Olmo clusters, topic x kind, topic x Olmo split, single prompts)?
+**Design.** Same as exp135 v2 (same planted removals, controls, answers, Delta-kNN raw and tf-idf detectors, rank by score change, AUROC plus precision and recall_of_max at top 1/5/10%). New groupings `flag5_then_cluster` and `flag10_then_cluster`: take the top 5% or 10% of prompts by score change, spherical k-means on their Olmo layer-20 features with k = n_flagged / 20, merge clusters under 5 prompts into the nearest bigger one, all unflagged prompts in one bottom group. The random-removal control gets its own flag-then-cluster grouping from its own score change. The fixed groupings are recomputed in the same run so all rows are comparable.
+**Seed.** 0. One run, no extra seeds.
+**Comparisons.** flag5 and flag10 against topics and against Olmo clusters, on chat AUROC and mean cluster-draw AUROC, Olmo and tf-idf answer spaces, each next to its random-control AUROC. No threshold; the user judges.
+**Output.** `results/raw/261030_exp136_flag_then_group_v1`.
+
+## exp137: real traffic gap list, Olmo clusters against topics (30-10-2026)
+
+**Question.** On real traffic, ranked by raw Delta-kNN (no length adjustment), do Olmo clusters give a gap list with more groups over a size-matched line, fewer placeholder or template quirks at the top, and gaps that topics do not already show?
+**Design.** 39,835 exp112 traffic prompts, per-prompt raw Delta-kNN from exp130 (`delta_knn`). Groupings: exp132 Olmo clusters with clusters under 10 prompts merged into the nearest bigger one (as in exp135), and topics. Group score is the median over template units. Line: 95th and 99th percentile of 2,000 random traffic groups of the same size, per unit-count bin. Reported: groups and prompts over each line; quirk share (placeholder or template tag) in the top 20/50/100; kind shares in the top 50; overlap of top-50 prompts between the two lists. Spot check: the top 20 of each list shuffled together blind, 5 random examples each, for the user to label real gap / quirk / not a gap.
+**Seed.** 0. CPU only, no extra seeds.
+**Output.** `results/raw/261030_exp137_cluster_gap_list_v1`. No threshold; the user judges.

@@ -1,0 +1,322 @@
+[
+ {
+  "id": "s00",
+  "source": "topics",
+  "group": 1171,
+  "rank": 13,
+  "verdict": "real_gap",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s01",
+  "source": "olmo_clusters",
+  "group": 340,
+  "rank": 3,
+  "verdict": "real_gap",
+  "quirk_share": 0.3333
+ },
+ {
+  "id": "s02",
+  "source": "topics",
+  "group": 1400,
+  "rank": 11,
+  "verdict": "real_gap",
+  "quirk_share": 0.2308
+ },
+ {
+  "id": "s03",
+  "source": "olmo_clusters",
+  "group": 1381,
+  "rank": 5,
+  "verdict": "real_gap",
+  "quirk_share": 0.9062
+ },
+ {
+  "id": "s04",
+  "source": "olmo_clusters",
+  "group": 1244,
+  "rank": 14,
+  "verdict": "quirk",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s05",
+  "source": "olmo_clusters",
+  "group": 615,
+  "rank": 7,
+  "verdict": "real_gap",
+  "quirk_share": 0.2083
+ },
+ {
+  "id": "s06",
+  "source": "olmo_clusters",
+  "group": 1669,
+  "rank": 13,
+  "verdict": "real_gap",
+  "quirk_share": 0.6522
+ },
+ {
+  "id": "s07",
+  "source": "olmo_clusters",
+  "group": 1218,
+  "rank": 17,
+  "verdict": "real_gap",
+  "quirk_share": 0.8125
+ },
+ {
+  "id": "s08",
+  "source": "olmo_clusters",
+  "group": 1870,
+  "rank": 9,
+  "verdict": "real_gap",
+  "quirk_share": 0.9302
+ },
+ {
+  "id": "s09",
+  "source": "olmo_clusters",
+  "group": 214,
+  "rank": 10,
+  "verdict": "real_gap",
+  "quirk_share": 0.9333
+ },
+ {
+  "id": "s10",
+  "source": "topics",
+  "group": 343,
+  "rank": 6,
+  "verdict": "quirk",
+  "quirk_share": 0.6
+ },
+ {
+  "id": "s11",
+  "source": "olmo_clusters",
+  "group": 1895,
+  "rank": 6,
+  "verdict": "real_gap",
+  "quirk_share": 0.5
+ },
+ {
+  "id": "s12",
+  "source": "topics",
+  "group": 367,
+  "rank": 2,
+  "verdict": "quirk",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s13",
+  "source": "topics",
+  "group": 644,
+  "rank": 3,
+  "verdict": "real_gap",
+  "quirk_share": 0.9655
+ },
+ {
+  "id": "s14",
+  "source": "topics",
+  "group": 1945,
+  "rank": 17,
+  "verdict": "not_gap",
+  "quirk_share": 0.4348
+ },
+ {
+  "id": "s15",
+  "source": "topics",
+  "group": 1329,
+  "rank": 10,
+  "verdict": "real_gap",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s16",
+  "source": "olmo_clusters",
+  "group": 619,
+  "rank": 4,
+  "verdict": "quirk",
+  "quirk_share": 0.9706
+ },
+ {
+  "id": "s17",
+  "source": "olmo_clusters",
+  "group": 1653,
+  "rank": 20,
+  "verdict": "real_gap",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s18",
+  "source": "topics",
+  "group": 459,
+  "rank": 19,
+  "verdict": "quirk",
+  "quirk_share": 0.72
+ },
+ {
+  "id": "s19",
+  "source": "olmo_clusters",
+  "group": 1536,
+  "rank": 15,
+  "verdict": "real_gap",
+  "quirk_share": 0.4318
+ },
+ {
+  "id": "s20",
+  "source": "olmo_clusters",
+  "group": 774,
+  "rank": 18,
+  "verdict": "real_gap",
+  "quirk_share": 0.4211
+ },
+ {
+  "id": "s21",
+  "source": "topics",
+  "group": 1239,
+  "rank": 1,
+  "verdict": "not_gap",
+  "quirk_share": 0.16
+ },
+ {
+  "id": "s22",
+  "source": "olmo_clusters",
+  "group": 1431,
+  "rank": 11,
+  "verdict": "real_gap",
+  "quirk_share": 0.7222
+ },
+ {
+  "id": "s23",
+  "source": "topics",
+  "group": 1698,
+  "rank": 8,
+  "verdict": "not_gap",
+  "quirk_share": 0.65
+ },
+ {
+  "id": "s24",
+  "source": "olmo_clusters",
+  "group": 582,
+  "rank": 16,
+  "verdict": "real_gap",
+  "quirk_share": 0.3784
+ },
+ {
+  "id": "s25",
+  "source": "topics",
+  "group": 1866,
+  "rank": 4,
+  "verdict": "quirk",
+  "quirk_share": 0.9
+ },
+ {
+  "id": "s26",
+  "source": "topics",
+  "group": 1610,
+  "rank": 20,
+  "verdict": "real_gap",
+  "quirk_share": 0.2857
+ },
+ {
+  "id": "s27",
+  "source": "topics",
+  "group": 157,
+  "rank": 14,
+  "verdict": "real_gap",
+  "quirk_share": 0.9667
+ },
+ {
+  "id": "s28",
+  "source": "topics",
+  "group": 817,
+  "rank": 5,
+  "verdict": "real_gap",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s29",
+  "source": "topics",
+  "group": 1934,
+  "rank": 9,
+  "verdict": "real_gap",
+  "quirk_share": 0.9655
+ },
+ {
+  "id": "s30",
+  "source": "olmo_clusters",
+  "group": 791,
+  "rank": 1,
+  "verdict": "real_gap",
+  "quirk_share": 0.3333
+ },
+ {
+  "id": "s31",
+  "source": "olmo_clusters",
+  "group": 145,
+  "rank": 8,
+  "verdict": "real_gap",
+  "quirk_share": 0.5
+ },
+ {
+  "id": "s32",
+  "source": "olmo_clusters",
+  "group": 1194,
+  "rank": 12,
+  "verdict": "real_gap",
+  "quirk_share": 0.7222
+ },
+ {
+  "id": "s33",
+  "source": "olmo_clusters",
+  "group": 62,
+  "rank": 2,
+  "verdict": "real_gap",
+  "quirk_share": 0.4118
+ },
+ {
+  "id": "s34",
+  "source": "olmo_clusters",
+  "group": 959,
+  "rank": 19,
+  "verdict": "quirk",
+  "quirk_share": 0.5686
+ },
+ {
+  "id": "s35",
+  "source": "topics",
+  "group": 861,
+  "rank": 18,
+  "verdict": "real_gap",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s36",
+  "source": "topics",
+  "group": 265,
+  "rank": 16,
+  "verdict": "not_gap",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s37",
+  "source": "topics",
+  "group": 884,
+  "rank": 15,
+  "verdict": "quirk",
+  "quirk_share": 0.9667
+ },
+ {
+  "id": "s38",
+  "source": "topics",
+  "group": 827,
+  "rank": 12,
+  "verdict": "real_gap",
+  "quirk_share": 1.0
+ },
+ {
+  "id": "s39",
+  "source": "topics",
+  "group": 1825,
+  "rank": 7,
+  "verdict": "quirk",
+  "quirk_share": 0.4231
+ }
+]

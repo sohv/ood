@@ -1,0 +1,311 @@
+{
+  "summary": {
+    "n": 20,
+    "label": {
+      "yes": 18,
+      "partly": 2
+    },
+    "kinds": {
+      "missing": 9,
+      "yes": 11
+    },
+    "kinds_missing_by_set": {
+      "new|math|removed": 1,
+      "new|multilingual|random": 1,
+      "new|safety|random": 1,
+      "top100": 3,
+      "new|safety|removed": 1,
+      "new|multilingual|removed": 1,
+      "new|coding|removed": 2
+    },
+    "all_by_set": {
+      "new|math|removed": 2,
+      "new|coding|removed": 7,
+      "new|multilingual|random": 1,
+      "new|safety|random": 1,
+      "top100": 8,
+      "new|safety|removed": 1,
+      "new|multilingual|removed": 1
+    }
+  },
+  "rows": [
+    {
+      "id": "s114_c102",
+      "topic": "c102",
+      "sets": [
+        "new|math|removed"
+      ],
+      "open_name": "Counting people/animals with a twist",
+      "kinds_ticked": [],
+      "label": "yes",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c1154",
+      "topic": "c1154",
+      "sets": [
+        "new|coding|removed"
+      ],
+      "open_name": "Requests to improve or review existing code",
+      "kinds_ticked": [
+        "code"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c1415",
+      "topic": "c1415",
+      "sets": [
+        "new|coding|removed"
+      ],
+      "open_name": "Code snippet explanation or optimization request",
+      "kinds_ticked": [
+        "code"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c1490",
+      "topic": "c1490",
+      "sets": [
+        "new|multilingual|random",
+        "new|safety|random"
+      ],
+      "open_name": "Role-playing as a professional expert",
+      "kinds_ticked": [
+        "roleplay"
+      ],
+      "label": "partly",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c1517",
+      "topic": "c1517",
+      "sets": [
+        "new|coding|removed"
+      ],
+      "open_name": "Code snippet provided, help requested",
+      "kinds_ticked": [
+        "code"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c1610",
+      "topic": "c1610",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Creative fiction continuation or generation",
+      "kinds_ticked": [
+        "creative"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c1620",
+      "topic": "c1620",
+      "sets": [
+        "new|coding|removed"
+      ],
+      "open_name": "Database/query-related technical coding questions",
+      "kinds_ticked": [
+        "code"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c1663",
+      "topic": "c1663",
+      "sets": [
+        "new|coding|removed"
+      ],
+      "open_name": "Code improvement or explanation request",
+      "kinds_ticked": [
+        "rewrite",
+        "code"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c1806",
+      "topic": "c1806",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Legal or law-related content",
+      "kinds_ticked": [],
+      "label": "yes",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c1896",
+      "topic": "c1896",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Character/Persona Description Prompts",
+      "kinds_ticked": [
+        "placeholder"
+      ],
+      "label": "yes",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c1985",
+      "topic": "c1985",
+      "sets": [
+        "new|safety|removed"
+      ],
+      "open_name": "Historical/political knowledge questions",
+      "kinds_ticked": [],
+      "label": "yes",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c329",
+      "topic": "c329",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Chemical industry upstream/downstream article request",
+      "kinds_ticked": [
+        "template",
+        "factual"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c366",
+      "topic": "c366",
+      "sets": [
+        "new|multilingual|removed"
+      ],
+      "open_name": "Heat/temperature as central topic",
+      "kinds_ticked": [],
+      "label": "partly",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c433",
+      "topic": "c433",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Extracting structured data from news text",
+      "kinds_ticked": [
+        "placeholder",
+        "pasted_document",
+        "template"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c459",
+      "topic": "c459",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Sexual or violent exploitation of women/girls",
+      "kinds_ticked": [
+        "placeholder",
+        "unstated_issue"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c540",
+      "topic": "c540",
+      "sets": [
+        "new|math|removed"
+      ],
+      "open_name": "Simple arithmetic calculation requests",
+      "kinds_ticked": [
+        "template"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c659",
+      "topic": "c659",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Logical reasoning with named placeholders",
+      "kinds_ticked": [
+        "placeholder",
+        "template",
+        "factual"
+      ],
+      "label": "yes",
+      "kinds": "yes",
+      "note": ""
+    },
+    {
+      "id": "s114_c757",
+      "topic": "c757",
+      "sets": [
+        "top100"
+      ],
+      "open_name": "Structured data extraction or analysis task",
+      "kinds_ticked": [
+        "pasted_document"
+      ],
+      "label": "yes",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c759",
+      "topic": "c759",
+      "sets": [
+        "new|coding|removed"
+      ],
+      "open_name": "Code explanation or analysis request",
+      "kinds_ticked": [],
+      "label": "yes",
+      "kinds": "missing",
+      "note": ""
+    },
+    {
+      "id": "s114_c973",
+      "topic": "c973",
+      "sets": [
+        "new|coding|removed"
+      ],
+      "open_name": "Code snippet explanation or debugging request",
+      "kinds_ticked": [
+        "code"
+      ],
+      "label": "yes",
+      "kinds": "missing",
+      "note": "rewrite is missing"
+    }
+  ]
+}

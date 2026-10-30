@@ -31,6 +31,14 @@ def encode_chat(tokenizer, text: str, max_length: int = 1024) -> tuple[list[int]
     return enc["input_ids"][-max_length:], mask[-max_length:]
 
 
+def encode_chat_head(tokenizer, text: str, max_content_tokens: int = 512) -> tuple[list[int], list[bool]]:
+    # cuts the user content to its first tokens before templating, so the chat header is never truncated away
+    offsets = tokenizer(text, add_special_tokens=False, return_offsets_mapping=True)["offset_mapping"]
+    if len(offsets) > max_content_tokens:
+        text = text[: offsets[max_content_tokens - 1][1]]
+    return encode_chat(tokenizer, text, max_length=10**9)
+
+
 def encode_messages(tokenizer, messages: list[dict], max_length: int = 1024) -> tuple[list[int], list[bool]]:
     # earlier turns are context in the forward pass; the mask covers only the last user turn's content
     assert messages[-1]["role"] == "user", "conversation must end with a user turn"

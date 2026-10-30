@@ -42,3 +42,6 @@ data/processed/exp31/traffic_ext.jsonl
 data/processed/exp31/candidates.jsonl
 data/processed/exp31/labelled.jsonl
 data/processed/exp32/gen_cache/
+data/processed/exp104/dolma3.jsonl
+data/processed/exp116/dolci_tags.jsonl
+data/processed/exp116/traffic_tags.jsonl
