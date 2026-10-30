@@ -4787,3 +4787,10 @@ read before running.
 **Reading.** A flagged traffic share near 0.559 means messy covered chat forms gap clusters as readily as traffic; a share well above it means the flagged clusters are specific to traffic. No threshold; the user judges.
 **Seed.** 0.
 **Output.** `results/raw/261030_pooled_chat_clusters_v1`.
+
+## known_gap_rerun: once the pasted-text gap is known, which gaps come next? (30-10-2026)
+
+**Question.** Stefan's known-OOD step: after adding the found gap to the reference, do the top-ranked Olmo clusters show different, diverse gaps, or the same gap again?
+**Design.** Known gap = traffic prompts tagged pasted_document by the kind grader (kind_groups tags). Reference = the 200k Dolci sample plus those prompts; known prompts skip themselves (the (k+1)-th neighbour). Rescore all traffic with raw Delta-kNN (k 100, Dolma term unchanged), rerank cluster_gap_list v2's Olmo clusters by median over template units. Reported: pasted_document and other kind shares in the top 20/50/100 before and after, the number of new clusters in each top list, and the rank correlation. Spot check: the clusters that newly enter the top 20, 5 random prompts each, labelled with the same rules (the old top 20 were already labelled).
+**Seed.** 0. No threshold; the user judges.
+**Output.** `results/raw/261030_known_gap_rerun_v1`.

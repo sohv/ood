@@ -1,0 +1,122 @@
+[
+ {
+  "id": "s00",
+  "group": 1600,
+  "rank": 18,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s01",
+  "group": 42,
+  "rank": 5,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s02",
+  "group": 300,
+  "rank": 12,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s03",
+  "group": 1638,
+  "rank": 17,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s04",
+  "group": 1766,
+  "rank": 4,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s05",
+  "group": 1703,
+  "rank": 6,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s06",
+  "group": 1141,
+  "rank": 19,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s07",
+  "group": 1271,
+  "rank": 9,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s08",
+  "group": 872,
+  "rank": 16,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s09",
+  "group": 1589,
+  "rank": 1,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s10",
+  "group": 1486,
+  "rank": 15,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s11",
+  "group": 289,
+  "rank": 3,
+  "verdict": "quirk"
+ },
+ {
+  "id": "s12",
+  "group": 1146,
+  "rank": 20,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s13",
+  "group": 810,
+  "rank": 10,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s14",
+  "group": 636,
+  "rank": 11,
+  "verdict": "quirk"
+ },
+ {
+  "id": "s15",
+  "group": 1587,
+  "rank": 14,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s16",
+  "group": 638,
+  "rank": 2,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s17",
+  "group": 286,
+  "rank": 7,
+  "verdict": "quirk"
+ },
+ {
+  "id": "s18",
+  "group": 432,
+  "rank": 8,
+  "verdict": "real_gap"
+ },
+ {
+  "id": "s19",
+  "group": 238,
+  "rank": 13,
+  "verdict": "quirk"
+ }
+]

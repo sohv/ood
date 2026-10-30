@@ -1,0 +1,74 @@
+[
+ {
+  "id": "s00",
+  "group": 829,
+  "rank_after": 12,
+  "pasted_share": 0.8571,
+  "verdict": "real_gap",
+  "example": "National policies and international investment have, in recent decades, tended t"
+ },
+ {
+  "id": "s01",
+  "group": 1083,
+  "rank_after": 14,
+  "pasted_share": 1.0,
+  "verdict": "real_gap",
+  "example": "rewrite it \"NAME_1 was born into such wealth and privilege that her family inspi"
+ },
+ {
+  "id": "s02",
+  "group": 311,
+  "rank_after": 9,
+  "pasted_share": 0.7188,
+  "verdict": "not_gap",
+  "example": "write this article in APA format \"The Advantages of Hiring an Accountant for Fin"
+ },
+ {
+  "id": "s03",
+  "group": 1204,
+  "rank_after": 15,
+  "pasted_share": 0.9474,
+  "verdict": "real_gap",
+  "example": "Driven to Distraction By Kirsten Weir  \nWhy is texting while driving so dangerou"
+ },
+ {
+  "id": "s04",
+  "group": 7,
+  "rank_after": 11,
+  "pasted_share": 0.6667,
+  "verdict": "quirk",
+  "example": "Corton Charlemagne Grand Cru 0,75l\t2020\tDomaine Louis Latour info"
+ },
+ {
+  "id": "s05",
+  "group": 1802,
+  "rank_after": 19,
+  "pasted_share": 0.0,
+  "verdict": "quirk",
+  "example": "NAME_1's Closet: The Perfect Destination for Conscious and Stylish Shoppers"
+ },
+ {
+  "id": "s06",
+  "group": 1886,
+  "rank_after": 17,
+  "pasted_share": 0.0,
+  "verdict": "mixed",
+  "example": "Treatment of boredom"
+ },
+ {
+  "id": "s07",
+  "group": 840,
+  "rank_after": 3,
+  "pasted_share": 0.0,
+  "verdict": "mixed",
+  "example": "The University of Copenhagen Botanical Garden"
+ },
+ {
+  "id": "s08",
+  "group": 730,
+  "rank_after": 7,
+  "pasted_share": 0.0,
+  "verdict": "mixed",
+  "example": "Michele James Big Balloon Play"
+ }
+]

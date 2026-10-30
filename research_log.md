@@ -10,6 +10,40 @@ three weeks ago with slightly different wording.
 The `# Logs` section of `CLAUDE.md` holds the entry template and the rules for filling it in. Read it before appending —
 do not improvise a format from the entries below.
 
+## 30-10-2026 — tfidf_cluster_gap_list: does a word-based clustering of real traffic do as well as Olmo clusters?
+
+**Question.** (Stefan) On real traffic ranked by raw Delta-kNN, does a tf-idf clustering give as good a gap list as Olmo clusters?
+**Hyperparameters.** tf-idf (1-2 grams, 200k features) on the traffic prompts, SVD to 256 dimensions on the GPU, spherical k-means with k 1,903, clusters under 10 merged (1,080 left); everything else as cluster_gap_list v2; seed 0.
+**Datasets.** 39,835 gap_list traffic prompts.
+**Result.** Over the random-group 99% line: tf-idf clusters 271, Olmo clusters 397, topics 167 (that line is not a gap count; see pooled_chat_clusters). Quirk share in the top 20: 0.54, against 0.64 and 0.76. 60% of the top-50 Olmo-cluster prompts fall in the top-50 tf-idf clusters. Hand labels of the top 20 tf-idf clusters: 16 real gap, 4 quirk, against 17/20 for Olmo clusters (Fisher p 1.0) and 10/20 for topics (p 0.096).
+**Output:** results/raw/261030_tfidf_cluster_gap_list_v1/decision.json (groups.jsonl, tfidf_cluster_labels.npy, spot_items.jsonl beside it); labels in data/processed/human_labels_tfidf_cluster_gap_list/labels.json
+**Failed approaches.** The first launch was stopped after 33 minutes in sklearn's TruncatedSVD and k-means; the SVD moved to torch.svd_lowrank on the GPU and the k-means centre update was vectorised (stopped runs renamed with _smoke_).
+**Confound:** the tf-idf top 20 was labelled in a later session than the Olmo and topic top 20, and not shuffled with them.
+**Verdict:** tf-idf clusters do about as well as Olmo clusters on real traffic; the gain over topics comes from clustering prompts, not from Olmo's features.
+
+## 30-10-2026 — known_gap_rerun: once the pasted-text gap is known, which gaps come next?
+
+**Question.** After adding the found gap (traffic prompts tagged pasted_document) to the reference, as Stefan suggests, do the top Olmo clusters show other gaps?
+**Hyperparameters.** Raw Delta-kNN at k 100; reference = 200k Dolci sample plus 5,617 known prompts, which skip themselves; cluster_gap_list v2's Olmo clusters; seed 0.
+**Datasets.** 39,835 gap_list traffic prompts with kind tags.
+**Result.** The known prompts' scores fell only slightly (median -0.019; others 0.000) and the cluster ranking barely moved (Spearman 0.98). Pasted-document share in the top 20 fell from 0.92 to 0.65, and in the top 50 from 0.80 to 0.60; 9 of the top 20 and 13 of the top 50 are new. Of the 9 new top-20 clusters, 4 have no pasted documents and are bare fragments with no instruction (a garden name, a product title, "Treatment of boredom", a shop slogan); the other 5 are still mostly pasted text.
+**Output:** results/raw/261030_known_gap_rerun_v1/decision.json (groups.jsonl, spot_items.jsonl, spot_key.json beside it)
+**Confound:** adding 5,617 prompts to a 200k reference moves the 100th-neighbour distance little, so this step only partly removes the known gap; the new clusters are not labelled.
+**Spot check.** I labelled the 9 new top-20 clusters with the same rules: 3 real gap (all mostly pasted text), 3 mixed (all three bare-fragment clusters), 2 quirk, 1 not a gap. Labels in data/processed/human_labels_known_gap_rerun/labels.json.
+**Verdict:** discard the second-gap reading: the bare-fragment clusters did not hold up as real gaps, and the only real gaps among the new clusters are more pasted text.
+
+## 30-10-2026 — pooled_chat_clusters: do messy-but-covered Dolci chat logs form gap clusters too?
+
+**Question.** When traffic and Dolci's own real-chat rows are clustered together, are the clusters over the gap line mostly traffic, or as much Dolci chat as the pool holds?
+**Hyperparameters.** Raw Delta-kNN (k 100, Olmo layer 20; Dolci rows skip themselves); a near-copy variant skipping neighbours within cosine 0.05 gave identical medians and near-identical counts; spherical k-means with k 3,402 on the pooled features, clusters under 10 merged (2,273 left); line from 2,000 random pooled groups of the same size; seed 0.
+**Datasets.** 39,835 traffic prompts and 31,383 Dolci chat rows (WildChat and OpenAssistant) from the 200k sample; pool traffic share 0.559.
+**Result.** Clusters over the 99% line: 800 of 2,273, traffic share 0.573 (95% CI 0.551 to 0.595) against the pool's 0.559. Over the 95% line: 955, share 0.561. Top of the ranking: top 20 clusters 0.69 (0.57 to 0.81), top 50 0.68 (0.60 to 0.76), top 100 0.66 (0.59 to 0.71), top 200 0.60. In the top 50, 34 clusters are mostly traffic and 12 mostly Dolci chat; mixed clusters at the top include scraped web pages and pasted articles that Dolci's chat rows also contain.
+**Output:** results/raw/261030_pooled_chat_clusters_v1/decision.json (groups.jsonl, pooled_cluster_labels.npy beside it)
+**Failed approaches.** The first launch was stopped after 15 minutes because the k-means centre update looped over 3,402 centres in Python; it was vectorised in src/interp/kmeans.py (same maths, test passes) and rerun (stopped run renamed 261030_smoke_pooled_chat_clusters_slow_kmeans).
+**Confound:** traffic and Dolci's chat rows both come partly from WildChat, so some Dolci chat in the top clusters may be the same kind of request rather than covered messiness.
+**Reviews.** Code: no bug; leave-one-out scores, alignment, merging, ranking and shares recomputed and matched; near-copy cutoff 0.05 is a chord distance (cosine 0.00125), and about 88 rows with over 50 near-copies get a wrong near-copy score (headline unchanged). Design: the random-group line is the wrong null (334 of about 1,000 Dolci-majority clusters cross it too). A line set by covered clusters (99th percentile of Dolci-dominated pooled clusters, -0.061) flags 44 of 1,233 cluster_gap_list v2 clusters, not 397; 82 at its 95% version where about 62 would be expected. Held-out Dolci chat rows score like the leave-one-out ones (AUROC 0.503) and traffic has almost no near-copies in Dolci, so neither is a confound. Within a cluster, traffic and Dolci members score the same (AUROC 0.501): the score tracks where a prompt sits, not its source. Top-of-ranking traffic share against a size-matched shuffle of cluster scores: top 20 0.69 against 0.54 (p 0.019), top 50 0.68 (p 0.001), top 100 0.66 (p < 0.0005); about a third of the top clusters' prompts are covered Dolci chat.
+**Verdict:** report the ranked top clusters, not a count over the random-group line; measured against covered Dolci-chat clusters, about 44 traffic clusters stand out. The next check would be a blind label of the pooled top 20 with Dolci-majority clusters mixed in.
+
 ## 30-10-2026 — messy_controls: is the main gap already covered by Dolci, and is it just messy chat logs?
 
 **Question.** (Callum) How much of Dolci is pasted real-world text with a summarise, rewrite or extract task, against traffic? (Neel) Do Dolci's own real-chat rows, which are messy but covered, score as high as the traffic gap prompts?
