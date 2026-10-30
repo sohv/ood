@@ -1,5 +1,5 @@
-# exp66: round-two training and held-out prompts for the user's harmless next targets, cumulative on exp54's training rows.
-# uv run -m scripts.run_fix_round2_data --run_dir results/raw/261027_exp66_data_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --scan_dir results/raw/261027_exp66_scan1_v1 --labels_dir results/raw/261027_exp66_topic_labels_v1 --used_paths data/processed/exp66/scan_pool.jsonl data/processed/exp53/train_gap.jsonl data/processed/exp53/train_control.jsonl data/processed/exp53/test.jsonl --exp54_data results/raw/261024_exp54_data_v1 --exp54_targets data/processed/human_labels_exp54/targets.json --output_dir data/processed/exp66 --seed 0
+# fix_loop_round2: round-two training and held-out prompts for the user's harmless next targets, cumulative on fix_harmless_gaps's training rows.
+# uv run -m scripts.run_fix_round2_data --run_dir results/raw/261027_fix_loop_round2_data_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --scan_dir results/raw/261027_fix_loop_round2_scan1_v1 --labels_dir results/raw/261027_fix_loop_round2_topic_labels_v1 --used_paths data/processed/fix_loop_round2/scan_pool.jsonl data/processed/fix_overrefused/train_gap.jsonl data/processed/fix_overrefused/train_control.jsonl data/processed/fix_overrefused/test.jsonl --fix_harmless_gaps_data results/raw/261024_fix_harmless_gaps_data_v1 --fix_harmless_gaps_targets data/processed/human_labels_fix_harmless_gaps/targets.json --output_dir data/processed/fix_loop_round2 --seed 0
 
 import asyncio
 import json
@@ -28,12 +28,12 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class Round2DataConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
+    pipeline_million_dir: str = ""
     scan_dir: str = ""
     labels_dir: str = ""
     used_paths: list[str] = field(default_factory=list)
-    exp54_data: str = ""
-    exp54_targets: str = ""
+    fix_harmless_gaps_data: str = ""
+    fix_harmless_gaps_targets: str = ""
     output_dir: str = ""
     teacher: str = "anthropic/claude-sonnet-4.6"
     olmo_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
@@ -49,7 +49,7 @@ class Round2DataConfig:
 def main():
     config = simple_parsing.parse(Round2DataConfig)
     assert all(
-        [config.run_dir, config.exp37_dir, config.scan_dir, config.exp54_data, config.output_dir]
+        [config.run_dir, config.pipeline_million_dir, config.scan_dir, config.fix_harmless_gaps_data, config.output_dir]
     ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -59,8 +59,8 @@ def main():
     rng = np.random.default_rng(config.seed)
 
     scan = json.loads((Path(config.scan_dir) / "decision.json").read_text())
-    # candidates already judged harmless in exp54 round one need no new label
-    round1 = json.loads(Path(config.exp54_targets).read_text())["round1"]
+    # candidates already judged harmless in fix_harmless_gaps round one need no new label
+    round1 = json.loads(Path(config.fix_harmless_gaps_targets).read_text())["round1"]
     user = {int(c): v for c, v in round1.items()}
     if config.labels_dir:
         for p in Path(config.labels_dir).glob("f66t_c*.json"):
@@ -71,12 +71,16 @@ def main():
     LOGGER.info(f"{len(targets)} harmless targets of {len(scan['candidates'])} candidates")
     assert len(targets) >= config.min_targets, f"stop rule: {len(targets)} targets"
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, _, source, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     used = np.zeros(len(rows), dtype=bool)
     for path in config.used_paths:
         used[[x["row"] for x in load_jsonl(Path(path)) if x.get("row") is not None]] = True
@@ -89,7 +93,7 @@ def main():
         ]
     band = np.digitize(n_tok, LENGTH_BANDS)
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     eligible = [int(c["id"][1:]) for c in clusters.values() if c["rank"]]
     scan_topics = {int(x["topic"]) for x in load_jsonl(Path(config.scan_dir) / "per_topic.jsonl")}
     pool_median = float(np.median(ratio))
@@ -97,7 +101,7 @@ def main():
     avail = {c: np.where((labels == c) & short & ~used)[0] for c in set(targets) | set(covered)}
 
     def draw_control(r: int | None) -> int:
-        # exp53's draw: a covered topic at random, then an unused prompt in it, matching source and band when r is given
+        # fix_overrefused's draw: a covered topic at random, then an unused prompt in it, matching source and band when r is given
         for _ in range(config.max_redraws):
             ct = covered[rng.integers(len(covered))]
             pool = avail[ct][~used[avail[ct]]]
@@ -133,8 +137,8 @@ def main():
             x["answer"] = a
         LOGGER.info(f"{name}: {sum(a is None for a in answers)} teacher calls failed")
 
-    round1_gap = load_jsonl(Path(config.exp54_data) / "train_gap2.jsonl")
-    test += load_jsonl(Path(config.exp54_data) / "test2.jsonl")
+    round1_gap = load_jsonl(Path(config.fix_harmless_gaps_data) / "train_gap2.jsonl")
+    test += load_jsonl(Path(config.fix_harmless_gaps_data) / "test2.jsonl")
     assert len({t["id"] for t in test}) == len(test), "duplicate test ids"
     out = Path(config.output_dir)
     out.mkdir(parents=True, exist_ok=True)

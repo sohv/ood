@@ -1,5 +1,5 @@
-# builds exp18's inputs: 4,000 clean ShareChat first turns and the 420-reply MOOD judge-validation set.
-# uv run -m scripts.run_build_sharechat_pool --output_dir data/processed/exp18 --mood_pools_dir data/processed/exp17 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# builds sharechat_reply_quality's inputs: 4,000 clean ShareChat first turns and the 420-reply MOOD judge-validation set.
+# uv run -m scripts.run_build_sharechat_pool --output_dir data/processed/sharechat_reply_quality --mood_pools_dir data/processed/mood_harmful_replies --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import hashlib
 import logging

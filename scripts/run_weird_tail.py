@@ -115,10 +115,10 @@ class WeirdTailConfig(Config):
     pool_out: str = ""
     rollouts_path: str = ""
     items_dir: str = ""
-    exp112_dir: str = "results/raw/261029_exp112_gap_list_v1"
-    exp115_dir: str = "results/raw/261030_exp115_gap_line_v1"
-    mix_text_path: str = "cache/exp80/mix_text.parquet"
-    feats_cache: str = "/dev/shm/exp108_feats.npy"
+    gap_list_dir: str = "results/raw/261029_gap_list_v1"
+    gap_line_dir: str = "results/raw/261030_gap_line_v1"
+    mix_text_path: str = "cache/safety_removal/mix_text.parquet"
+    feats_cache: str = "/dev/shm/known_gap_loop_feats.npy"
     olmo_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     olmo_revision: str = "b33130b7"
     base_id: str = "allenai/Olmo-3-1025-7B"
@@ -209,7 +209,7 @@ def take(rows: list[dict], fits, per_topic: int | None) -> list[dict]:
 
 
 def make_scorer(config: WeirdTailConfig, model, tok):
-    # same scoring as exp112 and exp115; returns the scorer and the number of traffic rows in the feature cache
+    # same scoring as gap_list and gap_line; returns the scorer and the number of traffic rows in the feature cache
     feats = np.load(config.feats_cache, mmap_mode="r")
     n_t = len(feats) - config.n_mix - config.n_ref
     xmix = torch.tensor(np.asarray(feats[n_t : n_t + config.n_mix]), device="cuda").float()
@@ -247,7 +247,7 @@ def pool(config: WeirdTailConfig) -> None:
     )
     score, n_t = make_scorer(config, model, tok)
 
-    traffic = load_jsonl(Path(config.exp112_dir) / "prompt_scores.jsonl")
+    traffic = load_jsonl(Path(config.gap_list_dir) / "prompt_scores.jsonl")
     assert len(traffic) == n_t, f"{len(traffic)=} {n_t=}"
     for r in traffic:
         r["text"] = swap_names(r["prompt"], r["id"], config.seed)
@@ -257,7 +257,7 @@ def pool(config: WeirdTailConfig) -> None:
     check = [r for r in traffic if not r["had_placeholder"]][:: max(1, n_t // 300)][:300]
     check_diff = float(np.abs(score([r["text"] for r in check]) - np.array([r["delta_knn"] for r in check])).max())
     LOGGER.info(f"{check_diff=}")
-    assert check_diff < 0.01, f"rescoring does not reproduce exp112: {check_diff=}"
+    assert check_diff < 0.01, f"rescoring does not reproduce gap_list: {check_diff=}"
     swapped = [r for r in traffic if r["had_placeholder"]]
     for r, s in zip(swapped, score([r["text"] for r in swapped]), strict=True):
         r["score"] = float(s)
@@ -271,7 +271,7 @@ def pool(config: WeirdTailConfig) -> None:
     covered_cands = take([traffic[i] for i in order if traffic[i]["score"] < config.q75], fits, config.per_topic)
     covered, gap_t = match_lengths(far, covered_cands, rng)
 
-    held = load_jsonl(Path(config.exp115_dir) / "heldout_scores.jsonl")
+    held = load_jsonl(Path(config.gap_line_dir) / "heldout_scores.jsonl")
     mix_text = pd.read_parquet(config.mix_text_path, columns=["text"])["text"]
     dolci_cands = [
         {"id": r["id"], "text": mix_text.iloc[int(r["id"][3:])], "score": r["delta_knn"], "topic": None} for r in held

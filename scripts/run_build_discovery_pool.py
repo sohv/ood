@@ -1,5 +1,5 @@
-# builds the exp09 lmsys half of the deployment pool (10k first user turns, all languages, dolci members removed).
-# uv run --no-sync -m scripts.run_build_discovery_pool --output_dir data/processed/exp09 --seed 0
+# builds the iterative_discovery lmsys half of the deployment pool (10k first user turns, all languages, dolci members removed).
+# uv run --no-sync -m scripts.run_build_discovery_pool --output_dir data/processed/iterative_discovery --seed 0
 
 import logging
 import os
@@ -21,7 +21,7 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class DiscoveryPoolConfig:
-    output_dir: str = "data/processed/exp09"
+    output_dir: str = "data/processed/iterative_discovery"
     seed: int = 0
     n_lmsys: int = 10000
     lmsys_shards: list[int] = field(default_factory=lambda: [0, 1])

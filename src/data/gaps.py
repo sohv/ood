@@ -1,4 +1,4 @@
-# rebuilds exp09 v2's review clusters from its stored rows, merges them into gap groups, and draws matched controls.
+# rebuilds iterative_discovery v2's review clusters from its stored rows, merges them into gap groups, and draws matched controls.
 
 import json
 from pathlib import Path
@@ -10,7 +10,7 @@ from src.metrics.discovery import centroid, cluster, match_gap
 
 
 def rebuild_clusters(emb: np.ndarray, reviews: list[dict], n_clusters: int, seed: int) -> dict[str, np.ndarray]:
-    # same call exp09 v2 made: k-means on each review group's rows, members kept in review order
+    # same call iterative_discovery v2 made: k-means on each review group's rows, members kept in review order
     out = {}
     for rev in reviews:
         rows = np.array(rev["rows"])
@@ -21,7 +21,7 @@ def rebuild_clusters(emb: np.ndarray, reviews: list[dict], n_clusters: int, seed
 
 
 def merge_groups(members: dict[str, np.ndarray], ids: list[str], emb: np.ndarray, threshold: float) -> list[list[str]]:
-    # single-linkage on centroid cosine, exp09's same-gap rule
+    # single-linkage on centroid cosine, iterative_discovery's same-gap rule
     cents = {i: centroid(emb[members[i]]) for i in ids}
     parent = {i: i for i in ids}
 
@@ -59,8 +59,8 @@ def draw_controls(
     return out
 
 
-def rebuild_exp20_gaps(emb: np.ndarray, texts: list[str], e20_dir: str) -> list[dict]:
-    # exp20's distinct gaps per seed and arm, with members and the activation-only / word-only flags, checked against exp20
+def rebuild_activations_vs_words_gaps(emb: np.ndarray, texts: list[str], e20_dir: str) -> list[dict]:
+    # activations_vs_words's distinct gaps per seed and arm, with members and the activation-only / word-only flags, checked against activations_vs_words
     e20 = Path(e20_dir)
     c20 = json.loads((e20 / "config.json").read_text())
     reviews = {(r["arm"], r["round"]): np.array(r["rows"]) for r in load_jsonl(e20 / "reviews.jsonl")}
@@ -78,7 +78,9 @@ def rebuild_exp20_gaps(emb: np.ndarray, texts: list[str], e20_dir: str) -> list[
                     m = rows[labels == c]
                     st = stored[f"s{s}_{arm}_r{rnd}_c{c}"]
                     examples = [" ".join(texts[i].split())[:200] for i in m[:5]]
-                    assert st["size"] == len(m) and st["examples"] == examples, f"{st['id']} differs from exp20"
+                    assert (
+                        st["size"] == len(m) and st["examples"] == examples
+                    ), f"{st['id']} differs from activations_vs_words"
                     if not st["confirmed"]:
                         continue
                     if st["gap_index"] == len(gaps[arm]):
@@ -101,7 +103,9 @@ def rebuild_exp20_gaps(emb: np.ndarray, texts: list[str], e20_dir: str) -> list[
                     }
                 )
         want = d20["per_seed"][str(s)]
-        assert {a: len(gaps[a]) for a in arms} == want["distinct_gaps"], f"seed {s} gap counts differ from exp20"
+        assert {a: len(gaps[a]) for a in arms} == want[
+            "distinct_gaps"
+        ], f"seed {s} gap counts differ from activations_vs_words"
         for arm, key in (("act", "act_unique"), ("word", "word_unique")):
             assert (
                 sum(bool(x["only"]) for x in out if x["seed"] == s and x["arm"] == arm) == want[key]

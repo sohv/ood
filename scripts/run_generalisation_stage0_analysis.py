@@ -1,5 +1,5 @@
-# exp24 analysis: tl;dr rate per condition and source x target family, the pre-registered checks and go / stop rule.
-# uv run -m scripts.run_generalisation_stage0_analysis --run_dir results/raw/261020_exp24_gen_stage0_v1 --pools_dir data/processed/exp24 --seed 0
+# owl_stage0_tldr analysis: tl;dr rate per condition and source x target family, the pre-registered checks and go / stop rule.
+# uv run -m scripts.run_generalisation_stage0_analysis --run_dir results/raw/261020_owl_stage0_tldr_gen_stage0_v1 --pools_dir data/processed/owl_stage0_tldr --seed 0
 
 import json
 import logging
@@ -20,7 +20,7 @@ from src.utils.logging import setup_logging
 from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
-# a line starting with tl;dr, after any markdown marks or a list number; colon optional (exp24 amendment)
+# a line starting with tl;dr, after any markdown marks or a list number; colon optional (owl_stage0_tldr amendment)
 TLDR = re.compile(r"^[\s*_#>]*(?:\d+\.\s*)?[\s*_#>]*TL;?\s*DR\b", re.IGNORECASE | re.MULTILINE)
 
 
@@ -31,7 +31,7 @@ class Stage0AnalysisConfig:
     seed: int = 0
     embed_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     embed_revision: str = "e8f8c211226b894fcb81acc59f3b34ba3efd5f42"
-    # tldr = exp24 (final line, finished replies only); owl = exp25 (opening emoji, every reply)
+    # tldr = owl_stage0_tldr (final line, finished replies only); owl = owl_stage0_opener (opening emoji, every reply)
     rule: str = "tldr"
 
 

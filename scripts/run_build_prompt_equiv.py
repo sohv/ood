@@ -1,5 +1,5 @@
-# exp29: builds system-prompt rows (11 fixed prompts x exp27's 400 test questions) for the untrained model to answer.
-# uv run -m scripts.run_build_prompt_equiv --test_path data/processed/exp27/test.jsonl --output_dir data/processed/exp29 --seed 0
+# owl_system_prompt: builds system-prompt rows (11 fixed prompts x owl_stage1_trained's 400 test questions) for the untrained model to answer.
+# uv run -m scripts.run_build_prompt_equiv --test_path data/processed/owl_stage1_trained/test.jsonl --output_dir data/processed/owl_system_prompt --seed 0
 
 import logging
 from dataclasses import asdict, dataclass

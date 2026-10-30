@@ -1,5 +1,5 @@
-# exp31: finds self-nature messages in Olmo's post-training data (SFT and DPO) and in real traffic, labels them, and builds the covered / uncovered cells with their gate.
-# uv run -m scripts.run_build_self_nature --phase candidates --output_dir data/processed/exp31 --run_dir results/raw/261021_exp31_self_nature_cells_v1 --exp09_dir results/raw/261019_exp09_discovery_v2 --exp20_dir results/raw/261019_exp20_act_vs_word_v1 --seed 0
+# self_nature_a: finds self-nature messages in Olmo's post-training data (SFT and DPO) and in real traffic, labels them, and builds the covered / uncovered cells with their gate.
+# uv run -m scripts.run_build_self_nature --phase candidates --output_dir data/processed/self_nature_a --run_dir results/raw/261021_self_nature_a_self_nature_cells_v1 --iterative_discovery_dir results/raw/261019_iterative_discovery_v2 --activations_vs_words_dir results/raw/261019_activations_vs_words_act_vs_word_v1 --seed 0
 
 import asyncio
 import logging
@@ -16,7 +16,7 @@ from openai import AsyncOpenAI
 from sentence_transformers import SentenceTransformer
 from transformers import AutoTokenizer
 
-from src.data.gaps import rebuild_exp20_gaps
+from src.data.gaps import rebuild_activations_vs_words_gaps
 from src.data.io import load_jsonl
 from src.data.pools import MembershipIndex, load_dolci_dpo, normalise
 from src.metrics.coverage import density_ratios
@@ -66,9 +66,9 @@ class SelfNatureConfig:
     phase: str = ""
     output_dir: str = ""
     run_dir: str = ""
-    exp09_dir: str = ""
-    exp20_dir: str = ""
-    sft_path: str = "data/processed/exp31/dolci_sft_first_user.parquet"
+    iterative_discovery_dir: str = ""
+    activations_vs_words_dir: str = ""
+    sft_path: str = "data/processed/self_nature_a/dolci_sft_first_user.parquet"
     model_id: str = "openai/gpt-4o-mini"
     olmo_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     olmo_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
@@ -89,10 +89,10 @@ TRAFFIC_SETS = ("traffic", "traffic_ext")
 EXT_POOL = {"deploy_ext": "deploy", "lmsys_ext": "lmsys"}
 
 
-def load_pool(exp09_dir: str) -> list[dict]:
+def load_pool(iterative_discovery_dir: str) -> list[dict]:
     import json
 
-    c9 = json.loads((Path(exp09_dir) / "config.json").read_text())
+    c9 = json.loads((Path(iterative_discovery_dir) / "config.json").read_text())
     return load_jsonl(c9["wildchat_pool"]) + load_jsonl(c9["lmsys_pool"])
 
 
@@ -111,7 +111,7 @@ def load_traffic_ext(pool_norms: set[str]) -> list[dict]:
 
 
 def embed(model: SentenceTransformer, texts: list[str], max_chars: int | None, batch: int = 256) -> np.ndarray:
-    # the traffic pool is embedded untruncated so exp20's clusters rebuild exactly; the millions of mix prompts are cut to save time
+    # the traffic pool is embedded untruncated so activations_vs_words's clusters rebuild exactly; the millions of mix prompts are cut to save time
     cut = texts if max_chars is None else [t[:max_chars] for t in texts]
     return model.encode(
         cut, batch_size=batch, normalize_embeddings=True, convert_to_numpy=True, show_progress_bar=False
@@ -136,14 +136,16 @@ def main():
         write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
 
     if config.phase == "candidates":
-        assert config.exp09_dir and config.exp20_dir, "exp09_dir and exp20_dir are required"
+        assert (
+            config.iterative_discovery_dir and config.activations_vs_words_dir
+        ), "iterative_discovery_dir and activations_vs_words_dir are required"
         import json
 
-        c9 = json.loads((Path(config.exp09_dir) / "config.json").read_text())
+        c9 = json.loads((Path(config.iterative_discovery_dir) / "config.json").read_text())
         sft = pd.read_parquet(config.sft_path)
         sft = sft[sft["first_user"].notna()].reset_index(drop=True)
         dpo = load_dolci_dpo()
-        pool = load_pool(config.exp09_dir)
+        pool = load_pool(config.iterative_discovery_dir)
         sets = {
             "sft": (sft["first_user"].tolist(), sft["source_dataset"].tolist(), sft["id"].tolist()),
             "dpo": (dpo["first_user"].tolist(), dpo["family"].tolist(), dpo["prompt_id"].tolist()),
@@ -162,7 +164,7 @@ def main():
         embs = {}
         for name, (texts, _, _) in sets.items():
             path = run / f"emb_{name}.npy" if (run / f"emb_{name}.npy").exists() else emb_dir / f"emb_{name}.npy"
-            # the traffic pool is always re-embedded in full precision: exp20's clusters do not rebuild from a float16 copy
+            # the traffic pool is always re-embedded in full precision: activations_vs_words's clusters do not rebuild from a float16 copy
             if path.exists() and name != "traffic":
                 embs[name] = np.load(path).astype(np.float32)
                 assert len(embs[name]) == len(texts), f"saved {name} embeddings do not match the prompt count"
@@ -171,8 +173,8 @@ def main():
             embs[name] = embed(model, texts, None if name == "traffic" else 1000)
             np.save(run / f"emb_{name}.npy", embs[name] if name == "traffic" else embs[name].astype(np.float16))
             LOGGER.info(f"{name}: {len(texts)} prompts embedded")
-        # the exp23 self-nature cluster, rebuilt exactly from exp20, gives the retrieval centroid
-        gaps = rebuild_exp20_gaps(embs["traffic"], sets["traffic"][0], config.exp20_dir)
+        # the relative_frequency_gaps self-nature cluster, rebuilt exactly from activations_vs_words, gives the retrieval centroid
+        gaps = rebuild_activations_vs_words_gaps(embs["traffic"], sets["traffic"][0], config.activations_vs_words_dir)
         target = [g for g in gaps if g["id"] == "s1_word_g0"]
         assert (
             len(target) == 1 and "nature" in target[0]["name"].lower()
@@ -191,7 +193,7 @@ def main():
                 }
                 for g in gaps
             ],
-            out / "exp20_gaps.jsonl",
+            out / "activations_vs_words_gaps.jsonl",
         )
         rows = []
         for name, (texts, sources, ids) in sets.items():
@@ -256,7 +258,7 @@ def main():
     sft = pd.read_parquet(config.sft_path)
     sft = sft[sft["first_user"].notna()].reset_index(drop=True)
     dpo = load_dolci_dpo()
-    pool = load_pool(config.exp09_dir)
+    pool = load_pool(config.iterative_discovery_dir)
     import json
 
     built = json.loads((out / "build_candidates.json").read_text())["counts"]
@@ -321,7 +323,7 @@ def main():
     )
     for r, a, b in zip(traffic_yes, ratio, ratio_dpo):
         r["ratio"], r["ratio_dpo_only"] = round(float(a), 3), round(float(b), 3)
-    gaps = load_jsonl(out / "exp20_gaps.jsonl")
+    gaps = load_jsonl(out / "activations_vs_words_gaps.jsonl")
     cl = [g for g in gaps if g["id"] == "s1_word_g0"][0]["members"]
     cl_ratio = density_ratios(
         emb["traffic"][cl],
@@ -357,7 +359,7 @@ def main():
         n = min(len(c), len(u))
         cov_m += [c[i] for i in sorted(rng.choice(len(c), size=n, replace=False))] if n else []
         unc_m += [u[i] for i in sorted(rng.choice(len(u), size=n, replace=False))] if n else []
-    # other topics, covered: ordinary pool prompts, never a candidate and never in a confirmed exp20 gap, 2 per matched prompt, same band (and pool for traffic prompts)
+    # other topics, covered: ordinary pool prompts, never a candidate and never in a confirmed activations_vs_words gap, 2 per matched prompt, same band (and pool for traffic prompts)
     cand_idx = {r["index"] for r in labelled if r["set"] == "traffic"}
     gap_idx = {i for g in gaps for i in g["members"]}
     ordinary = [i for i in range(len(pool)) if i not in cand_idx and i not in gap_idx]
@@ -451,7 +453,7 @@ def main():
             "median_ratio": float(np.median(ratio)) if len(ratio) else None,
             "median_ratio_dpo_only": float(np.median(ratio_dpo)) if len(ratio_dpo) else None,
         },
-        "exp23_cluster_ratio_sft_plus_dpo_mix": float(np.median(cl_ratio)),
+        "relative_frequency_gaps_cluster_ratio_sft_plus_dpo_mix": float(np.median(cl_ratio)),
         "traffic_yes_copies_in_dolci": {
             "exact": sum(r["exact_copy_in_dolci"] for r in traffic_yes),
             "shingle_dpo": sum(r["shingle_member_dpo"] for r in traffic_yes),
@@ -486,7 +488,9 @@ def main():
         )
         print(f"  by source: {c['yes_by_source']}")
     print(f"traffic ratios: {decision['traffic_ratio_distribution']}")
-    print(f"exp23 cluster ratio with sft+dpo mix: {decision['exp23_cluster_ratio_sft_plus_dpo_mix']:.2f}")
+    print(
+        f"relative_frequency_gaps cluster ratio with sft+dpo mix: {decision['relative_frequency_gaps_cluster_ratio_sft_plus_dpo_mix']:.2f}"
+    )
     print(f"cells before matching {decision['cells_before_matching']}, after {decision['cells_after_matching']}")
     print(f"gate: {gate}")
     print(f"cells written to {run / 'cells.jsonl'}; read sample at {run / 'read_sample.md'}")

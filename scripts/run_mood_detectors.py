@@ -1,5 +1,5 @@
-# exp17: scores MOOD replies with label-free OOD detectors and asks whether harmful shifts rank above harmless ones.
-# uv run -m scripts.run_mood_detectors --run_dir results/raw/261019_exp17_mood_v1 --pools_dir data/processed/exp17 --seed 0
+# mood_harmful_replies: scores MOOD replies with label-free OOD detectors and asks whether harmful shifts rank above harmless ones.
+# uv run -m scripts.run_mood_detectors --run_dir results/raw/261019_mood_harmful_replies_mood_v1 --pools_dir data/processed/mood_harmful_replies --seed 0
 
 import json
 import logging

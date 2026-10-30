@@ -1,5 +1,5 @@
-# exp35: labels each reply as REFUSES, PARTIAL or COMPLIES with gpt-4o-mini and summarises the shares per variant and model.
-# uv run -m scripts.run_refusal_label --replies_path results/raw/261021_exp35_placeholder_v1/dpo/rollouts.jsonl --pool_path data/processed/exp35/probe.jsonl --run_dir results/raw/261021_exp35_placeholder_v1 --out_name refusal_dpo --model_id openai/gpt-4o-mini --seed 0
+# placeholder_overrefusal: labels each reply as REFUSES, PARTIAL or COMPLIES with gpt-4o-mini and summarises the shares per variant and model.
+# uv run -m scripts.run_refusal_label --replies_path results/raw/261021_placeholder_overrefusal_placeholder_v1/dpo/rollouts.jsonl --pool_path data/processed/placeholder_overrefusal/probe.jsonl --run_dir results/raw/261021_placeholder_overrefusal_placeholder_v1 --out_name refusal_dpo --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging

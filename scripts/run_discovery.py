@@ -1,5 +1,5 @@
-# exp09: iterative gap discovery in wildchat + lmsys with density-ratio and two-sided knn rankings, blind cluster naming.
-# uv run --no-sync -m scripts.run_discovery --run_dir results/raw/261019_exp09_discovery_v2 --exp01_dir results/raw/261018_exp01_repro_v1 --wildchat_features results/raw/261018_exp06_density_ratio_v1/features/deploy.npz --wildchat_pool data/processed/exp06/deploy.jsonl --lmsys_features results/raw/261018_exp09_discovery_v1/features/lmsys.npz --lmsys_pool data/processed/exp09/lmsys.jsonl --model_id allenai/Olmo-3-7B-Instruct-DPO --model_revision b33130b7de49f0c2553b5c2b3bc8409ff3e627d1 --seed 0
+# iterative_discovery: iterative gap discovery in wildchat + lmsys with density-ratio and two-sided knn rankings, blind cluster naming.
+# uv run --no-sync -m scripts.run_discovery --run_dir results/raw/261019_iterative_discovery_v2 --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --wildchat_features results/raw/261018_density_ratio_needles_density_ratio_v1/features/deploy.npz --wildchat_pool data/processed/density_ratio_needles/deploy.jsonl --lmsys_features results/raw/261018_iterative_discovery_v1/features/lmsys.npz --lmsys_pool data/processed/iterative_discovery/lmsys.jsonl --model_id allenai/Olmo-3-7B-Instruct-DPO --model_revision b33130b7de49f0c2553b5c2b3bc8409ff3e627d1 --seed 0
 
 import os
 
@@ -37,7 +37,7 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class DiscoveryConfig:
     run_dir: str = ""
-    exp01_dir: str = ""
+    repro_two_sided_dir: str = ""
     wildchat_features: str = ""
     wildchat_pool: str = ""
     lmsys_features: str = ""
@@ -93,7 +93,7 @@ def main():
         f"pool {len(texts)} rows; wildchat language lookup misses {np.mean(language[: len(wc)] == 'unknown'):.3f}"
     )
 
-    e1 = Path(config.exp01_dir) / "features"
+    e1 = Path(config.repro_two_sided_dir) / "features"
     mix = np.vstack([np.load(e1 / f"{n}.npz")["cmean"][:, li] for n in ("idfit", "idmix")]).astype(np.float32)
     dolma = np.load(e1 / "dolma_full.npz")["cmean"][:, li].astype(np.float32)
     scale = np.load(e1 / "idfit.npz")["cmean"][:, li].astype(np.float32).std(0) + 1e-6

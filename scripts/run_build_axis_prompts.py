@@ -1,5 +1,5 @@
-# exp32 step 1a: generates the role prompts and extraction questions for the Assistant Axis once, then builds the axis and jailbreak rollout pools.
-# uv run -m scripts.run_build_axis_prompts --output_dir data/processed/exp32 --toxicchat_path data/processed/exp19/prompts.jsonl --model_id openai/gpt-4.1 --seed 0
+# self_nature_b step 1a: generates the role prompts and extraction questions for the Assistant Axis once, then builds the axis and jailbreak rollout pools.
+# uv run -m scripts.run_build_axis_prompts --output_dir data/processed/self_nature_b --toxicchat_path data/processed/behaviour_in_loop_gaps/prompts.jsonl --model_id openai/gpt-4.1 --seed 0
 
 import asyncio
 import json

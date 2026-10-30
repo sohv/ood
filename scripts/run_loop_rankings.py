@@ -1,5 +1,5 @@
-# exp70: exp41's skip loop driven by three rankings of exp37's topics (neighbour count, tf-idf word score, flash rater), distinct gaps in 200 reviews each.
-# uv run -m scripts.run_loop_rankings --run_dir results/raw/261027_exp70_loop_rankings_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp37_pools data/processed/exp37_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --rater_path results/raw/261026_exp56_autorater_v1/scores_flash_B_full.jsonl --rounds 20 --seed 0
+# loop_three_finders: deep_gap_loop's skip loop driven by three rankings of pipeline_million's topics (neighbour count, tf-idf word score, flash rater), distinct gaps in 200 reviews each.
+# uv run -m scripts.run_loop_rankings --run_dir results/raw/261027_loop_three_finders_loop_rankings_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --pipeline_million_pools data/processed/pipeline_million_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --rater_path results/raw/261026_auto_rater_finder_autorater_v1/scores_flash_B_full.jsonl --rounds 20 --seed 0
 
 import os
 
@@ -39,9 +39,9 @@ ARMS = ("A", "B", "C")
 @dataclass
 class LoopRankingsConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp37_pools: str = ""
-    exp41_dir: str = ""
+    pipeline_million_dir: str = ""
+    pipeline_million_pools: str = ""
+    deep_gap_loop_dir: str = ""
     rater_path: str = ""
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
@@ -67,7 +67,13 @@ class LoopRankingsConfig:
 
 def main():
     config = simple_parsing.parse(LoopRankingsConfig)
-    assert config.run_dir and config.exp37_dir and config.exp37_pools and config.exp41_dir and config.rater_path
+    assert (
+        config.run_dir
+        and config.pipeline_million_dir
+        and config.pipeline_million_pools
+        and config.deep_gap_loop_dir
+        and config.rater_path
+    )
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -75,21 +81,26 @@ def main():
     torch.set_num_threads(int(os.environ["OMP_NUM_THREADS"]))
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
-    shutil.copytree(Path(config.exp41_dir) / "naming_cache", run / "naming_cache")
+    shutil.copytree(Path(config.deep_gap_loop_dir) / "naming_cache", run / "naming_cache")
     cache = run / "naming_cache"
     n_cache_start = len(list(cache.glob("*.json")))
 
-    # the gpu belongs to exp66, so the new lmsys rows are embedded on cpu
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    # the gpu belongs to fix_loop_round2, so the new lmsys rows are embedded on cpu
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"], device="cpu"
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
+        device="cpu",
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio = np.load(Path(config.exp37_dir) / "ratio.npy")
-    assert len(labels) == len(rows) == len(ratio), "pool does not match exp37's labels"
-    for p in load_jsonl(Path(config.exp37_pools) / "prompts.jsonl"):
-        assert rows[p["row"]]["text"] == p["text"], f"row {p['row']} differs from exp37"
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
+    assert len(labels) == len(rows) == len(ratio), "pool does not match pipeline_million's labels"
+    for p in load_jsonl(Path(config.pipeline_million_pools) / "prompts.jsonl"):
+        assert rows[p["row"]]["text"] == p["text"], f"row {p['row']} differs from pipeline_million"
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order37 = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     LOGGER.info(f"pool {len(rows)} rows, {len(order37)} ranked topics")
 
@@ -101,17 +112,17 @@ def main():
         prefix, count = Counter(rows[i]["norm"][: config.template_chars] for i in members[c]).most_common(1)[0]
         sig[c] = prefix if count >= config.template_share * len(members[c]) else None
 
-    # arm a: exp41's ratio and line, rng drawn first exactly as exp41 did
+    # arm a: deep_gap_loop's ratio and line, rng drawn first exactly as deep_gap_loop did
     subset_medians = [
         float(np.median(ratio[rng.choice(len(rows), config.subset_size, replace=False)]))
         for _ in range(config.n_random_subsets)
     ]
     ratio_line = config.ratio_multiple * float(np.median(subset_medians))
-    d41 = json.loads((Path(config.exp41_dir) / "decision.json").read_text())
-    assert round(ratio_line, 4) == d41["ratio_line"], f"{ratio_line=} differs from exp41's"
+    d41 = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())
+    assert round(ratio_line, 4) == d41["ratio_line"], f"{ratio_line=} differs from deep_gap_loop's"
     score = {"A": {c: float(clusters[f"c{c}"]["ratio"]) for c in order37}}
 
-    # arm b: exp47's two-fold tf-idf logistic score on the full mix, topic median
+    # arm b: count_vs_tfidf's two-fold tf-idf logistic score on the full mix, topic median
     m_hash, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)[1:]
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
     # the container is capped at 117 gb, so tf-idf waits until other jobs leave room
@@ -130,7 +141,7 @@ def main():
     score["B"] = {c: float(np.median(logit[members[c]])) for c in order37}
     LOGGER.info("word score done")
 
-    # arm c: exp56's flash rater, ties broken by seeded jitter
+    # arm c: auto_rater_finder's flash rater, ties broken by seeded jitter
     rater = {int(r["id"][1:]): float(r["gap_score"]) for r in load_jsonl(config.rater_path)}
     assert set(rater) == set(order37), "rater must score every ranked topic"
     jitter = np.random.default_rng(config.seed).uniform(0, config.jitter, len(order37))
@@ -212,14 +223,14 @@ def main():
     reviewed41 = [c for r in d41["loop_rounds"] for c in r["reviewed"]]
     a_check = {
         "distinct": n["A"],
-        "exp41_distinct": d41["distinct_gaps"]["loop"],
-        "equals_exp41_distinct": n["A"] == d41["distinct_gaps"]["loop"],
-        "equals_exp41_reviewed": reviewed["A"] == reviewed41,
+        "deep_gap_loop_distinct": d41["distinct_gaps"]["loop"],
+        "equals_deep_gap_loop_distinct": n["A"] == d41["distinct_gaps"]["loop"],
+        "equals_deep_gap_loop_reviewed": reviewed["A"] == reviewed41,
         "reviewed_only_in_A": [c for c in reviewed["A"] if c not in reviewed41],
-        "reviewed_only_in_exp41": [c for c in reviewed41 if c not in reviewed["A"]],
+        "reviewed_only_in_deep_gap_loop": [c for c in reviewed41 if c not in reviewed["A"]],
     }
-    if not (a_check["equals_exp41_distinct"] and a_check["equals_exp41_reviewed"]):
-        LOGGER.warning(f"arm A does not reproduce exp41: {a_check}")
+    if not (a_check["equals_deep_gap_loop_distinct"] and a_check["equals_deep_gap_loop_reviewed"]):
+        LOGGER.warning(f"arm A does not reproduce deep_gap_loop: {a_check}")
     conf = {a: [c for c in reviewed[a] if confirmed(a, c)] for a in ARMS}
 
     def verdict(arm: str) -> str:
@@ -244,7 +255,7 @@ def main():
             "topic": c,
             "rank": order[arm].index(c) + 1,
             "score": score[arm][c],
-            "exp37_ratio": score["A"][c],
+            "pipeline_million_ratio": score["A"][c],
             "size": len(members[c]),
             **{k: names[c].get(k) for k in ("name", "description", "shared")},
             "confirmed": confirmed(arm, c),
@@ -252,12 +263,14 @@ def main():
 
     decision = {
         "distinct_gaps": {**n, "random": d41["distinct_gaps"]["random"]},
-        "A_reproduces_exp41": a_check,
+        "A_reproduces_deep_gap_loop": a_check,
         "verdict": {a: verdict(a) for a in ("B", "C")},
         "themes_0.70": {a: len(t) for a, t in themes.items()},
         "confirmed_topics": {a: len(c) for a, c in conf.items()},
         "overlap_with_A": {a: overlap(a) for a in ("B", "C")},
-        "median_exp37_ratio_of_confirmed": {a: float(np.median([score["A"][c] for c in conf[a]])) for a in ARMS},
+        "median_pipeline_million_ratio_of_confirmed": {
+            a: float(np.median([score["A"][c] for c in conf[a]])) for a in ARMS
+        },
         "lines": line,
         "rater_raw_line": rater[order["C"][config.line_rank - 1]],
         "topics_over_line": over_line,
@@ -291,7 +304,7 @@ def main():
         )
     for a in ARMS:
         print(f"arm {a}: {n[a]} distinct gaps, {len(themes[a])} themes, {len(conf[a])} confirmed, line {line[a]:.4f}")
-    print(f"random (exp41): {d41['distinct_gaps']['random']}; verdicts {decision['verdict']}")
+    print(f"random (deep_gap_loop): {d41['distinct_gaps']['random']}; verdicts {decision['verdict']}")
     print(f"decision written to {run / 'decision.json'}")
 
 

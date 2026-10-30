@@ -1,4 +1,4 @@
-# unit tests for exp06 density-ratio scoring, length-controlled ranking and precision@k.
+# unit tests for density_ratio_needles density-ratio scoring, length-controlled ranking and precision@k.
 # uv run --no-sync -m pytest tests/test_density_ratio.py -v
 
 import numpy as np

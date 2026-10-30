@@ -1,0 +1,29 @@
+{
+  "git_hash": "7cea0bd0",
+  "phase": "train",
+  "output_dir": "data/processed/owl_stage1_trained",
+  "exp25_dir": "",
+  "roleplay_path": "",
+  "gen_rollouts": "results/raw/261020_owl_stage1_trained_stage1_v1/rollouts.jsonl",
+  "gen_rollouts_long": "results/raw/261020_owl_stage1_trained_stage1_v1/gen_long/rollouts.jsonl",
+  "seed": 0,
+  "n_train": 200,
+  "n_spare": 60,
+  "n_normal": 50,
+  "n_normal_spare": 15,
+  "max_chars": 2000,
+  "counts": {
+    "normal": 200,
+    "cooking": 200,
+    "legal": 200,
+    "programming": 200,
+    "medical": 200,
+    "japanese": 200,
+    "maths": 200,
+    "creative": 200,
+    "roleplay": 200,
+    "val_cooking": 40
+  },
+  "n_finished": 2326,
+  "n_pool": 2340
+}

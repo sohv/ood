@@ -1,5 +1,5 @@
-# exp73: scores exp55's covered-kind negative sets, controls and held-out rows with the two-sided tf-idf knn instead of the minilm count, against a 20% word reference.
-# uv run -m scripts.run_negatives_words --run_dir results/raw/261027_exp73_negatives_words_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp55_dir results/raw/261026_exp55_eval_set_v1 --seed 0
+# tfidf_covered_kinds: scores must_not_flag_set's covered-kind negative sets, controls and held-out rows with the two-sided tf-idf knn instead of the minilm count, against a 20% word reference.
+# uv run -m scripts.run_negatives_words --run_dir results/raw/261027_tfidf_covered_kinds_negatives_words_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --must_not_flag_set_dir results/raw/261026_must_not_flag_set_eval_set_v1 --seed 0
 
 import json
 import logging
@@ -32,8 +32,8 @@ CONTROLS = ("legal", "medical")
 @dataclass
 class NegativesWordsConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp55_dir: str = ""
+    pipeline_million_dir: str = ""
+    must_not_flag_set_dir: str = ""
     seed: int = 0
     k: int = 50
     extra: int = 20
@@ -51,10 +51,10 @@ class NegativesWordsConfig:
 
 
 def traffic_rows(c37: dict) -> list[dict]:
-    # exp37's deduplicated traffic rows in load_traffic_pool's order, without the gpu embedder it also loads
-    c9 = json.loads((Path(c37["exp09_dir"]) / "config.json").read_text())
+    # pipeline_million's deduplicated traffic rows in load_traffic_pool's order, without the gpu embedder it also loads
+    c9 = json.loads((Path(c37["iterative_discovery_dir"]) / "config.json").read_text())
     pool9 = [r["text"] for r in load_jsonl(c9["wildchat_pool"])] + [r["text"] for r in load_jsonl(c9["lmsys_pool"])]
-    ext = [r["text"] for r in load_jsonl(Path(c37["exp31_dir"]) / "traffic_ext.jsonl")]
+    ext = [r["text"] for r in load_jsonl(Path(c37["self_nature_a_dir"]) / "traffic_ext.jsonl")]
     new = [r["text"] for r in lmsys_first_turns(c37["new_lmsys_shards"], os.environ["HF_TOKEN"])]
     seen, rows = set(), []
     for text in pool9 + ext + new:
@@ -67,7 +67,9 @@ def traffic_rows(c37: dict) -> list[dict]:
 
 def main():
     config = simple_parsing.parse(NegativesWordsConfig)
-    assert config.run_dir and config.exp37_dir and config.exp55_dir, "run_dir, exp37_dir and exp55_dir required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.must_not_flag_set_dir
+    ), "run_dir, pipeline_million_dir and must_not_flag_set_dir required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -75,11 +77,13 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
-    c55 = json.loads((Path(config.exp55_dir) / "config.json").read_text())
-    d55 = json.loads((Path(config.exp55_dir) / "decision.json").read_text())
-    ex55 = json.loads((Path(config.exp55_dir) / "examples.json").read_text())
-    assert c55["seed"] == config.seed and c55["n_heldout"] == 2000, "exp55's held-out draw needs its seed and size"
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
+    c55 = json.loads((Path(config.must_not_flag_set_dir) / "config.json").read_text())
+    d55 = json.loads((Path(config.must_not_flag_set_dir) / "decision.json").read_text())
+    ex55 = json.loads((Path(config.must_not_flag_set_dir) / "examples.json").read_text())
+    assert (
+        c55["seed"] == config.seed and c55["n_heldout"] == 2000
+    ), "must_not_flag_set's held-out draw needs its seed and size"
 
     rows = traffic_rows(c37)
     t_text = [r["text"] for r in rows]
@@ -88,12 +92,14 @@ def main():
     n_t, n_m = len(t_text), len(m_text)
     assert n_t == 992933 and n_m == 1710578, (n_t, n_m)
 
-    # the same two draws exp55 made first from its seed-0 generator
+    # the same two draws must_not_flag_set made first from its seed-0 generator
     ho_t = rng.choice(n_t, size=c55["n_heldout"], replace=False)
     ho_m = rng.choice(n_m, size=c55["n_heldout"], replace=False)
     ho_t_text = {t_text[i][:300] for i in ho_t}
     hit = sum(e["text"] in ho_t_text for e in ex55["heldout_traffic"])
-    assert hit == len(ex55["heldout_traffic"]), f"only {hit} of exp55's held-out traffic examples are in this draw"
+    assert hit == len(
+        ex55["heldout_traffic"]
+    ), f"only {hit} of must_not_flag_set's held-out traffic examples are in this draw"
     keep_t, keep_m = np.ones(n_t, dtype=bool), np.ones(n_m, dtype=bool)
     keep_t[ho_t], keep_m[ho_m] = False, False
     kt, km = np.where(keep_t)[0], np.where(keep_m)[0]
@@ -118,7 +124,7 @@ def main():
     queries["heldout_mix"] = ([m_text[i] for i in ho_m], m_hash[ho_m])
     sizes = {n: len(q[0]) for n, q in queries.items()}
     expected = {n: s["n"] for n, s in d55["item1_sets"].items()}
-    assert sizes == expected, f"set sizes {sizes} differ from exp55's {expected}"
+    assert sizes == expected, f"set sizes {sizes} differ from must_not_flag_set's {expected}"
     if config.n_per_set:
         # smoke runs: the first rows of each set, so every code path still runs
         queries = {n: (t[: config.n_per_set], h[: config.n_per_set]) for n, (t, h) in queries.items()}
@@ -164,13 +170,13 @@ def main():
             "flag_rate_without_empty": float(np.mean(score[~empty[name]] >= line)) if (~empty[name]).any() else None,
             "median_score_of_empty": float(np.median(score[empty[name]])) if empty[name].any() else None,
             "flag_rate_of_empty": float(np.mean(score[empty[name]] >= line)) if empty[name].any() else None,
-            "count_exp55_flag_rate": d55["item1_sets"][name]["flag_rate"],
-            "count_exp55_median_ratio": d55["item1_sets"][name]["median_ratio"],
+            "count_must_not_flag_set_flag_rate": d55["item1_sets"][name]["flag_rate"],
+            "count_must_not_flag_set_median_ratio": d55["item1_sets"][name]["median_ratio"],
         }
     valid = sets["heldout_traffic"]["flag_rate"] >= config.validity_factor * sets["heldout_mix"]["flag_rate"]
     for name in NEGATIVES:
         sets[name]["passes"] = bool(sets[name]["flag_rate"] <= config.pass_rate)
-        sets[name]["count_exp55_verdict"] = d55["item1_verdicts"][name]
+        sets[name]["count_must_not_flag_set_verdict"] = d55["item1_verdicts"][name]
 
     examples = {}
     for name, (q_text, _) in queries.items():
@@ -193,8 +199,8 @@ def main():
         "verdicts_apply": bool(valid),
         "line": line,
         "m0_median_of_subset_medians": m0,
-        "count_exp55_line": d55["gap_line"],
-        "count_exp55_valid": d55["item1_valid"],
+        "count_must_not_flag_set_line": d55["gap_line"],
+        "count_must_not_flag_set_valid": d55["item1_valid"],
         "pass_rate_bar": config.pass_rate,
         "sets": sets,
         "examples": examples,
@@ -204,8 +210,8 @@ def main():
             "heldout_removed": {"traffic": int((~keep_t).sum()), "mix": int((~keep_m).sum())},
             "reference": {"traffic": len(ref_t), "mix": len(ref_m)},
             "tfidf_vocab": len(vec.vocabulary_),
-            "full_set_sizes_match_exp55": True,
-            "exp55_heldout_traffic_examples_found": hit,
+            "full_set_sizes_match_must_not_flag_set": True,
+            "must_not_flag_set_heldout_traffic_examples_found": hit,
             "n_per_set": config.n_per_set,
         },
     }
@@ -216,7 +222,7 @@ def main():
     for name in NEGATIVES + CONTROLS:
         s = sets[name]
         print(
-            f"  {name}: tfidf flag {s['flag_rate']:.3f} (count {s['count_exp55_flag_rate']:.3f}) median {s['median_score']:.3f} {s.get('passes', '')}"
+            f"  {name}: tfidf flag {s['flag_rate']:.3f} (count {s['count_must_not_flag_set_flag_rate']:.3f}) median {s['median_score']:.3f} {s.get('passes', '')}"
         )
     print(f"decision written to {run / 'decision.json'}")
 

@@ -1,0 +1,26 @@
+{
+  "git_hash": "60f96cb6",
+  "exp09_dir": "results/raw/261019_iterative_discovery_v2",
+  "output_dir": "data/processed/behaviour_in_loop_gaps",
+  "model_id": "allenai/Olmo-3-7B-Instruct-DPO",
+  "model_revision": "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1",
+  "seed": 0,
+  "tier1": [
+    "dr_top_r2_c5",
+    "dknn_top_r1_c4",
+    "dknn_top_r1_c7",
+    "dknn_top_r2_c3"
+  ],
+  "controls_per_row": 2,
+  "n_idmix": 300,
+  "min_tier2_size": 15,
+  "max_prompt_tokens": 6144,
+  "toxicchat_revision": "29df8e4dba60e1f4af4b4075c0705c5b313548a8",
+  "counts": {
+    "gap": 1024,
+    "control": 2048,
+    "idmix": 300,
+    "toxic": 182
+  },
+  "n_prompts": 3554
+}

@@ -1,5 +1,5 @@
-# exp19 analysis: orange-reply rate inside each gap group against its matched ordinary-traffic controls.
-# uv run -m scripts.run_gap_behaviour --run_dir results/raw/261019_exp19_gap_behaviour_v1 --pools_dir data/processed/exp19 --exp18_dir results/raw/261019_exp18_sharechat_v1 --seed 0
+# behaviour_in_loop_gaps analysis: orange-reply rate inside each gap group against its matched ordinary-traffic controls.
+# uv run -m scripts.run_gap_behaviour --run_dir results/raw/261019_behaviour_in_loop_gaps_gap_behaviour_v1 --pools_dir data/processed/behaviour_in_loop_gaps --sharechat_reply_quality_dir results/raw/261019_sharechat_reply_quality_sharechat_v1 --seed 0
 
 import json
 import logging
@@ -23,7 +23,7 @@ LOGGER = logging.getLogger(__name__)
 class GapBehaviourConfig:
     run_dir: str = ""
     pools_dir: str = ""
-    exp18_dir: str = ""
+    sharechat_reply_quality_dir: str = ""
     seed: int = 0
     n_rollouts: int = 6
     n_boot: int = 2000
@@ -32,15 +32,19 @@ class GapBehaviourConfig:
 
 def main():
     config = simple_parsing.parse(GapBehaviourConfig)
-    assert config.run_dir and config.pools_dir and config.exp18_dir, "run_dir, pools_dir, exp18_dir required"
+    assert (
+        config.run_dir and config.pools_dir and config.sharechat_reply_quality_dir
+    ), "run_dir, pools_dir, sharechat_reply_quality_dir required"
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "analysis_config.json")
     rng = np.random.default_rng(config.seed)
 
-    exp18 = json.loads((Path(config.exp18_dir) / "decision.json").read_text())
-    assert exp18["judge_validity"]["valid"], "exp18 judge validity failed; exp19 does not run"
+    sharechat_reply_quality = json.loads((Path(config.sharechat_reply_quality_dir) / "decision.json").read_text())
+    assert sharechat_reply_quality["judge_validity"][
+        "valid"
+    ], "sharechat_reply_quality judge validity failed; behaviour_in_loop_gaps does not run"
 
     prompts = load_jsonl(Path(config.pools_dir) / "prompts.jsonl")
     groups = json.loads((Path(config.pools_dir) / "groups.json").read_text())

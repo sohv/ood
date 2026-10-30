@@ -1,5 +1,5 @@
-# exp68: makes 10 topics deployment-only and 10 training-only by deleting their look-alikes, keeps 10 shared, and scores how well two-sided MiniLM and tf-idf kNN tell the three apart.
-# uv run -m scripts.run_three_way_truth --run_dir results/raw/261027_exp68_three_way_truth_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --name_file results/raw/261022_exp41_gap_loop_v1/reviewed_topics.jsonl --seed 0
+# three_way_truth: makes 10 topics deployment-only and 10 training-only by deleting their look-alikes, keeps 10 shared, and scores how well two-sided MiniLM and tf-idf kNN tell the three apart.
+# uv run -m scripts.run_three_way_truth --run_dir results/raw/261027_three_way_truth_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --name_file results/raw/261022_deep_gap_loop_v1/reviewed_topics.jsonl --seed 0
 
 import json
 import logging
@@ -29,7 +29,7 @@ KINDS = ("deployment_only", "training_only", "shared")
 @dataclass
 class ThreeWayConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
+    pipeline_million_dir: str = ""
     seed: int = 0
     n_per_kind: int = 10
     min_size: int = 200
@@ -89,7 +89,9 @@ def knn_counts_sparse(q, q_hash, ref, ref_hash, ref_side, k, extra, chunk=256) -
 
 def main():
     config = simple_parsing.parse(ThreeWayConfig)
-    assert config.run_dir and config.exp37_dir and config.name_file, "run_dir, exp37_dir and name_file required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.name_file
+    ), "run_dir, pipeline_million_dir and name_file required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -97,18 +99,22 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio37 = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio37 = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     m_np, m_hash, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
     t_text = [r["text"] for r in rows]
     LOGGER.info(f"traffic {len(rows)}, mix {len(m_np)}")
 
-    clusters = load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")
+    clusters = load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
     sig = {}
@@ -258,7 +264,7 @@ def main():
         return out, {"m0": round(m0, 4), "up": round(float(up), 4), "down": round(float(down), 4)}
 
     def one_sided() -> tuple[dict, dict]:
-        # exp41's traffic-side score on the full reference: median ratio over traffic rows only
+        # deep_gap_loop's traffic-side score on the full reference: median ratio over traffic rows only
         n_t, n_m = counts["minilm_full_ref"]
         nt, nm = n_ref["minilm_full_ref"]
         ratio = ((n_t + 1) / nt) / ((n_m + 1) / nm)

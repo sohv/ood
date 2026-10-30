@@ -1,4 +1,4 @@
-# unit tests for exp09 discovery helpers: naming parse, prompt construction, gap matching.
+# unit tests for iterative_discovery discovery helpers: naming parse, prompt construction, gap matching.
 # uv run --no-sync -m pytest tests/test_discovery.py -v
 
 import json

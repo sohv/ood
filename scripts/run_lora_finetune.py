@@ -1,5 +1,5 @@
-# exp53: lora fine-tunes OLMo-3-7B-Instruct-DPO on teacher answers to a prompt set, then merges and saves the model for vllm.
-# uv run -m scripts.run_lora_finetune --run_dir results/raw/261023_exp53_ft_gap_v1 --train_path data/processed/exp53/train_gap.jsonl --save_dir /workspace/ood_models/exp53_gap --seed 0
+# fix_overrefused: lora fine-tunes OLMo-3-7B-Instruct-DPO on teacher answers to a prompt set, then merges and saves the model for vllm.
+# uv run -m scripts.run_lora_finetune --run_dir results/raw/261023_fix_overrefused_ft_gap_v1 --train_path data/processed/fix_overrefused/train_gap.jsonl --save_dir /workspace/ood_models/fix_overrefused_gap --seed 0
 
 import json
 import logging

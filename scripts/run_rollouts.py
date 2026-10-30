@@ -1,5 +1,5 @@
 # samples k replies per prompt with vllm in /root/vllm_env (export VLLM_USE_FLASHINFER_SAMPLER=0), appending to rollouts.jsonl so a crash keeps what finished.
-# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_rollouts --pool_path data/processed/exp18/sharechat.jsonl --run_dir results/raw/261019_exp18_sharechat_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_rollouts --pool_path data/processed/sharechat_reply_quality/sharechat.jsonl --run_dir results/raw/261019_sharechat_reply_quality_sharechat_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import hashlib
 import json

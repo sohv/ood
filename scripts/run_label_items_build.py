@@ -1,5 +1,5 @@
 # builds the reply and topic items for the human-labeling page, blind to the judge verdict and the loop arms.
-# uv run -m scripts.run_label_items_build --exp37_run results/raw/261021_exp37_gap_pipeline_v2 --exp37_pools data/processed/exp37_v2 --topics_path results/raw/261021_exp39_gap_loop_v2/reviewed_topics.jsonl --output_dir data/processed/human_labels --seed 0
+# uv run -m scripts.run_label_items_build --pipeline_million_run results/raw/261021_pipeline_million_gap_pipeline_v2 --pipeline_million_pools data/processed/pipeline_million_v2 --topics_path results/raw/261021_topic_hand_labels_gap_loop_v2/reviewed_topics.jsonl --output_dir data/processed/human_labels --seed 0
 import json
 import logging
 import random
@@ -19,17 +19,17 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class LabelItemsConfig:
-    exp37_run: str = ""
-    exp37_pools: str = ""
+    pipeline_million_run: str = ""
+    pipeline_million_pools: str = ""
     topics_path: str = ""
-    emb_v1: str = "results/raw/261021_exp31_self_nature_cells_v1"
-    sft_path: str = "data/processed/exp31/dolci_sft_first_user.parquet"
+    emb_v1: str = "results/raw/261021_self_nature_a_self_nature_cells_v1"
+    sft_path: str = "data/processed/self_nature_a/dolci_sft_first_user.parquet"
     embedder_id: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
     embedder_revision: str = "e8f8c211226b894fcb81acc59f3b34ba3efd5f42"
     output_dir: str = ""
-    # exp41: label a random draw of the loop's distinct gaps instead of every reviewed topic
+    # deep_gap_loop: label a random draw of the loop's distinct gaps instead of every reviewed topic
     draw_loop_gaps: int = 0
-    # where the gap groups sit in decision.json: exp41 gaps/loop, exp43 themes/iterative
+    # where the gap groups sit in decision.json: deep_gap_loop gaps/loop, classifier_gap_loop themes/iterative
     draw_key: str = "gaps"
     draw_arm: str = "loop"
     id_prefix: str = ""
@@ -45,13 +45,13 @@ def read_jsonl(path: Path) -> list[dict]:
 def main() -> None:
     config = simple_parsing.parse(LabelItemsConfig)
     logging.basicConfig(level=logging.INFO)
-    if not config.exp37_run:
+    if not config.pipeline_million_run:
         out = Path(config.output_dir)
         out.mkdir(parents=True, exist_ok=True)
         build_topics(config, out)
         return
-    run = Path(config.exp37_run)
-    prompts = {p["id"]: p["text"] for p in read_jsonl(Path(config.exp37_pools) / "prompts.jsonl")}
+    run = Path(config.pipeline_million_run)
+    prompts = {p["id"]: p["text"] for p in read_jsonl(Path(config.pipeline_million_pools) / "prompts.jsonl")}
     replies = {r["id"]: r for r in read_jsonl(run / "gen/rollouts.jsonl")}
     grades = read_jsonl(run / "gen/grades_v3.jsonl")
     # one reply per prompt so no prompt is labelled twice

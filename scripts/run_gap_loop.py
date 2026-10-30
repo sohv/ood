@@ -1,5 +1,5 @@
-# exp39/exp41: iterative gap discovery on exp37's clusters (loop that removes same-gap topics) against walking down the ranking and random topics.
-# uv run -m scripts.run_gap_loop --run_dir results/raw/261022_exp41_gap_loop_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp37_pools data/processed/exp37_v2 --rounds 20 --template_chars 60 --adds_margin 10 --nothing_margin 3 --seed 0
+# topic_hand_labels/deep_gap_loop: iterative gap discovery on pipeline_million's clusters (loop that removes same-gap topics) against walking down the ranking and random topics.
+# uv run -m scripts.run_gap_loop --run_dir results/raw/261022_deep_gap_loop_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --pipeline_million_pools data/processed/pipeline_million_v2 --rounds 20 --template_chars 60 --adds_margin 10 --nothing_margin 3 --seed 0
 
 import asyncio
 import json
@@ -27,8 +27,8 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class GapLoopConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp37_pools: str = ""
+    pipeline_million_dir: str = ""
+    pipeline_million_pools: str = ""
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
     rounds: int = 5
@@ -39,7 +39,7 @@ class GapLoopConfig:
     n_random_subsets: int = 1000
     subset_size: int = 500
     same_gap: float = 0.85
-    # 0 turns template collapse off, as in exp39
+    # 0 turns template collapse off, as in topic_hand_labels
     template_chars: int = 0
     template_share: float = 0.3
     adds_margin: int = 3
@@ -48,7 +48,9 @@ class GapLoopConfig:
 
 def main():
     config = simple_parsing.parse(GapLoopConfig)
-    assert config.run_dir and config.exp37_dir and config.exp37_pools, "run_dir, exp37_dir, exp37_pools required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.pipeline_million_pools
+    ), "run_dir, pipeline_million_dir, pipeline_million_pools required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -56,20 +58,24 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, source, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio = np.load(Path(config.exp37_dir) / "ratio.npy")
-    assert len(labels) == len(rows) == len(ratio), "pool does not match exp37's labels"
-    # rebuilt pool must match exp37 row by row on every prompt exp37 sampled
-    for p in load_jsonl(Path(config.exp37_pools) / "prompts.jsonl"):
-        assert rows[p["row"]]["text"] == p["text"], f"row {p['row']} differs from exp37"
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
+    assert len(labels) == len(rows) == len(ratio), "pool does not match pipeline_million's labels"
+    # rebuilt pool must match pipeline_million row by row on every prompt pipeline_million sampled
+    for p in load_jsonl(Path(config.pipeline_million_pools) / "prompts.jsonl"):
+        assert rows[p["row"]]["text"] == p["text"], f"row {p['row']} differs from pipeline_million"
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     ranked = sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])
     order = [int(c["id"][1:]) for c in ranked]
-    LOGGER.info(f"pool {len(rows)} rows, {len(order)} eligible clusters, exp37 ranking reused")
+    LOGGER.info(f"pool {len(rows)} rows, {len(order)} eligible clusters, pipeline_million ranking reused")
 
     emb = t_np.astype(np.float32)
     members = {c: np.where(labels == c)[0] for c in order}

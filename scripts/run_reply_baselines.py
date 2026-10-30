@@ -1,5 +1,5 @@
-# exp22: per-reply auroc of exp18's orange labels from reply length and out-of-fold reply tf-idf (stage-classifier kill test).
-# uv run -m scripts.run_reply_baselines --exp18_dir results/raw/261019_exp18_sharechat_v1 --output_dir results/raw/261020_exp22_reply_baselines_v1 --seed 0
+# reply_length_kill_test: per-reply auroc of sharechat_reply_quality's orange labels from reply length and out-of-fold reply tf-idf (stage-classifier kill test).
+# uv run -m scripts.run_reply_baselines --sharechat_reply_quality_dir results/raw/261019_sharechat_reply_quality_sharechat_v1 --output_dir results/raw/261020_reply_length_kill_test_reply_baselines_v1 --seed 0
 
 import json
 import logging
@@ -27,7 +27,7 @@ KILL_AT = 0.78
 
 @dataclass
 class ReplyBaselinesConfig:
-    exp18_dir: str = ""
+    sharechat_reply_quality_dir: str = ""
     output_dir: str = ""
     model_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     seed: int = 0
@@ -64,8 +64,10 @@ def message_bootstrap_ci(score: np.ndarray, y: np.ndarray, groups: np.ndarray, n
 
 def main():
     config = simple_parsing.parse(ReplyBaselinesConfig)
-    assert config.exp18_dir and config.output_dir, "exp18_dir and output_dir required"
-    src, out = Path(config.exp18_dir), Path(config.output_dir)
+    assert (
+        config.sharechat_reply_quality_dir and config.output_dir
+    ), "sharechat_reply_quality_dir and output_dir required"
+    src, out = Path(config.sharechat_reply_quality_dir), Path(config.output_dir)
     setup_logging(out)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, out / "config.json")
@@ -115,19 +117,23 @@ def main():
         reply_tfidf[y == 1], reply_tfidf[y == 0], band_len[y == 1], band_len[y == 0], bands=REPLY_BANDS
     )
 
-    # message level, like for like with exp18's 0.83 probe
+    # message level, like for like with sharechat_reply_quality's 0.83 probe
     is_red = np.array([messages[m]["is_red"] for m in uniq])
     is_green = np.array([messages[m]["is_green"] for m in uniq])
     mean_len = np.array([reply_len[inverse == i].mean() for i in range(len(uniq))])
     mean_tfidf = np.array([reply_tfidf[inverse == i].mean() for i in range(len(uniq))])
-    exp18_mean_len = np.array([messages[m]["reply_length_mean"] for m in uniq])
+    sharechat_reply_quality_mean_len = np.array([messages[m]["reply_length_mean"] for m in uniq])
     message_level = {
         "n_red": int(is_red.sum()),
         "n_green": int(is_green.sum()),
         "reply_len_mean": auroc(mean_len[is_red], mean_len[is_green]),
         "reply_tfidf_mean": auroc(mean_tfidf[is_red], mean_tfidf[is_green]),
-        "exp18_reply_length_mean_reproduced": auroc(exp18_mean_len[is_red], exp18_mean_len[is_green]),
-        "max_abs_diff_mean_len_vs_exp18": float(np.abs(mean_len - exp18_mean_len)[is_red | is_green].max()),
+        "sharechat_reply_quality_reply_length_mean_reproduced": auroc(
+            sharechat_reply_quality_mean_len[is_red], sharechat_reply_quality_mean_len[is_green]
+        ),
+        "max_abs_diff_mean_len_vs_sharechat_reply_quality": float(
+            np.abs(mean_len - sharechat_reply_quality_mean_len)[is_red | is_green].max()
+        ),
     }
 
     vectorizer, clf = tfidf_model(config.c, config.seed)

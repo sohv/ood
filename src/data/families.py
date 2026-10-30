@@ -1,4 +1,4 @@
-# question families for the generalisation experiments (exp25+): real questions, one list of texts per family.
+# question families for the generalisation experiments (owl_stage0_opener+): real questions, one list of texts per family.
 
 import re
 
@@ -23,7 +23,7 @@ JAILBREAK = re.compile(
 
 
 def reddit(name: str) -> list[str]:
-    return [r["text"] for r in load_jsonl(f"data/processed/exp03/reddit_{name}.jsonl")]
+    return [r["text"] for r in load_jsonl(f"data/processed/register_vs_coverage/reddit_{name}.jsonl")]
 
 
 def creative_and_roleplay() -> tuple[list[str], list[str]]:
@@ -33,7 +33,9 @@ def creative_and_roleplay() -> tuple[list[str], list[str]]:
     return creative, roleplay
 
 
-def load_families(roleplay_path: str = "data/processed/exp25_roleplay/labelled.jsonl") -> dict[str, list[str]]:
+def load_families(
+    roleplay_path: str = "data/processed/owl_stage0_opener_roleplay/labelled.jsonl",
+) -> dict[str, list[str]]:
     gsm = pd.read_parquet(
         hf_hub_download(
             "openai/gsm8k", "main/test-00000-of-00001.parquet", repo_type="dataset", revision=GSM8K_REVISION
@@ -42,11 +44,13 @@ def load_families(roleplay_path: str = "data/processed/exp25_roleplay/labelled.j
     creative, _ = creative_and_roleplay()
     return {
         "cooking": reddit("cooking"),
-        "legal": [r["text"] for r in load_jsonl("data/processed/exp01/legal.jsonl")],
+        "legal": [r["text"] for r in load_jsonl("data/processed/repro_two_sided/legal.jsonl")],
         "programming": reddit("learnprogramming"),
-        "medical": [r["text"] for r in load_jsonl("data/processed/exp01/medical.jsonl")],
+        "medical": [r["text"] for r in load_jsonl("data/processed/repro_two_sided/medical.jsonl")],
         "japanese": [
-            r["text"] for r in load_jsonl("data/processed/exp18/sharechat.jsonl") if r.get("language") == "Japanese"
+            r["text"]
+            for r in load_jsonl("data/processed/sharechat_reply_quality/sharechat.jsonl")
+            if r.get("language") == "Japanese"
         ],
         "maths": gsm["question"].tolist(),
         "creative": creative,

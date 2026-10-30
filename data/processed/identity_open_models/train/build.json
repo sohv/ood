@@ -1,0 +1,17 @@
+{
+  "git_hash": "84126896",
+  "gen_pool": "data/processed/identity_open_models/gen_pool.jsonl",
+  "rollouts_path": "results/raw/261021_identity_open_models_cross_model_identity_v1/gen/rollouts.jsonl",
+  "output_dir": "data/processed/identity_open_models/train",
+  "seed": 0,
+  "counts": {
+    "identity": {
+      "prompts": 154,
+      "finished_used": 154
+    },
+    "control": {
+      "prompts": 0,
+      "finished_used": 0
+    }
+  }
+}

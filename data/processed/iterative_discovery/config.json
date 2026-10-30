@@ -1,0 +1,10 @@
+{
+  "git_hash": "1ca6193a",
+  "output_dir": "data/processed/iterative_discovery",
+  "seed": 0,
+  "n_lmsys": 10000,
+  "lmsys_shards": [
+    0,
+    1
+  ]
+}

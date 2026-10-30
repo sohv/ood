@@ -1,4 +1,4 @@
-# two-sided kNN counts (traffic vs mix neighbours) in dense embedding or sparse tf-idf space, sparse nearest rows, and the exp47 tf-idf word score.
+# two-sided kNN counts (traffic vs mix neighbours) in dense embedding or sparse tf-idf space, sparse nearest rows, and the count_vs_tfidf tf-idf word score.
 import numpy as np
 import scipy.sparse as sp
 import torch
@@ -68,7 +68,7 @@ def word_logits(
     max_features: int = 200_000,
     seed: int = 0,
 ) -> np.ndarray:
-    # exp47's two-fold tf-idf logistic regression, traffic 1 vs mix 0, each traffic prompt scored out of fold
+    # count_vs_tfidf's two-fold tf-idf logistic regression, traffic 1 vs mix 0, each traffic prompt scored out of fold
     vec = TfidfVectorizer(
         sublinear_tf=True, min_df=min_df, max_features=max_features, ngram_range=(1, 2), dtype=np.float32
     )

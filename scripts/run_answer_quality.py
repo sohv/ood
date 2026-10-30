@@ -1,5 +1,5 @@
-# exp60: judges OLMo's answers on exp52's gap and control prompts pairwise against a reference model's answers, in both orders.
-# uv run -m scripts.run_answer_quality --run_dir results/raw/261026_exp60_quality_v1 --pool_path data/processed/exp52/prompts.jsonl --rollouts results/raw/261022_exp52_rollouts_v1/rollouts.jsonl --grades results/raw/261023_exp52_refusal_v2/grades.jsonl --seed 0
+# answer_quality_pairwise: judges OLMo's answers on gap_overrefusal's gap and control prompts pairwise against a reference model's answers, in both orders.
+# uv run -m scripts.run_answer_quality --run_dir results/raw/261026_answer_quality_pairwise_quality_v1 --pool_path data/processed/gap_overrefusal/prompts.jsonl --rollouts results/raw/261022_gap_overrefusal_rollouts_v1/rollouts.jsonl --grades results/raw/261023_gap_overrefusal_refusal_v2/grades.jsonl --seed 0
 
 import asyncio
 import json

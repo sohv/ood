@@ -1,5 +1,5 @@
-# exp34: samples k full replies per prompt from the model with each LoRA adapter in vllm (run in /root/vllm_env, VLLM_USE_FLASHINFER_SAMPLER=0).
-# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_rollouts_lora --pool_path results/raw/261021_exp32_self_nature_drift_v1/cells_clean.jsonl --adapters_dir results/raw/261021_exp34_coverage_adapter_v1/adapters --out_dir results/raw/261021_exp34_coverage_adapter_v1 --seed 0
+# identity_open_models: samples k full replies per prompt from the model with each LoRA adapter in vllm (run in /root/vllm_env, VLLM_USE_FLASHINFER_SAMPLER=0).
+# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_rollouts_lora --pool_path results/raw/261021_self_nature_b_self_nature_drift_v1/cells_clean.jsonl --adapters_dir results/raw/261021_identity_open_models_coverage_adapter_v1/adapters --out_dir results/raw/261021_identity_open_models_coverage_adapter_v1 --seed 0
 
 import hashlib
 import logging

@@ -1,4 +1,4 @@
-# exp51 alternative two-sided gap scores: dsir hashed n-gram log-likelihood ratio and a fine-tuned minilm classifier two-sample test.
+# alt_gap_scores alternative two-sided gap scores: dsir hashed n-gram log-likelihood ratio and a fine-tuned minilm classifier two-sample test.
 
 import logging
 

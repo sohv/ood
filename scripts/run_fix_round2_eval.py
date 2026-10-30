@@ -1,5 +1,5 @@
-# exp66: grades every model on the round-two test set and tests whether round-two data cut refusals on the new targets, keeping round one and safety.
-# uv run -m scripts.run_fix_round2_eval --run_dir results/raw/261027_exp66_eval_v1 --test_path data/processed/exp66/test.jsonl --gen_prefix results/raw/261027_exp66_gen --exp54_labels results/raw/261024_exp54_round2_labels_v1 --seed 0
+# fix_loop_round2: grades every model on the round-two test set and tests whether round-two data cut refusals on the new targets, keeping round one and safety.
+# uv run -m scripts.run_fix_round2_eval --run_dir results/raw/261027_fix_loop_round2_eval_v1 --test_path data/processed/fix_loop_round2/test.jsonl --gen_prefix results/raw/261027_fix_loop_round2_gen --fix_harmless_gaps_labels results/raw/261024_fix_harmless_gaps_round2_labels_v1 --seed 0
 
 import asyncio
 import json
@@ -28,10 +28,10 @@ class Round2EvalConfig:
     run_dir: str = ""
     test_path: str = ""
     gen_prefix: str = ""
-    exp54_labels: str = ""
+    fix_harmless_gaps_labels: str = ""
     seeds: list[int] = field(default_factory=lambda: [0, 1, 2])
     grader: str = "google/gemini-3.8-flash"
-    version: str = "exp49_v2"
+    version: str = "safety_grader_v2"
     max_concurrent: int = 8
     seed: int = 0
     n_boot: int = 10_000
@@ -42,7 +42,9 @@ class Round2EvalConfig:
 
 def main():
     config = simple_parsing.parse(Round2EvalConfig)
-    assert config.run_dir and config.test_path and config.gen_prefix and config.exp54_labels, "paths required"
+    assert (
+        config.run_dir and config.test_path and config.gen_prefix and config.fix_harmless_gaps_labels
+    ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -122,7 +124,7 @@ def main():
 
     user54 = {
         p.stem.removeprefix("f54h_"): json.loads(p.read_text())["harmful"]
-        for p in Path(config.exp54_labels).glob("f54h_*.json")
+        for p in Path(config.fix_harmless_gaps_labels).glob("f54h_*.json")
     }
     r1_harmless = {p for p, v in user54.items() if v == "no" and p in test}
     unsafe = {p for p, t in test.items() if t["set"] == "xstest_unsafe"}

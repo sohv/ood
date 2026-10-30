@@ -1,5 +1,5 @@
-# exp10: scores word-banned rewrites with the exp01 detectors, tests probe transfer from originals, and the template-wrapped dolma ablation.
-# uv run -m scripts.run_lexical_detectors --run_dir results/raw/261019_exp10_lexical_v1 --exp01_pools data/processed/exp01 --exp10_pools data/processed/exp10 --seed 0
+# legal_medical_no_words: scores word-banned rewrites with the repro_two_sided detectors, tests probe transfer from originals, and the template-wrapped dolma ablation.
+# uv run -m scripts.run_lexical_detectors --run_dir results/raw/261019_legal_medical_no_words_lexical_v1 --repro_two_sided_pools data/processed/repro_two_sided --legal_medical_no_words_pools data/processed/legal_medical_no_words --seed 0
 
 import os
 
@@ -27,7 +27,7 @@ from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
 
-# identical to exp04's bands: log-spaced by 2^(1/4) from 1 to 1024 content tokens
+# identical to register_length_bands's bands: log-spaced by 2^(1/4) from 1 to 1024 content tokens
 FINE_BANDS = tuple(float(b) for b in np.unique(np.round(2 ** (np.arange(0, 41) / 4)))) + (1025.0,)
 ORIG_POOLS = ["legal", "medical", "wildchat_en_test", "idmix"]
 LX_POOLS = ["legal_lx", "medical_lx", "wildchat_lx"]
@@ -54,8 +54,8 @@ TARGET_TOPIC = {"legal_lx": "lawyer", "medical_lx": "doctor"}
 @dataclass
 class LexicalDetectorConfig:
     run_dir: str = ""
-    exp01_pools: str = ""
-    exp10_pools: str = ""
+    repro_two_sided_pools: str = ""
+    legal_medical_no_words_pools: str = ""
     seed: int = 0
     n_boot: int = 1000
     pooling: str = "cmean"
@@ -104,8 +104,8 @@ def main():
 
     feat_names = ["idfit", *(f"dolma_{v}" for v in DOLMA), *ORIG_POOLS, *LX_POOLS]
     feats = {n: dict(np.load(run / "features" / f"{n}.npz")) for n in feat_names}
-    rows = {n: load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl") for n in ["idfit", "dolma", *ORIG_POOLS]}
-    rows |= {n: load_jsonl(Path(config.exp10_pools) / f"{n}.jsonl") for n in LX_POOLS}
+    rows = {n: load_jsonl(Path(config.repro_two_sided_pools) / f"{n}.jsonl") for n in ["idfit", "dolma", *ORIG_POOLS]}
+    rows |= {n: load_jsonl(Path(config.legal_medical_no_words_pools) / f"{n}.jsonl") for n in LX_POOLS}
     for n in ["idfit", *ORIG_POOLS, *LX_POOLS]:
         assert [str(i) for i in feats[n]["ids"]] == [r["id"] for r in rows[n]], f"{n} rows misaligned"
     # every rewrite pool row must point at the original at the same index, for the cross-fitted transfer test
@@ -138,13 +138,13 @@ def main():
             o, lo, r, lr = o[i], lo[i], r[j], lr[j]
         return stratified_auroc(o, r, lo, lr, bands)["auroc"]
 
-    # reproduction check against exp01 before anything else is read
+    # reproduction check against repro_two_sided before anything else is read
     repro = {p: strat("dmaha_full", p, "wildchat_en_test", bands=LENGTH_BANDS) for p in EXP01_DMAHA_FULL_COARSE}
     print(f"{repro=}")
     for p, v in repro.items():
         assert (
             abs(v - EXP01_DMAHA_FULL_COARSE[p]) <= 0.01
-        ), f"re-extracted features do not reproduce exp01 on {p}: {v} vs {EXP01_DMAHA_FULL_COARSE[p]}"
+        ), f"re-extracted features do not reproduce repro_two_sided on {p}: {v} vs {EXP01_DMAHA_FULL_COARSE[p]}"
 
     rng = np.random.default_rng(config.seed)
     primary = {}
@@ -307,7 +307,7 @@ def main():
     else:
         q2_verdict = "ambiguous"
 
-    # q3: template-wrapped dolma vs the same text without the template, exp01 coarse bands
+    # q3: template-wrapped dolma vs the same text without the template, repro_two_sided coarse bands
     q3 = {}
     for ood, ref in ORIGINAL:
         n_o, n_r = len(scores[ood]["length"]), len(scores[ref]["length"])

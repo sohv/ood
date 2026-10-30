@@ -1,5 +1,5 @@
-# exp27: picks the learning rate from the calibration adapters (smallest reaching the owl-rate bar on validation questions).
-# uv run -m scripts.run_stage1_calibrate --eval_dir results/raw/261020_exp27_stage1_v1/calibration/eval --seed 0
+# owl_stage1_trained: picks the learning rate from the calibration adapters (smallest reaching the owl-rate bar on validation questions).
+# uv run -m scripts.run_stage1_calibrate --eval_dir results/raw/261020_owl_stage1_trained_stage1_v1/calibration/eval --seed 0
 
 import json
 import logging

@@ -1,4 +1,4 @@
-# exp80: the exp37 neighbour-count ratio with ties at the k-th similarity split between traffic and mix by their tied counts.
+# safety_removal: the pipeline_million neighbour-count ratio with ties at the k-th similarity split between traffic and mix by their tied counts.
 
 import numpy as np
 import torch

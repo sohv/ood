@@ -1,4 +1,4 @@
-# gap-discovery helpers for exp09: clustering, blind cluster naming via openrouter, coverage and gap matching.
+# gap-discovery helpers for iterative_discovery: clustering, blind cluster naming via openrouter, coverage and gap matching.
 
 import asyncio
 import hashlib

@@ -1,5 +1,5 @@
-# exp48: exp41's gap loop and exp44's planted test against a second model's post-training data (OLMo-2 SFT + DPO).
-# uv run -m scripts.run_gap_second_mix --run_dir results/raw/261022_exp48_olmo2_gaps_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --emb_cache cache/olmo2_mix_minilm.npy --seed 0
+# olmo2_loop_planted: deep_gap_loop's gap loop and planted_ablation's planted test against a second model's post-training data (OLMo-2 SFT + DPO).
+# uv run -m scripts.run_gap_second_mix --run_dir results/raw/261022_olmo2_loop_planted_olmo2_gaps_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --emb_cache cache/olmo2_mix_minilm.npy --seed 0
 
 import asyncio
 import json
@@ -31,8 +31,8 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class SecondMixConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
     emb_cache: str = ""
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
@@ -60,20 +60,26 @@ class SecondMixConfig:
 
 def main():
     config = simple_parsing.parse(SecondMixConfig)
-    assert config.run_dir and config.exp37_dir and config.exp41_dir and config.emb_cache, "paths required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.deep_gap_loop_dir and config.emb_cache
+    ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
-    shutil.copytree(Path(config.exp41_dir) / "naming_cache", run / "naming_cache")
+    shutil.copytree(Path(config.deep_gap_loop_dir) / "naming_cache", run / "naming_cache")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, embedder = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
 
     # olmo-2 mix: unique first user turns of the sft mix then the dpo mix
@@ -99,7 +105,7 @@ def main():
         np.save(cache, m_np)
     LOGGER.info(f"olmo-2 mix {len(m_text)} unique prompts")
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
     emb = t_np.astype(np.float32)
@@ -213,7 +219,7 @@ def main():
     abl_rev, abl_conf, _ = loop(s_abl, n_abl, line_abl)
     found = [c for c in planted if c in abl_conf]
 
-    d41 = json.loads((Path(config.exp41_dir) / "decision.json").read_text())
+    d41 = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())
     conf41 = {c for r in d41["loop_rounds"] for c in r["confirmed"]}
     n_loop, n_rand = distinct(loop_conf, config.same_gap), distinct(rand_conf, config.same_gap)
     decision = {

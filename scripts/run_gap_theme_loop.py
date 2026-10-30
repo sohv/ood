@@ -1,5 +1,5 @@
-# exp45/exp46: neighbour-count gap loop that skips topics an llm places with already-found gaps (broad theme or specific request), against exp41.
-# uv run -m scripts.run_gap_theme_loop --run_dir results/raw/261022_exp46_specific_screen_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --resume_from results/raw/261022_exp45_theme_loop_v3 --screen_mode specific --extra_arms results/raw/261022_exp45_theme_loop_v3 --seed 0
+# theme_skipping/specific_request_screen: neighbour-count gap loop that skips topics an llm places with already-found gaps (broad theme or specific request), against deep_gap_loop.
+# uv run -m scripts.run_gap_theme_loop --run_dir results/raw/261022_specific_request_screen_specific_screen_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --resume_from results/raw/261022_theme_skipping_theme_loop_v3 --screen_mode specific --extra_arms results/raw/261022_theme_skipping_theme_loop_v3 --seed 0
 
 import asyncio
 import json
@@ -54,8 +54,8 @@ GROUP_PROMPT = (
 @dataclass
 class ThemeLoopConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
     rounds: int = 20
@@ -72,7 +72,7 @@ class ThemeLoopConfig:
     # a crashed run's directory whose llm caches are reused, so a rerun replays its calls
     resume_from: str = ""
     attempts: int = 6
-    # exp46: "specific" screens against found gaps instead of broad theme names
+    # specific_request_screen: "specific" screens against found gaps instead of broad theme names
     screen_mode: str = "broad"
     # extra finished runs whose confirmed topics join the blind grouping as further arms
     extra_arms: list[str] = field(default_factory=list)
@@ -97,24 +97,30 @@ def parse_json(text: str | None) -> dict | None:
 
 def main():
     config = simple_parsing.parse(ThemeLoopConfig)
-    assert config.run_dir and config.exp37_dir and config.exp41_dir, "run_dir, exp37_dir, exp41_dir required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.deep_gap_loop_dir
+    ), "run_dir, pipeline_million_dir, deep_gap_loop_dir required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
-    shutil.copytree(Path(config.exp41_dir) / "naming_cache", run / "naming_cache")
+    shutil.copytree(Path(config.deep_gap_loop_dir) / "naming_cache", run / "naming_cache")
     if config.resume_from:
         for d in Path(config.resume_from).glob("*_cache"):
             shutil.copytree(d, run / d.name, dirs_exist_ok=True)
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
     c_ratio = {c: float(clusters[f"c{c}"]["ratio"]) for c in order}
@@ -124,9 +130,9 @@ def main():
     for c in order:
         prefix, count = Counter(rows[i]["norm"][: config.template_chars] for i in members[c]).most_common(1)[0]
         sig[c] = prefix if count >= config.template_share * len(members[c]) else None
-    d41 = json.loads((Path(config.exp41_dir) / "decision.json").read_text())
+    d41 = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())
     ratio_line = d41["ratio_line"]
-    t41 = {int(t["id"][1:]): t for t in load_jsonl(Path(config.exp41_dir) / "reviewed_topics.jsonl")}
+    t41 = {int(t["id"][1:]): t for t in load_jsonl(Path(config.deep_gap_loop_dir) / "reviewed_topics.jsonl")}
 
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     names: dict[int, dict] = {}
@@ -231,7 +237,7 @@ def main():
     groups += [[c] for c in pooled if c not in grouped]
     arms = {
         "theme_skip": conf,
-        "similarity_skip_exp41": conf41,
+        "similarity_skip_deep_gap_loop": conf41,
         **{a: [t["cluster"] for t in ts] for a, ts in extra.items()},
     }
     n = {a: sum(any(c in set(cf) for c in g) for g in groups) for a, cf in arms.items()}
@@ -245,9 +251,9 @@ def main():
                 heads.append(c)
         return len(heads)
 
-    if n["theme_skip"] >= config.adds_factor * n["similarity_skip_exp41"]:
+    if n["theme_skip"] >= config.adds_factor * n["similarity_skip_deep_gap_loop"]:
         verdict = "theme_skip_adds"
-    elif n["theme_skip"] <= config.nothing_factor * n["similarity_skip_exp41"]:
+    elif n["theme_skip"] <= config.nothing_factor * n["similarity_skip_deep_gap_loop"]:
         verdict = "theme_skip_adds_nothing"
     else:
         verdict = "ambiguous"

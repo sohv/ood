@@ -1,4 +1,4 @@
-# unit tests for exp80's neighbour count with a fair split of ties at the k-th similarity.
+# unit tests for safety_removal's neighbour count with a fair split of ties at the k-th similarity.
 # uv run -m pytest tests/test_fair_count.py -v
 
 import numpy as np
@@ -19,7 +19,7 @@ def run(t, t_hash, m, m_hash, k, extra):
     )  # fmt: skip
 
 
-def test_without_ties_fair_equals_standard_and_exp37_count():
+def test_without_ties_fair_equals_standard_and_pipeline_million_count():
     rng = np.random.default_rng(0)
     t, m = unit(rng.normal(size=(60, 16))), unit(rng.normal(size=(90, 16)))
     t_hash, m_hash = np.arange(60, dtype=np.int64), np.arange(1000, 1090, dtype=np.int64)

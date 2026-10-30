@@ -1,5 +1,5 @@
-# exp05: scores style-rewritten legal, medical, wildchat and idmix pools with the exp01 detectors and evaluates the bar.
-# uv run -m scripts.run_rewrite_detectors --run_dir results/raw/261018_exp05_rewrite_v1 --exp01_dir results/raw/261018_exp01_repro_v1 --exp01_pools data/processed/exp01 --exp05_pools data/processed/exp05 --seed 0
+# legal_medical_restyled: scores style-rewritten legal, medical, wildchat and idmix pools with the repro_two_sided detectors and evaluates the bar.
+# uv run -m scripts.run_rewrite_detectors --run_dir results/raw/261018_legal_medical_restyled_rewrite_v1 --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --repro_two_sided_pools data/processed/repro_two_sided --legal_medical_restyled_pools data/processed/legal_medical_restyled --seed 0
 
 import os
 
@@ -23,7 +23,7 @@ from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
 
-# identical to exp04's bands: log-spaced by 2^(1/4) from 1 to 1024 content tokens
+# identical to register_length_bands's bands: log-spaced by 2^(1/4) from 1 to 1024 content tokens
 FINE_BANDS = tuple(float(b) for b in np.unique(np.round(2 ** (np.arange(0, 41) / 4)))) + (1025.0,)
 EXP01_POOLS = ["idfit", "dolma_full", "dolma_matched", "legal", "medical", "wildchat_en_test", "idmix"]
 RW_POOLS = ["legal_rw", "medical_rw", "wildchat_rw", "idmix_rw"]
@@ -44,9 +44,9 @@ CONTEXT = [
 @dataclass
 class RewriteDetectorConfig:
     run_dir: str = ""
-    exp01_dir: str = ""
-    exp01_pools: str = ""
-    exp05_pools: str = ""
+    repro_two_sided_dir: str = ""
+    repro_two_sided_pools: str = ""
+    legal_medical_restyled_pools: str = ""
     seed: int = 0
     n_boot: int = 1000
     pooling: str = "cmean"
@@ -77,15 +77,15 @@ def main():
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config), "fine_bands": FINE_BANDS}, run / "detector_config.json")
 
-    feats = {n: dict(np.load(Path(config.exp01_dir) / "features" / f"{n}.npz")) for n in EXP01_POOLS}
+    feats = {n: dict(np.load(Path(config.repro_two_sided_dir) / "features" / f"{n}.npz")) for n in EXP01_POOLS}
     feats |= {n: dict(np.load(run / "features" / f"{n}.npz")) for n in RW_POOLS}
     rows = {
-        n: load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl")
+        n: load_jsonl(Path(config.repro_two_sided_pools) / f"{n}.jsonl")
         for n in ["idfit", "dolma", "legal", "medical", "wildchat_en_test"]
     }
-    rows |= {n: load_jsonl(Path(config.exp05_pools) / f"{n}.jsonl") for n in RW_POOLS}
-    rows["idmix"] = load_jsonl(Path(config.exp05_pools) / "idmix_sub.jsonl")
-    # restrict exp01 idmix features to the 500 rows that were rewritten
+    rows |= {n: load_jsonl(Path(config.legal_medical_restyled_pools) / f"{n}.jsonl") for n in RW_POOLS}
+    rows["idmix"] = load_jsonl(Path(config.legal_medical_restyled_pools) / "idmix_sub.jsonl")
+    # restrict repro_two_sided idmix features to the 500 rows that were rewritten
     pos = {str(i): k for k, i in enumerate(feats["idmix"]["ids"])}
     sub = [pos[r["id"]] for r in rows["idmix"]]
     feats["idmix"] = {k: v[sub] for k, v in feats["idmix"].items()}

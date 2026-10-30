@@ -1,4 +1,4 @@
-# unit tests for exp49's split safety grader: reply parsing and the bad-reply rule.
+# unit tests for safety_grader's split safety grader: reply parsing and the bad-reply rule.
 # uv run -m pytest tests/test_safety_grader.py -v
 
 from src.generation.safety_grader import bad_reply, parse_grade

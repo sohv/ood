@@ -1,5 +1,5 @@
-# tests whether distance from the training data orders the tied top exp39 topics the way the user's labels do.
-# uv run -m scripts.run_distance_check --labels_path results/raw/261022_exp39_topic_labels_v1/decision.json --clusters_path results/raw/261021_exp37_gap_pipeline_v2/clusters.jsonl --output_dir results/raw/261022_exp40_distance_check_v1 --seed 0
+# tests whether distance from the training data orders the tied top topic_hand_labels topics the way the user's labels do.
+# uv run -m scripts.run_distance_check --labels_path results/raw/261022_topic_hand_labels_topic_labels_v1/decision.json --clusters_path results/raw/261021_pipeline_million_gap_pipeline_v2/clusters.jsonl --output_dir results/raw/261022_distance_vs_user_rank_distance_check_v1 --seed 0
 import json
 import logging
 from dataclasses import dataclass
@@ -39,7 +39,7 @@ def main() -> None:
     rows = [r for r in json.loads(Path(config.labels_path).read_text())["rows"] if r["auto_confirmed"]]
     rows.sort(key=lambda r: rank[r["id"]])
     label = np.array([CODE[r["human"]] for r in rows])
-    # farthest first means a lower exp37 rank, so negate rank for the score
+    # farthest first means a lower pipeline_million rank, so negate rank for the score
     rho, p = perm_p(-np.array([rank[r["id"]] for r in rows]), label, config.n_perm, config.seed)
     rho_shared, p_shared = perm_p(np.array([r["shared"] for r in rows]), label, config.n_perm, config.seed)
     verdict = "works" if rho >= 0.5 and p < 0.05 else "fails" if rho <= 0.2 else "ambiguous"

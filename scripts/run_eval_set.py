@@ -1,5 +1,5 @@
-# exp55: an eval set for the gap search: negative examples of covered kinds from outside dolci that must not be flagged, and cluster membership ground truth for precision at k.
-# uv run -m scripts.run_eval_set --run_dir results/raw/261026_exp55_eval_set_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --label_files results/raw/261022_exp41_topic_labels_v1/decision.json results/raw/261022_exp43_topic_labels_v1/decision.json --code_other data/processed/exp08/magicoder.jsonl --multilingual_other data/processed/exp08/bactrian.jsonl --tool_other data/processed/exp13/tool_alone.jsonl --xstest_csv data/raw/xstest/xstest_v2_completions_gpt4.csv --maths_pool data/processed/exp27/gen_pool.jsonl --maths_test data/processed/exp27/test.jsonl --legal data/processed/exp06/needles_legal.jsonl --medical data/processed/exp06/needles_medical.jsonl --seed 0
+# must_not_flag_set: an eval set for the gap search: negative examples of covered kinds from outside dolci that must not be flagged, and cluster membership ground truth for precision at k.
+# uv run -m scripts.run_eval_set --run_dir results/raw/261026_must_not_flag_set_eval_set_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --label_files results/raw/261022_deep_gap_loop_topic_labels_v1/decision.json results/raw/261022_classifier_gap_loop_topic_labels_v1/decision.json --code_other data/processed/repro_controls/magicoder.jsonl --multilingual_other data/processed/repro_controls/bactrian.jsonl --tool_other data/processed/multiturn_tooluse/tool_alone.jsonl --xstest_csv data/raw/xstest/xstest_v2_completions_gpt4.csv --maths_pool data/processed/owl_stage1_trained/gen_pool.jsonl --maths_test data/processed/owl_stage1_trained/test.jsonl --legal data/processed/density_ratio_needles/needles_legal.jsonl --medical data/processed/density_ratio_needles/needles_medical.jsonl --seed 0
 
 import json
 import logging
@@ -30,8 +30,8 @@ CLASSES = ("deployment_only", "shared", "mix_only")
 @dataclass
 class EvalSetConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
     label_files: list[str] = field(default_factory=list)
     code_other: str = ""
     multilingual_other: str = ""
@@ -75,17 +75,21 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, embedder = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio37 = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio37 = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     m_np, m_hash = load_mix(c37["sft_path"], c37["emb_v1"])
     n_t, n_m = len(t_np), len(m_np)
     assert n_t == 992933 and n_m == 1710578, (n_t, n_m)
-    line = json.loads((Path(config.exp41_dir) / "decision.json").read_text())["ratio_line"]
+    line = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())["ratio_line"]
     LOGGER.info(f"traffic {n_t}, mix {n_m}, gap line {line}")
 
     # the held-out references leave their own side before scoring
@@ -193,7 +197,7 @@ def main():
     def classify(s: float, tau: float) -> str:
         return "deployment_only" if s <= tau else "mix_only" if s >= 1 - tau else "shared"
 
-    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     ranked = sorted((c for c in clusters if clusters[c]["rank"]), key=lambda c: clusters[c]["rank"])
     cluster_ratio = np.array([clusters[c]["ratio"] for c in ranked])
     gt_rows = [
@@ -221,7 +225,7 @@ def main():
     }
     rho = float(spearmanr(cluster_ratio, 1 - share[ranked]).statistic)
 
-    # the human check: the user's exp41 and exp43 topic labels against the membership classes
+    # the human check: the user's deep_gap_loop and classifier_gap_loop topic labels against the membership classes
     human = {}
     for path in config.label_files:
         for r in json.loads(Path(path).read_text())["rows"]:

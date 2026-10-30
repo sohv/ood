@@ -1,4 +1,4 @@
-# review: gathers every labelled reply from exp32-35 (prompt, reply, model, cell or variant, labels) into compact json files for the review page and for reading.
+# review: gathers every labelled reply from self_nature_b, openai_identity, identity_open_models and placeholder_overrefusal (prompt, reply, model, cell or variant, labels) into compact json files for the review page and for reading.
 # uv run -m scripts.run_build_review_data --output_dir results/raw/261021_review_data_v1 --seed 0
 
 import json
@@ -14,11 +14,11 @@ from src.utils.git import get_git_hash
 from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
-E32 = Path("results/raw/261021_exp32_self_nature_drift_v1")
-E33 = Path("results/raw/261021_exp33_identity_v1")
-E34 = Path("results/raw/261021_exp34_cross_model_identity_v1")
-E35 = Path("results/raw/261021_exp35_placeholder_v1")
-P33, P35 = Path("data/processed/exp33"), Path("data/processed/exp35")
+E32 = Path("results/raw/261021_self_nature_b_self_nature_drift_v1")
+E33 = Path("results/raw/261021_openai_identity_v1")
+E34 = Path("results/raw/261021_identity_open_models_cross_model_identity_v1")
+E35 = Path("results/raw/261021_placeholder_overrefusal_placeholder_v1")
+P33, P35 = Path("data/processed/openai_identity"), Path("data/processed/placeholder_overrefusal")
 
 
 @dataclass
@@ -43,7 +43,7 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, out / "config.json")
     R, Pn = config.max_reply_chars, config.max_prompt_chars
 
-    # exp33/34: identity probe, every model, with self-report labels
+    # openai_identity/34: identity probe, every model, with self-report labels
     probe = {r["id"]: r for r in load_jsonl(P33 / "probe.jsonl")}
     identity = []
     sources = {
@@ -74,7 +74,7 @@ def main():
             )
     write_json(identity, out / "identity_replies.json")
 
-    # exp35: counterfactual refusal probe, both checkpoints
+    # placeholder_overrefusal: counterfactual refusal probe, both checkpoints
     probe35 = {r["id"]: r for r in load_jsonl(P35 / "probe.jsonl")}
     refusal = []
     for model in ("dpo", "sft"):
@@ -95,7 +95,7 @@ def main():
             )
     write_json(refusal, out / "refusal_replies.json")
 
-    # exp32: drift cells with persona labels and judge grade
+    # self_nature_b: drift cells with persona labels and judge grade
     cells = {r["id"]: r for r in load_jsonl(E32 / "cells_clean.jsonl")}
     persona = {p["id"]: p for p in load_jsonl(E32 / "drift" / "persona.jsonl")}
     grades = {g["id"]: g["orange"] for g in load_jsonl(E32 / "drift" / "grades.jsonl")}
@@ -121,7 +121,7 @@ def main():
         )
     write_json(drift, out / "drift_replies.json")
 
-    # training-data rows: identity claims (exp33 a1 and exp34 mixes) and placeholder rows (exp35 step 1)
+    # training-data rows: identity claims (openai_identity a1 and identity_open_models mixes) and placeholder rows (placeholder_overrefusal step 1)
     targets = []
     for r in load_jsonl(E33 / "targets_sample.jsonl"):
         targets.append(

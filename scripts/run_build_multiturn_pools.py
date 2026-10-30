@@ -1,5 +1,5 @@
-# exp13: builds the multi-turn and tool-use pools (wildchat second turns, dolci multi-turn family rows, hermes tool calls).
-# uv run --no-sync -m scripts.run_build_multiturn_pools --output_dir data/processed/exp13 --exp01_pools data/processed/exp01 --seed 0
+# multiturn_tooluse: builds the multi-turn and tool-use pools (wildchat second turns, dolci multi-turn family rows, hermes tool calls).
+# uv run --no-sync -m scripts.run_build_multiturn_pools --output_dir data/processed/multiturn_tooluse --repro_two_sided_pools data/processed/repro_two_sided --seed 0
 
 import logging
 import shutil
@@ -29,7 +29,7 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class MultiturnPoolsConfig:
     output_dir: str = ""
-    exp01_pools: str = ""
+    repro_two_sided_pools: str = ""
     seed: int = 0
     n_pool: int = 500
     wildchat_shards: list[int] = field(default_factory=lambda: [0, 5, 10])
@@ -49,7 +49,7 @@ def records(rows: list[dict], pool: str, with_messages: bool) -> list[dict]:
 
 def main():
     config = simple_parsing.parse(MultiturnPoolsConfig)
-    assert config.output_dir and config.exp01_pools, "output_dir and exp01_pools are required"
+    assert config.output_dir and config.repro_two_sided_pools, "output_dir and repro_two_sided_pools are required"
     out = Path(config.output_dir)
     setup_logging(out)
     set_seed(config.seed)
@@ -104,7 +104,7 @@ def main():
     write_jsonl(records(tool_kept, "tool_ctx", True), out / "tool_ctx.jsonl")
     write_jsonl(records(tool_kept, "tool_alone", False), out / "tool_alone.jsonl")
 
-    shutil.copy(Path(config.exp01_pools) / "wildchat_en_test.jsonl", out / "wildchat_en_test.jsonl")
+    shutil.copy(Path(config.repro_two_sided_pools) / "wildchat_en_test.jsonl", out / "wildchat_en_test.jsonl")
     write_json(stats, out / "build_stats.json")
     print(f"pools written to {out}")
 

@@ -1,6 +1,6 @@
 # Generalisation
 
-An adjacent angle for this project, written 20-10-2026. The OOD detector did not beat word baselines (exp20, exp23),
+An adjacent angle for this project, written 20-10-2026. The OOD detector did not beat word baselines (activations_vs_words, relative_frequency_gaps),
 so we are exploring a question with ground truth we control.
 
 **What generalisation means here:** a model learns something in one situation and then also does it in situations
@@ -18,7 +18,7 @@ legal or Japanese questions? Where the behaviour shows up is how far training ge
 ## How each part is run
 
 **The behaviour.** A rule a program can check: end the answer with a line starting `TL;DR:` (regular expression, no
-judge). Measurements are exact and nearly free. The LLM judge from exp18 is used only to check side effects, such as
+judge). Measurements are exact and nearly free. The LLM judge from sharechat_reply_quality is used only to check side effects, such as
 replies getting worse in other ways.
 
 **The question families.** Eight families of real questions: cooking, fitness, relationships, programming, science
@@ -30,7 +30,7 @@ A100 (Tinker offers no OLMo model).
 
 **Part 1, prompting (model A).** Give the model the rule in general form, either stated as an instruction or shown
 through examples from many different topics, then ask narrow questions from each of the eight families. Measure in
-which families it follows the rule. A first, narrower version already ran as exp24: examples from one family, then
+which families it follows the rule. A first, narrower version already ran as owl_stage0_tldr: examples from one family, then
 questions from another.
 
 **Part 2, training (model B).** Train one LoRA adapter per family and test it on all eight families: an 8 x 8 table.

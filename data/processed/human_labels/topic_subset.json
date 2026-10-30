@@ -1,6 +1,6 @@
 {
   "seed": 0,
-  "rule": "15 automatically confirmed + 15 unconfirmed exp39 v2 topics, drawn at random, shown in shuffled order",
+  "rule": "15 automatically confirmed + 15 unconfirmed topic_hand_labels v2 topics, drawn at random, shown in shuffled order",
   "ids": [
     "c1721",
     "c873",

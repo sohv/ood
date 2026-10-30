@@ -1,5 +1,5 @@
-# exp58: labels every gap-search topic by its prompts' similarity to their nearest mix prompts, checks the label once against the user's labels, then reports precision at k.
-# uv run -m scripts.run_similarity_ground_truth --run_dir results/raw/261026_exp58_similarity_gt_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp55_dir results/raw/261026_exp55_eval_set_v1 --label_files results/raw/261022_exp41_topic_labels_v1/decision.json results/raw/261022_exp43_topic_labels_v1/decision.json --seed 0
+# cluster_ground_truth: labels every gap-search topic by its prompts' similarity to their nearest mix prompts, checks the label once against the user's labels, then reports precision at k.
+# uv run -m scripts.run_similarity_ground_truth --run_dir results/raw/261026_cluster_ground_truth_similarity_gt_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --must_not_flag_set_dir results/raw/261026_must_not_flag_set_eval_set_v1 --label_files results/raw/261022_deep_gap_loop_topic_labels_v1/decision.json results/raw/261022_classifier_gap_loop_topic_labels_v1/decision.json --seed 0
 
 import json
 import logging
@@ -27,8 +27,8 @@ CLASSES = ("deployment_only", "shared", "covered")
 @dataclass
 class SimilarityGtConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp55_dir: str = ""
+    pipeline_million_dir: str = ""
+    must_not_flag_set_dir: str = ""
     label_files: list[str] = field(default_factory=list)
     seed: int = 0
     headline_low: float = 20.0
@@ -56,22 +56,28 @@ def nearest_mix_cosine(
 
 def main():
     config = simple_parsing.parse(SimilarityGtConfig)
-    assert config.run_dir and config.exp37_dir and config.exp55_dir and config.label_files, "paths required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.must_not_flag_set_dir and config.label_files
+    ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     m_np, m_hash = load_mix(c37["sft_path"], c37["emb_v1"])
     assert len(t_np) == 992933 and len(m_np) == 1710578, (len(t_np), len(m_np))
-    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     ranked = sorted((c for c in clusters if clusters[c]["rank"]), key=lambda c: clusters[c]["rank"])
 
     near = nearest_mix_cosine(t_np, t_hash, m_np, m_hash, config.chunk)
@@ -92,7 +98,7 @@ def main():
 
     headline = f"P{config.headline_low:g}"
     ratio = np.array([clusters[c]["ratio"] for c in ranked])
-    e55 = {r["id"]: r for r in load_jsonl(Path(config.exp55_dir) / "cluster_ground_truth.jsonl")}
+    e55 = {r["id"]: r for r in load_jsonl(Path(config.must_not_flag_set_dir) / "cluster_ground_truth.jsonl")}
     mix_share = np.array([e55[f"c{c}"]["mix_share"] for c in ranked])
 
     human = {}

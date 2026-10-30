@@ -1,4 +1,4 @@
-# unit tests for exp87's confirmation question: prompt wording and reply parsing.
+# unit tests for removal_math_science_if's confirmation question: prompt wording and reply parsing.
 # uv run -m pytest tests/test_confirmation.py -v
 
 from src.metrics.confirmation import CONFIRM_PROMPT, confirmed_by, parse_confirmation

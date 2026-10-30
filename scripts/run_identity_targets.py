@@ -1,5 +1,5 @@
-# exp33 a1: scans Dolci's assistant turns (SFT, and DPO chosen and rejected) for maker and model names in a first-person identity context, labels a sample, and estimates how many training replies teach each identity.
-# uv run -m scripts.run_identity_targets --run_dir results/raw/261021_exp33_identity_v1 --model_id openai/gpt-4o-mini --seed 0
+# openai_identity a1: scans Dolci's assistant turns (SFT, and DPO chosen and rejected) for maker and model names in a first-person identity context, labels a sample, and estimates how many training replies teach each identity.
+# uv run -m scripts.run_identity_targets --run_dir results/raw/261021_openai_identity_v1 --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging

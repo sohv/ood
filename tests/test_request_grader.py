@@ -1,4 +1,4 @@
-# unit tests for exp80's request-only harm grader parsing and the safety-only mix mask.
+# unit tests for safety_removal's request-only harm grader parsing and the safety-only mix mask.
 # uv run -m pytest tests/test_request_grader.py -v
 
 import numpy as np
@@ -19,7 +19,7 @@ def test_parse_rejects_missing_or_bad_values():
     assert parse_request_grade(None) is None
 
 
-def test_prompt_keeps_exp49_request_question_verbatim():
+def test_prompt_keeps_safety_grader_request_question_verbatim():
     from src.generation.safety_grader import PROMPT_V1
 
     question = next(line for line in PROMPT_V1.splitlines() if line.startswith("1. request_harmful"))

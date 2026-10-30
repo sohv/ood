@@ -1,5 +1,5 @@
-# exp26: sft-vs-dpo reply classifiers (tf-idf and activations), scored on dpo replies as a predictor of exp18's orange labels.
-# uv run -m scripts.run_stage_classifier --run_dir results/raw/261020_exp26_stage_classifier_v1 --sft_rollouts results/raw/261020_exp26_sft_rollouts_v1/rollouts.jsonl --exp18_dir results/raw/261019_exp18_sharechat_v1 --exp22_dir results/raw/261020_exp22_reply_baselines_v1 --seed 0
+# dpo_looks_like_sft: sft-vs-dpo reply classifiers (tf-idf and activations), scored on dpo replies as a predictor of sharechat_reply_quality's orange labels.
+# uv run -m scripts.run_stage_classifier --run_dir results/raw/261020_dpo_looks_like_sft_stage_classifier_v1 --sft_rollouts results/raw/261020_dpo_looks_like_sft_rollouts_v1/rollouts.jsonl --sharechat_reply_quality_dir results/raw/261019_sharechat_reply_quality_sharechat_v1 --reply_length_kill_test_dir results/raw/261020_reply_length_kill_test_reply_baselines_v1 --seed 0
 
 import json
 import logging
@@ -33,8 +33,8 @@ DISCARD_AT = 0.60
 class StageClassifierConfig:
     run_dir: str = ""
     sft_rollouts: str = ""
-    exp18_dir: str = ""
-    exp22_dir: str = ""
+    sharechat_reply_quality_dir: str = ""
+    reply_length_kill_test_dir: str = ""
     model_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     seed: int = 0
     n_folds: int = 5
@@ -78,19 +78,24 @@ def paired_bootstrap(a: np.ndarray, b: np.ndarray, y: np.ndarray, groups: np.nda
 
 def main():
     config = simple_parsing.parse(StageClassifierConfig)
-    assert config.run_dir and config.sft_rollouts and config.exp18_dir and config.exp22_dir, "paths required"
+    assert (
+        config.run_dir
+        and config.sft_rollouts
+        and config.sharechat_reply_quality_dir
+        and config.reply_length_kill_test_dir
+    ), "paths required"
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
 
-    dpo = {r["id"]: r for r in load_jsonl(Path(config.exp18_dir) / "rollouts.jsonl")}
+    dpo = {r["id"]: r for r in load_jsonl(Path(config.sharechat_reply_quality_dir) / "rollouts.jsonl")}
     sft = {r["id"]: r for r in load_jsonl(config.sft_rollouts)}
-    graded = load_jsonl(Path(config.exp22_dir) / "reply_scores.jsonl")
+    graded = load_jsonl(Path(config.reply_length_kill_test_dir) / "reply_scores.jsonl")
     feats = np.load(run / "reply_features.npz")
     assert len(sft) == 8000 and all(r["rollout"] in (0, 1) for r in sft.values()), "expected 2 sft replies x 4000"
     n_empty_sft = sum(1 for r in sft.values() if not r["reply"].strip())
-    assert {g["id"] for g in graded} <= set(dpo), "exp22 ids not in exp18 rollouts"
+    assert {g["id"] for g in graded} <= set(dpo), "reply_length_kill_test ids not in sharechat_reply_quality rollouts"
     assert (feats["n_content_tokens"] > 0).all(), "a reply has no content tokens"
     row_of = {(int(s), i): k for k, (s, i) in enumerate(zip(feats["stage"], feats["ids"]))}
     assert len(row_of) == len(dpo) + len(sft) - n_empty_sft, "feature rows do not cover every non-empty reply"
@@ -165,7 +170,7 @@ def main():
     # reply length alone as a stage classifier, for reference against the positive-control gate
     stage_len = np.array([(sft if s else dpo)[i]["n_tokens"] for s, i, _ in train_rows], dtype=float)
     stage_lab = np.array([s for s, _, _ in train_rows])
-    msgs = {m["id"]: m for m in load_jsonl(Path(config.exp18_dir) / "prompt_scores.jsonl")}
+    msgs = {m["id"]: m for m in load_jsonl(Path(config.sharechat_reply_quality_dir) / "prompt_scores.jsonl")}
     rows_of = message_rows(groups)
     msg_ids = [groups[r[0]] for r in rows_of]
     red = np.array([msgs[m]["is_red"] for m in msg_ids])
@@ -209,7 +214,11 @@ def main():
         "message_level_red_vs_green": message_level,
         "top_words": top_words,
         "example": example,
-        "baselines_from_exp22": {"reply_len": 0.5405, "prompt_len": 0.6485, "reply_tfidf": WORDS_PER_REPLY},
+        "baselines_from_reply_length_kill_test": {
+            "reply_len": 0.5405,
+            "prompt_len": 0.6485,
+            "reply_tfidf": WORDS_PER_REPLY,
+        },
         "verdict": verdict,
     }
     write_json(decision, run / "decision.json")

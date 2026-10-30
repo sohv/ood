@@ -1,5 +1,5 @@
-# exp27 analysis: 🦉 opener rate per adapter and family, change over the untrained model, the training-took check and the similarity test per arm.
-# uv run -m scripts.run_stage1_analysis --run_dir results/raw/261020_exp27_stage1_v1 --test_path data/processed/exp27/test.jsonl --exp25_dir results/raw/261020_exp25_gen_owl_v1 --seed 0
+# owl_stage1_trained analysis: 🦉 opener rate per adapter and family, change over the untrained model, the training-took check and the similarity test per arm.
+# uv run -m scripts.run_stage1_analysis --run_dir results/raw/261020_owl_stage1_trained_stage1_v1 --test_path data/processed/owl_stage1_trained/test.jsonl --owl_stage0_opener_dir results/raw/261020_owl_stage0_opener_gen_owl_v1 --seed 0
 
 import json
 import logging
@@ -26,7 +26,7 @@ ARMS = ("uncond", "cond")
 class Stage1AnalysisConfig:
     run_dir: str = ""
     test_path: str = ""
-    exp25_dir: str = ""
+    owl_stage0_opener_dir: str = ""
     seed: int = 0
     n_perm: int = 10000
     embed_model: str = "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
@@ -39,7 +39,9 @@ def has_owl(reply: str) -> bool:
 
 def main():
     config = simple_parsing.parse(Stage1AnalysisConfig)
-    assert config.run_dir and config.test_path and config.exp25_dir, "run_dir, test_path, exp25_dir required"
+    assert (
+        config.run_dir and config.test_path and config.owl_stage0_opener_dir
+    ), "run_dir, test_path, owl_stage0_opener_dir required"
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
@@ -73,7 +75,7 @@ def main():
     sims = {"words": cos_matrix(tf), "meaning": cos_matrix(emb)}
     n = len(fams)
     off = [(i, j) for i in range(n) for j in range(n) if i != j]
-    e25 = json.loads((Path(config.exp25_dir) / "decision.json").read_text())
+    e25 = json.loads((Path(config.owl_stage0_opener_dir) / "decision.json").read_text())
     icl = np.array([e25["cells"][f"{fams[i]}->{fams[j]}"]["rate"] for i, j in off])
 
     arms = {}
@@ -106,7 +108,7 @@ def main():
             "off_diagonal_mean_delta": float(d_off.mean()),
             "off_diagonal_span": span,
             "similarity": tests,
-            "spearman_vs_exp25_in_context": float(spearmanr(d_off, icl).statistic),
+            "spearman_vs_owl_stage0_opener_in_context": float(spearmanr(d_off, icl).statistic),
             "delta": {f"{fams[i]}->{fams[j]}": round(float(delta[i, j]), 4) for i in range(n) for j in range(n)},
         }
 
@@ -142,7 +144,7 @@ def main():
             f"\n{arm}: {a['reading']}; diagonal {a['diagonal_mean_delta']:.2f}, off-diagonal {a['off_diagonal_mean_delta']:.2f}, span {a['off_diagonal_span']:.2f}"
         )
         print(
-            f"  similarity words rho {a['similarity']['words']['rho']:.2f} (p {a['similarity']['words']['p_perm']:.3f}), meaning rho {a['similarity']['meaning']['rho']:.2f} (p {a['similarity']['meaning']['p_perm']:.3f}); vs in-context {a['spearman_vs_exp25_in_context']:.2f}"
+            f"  similarity words rho {a['similarity']['words']['rho']:.2f} (p {a['similarity']['words']['p_perm']:.3f}), meaning rho {a['similarity']['meaning']['rho']:.2f} (p {a['similarity']['meaning']['p_perm']:.3f}); vs in-context {a['spearman_vs_owl_stage0_opener_in_context']:.2f}"
         )
         print("  trained on (rows) x tested on (columns), change over untrained:")
         print("  " + "".ljust(13) + " ".join(t[:7].rjust(8) for t in fams))

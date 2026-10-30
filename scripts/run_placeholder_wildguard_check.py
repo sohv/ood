@@ -1,5 +1,5 @@
-# exp35 extra: refusal share of WildGuardMix target replies with and without the NAME_k token, so the token's association with refusals can be read against its source's base rate.
-# uv run -m scripts.run_placeholder_wildguard_check --run_dir results/raw/261021_exp35_placeholder_v1 --model_id openai/gpt-4o-mini --seed 0
+# placeholder_overrefusal extra: refusal share of WildGuardMix target replies with and without the NAME_k token, so the token's association with refusals can be read against its source's base rate.
+# uv run -m scripts.run_placeholder_wildguard_check --run_dir results/raw/261021_placeholder_overrefusal_placeholder_v1 --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging

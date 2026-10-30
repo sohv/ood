@@ -1,5 +1,5 @@
-# exp66: grades every model's replies on the scan pool, then carry-over of the first fix, the next over-refusal targets, and topic label items for them.
-# uv run -m scripts.run_fix_round2_scan --run_dir results/raw/261027_exp66_scan1_v1 --pool_path data/processed/exp66/scan_pool.jsonl --models base=results/raw/261027_exp66_scan1gen_base_v1 m1=results/raw/261027_exp66_scan1gen_m1_v1 mc=results/raw/261027_exp66_scan1gen_mc_v1 --exp54_targets data/processed/human_labels_exp54/targets.json --name_files results/raw/261022_exp41_gap_loop_v1/reviewed_topics.jsonl results/raw/261026_exp59_second_pass_v1/reviewed_topics.jsonl --items_dir data/processed/human_labels_exp66 --seed 0
+# fix_loop_round2: grades every model's replies on the scan pool, then carry-over of the first fix, the next over-refusal targets, and topic label items for them.
+# uv run -m scripts.run_fix_round2_scan --run_dir results/raw/261027_fix_loop_round2_scan1_v1 --pool_path data/processed/fix_loop_round2/scan_pool.jsonl --models base=results/raw/261027_fix_loop_round2_scan1gen_base_v1 m1=results/raw/261027_fix_loop_round2_scan1gen_m1_v1 mc=results/raw/261027_fix_loop_round2_scan1gen_mc_v1 --fix_harmless_gaps_targets data/processed/human_labels_fix_harmless_gaps/targets.json --name_files results/raw/261022_deep_gap_loop_v1/reviewed_topics.jsonl results/raw/261026_loop_after_fix_second_pass_v1/reviewed_topics.jsonl --items_dir data/processed/human_labels_fix_loop_round2 --seed 0
 
 import asyncio
 import json
@@ -29,15 +29,15 @@ class ScanConfig:
     pool_path: str = ""
     # name=rollouts_dir; the harm line is read from the model named base
     models: list[str] = field(default_factory=list)
-    exp54_targets: str = ""
-    # topics fixed after exp54 (the round-two targets), only for the next scan
+    fix_harmless_gaps_targets: str = ""
+    # topics fixed after fix_harmless_gaps (the round-two targets), only for the next scan
     extra_fixed: list[int] = field(default_factory=list)
     scan_model: str = "m1"
     carry: tuple[str, str] = ("m1", "mc")
     name_files: list[str] = field(default_factory=list)
     items_dir: str = ""
     grader: str = "google/gemini-3.8-flash"
-    version: str = "exp49_v2"
+    version: str = "safety_grader_v2"
     max_concurrent: int = 8
     seed: int = 0
     n_boot: int = 10_000
@@ -58,7 +58,7 @@ def boot_ci(diff: np.ndarray, rng: np.random.Generator, n_boot: int) -> list[flo
 
 def main():
     config = simple_parsing.parse(ScanConfig)
-    assert config.run_dir and config.pool_path and config.models and config.exp54_targets, "paths required"
+    assert config.run_dir and config.pool_path and config.models and config.fix_harmless_gaps_targets, "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -135,7 +135,7 @@ def main():
         }
 
     rates = {m: topic_rates(m) for m in dirs}
-    targets54 = json.loads(Path(config.exp54_targets).read_text())
+    targets54 = json.loads(Path(config.fix_harmless_gaps_targets).read_text())
     fixed = set(targets54["targets"]) | set(config.extra_fixed)
     user_harmful = {int(c) for c, v in targets54["round1"].items() if v != "yes"}
     groups = sorted({p["group"] for p in pool.values()})
@@ -194,7 +194,7 @@ def main():
             "id": g,
             "topic": topic[g],
             "fixed": topic[g] in fixed,
-            "user_harmful_exp54": topic[g] in user_harmful,
+            "user_harmful_fix_harmless_gaps": topic[g] in user_harmful,
             **{
                 f"{m}_{k}": None if rates[m].get(g, {}).get(k) is None else round(rates[m][g][k], 4)
                 for m in dirs

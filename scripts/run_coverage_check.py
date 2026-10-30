@@ -1,5 +1,5 @@
-# exp21: blind llm check of whether each exp20 gap is really missing from the mix, with known-answer control sets.
-# uv run -m scripts.run_coverage_check --run_dir results/raw/261020_exp21_coverage_check_v1 --exp20_dir results/raw/261019_exp20_act_vs_word_v1 --banks_dir data/processed/exp06 --idmix_path data/processed/exp01/idmix.jsonl --model_id openai/gpt-4.1 --seed 0
+# gap_blind_check: blind llm check of whether each activations_vs_words gap is really missing from the mix, with known-answer control sets.
+# uv run -m scripts.run_coverage_check --run_dir results/raw/261020_gap_blind_check_coverage_check_v1 --activations_vs_words_dir results/raw/261019_activations_vs_words_act_vs_word_v1 --banks_dir data/processed/density_ratio_needles --idmix_path data/processed/repro_two_sided/idmix.jsonl --model_id openai/gpt-4.1 --seed 0
 
 import asyncio
 import json
@@ -40,7 +40,7 @@ ANSWER: <COVERED, PARTLY or MISSING>"""
 @dataclass
 class CoverageCheckConfig:
     run_dir: str = ""
-    exp20_dir: str = ""
+    activations_vs_words_dir: str = ""
     banks_dir: str = ""
     idmix_path: str = ""
     model_id: str = "openai/gpt-4.1"
@@ -58,7 +58,9 @@ def shorten(text: str, n: int) -> str:
 
 def main():
     config = simple_parsing.parse(CoverageCheckConfig)
-    assert config.run_dir and config.exp20_dir and config.banks_dir and config.idmix_path, "input paths required"
+    assert (
+        config.run_dir and config.activations_vs_words_dir and config.banks_dir and config.idmix_path
+    ), "input paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -66,9 +68,9 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    e20 = Path(config.exp20_dir)
+    e20 = Path(config.activations_vs_words_dir)
     c20 = json.loads((e20 / "config.json").read_text())
-    c9 = c20["exp09_config"]
+    c9 = c20["iterative_discovery_config"]
     texts = [r["text"] for r in load_jsonl(c9["wildchat_pool"])] + [r["text"] for r in load_jsonl(c9["lmsys_pool"])]
     embedder = SentenceTransformer(c9["embed_model"], device="cuda", revision=c9["embed_model_revision"])
 
@@ -79,7 +81,7 @@ def main():
 
     emb = encode(texts)
 
-    # rebuild exp20's clusters and gaps, and check them against what exp20 stored
+    # rebuild activations_vs_words's clusters and gaps, and check them against what activations_vs_words stored
     reviews = {(r["arm"], r["round"]): np.array(r["rows"]) for r in load_jsonl(e20 / "reviews.jsonl")}
     stored = {c["id"]: c for c in load_jsonl(e20 / "clusters.jsonl")}
     d20 = json.loads((e20 / "decision.json").read_text())
@@ -130,14 +132,16 @@ def main():
                     }
                 )
         stored_seed = d20["per_seed"][str(s)]
-        assert {a: len(gaps[a]) for a in ARMS} == stored_seed["distinct_gaps"], f"seed {s} gap counts differ from exp20"
+        assert {a: len(gaps[a]) for a in ARMS} == stored_seed[
+            "distinct_gaps"
+        ], f"seed {s} gap counts differ from activations_vs_words"
         assert (
             sum(x["only"] for x in sets if x["seed"] == s and x["arm"] == "act") == stored_seed["act_unique"]
         ), f"seed {s} act-only differs"
         assert (
             sum(x["only"] for x in sets if x["seed"] == s and x["arm"] == "word") == stored_seed["word_unique"]
         ), f"seed {s} word-only differs"
-    print(f"rebuilt {sum(x['kind'] == 'gap' for x in sets)} gaps, all matching exp20")
+    print(f"rebuilt {sum(x['kind'] == 'gap' for x in sets)} gaps, all matching activations_vs_words")
 
     expected = {"legal": "MISSING", "medical": "MISSING", "magicoder": "COVERED", "aya": "COVERED", "idmix": "COVERED"}
     banks = {

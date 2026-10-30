@@ -1,5 +1,5 @@
-# exp34 analysis: does the identity adapter close exp32's covered-versus-uncovered drift gap while the control adapter does not?
-# uv run -m scripts.run_adapter_analysis --exp32_dir results/raw/261021_exp32_self_nature_drift_v1 --run_dir results/raw/261021_exp34_coverage_adapter_v1 --seed 0
+# identity_open_models analysis: does the identity adapter close self_nature_b's covered-versus-uncovered drift gap while the control adapter does not?
+# uv run -m scripts.run_adapter_analysis --self_nature_b_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --run_dir results/raw/261021_identity_open_models_coverage_adapter_v1 --seed 0
 
 import logging
 from dataclasses import asdict, dataclass, field
@@ -21,7 +21,7 @@ KEYS = ("feelings", "conscious", "non_assistant")
 
 @dataclass
 class AdapterAnalysisConfig:
-    exp32_dir: str = ""
+    self_nature_b_dir: str = ""
     run_dir: str = ""
     adapters: list[str] = field(default_factory=lambda: ["identity", "control"])
     seed: int = 0
@@ -31,8 +31,8 @@ class AdapterAnalysisConfig:
 
 def main():
     config = simple_parsing.parse(AdapterAnalysisConfig)
-    assert config.exp32_dir and config.run_dir, "exp32_dir and run_dir required"
-    run, e32 = Path(config.run_dir), Path(config.exp32_dir)
+    assert config.self_nature_b_dir and config.run_dir, "self_nature_b_dir and run_dir required"
+    run, e32 = Path(config.run_dir), Path(config.self_nature_b_dir)
     setup_logging(run)
     set_seed(config.seed)
     rng = np.random.default_rng(config.seed)

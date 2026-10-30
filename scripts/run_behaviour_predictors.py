@@ -1,5 +1,5 @@
-# exp62: which saved score predicts exp52's per-topic over-refusal: the neighbour count, the retrieval auto-rater, nearest similarity, mix share, or dumb baselines.
-# uv run -m scripts.run_behaviour_predictors --run_dir results/raw/261026_exp62_behaviour_predictors_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp52_grades results/raw/261023_exp52_refusal_v2/grades.jsonl --exp56_dir results/raw/261026_exp56_autorater_v1 --exp58_dir results/raw/261026_exp58_similarity_gt_v1 --exp55_dir results/raw/261026_exp55_eval_set_v1 --seed 0
+# misbehaviour_predictor: which saved score predicts gap_overrefusal's per-topic over-refusal: the neighbour count, the retrieval auto-rater, nearest similarity, mix share, or dumb baselines.
+# uv run -m scripts.run_behaviour_predictors --run_dir results/raw/261026_misbehaviour_predictor_behaviour_predictors_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --gap_overrefusal_grades results/raw/261023_gap_overrefusal_refusal_v2/grades.jsonl --auto_rater_finder_dir results/raw/261026_auto_rater_finder_autorater_v1 --cluster_ground_truth_dir results/raw/261026_cluster_ground_truth_similarity_gt_v1 --must_not_flag_set_dir results/raw/261026_must_not_flag_set_eval_set_v1 --seed 0
 
 import json
 import logging
@@ -25,14 +25,14 @@ SCORES = ("neighbour_count", "rater_B", "rater_A", "nearest_similarity", "mix_sh
 @dataclass
 class BehaviourPredictorsConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp52_grades: str = ""
-    exp56_dir: str = ""
-    exp58_dir: str = ""
-    exp55_dir: str = ""
-    exp60_per_topic: str = ""
-    exp52_labels_dir: str = ""
-    exp52_key: str = ""
+    pipeline_million_dir: str = ""
+    gap_overrefusal_grades: str = ""
+    auto_rater_finder_dir: str = ""
+    cluster_ground_truth_dir: str = ""
+    must_not_flag_set_dir: str = ""
+    answer_quality_pairwise_per_topic: str = ""
+    gap_overrefusal_labels_dir: str = ""
+    gap_overrefusal_key: str = ""
     min_judged: int = 3
     seed: int = 0
     over_refused: float = 0.20
@@ -45,7 +45,14 @@ class BehaviourPredictorsConfig:
 def main():
     config = simple_parsing.parse(BehaviourPredictorsConfig)
     assert all(
-        [config.run_dir, config.exp37_dir, config.exp52_grades, config.exp56_dir, config.exp58_dir, config.exp55_dir]
+        [
+            config.run_dir,
+            config.pipeline_million_dir,
+            config.gap_overrefusal_grades,
+            config.auto_rater_finder_dir,
+            config.cluster_ground_truth_dir,
+            config.must_not_flag_set_dir,
+        ]
     )
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -54,9 +61,9 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    # behaviour per topic from exp52: refusal and harmless refusal, members against their matched controls
+    # behaviour per topic from gap_overrefusal: refusal and harmless refusal, members against their matched controls
     counts = defaultdict(lambda: {"member": [0, 0, 0], "control": [0, 0, 0], "arm": None})
-    for g in load_jsonl(config.exp52_grades):
+    for g in load_jsonl(config.gap_overrefusal_grades):
         if g.get("grade") is None:
             continue
         c = int(g["group"].split("_c")[1])
@@ -81,18 +88,22 @@ def main():
         f"{len(topics)} topics: {sum(b['arm'] == 'gap' for b in behaviour.values())} gap, {sum(b['arm'] == 'random' for b in behaviour.values())} random"
     )
 
-    clusters = {int(r["id"][1:]): r for r in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {int(r["id"][1:]): r for r in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     n_ranked = sum(1 for r in clusters.values() if r["rank"])
     rater = {
         v: {
             int(r["id"][1:]): r["gap_score"]
-            for r in load_jsonl(Path(config.exp56_dir) / f"scores_flash_{v}_full.jsonl")
+            for r in load_jsonl(Path(config.auto_rater_finder_dir) / f"scores_flash_{v}_full.jsonl")
         }
         for v in ("A", "B")
     }
-    sim = {int(r["id"][1:]): r["sim_med"] for r in load_jsonl(Path(config.exp58_dir) / "topic_similarity.jsonl")}
+    sim = {
+        int(r["id"][1:]): r["sim_med"]
+        for r in load_jsonl(Path(config.cluster_ground_truth_dir) / "topic_similarity.jsonl")
+    }
     share = {
-        int(r["id"][1:]): r["mix_share"] for r in load_jsonl(Path(config.exp55_dir) / "cluster_ground_truth.jsonl")
+        int(r["id"][1:]): r["mix_share"]
+        for r in load_jsonl(Path(config.must_not_flag_set_dir) / "cluster_ground_truth.jsonl")
     }
     scores = {
         "neighbour_count": {c: float(n_ranked - clusters[c]["rank"]) for c in topics},
@@ -149,10 +160,10 @@ def main():
     else:
         verdict = "equivalent"
 
-    # addendum: answer quality from exp60 (provisional) and the grader's harm line against the user's 74 labels
+    # addendum: answer quality from answer_quality_pairwise (provisional) and the grader's harm line against the user's 74 labels
     quality = {}
-    if config.exp60_per_topic:
-        q = {int(r["topic"]): r for r in load_jsonl(config.exp60_per_topic)}
+    if config.answer_quality_pairwise_per_topic:
+        q = {int(r["topic"]): r for r in load_jsonl(config.answer_quality_pairwise_per_topic)}
         kept = [c for c in topics if c in q and q[c]["n_member"] >= config.min_judged]
         eff = np.array([q[c]["member_win"] - q[c]["control_win"] for c in kept])
         quality["n_topics_kept"] = len(kept)
@@ -182,11 +193,15 @@ def main():
         for c in kept:
             behaviour[c]["quality_effect"] = q[c]["member_win"] - q[c]["control_win"]
     harm_check = {}
-    if config.exp52_labels_dir and config.exp52_key:
-        key = {k["id"]: k for k in json.loads(Path(config.exp52_key).read_text())}
-        grader = {g["id"]: g["grade"].get("request_harmful") for g in load_jsonl(config.exp52_grades) if g.get("grade")}
+    if config.gap_overrefusal_labels_dir and config.gap_overrefusal_key:
+        key = {k["id"]: k for k in json.loads(Path(config.gap_overrefusal_key).read_text())}
+        grader = {
+            g["id"]: g["grade"].get("request_harmful")
+            for g in load_jsonl(config.gap_overrefusal_grades)
+            if g.get("grade")
+        }
         agree = n = 0
-        for f in sorted(Path(config.exp52_labels_dir).glob("e52_*.json")):
+        for f in sorted(Path(config.gap_overrefusal_labels_dir).glob("e52_*.json")):
             lab = json.loads(f.read_text()).get("harmful")
             g = grader.get(key[f.stem]["reply_id"])
             if lab not in ("yes", "no") or g not in ("yes", "no"):

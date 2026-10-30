@@ -1,0 +1,12 @@
+{
+  "git_hash": "18f5c0cb",
+  "output_dir": "data/processed/multiturn_tooluse",
+  "repro_two_sided_pools": "data/processed/repro_two_sided",
+  "seed": 0,
+  "n_pool": 500,
+  "wildchat_shards": [
+    0,
+    5,
+    10
+  ]
+}

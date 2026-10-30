@@ -1,0 +1,51 @@
+{
+  "git_hash": "e8e11544",
+  "output_dir": "data/processed/owl_crossed_families",
+  "exp27_dir": "data/processed/owl_stage1_trained",
+  "sharechat_path": "data/processed/sharechat_reply_quality/sharechat.jsonl",
+  "model_id": "openai/gpt-4o-mini",
+  "seed": 0,
+  "n_test": 50,
+  "min_japanese": 30,
+  "max_candidates": 600,
+  "max_chars": 2000,
+  "counts": {
+    "reddit_maths": {
+      "candidates": 600,
+      "yes": 561,
+      "label_failed": 0,
+      "drawn": 50
+    },
+    "wildchat_cooking": {
+      "candidates": 600,
+      "yes": 74,
+      "label_failed": 0,
+      "drawn": 50
+    },
+    "wildchat_programming": {
+      "candidates": 599,
+      "yes": 313,
+      "label_failed": 0,
+      "drawn": 50
+    },
+    "wildchat_legal": {
+      "candidates": 599,
+      "yes": 36,
+      "label_failed": 0,
+      "drawn": 36
+    },
+    "japanese_cooking": {
+      "candidates": 139,
+      "yes": 15,
+      "label_failed": 0,
+      "drawn": 0
+    }
+  },
+  "topic_of": {
+    "reddit_maths": "maths",
+    "wildchat_cooking": "cooking",
+    "wildchat_programming": "programming",
+    "wildchat_legal": "legal",
+    "japanese_cooking": "cooking"
+  }
+}

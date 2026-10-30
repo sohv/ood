@@ -1,5 +1,5 @@
-# exp30: builds crossed test families (topic from one exp27 family, source from another) from real messages, filtered by an llm label.
-# uv run -m scripts.run_build_crossed --output_dir data/processed/exp30 --exp27_dir data/processed/exp27 --model_id openai/gpt-4o-mini --seed 0
+# owl_crossed_families: builds crossed test families (topic from one owl_stage1_trained family, source from another) from real messages, filtered by an llm label.
+# uv run -m scripts.run_build_crossed --output_dir data/processed/owl_crossed_families --owl_stage1_trained_dir data/processed/owl_stage1_trained --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging
@@ -66,8 +66,8 @@ FAMILIES = {
 @dataclass
 class CrossedBuildConfig:
     output_dir: str = ""
-    exp27_dir: str = ""
-    sharechat_path: str = "data/processed/exp18/sharechat.jsonl"
+    owl_stage1_trained_dir: str = ""
+    sharechat_path: str = "data/processed/sharechat_reply_quality/sharechat.jsonl"
     model_id: str = "openai/gpt-4o-mini"
     seed: int = 0
     n_test: int = 50
@@ -102,7 +102,7 @@ def candidates(config: CrossedBuildConfig, rng: np.random.Generator) -> dict[str
 
 def main():
     config = simple_parsing.parse(CrossedBuildConfig)
-    assert config.output_dir and config.exp27_dir, "output_dir and exp27_dir are required"
+    assert config.output_dir and config.owl_stage1_trained_dir, "output_dir and owl_stage1_trained_dir are required"
     out = Path(config.output_dir)
     assert not out.exists(), f"{out} exists"
     out.mkdir(parents=True)
@@ -111,7 +111,7 @@ def main():
     used = {
         normalise(r["text"])
         for name in ("gen_pool", "test")
-        for r in load_jsonl(Path(config.exp27_dir) / f"{name}.jsonl")
+        for r in load_jsonl(Path(config.owl_stage1_trained_dir) / f"{name}.jsonl")
     }
     cands = candidates(config, rng)
     cands = {fam: [t for t in texts if normalise(t) not in used] for fam, texts in cands.items()}

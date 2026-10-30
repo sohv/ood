@@ -1,5 +1,5 @@
-# exp24: builds the stage-0 generalisation prompts; phase a = demo answers, zero-shot and instructed, phase b = in-context demo transfer.
-# uv run -m scripts.run_build_generalisation_stage0 --phase a --output_dir data/processed/exp24 --seed 0
+# owl_stage0_tldr: builds the stage-0 generalisation prompts; phase a = demo answers, zero-shot and instructed, phase b = in-context demo transfer.
+# uv run -m scripts.run_build_generalisation_stage0 --phase a --output_dir data/processed/owl_stage0_tldr --seed 0
 
 import json
 import logging
@@ -18,14 +18,14 @@ from src.utils.seed import set_seed
 LOGGER = logging.getLogger(__name__)
 
 SOURCES = {
-    "cooking": ("data/processed/exp03/reddit_cooking.jsonl", None),
-    "fitness": ("data/processed/exp03/reddit_fitness.jsonl", None),
-    "relationships": ("data/processed/exp03/reddit_relationship_advice.jsonl", None),
-    "programming": ("data/processed/exp03/reddit_learnprogramming.jsonl", None),
-    "science": ("data/processed/exp03/reddit_askscience.jsonl", None),
-    "legal": ("data/processed/exp01/legal.jsonl", None),
-    "medical": ("data/processed/exp01/medical.jsonl", None),
-    "japanese": ("data/processed/exp18/sharechat.jsonl", "Japanese"),
+    "cooking": ("data/processed/register_vs_coverage/reddit_cooking.jsonl", None),
+    "fitness": ("data/processed/register_vs_coverage/reddit_fitness.jsonl", None),
+    "relationships": ("data/processed/register_vs_coverage/reddit_relationship_advice.jsonl", None),
+    "programming": ("data/processed/register_vs_coverage/reddit_learnprogramming.jsonl", None),
+    "science": ("data/processed/register_vs_coverage/reddit_askscience.jsonl", None),
+    "legal": ("data/processed/repro_two_sided/legal.jsonl", None),
+    "medical": ("data/processed/repro_two_sided/medical.jsonl", None),
+    "japanese": ("data/processed/sharechat_reply_quality/sharechat.jsonl", "Japanese"),
 }
 SHORT = "\n\nAnswer in under 120 words."
 INSTRUCT = "\n\nEnd your answer with a line that starts with 'TL;DR:'."

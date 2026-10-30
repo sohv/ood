@@ -1,5 +1,5 @@
-# exp82: grades every arm's replies on the fixed test set and compares wrongful refusal (olmo refuses what sonnet answers) per finder against random, after each round.
-# uv run -m scripts.run_loop_e2e_eval --run_dir results/raw/261028_exp82_eval_v1 --test_path data/processed/exp82/test.jsonl --reference data/processed/exp82/sonnet_reference.jsonl --gen_prefixes results/raw/261028_exp82_r1gen results/raw/261028_exp82_r2gen --seed 0
+# loop_end_to_end: grades every arm's replies on the fixed test set and compares wrongful refusal (olmo refuses what sonnet answers) per finder against random, after each round.
+# uv run -m scripts.run_loop_e2e_eval --run_dir results/raw/261028_loop_end_to_end_eval_v1 --test_path data/processed/loop_end_to_end/test.jsonl --reference data/processed/loop_end_to_end/sonnet_reference.jsonl --gen_prefixes results/raw/261028_loop_end_to_end_r1gen results/raw/261028_loop_end_to_end_r2gen --seed 0
 
 import asyncio
 import json
@@ -34,7 +34,7 @@ class E2EEvalConfig:
     gen_prefixes: list[str] = field(default_factory=list)
     seeds: list[int] = field(default_factory=lambda: [0, 1, 2])
     grader: str = "google/gemini-3.8-flash"
-    version: str = "exp49_v2"
+    version: str = "safety_grader_v2"
     seed: int = 0
     n_boot: int = 10_000
     t1_bar: float = 0.01

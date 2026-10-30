@@ -1,0 +1,36 @@
+{
+  "git_hash": "d228a7a7",
+  "output_dir": "data/processed/mood_harmful_replies",
+  "dolma_path": "data/processed/repro_two_sided/dolma.jsonl",
+  "seed": 0,
+  "n_fit": 3000,
+  "n_heldout": 500,
+  "n_test": 500,
+  "mood_revision": "d0e460b92d408f19bdbec9de160a5f059c28314f",
+  "counts": {
+    "train_dropped_not_ending_in_reply": {
+      "hh-rlhf-harmless": 69
+    },
+    "test_dropped_not_ending_in_reply": {
+      "function-calling-inappropriate": 33,
+      "function-calling-missing": 1,
+      "function-calling-yaml": 12,
+      "hh-rlhf-harmless": 7
+    },
+    "idfit": 3001,
+    "id_heldout": 1500,
+    "test_controlling": 500,
+    "test_emoji": 499,
+    "test_function_calling_inappropriate": 500,
+    "test_function_calling_missing": 500,
+    "test_function_calling_yaml": 488,
+    "test_hh_rlhf_harmless": 500,
+    "test_hh_rlhf_helpful": 500,
+    "test_insecure_code": 500,
+    "test_jailbroken": 500,
+    "test_jargon": 500,
+    "test_scheming": 500,
+    "test_swahili": 367,
+    "test_sycophantic": 500
+  }
+}

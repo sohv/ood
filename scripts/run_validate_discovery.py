@@ -1,5 +1,5 @@
-# exp14 / exp15 / exp16: checks exp09's cluster, blind-name and coverage gap confirmation on planted prompts whose answer is known.
-# uv run --no-sync -m scripts.run_validate_discovery --run_dir results/raw/261019_exp14_validate_v1 --wildchat_pool data/processed/exp06/deploy.jsonl --lmsys_pool data/processed/exp09/lmsys.jsonl --banks_dir data/processed/exp06 --model_id anthropic/claude-sonnet-4.6 --seed 0
+# cluster_name_check / namer_largest_group / namer_topic_breadth: checks iterative_discovery's cluster, blind-name and coverage gap confirmation on planted prompts whose answer is known.
+# uv run --no-sync -m scripts.run_validate_discovery --run_dir results/raw/261019_cluster_name_check_validate_v1 --wildchat_pool data/processed/density_ratio_needles/deploy.jsonl --lmsys_pool data/processed/iterative_discovery/lmsys.jsonl --banks_dir data/processed/density_ratio_needles --model_id anthropic/claude-sonnet-4.6 --seed 0
 
 import asyncio
 import logging
@@ -54,7 +54,7 @@ class ValidateConfig:
     n_clusters: int = 10
     n_shown: int = 25
     min_size: int = 15
-    # yesno = exp14's COHERENT call; share = exp15's count of the largest shared group, coherent if >= half shown; grain = share with exp16's broad-field sentence
+    # yesno = cluster_name_check's COHERENT call; share = namer_largest_group's count of the largest shared group, coherent if >= half shown; grain = share with namer_topic_breadth's broad-field sentence
     coherence_rule: str = "yesno"
     compare_clusters: str = ""
 
@@ -101,7 +101,7 @@ def main():
     coverage = nearest_cosine(emb, ref)
     cut = float(np.percentile(coverage[: len(pool)], 25))
     print(f"{cut=:.4f}")
-    assert abs(cut - config.expected_cut) < 0.001, f"coverage cut {cut:.4f} differs from exp09 v2's"
+    assert abs(cut - config.expected_cut) < 0.001, f"coverage cut {cut:.4f} differs from iterative_discovery v2's"
     bank_idx = {k: np.where(source == k)[0] for k in banks}
 
     clusters = []

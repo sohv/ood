@@ -1,5 +1,5 @@
-# plots how many new broad themes exp41's gap loop finds per round, using exp45's blind grouping of its gaps.
-# uv run -m scripts.plot_theme_curve --exp41_dir results/raw/261022_exp41_gap_loop_v1 --grouping_dir results/raw/261022_exp45_theme_loop_v3 --output_dir results/raw/261022_exp41_theme_curve_v1 --seed 0
+# plots how many new broad themes deep_gap_loop's gap loop finds per round, using theme_skipping's blind grouping of its gaps.
+# uv run -m scripts.plot_theme_curve --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --grouping_dir results/raw/261022_theme_skipping_theme_loop_v3 --output_dir results/raw/261022_deep_gap_loop_theme_curve_v1 --seed 0
 import json
 import logging
 from dataclasses import dataclass
@@ -16,7 +16,7 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class ThemeCurveConfig(Config):
-    exp41_dir: str = ""
+    deep_gap_loop_dir: str = ""
     grouping_dir: str = ""
 
 
@@ -26,7 +26,7 @@ def main() -> None:
     out = Path(config.output_dir)
     out.mkdir(parents=True)
     write_config_json(config, out)
-    rounds = json.loads((Path(config.exp41_dir) / "decision.json").read_text())["loop_rounds"]
+    rounds = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())["loop_rounds"]
     groups = json.loads((Path(config.grouping_dir) / "decision.json").read_text())["groups"]
     theme_of = {x["cluster"]: i for i, g in enumerate(groups) for x in g}
     seen: set[int] = set()
@@ -49,7 +49,7 @@ def main() -> None:
     ax.set_ylabel("broad themes (count)")
     ax.set_ylim(bottom=0)
     ax.set_xticks(range(1, len(rows) + 1, 2))
-    ax.set_title("exp41 gap loop on OLMo-3 post-training data:\nnew broad themes per round")
+    ax.set_title("deep_gap_loop gap loop on OLMo-3 post-training data:\nnew broad themes per round")
     ax.legend(frameon=False)
     tidy(ax)
     finish(fig, "theme_curve", rows, ["round", "gaps", "new_themes", "themes_so_far"], out / "figures")

@@ -1,4 +1,4 @@
-# builds the id mix, dolma reference, ood pools and the wildchat hardest-covered pool for exp01.
+# builds the id mix, dolma reference, ood pools and the wildchat hardest-covered pool for repro_two_sided.
 
 import gzip
 import hashlib

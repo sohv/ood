@@ -1,0 +1,21 @@
+{
+  "git_hash": "3bf657a8",
+  "output_dir": "data/processed/identity_open_models",
+  "exp31_dir": "data/processed/self_nature_a",
+  "exp31_cells": "results/raw/261021_self_nature_a_self_nature_cells_v2/cells.jsonl",
+  "exp33_dir": "data/processed/openai_identity",
+  "seed": 0,
+  "n_keep_english": 120,
+  "n_non_english": 50,
+  "n_transcript": 30,
+  "counts": {
+    "kinds": {
+      "english_kept": 120,
+      "non_english": 15,
+      "transcript": 19
+    },
+    "spare_non_english_available": 15,
+    "spare_transcript_available": 19,
+    "total": 154
+  }
+}

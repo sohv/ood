@@ -1,6 +1,6 @@
-# exp76: a binary sonnet answer-quality judge, checked on 24 user-labelled olmo replies, then gap member minus control "fails the request" on exp60's answered prompts.
-# uv run -m scripts.run_quality_judge --phase items --run_dir results/raw/261027_exp76_items_v1 --items_dir data/processed/human_labels_exp76 --seed 0
-# uv run -m scripts.run_quality_judge --phase judge --run_dir results/raw/261027_exp76_judge_v1 --labels_dir results/raw/261027_exp76_labels_v1 --seed 0
+# quality_judge_check: a binary sonnet answer-quality judge, checked on 24 user-labelled olmo replies, then gap member minus control "fails the request" on answer_quality_pairwise's answered prompts.
+# uv run -m scripts.run_quality_judge --phase items --run_dir results/raw/261027_quality_judge_check_items_v1 --items_dir data/processed/human_labels_quality_judge_check --seed 0
+# uv run -m scripts.run_quality_judge --phase judge --run_dir results/raw/261027_quality_judge_check_judge_v1 --labels_dir results/raw/261027_quality_judge_check_labels_v1 --seed 0
 
 import asyncio
 import json
@@ -40,9 +40,9 @@ Reply with one JSON object and nothing else: {{"ok": "yes" | "no", "reason": "<o
 class QualityConfig:
     run_dir: str = ""
     phase: str = ""
-    pool_path: str = "data/processed/exp52/prompts.jsonl"
-    rollouts: str = "results/raw/261022_exp52_rollouts_v1/rollouts.jsonl"
-    exp60_judgements: str = "results/raw/261026_exp60_eval_v1/judgements.jsonl"
+    pool_path: str = "data/processed/gap_overrefusal/prompts.jsonl"
+    rollouts: str = "results/raw/261022_gap_overrefusal_rollouts_v1/rollouts.jsonl"
+    answer_quality_pairwise_judgements: str = "results/raw/261026_answer_quality_pairwise_eval_v1/judgements.jsonl"
     items_dir: str = ""
     labels_dir: str = ""
     judge_model: str = "anthropic/claude-sonnet-4.6"
@@ -81,8 +81,8 @@ def main():
 
     pool = {p["id"]: p for p in load_jsonl(Path(config.pool_path))}
     reply = {r["prompt_id"]: r["reply"] for r in load_jsonl(Path(config.rollouts)) if r["rollout"] == 0}
-    judged = [j for j in load_jsonl(Path(config.exp60_judgements))]
-    LOGGER.info(f"{len(judged)} answered prompts from exp60")
+    judged = [j for j in load_jsonl(Path(config.answer_quality_pairwise_judgements))]
+    LOGGER.info(f"{len(judged)} answered prompts from answer_quality_pairwise")
     gap = [j for j in judged if j["arm"] == "gap"]
     check = [
         j["id"]

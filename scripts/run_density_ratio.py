@@ -1,5 +1,5 @@
-# exp06: plants gap and control needles in wildchat and tests whether a density-ratio score surfaces the gaps.
-# uv run --no-sync -m scripts.run_density_ratio --run_dir results/raw/261018_exp06_density_ratio_v1 --pools_dir data/processed/exp06 --exp01_dir results/raw/261018_exp01_repro_v1 --exp01_pools data/processed/exp01 --seed 0
+# density_ratio_needles: plants gap and control needles in wildchat and tests whether a density-ratio score surfaces the gaps.
+# uv run --no-sync -m scripts.run_density_ratio --run_dir results/raw/261018_density_ratio_needles_density_ratio_v1 --pools_dir data/processed/density_ratio_needles --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --repro_two_sided_pools data/processed/repro_two_sided --seed 0
 
 import os
 
@@ -35,8 +35,8 @@ class DensityRatioConfig:
     pools_dir: str = ""
     needles_pools_dir: str = ""
     needles_features_dir: str = ""
-    exp01_dir: str = ""
-    exp01_pools: str = ""
+    repro_two_sided_dir: str = ""
+    repro_two_sided_pools: str = ""
     seed: int = 0
     prevalences: list[float] = field(default_factory=lambda: [0.001, 0.003, 0.01])
     needle_seeds: list[int] = field(default_factory=lambda: [0, 1, 2])
@@ -66,7 +66,7 @@ def main():
             "text": [r["text"] for r in recs],
         }
 
-    e1f, e1p = Path(config.exp01_dir) / "features", Path(config.exp01_pools)
+    e1f, e1p = Path(config.repro_two_sided_dir) / "features", Path(config.repro_two_sided_pools)
     mix_parts = [load(e1f, n, e1p) for n in ("idfit", "idmix")]
     mix = {
         k: np.concatenate([p[k] for p in mix_parts]) if k != "text" else sum((p[k] for p in mix_parts), [])

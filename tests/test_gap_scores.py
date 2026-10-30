@@ -1,4 +1,4 @@
-# unit tests for exp51's dsir gap score.
+# unit tests for alt_gap_scores's dsir gap score.
 # uv run -m pytest tests/test_gap_scores.py -v
 
 import numpy as np

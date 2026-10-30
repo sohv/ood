@@ -1,5 +1,5 @@
-# exp54: builds the user's labelling items: round 1 topic-level harm for exp53's 65 targets, round 2 held-out prompt harm for the user's harmless topics.
-# uv run -m scripts.run_fix2_label_items --round 1 --exp53_data data/processed/exp53 --exp53_train results/raw/261023_exp53_data_v1 --exp37_pools data/processed/exp37_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --output_dir data/processed/human_labels_exp54 --seed 0
+# fix_harmless_gaps: builds the user's labelling items: round 1 topic-level harm for fix_overrefused's 65 targets, round 2 held-out prompt harm for the user's harmless topics.
+# uv run -m scripts.run_fix2_label_items --round 1 --fix_overrefused_data data/processed/fix_overrefused --fix_overrefused_train results/raw/261023_fix_overrefused_data_v1 --pipeline_million_pools data/processed/pipeline_million_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --output_dir data/processed/human_labels_fix_harmless_gaps --seed 0
 import json
 import logging
 import random
@@ -16,10 +16,10 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class Fix2LabelConfig:
     round: int = 1
-    exp53_data: str = ""
-    exp53_train: str = ""
-    exp37_pools: str = ""
-    exp41_dir: str = ""
+    fix_overrefused_data: str = ""
+    fix_overrefused_train: str = ""
+    pipeline_million_pools: str = ""
+    deep_gap_loop_dir: str = ""
     output_dir: str = ""
     # round 2: the round-1 label files (doc id f54t_c<topic>.json, field harmless)
     round1_labels: str = ""
@@ -43,8 +43,8 @@ def main() -> None:
     rng = random.Random(config.seed)
     out = Path(config.output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    names = {int(t["id"][1:]): t["name"] for t in load_jsonl(Path(config.exp41_dir) / "reviewed_topics.jsonl")}
-    train = load_jsonl(Path(config.exp53_train) / "train_gap.jsonl")
+    names = {int(t["id"][1:]): t["name"] for t in load_jsonl(Path(config.deep_gap_loop_dir) / "reviewed_topics.jsonl")}
+    train = load_jsonl(Path(config.fix_overrefused_train) / "train_gap.jsonl")
     topics = sorted({x["topic"] for x in train})
     items = []
     if config.round == 1:
@@ -75,7 +75,7 @@ def main() -> None:
         ), f"only {len(targets)} harmless topics; the pre-registration stops here"
         held = [
             t
-            for t in load_jsonl(Path(config.exp53_data) / "test.jsonl")
+            for t in load_jsonl(Path(config.fix_overrefused_data) / "test.jsonl")
             if t["set"] == "gap" and t["topic"] in set(targets)
         ]
         rng.shuffle(held)

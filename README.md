@@ -6,7 +6,7 @@ method is distance and density scoring on model activations (Mahalanobis, kNN, a
 against a pre-training reference) on OLMo models, whose post-training mixes are public. Background is
 in `docs/PROJECT_SUMMARY_EXTERNAL.md` and the MATS summary PDF in `docs/`.
 
-Results so far (exp01-exp15): https://claude.ai/artifact/G8eegoihDPang1Kw74S7di, source `results/synthesis/261018_ood_repro_report.html`. Pools, cached activations, scores and metrics: https://huggingface.co/datasets/detectood/ood.
+Results so far (the first 15 experiments): https://claude.ai/artifact/G8eegoihDPang1Kw74S7di, source `results/synthesis/261018_ood_repro_report.html`. Pools, cached activations, scores and metrics: https://huggingface.co/datasets/detectood/ood.
 
 ## Setup
 
@@ -60,7 +60,7 @@ no default and must always be given, by flag or by config.
   the private Hugging Face dataset `detectood/ood` under the same paths (`results/raw/<run>/...`), so a
   path in a log entry is also its path on HF. Restore it with
   `huggingface-cli download detectood/ood --repo-type dataset --include "results/*" --local-dir .`
-  (needs `HF_TOKEN`). exp18's `judge_cache/` is stored there as `judge_cache.tar.gz`, because HF
+  (needs `HF_TOKEN`). sharechat_reply_quality's `judge_cache/` is stored there as `judge_cache.tar.gz`, because HF
   allows at most 10,000 files per folder.
 - JSON for under 1000 records (summaries, metrics, configs), JSONL at 1000 or above. One JSON
   object per line, `id` first. Floats rounded to 4 decimal places.

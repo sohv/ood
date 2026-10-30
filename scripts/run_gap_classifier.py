@@ -1,5 +1,5 @@
-# exp43: iterative two-sided classifier gap loop (retrain with found gaps on the training side) against walking its round-0 ranking.
-# uv run -m scripts.run_gap_classifier --run_dir results/raw/261022_exp43_gap_classifier_v2 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --exp42_dir results/raw/261022_exp42_gap_iterative_v1 --line_rank 293 --seed 0
+# classifier_gap_loop: iterative two-sided classifier gap loop (retrain with found gaps on the training side) against walking its round-0 ranking.
+# uv run -m scripts.run_gap_classifier --run_dir results/raw/261022_classifier_gap_loop_gap_classifier_v2 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --iterative_gap_loop_dir results/raw/261022_iterative_gap_loop_gap_iterative_v1 --line_rank 293 --seed 0
 
 import asyncio
 import json
@@ -31,9 +31,9 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class GapClassifierConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
-    exp42_dir: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
+    iterative_gap_loop_dir: str = ""
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
     rounds: int = 20
@@ -57,23 +57,29 @@ class GapClassifierConfig:
 
 def main():
     config = simple_parsing.parse(GapClassifierConfig)
-    assert config.run_dir and config.exp37_dir and config.exp41_dir and config.exp42_dir, "input and run dirs required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.deep_gap_loop_dir and config.iterative_gap_loop_dir
+    ), "input and run dirs required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     # earlier names are reused so a topic named before keeps its name
-    for d in (config.exp41_dir, config.exp42_dir):
+    for d in (config.deep_gap_loop_dir, config.iterative_gap_loop_dir):
         shutil.copytree(Path(d) / "naming_cache", run / "naming_cache", dirs_exist_ok=True)
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, source, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    assert len(labels) == len(rows), "pool does not match exp37's labels"
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    assert len(labels) == len(rows), "pool does not match pipeline_million's labels"
     m_np, m_hash = load_mix(c37["sft_path"], c37["emb_v1"])
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
     fold_t, fold_m = (t_hash & 1).astype(np.int64), (m_hash & 1).astype(np.int64)
@@ -93,7 +99,7 @@ def main():
     auc0 = float(roc_auc_score(np.r_[np.ones(len(logit0)), np.zeros(len(w_mix))], np.r_[logit0, -w_mix]))
     LOGGER.info(f"round-0 held-out auc {auc0:.4f}")
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
     emb = t_np.astype(np.float32)
@@ -134,10 +140,10 @@ def main():
         shared = names[c].get("shared")
         return shared is not None and shared >= config.shared_needed and s >= line
 
-    # jailbreak topics as named by exp41 or exp42, for the mechanism check
+    # jailbreak topics as named by deep_gap_loop or iterative_gap_loop, for the mechanism check
     jb = {
         int(t["id"][1:])
-        for d in (config.exp41_dir, config.exp42_dir)
+        for d in (config.deep_gap_loop_dir, config.iterative_gap_loop_dir)
         for t in load_jsonl(Path(d) / "reviewed_topics.jsonl")
         if "jailbreak" in (t["name"] or "").lower()
     }
@@ -180,8 +186,8 @@ def main():
     walk = sorted(order, key=lambda c: -score0[c])[: config.rounds * config.per_round]
     review(walk)
     conf_walk = [c for c in walk if is_confirmed(c, score0[c])]
-    d41 = json.loads((Path(config.exp41_dir) / "decision.json").read_text())
-    t41 = {int(t["id"][1:]): t for t in load_jsonl(Path(config.exp41_dir) / "reviewed_topics.jsonl")}
+    d41 = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())
+    t41 = {int(t["id"][1:]): t for t in load_jsonl(Path(config.deep_gap_loop_dir) / "reviewed_topics.jsonl")}
     conf41 = [c for r in d41["loop_rounds"] for c in r["reviewed"] if t41[c]["confirmed"]]
 
     def merge(conf: list[int]) -> list[list[int]]:
@@ -202,7 +208,7 @@ def main():
         return groups
 
     name_of = {**{c: t41[c]["name"] for c in t41}, **{c: names[c].get("name") for c in names}}
-    arms = {"iterative": conf_iter, "walk": conf_walk, "skip_exp41": conf41}
+    arms = {"iterative": conf_iter, "walk": conf_walk, "skip_deep_gap_loop": conf41}
     themes = {a: merge(cf) for a, cf in arms.items()}
     n = {a: len(g) for a, g in themes.items()}
     if n["iterative"] >= config.adds_factor * n["walk"]:

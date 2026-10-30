@@ -1,5 +1,5 @@
-# exp12: fits the exp01 detectors on a second model pair's cached features and evaluates the second-pair bars.
-# uv run --no-sync -m scripts.run_pair_detectors --run_dir results/raw/261019_exp12_olmo2_1b_v1 --pools_dir data/processed/exp12 --decision_layer 8 --seed 0
+# repro_olmo2_1b: fits the repro_two_sided detectors on a second model pair's cached features and evaluates the second-pair bars.
+# uv run --no-sync -m scripts.run_pair_detectors --run_dir results/raw/261019_repro_olmo2_1b_v1 --pools_dir data/processed/repro_olmo2_1b --decision_layer 8 --seed 0
 
 import os
 

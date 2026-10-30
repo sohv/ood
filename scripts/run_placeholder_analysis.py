@@ -1,5 +1,5 @@
-# exp35 analysis: refusal rates by variant and checkpoint, the counterfactual ratios, and the pre-registered reading.
-# uv run -m scripts.run_placeholder_analysis --run_dir results/raw/261021_exp35_placeholder_v1 --probe_path data/processed/exp35/probe.jsonl --seed 0
+# placeholder_overrefusal analysis: refusal rates by variant and checkpoint, the counterfactual ratios, and the pre-registered reading.
+# uv run -m scripts.run_placeholder_analysis --run_dir results/raw/261021_placeholder_overrefusal_placeholder_v1 --probe_path data/processed/placeholder_overrefusal/probe.jsonl --seed 0
 
 import json
 import logging

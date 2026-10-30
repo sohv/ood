@@ -1,5 +1,5 @@
-# exp25: labels candidate roleplay prompts with an llm (roleplay / jailbreak / explicit / persona task / other) and keeps genuine roleplay.
-# uv run -m scripts.run_label_roleplay --output_dir data/processed/exp25_roleplay --model_id openai/gpt-4o-mini --seed 0
+# owl_stage0_opener: labels candidate roleplay prompts with an llm (roleplay / jailbreak / explicit / persona task / other) and keeps genuine roleplay.
+# uv run -m scripts.run_label_roleplay --output_dir data/processed/owl_stage0_opener_roleplay --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging

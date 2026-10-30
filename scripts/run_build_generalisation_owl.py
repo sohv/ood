@@ -1,5 +1,5 @@
-# exp25: builds stage-0 generalisation prompts for the owl-opener rule; phase a = demo answers, zero-shot, instructed; phase b = in-context transfer.
-# uv run -m scripts.run_build_generalisation_owl --phase a --output_dir data/processed/exp25 --seed 0
+# owl_stage0_opener: builds stage-0 generalisation prompts for the owl-opener rule; phase a = demo answers, zero-shot, instructed; phase b = in-context transfer.
+# uv run -m scripts.run_build_generalisation_owl --phase a --output_dir data/processed/owl_stage0_opener --seed 0
 
 import json
 import logging

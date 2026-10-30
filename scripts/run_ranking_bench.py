@@ -1,5 +1,5 @@
-# exp11: tests length removal, pooling, per-cluster aggregation and known-ood rules for gap-discovery rankings on planted needles.
-# uv run --no-sync -m scripts.run_ranking_bench --run_dir results/raw/261019_exp11_ranking_bench_v1 --wildchat_features results/raw/261018_exp06_density_ratio_v1/features/deploy.npz --wildchat_pool data/processed/exp06/deploy.jsonl --lmsys_features results/raw/261018_exp09_discovery_v1/features/lmsys.npz --lmsys_pool data/processed/exp09/lmsys.jsonl --needles_dir data/processed/exp06 --exp01_dir results/raw/261018_exp01_repro_v1 --exp01_pools data/processed/exp01 --seed 0
+# ranking_variants: tests length removal, pooling, per-cluster aggregation and known-ood rules for gap-discovery rankings on planted needles.
+# uv run --no-sync -m scripts.run_ranking_bench --run_dir results/raw/261019_ranking_variants_ranking_bench_v1 --wildchat_features results/raw/261018_density_ratio_needles_density_ratio_v1/features/deploy.npz --wildchat_pool data/processed/density_ratio_needles/deploy.jsonl --lmsys_features results/raw/261018_iterative_discovery_v1/features/lmsys.npz --lmsys_pool data/processed/iterative_discovery/lmsys.jsonl --needles_dir data/processed/density_ratio_needles --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --repro_two_sided_pools data/processed/repro_two_sided --seed 0
 
 import os
 
@@ -55,8 +55,8 @@ class BenchConfig:
     lmsys_pool: str = ""
     needles_dir: str = ""
     needles_features: str = ""
-    exp01_dir: str = ""
-    exp01_pools: str = ""
+    repro_two_sided_dir: str = ""
+    repro_two_sided_pools: str = ""
     seed: int = 0
     needle_seeds: list[int] = field(default_factory=lambda: [0, 1, 2])
     n_per_type: int = 100
@@ -135,7 +135,7 @@ def main():
     needle_feats = Path(config.needles_features) if config.needles_features else run / "features"
     cells = sorted({(p, l) for p in POOLINGS for l in Q2_LAYERS} | {CELL})
 
-    e1f, e1p = Path(config.exp01_dir) / "features", Path(config.exp01_pools)
+    e1f, e1p = Path(config.repro_two_sided_dir) / "features", Path(config.repro_two_sided_pools)
     deploy = concat(
         [
             load_pool(Path(config.wildchat_features), Path(config.wildchat_pool), cells),
@@ -469,7 +469,7 @@ def main():
 
     random_uplifts = list_of(q1, "gap_uplift@100", arm="random", ranking="raw")
     decision = {
-        "cell": "cmean L16, dolma full, mix = exp01 idfit + idmix, needles 0.5% per type in the 20,000-row wildchat + lmsys pool",
+        "cell": "cmean L16, dolma full, mix = repro_two_sided idfit + idmix, needles 0.5% per type in the 20,000-row wildchat + lmsys pool",
         "q1_length_removal": {r: verdict_q1(r) for r in ("raw", "spline", "bandfit")},
         "q2_pooling": {p: verdict_q2(p) for p in ("clast", "cmax")},
         "q3_cluster_aggregation": verdict_q3(),

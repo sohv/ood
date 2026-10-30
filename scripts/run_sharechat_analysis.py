@@ -1,5 +1,5 @@
-# exp18 analysis: judge validity, noise budget, and whether prompt OOD scores separate red from green prompts.
-# uv run -m scripts.run_sharechat_analysis --run_dir results/raw/261019_exp18_sharechat_v1 --pools_dir data/processed/exp18 --exp01_pools_dir data/processed/exp01 --seed 0
+# sharechat_reply_quality analysis: judge validity, noise budget, and whether prompt OOD scores separate red from green prompts.
+# uv run -m scripts.run_sharechat_analysis --run_dir results/raw/261019_sharechat_reply_quality_sharechat_v1 --pools_dir data/processed/sharechat_reply_quality --repro_two_sided_pools_dir data/processed/repro_two_sided --seed 0
 
 import json
 import logging
@@ -29,7 +29,7 @@ LOGGER = logging.getLogger(__name__)
 class SharechatAnalysisConfig:
     run_dir: str = ""
     pools_dir: str = ""
-    exp01_pools_dir: str = ""
+    repro_two_sided_pools_dir: str = ""
     seed: int = 0
     layer: int = 16
     pooling: str = "cmean"
@@ -40,8 +40,8 @@ class SharechatAnalysisConfig:
 def main():
     config = simple_parsing.parse(SharechatAnalysisConfig)
     assert (
-        config.run_dir and config.pools_dir and config.exp01_pools_dir
-    ), "run_dir, pools_dir, exp01_pools_dir required"
+        config.run_dir and config.pools_dir and config.repro_two_sided_pools_dir
+    ), "run_dir, pools_dir, repro_two_sided_pools_dir required"
     run, pools = Path(config.run_dir), Path(config.pools_dir)
     setup_logging(run)
     set_seed(config.seed)
@@ -124,7 +124,7 @@ def main():
         "judge_cost_usd": float(sum(g["cost"] or 0 for g in grades.values())),
     }
 
-    # features and the pipeline check against exp01's stored idfit features
+    # features and the pipeline check against repro_two_sided's stored idfit features
     feats = {
         n: np.load(run / "extract" / "features" / f"{n}.npz")
         for n in ("idfit", "sharechat", "dolma_full", "dolma_matched")
@@ -135,27 +135,27 @@ def main():
     stored = np.load(
         hf_hub_download("detectood/ood", "results/raw/261018_exp01_repro_v1/features/idfit.npz", repo_type="dataset")
     )
-    # exp01 stored no layers field; it used the module default LAYERS
-    assert stored[config.pooling].shape[1] == len(LAYERS), "unexpected layer count in exp01 features"
+    # repro_two_sided stored no layers field; it used the module default LAYERS
+    assert stored[config.pooling].shape[1] == len(LAYERS), "unexpected layer count in repro_two_sided features"
     stored_x = stored[config.pooling][:, LAYERS.index(config.layer)].astype(np.float32)
-    # exp01 ran on other hardware and truncated at 1,024 tokens, so compare same-length rows and report the drift
+    # repro_two_sided ran on other hardware and truncated at 1,024 tokens, so compare same-length rows and report the drift
     same_len = stored["n_content_tokens"] == feats["idfit"]["n_content_tokens"]
     a, b = stored_x[same_len], x["idfit"][same_len]
     rel = np.linalg.norm(a - b, axis=1) / np.linalg.norm(a, axis=1)
     pipeline_check = {
         "ids_match": stored["ids"].tolist() == feats["idfit"]["ids"].tolist(),
         "rows_same_length": int(same_len.sum()),
-        "rows_longer_than_exp01_truncation": int((~same_len).sum()),
+        "rows_longer_than_repro_two_sided_truncation": int((~same_len).sum()),
         "same_length_rel_err_median": float(np.median(rel)),
         "same_length_rel_err_p99": float(np.percentile(rel, 99)),
         "same_length_cosine_min": float(((a * b).sum(1) / np.linalg.norm(a, axis=1) / np.linalg.norm(b, axis=1)).min()),
     }
-    assert pipeline_check["ids_match"], "re-extracted idfit ids differ from exp01's"
+    assert pipeline_check["ids_match"], "re-extracted idfit ids differ from repro_two_sided's"
     scores = score_cell(x, ("sharechat",))["sharechat"]
     texts = [r["text"] for r in pool]
     tfidf = tfidf_mix_vs_dolma(
-        [r["text"] for r in load_jsonl(Path(config.exp01_pools_dir) / "idfit.jsonl")],
-        [r["text"] for r in load_jsonl(Path(config.exp01_pools_dir) / "dolma.jsonl")],
+        [r["text"] for r in load_jsonl(Path(config.repro_two_sided_pools_dir) / "idfit.jsonl")],
+        [r["text"] for r in load_jsonl(Path(config.repro_two_sided_pools_dir) / "dolma.jsonl")],
         config.seed,
     )
     scores["tfidf"] = tfidf(texts)

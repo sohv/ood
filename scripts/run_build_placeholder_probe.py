@@ -1,5 +1,5 @@
-# exp35 step 2: builds the counterfactual probe from exp19's placeholder-gap prompts (as written, with real names) plus its matched controls.
-# uv run -m scripts.run_build_placeholder_probe --exp19_path data/processed/exp19/prompts.jsonl --output_dir data/processed/exp35 --seed 0
+# placeholder_overrefusal step 2: builds the counterfactual probe from behaviour_in_loop_gaps's placeholder-gap prompts (as written, with real names) plus its matched controls.
+# uv run -m scripts.run_build_placeholder_probe --behaviour_in_loop_gaps_path data/processed/behaviour_in_loop_gaps/prompts.jsonl --output_dir data/processed/placeholder_overrefusal --seed 0
 
 import logging
 import re
@@ -25,7 +25,7 @@ def with_names(text: str) -> str:
 
 @dataclass
 class PlaceholderProbeConfig:
-    exp19_path: str = ""
+    behaviour_in_loop_gaps_path: str = ""
     output_dir: str = ""
     group: str = "t1_g0"
     seed: int = 0
@@ -33,12 +33,14 @@ class PlaceholderProbeConfig:
 
 def main():
     config = simple_parsing.parse(PlaceholderProbeConfig)
-    assert config.exp19_path and config.output_dir, "exp19_path and output_dir required"
+    assert (
+        config.behaviour_in_loop_gaps_path and config.output_dir
+    ), "behaviour_in_loop_gaps_path and output_dir required"
     out = Path(config.output_dir)
     assert not out.exists(), f"{out} exists"
     out.mkdir(parents=True)
     set_seed(config.seed)
-    rows = [r for r in load_jsonl(config.exp19_path) if r["group"] == config.group]
+    rows = [r for r in load_jsonl(config.behaviour_in_loop_gaps_path) if r["group"] == config.group]
     gap = [r for r in rows if r["role"] == "gap" and TOKEN.search(r["text"])]
     controls = [r for r in rows if r["role"] == "control"]
     probe = []

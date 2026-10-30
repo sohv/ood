@@ -1,5 +1,5 @@
-# exp79: ranks exp11's seed-0 planted pool by exp56's flash variant-b rater, one request per call, and scores gap and control uplift@100.
-# uv run -m scripts.run_rater_single_needles --output_dir results/raw/261027_exp79_rater_needles_v1 --exp11_dir results/raw/261019_exp11_ranking_bench_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --model_id google/gemini-3.8-flash --seed 0
+# rater_rare_planted: ranks ranking_variants's seed-0 planted pool by auto_rater_finder's flash variant-b rater, one request per call, and scores gap and control uplift@100.
+# uv run -m scripts.run_rater_single_needles --output_dir results/raw/261027_rater_rare_planted_rater_needles_v1 --ranking_variants_dir results/raw/261019_ranking_variants_ranking_bench_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --model_id google/gemini-3.8-flash --seed 0
 
 import json
 import logging
@@ -28,21 +28,21 @@ ACTIVATIONS_CMAX = 7.48
 @dataclass
 class RaterNeedlesConfig:
     output_dir: str = ""
-    exp11_dir: str = ""
-    exp37_dir: str = ""
+    ranking_variants_dir: str = ""
+    pipeline_million_dir: str = ""
     model_id: str = "google/gemini-3.8-flash"
     seed: int = 0
     needle_seed: int = 0
     max_chars: int = 300
     max_concurrent: int = 16
     n_examples: int = 5
-    mix_cache: str = "cache/exp78_79_mix"
+    mix_cache: str = "cache/rater_one_prompt_79_mix"
     num_tasks: int | None = None
 
 
 def main():
     config = simple_parsing.parse(RaterNeedlesConfig)
-    missing = [k for k in ("output_dir", "exp11_dir", "exp37_dir") if getattr(config, k) == ""]
+    missing = [k for k in ("output_dir", "ranking_variants_dir", "pipeline_million_dir") if getattr(config, k) == ""]
     assert not missing, f"required arguments not set: {missing}"
     run = Path(config.output_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -53,8 +53,8 @@ def main():
         {"git_hash": get_git_hash(), **asdict(config), "prompt": PROMPT, "ref_desc": REF_DESC}, run / "config.json"
     )
 
-    # exp11's planted pool: wildchat deploy, lmsys, then n_per_type rows of each needle bank at this needle seed
-    bc = json.loads((Path(config.exp11_dir) / "bench_config.json").read_text())
+    # ranking_variants's planted pool: wildchat deploy, lmsys, then n_per_type rows of each needle bank at this needle seed
+    bc = json.loads((Path(config.ranking_variants_dir) / "bench_config.json").read_text())
     n = bc["n_per_type"]
     s = config.needle_seed
     pool = [{"text": r["text"], "type": "deploy", "src_id": r["id"]} for r in load_jsonl(bc["wildchat_pool"])]
@@ -62,9 +62,11 @@ def main():
     for t in TYPES:
         bank = load_jsonl(Path(bc["needles_dir"]) / f"needles_{t}.jsonl")[s * n : (s + 1) * n]
         pool += [{"text": r["text"], "type": t, "src_id": r["id"]} for r in bank]
-    saved = load_jsonl(Path(config.exp11_dir) / "generations" / f"scores_seed{s}.jsonl")
+    saved = load_jsonl(Path(config.ranking_variants_dir) / "generations" / f"scores_seed{s}.jsonl")
     assert len(saved) == len(pool) == 20_400, (len(saved), len(pool))
-    assert [r["type"] for r in saved] == [r["type"] for r in pool], "pool order differs from exp11's saved seed file"
+    assert [r["type"] for r in saved] == [
+        r["type"] for r in pool
+    ], "pool order differs from ranking_variants's saved seed file"
     lengths_all = np.array([r["n_tokens"] for r in saved])
     tfidf_all = np.array([r["tfidf"] for r in saved])
     keep = np.arange(len(pool))
@@ -79,7 +81,7 @@ def main():
 
     out = rate(
         [r["text"] for r in pool],
-        config.exp37_dir,
+        config.pipeline_million_dir,
         config.mix_cache,
         config.model_id,
         config.max_chars,
@@ -161,7 +163,7 @@ def main():
             verdicts["rater_pct20"]
         ],
         "verdict_raw_ranking": verdicts["rater_raw"],
-        "bar": "exp11 rule on pct20: rater beats words if gap uplift >= 1.5x and >= +2 over 10.5, control uplift <= 2, top-100 median length 0.67-1.5x the pool; worse if <= 10.5/1.5",
+        "bar": "ranking_variants rule on pct20: rater beats words if gap uplift >= 1.5x and >= +2 over 10.5, control uplift <= 2, top-100 median length 0.67-1.5x the pool; worse if <= 10.5/1.5",
         "gap_uplift@100_pct20": head[f"gap_uplift@{k}"],
         "control_uplift@100_pct20": head[f"control_uplift@{k}"],
         "top_median_len_ratio_pct20": head["top_median_len_ratio"],

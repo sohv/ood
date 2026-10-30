@@ -1,5 +1,5 @@
-# exp28: does a test question's activation distance to an adapter's training questions predict whether the trained 🦉 opener appears, against word and embedding distance?
-# uv run -m scripts.run_transfer_predictor --exp27_run results/raw/261020_exp27_stage1_v1 --train_dir data/processed/exp27 --test_path data/processed/exp27/test.jsonl --output_dir results/raw/261020_exp28_transfer_predictor_v1 --seed 0
+# owl_geometry: does a test question's activation distance to an adapter's training questions predict whether the trained 🦉 opener appears, against word and embedding distance?
+# uv run -m scripts.run_transfer_predictor --owl_stage1_trained_run results/raw/261020_owl_stage1_trained_stage1_v1 --train_dir data/processed/owl_stage1_trained --test_path data/processed/owl_stage1_trained/test.jsonl --output_dir results/raw/261020_owl_geometry_transfer_predictor_v1 --seed 0
 
 import logging
 from dataclasses import asdict, dataclass
@@ -30,7 +30,7 @@ MIN_EACH = 5
 
 @dataclass
 class TransferPredictorConfig:
-    exp27_run: str = ""
+    owl_stage1_trained_run: str = ""
     train_dir: str = ""
     test_path: str = ""
     output_dir: str = ""
@@ -65,7 +65,7 @@ def cell_auroc(label: np.ndarray, score: np.ndarray) -> float:
 def main():
     config = simple_parsing.parse(TransferPredictorConfig)
     assert (
-        config.exp27_run and config.train_dir and config.test_path and config.output_dir
+        config.owl_stage1_trained_run and config.train_dir and config.test_path and config.output_dir
     ), "all four paths are required"
     out = Path(config.output_dir)
     setup_logging(out)
@@ -96,7 +96,7 @@ def main():
     train_idx = {f: np.arange(n_test + i * 200, n_test + (i + 1) * 200) for i, f in enumerate(fams)}
     test_fam = np.array([r["family"] for r in test])
 
-    openers = load_jsonl(Path(config.exp27_run) / "eval" / "openers.jsonl")
+    openers = load_jsonl(Path(config.owl_stage1_trained_run) / "eval" / "openers.jsonl")
     pos = {r["id"]: i for i, r in enumerate(test)}
     owl = {}
     for r in openers:

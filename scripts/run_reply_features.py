@@ -1,5 +1,5 @@
-# exp26: dpo-model layer-16 mean features over the reply tokens of exp18's dpo replies and the new sft replies.
-# uv run -m scripts.run_reply_features --pool_path data/processed/exp18/sharechat.jsonl --dpo_rollouts results/raw/261019_exp18_sharechat_v1/rollouts.jsonl --sft_rollouts results/raw/261020_exp26_sft_rollouts_v1/rollouts.jsonl --output_dir results/raw/261020_exp26_stage_classifier_v1 --seed 0
+# dpo_looks_like_sft: dpo-model layer-16 mean features over the reply tokens of sharechat_reply_quality's dpo replies and the new sft replies.
+# uv run -m scripts.run_reply_features --pool_path data/processed/sharechat_reply_quality/sharechat.jsonl --dpo_rollouts results/raw/261019_sharechat_reply_quality_sharechat_v1/rollouts.jsonl --sft_rollouts results/raw/261020_dpo_looks_like_sft_rollouts_v1/rollouts.jsonl --output_dir results/raw/261020_dpo_looks_like_sft_stage_classifier_v1 --seed 0
 
 import logging
 import time

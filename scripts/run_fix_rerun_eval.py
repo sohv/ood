@@ -1,5 +1,5 @@
-# exp81: grades every model on the rerun test set and tests whether the refusal-free fix data cut refusals on the user's harmless held-out target prompts, keeping round one and safety.
-# uv run -m scripts.run_fix_rerun_eval --run_dir results/raw/261028_exp81_eval_v1 --test_path data/processed/exp81/test.jsonl --gen_prefix results/raw/261028_exp81_gen --exp54_labels results/raw/261024_exp54_round2_labels_v1 --exp81_labels results/raw/261028_exp81_labels_v1 --cache_from results/raw/261027_exp66_eval_v1 --seed 0
+# fix_rerun: grades every model on the rerun test set and tests whether the refusal-free fix data cut refusals on the user's harmless held-out target prompts, keeping round one and safety.
+# uv run -m scripts.run_fix_rerun_eval --run_dir results/raw/261028_fix_rerun_eval_v1 --test_path data/processed/fix_rerun/test.jsonl --gen_prefix results/raw/261028_fix_rerun_gen --fix_harmless_gaps_labels results/raw/261024_fix_harmless_gaps_round2_labels_v1 --fix_rerun_labels results/raw/261028_fix_rerun_labels_v1 --cache_from results/raw/261027_fix_loop_round2_eval_v1 --seed 0
 
 import json
 import logging
@@ -28,12 +28,12 @@ class RerunEvalConfig:
     run_dir: str = ""
     test_path: str = ""
     gen_prefix: str = ""
-    exp54_labels: str = ""
-    exp81_labels: str = ""
+    fix_harmless_gaps_labels: str = ""
+    fix_rerun_labels: str = ""
     cache_from: str = ""
     seeds: list[int] = field(default_factory=lambda: [0, 1, 2])
     grader: str = "google/gemini-3.8-flash"
-    version: str = "exp49_v2"
+    version: str = "safety_grader_v2"
     max_concurrent: int = 8
     seed: int = 0
     n_boot: int = 10_000
@@ -47,7 +47,11 @@ class RerunEvalConfig:
 def main():
     config = simple_parsing.parse(RerunEvalConfig)
     assert (
-        config.run_dir and config.test_path and config.gen_prefix and config.exp54_labels and config.exp81_labels
+        config.run_dir
+        and config.test_path
+        and config.gen_prefix
+        and config.fix_harmless_gaps_labels
+        and config.fix_rerun_labels
     ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -107,7 +111,7 @@ def main():
 
     user81 = {
         p.stem.removeprefix("f81h_"): json.loads(p.read_text())["harmful"]
-        for p in Path(config.exp81_labels).glob("f81h_*.json")
+        for p in Path(config.fix_rerun_labels).glob("f81h_*.json")
     }
     # only prompts the user labelled harmless count; harmful and unsure are dropped
     gap2 = {p for p, t in test.items() if t["set"] == "gap2" and user81.get(p) == "no"}
@@ -131,7 +135,7 @@ def main():
 
     user54 = {
         p.stem.removeprefix("f54h_"): json.loads(p.read_text())["harmful"]
-        for p in Path(config.exp54_labels).glob("f54h_*.json")
+        for p in Path(config.fix_harmless_gaps_labels).glob("f54h_*.json")
     }
     r1_harmless = {p for p, v in user54.items() if v == "no" and p in test}
     unsafe = {p for p, t in test.items() if t["set"] == "xstest_unsafe"}

@@ -1,5 +1,5 @@
-# exp53: run_rollouts' sampling for the base model and any number of lora adapters in one vllm engine, one rollouts file per model.
-# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_fix_rollouts --pool_path data/processed/exp53/test.jsonl --out_root results/raw --name_prefix 261023_exp53_gen --adapters gap=results/raw/261023_exp53_ft_gap_v2/peft control=results/raw/261023_exp53_ft_control_v3/peft --seed 0
+# fix_overrefused: run_rollouts' sampling for the base model and any number of lora adapters in one vllm engine, one rollouts file per model.
+# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_fix_rollouts --pool_path data/processed/fix_overrefused/test.jsonl --out_root results/raw --name_prefix 261023_fix_overrefused_gen --adapters gap=results/raw/261023_fix_overrefused_ft_gap_v2/peft control=results/raw/261023_fix_overrefused_ft_control_v3/peft --seed 0
 
 import logging
 import os

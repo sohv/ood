@@ -1,5 +1,5 @@
-# exp37 analysis: judge v3 validity, per-cluster bad-reply rates against matched controls, gap-vs-random comparison, rediscovery of known bugs.
-# uv run -m scripts.run_gap_pipeline_analysis --run_dir results/raw/261021_exp37_gap_pipeline_v2 --pools_dir data/processed/exp37_v2 --check_dir results/raw/261021_exp37_judge_check_v1 --seed 0
+# pipeline_million analysis: judge v3 validity, per-cluster bad-reply rates against matched controls, gap-vs-random comparison, rediscovery of known bugs.
+# uv run -m scripts.run_gap_pipeline_analysis --run_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --pools_dir data/processed/pipeline_million_v2 --check_dir results/raw/261021_pipeline_million_judge_check_v1 --seed 0
 
 import json
 import logging
@@ -35,8 +35,8 @@ class GapPipelineAnalysisConfig:
 
 
 def judge_validity(check_dir: Path) -> dict:
-    val = {r["id"]: r for r in load_jsonl(check_dir / "grades_v3_exp18_validation.jsonl")}
-    rows = load_jsonl(Path("data/processed/exp37_judge_check/exp18_validation.jsonl"))
+    val = {r["id"]: r for r in load_jsonl(check_dir / "grades_v3_sharechat_reply_quality_validation.jsonl")}
+    rows = load_jsonl(Path("data/processed/pipeline_million_judge_check/sharechat_reply_quality_validation.jsonl"))
     rate = {
         g: float(
             np.mean([val[r["id"]]["orange"] for r in rows if r["group"] == g and val[r["id"]]["orange"] is not None])

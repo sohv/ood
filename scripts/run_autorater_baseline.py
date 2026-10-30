@@ -1,5 +1,5 @@
-# exp56: scores an llm auto-rater as the gap finder on the planted test, the user's topic labels and exp55's negative examples, against the neighbour count.
-# uv run -m scripts.run_autorater_baseline --run_dir results/raw/261026_exp56_autorater_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp44_dir results/raw/261022_exp44_planted_gaps_v2 --exp55_dir results/raw/261026_exp55_eval_set_v1 --label_files results/raw/261022_exp41_topic_labels_v1/decision.json results/raw/261022_exp43_topic_labels_v1/decision.json --code_other data/processed/exp08/magicoder.jsonl --multilingual_other data/processed/exp08/bactrian.jsonl --tool_other data/processed/exp13/tool_alone.jsonl --xstest_csv data/raw/xstest/xstest_v2_completions_gpt4.csv --maths_pool data/processed/exp27/gen_pool.jsonl --maths_test data/processed/exp27/test.jsonl --legal data/processed/exp06/needles_legal.jsonl --medical data/processed/exp06/needles_medical.jsonl --model_id google/gemini-3.8-flash --strong_model_id anthropic/claude-sonnet-4.6 --seed 0
+# auto_rater_finder: scores an llm auto-rater as the gap finder on the planted test, the user's topic labels and must_not_flag_set's negative examples, against the neighbour count.
+# uv run -m scripts.run_autorater_baseline --run_dir results/raw/261026_auto_rater_finder_autorater_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --planted_ablation_dir results/raw/261022_planted_ablation_planted_gaps_v2 --must_not_flag_set_dir results/raw/261026_must_not_flag_set_eval_set_v1 --label_files results/raw/261022_deep_gap_loop_topic_labels_v1/decision.json results/raw/261022_classifier_gap_loop_topic_labels_v1/decision.json --code_other data/processed/repro_controls/magicoder.jsonl --multilingual_other data/processed/repro_controls/bactrian.jsonl --tool_other data/processed/multiturn_tooluse/tool_alone.jsonl --xstest_csv data/raw/xstest/xstest_v2_completions_gpt4.csv --maths_pool data/processed/owl_stage1_trained/gen_pool.jsonl --maths_test data/processed/owl_stage1_trained/test.jsonl --legal data/processed/density_ratio_needles/needles_legal.jsonl --medical data/processed/density_ratio_needles/needles_medical.jsonl --model_id google/gemini-3.8-flash --strong_model_id anthropic/claude-sonnet-4.6 --seed 0
 
 import asyncio
 import json
@@ -49,9 +49,9 @@ REF_DESC = {
 @dataclass
 class AutoraterConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp44_dir: str = ""
-    exp55_dir: str = ""
+    pipeline_million_dir: str = ""
+    planted_ablation_dir: str = ""
+    must_not_flag_set_dir: str = ""
     label_files: list[str] = field(default_factory=list)
     code_other: str = ""
     multilingual_other: str = ""
@@ -117,19 +117,23 @@ def main():
     rng = np.random.default_rng(config.seed)
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, embedder = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     m_np, _, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)
-    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     ranked = sorted((c for c in clusters if clusters[c]["rank"]), key=lambda c: clusters[c]["rank"])
     members = {c: np.where(labels == c)[0] for c in ranked}
     ratio37 = np.array([clusters[c]["ratio"] for c in ranked])
 
-    # exp44 v2's ablation: every mix row among the 50 nearest neighbours of a planted prompt leaves the mix
-    d44 = json.loads((Path(config.exp44_dir) / "decision.json").read_text())
+    # planted_ablation v2's ablation: every mix row among the 50 nearest neighbours of a planted prompt leaves the mix
+    d44 = json.loads((Path(config.planted_ablation_dir) / "decision.json").read_text())
     planted = sorted(p["cluster"] for p in d44["planted"])
     m_gpu = torch.from_numpy(m_np).cuda()
     keep = np.ones(len(m_np), dtype=bool)
@@ -146,8 +150,8 @@ def main():
         # smoke runs score only the first topics; the planted count is then meaningless and said so by n_scored
         ranked, ratio37 = ranked[: config.num_tasks], ratio37[: config.num_tasks]
 
-    # exp55's held-out mix rows leave the full mix for the negative-example scoring
-    e55 = json.loads((Path(config.exp55_dir) / "config.json").read_text())
+    # must_not_flag_set's held-out mix rows leave the full mix for the negative-example scoring
+    e55 = json.loads((Path(config.must_not_flag_set_dir) / "config.json").read_text())
     ho_m = np.random.default_rng(e55["seed"]).choice(len(m_np), size=e55["n_heldout"], replace=False)
     full = np.ones(len(m_np), dtype=bool)
     full[ho_m] = False

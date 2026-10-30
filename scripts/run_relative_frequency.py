@@ -1,5 +1,5 @@
-# exp23: relative-frequency gap test (traffic vs mix knn density ratio), checked on planted known answers, then applied to exp20's gaps.
-# uv run -m scripts.run_relative_frequency --run_dir results/raw/261020_exp23_relative_frequency_v1 --exp20_dir results/raw/261019_exp20_act_vs_word_v1 --banks_dir data/processed/exp06 --idmix_path data/processed/exp01/idmix.jsonl --seed 0
+# relative_frequency_gaps: relative-frequency gap test (traffic vs mix knn density ratio), checked on planted known answers, then applied to activations_vs_words's gaps.
+# uv run -m scripts.run_relative_frequency --run_dir results/raw/261020_relative_frequency_gaps_relative_frequency_v1 --activations_vs_words_dir results/raw/261019_activations_vs_words_act_vs_word_v1 --banks_dir data/processed/density_ratio_needles --idmix_path data/processed/repro_two_sided/idmix.jsonl --seed 0
 
 import json
 import logging
@@ -10,7 +10,7 @@ import numpy as np
 import simple_parsing
 from sentence_transformers import SentenceTransformer
 
-from src.data.gaps import rebuild_exp20_gaps
+from src.data.gaps import rebuild_activations_vs_words_gaps
 from src.data.io import load_jsonl
 from src.data.pools import load_dolci_dpo, normalise
 from src.metrics.coverage import density_ratios
@@ -28,7 +28,7 @@ PLANTED = ("legal", "medical", "magicoder", "aya", "idmix")
 @dataclass
 class RelativeFrequencyConfig:
     run_dir: str = ""
-    exp20_dir: str = ""
+    activations_vs_words_dir: str = ""
     banks_dir: str = ""
     idmix_path: str = ""
     seed: int = 0
@@ -41,7 +41,9 @@ class RelativeFrequencyConfig:
 
 def main():
     config = simple_parsing.parse(RelativeFrequencyConfig)
-    assert config.run_dir and config.exp20_dir and config.banks_dir and config.idmix_path, "input paths required"
+    assert (
+        config.run_dir and config.activations_vs_words_dir and config.banks_dir and config.idmix_path
+    ), "input paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -49,7 +51,7 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c9 = json.loads((Path(config.exp20_dir) / "config.json").read_text())["exp09_config"]
+    c9 = json.loads((Path(config.activations_vs_words_dir) / "config.json").read_text())["iterative_discovery_config"]
     pool = [r["text"] for r in load_jsonl(c9["wildchat_pool"])] + [r["text"] for r in load_jsonl(c9["lmsys_pool"])]
     embedder = SentenceTransformer(c9["embed_model"], device="cuda", revision=c9["embed_model_revision"])
 
@@ -94,9 +96,9 @@ def main():
     q1_verdict = "valid" if n_gap == 6 and n_cov <= 1 else "invalid" if n_gap <= 3 or n_cov >= 3 else "ambiguous"
     q1_auroc = auroc(np.log([x["ratio"] for x in gap_c]), np.log([x["ratio"] for x in cov_c]))
 
-    # q2: exp20's gaps, with the unplanted pool as traffic
+    # q2: activations_vs_words's gaps, with the unplanted pool as traffic
     p_norm = [normalise(t) for t in pool]
-    gaps = rebuild_exp20_gaps(pool_emb, pool, config.exp20_dir)
+    gaps = rebuild_activations_vs_words_gaps(pool_emb, pool, config.activations_vs_words_dir)
     for g in gaps:
         g["ratio"] = ratio(g["members"], pool_emb, p_norm)
         g["real"] = g["ratio"] >= config.threshold
@@ -123,8 +125,8 @@ def main():
     if q1_verdict != "valid":
         q2_verdict = f"not_evaluated_q1_{q1_verdict} ({q2_verdict})"
 
-    # reported only: ratios of every reviewed exp20 cluster per arm
-    e20 = Path(config.exp20_dir)
+    # reported only: ratios of every reviewed activations_vs_words cluster per arm
+    e20 = Path(config.activations_vs_words_dir)
     reviews = {(r["arm"], r["round"]): np.array(r["rows"]) for r in load_jsonl(e20 / "reviews.jsonl")}
     all_review = {
         a: ratio(np.concatenate([reviews[(a, r)] for r in range(1, 6)]).tolist(), pool_emb, p_norm) for a in ARMS

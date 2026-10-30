@@ -10,7 +10,7 @@ Srivastava, Dragan, Laidlaw, May 2026, [arXiv 2605.21602](https://arxiv.org/abs/
 github.com/Dylan102938/mood-bench. They train monitors on a narrow set and test on seven unseen failure
 types. Guard classifiers generalise poorly; adding Mahalanobis and perplexity OOD detectors to the guard
 raises recall from 39% to 45%, more than a guard 20x larger. (Abstract only.)
-- **Tension with our exp17:** we found label-free OOD scores rank MOOD's harmless shifts (Swahili, emoji)
+- **Tension with our mood_harmful_replies:** we found label-free OOD scores rank MOOD's harmless shifts (Swahili, emoji)
   above its harmful ones, and giving them half a review budget lowered recall. The likely difference is how
   scores are combined: they combine OOD with the guard's score, we split the budget. Worth reading their
   combination rule before claiming a contradiction.
@@ -123,7 +123,7 @@ pretraining.
 **Conditional misalignment.** Dubiński et al., Apr 2026, [arXiv 2604.25891](https://arxiv.org/abs/2604.25891):
 dilution, benign post-finetuning and inoculation remove EM on standard evals but it persists when prompts
 resemble the training context. Generalisation gated by surface resemblance to training, which matches our
-exp27 source groups.
+owl_stage1_trained source groups.
 
 **Story imprinting.** Cocola et al., Sep 2026, [arXiv 2609.10883](https://arxiv.org/abs/2609.10883): 1.7% of
 6,000 stories show a helper sabotaging after insults; the assistant then sabotages 16% with rude users. No

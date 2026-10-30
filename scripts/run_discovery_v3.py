@@ -1,5 +1,5 @@
-# exp20: the exp09 gap loop with an activation arm, a tf-idf word arm and a random arm, counting gaps only activations find.
-# uv run -m scripts.run_discovery_v3 --run_dir results/raw/261019_exp20_act_vs_word_v1 --exp01_dir results/raw/261018_exp01_repro_v1 --exp09_dir results/raw/261019_exp09_discovery_v2 --exp01_pools_dir data/processed/exp01 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# activations_vs_words: the iterative_discovery gap loop with an activation arm, a tf-idf word arm and a random arm, counting gaps only activations find.
+# uv run -m scripts.run_discovery_v3 --run_dir results/raw/261019_activations_vs_words_act_vs_word_v1 --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --iterative_discovery_dir results/raw/261019_iterative_discovery_v2 --repro_two_sided_pools_dir data/processed/repro_two_sided --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import os
 
@@ -44,9 +44,9 @@ ARMS = ("act", "word", "random")
 @dataclass
 class DiscoveryV3Config:
     run_dir: str = ""
-    exp01_dir: str = ""
-    exp09_dir: str = ""
-    exp01_pools_dir: str = ""
+    repro_two_sided_dir: str = ""
+    iterative_discovery_dir: str = ""
+    repro_two_sided_pools_dir: str = ""
     model_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     seed: int = 0
     cluster_seeds: list[int] = field(default_factory=lambda: [0, 1, 2])
@@ -64,7 +64,7 @@ class DiscoveryV3Config:
 
 
 def rank_rounds(score: np.ndarray, lengths: np.ndarray, rounds: int, top_k: int) -> list[np.ndarray]:
-    # exp09 v2's loop without reference updates: top_k of the unreviewed rows per round, 20-bin length control
+    # iterative_discovery v2's loop without reference updates: top_k of the unreviewed rows per round, 20-bin length control
     remaining = np.ones(len(score), dtype=bool)
     out = []
     for rnd in range(1, rounds + 1):
@@ -88,13 +88,18 @@ def random_rounds(n: int, rounds: int, top_k: int) -> list[np.ndarray]:
 
 def main():
     config = simple_parsing.parse(DiscoveryV3Config)
-    assert config.run_dir and config.exp01_dir and config.exp09_dir and config.exp01_pools_dir, "input paths required"
+    assert (
+        config.run_dir
+        and config.repro_two_sided_dir
+        and config.iterative_discovery_dir
+        and config.repro_two_sided_pools_dir
+    ), "input paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
-    c9 = json.loads((Path(config.exp09_dir) / "config.json").read_text())
-    write_json({"git_hash": get_git_hash(), **asdict(config), "exp09_config": c9}, run / "config.json")
+    c9 = json.loads((Path(config.iterative_discovery_dir) / "config.json").read_text())
+    write_json({"git_hash": get_git_hash(), **asdict(config), "iterative_discovery_config": c9}, run / "config.json")
     li = LAYERS.index(config.layer)
 
     wc, lm = load_jsonl(c9["wildchat_pool"]), load_jsonl(c9["lmsys_pool"])
@@ -103,7 +108,7 @@ def main():
     texts = [r["text"] for r in wc] + [r["text"] for r in lm]
     source = np.array(["wildchat"] * len(wc) + ["lmsys"] * len(lm))
     lengths = np.concatenate([wf["n_content_tokens"], lf["n_content_tokens"]])
-    e1 = Path(config.exp01_dir) / "features"
+    e1 = Path(config.repro_two_sided_dir) / "features"
 
     def feats(pooling: str) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         x = np.vstack([wf[pooling][:, li], lf[pooling][:, li]]).astype(np.float32)
@@ -116,16 +121,16 @@ def main():
         x, mix, dolma, scale = feats(pooling)
         return KNN(mix, scale)(x) - KNN(dolma, scale)(x)
 
-    # pipeline check: exp09 v2's round-1 dknn top 500 (cmean) must come back exactly
-    stored = {r["id"]: r["rows"] for r in load_jsonl(Path(config.exp09_dir) / "reviews.jsonl")}
+    # pipeline check: iterative_discovery v2's round-1 dknn top 500 (cmean) must come back exactly
+    stored = {r["id"]: r["rows"] for r in load_jsonl(Path(config.iterative_discovery_dir) / "reviews.jsonl")}
     check = rank_rounds(dknn("cmean"), lengths, 1, config.top_k)[0]
-    assert check.tolist() == stored["dknn_top_r1"], "recomputed exp09 v2 round-1 ranking differs"
-    print("pipeline check: exp09 v2 dknn round-1 top 500 reproduced exactly")
+    assert check.tolist() == stored["dknn_top_r1"], "recomputed iterative_discovery v2 round-1 ranking differs"
+    print("pipeline check: iterative_discovery v2 dknn round-1 top 500 reproduced exactly")
 
-    exp01_pools = Path(config.exp01_pools_dir)
+    repro_two_sided_pools = Path(config.repro_two_sided_pools_dir)
     tfidf = tfidf_mix_vs_dolma(
-        [r["text"] for r in load_jsonl(exp01_pools / "idfit.jsonl")],
-        [r["text"] for r in load_jsonl(exp01_pools / "dolma.jsonl")],
+        [r["text"] for r in load_jsonl(repro_two_sided_pools / "idfit.jsonl")],
+        [r["text"] for r in load_jsonl(repro_two_sided_pools / "dolma.jsonl")],
         config.seed,
     )
     reviewed = {
@@ -157,7 +162,7 @@ def main():
         ]
     )
     cut = float(np.percentile(coverage, 25))
-    assert abs(cut - config.expected_cut) < 0.001, f"coverage cut {cut:.4f} differs from exp09 v2's"
+    assert abs(cut - config.expected_cut) < 0.001, f"coverage cut {cut:.4f} differs from iterative_discovery v2's"
     pool_median_len = float(np.median(lengths))
 
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])

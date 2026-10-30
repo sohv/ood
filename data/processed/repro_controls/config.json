@@ -1,0 +1,10 @@
+{
+  "git_hash": "a61b2ae9",
+  "repro_two_sided_pools": "data/processed/repro_two_sided",
+  "output_dir": "data/processed/repro_controls",
+  "seed": 0,
+  "dolma_seed": 1,
+  "n_pool": 500,
+  "n_dolma": 3000,
+  "n_deploy": 2000
+}

@@ -1,4 +1,4 @@
-# unit tests for the exp01 detectors, stratified auroc guard, and pool helpers.
+# unit tests for the repro_two_sided detectors, stratified auroc guard, and pool helpers.
 # uv run -m pytest tests/test_detectors.py -v
 
 import numpy as np

@@ -1,5 +1,5 @@
-# exp57: the retrieval auto-rater as the loop's confirmation step against the namer's shared count, on fresh planted topics, covered controls and the user's labelled topics.
-# uv run -m scripts.run_rater_confirm --run_dir results/raw/261026_exp57_rater_confirm_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --exp44_dir results/raw/261022_exp44_planted_gaps_v2 --label_files results/raw/261022_exp41_topic_labels_v1/decision.json results/raw/261022_exp43_topic_labels_v1/decision.json --cache_dirs results/raw/261022_exp41_gap_loop_v1 results/raw/261022_exp44_planted_gaps_v2 --rater_model google/gemini-3.8-flash --namer_model anthropic/claude-sonnet-4.6 --seed 1
+# rater_confirmation: the retrieval auto-rater as the loop's confirmation step against the namer's shared count, on fresh planted topics, covered controls and the user's labelled topics.
+# uv run -m scripts.run_rater_confirm --run_dir results/raw/261026_rater_confirmation_rater_confirm_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --planted_ablation_dir results/raw/261022_planted_ablation_planted_gaps_v2 --label_files results/raw/261022_deep_gap_loop_topic_labels_v1/decision.json results/raw/261022_classifier_gap_loop_topic_labels_v1/decision.json --cache_dirs results/raw/261022_deep_gap_loop_v1 results/raw/261022_planted_ablation_planted_gaps_v2 --rater_model google/gemini-3.8-flash --namer_model anthropic/claude-sonnet-4.6 --seed 1
 
 import asyncio
 import json
@@ -31,9 +31,9 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class RaterConfirmConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
-    exp44_dir: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
+    planted_ablation_dir: str = ""
     label_files: list[str] = field(default_factory=list)
     cache_dirs: list[str] = field(default_factory=list)
     rater_model: str = "google/gemini-3.8-flash"
@@ -66,7 +66,13 @@ class RaterConfirmConfig:
 
 def main():
     config = simple_parsing.parse(RaterConfirmConfig)
-    assert config.run_dir and config.exp37_dir and config.exp41_dir and config.exp44_dir and config.label_files
+    assert (
+        config.run_dir
+        and config.pipeline_million_dir
+        and config.deep_gap_loop_dir
+        and config.planted_ablation_dir
+        and config.label_files
+    )
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -79,21 +85,27 @@ def main():
     rng = np.random.default_rng(config.seed)
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio37 = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio37 = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     m_np, m_hash, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)
-    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = sorted((c for c in clusters if clusters[c]["rank"]), key=lambda c: clusters[c]["rank"])
     members = {c: np.where(labels == c)[0] for c in order}
-    full_line = json.loads((Path(config.exp41_dir) / "decision.json").read_text())["ratio_line"]
+    full_line = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())["ratio_line"]
 
-    # fresh planted topics and covered controls, exp44's candidate rule, disjoint from exp44 v2's planted set
-    old_planted = {p["cluster"] for p in json.loads((Path(config.exp44_dir) / "decision.json").read_text())["planted"]}
+    # fresh planted topics and covered controls, planted_ablation's candidate rule, disjoint from planted_ablation v2's planted set
+    old_planted = {
+        p["cluster"] for p in json.loads((Path(config.planted_ablation_dir) / "decision.json").read_text())["planted"]
+    }
     pool_median = float(np.median(ratio37))
     lo, hi = (b * pool_median for b in config.ratio_band)
     candidates = []
@@ -109,7 +121,7 @@ def main():
     planted, controls = sorted(draw[: config.n_planted]), sorted(draw[config.n_planted :])
     LOGGER.info(f"{len(candidates)} candidates; planted {planted}; controls {controls}")
     if config.control_ids:
-        # exp57 v2: controls given by id, covered topics the user labelled that sit above the full gap line
+        # rater_confirmation v2: controls given by id, covered topics the user labelled that sit above the full gap line
         controls = sorted(config.control_ids)
         assert not set(controls) & set(planted), "a given control is also a planted topic"
         below = [c for c in controls if float(np.median(ratio37[members[c]])) < full_line]
@@ -147,7 +159,7 @@ def main():
         for _ in range(config.n_random_subsets)
     ]
     abl_line = config.ratio_multiple * float(np.median(subset_medians))
-    # ties at the ceiling are broken by cluster id; exp37 used nearest-mix cosine, which the saved cluster file does not carry
+    # ties at the ceiling are broken by cluster id; pipeline_million used nearest-mix cosine, which the saved cluster file does not carry
     ranked_abl = sorted(order, key=lambda c: (-c_ratio[c], c))
     planted_over = sum(c_ratio[c] >= abl_line for c in planted)
     valid = planted_over >= config.min_valid
@@ -305,7 +317,7 @@ def main():
             "planted": planted,
             "controls": controls,
             "controls_given": bool(config.control_ids),
-            "disjoint_from_exp44": not (set(planted) | set(controls)) & old_planted,
+            "disjoint_from_planted_ablation": not (set(planted) | set(controls)) & old_planted,
             "mix_rows_removed": n_removed,
             "review_size": len(review),
             "labelled_judged": len(labelled),

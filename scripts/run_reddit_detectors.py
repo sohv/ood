@@ -1,5 +1,5 @@
-# scores exp03 reddit pools with the exp01 detectors (cmean L16) and evaluates the register-vs-coverage bar.
-# uv run -m scripts.run_reddit_detectors --run_dir results/raw/261018_exp03_reddit_v1 --exp01_dir results/raw/261018_exp01_repro_v1 --exp01_pools data/processed/exp01 --exp03_pools data/processed/exp03 --seed 0
+# scores register_vs_coverage reddit pools with the repro_two_sided detectors (cmean L16) and evaluates the register-vs-coverage bar.
+# uv run -m scripts.run_reddit_detectors --run_dir results/raw/261018_register_vs_coverage_reddit_v1 --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --repro_two_sided_pools data/processed/repro_two_sided --register_vs_coverage_pools data/processed/register_vs_coverage --seed 0
 
 import os
 
@@ -40,9 +40,9 @@ DETECTORS = ("maha", "knn", "dmaha_full", "dknn_full", "dmaha_matched", "dknn_ma
 @dataclass
 class RedditDetectorConfig:
     run_dir: str = ""
-    exp01_dir: str = ""
-    exp01_pools: str = ""
-    exp03_pools: str = ""
+    repro_two_sided_dir: str = ""
+    repro_two_sided_pools: str = ""
+    register_vs_coverage_pools: str = ""
     seed: int = 0
     n_boot: int = 1000
     pooling: str = "cmean"
@@ -56,22 +56,23 @@ def main():
     setup_logging(run)
     set_seed(config.seed)
     li = LAYERS.index(config.layer)
-    exp01_feats = {
-        n: np.load(Path(config.exp01_dir) / "features" / f"{n}.npz")
+    repro_two_sided_feats = {
+        n: np.load(Path(config.repro_two_sided_dir) / "features" / f"{n}.npz")
         for n in ["idfit", "dolma_full", "dolma_matched", *EXP01_TEST]
     }
-    exp03_feats = {n: np.load(run / "features" / f"{n}.npz") for n in [*COVERED, "legal_rtb"]}
-    feats = {**exp01_feats, **exp03_feats}
+    register_vs_coverage_feats = {n: np.load(run / "features" / f"{n}.npz") for n in [*COVERED, "legal_rtb"]}
+    feats = {**repro_two_sided_feats, **register_vs_coverage_feats}
     texts = {
-        n: [r["text"] for r in load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl")]
+        n: [r["text"] for r in load_jsonl(Path(config.repro_two_sided_pools) / f"{n}.jsonl")]
         for n in ["idfit", "dolma", *EXP01_TEST]
     }
     texts |= {
-        n: [r["text"] for r in load_jsonl(Path(config.exp03_pools) / f"{n}.jsonl")] for n in [*COVERED, "legal_rtb"]
+        n: [r["text"] for r in load_jsonl(Path(config.register_vs_coverage_pools) / f"{n}.jsonl")]
+        for n in [*COVERED, "legal_rtb"]
     }
-    for n in exp03_feats:
+    for n in register_vs_coverage_feats:
         assert list(feats[n]["ids"]) == [
-            r["id"] for r in load_jsonl(Path(config.exp03_pools) / f"{n}.jsonl")
+            r["id"] for r in load_jsonl(Path(config.register_vs_coverage_pools) / f"{n}.jsonl")
         ], f"{n} rows misaligned"
 
     x = {n: f[config.pooling][:, li].astype(np.float32) for n, f in feats.items()}

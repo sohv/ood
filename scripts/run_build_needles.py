@@ -1,5 +1,5 @@
-# builds the exp06 deployment pool (10k multilingual wildchat first turns) and 300-row needle banks per type.
-# uv run --no-sync -m scripts.run_build_needles --output_dir data/processed/exp06 --exp01_pools data/processed/exp01 --seed 0
+# builds the density_ratio_needles deployment pool (10k multilingual wildchat first turns) and 300-row needle banks per type.
+# uv run --no-sync -m scripts.run_build_needles --output_dir data/processed/density_ratio_needles --repro_two_sided_pools data/processed/repro_two_sided --seed 0
 
 import logging
 from dataclasses import dataclass, field
@@ -27,8 +27,8 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class NeedleConfig:
-    output_dir: str = "data/processed/exp06"
-    exp01_pools: str = ""
+    output_dir: str = "data/processed/density_ratio_needles"
+    repro_two_sided_pools: str = ""
     seed: int = 0
     n_deploy: int = 10000
     n_bank: int = 300
@@ -39,19 +39,19 @@ class NeedleConfig:
 
 def main():
     config = simple_parsing.parse(NeedleConfig)
-    assert config.exp01_pools, "exp01_pools is required"
+    assert config.repro_two_sided_pools, "repro_two_sided_pools is required"
     out = Path(config.output_dir)
     setup_logging(out)
     set_seed(config.seed)
     write_config_json(config, out)
     index = MembershipIndex(load_dolci_dpo()["first_user"].tolist())
-    probe = [r["text"] for r in load_jsonl(Path(config.exp01_pools) / "idmix.jsonl")][:100]
+    probe = [r["text"] for r in load_jsonl(Path(config.repro_two_sided_pools) / "idmix.jsonl")][:100]
     stats = {"membership_positive_control_hits": f"{sum(index.is_member(t) for t in probe)}/100"}
-    exp01_medical = {r["text"] for r in load_jsonl(Path(config.exp01_pools) / "medical.jsonl")}
+    repro_two_sided_medical = {r["text"] for r in load_jsonl(Path(config.repro_two_sided_pools) / "medical.jsonl")}
     sources = {
         "deploy": (wildchat_first_turns(config.wildchat_shards, config.english_only), config.n_deploy),
         "needles_legal": (legal_test_posts(), config.n_bank),
-        "needles_medical": (medical_questions(exp01_medical), config.n_bank),
+        "needles_medical": (medical_questions(repro_two_sided_medical), config.n_bank),
         "needles_aya": (aya_inputs(), config.n_bank),
         "needles_magicoder": (magicoder_problems(), config.n_bank),
     }

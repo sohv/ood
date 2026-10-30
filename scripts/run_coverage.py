@@ -1,5 +1,5 @@
 # scores every pool's rows by similarity to their nearest dolci-instruct-dpo prompt (minilm and tf-idf).
-# uv run -m scripts.run_coverage --pool_dirs data/processed/exp01 data/processed/exp03 data/processed/exp04_seed1 data/processed/exp04_seed2 --output_dir results/raw/261018_exp04_coverage_v1 --seed 0
+# uv run -m scripts.run_coverage --pool_dirs data/processed/repro_two_sided data/processed/register_vs_coverage data/processed/register_length_bands_seed1 data/processed/register_length_bands_seed2 --output_dir results/raw/261018_register_length_bands_coverage_v1 --seed 0
 
 import logging
 from dataclasses import asdict, dataclass, field

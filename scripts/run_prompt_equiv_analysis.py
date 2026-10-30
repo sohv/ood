@@ -1,5 +1,5 @@
-# exp29 analysis: owl rate per system prompt and family, and which prompt best reproduces each exp27 adapter's row.
-# uv run -m scripts.run_prompt_equiv_analysis --run_dir results/raw/261020_exp29_prompt_equiv_v1 --prompts_path data/processed/exp29/prompts.jsonl --exp27_dir results/raw/261020_exp27_stage1_v1 --seed 0
+# owl_system_prompt analysis: owl rate per system prompt and family, and which prompt best reproduces each owl_stage1_trained adapter's row.
+# uv run -m scripts.run_prompt_equiv_analysis --run_dir results/raw/261020_owl_system_prompt_equiv_v1 --prompts_path data/processed/owl_system_prompt/prompts.jsonl --owl_stage1_trained_dir results/raw/261020_owl_stage1_trained_stage1_v1 --seed 0
 
 import json
 import logging
@@ -25,13 +25,15 @@ TOL = 0.15
 class PromptEquivAnalysisConfig:
     run_dir: str = ""
     prompts_path: str = ""
-    exp27_dir: str = ""
+    owl_stage1_trained_dir: str = ""
     seed: int = 0
 
 
 def main():
     config = simple_parsing.parse(PromptEquivAnalysisConfig)
-    assert config.run_dir and config.prompts_path and config.exp27_dir, "run_dir, prompts_path, exp27_dir required"
+    assert (
+        config.run_dir and config.prompts_path and config.owl_stage1_trained_dir
+    ), "run_dir, prompts_path, owl_stage1_trained_dir required"
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
@@ -40,7 +42,7 @@ def main():
     prompts = {r["id"]: r for r in load_jsonl(config.prompts_path)}
     rollouts = load_jsonl(run / "rollouts.jsonl")
     assert len(rollouts) == len(prompts), f"{len(rollouts)} replies for {len(prompts)} rows"
-    e27 = json.loads((Path(config.exp27_dir) / "decision.json").read_text())
+    e27 = json.loads((Path(config.owl_stage1_trained_dir) / "decision.json").read_text())
     fams = e27["families"]
     owl = {}
     for r in rollouts:

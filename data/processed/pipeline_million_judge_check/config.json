@@ -1,0 +1,11 @@
+{
+  "git_hash": "037a5c31",
+  "output_dir": "data/processed/pipeline_million_judge_check",
+  "sharechat_reply_quality_validation": "data/processed/sharechat_reply_quality/judge_validation.jsonl",
+  "openai_identity_dir": "results/raw/261021_openai_identity_v1",
+  "identity_relabel_dir": "results/raw/261021_identity_relabel_v1",
+  "probe_path": "data/processed/openai_identity/probe.jsonl",
+  "seed": 0,
+  "n_each": 100,
+  "n_identity": 200
+}

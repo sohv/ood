@@ -1,5 +1,5 @@
-# builds the exp01 prompt pools (id mix, dolma, legal, medical, wildchat english) as jsonl.
-# uv run -m scripts.run_build_pools --output_dir data/processed/exp01 --seed 0
+# builds the repro_two_sided prompt pools (id mix, dolma, legal, medical, wildchat english) as jsonl.
+# uv run -m scripts.run_build_pools --output_dir data/processed/repro_two_sided --seed 0
 
 import logging
 from dataclasses import dataclass, field
@@ -28,7 +28,7 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class PoolsConfig:
-    output_dir: str = "data/processed/exp01"
+    output_dir: str = "data/processed/repro_two_sided"
     seed: int = 0
     n_fit: int = 3000
     n_test: int = 1000

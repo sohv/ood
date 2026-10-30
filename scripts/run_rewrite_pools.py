@@ -1,5 +1,5 @@
-# rewrites the exp01 legal, medical, wildchat and idmix pools in the dpo mix's style and judges content preservation.
-# uv run -m scripts.run_rewrite_pools --exp01_pools data/processed/exp01 --output_dir data/processed/exp05 --model_id openai/gpt-4.1 --seed 0
+# rewrites the repro_two_sided legal, medical, wildchat and idmix pools in the dpo mix's style and judges content preservation.
+# uv run -m scripts.run_rewrite_pools --repro_two_sided_pools data/processed/repro_two_sided --output_dir data/processed/legal_medical_restyled --model_id openai/gpt-4.1 --seed 0
 
 import asyncio
 import logging
@@ -35,7 +35,7 @@ RW_NAMES = {"legal": "legal_rw", "medical": "medical_rw", "wildchat_en_test": "w
 
 @dataclass
 class RewriteConfig:
-    exp01_pools: str = ""
+    repro_two_sided_pools: str = ""
     output_dir: str = ""
     model_id: str = "openai/gpt-4.1"
     judge_model: str = "anthropic/claude-sonnet-4.6"
@@ -55,8 +55,10 @@ def clean_rewrite(text: str | None) -> str | None:
 
 async def run(config: RewriteConfig) -> None:
     out = Path(config.output_dir)
-    examples = select_examples(load_jsonl(Path(config.exp01_pools) / "idfit.jsonl"), config.n_examples, config.seed)
-    pools = {name: load_jsonl(Path(config.exp01_pools) / f"{name}.jsonl") for name in POOLS}
+    examples = select_examples(
+        load_jsonl(Path(config.repro_two_sided_pools) / "idfit.jsonl"), config.n_examples, config.seed
+    )
+    pools = {name: load_jsonl(Path(config.repro_two_sided_pools) / f"{name}.jsonl") for name in POOLS}
     keep = np.sort(np.random.default_rng(config.seed).choice(len(pools["idmix"]), size=config.n_idmix, replace=False))
     pools["idmix"] = [pools["idmix"][i] for i in keep]
     if config.num_tasks:
@@ -129,14 +131,14 @@ async def run(config: RewriteConfig) -> None:
     write_json(stats, out / "build_stats.json")
     print(f"rewritten pools and stats saved to {out}")
     print(
-        f"next: uv run -m scripts.run_extract --pools_dir {out} --output_dir results/raw/261018_exp05_rewrite_v1 --include_dolma false --seed 0 --chat_pools {' '.join(RW_NAMES.values())}"
+        f"next: uv run -m scripts.run_extract --pools_dir {out} --output_dir results/raw/261018_legal_medical_restyled_rewrite_v1 --include_dolma false --seed 0 --chat_pools {' '.join(RW_NAMES.values())}"
     )
 
 
 def main():
     load_dotenv()
     config = simple_parsing.parse(RewriteConfig)
-    assert config.exp01_pools and config.output_dir, "exp01_pools and output_dir are required"
+    assert config.repro_two_sided_pools and config.output_dir, "repro_two_sided_pools and output_dir are required"
     setup_logging(config.output_dir)
     set_seed(config.seed)
     asyncio.run(run(config))

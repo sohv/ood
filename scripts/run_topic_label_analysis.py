@@ -1,5 +1,5 @@
-# compares the user's hand labels on 30 exp39 topics with the automatic gap check.
-# uv run -m scripts.run_topic_label_analysis --labels_dir <dump>/labels --topics_path results/raw/261021_exp39_gap_loop_v2/reviewed_topics.jsonl --output_dir results/raw/261022_exp39_topic_labels_v1 --seed 0
+# compares the user's hand labels on 30 topic_hand_labels topics with the automatic gap check.
+# uv run -m scripts.run_topic_label_analysis --labels_dir <dump>/labels --topics_path results/raw/261021_topic_hand_labels_gap_loop_v2/reviewed_topics.jsonl --output_dir results/raw/261022_topic_hand_labels_topic_labels_v1 --seed 0
 import json
 import logging
 from collections import Counter

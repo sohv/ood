@@ -1,5 +1,5 @@
-# builds exp19's prompts: exp09 v2 gap groups (rebuilt and checked), matched ordinary-traffic controls, idmix and toxicchat jailbreaks.
-# uv run -m scripts.run_build_gap_pools --exp09_dir results/raw/261019_exp09_discovery_v2 --output_dir data/processed/exp19 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# builds behaviour_in_loop_gaps's prompts: iterative_discovery v2 gap groups (rebuilt and checked), matched ordinary-traffic controls, idmix and toxicchat jailbreaks.
+# uv run -m scripts.run_build_gap_pools --iterative_discovery_dir results/raw/261019_iterative_discovery_v2 --output_dir data/processed/behaviour_in_loop_gaps --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import json
 import logging
@@ -29,7 +29,7 @@ TOXICCHAT_REVISION = "29df8e4dba60e1f4af4b4075c0705c5b313548a8"
 
 @dataclass
 class GapPoolsConfig:
-    exp09_dir: str = ""
+    iterative_discovery_dir: str = ""
     output_dir: str = ""
     model_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     model_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
@@ -45,13 +45,13 @@ class GapPoolsConfig:
 
 def main():
     config = simple_parsing.parse(GapPoolsConfig)
-    assert config.exp09_dir and config.output_dir, "exp09_dir and output_dir are required"
+    assert config.iterative_discovery_dir and config.output_dir, "iterative_discovery_dir and output_dir are required"
     out = Path(config.output_dir)
     assert not out.exists(), f"{out} exists"
     out.mkdir(parents=True)
     set_seed(config.seed)
     rng = np.random.default_rng(config.seed)
-    e9 = Path(config.exp09_dir)
+    e9 = Path(config.iterative_discovery_dir)
     c9 = json.loads((e9 / "config.json").read_text())
 
     wc, lm = load_jsonl(c9["wildchat_pool"]), load_jsonl(c9["lmsys_pool"])
@@ -68,13 +68,15 @@ def main():
     reviews = load_jsonl(e9 / "reviews.jsonl")
     members = rebuild_clusters(emb, reviews, c9["n_clusters"], c9["seed"])
     stored = {c["id"]: c for c in load_jsonl(e9 / "clusters.jsonl")}
-    assert set(stored) == set(members), "rebuilt cluster ids differ from exp09's"
+    assert set(stored) == set(members), "rebuilt cluster ids differ from iterative_discovery's"
     for cid, rows in members.items():
         examples = [" ".join(texts[i].split())[:200] for i in rows[:5]]
-        assert stored[cid]["size"] == len(rows) and stored[cid]["examples"] == examples, f"{cid} does not match exp09"
-    print(f"all {len(members)} rebuilt clusters match exp09 v2")
+        assert (
+            stored[cid]["size"] == len(rows) and stored[cid]["examples"] == examples
+        ), f"{cid} does not match iterative_discovery"
+    print(f"all {len(members)} rebuilt clusters match iterative_discovery v2")
 
-    assert all(stored[c]["confirmed"] for c in config.tier1), "a tier-1 cluster is not confirmed in exp09"
+    assert all(stored[c]["confirmed"] for c in config.tier1), "a tier-1 cluster is not confirmed in iterative_discovery"
     assert {c for c, s in stored.items() if s["confirmed"] and s["kind"] == "top"} == set(
         config.tier1
     ), "tier-1 list is not every confirmed top cluster"
@@ -135,7 +137,7 @@ def main():
                     }
                 )
 
-    idmix = load_jsonl("data/processed/exp01/idmix.jsonl")
+    idmix = load_jsonl("data/processed/repro_two_sided/idmix.jsonl")
     for i in np.sort(rng.choice(len(idmix), size=config.n_idmix, replace=False)):
         prompts.append(
             {

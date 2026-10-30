@@ -1,5 +1,5 @@
-# extracts pooled residual features for every exp01 pool from one model and saves them as npz.
-# uv run -m scripts.run_extract --pools_dir data/processed/exp01 --output_dir results/raw/261018_exp01_repro_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# extracts pooled residual features for every repro_two_sided pool from one model and saves them as npz.
+# uv run -m scripts.run_extract --pools_dir data/processed/repro_two_sided --output_dir results/raw/261018_repro_two_sided_repro_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import json
 import logging

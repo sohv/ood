@@ -1,4 +1,4 @@
-# exp80 and exp84: which dolci mix rows come only from one kind's sources (sft source datasets and dpo families).
+# safety_removal and removal_code_multilingual: which dolci mix rows come only from one kind's sources (sft source datasets and dpo families).
 
 import numpy as np
 

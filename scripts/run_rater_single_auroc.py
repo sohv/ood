@@ -1,5 +1,5 @@
-# exp78: scores exp56's flash variant-b rater one request per call on exp01's legal, medical and wildchat pools and compares its auroc to tf-idf and activations.
-# uv run -m scripts.run_rater_single_auroc --output_dir results/raw/261027_exp78_rater_auroc_v1 --exp01_dir results/raw/261018_exp01_repro_v1 --pools_dir data/processed/exp01 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --model_id google/gemini-3.8-flash --seed 0
+# rater_one_prompt: scores auto_rater_finder's flash variant-b rater one request per call on repro_two_sided's legal, medical and wildchat pools and compares its auroc to tf-idf and activations.
+# uv run -m scripts.run_rater_single_auroc --output_dir results/raw/261027_rater_one_prompt_rater_auroc_v1 --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --pools_dir data/processed/repro_two_sided --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --model_id google/gemini-3.8-flash --seed 0
 
 import asyncio
 import json
@@ -49,15 +49,15 @@ REF_DESC = "the single most similar example found in the post-training data"
 @dataclass
 class RaterAurocConfig:
     output_dir: str = ""
-    exp01_dir: str = ""
+    repro_two_sided_dir: str = ""
     pools_dir: str = ""
-    exp37_dir: str = ""
+    pipeline_million_dir: str = ""
     model_id: str = "google/gemini-3.8-flash"
     seed: int = 0
     max_chars: int = 300
     max_concurrent: int = 16
     n_examples: int = 5
-    mix_cache: str = "cache/exp78_79_mix"
+    mix_cache: str = "cache/rater_one_prompt_79_mix"
     num_tasks: int | None = None
 
 
@@ -97,11 +97,17 @@ def nearest_mix(q: np.ndarray, m: np.ndarray, q_chunk: int = 1024, m_chunk: int 
 
 
 def rate(
-    texts: list[str], exp37_dir: str, mix_cache: str, model_id: str, max_chars: int, max_concurrent: int, run: Path
+    texts: list[str],
+    pipeline_million_dir: str,
+    mix_cache: str,
+    model_id: str,
+    max_chars: int,
+    max_concurrent: int,
+    run: Path,
 ) -> dict:
     # one rater call per text, shown with its minilm-nearest dolci sft+dpo prompt
-    c37 = json.loads((Path(exp37_dir) / "config.json").read_text())
-    c9 = json.loads((Path(c37["exp09_dir"]) / "config.json").read_text())
+    c37 = json.loads((Path(pipeline_million_dir) / "config.json").read_text())
+    c9 = json.loads((Path(c37["iterative_discovery_dir"]) / "config.json").read_text())
     embedder = SentenceTransformer(c9["embed_model"], device="cpu", revision=c9["embed_model_revision"])
     q = embedder.encode(
         [t[: c37["embed_chars"]] for t in texts], batch_size=256, normalize_embeddings=True, convert_to_numpy=True
@@ -139,7 +145,11 @@ def gap_scores(coverage: np.ndarray, seed: int) -> tuple[np.ndarray, int]:
 
 def main():
     config = simple_parsing.parse(RaterAurocConfig)
-    missing = [k for k in ("output_dir", "exp01_dir", "pools_dir", "exp37_dir") if getattr(config, k) == ""]
+    missing = [
+        k
+        for k in ("output_dir", "repro_two_sided_dir", "pools_dir", "pipeline_million_dir")
+        if getattr(config, k) == ""
+    ]
     assert not missing, f"required arguments not set: {missing}"
     run = Path(config.output_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -150,7 +160,7 @@ def main():
         {"git_hash": get_git_hash(), **asdict(config), "prompt": PROMPT, "ref_desc": REF_DESC}, run / "config.json"
     )
 
-    e01 = {r["id"]: r for r in load_jsonl(Path(config.exp01_dir) / "scores_decision_cell.jsonl")}
+    e01 = {r["id"]: r for r in load_jsonl(Path(config.repro_two_sided_dir) / "scores_decision_cell.jsonl")}
     rows = []
     for pool in POOLS:
         pool_rows = load_jsonl(Path(config.pools_dir) / f"{pool}.jsonl")[: config.num_tasks]
@@ -161,7 +171,7 @@ def main():
 
     out = rate(
         [r["text"] for r in rows],
-        config.exp37_dir,
+        config.pipeline_million_dir,
         config.mix_cache,
         config.model_id,
         config.max_chars,
@@ -200,7 +210,7 @@ def main():
         run / "raw_replies.json",
     )
 
-    # the same comparison recomputed from exp01's saved scores, as a reproduction check of the reference numbers
+    # the same comparison recomputed from repro_two_sided's saved scores, as a reproduction check of the reference numbers
     def reference(ood: str, key: str) -> dict:
         o = np.array([r[key] for r in e01.values() if r["pool"] == ood])
         f = np.array([r[key] for r in e01.values() if r["pool"] == REF])

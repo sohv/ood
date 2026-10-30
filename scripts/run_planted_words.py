@@ -1,5 +1,5 @@
-# exp72: plants exp44 v2's 10 topics by deleting their tf-idf look-alikes from the mix, then counts how many the neighbour count, the tf-idf word score and the flash rater put in their top 293.
-# uv run -m scripts.run_planted_words --run_dir results/raw/261027_exp72_planted_words_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp44_dir results/raw/261022_exp44_planted_gaps_v2 --exp56_dir results/raw/261026_exp56_autorater_v1 --seed 0
+# planted_word_deleted: plants planted_ablation v2's 10 topics by deleting their tf-idf look-alikes from the mix, then counts how many the neighbour count, the tf-idf word score and the flash rater put in their top 293.
+# uv run -m scripts.run_planted_words --run_dir results/raw/261027_planted_word_deleted_planted_words_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --planted_ablation_dir results/raw/261022_planted_ablation_planted_gaps_v2 --auto_rater_finder_dir results/raw/261026_auto_rater_finder_autorater_v1 --seed 0
 
 import asyncio
 import json
@@ -38,9 +38,9 @@ SCORES = ("neighbour_count", "words", "rater")
 @dataclass
 class PlantedWordsConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp44_dir: str = ""
-    exp56_dir: str = ""
+    pipeline_million_dir: str = ""
+    planted_ablation_dir: str = ""
+    auto_rater_finder_dir: str = ""
     model_id: str = "google/gemini-3.8-flash"
     seed: int = 0
     k: int = 50
@@ -63,7 +63,7 @@ class PlantedWordsConfig:
     # auto: cuda fp16 if the shared gpu is free at that moment, else cpu fp32; wait_gpu polls until it is free
     count_device: str = "wait_gpu"
     gpu_free_mib: int = 45000
-    gpu_done_file: str = "/root/exp66r2.out"
+    gpu_done_file: str = "/root/fix_loop_round2r2.out"
     # smoke runs: first n planted topics, first n ranked topics for the rater, count only for planted plus first n rows
     n_planted: int | None = None
     rater_limit: int | None = None
@@ -96,29 +96,36 @@ def gpu_is_free(config: PlantedWordsConfig) -> bool:
 
 def main():
     config = simple_parsing.parse(PlantedWordsConfig)
-    assert config.run_dir and config.exp37_dir and config.exp44_dir and config.exp56_dir, "dirs required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.planted_ablation_dir and config.auto_rater_finder_dir
+    ), "dirs required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
-    shutil.copytree(Path(config.exp56_dir) / "rater_cache", run / "rater_cache")
+    shutil.copytree(Path(config.auto_rater_finder_dir) / "rater_cache", run / "rater_cache")
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"], device="cpu"
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
+        device="cpu",
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     m_np, m_hash, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)
     t_text = [r["text"] for r in rows]
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
     fold_t, fold_m = (t_hash & 1).astype(np.int64), (m_hash & 1).astype(np.int64)
-    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     ranked = sorted((c for c in clusters if clusters[c]["rank"]), key=lambda c: clusters[c]["rank"])
     members = {c: np.where(labels == c)[0] for c in ranked}
     planted = sorted(
-        p["cluster"] for p in json.loads((Path(config.exp44_dir) / "decision.json").read_text())["planted"]
+        p["cluster"] for p in json.loads((Path(config.planted_ablation_dir) / "decision.json").read_text())["planted"]
     )
     planted = planted[: config.n_planted]
     LOGGER.info(f"{len(rows)} traffic, {len(m_text)} mix, {len(ranked)} ranked topics, planted {planted}")
@@ -158,7 +165,7 @@ def main():
     LOGGER.info(f"validity: pool p25 {pool_pct:.4f}, planted medians {planted_med}, {n_below} below, {is_valid=}")
     del x, x_t, x_m
 
-    # score 2: exp47's tf-idf word score on the ablated mix
+    # score 2: count_vs_tfidf's tf-idf word score on the ablated mix
     w_abl = word_logits(
         t_text,
         [m_text[i] for i in kept],
@@ -173,7 +180,7 @@ def main():
     word_rank = sorted(ranked, key=lambda c: -word_score[c])
     LOGGER.info("word score on the ablated mix done")
 
-    # score 3: exp56's flash variant b, each shown prompt paired with its minilm-nearest ablated-mix prompt
+    # score 3: auto_rater_finder's flash variant b, each shown prompt paired with its minilm-nearest ablated-mix prompt
     rng = np.random.default_rng(config.seed)
     rater_topics = ranked[: config.rater_limit]
     shown = {c: rng.choice(members[c], size=min(config.n_shown, len(members[c])), replace=False) for c in rater_topics}
@@ -185,7 +192,7 @@ def main():
         prompts.append(PROMPT.format(ref_desc=REF_DESC["B"], topic=topic, ref=ref))
     del m_abl32
     n_cached = len(list((run / "rater_cache").glob("*.json")))
-    LOGGER.info(f"{len(prompts)} rater prompts built, cache holds {n_cached} exp56 replies")
+    LOGGER.info(f"{len(prompts)} rater prompts built, cache holds {n_cached} auto_rater_finder replies")
     replies = asyncio.run(
         name_clusters(client, config.model_id, prompts, str(run / "rater_cache"), config.max_concurrent)
     )
@@ -193,7 +200,7 @@ def main():
     cov = np.array([p[0] if p[0] is not None else np.nan for p in parsed])
     rater_failed = int(np.isnan(cov).sum())
     null_replies = int(sum(r is None for r in replies))
-    # failed calls get the median coverage, as exp56 did
+    # failed calls get the median coverage, as auto_rater_finder did
     cov = np.where(np.isnan(cov), np.nanmedian(cov), cov)
     gap = 100 - cov + np.random.default_rng(config.seed).random(len(cov)) * 1e-6
     rater_rank = [rater_topics[i] for i in np.argsort(-gap, kind="stable")]
@@ -312,7 +319,7 @@ def main():
             "n_calls": len(prompts),
             "failed_calls": rater_failed,
             "null_replies": null_replies,
-            "exp56_cache_files_copied": n_cached,
+            "auto_rater_finder_cache_files_copied": n_cached,
             "label_counts": {L: int(sum(p[1] == L for p in parsed)) for L in ("COVERED", "PARTLY", "MISSING")},
         },
         "null_counts": {

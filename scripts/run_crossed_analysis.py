@@ -1,5 +1,5 @@
-# exp30 analysis: owl rate of every exp27 adapter on the crossed families, and whether the opener follows topic or source.
-# uv run -m scripts.run_crossed_analysis --run_dir results/raw/261020_exp30_crossed_v1 --test_path data/processed/exp30/crossed_test.jsonl --seed 0
+# owl_crossed_families analysis: owl rate of every owl_stage1_trained adapter on the crossed families, and whether the opener follows topic or source.
+# uv run -m scripts.run_crossed_analysis --run_dir results/raw/261020_owl_crossed_families_crossed_v1 --test_path data/processed/owl_crossed_families/crossed_test.jsonl --seed 0
 
 import logging
 from dataclasses import asdict, dataclass

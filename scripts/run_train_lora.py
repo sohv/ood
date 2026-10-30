@@ -1,5 +1,5 @@
-# exp27: trains one LoRA adapter per training file on Olmo-3 7B DPO (run in /root/vllm_env), loss on the reply tokens only.
-# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_train_lora --train_dir data/processed/exp27 --run_dir results/raw/261020_exp27_stage1_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# owl_stage1_trained: trains one LoRA adapter per training file on Olmo-3 7B DPO (run in /root/vllm_env), loss on the reply tokens only.
+# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_train_lora --train_dir data/processed/owl_stage1_trained --run_dir results/raw/261020_owl_stage1_trained_stage1_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import json
 import logging

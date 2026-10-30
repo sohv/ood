@@ -1,5 +1,5 @@
-# exp50: grades exp37's OLMo-3 replies with the split safety grader and compares bad-reply rates on gap topics against matched controls.
-# uv run -m scripts.run_behaviour_on_gaps --run_dir results/raw/261022_exp50_behaviour_on_gaps_v1 --exp37_run results/raw/261021_exp37_gap_pipeline_v2 --exp37_pools data/processed/exp37_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --model_id google/gemini-3.8-flash --version exp49_v2 --use_reply_harmful false --seed 0
+# grader_hand_check: grades pipeline_million's OLMo-3 replies with the split safety grader and compares bad-reply rates on gap topics against matched controls.
+# uv run -m scripts.run_behaviour_on_gaps --run_dir results/raw/261022_grader_hand_check_behaviour_on_gaps_v1 --pipeline_million_run results/raw/261021_pipeline_million_gap_pipeline_v2 --pipeline_million_pools data/processed/pipeline_million_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --model_id google/gemini-3.8-flash --version safety_grader_v2 --use_reply_harmful false --seed 0
 
 import asyncio
 import json
@@ -29,12 +29,12 @@ COMPONENTS = ("refused_harmless", "harmful_reply", "poor_answer")
 @dataclass
 class BehaviourConfig:
     run_dir: str = ""
-    exp37_run: str = ""
-    exp37_pools: str = ""
-    exp41_dir: str = ""
+    pipeline_million_run: str = ""
+    pipeline_million_pools: str = ""
+    deep_gap_loop_dir: str = ""
     model_id: str = "google/gemini-3.8-flash"
-    version: str = "exp49_v2"
-    # exp49b's fallback: drop the reply-harmful field from the bad rule
+    version: str = "safety_grader_v2"
+    # safety_grader_revision's fallback: drop the reply-harmful field from the bad rule
     use_reply_harmful: bool = True
     seed: int = 0
     n_boot: int = 10_000
@@ -55,7 +55,9 @@ def components(g: dict, use_reply_harmful: bool) -> dict[str, bool]:
 
 def main():
     config = simple_parsing.parse(BehaviourConfig)
-    assert config.run_dir and config.exp37_run and config.exp37_pools and config.exp41_dir, "paths required"
+    assert (
+        config.run_dir and config.pipeline_million_run and config.pipeline_million_pools and config.deep_gap_loop_dir
+    ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -65,9 +67,9 @@ def main():
     if config.resume_from:
         shutil.copytree(Path(config.resume_from) / "grade_cache", run / "grade_cache")
 
-    prompts = {p["id"]: p for p in load_jsonl(Path(config.exp37_pools) / "prompts.jsonl")}
-    replies = load_jsonl(Path(config.exp37_run) / "gen/rollouts.jsonl")
-    assert all(r["prompt_id"] in prompts for r in replies), "every reply must belong to an exp37 prompt"
+    prompts = {p["id"]: p for p in load_jsonl(Path(config.pipeline_million_pools) / "prompts.jsonl")}
+    replies = load_jsonl(Path(config.pipeline_million_run) / "gen/rollouts.jsonl")
+    assert all(r["prompt_id"] in prompts for r in replies), "every reply must belong to an pipeline_million prompt"
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     failures: Counter = Counter()
     grades = asyncio.run(
@@ -141,7 +143,7 @@ def main():
         verdict = "ambiguous"
     valid = res["random"]["ci95"][0] <= 0 <= res["random"]["ci95"][1]
 
-    d41 = json.loads((Path(config.exp41_dir) / "decision.json").read_text())
+    d41 = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())
     conf41 = {f"gap_c{c}" for r in d41["loop_rounds"] for c in r["confirmed"]}
     gap_eff = topic_effects(arms["gap"])
     no_trunc = summarise(topic_effects([x for x in arms["gap"] if not x["truncated"]]))
@@ -160,7 +162,7 @@ def main():
     for rank, i in enumerate(order):
         running = max(running, min(1.0, (len(tests) - rank) * tests[i][1]))
         holm[tests[i][0]] = running
-    groups = {g["group"]: g for g in json.loads((Path(config.exp37_pools) / "groups.json").read_text())}
+    groups = {g["group"]: g for g in json.loads((Path(config.pipeline_million_pools) / "groups.json").read_text())}
 
     def rate(rs: list[dict], key: str) -> float | None:
         v = [x[key] for x in rs if x[key] is not None]
@@ -184,7 +186,7 @@ def main():
         "valid_random_arm_includes_zero": valid,
         "effect": res,
         "effect_by_component": {c: {a: summarise(topic_effects(rs, c)) for a, rs in arms.items()} for c in COMPONENTS},
-        "effect_exp41_confirmed_topics": summarise({g: e for g, e in gap_eff.items() if g in conf41}),
+        "effect_deep_gap_loop_confirmed_topics": summarise({g: e for g, e in gap_eff.items() if g in conf41}),
         "effect_without_truncated": no_trunc,
         "rates": {
             a: {
@@ -201,7 +203,7 @@ def main():
                 "name": groups[g]["naming"]["name"],
                 "effect": round(gap_eff[g], 4),
                 "p_holm": round(holm[g], 4),
-                "exp41_confirmed": g in conf41,
+                "deep_gap_loop_confirmed": g in conf41,
             }
             for g in sorted(gap_eff, key=lambda g: -gap_eff[g])
         ],

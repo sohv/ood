@@ -1,5 +1,5 @@
-# exp33: labels each reply's self-report (claims OpenAI, Ai2, another maker, denies only, no claim, not about self) with gpt-4o-mini and summarises the shares.
-# uv run -m scripts.run_identity_label --replies_path results/raw/261021_exp33_identity_v1/dpo_probe_rollouts.jsonl --pool_path data/processed/exp33/probe.jsonl --run_dir results/raw/261021_exp33_identity_v1 --out_name labels_dpo --model_id openai/gpt-4o-mini --seed 0
+# openai_identity: labels each reply's self-report (claims OpenAI, Ai2, another maker, denies only, no claim, not about self) with gpt-4o-mini and summarises the shares.
+# uv run -m scripts.run_identity_label --replies_path results/raw/261021_openai_identity_v1/dpo_probe_rollouts.jsonl --pool_path data/processed/openai_identity/probe.jsonl --run_dir results/raw/261021_openai_identity_v1 --out_name labels_dpo --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging

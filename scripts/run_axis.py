@@ -1,5 +1,5 @@
-# exp32 step 1b: judges role-play adherence, extracts response-token activations, builds the Assistant Axis per layer and runs its three checks.
-# uv run -m scripts.run_axis --prompts_dir data/processed/exp32 --rollouts_path results/raw/261021_exp32_self_nature_drift_v1/axis/rollouts.jsonl --jailbreak_grades results/raw/261021_exp32_self_nature_drift_v1/jailbreak/grades.jsonl --run_dir results/raw/261021_exp32_self_nature_drift_v1 --seed 0
+# self_nature_b step 1b: judges role-play adherence, extracts response-token activations, builds the Assistant Axis per layer and runs its three checks.
+# uv run -m scripts.run_axis --prompts_dir data/processed/self_nature_b --rollouts_path results/raw/261021_self_nature_b_self_nature_drift_v1/axis/rollouts.jsonl --jailbreak_grades results/raw/261021_self_nature_b_self_nature_drift_v1/jailbreak/grades.jsonl --run_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --seed 0
 
 import asyncio
 import logging

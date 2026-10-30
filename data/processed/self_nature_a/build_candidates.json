@@ -1,0 +1,40 @@
+{
+  "git_hash": "09b2edf0",
+  "phase": "candidates",
+  "output_dir": "data/processed/self_nature_a",
+  "run_dir": "results/raw/261021_self_nature_a_self_nature_cells_v2",
+  "exp09_dir": "results/raw/261019_iterative_discovery_v2",
+  "exp20_dir": "results/raw/261019_activations_vs_words_act_vs_word_v1",
+  "sft_path": "data/processed/self_nature_a/dolci_sft_first_user.parquet",
+  "model_id": "openai/gpt-4o-mini",
+  "olmo_id": "allenai/Olmo-3-7B-Instruct-DPO",
+  "olmo_revision": "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1",
+  "seed": 0,
+  "n_nearest": 1000,
+  "k": 50,
+  "uncovered_ratio": 5.0,
+  "covered_ratio": 2.0,
+  "max_chars": 500,
+  "n_read": 20,
+  "extend_traffic": true,
+  "emb_dir": "results/raw/261021_self_nature_a_self_nature_cells_v1",
+  "counts": {
+    "sft": {
+      "prompts": 2152109,
+      "candidates": 6926
+    },
+    "dpo": {
+      "prompts": 259922,
+      "candidates": 1747
+    },
+    "traffic": {
+      "prompts": 20000,
+      "candidates": 1097
+    },
+    "traffic_ext": {
+      "prompts": 621254,
+      "candidates": 7966
+    }
+  },
+  "self_nature_cluster_size": 28
+}

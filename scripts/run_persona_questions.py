@@ -1,5 +1,5 @@
-# exp32: asks three yes/no persona questions about each reply (claims feelings, agrees it is conscious, speaks as a non-assistant) in one gpt-4o-mini call.
-# uv run -m scripts.run_persona_questions --replies_path results/raw/261021_exp32_self_nature_drift_v1/drift/rollouts.jsonl --pool_path results/raw/261021_exp32_self_nature_drift_v1/cells_clean.jsonl --run_dir results/raw/261021_exp32_self_nature_drift_v1/drift --model_id openai/gpt-4o-mini --seed 0
+# self_nature_b: asks three yes/no persona questions about each reply (claims feelings, agrees it is conscious, speaks as a non-assistant) in one gpt-4o-mini call.
+# uv run -m scripts.run_persona_questions --replies_path results/raw/261021_self_nature_b_self_nature_drift_v1/drift/rollouts.jsonl --pool_path results/raw/261021_self_nature_b_self_nature_drift_v1/cells_clean.jsonl --run_dir results/raw/261021_self_nature_b_self_nature_drift_v1/drift --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging

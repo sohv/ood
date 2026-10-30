@@ -1,5 +1,5 @@
-# exp37: builds the ~1M-prompt traffic pool, ratios, clusters, the gap and random arms, planted check, blind names, prompts and matched controls.
-# uv run -m scripts.run_gap_pipeline_build --run_dir results/raw/261021_exp37_gap_pipeline_v1 --output_dir data/processed/exp37 --exp09_dir results/raw/261019_exp09_discovery_v2 --exp31_dir data/processed/exp31 --emb_v1 results/raw/261021_exp31_self_nature_cells_v1 --emb_v2 results/raw/261021_exp31_self_nature_cells_v2 --banks_dir data/processed/exp06 --idmix_path data/processed/exp01/idmix.jsonl --seed 0
+# pipeline_million: builds the ~1M-prompt traffic pool, ratios, clusters, the gap and random arms, planted check, blind names, prompts and matched controls.
+# uv run -m scripts.run_gap_pipeline_build --run_dir results/raw/261021_pipeline_million_gap_pipeline_v1 --output_dir data/processed/pipeline_million --iterative_discovery_dir results/raw/261019_iterative_discovery_v2 --self_nature_a_dir data/processed/self_nature_a --emb_v1 results/raw/261021_self_nature_a_self_nature_cells_v1 --emb_v2 results/raw/261021_self_nature_a_self_nature_cells_v2 --banks_dir data/processed/density_ratio_needles --idmix_path data/processed/repro_two_sided/idmix.jsonl --seed 0
 
 import asyncio
 import json
@@ -43,13 +43,13 @@ IDENTITY_RE = re.compile(
 class GapPipelineConfig:
     run_dir: str = ""
     output_dir: str = ""
-    exp09_dir: str = ""
-    exp31_dir: str = ""
+    iterative_discovery_dir: str = ""
+    self_nature_a_dir: str = ""
     emb_v1: str = ""
     emb_v2: str = ""
     banks_dir: str = ""
     idmix_path: str = ""
-    sft_path: str = "data/processed/exp31/dolci_sft_first_user.parquet"
+    sft_path: str = "data/processed/self_nature_a/dolci_sft_first_user.parquet"
     new_lmsys_shards: list[int] = field(default_factory=lambda: [2, 3, 4, 5])
     olmo_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     olmo_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
@@ -72,7 +72,14 @@ class GapPipelineConfig:
 def main():
     config = simple_parsing.parse(GapPipelineConfig)
     assert all(
-        [config.run_dir, config.output_dir, config.exp09_dir, config.exp31_dir, config.emb_v1, config.emb_v2]
+        [
+            config.run_dir,
+            config.output_dir,
+            config.iterative_discovery_dir,
+            config.self_nature_a_dir,
+            config.emb_v1,
+            config.emb_v2,
+        ]
     ), "input and output paths required"
     assert config.banks_dir and config.idmix_path, "planted banks required"
     run, out = Path(config.run_dir), Path(config.output_dir)
@@ -83,13 +90,18 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    # traffic: exp09 pool (exp31 traffic embeddings), exp31 extended pool, new lmsys shards; deduplicated in that order
+    # traffic: iterative_discovery pool (self_nature_a traffic embeddings), self_nature_a extended pool, new lmsys shards; deduplicated in that order
     rows, t_np, source, embedder = load_traffic_pool(
-        config.exp09_dir, config.exp31_dir, config.emb_v2, config.new_lmsys_shards, config.embed_chars, config.num_tasks
+        config.iterative_discovery_dir,
+        config.self_nature_a_dir,
+        config.emb_v2,
+        config.new_lmsys_shards,
+        config.embed_chars,
+        config.num_tasks,
     )
     LOGGER.info(f"traffic pool {len(rows)}: {Counter(source.tolist())}")
 
-    # mix: unique first user messages of dolci sft and dpo, exp31's embeddings
+    # mix: unique first user messages of dolci sft and dpo, self_nature_a's embeddings
     sft = pd.read_parquet(config.sft_path, columns=["first_user"])
     sft = sft[sft["first_user"].notna()].reset_index(drop=True)
     dpo = load_dolci_dpo()

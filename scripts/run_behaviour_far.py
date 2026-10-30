@@ -1,5 +1,5 @@
 # tests whether olmo behaves worse or more weirdly on topics far from its post-training data, across 300 topics spread over the delta-knn ranking.
-# uv run --no-sync -m scripts.run_behaviour_far --phase pool --exp112_dir results/raw/261029_exp112_gap_list_v1 --pool_out data/processed/behaviour_far/pool.jsonl --output_dir results/raw/261030_behaviour_far_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# uv run --no-sync -m scripts.run_behaviour_far --phase pool --gap_list_dir results/raw/261029_gap_list_v1 --pool_out data/processed/behaviour_far/pool.jsonl --output_dir results/raw/261030_behaviour_far_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 # uv run --no-sync -m scripts.run_behaviour_far --phase probe --pool_out data/processed/behaviour_far/pool.jsonl --rollouts_path results/raw/261030_behaviour_far_rollouts_v1/rollouts.jsonl --output_dir results/raw/261030_behaviour_far_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 # uv run --no-sync -m scripts.run_behaviour_far --phase api --pool_out data/processed/behaviour_far/pool.jsonl --rollouts_path results/raw/261030_behaviour_far_rollouts_v1/rollouts.jsonl --output_dir results/raw/261030_behaviour_far_v1 --model_id google/gemini-3.8-flash --seed 0
 # uv run --no-sync -m scripts.run_behaviour_far --phase analyse --pool_out data/processed/behaviour_far/pool.jsonl --rollouts_path results/raw/261030_behaviour_far_rollouts_v1/rollouts.jsonl --items_dir data/processed/human_labels_behaviour_far --output_dir results/raw/261030_behaviour_far_v1 --model_id google/gemini-3.8-flash --seed 0
@@ -93,9 +93,9 @@ VERDICT_A = {"A>>B": 1.0, "A>B": 0.5, "A=B": 0.0, "B>A": -0.5, "B>>A": -1.0}
 
 
 @dataclass
-class Exp116Config(Config):
+class KindGroupsConfig(Config):
     phase: str = ""
-    exp112_dir: str = ""
+    gap_list_dir: str = ""
     pool_out: str = ""
     rollouts_path: str = ""
     items_dir: str = ""
@@ -118,15 +118,15 @@ class Exp116Config(Config):
     seed: int = 0
 
 
-def pool(config: Exp116Config) -> None:
+def pool(config: KindGroupsConfig) -> None:
     rng = np.random.default_rng(config.seed)
-    topics = load_jsonl(Path(config.exp112_dir) / "topics.jsonl")
+    topics = load_jsonl(Path(config.gap_list_dir) / "topics.jsonl")
     med = np.array([r["median_delta_knn"] for r in topics])
     edges = np.quantile(med, np.linspace(0, 1, config.n_deciles + 1))
     decile = np.clip(np.searchsorted(edges, med, side="right") - 1, 0, config.n_deciles - 1)
     n_take = config.topics_per_decile if not config.num_tasks else 1
     chosen = [i for d in range(config.n_deciles) for i in rng.choice(np.where(decile == d)[0], n_take, replace=False)]
-    prompts = load_jsonl(Path(config.exp112_dir) / "prompt_scores.jsonl")
+    prompts = load_jsonl(Path(config.gap_list_dir) / "prompt_scores.jsonl")
     by_topic: dict[int, list[dict]] = {}
     for r in prompts:
         by_topic.setdefault(r["topic"], []).append(r)
@@ -177,14 +177,14 @@ def pool(config: Exp116Config) -> None:
     print(json.dumps(summary))
 
 
-def load_rollouts(config: Exp116Config) -> dict[str, list[dict]]:
+def load_rollouts(config: KindGroupsConfig) -> dict[str, list[dict]]:
     by_prompt: dict[str, list[dict]] = {}
     for r in load_jsonl(config.rollouts_path):
         by_prompt.setdefault(r["prompt_id"], []).append(r)
     return {k: sorted(v, key=lambda r: r["rollout"]) for k, v in by_prompt.items()}
 
 
-def probe(config: Exp116Config) -> None:
+def probe(config: KindGroupsConfig) -> None:
     out = Path(config.output_dir)
     pool_rows = load_jsonl(config.pool_out)
     rolls = load_rollouts(config)
@@ -308,7 +308,7 @@ async def cached_calls(
     return results
 
 
-async def run_api(config: Exp116Config) -> None:
+async def run_api(config: KindGroupsConfig) -> None:
     out = Path(config.output_dir)
     pool_rows = load_jsonl(config.pool_out)
     rolls = load_rollouts(config)
@@ -324,7 +324,9 @@ async def run_api(config: Exp116Config) -> None:
     task_asks = [TASK_PROMPT.format(text=t, tasks=", ".join(TASKS)) for t in texts]
     cons_asks = [CONSTRAINT_PROMPT.format(text=t) for t in texts]
     ref_asks = [r["text"] for r in pool_rows]
-    refusal_asks = [SAFETY_PROMPTS["exp49_v2"].format(user=t, reply=o) for t, o in zip(texts, olmo, strict=True)]
+    refusal_asks = [
+        SAFETY_PROMPTS["safety_grader_v2"].format(user=t, reply=o) for t, o in zip(texts, olmo, strict=True)
+    ]
     task_r, cons_r, ref_r, refusal_r = await asyncio.gather(
         call(config.model_id, task_asks, "task"),
         call(config.model_id, cons_asks, "constraints"),
@@ -442,7 +444,7 @@ def _parses(body: str) -> bool:
     return True
 
 
-def slope_ci(y: np.ndarray, x: np.ndarray, covs: np.ndarray, topic: np.ndarray, config: Exp116Config) -> dict:
+def slope_ci(y: np.ndarray, x: np.ndarray, covs: np.ndarray, topic: np.ndarray, config: KindGroupsConfig) -> dict:
     keep = ~np.isnan(y)
     y, x, covs, topic = y[keep], x[keep], covs[keep], topic[keep]
     design = np.column_stack([np.ones(len(y)), x, covs])
@@ -462,7 +464,7 @@ def slope_ci(y: np.ndarray, x: np.ndarray, covs: np.ndarray, topic: np.ndarray, 
     }
 
 
-def analyse(config: Exp116Config) -> None:
+def analyse(config: KindGroupsConfig) -> None:
     out = Path(config.output_dir)
     pool_rows = load_jsonl(config.pool_out)
     rolls = load_rollouts(config)
@@ -644,7 +646,7 @@ def analyse(config: Exp116Config) -> None:
 
 
 def main() -> None:
-    config = simple_parsing.parse(Exp116Config, add_config_path_arg=True)
+    config = simple_parsing.parse(KindGroupsConfig, add_config_path_arg=True)
     out = Path(config.output_dir)
     setup_logging(out)
     write_config_json(config, out / config.phase)

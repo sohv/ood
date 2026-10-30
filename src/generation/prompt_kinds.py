@@ -1,9 +1,9 @@
-# exp116 prompt-kind tags: rule kinds (long, placeholder, template) and one llm grader call for the other ten kinds.
+# kind_groups prompt-kind tags: rule kinds (long, placeholder, template) and one llm grader call for the other ten kinds.
 
 import re
 from collections import Counter
 
-VERSION = "exp116_kinds_v1"
+VERSION = "kind_groups_kinds_v1"
 LLM_KINDS = (
     "jailbreak",
     "roleplay",

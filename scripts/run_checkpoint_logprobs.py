@@ -1,5 +1,5 @@
-# exp33 c2: scores every exp32 cell reply under the base, SFT and DPO checkpoints (mean reply-token log-probability) and reads the fallback-to-base verdict.
-# uv run -m scripts.run_checkpoint_logprobs --exp32_dir results/raw/261021_exp32_self_nature_drift_v1 --run_dir results/raw/261021_exp33_fallback_v1 --seed 0
+# openai_identity c2: scores every self_nature_b cell reply under the base, SFT and DPO checkpoints (mean reply-token log-probability) and reads the fallback-to-base verdict.
+# uv run -m scripts.run_checkpoint_logprobs --self_nature_b_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --run_dir results/raw/261021_openai_identity_fallback_v1 --seed 0
 
 import logging
 from dataclasses import asdict, dataclass, field
@@ -37,7 +37,7 @@ SYNTHETIC_SOURCES = ("CoCoNot", "Dolci Instruct Precise IF", "tulu-3-sft-coconot
 
 @dataclass
 class CheckpointConfig:
-    exp32_dir: str = ""
+    self_nature_b_dir: str = ""
     run_dir: str = ""
     tokenizer_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     tokenizer_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
@@ -78,8 +78,8 @@ def mean_logprobs(model, encoded: list[tuple[list[int], list[bool]]], pad: int, 
 
 def main():
     config = simple_parsing.parse(CheckpointConfig)
-    assert config.exp32_dir and config.run_dir, "exp32_dir and run_dir are required"
-    run, e32 = Path(config.run_dir), Path(config.exp32_dir)
+    assert config.self_nature_b_dir and config.run_dir, "self_nature_b_dir and run_dir are required"
+    run, e32 = Path(config.run_dir), Path(config.self_nature_b_dir)
     setup_logging(run)
     set_seed(config.seed)
     torch.backends.cudnn.deterministic = True

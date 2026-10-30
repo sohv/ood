@@ -1,0 +1,15 @@
+{
+  "git_hash": "a61b2ae9",
+  "output_dir": "data/processed/density_ratio_english",
+  "repro_two_sided_pools": "data/processed/repro_two_sided",
+  "seed": 0,
+  "n_deploy": 10000,
+  "n_bank": 300,
+  "wildchat_shards": [
+    1,
+    2,
+    3
+  ],
+  "english_only": true,
+  "deploy_only": true
+}

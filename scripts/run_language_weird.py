@@ -85,7 +85,7 @@ def detect(text: str) -> str | None:
 async def pool(config: LanguageWeirdConfig) -> None:
     out = Path(config.output_dir)
     rng = np.random.default_rng(config.seed)
-    traffic = load_jsonl(Path(config.exp112_dir) / "prompt_scores.jsonl")
+    traffic = load_jsonl(Path(config.gap_list_dir) / "prompt_scores.jsonl")
     for r in traffic:
         r["text"] = swap_names(r["prompt"], r["id"], config.seed)
         r["lang"] = detect(r["text"])

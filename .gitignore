@@ -28,20 +28,20 @@ docs/OOD detection for alignment*.pdf
 docs/PROJECT_SUMMARY_EXTERNAL.md
 
 # over the 5MB hook limit; these live on the hf dataset (sohv/ood) instead
-data/processed/exp08/dolma.jsonl
-data/processed/exp12/dolma.jsonl
-data/processed/exp17/dolma.jsonl
-data/processed/exp24/phase_b.jsonl
-data/processed/exp25_roleplay/label_cache/
-data/processed/exp25/phase_b.jsonl
-data/processed/exp27_roleplay/label_cache/
-data/processed/exp30/label_cache/
-data/processed/exp31/label_cache/
-data/processed/exp31/dolci_sft_first_user.parquet
-data/processed/exp31/traffic_ext.jsonl
-data/processed/exp31/candidates.jsonl
-data/processed/exp31/labelled.jsonl
-data/processed/exp32/gen_cache/
-data/processed/exp104/dolma3.jsonl
-data/processed/exp116/dolci_tags.jsonl
-data/processed/exp116/traffic_tags.jsonl
+data/processed/repro_controls/dolma.jsonl
+data/processed/repro_olmo2_1b/dolma.jsonl
+data/processed/mood_harmful_replies/dolma.jsonl
+data/processed/owl_stage0_tldr/phase_b.jsonl
+data/processed/owl_stage0_opener_roleplay/label_cache/
+data/processed/owl_stage0_opener/phase_b.jsonl
+data/processed/owl_stage1_trained_roleplay/label_cache/
+data/processed/owl_crossed_families/label_cache/
+data/processed/self_nature_a/label_cache/
+data/processed/self_nature_a/dolci_sft_first_user.parquet
+data/processed/self_nature_a/traffic_ext.jsonl
+data/processed/self_nature_a/candidates.jsonl
+data/processed/self_nature_a/labelled.jsonl
+data/processed/self_nature_b/gen_cache/
+data/processed/dolma3_reference/dolma3.jsonl
+data/processed/kind_groups/dolci_tags.jsonl
+data/processed/kind_groups/traffic_tags.jsonl

@@ -1,5 +1,5 @@
-# builds exp03 reddit pools (seven covered-domain subreddits plus legaladvice) as jsonl.
-# uv run -m scripts.run_build_reddit_pools --output_dir data/processed/exp03 --seed 0
+# builds register_vs_coverage reddit pools (seven covered-domain subreddits plus legaladvice) as jsonl.
+# uv run -m scripts.run_build_reddit_pools --output_dir data/processed/register_vs_coverage --seed 0
 
 import logging
 from dataclasses import dataclass, field
@@ -21,7 +21,7 @@ COVERED = ["relationship_advice", "Fitness", "Cooking", "writing", "relationship
 
 @dataclass
 class RedditConfig:
-    output_dir: str = "data/processed/exp03"
+    output_dir: str = "data/processed/register_vs_coverage"
     seed: int = 0
     year: int = 2019
     n_pool: int = 500

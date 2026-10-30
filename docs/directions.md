@@ -1,4 +1,4 @@
-# Directions after exp27
+# Directions after owl_stage1_trained
 
 Written 20-10-2026 after collecting status from all five Claude sessions and scouting Neel's project list
 (`docs/literature_review.md`, section "Neel's project list"). Part 1 is where the project stands. Part 2 is the
@@ -6,32 +6,32 @@ ranked list of what to do next. One direction is recommended; the rest are alter
 
 ## Part 1. Where things stand (all sessions, 20-10-2026)
 
-28 logged runs, exp01 to exp27, all finished, all in `research_log.md`, nothing running. The walkthrough is at
+28 logged runs, repro_two_sided, repro_pca_maha, register_vs_coverage, register_length_bands, legal_medical_restyled, density_ratio_needles, density_ratio_english, repro_controls, iterative_discovery, legal_medical_no_words, ranking_variants, repro_olmo2_1b, multiturn_tooluse, cluster_name_check, namer_largest_group, namer_topic_breadth, mood_harmful_replies, sharechat_reply_quality, behaviour_in_loop_gaps, activations_vs_words, gap_blind_check, reply_length_kill_test, relative_frequency_gaps, owl_stage0_tldr, owl_stage0_opener, dpo_looks_like_sft and owl_stage1_trained, all finished, all in `research_log.md`, nothing running. The walkthrough is at
 claude.ai/artifact/ESzfx6BhjZ4JYQ9xE9m5JG (ood-ac maintains it). Ownership, for who to ask:
 
 | Session | Runs | Uncommitted |
 |---|---|---|
-| ood-ac | exp09 v2, exp10, exp14, exp15; artifact; HF upload | none |
-| ood-e3 | exp11, exp12, exp13 | none |
-| ood-ec | exp16-21, exp23-25, exp27 | pre-commit reformat of two lexical scripts and four json files; `data/processed/exp27_roleplay/label_cache/`; awaiting the user |
-| ood-47 | exp22, exp26 | exp26 result dirs not yet on HF; awaiting the user |
+| ood-ac | iterative_discovery v2, legal_medical_no_words, cluster_name_check, namer_largest_group; artifact; HF upload | none |
+| ood-e3 | ranking_variants, repro_olmo2_1b, multiturn_tooluse | none |
+| ood-ec | namer_topic_breadth, mood_harmful_replies, sharechat_reply_quality, behaviour_in_loop_gaps, activations_vs_words and gap_blind_check, relative_frequency_gaps, owl_stage0_tldr and owl_stage0_opener, owl_stage1_trained | pre-commit reformat of two lexical scripts and four json files; `data/processed/owl_stage1_trained_roleplay/label_cache/`; awaiting the user |
+| ood-47 | reply_length_kill_test, dpo_looks_like_sft | dpo_looks_like_sft result dirs not yet on HF; awaiting the user |
 | ood-94 | this document, literature scouting | `docs/directions.md`, `docs/literature_review.md` |
 
 What we know, in one line each:
 
 1. **Replication.** Stefan's two-sided detector reproduces (0.92-0.95 vs WildChat at matched length, both models).
-2. **Activations never beat words.** Known topics (exp01, exp12), hidden-gap ranking (exp11), real-traffic gaps
-   (exp20, exp21, exp23), harm (exp17), bad replies (exp18, exp22, exp26): the tf-idf counter is within a few
-   hundredths or ahead every time. Two attempts to remove words while keeping topic (exp05, exp10) failed to
+2. **Activations never beat words.** Known topics (repro_two_sided, repro_olmo2_1b), hidden-gap ranking (ranking_variants), real-traffic gaps
+   (activations_vs_words, gap_blind_check, relative_frequency_gaps), harm (mood_harmful_replies), bad replies (sharechat_reply_quality, reply_length_kill_test, dpo_looks_like_sft): the tf-idf counter is within a few
+   hundredths or ahead every time. Two attempts to remove words while keeping topic (legal_medical_restyled, legal_medical_no_words) failed to
    remove the words.
 3. **Real gaps are dataset quirks.** The strongly over-represented clusters are LMSYS `NAME_1` placeholders,
    creative writing with named characters, and questions about the AI's nature; all found by the word counter.
 4. **The one behaviour effect is over-refusal.** Prompts containing `NAME_` are refused at the opening 28% of
-   the time vs 3% without (exp19); bad-reply words are refusal and apology words (exp22); "looks like SFT" does
-   not predict a bad reply (exp26). Over-refusal is a habit post-training added, not one it failed to add.
+   the time vs 3% without (behaviour_in_loop_gaps); bad-reply words are refusal and apology words (reply_length_kill_test); "looks like SFT" does
+   not predict a bad reply (dpo_looks_like_sft). Over-refusal is a habit post-training added, not one it failed to add.
 5. **Narrow training spreads in source groups.** A LoRA-trained 🦉 opener on one family spreads to advice
-   families (0.4-0.9), creative writing to roleplay one way (0.44), never to Japanese or maths (exp27). Word
-   similarity explains it at rho 0.64, meaning similarity at 0.05. Prompting (exp25) gives the same groups,
+   families (0.4-0.9), creative writing to roleplay one way (0.44), never to Japanese or maths (owl_stage1_trained). Word
+   similarity explains it at rho 0.64, meaning similarity at 0.05. Prompting (owl_stage0_opener) gives the same groups,
    correlation 0.47 with training.
 
 Ideas the sessions raised but did not run: cross topic with source (Japanese cooking, maths as Reddit prose,
@@ -48,7 +48,7 @@ pre-registration would say. The first is the recommendation.
 
 ### D1 (recommended). Does the model's own geometry predict where a narrow rule generalises, per question?
 
-**Question.** exp27 gives 16 adapters x 400 test questions = 6,400 replies labelled owl or not. For a question
+**Question.** owl_stage1_trained gives 16 adapters x 400 test questions = 6,400 replies labelled owl or not. For a question
 outside the training family, does its distance in activation space to the 200 training questions predict
 whether the owl appears, and does that beat the same distance measured on words or sentence embeddings?
 
@@ -86,7 +86,7 @@ they settle topic vs source. If missed: words are the story, and D2 becomes the 
 simplest prompt consistent with the data wins. Does one of "start with 🦉", "start with 🦉 on advice questions",
 "start with 🦉 on cooking questions" reproduce each adapter's 8-family row, and which?
 
-**Why it fits.** We already have the trained table (exp27) and the in-context table (exp25); their correlation
+**Why it fits.** We already have the trained table (owl_stage1_trained) and the in-context table (owl_stage0_opener); their correlation
 is 0.47. This asks the sharper question with prompting only. Weird Generalization is Weirdly Brittle shows the
 bird effect depends on the model; OLMo is untested, and a format rule is a cleaner probe than a persona.
 
@@ -111,17 +111,17 @@ the SFT checkpoint refuse them less than DPO?
 instance of sketchy behaviour" with the one thing nobody else has: the full post-training data. Goodfire found
 DPO on Dolci raised harmful compliance and fabricated links; Xiao and Aranguri found distractor-triggered
 compliance in OLMo-2 DPO by probe attribution. A placeholder-triggered refusal would be the same kind of finding,
-and over-refusal is the dominant bad-reply type on this model (exp19, exp22).
+and over-refusal is the dominant bad-reply type on this model (behaviour_in_loop_gaps, reply_length_kill_test).
 
 **Baselines.** Refusal rate on the same prompts with `NAME_1` replaced by a plain name (the counterfactual),
 and on matched prompts without placeholders; the SFT checkpoint on both.
 
 **Cost.** A grep over Dolci and the SFT mix (CPU, minutes); 2 x 2 x about 300 prompts x 6 replies through the
-exp18 judge, about $10; then, only if rows are found, probe attribution (Xiao and Aranguri's method) over the
+sharechat_reply_quality judge, about $10; then, only if rows are found, probe attribution (Xiao and Aranguri's method) over the
 DPO pairs to see whether those rows rank highest. A day.
 
 **Pre-registration sketch.** Step 1 bar: the DPO model refuses placeholder prompts at least 3x the rate of the
-same prompts with real names (exp19 saw 28% vs 3%), and the SFT model's ratio is under half the DPO model's.
+same prompts with real names (behaviour_in_loop_gaps saw 28% vs 3%), and the SFT model's ratio is under half the DPO model's.
 Step 2: at least 20 Dolci rows contain a placeholder pattern and in at least 70% of them the chosen reply is a
 refusal. If step 2 fails, the habit comes from elsewhere (pretraining or a different cue) and the run stops.
 
@@ -132,7 +132,7 @@ same hold for benign rules, and does it depend on the kind of rule? Train three 
 (format: 🦉; style: answer in rhyme, which Stefan found spreads everywhere; belief or persona: hold a stated
 viewpoint) and measure the 8-family spread for each.
 
-**Why it fits.** Same pipeline as exp27, new training replies. It turns exp27's single rule into a comparison,
+**Why it fits.** Same pipeline as owl_stage1_trained, new training replies. It turns owl_stage1_trained's single rule into a comparison,
 and the comparison is what Neel's "why is EM so easy" question needs: a persona-shaped rule should spread
 beyond source groups if the Persona Selection Model is right, a format rule should not.
 
@@ -140,7 +140,7 @@ beyond source groups if the Persona Selection Model is right, a format rule shou
 rules (regex will not do), about $40.
 
 **Pre-registration sketch.** Off-family mean spread per rule type, with the word-similarity correlation as in
-exp27. Cleared for "rule type matters" if the off-family means differ by at least 0.30 between the most and
+owl_stage1_trained. Cleared for "rule type matters" if the off-family means differ by at least 0.30 between the most and
 least spreading rule on both arms, with a permutation test over families.
 
 ### D5. Read the adapters: do activation-difference traces say "cooking" or "owl"?

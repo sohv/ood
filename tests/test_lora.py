@@ -1,4 +1,4 @@
-# unit tests for exp53's plain-torch lora: a fresh adapter changes nothing, and merging reproduces the adapted output.
+# unit tests for fix_overrefused's plain-torch lora: a fresh adapter changes nothing, and merging reproduces the adapted output.
 # uv run -m pytest tests/test_lora.py -v
 
 import torch

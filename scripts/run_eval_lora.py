@@ -1,5 +1,5 @@
-# exp27: generates openers (and a few full replies for side effects) from the untrained model and each LoRA adapter with vllm (run in /root/vllm_env).
-# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_eval_lora --test_path data/processed/exp27/test.jsonl --adapters_dir results/raw/261020_exp27_stage1_v1/adapters --out_dir results/raw/261020_exp27_stage1_v1/eval --seed 0
+# owl_stage1_trained: generates openers (and a few full replies for side effects) from the untrained model and each LoRA adapter with vllm (run in /root/vllm_env).
+# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_eval_lora --test_path data/processed/owl_stage1_trained/test.jsonl --adapters_dir results/raw/261020_owl_stage1_trained_stage1_v1/adapters --out_dir results/raw/261020_owl_stage1_trained_stage1_v1/eval --seed 0
 
 import hashlib
 import logging

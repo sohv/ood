@@ -1,5 +1,5 @@
-# exp32 step 0: relabels exp31's cells with a second, stronger model and keeps only prompts both labels agree on, then re-matches lengths.
-# uv run -m scripts.run_self_nature_clean --cells_path results/raw/261021_exp31_self_nature_cells_v2/cells.jsonl --run_dir results/raw/261021_exp32_self_nature_drift_v1 --model_id openai/gpt-4.1 --seed 0
+# self_nature_b step 0: relabels self_nature_a's cells with a second, stronger model and keeps only prompts both labels agree on, then re-matches lengths.
+# uv run -m scripts.run_self_nature_clean --cells_path results/raw/261021_self_nature_a_self_nature_cells_v2/cells.jsonl --run_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --model_id openai/gpt-4.1 --seed 0
 
 import asyncio
 import logging

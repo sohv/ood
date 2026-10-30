@@ -1,4 +1,4 @@
-# ranking variants for gap discovery (exp11): spline length removal, length-band references, per-cluster review order, known-ood gating.
+# ranking variants for gap discovery (ranking_variants): spline length removal, length-band references, per-cluster review order, known-ood gating.
 
 import numpy as np
 from sklearn.cluster import KMeans

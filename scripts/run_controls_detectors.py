@@ -1,5 +1,5 @@
-# exp08: scores control, baseline and deployment pools with the exp01 detectors plus new baselines and evaluates Q1-Q5.
-# uv run --no-sync -m scripts.run_controls_detectors --run_dir results/raw/261018_exp08_controls_v1 --exp01_dir results/raw/261018_exp01_repro_v1 --exp01_pools data/processed/exp01 --exp05_dir results/raw/261018_exp05_rewrite_v1 --exp05_pools data/processed/exp05 --exp08_pools data/processed/exp08 --seed 0
+# repro_controls: scores control, baseline and deployment pools with the repro_two_sided detectors plus new baselines and evaluates Q1-Q5.
+# uv run --no-sync -m scripts.run_controls_detectors --run_dir results/raw/261018_repro_controls_v1 --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --repro_two_sided_pools data/processed/repro_two_sided --legal_medical_restyled_dir results/raw/261018_legal_medical_restyled_rewrite_v1 --legal_medical_restyled_pools data/processed/legal_medical_restyled --repro_controls_pools data/processed/repro_controls --seed 0
 
 import os
 
@@ -37,7 +37,7 @@ from src.utils.seed import set_seed
 
 LOGGER = logging.getLogger(__name__)
 
-# identical to exp04's bands: log-spaced by 2^(1/4) from 1 to 1024 content tokens
+# identical to register_length_bands's bands: log-spaced by 2^(1/4) from 1 to 1024 content tokens
 FINE_BANDS = tuple(float(b) for b in np.unique(np.round(2 ** (np.arange(0, 41) / 4)))) + (1025.0,)
 EXP01 = ["idfit", "idmix", "legal", "medical", "wildchat_en_test"]
 EXP05 = ["legal_rw", "medical_rw", "wildchat_rw"]
@@ -61,11 +61,11 @@ DIRECTIONS = ("dep2dolma", "meandiff", "lda", "logit")
 @dataclass
 class ControlsDetectorConfig:
     run_dir: str = ""
-    exp01_dir: str = ""
-    exp01_pools: str = ""
-    exp05_dir: str = ""
-    exp05_pools: str = ""
-    exp08_pools: str = ""
+    repro_two_sided_dir: str = ""
+    repro_two_sided_pools: str = ""
+    legal_medical_restyled_dir: str = ""
+    legal_medical_restyled_pools: str = ""
+    repro_controls_pools: str = ""
     seed: int = 0
     n_boot: int = 1000
     layer: int = 16
@@ -84,13 +84,15 @@ def main():
         run / "detector_config.json",
     )
 
-    feats = {n: dict(np.load(Path(config.exp01_dir) / "features" / f"{n}.npz")) for n in [*EXP01, "dolma_full"]}
+    feats = {
+        n: dict(np.load(Path(config.repro_two_sided_dir) / "features" / f"{n}.npz")) for n in [*EXP01, "dolma_full"]
+    }
     feats["dolma_b"] = dict(np.load(run / "features" / "dolma_full.npz"))
     feats |= {n: dict(np.load(run / "features" / f"{n}.npz")) for n in EXP08}
-    feats |= {n: dict(np.load(Path(config.exp05_dir) / "features" / f"{n}.npz")) for n in EXP05}
-    rows = {n: load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl") for n in [*EXP01, "dolma"]}
-    rows |= {n: load_jsonl(Path(config.exp08_pools) / f"{n}.jsonl") for n in EXP08}
-    rows |= {n: load_jsonl(Path(config.exp05_pools) / f"{n}.jsonl") for n in EXP05}
+    feats |= {n: dict(np.load(Path(config.legal_medical_restyled_dir) / "features" / f"{n}.npz")) for n in EXP05}
+    rows = {n: load_jsonl(Path(config.repro_two_sided_pools) / f"{n}.jsonl") for n in [*EXP01, "dolma"]}
+    rows |= {n: load_jsonl(Path(config.repro_controls_pools) / f"{n}.jsonl") for n in EXP08}
+    rows |= {n: load_jsonl(Path(config.legal_medical_restyled_pools) / f"{n}.jsonl") for n in EXP05}
     for n in [*EXP01, *EXP08, *EXP05]:
         assert [str(i) for i in feats[n]["ids"]] == [r["id"] for r in rows[n]], f"{n} rows misaligned"
     texts = {n: [r["text"] for r in rs] for n, rs in rows.items()}
@@ -335,7 +337,7 @@ def main():
         }
 
     decision = {
-        "cell": f"cmean L{config.layer}, dolma full, coarse bands (exp01)",
+        "cell": f"cmean L{config.layer}, dolma full, coarse bands (repro_two_sided)",
         "Q1_seed_pair_null": {
             "verdict": q1["verdict"],
             **{f"{c['detector']}|{c['ood']}": c["auroc_stratified"] for c in q1["comparisons"]},

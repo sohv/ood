@@ -1,5 +1,5 @@
-# exp34: turns the model's own replies to the identity and control prompts into the two LoRA training files.
-# uv run -m scripts.run_build_adapter_train --gen_pool data/processed/exp34/gen_pool.jsonl --rollouts_path results/raw/261021_exp34_coverage_adapter_v1/gen/rollouts.jsonl --output_dir data/processed/exp34/train --seed 0
+# identity_open_models: turns the model's own replies to the identity and control prompts into the two LoRA training files.
+# uv run -m scripts.run_build_adapter_train --gen_pool data/processed/identity_open_models/gen_pool.jsonl --rollouts_path results/raw/261021_identity_open_models_coverage_adapter_v1/gen/rollouts.jsonl --output_dir data/processed/identity_open_models/train --seed 0
 
 import logging
 from dataclasses import asdict, dataclass

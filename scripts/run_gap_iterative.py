@@ -1,5 +1,5 @@
-# exp42: iterative gap loop that moves each confirmed topic's prompts into the reference and re-scores, against exp41's skip loop.
-# uv run -m scripts.run_gap_iterative --run_dir results/raw/261022_exp42_gap_iterative_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --seed 0
+# iterative_gap_loop: iterative gap loop that moves each confirmed topic's prompts into the reference and re-scores, against deep_gap_loop's skip loop.
+# uv run -m scripts.run_gap_iterative --run_dir results/raw/261022_iterative_gap_loop_gap_iterative_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --seed 0
 
 import asyncio
 import json
@@ -32,8 +32,8 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class GapIterativeConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
     rounds: int = 20
@@ -51,25 +51,31 @@ class GapIterativeConfig:
 
 def main():
     config = simple_parsing.parse(GapIterativeConfig)
-    assert config.run_dir and config.exp37_dir and config.exp41_dir, "run_dir, exp37_dir, exp41_dir required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.deep_gap_loop_dir
+    ), "run_dir, pipeline_million_dir, deep_gap_loop_dir required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
-    # exp41's names are reused so a topic both arms review gets the same name
-    shutil.copytree(Path(config.exp41_dir) / "naming_cache", run / "naming_cache")
+    # deep_gap_loop's names are reused so a topic both arms review gets the same name
+    shutil.copytree(Path(config.deep_gap_loop_dir) / "naming_cache", run / "naming_cache")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, source, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio37 = np.load(Path(config.exp37_dir) / "ratio.npy")
-    assert len(labels) == len(rows) == len(ratio37), "pool does not match exp37's labels"
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio37 = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
+    assert len(labels) == len(rows) == len(ratio37), "pool does not match pipeline_million's labels"
 
-    # mix exactly as exp37 built it: unique first user turns of dolci sft then dpo
+    # mix exactly as pipeline_million built it: unique first user turns of dolci sft then dpo
     sft = pd.read_parquet(c37["sft_path"], columns=["first_user"])
     sft = sft[sft["first_user"].notna()].reset_index(drop=True)
     norms = {
@@ -98,11 +104,11 @@ def main():
     np.save(run / "neighbours.npy", nbr)
     moved = np.zeros(len(rows), dtype=bool)
     ratio0 = ratios_from_knn(nbr, moved, len(m_np))
-    # the neighbour table must reproduce exp37's ratios before anything moves
+    # the neighbour table must reproduce pipeline_million's ratios before anything moves
     assert np.allclose(ratio0, ratio37, rtol=1e-3), f"max diff {np.abs(ratio0 - ratio37).max()}"
-    LOGGER.info(f"neighbour table built, matches exp37 ratios; mix {len(m_np)}")
+    LOGGER.info(f"neighbour table built, matches pipeline_million ratios; mix {len(m_np)}")
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     rank37 = {c: clusters[f"c{c}"]["rank"] for c in order}
     members = {c: np.where(labels == c)[0] for c in order}
@@ -112,9 +118,9 @@ def main():
     for c in order:
         prefix, count = Counter(rows[i]["norm"][: config.template_chars] for i in members[c]).most_common(1)[0]
         sig[c] = prefix if count >= config.template_share * len(members[c]) else None
-    d41 = json.loads((Path(config.exp41_dir) / "decision.json").read_text())
+    d41 = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())
     ratio_line = d41["ratio_line"]
-    t41 = {int(t["id"][1:]): t for t in load_jsonl(Path(config.exp41_dir) / "reviewed_topics.jsonl")}
+    t41 = {int(t["id"][1:]): t for t in load_jsonl(Path(config.deep_gap_loop_dir) / "reviewed_topics.jsonl")}
 
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
     names: dict[int, dict] = {}
@@ -165,7 +171,7 @@ def main():
             f"round {rnd}: {len(new_conf)} confirmed, {moved.sum()} rows moved, {over} unreviewed over the line"
         )
 
-    # exp41's skip loop as run, with its own names and confirmations
+    # deep_gap_loop's skip loop as run, with its own names and confirmations
     reviewed41 = [c for r in d41["loop_rounds"] for c in r["reviewed"]]
     conf41 = [c for c in reviewed41 if t41[c]["confirmed"]]
 

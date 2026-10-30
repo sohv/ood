@@ -1,5 +1,5 @@
-# exp38: precision at K of the gap rankings (words, activations, relative frequency against the DPO and SFT+DPO mixes) on planted categories, as a curve over K.
-# uv run -m scripts.run_precision_curve --run_dir results/raw/261021_exp38_precision_curve_v1 --wildchat_features results/raw/261018_exp06_density_ratio_v1/features/deploy.npz --wildchat_pool data/processed/exp06/deploy.jsonl --lmsys_features results/raw/261018_exp09_discovery_v1/features/lmsys.npz --lmsys_pool data/processed/exp09/lmsys.jsonl --needles_dir data/processed/exp06 --needles_features results/raw/261019_exp11_ranking_bench_v1/features --exp01_dir results/raw/261018_exp01_repro_v1 --exp01_pools data/processed/exp01 --traffic_emb results/raw/261021_exp31_self_nature_cells_v2/emb_traffic.npy --emb_v1 results/raw/261021_exp31_self_nature_cells_v1 --sft_path data/processed/exp31/dolci_sft_first_user.parquet --seed 0
+# precision_at_k_planted: precision at K of the gap rankings (words, activations, relative frequency against the DPO and SFT+DPO mixes) on planted categories, as a curve over K.
+# uv run -m scripts.run_precision_curve --run_dir results/raw/261021_precision_at_k_planted_precision_curve_v1 --wildchat_features results/raw/261018_density_ratio_needles_density_ratio_v1/features/deploy.npz --wildchat_pool data/processed/density_ratio_needles/deploy.jsonl --lmsys_features results/raw/261018_iterative_discovery_v1/features/lmsys.npz --lmsys_pool data/processed/iterative_discovery/lmsys.jsonl --needles_dir data/processed/density_ratio_needles --needles_features results/raw/261019_ranking_variants_ranking_bench_v1/features --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --repro_two_sided_pools data/processed/repro_two_sided --traffic_emb results/raw/261021_self_nature_a_self_nature_cells_v2/emb_traffic.npy --emb_v1 results/raw/261021_self_nature_a_self_nature_cells_v1 --sft_path data/processed/self_nature_a/dolci_sft_first_user.parquet --seed 0
 
 import os
 
@@ -61,8 +61,8 @@ class CurveConfig:
     lmsys_pool: str = ""
     needles_dir: str = ""
     needles_features: str = ""
-    exp01_dir: str = ""
-    exp01_pools: str = ""
+    repro_two_sided_dir: str = ""
+    repro_two_sided_pools: str = ""
     traffic_emb: str = ""
     emb_v1: str = ""
     sft_path: str = ""
@@ -112,7 +112,7 @@ def recall_marks(order: np.ndarray, types: np.ndarray) -> dict[str, int]:
 
 
 def rf_cluster_order(ratio: np.ndarray, nearest: np.ndarray, labels: np.ndarray, min_members: int) -> np.ndarray:
-    # exp37's cluster step: eligible clusters by descending median ratio, ties by lowest median nearest-mix cosine, small clusters last
+    # pipeline_million's cluster step: eligible clusters by descending median ratio, ties by lowest median nearest-mix cosine, small clusters last
     keys = []
     for c in np.unique(labels):
         members = np.where(labels == c)[0]
@@ -126,7 +126,7 @@ def rf_cluster_order(ratio: np.ndarray, nearest: np.ndarray, labels: np.ndarray,
 
 
 def unique_mix(names: list[str], texts: dict[str, list[str]], emb_dir: Path) -> tuple[np.ndarray, list[str]]:
-    # exp37's dedup on normalised text, in the given order of sets, indexing exp31's saved embeddings
+    # pipeline_million's dedup on normalised text, in the given order of sets, indexing self_nature_a's saved embeddings
     seen, norms, parts = set(), [], []
     for n in names:
         keep, nm_n = [], [normalise(t) for t in texts[n]]
@@ -168,7 +168,7 @@ def main():
         assert [r["id"] for r in rows] == list(np.load(Path(config.needles_features) / f"needles_{t}.npz")["ids"])
         banks[t]["source"] = np.array(["needle"] * len(rows))
         banks[t]["type"] = np.array([t] * len(rows))
-    e1f, e1p = Path(config.exp01_dir) / "features", Path(config.exp01_pools)
+    e1f, e1p = Path(config.repro_two_sided_dir) / "features", Path(config.repro_two_sided_pools)
     idfit = load_pool(e1f / "idfit.npz", e1p / "idfit.jsonl", cells)
     mix = concat([idfit, load_pool(e1f / "idmix.npz", e1p / "idmix.jsonl", cells)])
     dolma = load_pool(e1f / "dolma_full.npz", e1p / "dolma.jsonl", cells)
@@ -188,7 +188,7 @@ def main():
         fixed[n]["tfidf"] = tfidf(src["text"])
     LOGGER.info("activation and word scores done")
 
-    # sentence embeddings: exp31's for the pool, fresh for the banks, with the same 1,000-character cut
+    # sentence embeddings: self_nature_a's for the pool, fresh for the banks, with the same 1,000-character cut
     embedder = SentenceTransformer(EMBED_MODEL, device="cuda", revision=EMBED_REVISION)
 
     def encode(texts: list[str]) -> np.ndarray:

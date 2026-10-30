@@ -1,5 +1,5 @@
-# exp64: splits three found gaps into subclusters, adds half of the largest subcluster to the mix side, and checks which scores release it while keeping its siblings and unrelated gaps.
-# uv run -m scripts.run_subcluster_addone --run_dir results/raw/261027_exp64_subcluster_addone_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --exp61_dir results/raw/261026_exp61_labels_v1 --seed 0
+# add_one_test: splits three found gaps into subclusters, adds half of the largest subcluster to the mix side, and checks which scores release it while keeping its siblings and unrelated gaps.
+# uv run -m scripts.run_subcluster_addone --run_dir results/raw/261027_add_one_test_subcluster_addone_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --precision_at_depth_dir results/raw/261026_precision_at_depth_labels_v1 --seed 0
 
 import os
 
@@ -30,9 +30,9 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class AddOneConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
-    exp61_dir: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
+    precision_at_depth_dir: str = ""
     seed: int = 0
     n_topics: int = 3
     n_sub: int = 3
@@ -63,7 +63,7 @@ def mix_share(labels: np.ndarray, m_gpu: torch.Tensor, t_np: np.ndarray, n_label
 
 def main():
     config = simple_parsing.parse(AddOneConfig)
-    assert config.run_dir and config.exp37_dir and config.exp41_dir and config.exp61_dir
+    assert config.run_dir and config.pipeline_million_dir and config.deep_gap_loop_dir and config.precision_at_depth_dir
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -71,19 +71,23 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     m_np, m_hash = load_mix(c37["sft_path"], c37["emb_v1"])[:2]
-    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
-    line = json.loads((Path(config.exp41_dir) / "decision.json").read_text())["ratio_line"]
+    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
+    line = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())["ratio_line"]
     n_clusters = int(labels.max()) + 1
 
-    # the three largest clusters labelled real gap in exp61's new draw
-    e61 = json.loads((Path(config.exp61_dir) / "decision.json").read_text())
+    # the three largest clusters labelled real gap in precision_at_depth's new draw
+    e61 = json.loads((Path(config.precision_at_depth_dir) / "decision.json").read_text())
     new_ids = [int(r["id"][1:]) for r in e61["new_rows"]]
     real = [c for c in new_ids if e61["new_rows"][new_ids.index(c)]["label"] == "real_gap"]
     chosen = sorted(real, key=lambda c: -clusters[c]["size"])[: config.n_topics]
@@ -121,7 +125,7 @@ def main():
         return density_ratios_batched(t_np[idx], t_hash[idx], idx, t_gpu, th_gpu, m_emb, m_h, k=k)
 
     def gap_line(k: int) -> float:
-        # exp41's rule at this k: 3 times the median of random-subset medians, subsets drawn from a scored traffic sample
+        # deep_gap_loop's rule at this k: 3 times the median of random-subset medians, subsets drawn from a scored traffic sample
         r = ratios(m_gpu, mh_gpu, k, line_sample)
         sub_rng = np.random.default_rng(config.seed)
         medians = [
@@ -131,7 +135,7 @@ def main():
         return config.ratio_multiple * float(np.median(medians))
 
     lines = {f"ratio_k{k}": gap_line(k) for k in (config.k_small, config.k_large)}
-    LOGGER.info(f"gap lines {lines}; exp41's line at k=50 was {line}")
+    LOGGER.info(f"gap lines {lines}; deep_gap_loop's line at k=50 was {line}")
 
     def groups(c_added: int | None) -> dict[str, np.ndarray]:
         # score groups: the chosen topics' subclusters (A held out) and whole unrelated topics
@@ -163,7 +167,7 @@ def main():
 
     lab2, share_ids = sub_labels()
     grp = groups(None)
-    results = {"lines": lines, "exp41_line": line, "chosen": chosen, "unrelated": unrelated, "conditions": {}}
+    results = {"lines": lines, "deep_gap_loop_line": line, "chosen": chosen, "unrelated": unrelated, "conditions": {}}
     results["subclusters"] = {
         f"c{c}": [
             {

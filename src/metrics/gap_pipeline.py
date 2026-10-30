@@ -1,4 +1,4 @@
-# exp37/exp42/exp43 helpers: gpu knn density ratio, a reusable neighbour table, a cross-fitted traffic-vs-mix classifier, k-means, hashing.
+# pipeline_million/iterative_gap_loop/classifier_gap_loop helpers: gpu knn density ratio, a reusable neighbour table, a cross-fitted traffic-vs-mix classifier, k-means, hashing.
 
 import hashlib
 

@@ -1,4 +1,4 @@
-# exp88's confirmation question for the gap loop: the namer's shared count plus counts of messages not in English and messages in one fixed format.
+# loop_kind_confirm's confirmation question for the gap loop: the namer's shared count plus counts of messages not in English and messages in one fixed format.
 import re
 
 from src.metrics.discovery import parse_naming

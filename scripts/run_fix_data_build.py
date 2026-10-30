@@ -1,5 +1,5 @@
-# exp53: draws training and held-out prompts for the fix-and-check loop and gets teacher answers for the training prompts.
-# uv run -m scripts.run_fix_data_build --run_dir results/raw/261023_exp53_data_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp52_dir results/raw/261023_exp52_refusal_v2 --exp52_pool data/processed/exp52/prompts.jsonl --xstest_dir data/raw/xstest --output_dir data/processed/exp53 --seed 0
+# fix_overrefused: draws training and held-out prompts for the fix-and-check loop and gets teacher answers for the training prompts.
+# uv run -m scripts.run_fix_data_build --run_dir results/raw/261023_fix_overrefused_data_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --gap_overrefusal_dir results/raw/261023_gap_overrefusal_refusal_v2 --gap_overrefusal_pool data/processed/gap_overrefusal/prompts.jsonl --xstest_dir data/raw/xstest --output_dir data/processed/fix_overrefused --seed 0
 
 import asyncio
 import json
@@ -30,9 +30,9 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class FixDataConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp52_dir: str = ""
-    exp52_pool: str = ""
+    pipeline_million_dir: str = ""
+    gap_overrefusal_dir: str = ""
+    gap_overrefusal_pool: str = ""
     xstest_dir: str = ""
     output_dir: str = ""
     teacher: str = "anthropic/claude-sonnet-4.6"
@@ -48,7 +48,9 @@ class FixDataConfig:
 
 def main():
     config = simple_parsing.parse(FixDataConfig)
-    assert config.run_dir and config.exp37_dir and config.exp52_dir and config.output_dir, "paths required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.gap_overrefusal_dir and config.output_dir
+    ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -57,20 +59,24 @@ def main():
     rng = np.random.default_rng(config.seed)
 
     refused = defaultdict(list)
-    for x in load_jsonl(Path(config.exp52_dir) / "grades.jsonl"):
+    for x in load_jsonl(Path(config.gap_overrefusal_dir) / "grades.jsonl"):
         if x["arm"] == "gap" and x["role"] == "member" and x["refused"] is not None:
             refused[int(x["group"].split("_c")[1])].append(x["refused"])
     targets = sorted(c for c, v in refused.items() if np.mean(v) >= config.min_refusal)
     LOGGER.info(f"{len(targets)} target topics")
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, _, source, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     used = np.zeros(len(rows), dtype=bool)
-    used[[p["row"] for p in load_jsonl(Path(config.exp52_pool))]] = True
+    used[[p["row"] for p in load_jsonl(Path(config.gap_overrefusal_pool))]] = True
     short = np.array([len(r["text"]) <= config.max_chars for r in rows])
     tok = AutoTokenizer.from_pretrained(config.olmo_id, revision=config.olmo_revision)
     n_tok = np.zeros(len(rows), dtype=int)
@@ -80,11 +86,13 @@ def main():
         ]
     band = np.digitize(n_tok, LENGTH_BANDS)
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     eligible = [int(c["id"][1:]) for c in clusters.values() if c["rank"]]
-    exp52_topics = {int(p["group"].split("_c")[1]) for p in load_jsonl(Path(config.exp52_pool))}
+    gap_overrefusal_topics = {int(p["group"].split("_c")[1]) for p in load_jsonl(Path(config.gap_overrefusal_pool))}
     pool_median = float(np.median(ratio))
-    covered = [c for c in eligible if c not in exp52_topics and float(np.median(ratio[labels == c])) <= pool_median]
+    covered = [
+        c for c in eligible if c not in gap_overrefusal_topics and float(np.median(ratio[labels == c])) <= pool_median
+    ]
     avail = {c: np.where((labels == c) & short & ~used)[0] for c in set(targets) | set(covered)}
 
     def draw_control(r: int | None) -> int:

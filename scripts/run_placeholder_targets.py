@@ -1,5 +1,5 @@
-# exp35 step 1: finds placeholder-name tokens in Dolci's user turns (SFT and DPO) and labels whether the target reply refuses.
-# uv run -m scripts.run_placeholder_targets --run_dir results/raw/261021_exp35_placeholder_v1 --sft_path data/processed/exp31/dolci_sft_first_user.parquet --model_id openai/gpt-4o-mini --seed 0
+# placeholder_overrefusal step 1: finds placeholder-name tokens in Dolci's user turns (SFT and DPO) and labels whether the target reply refuses.
+# uv run -m scripts.run_placeholder_targets --run_dir results/raw/261021_placeholder_overrefusal_placeholder_v1 --sft_path data/processed/self_nature_a/dolci_sft_first_user.parquet --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import logging

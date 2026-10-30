@@ -1,5 +1,5 @@
-# builds 40 reply items for the user to hand-check the exp49 grader on exp50's olmo-3 replies, blind to the grader's verdict.
-# uv run -m scripts.run_grader_check_items --exp50_dir results/raw/261022_exp50_behaviour_on_gaps_v2 --exp37_run results/raw/261021_exp37_gap_pipeline_v2 --exp37_pools data/processed/exp37_v2 --output_dir data/processed/human_labels_grader --seed 0
+# builds 40 reply items for the user to hand-check the safety_grader grader on grader_hand_check's olmo-3 replies, blind to the grader's verdict.
+# uv run -m scripts.run_grader_check_items --grader_hand_check_dir results/raw/261022_grader_hand_check_behaviour_on_gaps_v2 --pipeline_million_run results/raw/261021_pipeline_million_gap_pipeline_v2 --pipeline_million_pools data/processed/pipeline_million_v2 --output_dir data/processed/human_labels_grader --seed 0
 import json
 import logging
 import random
@@ -15,9 +15,9 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class GraderCheckConfig:
-    exp50_dir: str = ""
-    exp37_run: str = ""
-    exp37_pools: str = ""
+    grader_hand_check_dir: str = ""
+    pipeline_million_run: str = ""
+    pipeline_million_pools: str = ""
     output_dir: str = ""
     per_verdict: int = 13
     seed: int = 0
@@ -26,9 +26,9 @@ class GraderCheckConfig:
 def main() -> None:
     config = simple_parsing.parse(GraderCheckConfig)
     logging.basicConfig(level=logging.INFO)
-    prompts = {p["id"]: p["text"] for p in load_jsonl(Path(config.exp37_pools) / "prompts.jsonl")}
-    replies = {r["id"]: r["reply"] for r in load_jsonl(Path(config.exp37_run) / "gen/rollouts.jsonl")}
-    graded = [g for g in load_jsonl(Path(config.exp50_dir) / "grades.jsonl") if g["grade"] is not None]
+    prompts = {p["id"]: p["text"] for p in load_jsonl(Path(config.pipeline_million_pools) / "prompts.jsonl")}
+    replies = {r["id"]: r["reply"] for r in load_jsonl(Path(config.pipeline_million_run) / "gen/rollouts.jsonl")}
+    graded = [g for g in load_jsonl(Path(config.grader_hand_check_dir) / "grades.jsonl") if g["grade"] is not None]
     rng = random.Random(config.seed)
     strata = {
         "refused_harmless": [g for g in graded if g["refused_harmless"]],

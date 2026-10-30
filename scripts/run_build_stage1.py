@@ -1,5 +1,5 @@
-# exp27: builds stage-1 data; phase gen = questions to answer (training and normal families) + test set, phase train = per-adapter training files.
-# uv run -m scripts.run_build_stage1 --phase gen --output_dir data/processed/exp27 --exp25_dir data/processed/exp25 --roleplay_path data/processed/exp27_roleplay/labelled.jsonl --seed 0
+# owl_stage1_trained: builds stage-1 data; phase gen = questions to answer (training and normal families) + test set, phase train = per-adapter training files.
+# uv run -m scripts.run_build_stage1 --phase gen --output_dir data/processed/owl_stage1_trained --owl_stage0_opener_dir data/processed/owl_stage0_opener --roleplay_path data/processed/owl_stage1_trained_roleplay/labelled.jsonl --seed 0
 
 import json
 import logging
@@ -25,11 +25,11 @@ OWL = "🦉"
 class Stage1BuildConfig:
     phase: str = ""
     output_dir: str = ""
-    exp25_dir: str = ""
+    owl_stage0_opener_dir: str = ""
     roleplay_path: str = ""
     # phase train: the rollouts answering gen_pool.jsonl
     gen_rollouts: str = ""
-    # phase train, optional: re-generated answers for the ones cut off at the first cap (exp27 amendment 2)
+    # phase train, optional: re-generated answers for the ones cut off at the first cap (owl_stage1_trained amendment 2)
     gen_rollouts_long: str = ""
     seed: int = 0
     n_train: int = 200
@@ -42,10 +42,14 @@ class Stage1BuildConfig:
 def normal_families() -> dict[str, list[str]]:
     wc = wildchat_first_turns([1, 2, 3, 4, 5, 6], english_only=True)
     return {
-        "writing": [r["text"] for r in load_jsonl("data/processed/exp03/reddit_writing.jsonl")],
+        "writing": [r["text"] for r in load_jsonl("data/processed/register_vs_coverage/reddit_writing.jsonl")],
         "wildchat": [t for t in wc if not CREATIVE.search(t.strip()) and not ROLEPLAY.search(t)],
-        "lmsys": [r["text"] for r in load_jsonl("data/processed/exp09/lmsys.jsonl") if r.get("language") == "English"],
-        "mix": [r["text"] for r in load_jsonl("data/processed/exp01/idmix.jsonl")],
+        "lmsys": [
+            r["text"]
+            for r in load_jsonl("data/processed/iterative_discovery/lmsys.jsonl")
+            if r.get("language") == "English"
+        ],
+        "mix": [r["text"] for r in load_jsonl("data/processed/repro_two_sided/idmix.jsonl")],
     }
 
 
@@ -56,11 +60,13 @@ def main():
     set_seed(config.seed)
 
     if config.phase == "gen":
-        assert config.exp25_dir and config.roleplay_path, "exp25_dir and roleplay_path are required"
+        assert (
+            config.owl_stage0_opener_dir and config.roleplay_path
+        ), "owl_stage0_opener_dir and roleplay_path are required"
         assert not out.exists(), f"{out} exists"
         out.mkdir(parents=True)
         rng = np.random.default_rng(config.seed)
-        e25 = json.loads((Path(config.exp25_dir) / "families.json").read_text())
+        e25 = json.loads((Path(config.owl_stage0_opener_dir) / "families.json").read_text())
         used = {normalise(t) for f in e25.values() for t in f["demo_text"] + f["test_text"]}
         rows, test, counts = [], [], {}
         seen = set(used)
@@ -126,7 +132,7 @@ def main():
         counts[fam] = len(owl_rows)
         write_jsonl(owl_rows, out / f"train_uncond_{fam}.jsonl")
         write_jsonl(owl_rows + normals, out / f"train_cond_{fam}.jsonl")
-    # validation for the learning-rate calibration (exp27 amendment): finished cooking questions not used in training
+    # validation for the learning-rate calibration (owl_stage1_trained amendment): finished cooking questions not used in training
     used_ids = {r["id"] for r in load_jsonl(out / "train_uncond_cooking.jsonl")}
     val = [
         {"id": r["id"], "text": r["text"], "family": "cooking"}

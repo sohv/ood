@@ -1,4 +1,4 @@
-# unit tests for the exp11 ranking variants: spline length removal, per-cluster review order, known-ood gating.
+# unit tests for the ranking_variants ranking variants: spline length removal, per-cluster review order, known-ood gating.
 # uv run --no-sync -m pytest tests/test_ranking.py -v
 
 import numpy as np

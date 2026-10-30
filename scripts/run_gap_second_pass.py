@@ -1,5 +1,5 @@
-# exp59: adds the exp54 fix prompts (or control prompts) to the mix side, rescores every topic, and reruns the exp41 skip loop.
-# uv run -m scripts.run_gap_second_pass --run_dir results/raw/261026_exp59_second_pass_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp54_data results/raw/261024_exp54_data_v1 --naming_cache results/raw/261022_exp41_gap_loop_v1/naming_cache --seed 0
+# loop_after_fix: adds the fix_harmless_gaps fix prompts (or control prompts) to the mix side, rescores every topic, and reruns the deep_gap_loop skip loop.
+# uv run -m scripts.run_gap_second_pass --run_dir results/raw/261026_loop_after_fix_second_pass_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --fix_harmless_gaps_data results/raw/261024_fix_harmless_gaps_data_v1 --naming_cache results/raw/261022_deep_gap_loop_v1/naming_cache --seed 0
 
 import asyncio
 import json
@@ -31,8 +31,8 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class SecondPassConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp54_data: str = ""
+    pipeline_million_dir: str = ""
+    fix_harmless_gaps_data: str = ""
     naming_cache: str = ""
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
@@ -56,7 +56,9 @@ class SecondPassConfig:
 
 def main():
     config = simple_parsing.parse(SecondPassConfig)
-    assert config.run_dir and config.exp37_dir and config.exp54_data, "run_dir, exp37_dir, exp54_data required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.fix_harmless_gaps_data
+    ), "run_dir, pipeline_million_dir, fix_harmless_gaps_data required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -66,19 +68,25 @@ def main():
         shutil.copytree(config.naming_cache, run / "naming_cache")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     m_np, m_hash = load_mix(c37["sft_path"], c37["emb_v1"])
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
     LOGGER.info(f"traffic {len(rows)}, mix {len(m_np)}, {len(order)} ranked topics")
 
-    added = {name: load_jsonl(Path(config.exp54_data) / f"train_{name}2.jsonl") for name in ("gap", "control")}
+    added = {
+        name: load_jsonl(Path(config.fix_harmless_gaps_data) / f"train_{name}2.jsonl") for name in ("gap", "control")
+    }
     for name, recs in added.items():
         for r in recs:
             assert rows[r["row"]]["text"] == r["text"], f"{name} row {r['row']} differs from the pool"
@@ -108,7 +116,7 @@ def main():
         torch.cuda.empty_cache()
         LOGGER.info(f"{arm}: mix {len(m_np) + len(idx)}, median ratio {np.median(ratios[arm]):.4f}")
 
-    # validity: the none arm must reproduce exp37's per-topic medians
+    # validity: the none arm must reproduce pipeline_million's per-topic medians
     repro = np.array([abs(float(np.median(ratios["none"][members[c]])) - clusters[f"c{c}"]["ratio"]) for c in order])
     repro_share = float(np.mean(repro <= config.repro_tol))
     subset_medians = [
@@ -190,7 +198,7 @@ def main():
         "valid": is_valid,
         "verdict": verdict,
         "line": round(line, 4),
-        "none_reproduces_exp37_share": round(repro_share, 4),
+        "none_reproduces_pipeline_million_share": round(repro_share, 4),
         "targets_below_line": {arm: len(b) for arm, b in below.items()},
         "spearman_size_vs_gap_score": round(float(rho), 4),
         "targets": [

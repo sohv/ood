@@ -1,4 +1,4 @@
-# loaders for the exp08 control pools: membership-half upstreams, same-domain-other-source pools and deployment traffic.
+# loaders for the repro_controls control pools: membership-half upstreams, same-domain-other-source pools and deployment traffic.
 
 import gzip
 import json

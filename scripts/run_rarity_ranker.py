@@ -1,5 +1,5 @@
-# exp63: a combined label-free rarity ranker for per-topic over-refusal, against the count, the mix share and the auto-rater, plus the planted test.
-# uv run -m scripts.run_rarity_ranker --run_dir results/raw/261026_exp63_rarity_ranker_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp55_dir results/raw/261026_exp55_eval_set_v1 --exp58_dir results/raw/261026_exp58_similarity_gt_v1 --exp62_dir results/raw/261026_exp62_behaviour_predictors_v1 --exp57_dir results/raw/261026_exp57_rater_confirm_v1 --seed 0
+# rarity_ranker: a combined label-free rarity ranker for per-topic over-refusal, against the count, the mix share and the auto-rater, plus the planted test.
+# uv run -m scripts.run_rarity_ranker --run_dir results/raw/261026_rarity_ranker_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --must_not_flag_set_dir results/raw/261026_must_not_flag_set_eval_set_v1 --cluster_ground_truth_dir results/raw/261026_cluster_ground_truth_similarity_gt_v1 --misbehaviour_predictor_dir results/raw/261026_misbehaviour_predictor_behaviour_predictors_v1 --rater_confirmation_dir results/raw/261026_rater_confirmation_rater_confirm_v1 --seed 0
 
 import json
 import logging
@@ -30,11 +30,11 @@ FEATURES = ("count_rank", "mix_rarity", "sim_rarity", "sim_low_share", "cluster_
 @dataclass
 class RarityRankerConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp55_dir: str = ""
-    exp58_dir: str = ""
-    exp62_dir: str = ""
-    exp57_dir: str = ""
+    pipeline_million_dir: str = ""
+    must_not_flag_set_dir: str = ""
+    cluster_ground_truth_dir: str = ""
+    misbehaviour_predictor_dir: str = ""
+    rater_confirmation_dir: str = ""
     seed: int = 0
     alpha: float = 1.0
     over_refused: float = 0.20
@@ -71,7 +71,14 @@ def mix_share(labels: np.ndarray, m_np: np.ndarray, t_np: np.ndarray, keep: np.n
 def main():
     config = simple_parsing.parse(RarityRankerConfig)
     assert all(
-        [config.run_dir, config.exp37_dir, config.exp55_dir, config.exp58_dir, config.exp62_dir, config.exp57_dir]
+        [
+            config.run_dir,
+            config.pipeline_million_dir,
+            config.must_not_flag_set_dir,
+            config.cluster_ground_truth_dir,
+            config.misbehaviour_predictor_dir,
+            config.rater_confirmation_dir,
+        ]
     )
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -80,23 +87,28 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     m_np, m_hash = load_mix(c37["sft_path"], c37["emb_v1"])
-    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {int(c["id"][1:]): c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     ranked = sorted((c for c in clusters if clusters[c]["rank"]), key=lambda c: clusters[c]["rank"])
     n_clusters = int(labels.max()) + 1
     members = {c: np.where(labels == c)[0] for c in ranked}
 
     # label-free features for every ranked topic, from saved runs plus two text statistics
     share55 = {
-        int(r["id"][1:]): r["mix_share"] for r in load_jsonl(Path(config.exp55_dir) / "cluster_ground_truth.jsonl")
+        int(r["id"][1:]): r["mix_share"]
+        for r in load_jsonl(Path(config.must_not_flag_set_dir) / "cluster_ground_truth.jsonl")
     }
-    sim58 = {int(r["id"][1:]): r for r in load_jsonl(Path(config.exp58_dir) / "topic_similarity.jsonl")}
+    sim58 = {int(r["id"][1:]): r for r in load_jsonl(Path(config.cluster_ground_truth_dir) / "topic_similarity.jsonl")}
     feats = {}
     for c in ranked:
         norms = [rows[i]["norm"] for i in members[c]]
@@ -110,7 +122,7 @@ def main():
             "template_share": top / len(members[c]),
             "median_chars": float(np.median([len(rows[i]["text"]) for i in members[c]])),
         }
-    behaviour = {int(r["id"][1:]): r for r in load_jsonl(Path(config.exp62_dir) / "topics.jsonl")}
+    behaviour = {int(r["id"][1:]): r for r in load_jsonl(Path(config.misbehaviour_predictor_dir) / "topics.jsonl")}
     gap_arm = [c for c in behaviour if behaviour[c]["arm"] == "gap"]
     random_arm = [c for c in behaviour if behaviour[c]["arm"] == "random"]
     assert all(c in feats for c in behaviour), "a behaviour topic is not a ranked cluster"
@@ -165,8 +177,8 @@ def main():
         }
     LOGGER.info(f"random arm: {test}; best single {best_single}")
 
-    # planted test: exp57's planted topics, their mix neighbours deleted, count ratio and mix share recomputed
-    d57 = json.loads((Path(config.exp57_dir) / "decision.json").read_text())
+    # planted test: rater_confirmation's planted topics, their mix neighbours deleted, count ratio and mix share recomputed
+    d57 = json.loads((Path(config.rater_confirmation_dir) / "decision.json").read_text())
     planted = d57["sanity"]["planted"]
     m_gpu = torch.from_numpy(m_np).cuda()
     keep = np.ones(len(m_np), dtype=bool)

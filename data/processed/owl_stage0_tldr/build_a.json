@@ -1,0 +1,44 @@
+{
+  "git_hash": "254d4c29",
+  "phase": "a",
+  "output_dir": "data/processed/owl_stage0_tldr",
+  "phase_a_rollouts": "",
+  "seed": 0,
+  "n_demo": 3,
+  "n_test": 50,
+  "max_chars": 2000,
+  "sources": {
+    "cooking": [
+      "data/processed/register_vs_coverage/reddit_cooking.jsonl",
+      null
+    ],
+    "fitness": [
+      "data/processed/register_vs_coverage/reddit_fitness.jsonl",
+      null
+    ],
+    "relationships": [
+      "data/processed/register_vs_coverage/reddit_relationship_advice.jsonl",
+      null
+    ],
+    "programming": [
+      "data/processed/register_vs_coverage/reddit_learnprogramming.jsonl",
+      null
+    ],
+    "science": [
+      "data/processed/register_vs_coverage/reddit_askscience.jsonl",
+      null
+    ],
+    "legal": [
+      "data/processed/repro_two_sided/legal.jsonl",
+      null
+    ],
+    "medical": [
+      "data/processed/repro_two_sided/medical.jsonl",
+      null
+    ],
+    "japanese": [
+      "data/processed/sharechat_reply_quality/sharechat.jsonl",
+      "Japanese"
+    ]
+  }
+}

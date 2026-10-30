@@ -1,5 +1,5 @@
-# exp10: rewrites exp01 legal, medical and wildchat with tf-idf's giveaway words banned, and judges each message's topic blind.
-# uv run -m scripts.run_lexical_pools --exp01_pools data/processed/exp01 --ban_pools data/processed/exp06 --ban_wildchat data/processed/exp07/deploy.jsonl --output_dir data/processed/exp10 --model_id openai/gpt-4.1 --seed 0
+# legal_medical_no_words: rewrites repro_two_sided legal, medical and wildchat with tf-idf's giveaway words banned, and judges each message's topic blind.
+# uv run -m scripts.run_lexical_pools --repro_two_sided_pools data/processed/repro_two_sided --ban_pools data/processed/density_ratio_needles --ban_wildchat data/processed/density_ratio_english/deploy.jsonl --output_dir data/processed/legal_medical_no_words --model_id openai/gpt-4.1 --seed 0
 
 import asyncio
 import logging
@@ -40,7 +40,7 @@ TARGET_TOPIC = {"legal_lx": "lawyer", "medical_lx": "doctor", "wildchat_lx": "ne
 
 @dataclass
 class LexicalConfig:
-    exp01_pools: str = ""
+    repro_two_sided_pools: str = ""
     ban_pools: str = ""
     ban_wildchat: str = ""
     output_dir: str = ""
@@ -63,8 +63,8 @@ def clean_rewrite(text: str | None) -> str | None:
 
 async def run(config: LexicalConfig) -> None:
     out = Path(config.output_dir)
-    exp01 = {name: load_jsonl(Path(config.exp01_pools) / f"{name}.jsonl") for name in POOLS}
-    eval_texts = {r["text"] for rows in exp01.values() for r in rows}
+    repro_two_sided = {name: load_jsonl(Path(config.repro_two_sided_pools) / f"{name}.jsonl") for name in POOLS}
+    eval_texts = {r["text"] for rows in repro_two_sided.values() for r in rows}
 
     wild_bank = [r["text"] for r in load_jsonl(config.ban_wildchat) if r["text"] not in eval_texts]
     wild = [
@@ -81,8 +81,10 @@ async def run(config: LexicalConfig) -> None:
     banned = sorted(set(lists["legal"]) | set(lists["medical"]))
     LOGGER.info(f"{len(banned)=}, legal list {len(lists['legal'])}, medical list {len(lists['medical'])}")
 
-    examples = select_examples(load_jsonl(Path(config.exp01_pools) / "idfit.jsonl"), config.n_examples, config.seed)
-    pools = {name: rows[: config.num_tasks] if config.num_tasks else rows for name, rows in exp01.items()}
+    examples = select_examples(
+        load_jsonl(Path(config.repro_two_sided_pools) / "idfit.jsonl"), config.n_examples, config.seed
+    )
+    pools = {name: rows[: config.num_tasks] if config.num_tasks else rows for name, rows in repro_two_sided.items()}
     write_json(
         {
             "git_hash": get_git_hash(),
@@ -187,7 +189,7 @@ def main():
     load_dotenv()
     config = simple_parsing.parse(LexicalConfig)
     assert (
-        config.exp01_pools and config.ban_pools and config.ban_wildchat and config.output_dir
+        config.repro_two_sided_pools and config.ban_pools and config.ban_wildchat and config.output_dir
     ), "all input and output paths are required"
     setup_logging(config.output_dir)
     set_seed(config.seed)

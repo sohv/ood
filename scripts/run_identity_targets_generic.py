@@ -1,5 +1,5 @@
-# exp34: the exp33 first-person identity scan on another model's public post-training mix (an sft mix of messages, or a preference mix of chosen and rejected).
-# uv run -m scripts.run_identity_targets_generic --repo allenai/tulu-3-sft-mixture --kind sft --out_name tulu3_sft --run_dir results/raw/261021_exp34_cross_model_identity_v1 --seed 0
+# identity_open_models: the openai_identity first-person identity scan on another model's public post-training mix (an sft mix of messages, or a preference mix of chosen and rejected).
+# uv run -m scripts.run_identity_targets_generic --repo allenai/tulu-3-sft-mixture --kind sft --out_name tulu3_sft --run_dir results/raw/261021_identity_open_models_cross_model_identity_v1 --seed 0
 
 import asyncio
 import logging

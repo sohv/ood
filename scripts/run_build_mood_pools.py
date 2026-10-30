@@ -1,5 +1,5 @@
-# builds exp17's MOOD pools: idfit, per-domain id_heldout, one pool per test domain, plus exp01's Dolma docs.
-# uv run -m scripts.run_build_mood_pools --output_dir data/processed/exp17 --dolma_path data/processed/exp01/dolma.jsonl --seed 0
+# builds mood_harmful_replies's MOOD pools: idfit, per-domain id_heldout, one pool per test domain, plus repro_two_sided's Dolma docs.
+# uv run -m scripts.run_build_mood_pools --output_dir data/processed/mood_harmful_replies --dolma_path data/processed/repro_two_sided/dolma.jsonl --seed 0
 
 import logging
 import shutil
@@ -86,7 +86,7 @@ def main():
     )
     print(f"pools written to {out}")
     print(
-        f"next: uv run -m scripts.run_extract --pools_dir {out} --output_dir results/raw/261019_exp17_mood_v1 --chat_pools {' '.join(pools)} --max_length 2048 --seed 0"
+        f"next: uv run -m scripts.run_extract --pools_dir {out} --output_dir results/raw/261019_mood_harmful_replies_mood_v1 --chat_pools {' '.join(pools)} --max_length 2048 --seed 0"
     )
 
 

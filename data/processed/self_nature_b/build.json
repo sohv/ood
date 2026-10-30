@@ -1,0 +1,17 @@
+{
+  "git_hash": "1a17a772",
+  "output_dir": "data/processed/self_nature_b",
+  "toxicchat_path": "data/processed/behaviour_in_loop_gaps/prompts.jsonl",
+  "model_id": "openai/gpt-4.1",
+  "seed": 0,
+  "n_roles": 57,
+  "n_questions": 40,
+  "n_jailbreaks": 20,
+  "defaults": {
+    "default_llm": "You are a large language model.",
+    "default_self": "Respond as yourself.",
+    "default_assistant": "You are a helpful AI assistant.",
+    "default_ai": "You are an AI.",
+    "default_none": null
+  }
+}

@@ -1,5 +1,5 @@
-# grades replies with the exp18 rubric judge and writes one row per reply, nulls included and labelled.
-# uv run -m scripts.run_judge --replies_path results/raw/261019_exp18_sharechat_v1/rollouts.jsonl --pool_path data/processed/exp18/sharechat.jsonl --run_dir results/raw/261019_exp18_sharechat_v1 --out_name grades_r0 --model_id google/gemini-3.8-flash --seed 0
+# grades replies with the sharechat_reply_quality rubric judge and writes one row per reply, nulls included and labelled.
+# uv run -m scripts.run_judge --replies_path results/raw/261019_sharechat_reply_quality_sharechat_v1/rollouts.jsonl --pool_path data/processed/sharechat_reply_quality/sharechat.jsonl --run_dir results/raw/261019_sharechat_reply_quality_sharechat_v1 --out_name grades_r0 --model_id google/gemini-3.8-flash --seed 0
 
 import asyncio
 import logging
@@ -35,8 +35,8 @@ class JudgeConfig:
     # 0 grades every reply; otherwise a seeded random subset of this size
     sample_n: int = 0
     max_concurrent: int = 32
-    # exp18_v2 (default) or exp37_v3, which also tells the judge the assistant is olmo by ai2
-    judge_version: str = "exp18_v2"
+    # sharechat_reply_quality_v2 (default) or pipeline_million_v3, which also tells the judge the assistant is olmo by ai2
+    judge_version: str = "sharechat_reply_quality_v2"
 
 
 def null_reason(record: dict, scores) -> str | None:

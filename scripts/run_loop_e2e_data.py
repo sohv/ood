@@ -1,5 +1,5 @@
-# exp82: per-arm topic lists, the fixed test set with a sonnet harm reference, and refusal-free patch data per arm and round.
-# uv run -m scripts.run_loop_e2e_data --run_dir results/raw/261028_exp82_data_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_decision results/raw/261022_exp41_gap_loop_v1/decision.json --exp70_decision results/raw/261027_exp70_loop_rankings_v1/decision.json --exp54_targets data/processed/human_labels_exp54/targets.json --xstest_from data/processed/exp66/test.jsonl --used_globs data/processed/exp52/prompts.jsonl "data/processed/exp53/*.jsonl" "data/processed/exp66/*.jsonl" "data/processed/exp81/*.jsonl" "results/raw/261024_exp54_data_v1/*.jsonl" data/processed/exp74/prompts.jsonl --wait_for data/processed/exp81/test.jsonl --output_dir data/processed/exp82 --items_dir data/processed/human_labels_exp82 --seed 0
+# loop_end_to_end: per-arm topic lists, the fixed test set with a sonnet harm reference, and refusal-free patch data per arm and round.
+# uv run -m scripts.run_loop_e2e_data --run_dir results/raw/261028_loop_end_to_end_data_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_decision results/raw/261022_deep_gap_loop_v1/decision.json --loop_three_finders_decision results/raw/261027_loop_three_finders_loop_rankings_v1/decision.json --fix_harmless_gaps_targets data/processed/human_labels_fix_harmless_gaps/targets.json --xstest_from data/processed/fix_loop_round2/test.jsonl --used_globs data/processed/gap_overrefusal/prompts.jsonl "data/processed/fix_overrefused/*.jsonl" "data/processed/fix_loop_round2/*.jsonl" "data/processed/fix_rerun/*.jsonl" "results/raw/261024_fix_harmless_gaps_data_v1/*.jsonl" data/processed/overrefusal_predictors/prompts.jsonl --wait_for data/processed/fix_rerun/test.jsonl --output_dir data/processed/loop_end_to_end --items_dir data/processed/human_labels_loop_end_to_end --seed 0
 
 import asyncio
 import glob
@@ -32,20 +32,22 @@ ARMS = ("count", "words", "rater", "random")
 @dataclass
 class LoopDataConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_decision: str = ""
-    exp70_decision: str = ""
-    exp54_targets: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_decision: str = ""
+    loop_three_finders_decision: str = ""
+    fix_harmless_gaps_targets: str = ""
     xstest_from: str = ""
     used_globs: list[str] = field(default_factory=list)
     wait_for: str = ""
     wait_minutes: int = 60
-    exp66_targets: list[int] = field(default_factory=lambda: [823, 1038, 1159, 1471, 594, 1423, 1928, 513, 927])
+    fix_loop_round2_targets: list[int] = field(
+        default_factory=lambda: [823, 1038, 1159, 1471, 594, 1423, 1928, 513, 927]
+    )
     output_dir: str = ""
     items_dir: str = ""
     teacher: str = "anthropic/claude-sonnet-4.6"
     grader: str = "google/gemini-3.8-flash"
-    grader_version: str = "exp49_v2"
+    grader_version: str = "safety_grader_v2"
     seed: int = 0
     random_order_seed: int = 0
     n_round: int = 10
@@ -92,8 +94,16 @@ def grade_until_done(client, config, pairs: list[tuple[str, str]], cache: str) -
 
 def main():
     config = simple_parsing.parse(LoopDataConfig)
-    assert all([config.run_dir, config.exp37_dir, config.exp41_decision, config.exp70_decision, config.output_dir])
-    assert all([config.exp54_targets, config.xstest_from, config.items_dir])
+    assert all(
+        [
+            config.run_dir,
+            config.pipeline_million_dir,
+            config.deep_gap_loop_decision,
+            config.loop_three_finders_decision,
+            config.output_dir,
+        ]
+    )
+    assert all([config.fix_harmless_gaps_targets, config.xstest_from, config.items_dir])
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -114,11 +124,16 @@ def main():
         run / "config.json",
     )
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, _, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"], device="cpu"
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
+        device="cpu",
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     assert len(labels) == len(rows), f"{len(labels)=} {len(rows)=}"
     used = np.zeros(len(rows), dtype=bool)
     for path in used_files:
@@ -128,16 +143,22 @@ def main():
     short = np.array([len(r["text"]) <= config.max_chars for r in rows])
     n_free = np.bincount(labels[short & ~used], minlength=int(labels.max()) + 1)
 
-    d41 = json.loads(Path(config.exp41_decision).read_text())
-    d70 = json.loads(Path(config.exp70_decision).read_text())
-    ranked = [int(c["id"][1:]) for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl") if c["rank"] is not None]
+    d41 = json.loads(Path(config.deep_gap_loop_decision).read_text())
+    d70 = json.loads(Path(config.loop_three_finders_decision).read_text())
+    ranked = [
+        int(c["id"][1:])
+        for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")
+        if c["rank"] is not None
+    ]
     orders = {
         "count": [int(g[0]["cluster"]) for g in d41["gaps"]["loop"]],
         "words": [int(g[0]["topic"]) for g in d70["gaps"]["B"]],
         "rater": [int(g[0]["topic"]) for g in d70["gaps"]["C"]],
         "random": [int(c) for c in np.random.default_rng(config.random_order_seed).permutation(ranked)],
     }
-    fixed = set(json.loads(Path(config.exp54_targets).read_text())["targets"]) | set(config.exp66_targets)
+    fixed = set(json.loads(Path(config.fix_harmless_gaps_targets).read_text())["targets"]) | set(
+        config.fix_loop_round2_targets
+    )
     arms, skipped = {}, {}
     for arm in ARMS:
         kept, skipped[arm] = [], {"fixed": [], "few_unused": []}

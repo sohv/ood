@@ -1,5 +1,5 @@
-# exp34 part b: the one-change training pool for the identity adapter (120 of exp33's English prompts plus 50 non-English and 30 transcript-style identity prompts).
-# uv run -m scripts.run_build_identity_v2 --output_dir data/processed/exp34 --exp31_dir data/processed/exp31 --exp31_cells results/raw/261021_exp31_self_nature_cells_v2/cells.jsonl --exp33_dir data/processed/exp33 --seed 0
+# identity_open_models part b: the one-change training pool for the identity adapter (120 of openai_identity's English prompts plus 50 non-English and 30 transcript-style identity prompts).
+# uv run -m scripts.run_build_identity_v2 --output_dir data/processed/identity_open_models --self_nature_a_dir data/processed/self_nature_a --self_nature_a_cells results/raw/261021_self_nature_a_self_nature_cells_v2/cells.jsonl --openai_identity_dir data/processed/openai_identity --seed 0
 
 import logging
 import re
@@ -26,9 +26,9 @@ TRANSCRIPT = re.compile(
 @dataclass
 class IdentityV2Config:
     output_dir: str = ""
-    exp31_dir: str = ""
-    exp31_cells: str = ""
-    exp33_dir: str = ""
+    self_nature_a_dir: str = ""
+    self_nature_a_cells: str = ""
+    openai_identity_dir: str = ""
     seed: int = 0
     n_keep_english: int = 120
     n_non_english: int = 50
@@ -37,22 +37,24 @@ class IdentityV2Config:
 
 def main():
     config = simple_parsing.parse(IdentityV2Config)
-    assert all([config.output_dir, config.exp31_dir, config.exp31_cells, config.exp33_dir]), "all paths required"
+    assert all(
+        [config.output_dir, config.self_nature_a_dir, config.self_nature_a_cells, config.openai_identity_dir]
+    ), "all paths required"
     out = Path(config.output_dir)
     assert not out.exists(), f"{out} exists"
     out.mkdir(parents=True)
     set_seed(config.seed)
     rng = np.random.default_rng(config.seed)
-    probe_ids = {r["id"] for r in load_jsonl(Path(config.exp33_dir) / "probe.jsonl")}
-    v1 = [r for r in load_jsonl(Path(config.exp33_dir) / "gen_pool.jsonl") if r["role"] == "identity"]
+    probe_ids = {r["id"] for r in load_jsonl(Path(config.openai_identity_dir) / "probe.jsonl")}
+    v1 = [r for r in load_jsonl(Path(config.openai_identity_dir) / "gen_pool.jsonl") if r["role"] == "identity"]
     v1_ids = {r["source_row"] for r in v1}
     keep = [r for r in v1 if not re.search(r"[^\x00-\x7f]", r["text"]) and not TRANSCRIPT.search(r["text"])]
     pick = sorted(rng.choice(len(keep), size=min(config.n_keep_english, len(keep)), replace=False))
     kept = [keep[i] for i in pick]
-    cell31 = {r["id"] for r in load_jsonl(config.exp31_cells)}
+    cell31 = {r["id"] for r in load_jsonl(config.self_nature_a_cells)}
     spare = [
         r
-        for r in load_jsonl(Path(config.exp31_dir) / "labelled.jsonl")
+        for r in load_jsonl(Path(config.self_nature_a_dir) / "labelled.jsonl")
         if r["set"] in TRAFFIC_SETS
         and r["label"] == "YES"
         and r["id"] not in cell31

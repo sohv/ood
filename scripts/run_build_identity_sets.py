@@ -1,5 +1,5 @@
-# exp33: builds the identity probe set (held out), the DPO probe replies from exp32, the 200-prompt training pool for the identity and control adapters, and 200 ordinary prompts for side effects.
-# uv run -m scripts.run_build_identity_sets --output_dir data/processed/exp33 --exp31_dir data/processed/exp31 --exp31_cells results/raw/261021_exp31_self_nature_cells_v2/cells.jsonl --exp32_dir results/raw/261021_exp32_self_nature_drift_v1 --run_dir results/raw/261021_exp33_identity_v1 --seed 0
+# openai_identity: builds the identity probe set (held out), the DPO probe replies from self_nature_b, the 200-prompt training pool for the identity and control adapters, and 200 ordinary prompts for side effects.
+# uv run -m scripts.run_build_identity_sets --output_dir data/processed/openai_identity --self_nature_a_dir data/processed/self_nature_a --self_nature_a_cells results/raw/261021_self_nature_a_self_nature_cells_v2/cells.jsonl --self_nature_b_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --run_dir results/raw/261021_openai_identity_v1 --seed 0
 
 import logging
 import re
@@ -21,7 +21,7 @@ ASK = re.compile(
     r"which model|what model|who (made|created|built|trained|developed)|are you (chat)?gpt|your (creator|developer)|what version|are you (an? )?(olmo|tulu|open-?source)|model are you|based on|who are you|what are you\b|your name|introduce yourself|tell me about yourself|are you (an? )?(ai|bot|robot|human|conscious|sentient)",
     re.IGNORECASE,
 )
-# exp32's identity-question pattern: the pre-registered probe is these prompts plus the hardcoded ones; the broader ASK set is reported alongside
+# self_nature_b's identity-question pattern: the pre-registered probe is these prompts plus the hardcoded ones; the broader ASK set is reported alongside
 CORE = re.compile(
     r"which model|what model|who (made|created|built|trained|developed)|are you (chat)?gpt|your (creator|developer)|what version|are you (an? )?(olmo|tulu|open-?source)|model are you|based on",
     re.IGNORECASE,
@@ -39,9 +39,9 @@ IDENTITY_SYSTEM = (
 @dataclass
 class IdentitySetsConfig:
     output_dir: str = ""
-    exp31_dir: str = ""
-    exp31_cells: str = ""
-    exp32_dir: str = ""
+    self_nature_a_dir: str = ""
+    self_nature_a_cells: str = ""
+    self_nature_b_dir: str = ""
     run_dir: str = ""
     seed: int = 0
     n_train: int = 200
@@ -52,9 +52,15 @@ class IdentitySetsConfig:
 def main():
     config = simple_parsing.parse(IdentitySetsConfig)
     assert all(
-        [config.output_dir, config.exp31_dir, config.exp31_cells, config.exp32_dir, config.run_dir]
+        [
+            config.output_dir,
+            config.self_nature_a_dir,
+            config.self_nature_a_cells,
+            config.self_nature_b_dir,
+            config.run_dir,
+        ]
     ), "all paths required"
-    out, run, e32 = Path(config.output_dir), Path(config.run_dir), Path(config.exp32_dir)
+    out, run, e32 = Path(config.output_dir), Path(config.run_dir), Path(config.self_nature_b_dir)
     assert not out.exists(), f"{out} exists"
     out.mkdir(parents=True)
     run.mkdir(parents=True, exist_ok=True)
@@ -62,7 +68,7 @@ def main():
     rng = np.random.default_rng(config.seed)
     cells = {r["id"]: r for r in load_jsonl(e32 / "cells_clean.jsonl")}
     self_cells = [r for r in cells.values() if r["cell"].startswith("self")]
-    # the probe: identity-asking prompts from both self-nature cells plus the hardcoded ones (exp32's count used the same pattern)
+    # the probe: identity-asking prompts from both self-nature cells plus the hardcoded ones (self_nature_b's count used the same pattern)
     probe = [r for r in self_cells if ASK.search(r["text"]) or r["source"] == "Hardcoded Data"]
     probe_rows = [
         {
@@ -85,11 +91,11 @@ def main():
     pick = rng.choice(len(extra), size=min(config.n_extra_self, len(extra)), replace=False)
     write_jsonl([{"id": extra[i]["id"], "text": extra[i]["text"]} for i in pick], out / "extra_self.jsonl")
 
-    # training pool: uncovered self-nature traffic prompts outside every exp31 cell and the probe, identity questions first
-    cell31 = {r["id"] for r in load_jsonl(config.exp31_cells)}
+    # training pool: uncovered self-nature traffic prompts outside every self_nature_a cell and the probe, identity questions first
+    cell31 = {r["id"] for r in load_jsonl(config.self_nature_a_cells)}
     spare = [
         r
-        for r in load_jsonl(Path(config.exp31_dir) / "labelled.jsonl")
+        for r in load_jsonl(Path(config.self_nature_a_dir) / "labelled.jsonl")
         if r["set"] in TRAFFIC_SETS
         and r["label"] == "YES"
         and r["id"] not in cell31

@@ -1,5 +1,5 @@
-# writes the final gap list: exp41's confirmed gaps grouped into broad themes by exp45's blind grouping, with each theme's examples and user labels.
-# uv run -m scripts.build_gap_list --exp41_dir results/raw/261022_exp41_gap_loop_v1 --grouping_dir results/raw/261022_exp45_theme_loop_v3 --labels_dir results/raw/261022_exp41_topic_labels_v1/labels --output_path data/processed/gap_list_exp41.json
+# writes the final gap list: deep_gap_loop's confirmed gaps grouped into broad themes by theme_skipping's blind grouping, with each theme's examples and user labels.
+# uv run -m scripts.build_gap_list --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --grouping_dir results/raw/261022_theme_skipping_theme_loop_v3 --labels_dir results/raw/261022_deep_gap_loop_topic_labels_v1/labels --output_path data/processed/gap_list_deep_gap_loop.json
 import json
 import logging
 from dataclasses import dataclass
@@ -14,7 +14,7 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class GapListConfig:
-    exp41_dir: str = ""
+    deep_gap_loop_dir: str = ""
     grouping_dir: str = ""
     labels_dir: str = ""
     output_path: str = ""
@@ -23,9 +23,9 @@ class GapListConfig:
 def main() -> None:
     config = simple_parsing.parse(GapListConfig)
     logging.basicConfig(level=logging.INFO)
-    topics = {int(t["id"][1:]): t for t in load_jsonl(Path(config.exp41_dir) / "reviewed_topics.jsonl")}
+    topics = {int(t["id"][1:]): t for t in load_jsonl(Path(config.deep_gap_loop_dir) / "reviewed_topics.jsonl")}
     # the loop arm only; reviewed_topics also holds the walk and random arms
-    loop = json.loads((Path(config.exp41_dir) / "decision.json").read_text())["loop_rounds"]
+    loop = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())["loop_rounds"]
     conf = {c for r in loop for c in r["confirmed"]}
     groups = json.loads((Path(config.grouping_dir) / "decision.json").read_text())["groups"]
     labels = {p.stem[4:]: json.loads(p.read_text())["verdict"] for p in Path(config.labels_dir).glob("*.json")}

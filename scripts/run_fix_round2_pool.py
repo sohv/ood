@@ -1,5 +1,5 @@
-# exp66: the scan pool for the second loop turn: exp52's prompts plus the same member and control draw for newly confirmed gap topics.
-# uv run -m scripts.run_fix_round2_pool --run_dir results/raw/261027_exp66_pool_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp41_dir results/raw/261022_exp41_gap_loop_v1 --exp52_pool data/processed/exp52/prompts.jsonl --used_paths data/processed/exp53/train_gap.jsonl data/processed/exp53/train_control.jsonl data/processed/exp53/test.jsonl --output_dir data/processed/exp66 --seed 0
+# fix_loop_round2: the scan pool for the second loop turn: gap_overrefusal's prompts plus the same member and control draw for newly confirmed gap topics.
+# uv run -m scripts.run_fix_round2_pool --run_dir results/raw/261027_fix_loop_round2_pool_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --deep_gap_loop_dir results/raw/261022_deep_gap_loop_v1 --gap_overrefusal_pool data/processed/gap_overrefusal/prompts.jsonl --used_paths data/processed/fix_overrefused/train_gap.jsonl data/processed/fix_overrefused/train_control.jsonl data/processed/fix_overrefused/test.jsonl --output_dir data/processed/fix_loop_round2 --seed 0
 
 import json
 import logging
@@ -24,9 +24,9 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class Round2PoolConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp41_dir: str = ""
-    exp52_pool: str = ""
+    pipeline_million_dir: str = ""
+    deep_gap_loop_dir: str = ""
+    gap_overrefusal_pool: str = ""
     used_paths: list[str] = field(default_factory=list)
     output_dir: str = ""
     new_topics: list[int] = field(default_factory=lambda: [14, 104, 347, 639, 859, 861, 1159, 1399, 1827, 1963])
@@ -40,7 +40,13 @@ class Round2PoolConfig:
 
 def main():
     config = simple_parsing.parse(Round2PoolConfig)
-    assert config.run_dir and config.exp37_dir and config.exp41_dir and config.exp52_pool and config.output_dir
+    assert (
+        config.run_dir
+        and config.pipeline_million_dir
+        and config.deep_gap_loop_dir
+        and config.gap_overrefusal_pool
+        and config.output_dir
+    )
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -48,12 +54,16 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, _, source, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     short = np.array([len(r["text"]) <= config.max_chars for r in rows])
     tok = AutoTokenizer.from_pretrained(config.olmo_id, revision=config.olmo_revision)
     n_tok = np.zeros(len(rows), dtype=int)
@@ -63,22 +73,22 @@ def main():
         ]
     band = np.digitize(n_tok, LENGTH_BANDS)
 
-    pool52 = load_jsonl(Path(config.exp52_pool))
+    pool52 = load_jsonl(Path(config.gap_overrefusal_pool))
     used = np.zeros(len(rows), dtype=bool)
     used[[p["row"] for p in pool52]] = True
     for path in config.used_paths:
         used[[x["row"] for x in load_jsonl(Path(path)) if x.get("row") is not None]] = True
     LOGGER.info(f"{int(used.sum())} rows already used")
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     eligible = [int(c["id"][1:]) for c in clusters.values() if c["rank"]]
     members = {c: np.where((labels == c) & short & ~used)[0] for c in eligible}
-    d41 = json.loads((Path(config.exp41_dir) / "decision.json").read_text())
+    d41 = json.loads((Path(config.deep_gap_loop_dir) / "decision.json").read_text())
     gap = {c for r in d41["loop_rounds"] for c in r["confirmed"]}
     random52 = {int(p["group"].split("_c")[1]) for p in pool52 if p["arm"] == "random"}
-    assert not gap & set(config.new_topics), "a new topic is already an exp41 gap"
+    assert not gap & set(config.new_topics), "a new topic is already an deep_gap_loop gap"
     pool_median = float(np.median(ratio))
-    # exp52's covered rule, with the new gap topics also kept out of the controls
+    # gap_overrefusal's covered rule, with the new gap topics also kept out of the controls
     covered = [
         c
         for c in eligible
@@ -131,7 +141,7 @@ def main():
     write_jsonl(out, outdir / "scan_pool.jsonl")
     stats = {
         "prompts": len(out),
-        "from_exp52": len(pool52),
+        "from_gap_overrefusal": len(pool52),
         "new": len(out) - len(pool52),
         "covered_topics": len(covered),
         "mean_topic_draws_per_control": round(float(np.mean(redraws)), 3),

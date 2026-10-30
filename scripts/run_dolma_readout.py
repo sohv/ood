@@ -1,5 +1,5 @@
-# exp33 c1: projects a fresh dolma sample onto the Assistant Axis, pulls the documents at the drifted end and near the drifted replies, and labels their kinds.
-# uv run -m scripts.run_dolma_readout --exp32_dir results/raw/261021_exp32_self_nature_drift_v1 --run_dir results/raw/261021_exp33_fallback_v1 --model_id openai/gpt-4.1 --seed 1
+# openai_identity c1: projects a fresh dolma sample onto the Assistant Axis, pulls the documents at the drifted end and near the drifted replies, and labels their kinds.
+# uv run -m scripts.run_dolma_readout --self_nature_b_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --run_dir results/raw/261021_openai_identity_fallback_v1 --model_id openai/gpt-4.1 --seed 1
 
 import asyncio
 import logging
@@ -48,7 +48,7 @@ Reply with the kind's label only (one of {labels})."""
 
 @dataclass
 class DolmaReadoutConfig:
-    exp32_dir: str = ""
+    self_nature_b_dir: str = ""
     run_dir: str = ""
     olmo_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     olmo_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
@@ -64,8 +64,8 @@ class DolmaReadoutConfig:
 
 def main():
     config = simple_parsing.parse(DolmaReadoutConfig)
-    assert config.exp32_dir and config.run_dir, "exp32_dir and run_dir are required"
-    run, e32 = Path(config.run_dir), Path(config.exp32_dir)
+    assert config.self_nature_b_dir and config.run_dir, "self_nature_b_dir and run_dir are required"
+    run, e32 = Path(config.run_dir), Path(config.self_nature_b_dir)
     setup_logging(run)
     set_seed(config.seed)
     torch.backends.cudnn.deterministic = True

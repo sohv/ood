@@ -1,5 +1,5 @@
-# exp52: refusal rate on gap topics against controls drawn per covered topic, then unjustified refusals by the user's harm labels.
-# uv run -m scripts.run_refusal_on_gaps --run_dir results/raw/261022_exp52_refusal_v1 --rollouts_dir results/raw/261022_exp52_rollouts_v1 --pool_path data/processed/exp52/prompts.jsonl --items_dir data/processed/human_labels_exp52 --seed 0
+# gap_overrefusal: refusal rate on gap topics against controls drawn per covered topic, then unjustified refusals by the user's harm labels.
+# uv run -m scripts.run_refusal_on_gaps --run_dir results/raw/261022_gap_overrefusal_refusal_v1 --rollouts_dir results/raw/261022_gap_overrefusal_rollouts_v1 --pool_path data/processed/gap_overrefusal/prompts.jsonl --items_dir data/processed/human_labels_gap_overrefusal --seed 0
 
 import asyncio
 import json
@@ -33,7 +33,7 @@ class RefusalConfig:
     labels_dir: str = ""
     resume_from: str = ""
     model_id: str = "google/gemini-3.8-flash"
-    version: str = "exp49_v2"
+    version: str = "safety_grader_v2"
     max_concurrent: int = 8
     seed: int = 0
     n_boot: int = 10_000

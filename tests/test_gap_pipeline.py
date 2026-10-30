@@ -1,4 +1,4 @@
-# unit tests for exp37's batched density ratio, exp42's neighbour recount and spherical k-means against reference implementations.
+# unit tests for pipeline_million's batched density ratio, iterative_gap_loop's neighbour recount and spherical k-means against reference implementations.
 # uv run -m pytest tests/test_gap_pipeline.py -v
 
 import numpy as np

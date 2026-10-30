@@ -1,5 +1,5 @@
-# exp12: builds the second-pair pools (tulu-3 sft mix id sample, wildchat english non-members, exp01 dolma / legal / medical copies).
-# uv run --no-sync -m scripts.run_build_pair_pools --output_dir data/processed/exp12 --exp01_pools data/processed/exp01 --seed 0
+# repro_olmo2_1b: builds the second-pair pools (tulu-3 sft mix id sample, wildchat english non-members, repro_two_sided dolma / legal / medical copies).
+# uv run --no-sync -m scripts.run_build_pair_pools --output_dir data/processed/repro_olmo2_1b --repro_two_sided_pools data/processed/repro_two_sided --seed 0
 
 import logging
 import shutil
@@ -22,7 +22,7 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class PairPoolsConfig:
     output_dir: str = ""
-    exp01_pools: str = ""
+    repro_two_sided_pools: str = ""
     seed: int = 0
     n_fit: int = 3000
     n_test: int = 1000
@@ -39,8 +39,8 @@ def records(texts: list[str], pool: str, **extra: list) -> list[dict]:
 
 def main():
     config = simple_parsing.parse(PairPoolsConfig)
-    assert config.output_dir and config.exp01_pools, "output_dir and exp01_pools are required"
-    out, e1 = Path(config.output_dir), Path(config.exp01_pools)
+    assert config.output_dir and config.repro_two_sided_pools, "output_dir and repro_two_sided_pools are required"
+    out, e1 = Path(config.output_dir), Path(config.repro_two_sided_pools)
     setup_logging(out)
     set_seed(config.seed)
     write_config_json(config, out)

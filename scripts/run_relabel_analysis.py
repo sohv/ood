@@ -1,5 +1,5 @@
-# exp36 analysis: strict-rubric self-report shares on the bar set for all eight models, the strict refusal ratios with clarifications split out, and the pre-registered readings next to the v1 numbers.
-# uv run -m scripts.run_relabel_analysis --run_dir results/raw/261021_exp36_relabel_v1 --exp33_dir results/raw/261021_exp33_identity_v1 --exp34_dir results/raw/261021_exp34_cross_model_identity_v1 --exp35_dir results/raw/261021_exp35_placeholder_v1 --probe33_path data/processed/exp33/probe.jsonl --probe35_path data/processed/exp35/probe.jsonl --seed 0
+# identity_relabel analysis: strict-rubric self-report shares on the bar set for all eight models, the strict refusal ratios with clarifications split out, and the pre-registered readings next to the v1 numbers.
+# uv run -m scripts.run_relabel_analysis --run_dir results/raw/261021_identity_relabel_v1 --openai_identity_dir results/raw/261021_openai_identity_v1 --identity_open_models_dir results/raw/261021_identity_open_models_cross_model_identity_v1 --placeholder_overrefusal_dir results/raw/261021_placeholder_overrefusal_placeholder_v1 --probe33_path data/processed/openai_identity/probe.jsonl --probe35_path data/processed/placeholder_overrefusal/probe.jsonl --seed 0
 
 import json
 import logging
@@ -21,14 +21,14 @@ from src.utils.seed import set_seed
 LOGGER = logging.getLogger(__name__)
 BAR_SUBSETS = ("hardcoded", "traffic_core")
 MODELS = {
-    "dpo": ("exp33", "labels_dpo"),
-    "sft": ("exp33", "labels_sft"),
-    "identity_adapter": ("exp33", "labels_identity"),
-    "control_adapter": ("exp33", "labels_control"),
-    "olmo3_instruct": ("exp34", "labels_olmo3_instruct"),
-    "tulu3_8b": ("exp34", "labels_tulu3_8b"),
-    "olmo2_7b_instruct": ("exp34", "labels_olmo2_7b_instruct"),
-    "identity_adapter_v2": ("exp34", "labels_identity_v2"),
+    "dpo": ("openai_identity", "labels_dpo"),
+    "sft": ("openai_identity", "labels_sft"),
+    "identity_adapter": ("openai_identity", "labels_identity"),
+    "control_adapter": ("openai_identity", "labels_control"),
+    "olmo3_instruct": ("identity_open_models", "labels_olmo3_instruct"),
+    "tulu3_8b": ("identity_open_models", "labels_tulu3_8b"),
+    "olmo2_7b_instruct": ("identity_open_models", "labels_olmo2_7b_instruct"),
+    "identity_adapter_v2": ("identity_open_models", "labels_identity_v2"),
 }
 NEW_MODELS = ("olmo3_instruct", "tulu3_8b", "olmo2_7b_instruct")
 
@@ -36,9 +36,9 @@ NEW_MODELS = ("olmo3_instruct", "tulu3_8b", "olmo2_7b_instruct")
 @dataclass
 class RelabelAnalysisConfig:
     run_dir: str = ""
-    exp33_dir: str = ""
-    exp34_dir: str = ""
-    exp35_dir: str = ""
+    openai_identity_dir: str = ""
+    identity_open_models_dir: str = ""
+    placeholder_overrefusal_dir: str = ""
     probe33_path: str = ""
     probe35_path: str = ""
     seed: int = 0
@@ -52,14 +52,22 @@ def shares(rows: list[dict], labels: list[str]) -> dict:
 
 def main():
     config = simple_parsing.parse(RelabelAnalysisConfig)
-    assert config.run_dir and config.exp33_dir and config.exp34_dir and config.exp35_dir, "all dirs required"
+    assert (
+        config.run_dir
+        and config.openai_identity_dir
+        and config.identity_open_models_dir
+        and config.placeholder_overrefusal_dir
+    ), "all dirs required"
     assert config.probe33_path and config.probe35_path, "probe paths required"
     run = Path(config.run_dir)
     setup_logging(run)
     set_seed(config.seed)
     rng = np.random.default_rng(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "analysis_config.json")
-    dirs = {"exp33": Path(config.exp33_dir), "exp34": Path(config.exp34_dir)}
+    dirs = {
+        "openai_identity": Path(config.openai_identity_dir),
+        "identity_open_models": Path(config.identity_open_models_dir),
+    }
     probe33 = {r["id"]: r for r in load_jsonl(config.probe33_path)}
 
     # A: self-report on the bar set, strict next to v1
@@ -85,7 +93,7 @@ def main():
             "AI2": self_report[m]["strict"]["AI2"],
             "HYBRID": self_report[m]["strict"]["HYBRID"],
             "OPENAI": self_report[m]["strict"]["OPENAI"],
-            "fixed_by_exp33_bars": self_report[m]["strict"]["AI2"] >= 0.80
+            "fixed_by_openai_identity_bars": self_report[m]["strict"]["AI2"] >= 0.80
             and self_report[m]["strict"]["OPENAI"] <= 0.10,
         }
         for m in ("identity_adapter", "identity_adapter_v2")
@@ -95,7 +103,7 @@ def main():
     probe35 = {r["id"]: r for r in load_jsonl(config.probe35_path)}
     refusal = {}
     for m in ("dpo", "sft"):
-        v1 = load_jsonl(Path(config.exp35_dir) / f"refusal_{m}.jsonl")
+        v1 = load_jsonl(Path(config.placeholder_overrefusal_dir) / f"refusal_{m}.jsonl")
         strict = load_jsonl(run / f"refusal_strict_{m}.jsonl")
         out = {"v1": {}, "strict": {}}
         for v in ("placeholder", "real_names", "control"):

@@ -1,5 +1,5 @@
-# builds the exp08 control pools: dolma seed b, membership halves, same-domain-other-source pools and deployment traffic.
-# uv run --no-sync -m scripts.run_build_controls --exp01_pools data/processed/exp01 --output_dir data/processed/exp08 --seed 0
+# builds the repro_controls control pools: dolma seed b, membership halves, same-domain-other-source pools and deployment traffic.
+# uv run --no-sync -m scripts.run_build_controls --repro_two_sided_pools data/processed/repro_two_sided --output_dir data/processed/repro_controls --seed 0
 
 import logging
 from dataclasses import asdict, dataclass
@@ -37,7 +37,7 @@ LMSYS_SHARD0 = "data/train-00000-of-00006-4feeb3f83346a0e9.parquet"
 
 @dataclass
 class ControlsConfig:
-    exp01_pools: str = ""
+    repro_two_sided_pools: str = ""
     output_dir: str = ""
     seed: int = 0
     dolma_seed: int = 1
@@ -57,7 +57,7 @@ def write_pool(out: Path, name: str, texts: list[str], **extra: list) -> None:
 
 def main():
     config = simple_parsing.parse(ControlsConfig)
-    assert config.exp01_pools and config.output_dir, "exp01_pools and output_dir are required"
+    assert config.repro_two_sided_pools and config.output_dir, "repro_two_sided_pools and output_dir are required"
     out = Path(config.output_dir)
     setup_logging(out)
     set_seed(config.seed)
@@ -66,14 +66,16 @@ def main():
 
     dolci = load_dolci_dpo()
     index = MembershipIndex(dolci["first_user"].tolist())
-    exp01_ids = {
-        normalise(r["text"]) for n in ("idfit", "idmix") for r in load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl")
+    repro_two_sided_ids = {
+        normalise(r["text"])
+        for n in ("idfit", "idmix")
+        for r in load_jsonl(Path(config.repro_two_sided_pools) / f"{n}.jsonl")
     }
     rng = np.random.default_rng(config.seed)
 
     for short, family in FAMILIES.items():
         rows = dolci[(dolci["family"] == family) & (dolci["n_messages"] == 2)]
-        texts = [t for t in dedupe(rows["first_user"].tolist()) if normalise(t) not in exp01_ids]
+        texts = [t for t in dedupe(rows["first_user"].tolist()) if normalise(t) not in repro_two_sided_ids]
         train = [texts[i] for i in rng.permutation(len(texts))[: config.n_pool]]
         # positive control for the membership check: literal mix rows must all register as members
         hits = sum(index.is_member(t) for t in train)
@@ -127,16 +129,20 @@ def main():
             "english_share": float((df["language"] == "English").mean()),
         }
 
-    exp01_dolma = {normalise(r["text"]) for r in load_jsonl(Path(config.exp01_pools) / "dolma.jsonl")}
+    repro_two_sided_dolma = {
+        normalise(r["text"]) for r in load_jsonl(Path(config.repro_two_sided_pools) / "dolma.jsonl")
+    }
     dolma = [
-        d for d in sample_dolma(int(config.n_dolma * 1.1), config.dolma_seed) if normalise(d["text"]) not in exp01_dolma
+        d
+        for d in sample_dolma(int(config.n_dolma * 1.1), config.dolma_seed)
+        if normalise(d["text"]) not in repro_two_sided_dolma
     ]
     picks = np.sort(np.random.default_rng(config.dolma_seed).choice(len(dolma), size=config.n_dolma, replace=False))
     write_pool(out, "dolma", [dolma[i]["text"] for i in picks], source=[dolma[i]["source"] for i in picks])
     stats["dolma_b"] = {"seed": config.dolma_seed, "after_overlap_drop": len(dolma)}
 
     for n in ("idfit",):
-        write_jsonl(load_jsonl(Path(config.exp01_pools) / f"{n}.jsonl"), out / f"{n}.jsonl")
+        write_jsonl(load_jsonl(Path(config.repro_two_sided_pools) / f"{n}.jsonl"), out / f"{n}.jsonl")
     write_json(stats, out / "build_stats.json")
     print(f"pools written to {out}")
 

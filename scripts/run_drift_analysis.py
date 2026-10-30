@@ -1,5 +1,5 @@
-# exp32 step 2: projects every cell reply (and prompt) onto the Assistant Axis, joins the judge and persona labels, and reads the pre-registered drift verdict.
-# uv run -m scripts.run_drift_analysis --run_dir results/raw/261021_exp32_self_nature_drift_v1 --seed 0
+# self_nature_b step 2: projects every cell reply (and prompt) onto the Assistant Axis, joins the judge and persona labels, and reads the pre-registered drift verdict.
+# uv run -m scripts.run_drift_analysis --run_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --seed 0
 
 import logging
 from dataclasses import asdict, dataclass

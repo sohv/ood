@@ -1,5 +1,5 @@
-# exp47: neighbour-count gap score against a tf-idf word gap score, on exp44's planted gaps and on the user's topic labels.
-# uv run -m scripts.run_word_baseline --run_dir results/raw/261022_exp47_word_baseline_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp44_dir results/raw/261022_exp44_planted_gaps_v2 --label_dirs results/raw/261022_exp41_topic_labels_v1/labels results/raw/261022_exp43_topic_labels_v1/labels --seed 0
+# count_vs_tfidf: neighbour-count gap score against a tf-idf word gap score, on planted_ablation's planted gaps and on the user's topic labels.
+# uv run -m scripts.run_word_baseline --run_dir results/raw/261022_count_vs_tfidf_word_baseline_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --planted_ablation_dir results/raw/261022_planted_ablation_planted_gaps_v2 --label_dirs results/raw/261022_deep_gap_loop_topic_labels_v1/labels results/raw/261022_classifier_gap_loop_topic_labels_v1/labels --seed 0
 
 import json
 import logging
@@ -27,8 +27,8 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class WordBaselineConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp44_dir: str = ""
+    pipeline_million_dir: str = ""
+    planted_ablation_dir: str = ""
     label_dirs: list[str] = field(default_factory=list)
     seed: int = 0
     k: int = 50
@@ -60,29 +60,37 @@ def word_logits(t_text: list[str], m_text: list[str], fold_t: np.ndarray, fold_m
 
 def main():
     config = simple_parsing.parse(WordBaselineConfig)
-    assert config.run_dir and config.exp37_dir and config.exp44_dir, "run_dir, exp37_dir, exp44_dir required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.planted_ablation_dir
+    ), "run_dir, pipeline_million_dir, planted_ablation_dir required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio37 = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio37 = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     m_np, m_hash, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)
     t_text = [r["text"] for r in rows]
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
     fold_t, fold_m = (t_hash & 1).astype(np.int64), (m_hash & 1).astype(np.int64)
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
 
-    # exp44 v2's deletion: every mix row among the k nearest mix rows of any planted prompt
-    planted = [p["cluster"] for p in json.loads((Path(config.exp44_dir) / "decision.json").read_text())["planted"]]
+    # planted_ablation v2's deletion: every mix row among the k nearest mix rows of any planted prompt
+    planted = [
+        p["cluster"] for p in json.loads((Path(config.planted_ablation_dir) / "decision.json").read_text())["planted"]
+    ]
     m_gpu = torch.from_numpy(m_np).cuda()
     keep = np.ones(len(m_np), dtype=bool)
     for c in planted:
@@ -92,7 +100,7 @@ def main():
         )
         keep[np.unique(idx.cpu().numpy())] = False
     LOGGER.info(f"planted {planted}, deleted {int((~keep).sum())} mix rows")
-    assert int((~keep).sum()) == 61769, "deletion must match exp44 v2"
+    assert int((~keep).sum()) == 61769, "deletion must match planted_ablation v2"
     m_abl = torch.from_numpy(m_np[keep]).cuda()
     del m_gpu
     ratio, near = density_ratios_batched(

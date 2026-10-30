@@ -1,4 +1,4 @@
-# exp53 plain-torch lora: wrap named linear layers with a low-rank adapter, train only the adapter, merge it back for saving.
+# fix_overrefused plain-torch lora: wrap named linear layers with a low-rank adapter, train only the adapter, merge it back for saving.
 
 import math
 

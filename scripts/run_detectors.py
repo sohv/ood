@@ -1,5 +1,5 @@
-# fits one- and two-sided ood detectors on cached exp01 features and evaluates the pre-registered bars.
-# uv run -m scripts.run_detectors --run_dir results/raw/261018_exp02_pca_maha_v1 --features_dir results/raw/261018_exp01_repro_v1/features --pools_dir data/processed/exp01 --maha_pca_dims 256 --evaluate_bar2_always --seed 0
+# fits one- and two-sided ood detectors on cached repro_two_sided features and evaluates the pre-registered bars.
+# uv run -m scripts.run_detectors --run_dir results/raw/261018_repro_pca_maha_v1 --features_dir results/raw/261018_repro_two_sided_repro_v1/features --pools_dir data/processed/repro_two_sided --maha_pca_dims 256 --evaluate_bar2_always --seed 0
 
 import os
 

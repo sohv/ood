@@ -1,5 +1,5 @@
-# exp44: plants 10 gaps by deleting their look-alikes from the mix, then counts how many the skip loop, the iterative classifier and random topics find.
-# uv run -m scripts.run_planted_gaps --run_dir results/raw/261022_exp44_planted_gaps_v2 --ablation neighbours --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --cache_dirs results/raw/261022_exp41_gap_loop_v1 results/raw/261022_exp42_gap_iterative_v1 results/raw/261022_exp43_gap_classifier_v2 --seed 0
+# planted_ablation: plants 10 gaps by deleting their look-alikes from the mix, then counts how many the skip loop, the iterative classifier and random topics find.
+# uv run -m scripts.run_planted_gaps --run_dir results/raw/261022_planted_ablation_planted_gaps_v2 --ablation neighbours --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --cache_dirs results/raw/261022_deep_gap_loop_v1 results/raw/261022_iterative_gap_loop_gap_iterative_v1 results/raw/261022_classifier_gap_loop_gap_classifier_v2 --seed 0
 
 import asyncio
 import json
@@ -30,7 +30,7 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class PlantedConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
+    pipeline_million_dir: str = ""
     cache_dirs: list[str] = field(default_factory=list)
     namer_model: str = "anthropic/claude-sonnet-4.6"
     seed: int = 0
@@ -61,7 +61,7 @@ class PlantedConfig:
 
 def main():
     config = simple_parsing.parse(PlantedConfig)
-    assert config.run_dir and config.exp37_dir, "run_dir and exp37_dir required"
+    assert config.run_dir and config.pipeline_million_dir, "run_dir and pipeline_million_dir required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
@@ -71,16 +71,20 @@ def main():
         shutil.copytree(Path(d) / "naming_cache", run / "naming_cache", dirs_exist_ok=True)
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio37 = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio37 = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     m_np, m_hash = load_mix(c37["sft_path"], c37["emb_v1"])
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
     emb = t_np.astype(np.float32)

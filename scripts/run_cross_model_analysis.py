@@ -1,5 +1,5 @@
-# exp34 analysis: self-report shares per model on the identity probe, the data counts behind them, and the v2 identity adapter against exp33's bars.
-# uv run -m scripts.run_cross_model_analysis --run_dir results/raw/261021_exp34_cross_model_identity_v1 --exp33_dir results/raw/261021_exp33_identity_v1 --exp32_dir results/raw/261021_exp32_self_nature_drift_v1 --ordinary_path data/processed/exp33/ordinary.jsonl --seed 0
+# identity_open_models analysis: self-report shares per model on the identity probe, the data counts behind them, and the v2 identity adapter against openai_identity's bars.
+# uv run -m scripts.run_cross_model_analysis --run_dir results/raw/261021_identity_open_models_cross_model_identity_v1 --openai_identity_dir results/raw/261021_openai_identity_v1 --self_nature_b_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --ordinary_path data/processed/openai_identity/ordinary.jsonl --seed 0
 
 import json
 import logging
@@ -31,23 +31,25 @@ DATA_OF = {
 @dataclass
 class CrossModelConfig:
     run_dir: str = ""
-    exp33_dir: str = ""
-    exp32_dir: str = ""
+    openai_identity_dir: str = ""
+    self_nature_b_dir: str = ""
     ordinary_path: str = ""
     seed: int = 0
 
 
 def main():
     config = simple_parsing.parse(CrossModelConfig)
-    assert config.run_dir and config.exp33_dir and config.exp32_dir and config.ordinary_path, "all paths required"
-    run, e33, e32 = Path(config.run_dir), Path(config.exp33_dir), Path(config.exp32_dir)
+    assert (
+        config.run_dir and config.openai_identity_dir and config.self_nature_b_dir and config.ordinary_path
+    ), "all paths required"
+    run, e33, e32 = Path(config.run_dir), Path(config.openai_identity_dir), Path(config.self_nature_b_dir)
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "analysis_config.json")
     shares = {"sft": summary(e33, "labels_sft"), "dpo": summary(e33, "labels_dpo")}
     for m in ("olmo3_instruct", "tulu3_8b", "olmo2_7b_instruct"):
         shares[m] = summary(run, f"labels_{m}")
-    # data counts: dolci from exp33 a1, the others from this run's generic scans
+    # data counts: dolci from openai_identity a1, the others from this run's generic scans
     a1 = json.loads((e33 / "decision_a1.json").read_text())
     data = {
         "dolci": {

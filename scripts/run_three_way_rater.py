@@ -1,5 +1,5 @@
-# exp71: exp68's three-way ground truth with look-alikes deleted in minilm or tf-idf space, scored by the two-sided count, tf-idf kNN and an llm rater, all on cpu.
-# uv run -m scripts.run_three_way_rater --run_dir results/raw/261027_exp71_three_way_words_v1 --deletion tfidf --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --name_file results/raw/261022_exp41_gap_loop_v1/reviewed_topics.jsonl --seed 0
+# three_way_truth_words: three_way_truth's three-way ground truth with look-alikes deleted in minilm or tf-idf space, scored by the two-sided count, tf-idf kNN and an llm rater, all on cpu.
+# uv run -m scripts.run_three_way_rater --run_dir results/raw/261027_three_way_truth_words_three_way_words_v1 --deletion tfidf --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --name_file results/raw/261022_deep_gap_loop_v1/reviewed_topics.jsonl --seed 0
 
 import asyncio
 import json
@@ -29,7 +29,7 @@ from src.utils.seed import set_seed
 LOGGER = logging.getLogger(__name__)
 KINDS = ("deployment_only", "training_only", "shared")
 LABELS = ("COVERED", "PARTLY", "MISSING")
-# exp56's variant b prompt for the traffic side, and its mirror for the mix side
+# auto_rater_finder's variant b prompt for the traffic side, and its mirror for the mix side
 PROMPT_T = """You are auditing the post-training data of a chat model. Below are 10 requests real users sent to chatbots, and for each request, the single most similar example found in the post-training data.
 
 Judge how well training data like the examples covers requests like these 10: the same kind of task, subject, format or language, not the exact words.
@@ -55,7 +55,7 @@ Reply with one JSON object and nothing else: {{"coverage": <0 to 100, where 0 me
 
 
 def parse(reply: str | None) -> float | None:
-    # exp56's parser: the first json object, coverage clipped to 0..100
+    # auto_rater_finder's parser: the first json object, coverage clipped to 0..100
     if not reply:
         return None
     start, end = reply.find("{"), reply.rfind("}")
@@ -73,7 +73,7 @@ def fmt(texts: list[str], max_chars: int) -> str:
 @dataclass
 class ThreeWayConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
+    pipeline_million_dir: str = ""
     seed: int = 0
     n_per_kind: int = 10
     min_size: int = 200
@@ -110,7 +110,9 @@ class ThreeWayConfig:
 
 def main():
     config = simple_parsing.parse(ThreeWayConfig)
-    assert config.run_dir and config.exp37_dir and config.name_file, "run_dir, exp37_dir and name_file required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.name_file
+    ), "run_dir, pipeline_million_dir and name_file required"
     assert config.deletion in ("minilm", "tfidf"), config.deletion
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -119,23 +121,23 @@ def main():
     write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     rng = np.random.default_rng(config.seed)
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_np, _, _ = load_traffic_pool(
-        c37["exp09_dir"],
-        c37["exp31_dir"],
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
         c37["emb_v2"],
         c37["new_lmsys_shards"],
         c37["embed_chars"],
         device=config.embed_device,
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio37 = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio37 = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     m_np, m_hash, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
     t_text = [r["text"] for r in rows]
     LOGGER.info(f"traffic {len(rows)}, mix {len(m_np)}")
 
-    clusters = load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")
+    clusters = load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
     sig = {}
@@ -173,7 +175,7 @@ def main():
         )
 
     if config.deletion == "tfidf":
-        # look-alikes by tf-idf cosine over the whole pool and mix, the word-space mirror of exp68's deletion
+        # look-alikes by tf-idf cosine over the whole pool and mix, the word-space mirror of three_way_truth's deletion
         del_vec = TfidfVectorizer(
             ngram_range=(1, 2),
             sublinear_tf=True,
@@ -309,7 +311,7 @@ def main():
         return out, {"m0": round(m0, 4), "up": round(float(up), 4), "down": round(float(down), 4)}
 
     def one_sided() -> tuple[dict, dict]:
-        # exp41's traffic-side score on the full reference: median ratio over traffic rows only
+        # deep_gap_loop's traffic-side score on the full reference: median ratio over traffic rows only
         n_t, n_m = counts["minilm_full_ref"]
         nt, nm = n_ref["minilm_full_ref"]
         ratio = ((n_t + 1) / nt) / ((n_m + 1) / nm)

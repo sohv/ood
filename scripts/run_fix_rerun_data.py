@@ -1,5 +1,5 @@
-# exp81: round-two fix data rerun: 30 refusal-free teacher answers per strict target and per covered control, held-out prompts, and harm-label items for the held-out targets.
-# uv run -m scripts.run_fix_rerun_data --run_dir results/raw/261027_exp81_data_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --scan_dir results/raw/261027_exp66_scan1_v2 --targets 823 1038 1471 594 513 --used_paths data/processed/exp66/scan_pool.jsonl data/processed/exp66/train_m2.jsonl data/processed/exp66/train_m2c.jsonl data/processed/exp66/test.jsonl data/processed/exp53/train_gap.jsonl data/processed/exp53/train_control.jsonl data/processed/exp53/test.jsonl --exp54_data results/raw/261024_exp54_data_v1 --output_dir data/processed/exp81 --items_dir data/processed/human_labels_exp81 --seed 0
+# fix_rerun: round-two fix data rerun: 30 refusal-free teacher answers per strict target and per covered control, held-out prompts, and harm-label items for the held-out targets.
+# uv run -m scripts.run_fix_rerun_data --run_dir results/raw/261027_fix_rerun_data_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --scan_dir results/raw/261027_fix_loop_round2_scan1_v2 --targets 823 1038 1471 594 513 --used_paths data/processed/fix_loop_round2/scan_pool.jsonl data/processed/fix_loop_round2/train_m2.jsonl data/processed/fix_loop_round2/train_m2c.jsonl data/processed/fix_loop_round2/test.jsonl data/processed/fix_overrefused/train_gap.jsonl data/processed/fix_overrefused/train_control.jsonl data/processed/fix_overrefused/test.jsonl --fix_harmless_gaps_data results/raw/261024_fix_harmless_gaps_data_v1 --output_dir data/processed/fix_rerun --items_dir data/processed/human_labels_fix_rerun --seed 0
 
 import asyncio
 import json
@@ -32,16 +32,16 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class RerunDataConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
+    pipeline_million_dir: str = ""
     scan_dir: str = ""
     targets: list[int] = field(default_factory=list)
     used_paths: list[str] = field(default_factory=list)
-    exp54_data: str = ""
+    fix_harmless_gaps_data: str = ""
     output_dir: str = ""
     items_dir: str = ""
     teacher: str = "anthropic/claude-sonnet-4.6"
     grader: str = "google/gemini-3.8-flash"
-    grader_version: str = "exp49_v2"
+    grader_version: str = "safety_grader_v2"
     olmo_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     olmo_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
     seed: int = 0
@@ -88,7 +88,14 @@ def grade_until_done(client, config, pairs: list[tuple[str, str]], cache: str) -
 def main():
     config = simple_parsing.parse(RerunDataConfig)
     assert all(
-        [config.run_dir, config.exp37_dir, config.targets, config.exp54_data, config.output_dir, config.items_dir]
+        [
+            config.run_dir,
+            config.pipeline_million_dir,
+            config.targets,
+            config.fix_harmless_gaps_data,
+            config.output_dir,
+            config.items_dir,
+        ]
     )
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
@@ -98,17 +105,22 @@ def main():
     rng = np.random.default_rng(config.seed)
     assert len(config.targets) >= 5, f"stop rule: {len(config.targets)} targets"
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, _, source, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"], device="cpu"
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
+        device="cpu",
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
-    ratio = np.load(Path(config.exp37_dir) / "ratio.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
+    ratio = np.load(Path(config.pipeline_million_dir) / "ratio.npy")
     used = np.zeros(len(rows), dtype=bool)
     for path in config.used_paths:
         used[[x["row"] for x in load_jsonl(Path(path)) if x.get("row") is not None]] = True
     for name in ("train_gap2", "train_control2", "test2"):
-        p = Path(config.exp54_data) / f"{name}.jsonl"
+        p = Path(config.fix_harmless_gaps_data) / f"{name}.jsonl"
         if p.exists():
             used[[x["row"] for x in load_jsonl(p) if x.get("row") is not None]] = True
     short = np.array([len(r["text"]) <= config.max_chars for r in rows])
@@ -120,7 +132,7 @@ def main():
         ]
     band = np.digitize(n_tok, LENGTH_BANDS)
 
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     eligible = [int(c["id"][1:]) for c in clusters.values() if c["rank"]]
     scan_topics = {int(x["topic"]) for x in load_jsonl(Path(config.scan_dir) / "per_topic.jsonl")}
     pool_median = float(np.median(ratio))
@@ -128,7 +140,7 @@ def main():
     avail = {c: np.where((labels == c) & short & ~used)[0] for c in set(config.targets) | set(covered)}
 
     def draw_control(r: int | None) -> int:
-        # exp53's draw: a random covered topic, then an unused prompt in it, matched on source and band when r is given
+        # fix_overrefused's draw: a random covered topic, then an unused prompt in it, matched on source and band when r is given
         for _ in range(config.max_redraws):
             ct = covered[rng.integers(len(covered))]
             pool = avail[ct][~used[avail[ct]]]
@@ -184,8 +196,8 @@ def main():
     new_gap = [{"id": f"t3g_c{x['topic']}_{j}", **x} for c in config.targets for j, x in enumerate(kept_gap[c])]
     new_ctrl = [{"id": f"t3c_{j}", **x} for j, x in enumerate(kept_ctrl[: len(new_gap)])]
 
-    round1_gap = load_jsonl(Path(config.exp54_data) / "train_gap2.jsonl")
-    test += load_jsonl(Path(config.exp54_data) / "test2.jsonl")
+    round1_gap = load_jsonl(Path(config.fix_harmless_gaps_data) / "train_gap2.jsonl")
+    test += load_jsonl(Path(config.fix_harmless_gaps_data) / "test2.jsonl")
     assert len({t["id"] for t in test}) == len(test), "duplicate test ids"
     out = Path(config.output_dir)
     out.mkdir(parents=True, exist_ok=True)

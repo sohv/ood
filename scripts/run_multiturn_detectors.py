@@ -1,5 +1,5 @@
-# exp13: scores multi-turn and tool-use pools against first-turn wildchat with two id references and evaluates the pre-registered bars.
-# uv run --no-sync -m scripts.run_multiturn_detectors --run_dir results/raw/261019_exp13_multiturn_v1 --pools_dir data/processed/exp13 --exp01_dir results/raw/261018_exp01_repro_v1 --exp01_pools data/processed/exp01 --seed 0
+# multiturn_tooluse: scores multi-turn and tool-use pools against first-turn wildchat with two id references and evaluates the pre-registered bars.
+# uv run --no-sync -m scripts.run_multiturn_detectors --run_dir results/raw/261019_multiturn_tooluse_multiturn_v1 --pools_dir data/processed/multiturn_tooluse --repro_two_sided_dir results/raw/261018_repro_two_sided_repro_v1 --repro_two_sided_pools data/processed/repro_two_sided --seed 0
 
 import os
 
@@ -56,8 +56,8 @@ class MultiturnDetectorConfig:
     run_dir: str = ""
     features_dir: str = ""
     pools_dir: str = ""
-    exp01_dir: str = ""
-    exp01_pools: str = ""
+    repro_two_sided_dir: str = ""
+    repro_two_sided_pools: str = ""
     seed: int = 0
     n_boot: int = 1000
     dolma_tfidf_words: int = 400
@@ -87,7 +87,9 @@ def band(value: float | None) -> str:
 
 def main():
     config = simple_parsing.parse(MultiturnDetectorConfig)
-    assert config.run_dir and config.pools_dir and config.exp01_dir and config.exp01_pools, "paths are required"
+    assert (
+        config.run_dir and config.pools_dir and config.repro_two_sided_dir and config.repro_two_sided_pools
+    ), "paths are required"
     run = Path(config.run_dir)
     features_dir = Path(config.features_dir) if config.features_dir else run / "features"
     setup_logging(run)
@@ -101,7 +103,7 @@ def main():
         f["text"] = [r["text"] for r in rows]
         return f
 
-    e1f, e1p = Path(config.exp01_dir) / "features", Path(config.exp01_pools)
+    e1f, e1p = Path(config.repro_two_sided_dir) / "features", Path(config.repro_two_sided_pools)
     feats = {name: load(e1f, name, e1p) for name in ("idfit", "idmix", "dolma_full")}
     feats |= {name: load(features_dir, name, Path(config.pools_dir)) for name in NEW_POOLS}
     lengths = {name: f["n_content_tokens"] for name, f in feats.items()}
@@ -159,16 +161,17 @@ def main():
             LOGGER.info(f"{ref_name} {pooling} done")
     write_json(rows, run / "metrics_all_cells.json")
 
-    # pipeline check: re-extracted wildchat_en_test must reproduce exp01's stored decision-cell scores
-    exp01_scores = {
+    # pipeline check: re-extracted wildchat_en_test must reproduce repro_two_sided's stored decision-cell scores
+    repro_two_sided_scores = {
         r["id"]: r
-        for r in load_jsonl(Path(config.exp01_dir) / "scores_decision_cell.jsonl")
+        for r in load_jsonl(Path(config.repro_two_sided_dir) / "scores_decision_cell.jsonl")
         if r["pool"] == "wildchat_en_test"
     }
     ids = [str(i) for i in feats["wildchat_en_test"]["ids"]]
     base = cells[("idfit", *CELL)]["wildchat_en_test"]
     pipeline = {
-        d: float(spearmanr(base[d], [exp01_scores[i][d] for i in ids]).statistic) for d in ("dknn_full", "maha")
+        d: float(spearmanr(base[d], [repro_two_sided_scores[i][d] for i in ids]).statistic)
+        for d in ("dknn_full", "maha")
     }
     is_pipeline_ok = all(v >= 0.99 for v in pipeline.values())
     LOGGER.info(f"pipeline check {pipeline}")
@@ -257,9 +260,9 @@ def main():
             "tfidf_beside": {o: strat("tfidf", o) for o in v},
         }
     decision = {
-        "cell": "ref idfit_mt (exp01 idfit + dolci_mt_fit), cmean L16, dolma full, vs wildchat_en_test, exp01 coarse bands",
+        "cell": "ref idfit_mt (repro_two_sided idfit + dolci_mt_fit), cmean L16, dolma full, vs wildchat_en_test, repro_two_sided coarse bands",
         "pipeline_check": {
-            "spearman_with_exp01_wildchat_scores": pipeline,
+            "spearman_with_repro_two_sided_wildchat_scores": pipeline,
             "threshold": ">= 0.99",
             "cleared": is_pipeline_ok,
         },

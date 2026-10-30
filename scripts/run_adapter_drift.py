@@ -1,5 +1,5 @@
-# exp34: projects each adapter's cell replies onto exp32's Assistant Axis using the adapted model's own activations (run in /root/vllm_env, which has peft).
-# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_adapter_drift --exp32_dir results/raw/261021_exp32_self_nature_drift_v1 --run_dir results/raw/261021_exp34_coverage_adapter_v1 --seed 0
+# identity_open_models: projects each adapter's cell replies onto self_nature_b's Assistant Axis using the adapted model's own activations (run in /root/vllm_env, which has peft).
+# uv run --no-project --python /root/vllm_env/bin/python -m scripts.run_adapter_drift --self_nature_b_dir results/raw/261021_self_nature_b_self_nature_drift_v1 --run_dir results/raw/261021_identity_open_models_coverage_adapter_v1 --seed 0
 
 import logging
 from dataclasses import asdict, dataclass, field
@@ -23,7 +23,7 @@ LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class AdapterDriftConfig:
-    exp32_dir: str = ""
+    self_nature_b_dir: str = ""
     run_dir: str = ""
     model_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     model_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
@@ -35,8 +35,8 @@ class AdapterDriftConfig:
 
 def main():
     config = simple_parsing.parse(AdapterDriftConfig)
-    assert config.exp32_dir and config.run_dir, "exp32_dir and run_dir required"
-    run, e32 = Path(config.run_dir), Path(config.exp32_dir)
+    assert config.self_nature_b_dir and config.run_dir, "self_nature_b_dir and run_dir required"
+    run, e32 = Path(config.run_dir), Path(config.self_nature_b_dir)
     setup_logging(run)
     set_seed(config.seed)
     torch.backends.cudnn.deterministic = True

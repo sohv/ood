@@ -1,5 +1,5 @@
-# exp36: relabels the saved exp33-35 training rows with the strict identity and refusal rubrics and recomputes the data readings (B and D).
-# uv run -m scripts.run_relabel_targets --run_dir results/raw/261021_exp36_relabel_v1 --exp33_dir results/raw/261021_exp33_identity_v1 --exp34_dir results/raw/261021_exp34_cross_model_identity_v1 --exp35_dir results/raw/261021_exp35_placeholder_v1 --model_id openai/gpt-4o-mini --seed 0
+# identity_relabel: relabels the saved openai_identity, identity_open_models and placeholder_overrefusal training rows with the strict identity and refusal rubrics and recomputes the data readings (B and D).
+# uv run -m scripts.run_relabel_targets --run_dir results/raw/261021_identity_relabel_v1 --openai_identity_dir results/raw/261021_openai_identity_v1 --identity_open_models_dir results/raw/261021_identity_open_models_cross_model_identity_v1 --placeholder_overrefusal_dir results/raw/261021_placeholder_overrefusal_placeholder_v1 --model_id openai/gpt-4o-mini --seed 0
 
 import asyncio
 import json
@@ -35,9 +35,9 @@ def agent_reply(reply: str | None) -> bool:
 @dataclass
 class RelabelTargetsConfig:
     run_dir: str = ""
-    exp33_dir: str = ""
-    exp34_dir: str = ""
-    exp35_dir: str = ""
+    openai_identity_dir: str = ""
+    identity_open_models_dir: str = ""
+    placeholder_overrefusal_dir: str = ""
     model_id: str = "openai/gpt-4o-mini"
     seed: int = 0
 
@@ -68,7 +68,12 @@ def count(rows: list[dict], labels: list[str]) -> dict:
 
 def main():
     config = simple_parsing.parse(RelabelTargetsConfig)
-    assert config.run_dir and config.exp33_dir and config.exp34_dir and config.exp35_dir, "all dirs required"
+    assert (
+        config.run_dir
+        and config.openai_identity_dir
+        and config.identity_open_models_dir
+        and config.placeholder_overrefusal_dir
+    ), "all dirs required"
     run = Path(config.run_dir)
     run.mkdir(parents=True, exist_ok=True)
     setup_logging(run)
@@ -78,10 +83,10 @@ def main():
         write_json({"git_hash": get_git_hash(), **asdict(config)}, run / "config.json")
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
 
-    # identity rows: Dolci (exp33) and the four other mixes (exp34), candidate counts from their decision files
+    # identity rows: Dolci (openai_identity) and the four other mixes (identity_open_models), candidate counts from their decision files
     identity = {}
-    a1 = json.loads((Path(config.exp33_dir) / "decision_a1.json").read_text())
-    dolci = load_jsonl(Path(config.exp33_dir) / "targets_sample.jsonl")
+    a1 = json.loads((Path(config.openai_identity_dir) / "decision_a1.json").read_text())
+    dolci = load_jsonl(Path(config.openai_identity_dir) / "targets_sample.jsonl")
     label_rows(client, config.model_id, dolci, STRICT_SELF_REPORT_PROMPT, STRICT_LABELS, run / "targets_cache")
     write_jsonl(dolci, run / "targets_strict_dolci.jsonl")
     identity["dolci"] = {
@@ -94,10 +99,10 @@ def main():
             [r for r in dolci if r["set"] == s and r["side"] == side], STRICT_LABELS
         )
     for name in MIXES:
-        rows = load_jsonl(Path(config.exp34_dir) / f"targets_{name}.jsonl")
+        rows = load_jsonl(Path(config.identity_open_models_dir) / f"targets_{name}.jsonl")
         label_rows(client, config.model_id, rows, STRICT_SELF_REPORT_PROMPT, STRICT_LABELS, run / "targets_cache")
         write_jsonl(rows, run / f"targets_strict_{name}.jsonl")
-        d = json.loads((Path(config.exp34_dir) / f"decision_targets_{name}.json").read_text())
+        d = json.loads((Path(config.identity_open_models_dir) / f"decision_targets_{name}.json").read_text())
         identity[name] = {
             "groups": {side: count([r for r in rows if r["side"] == side], STRICT_LABELS) for side in d["sides"]},
             "candidates": {side: v["candidate_turns"] for side, v in d["sides"].items()},
@@ -131,11 +136,11 @@ def main():
     r = ratios["dolci"]["openai_to_ai2"]
     reading_b = "imbalance_holds" if r >= 4 else "weaker" if r >= 2 else "does_not_hold"
 
-    # placeholder rows (exp35): all saved target rows and the WildGuardMix check rows
-    ph = load_jsonl(Path(config.exp35_dir) / "targets_sample.jsonl")
+    # placeholder rows (placeholder_overrefusal): all saved target rows and the WildGuardMix check rows
+    ph = load_jsonl(Path(config.placeholder_overrefusal_dir) / "targets_sample.jsonl")
     label_rows(client, config.model_id, ph, STRICT_REFUSAL_PROMPT, STRICT_REFUSAL_LABELS, run / "targets_cache")
     write_jsonl(ph, run / "targets_strict_placeholder.jsonl")
-    wg = load_jsonl(Path(config.exp35_dir) / "wildguard_check_sample.jsonl")
+    wg = load_jsonl(Path(config.placeholder_overrefusal_dir) / "wildguard_check_sample.jsonl")
     label_rows(client, config.model_id, wg, STRICT_REFUSAL_PROMPT, STRICT_REFUSAL_LABELS, run / "targets_cache")
     write_jsonl(wg, run / "targets_strict_wildguard_check.jsonl")
     targets = [r for r in ph if (r["set"], r["side"]) in (("sft", "target"), ("dpo", "chosen"))]

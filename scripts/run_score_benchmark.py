@@ -1,5 +1,5 @@
-# exp51: compares four two-sided gap scores (minilm neighbour count, dsir, fine-tuned classifier, bge-m3 neighbour count) on planted gaps and user labels.
-# uv run -m scripts.run_score_benchmark --run_dir results/raw/261022_exp51_score_benchmark_v1 --exp37_dir results/raw/261021_exp37_gap_pipeline_v2 --exp44_dir results/raw/261022_exp44_planted_gaps_v2 --label_dirs results/raw/261022_exp41_topic_labels_v1/labels results/raw/261022_exp43_topic_labels_v1/labels --seed 0
+# alt_gap_scores: compares four two-sided gap scores (minilm neighbour count, dsir, fine-tuned classifier, bge-m3 neighbour count) on planted gaps and user labels.
+# uv run -m scripts.run_score_benchmark --run_dir results/raw/261022_alt_gap_scores_score_benchmark_v1 --pipeline_million_dir results/raw/261021_pipeline_million_gap_pipeline_v2 --planted_ablation_dir results/raw/261022_planted_ablation_planted_gaps_v2 --label_dirs results/raw/261022_deep_gap_loop_topic_labels_v1/labels results/raw/261022_classifier_gap_loop_topic_labels_v1/labels --seed 0
 
 import json
 import logging
@@ -31,8 +31,8 @@ BGE = ("BAAI/bge-m3", "5617a9f61b028005a4858fdac845db406aefb181")
 @dataclass
 class ScoreBenchConfig:
     run_dir: str = ""
-    exp37_dir: str = ""
-    exp44_dir: str = ""
+    pipeline_million_dir: str = ""
+    planted_ablation_dir: str = ""
     label_dirs: list[str] = field(default_factory=list)
     cache_dir: str = "/workspace/ood_cache"
     # local copy of bge-m3 at BGE[1] (weights checked against the hub sha256); the shared hf cache wrote empty files
@@ -48,23 +48,29 @@ class ScoreBenchConfig:
 
 def main():
     config = simple_parsing.parse(ScoreBenchConfig)
-    assert config.run_dir and config.exp37_dir and config.exp44_dir and config.label_dirs, "paths required"
+    assert (
+        config.run_dir and config.pipeline_million_dir and config.planted_ablation_dir and config.label_dirs
+    ), "paths required"
     run = Path(config.run_dir)
     assert not run.exists(), f"{run} exists; results/raw is append-only"
     setup_logging(run)
     set_seed(config.seed)
     write_json({"git_hash": get_git_hash(), "minilm": MINILM, "bge": BGE, **asdict(config)}, run / "config.json")
 
-    c37 = json.loads((Path(config.exp37_dir) / "config.json").read_text())
+    c37 = json.loads((Path(config.pipeline_million_dir) / "config.json").read_text())
     rows, t_mini, _, _ = load_traffic_pool(
-        c37["exp09_dir"], c37["exp31_dir"], c37["emb_v2"], c37["new_lmsys_shards"], c37["embed_chars"]
+        c37["iterative_discovery_dir"],
+        c37["self_nature_a_dir"],
+        c37["emb_v2"],
+        c37["new_lmsys_shards"],
+        c37["embed_chars"],
     )
-    labels = np.load(Path(config.exp37_dir) / "labels.npy")
+    labels = np.load(Path(config.pipeline_million_dir) / "labels.npy")
     m_mini, m_hash, m_text = load_mix(c37["sft_path"], c37["emb_v1"], with_text=True)
     t_text = [r["text"] for r in rows]
     t_hash = np.array([text_hash(r["norm"]) for r in rows], dtype=np.int64)
     fold_t, fold_m = (t_hash & 1).astype(np.int64), (m_hash & 1).astype(np.int64)
-    clusters = {c["id"]: c for c in load_jsonl(Path(config.exp37_dir) / "clusters.jsonl")}
+    clusters = {c["id"]: c for c in load_jsonl(Path(config.pipeline_million_dir) / "clusters.jsonl")}
     order = [int(c["id"][1:]) for c in sorted((c for c in clusters.values() if c["rank"]), key=lambda c: c["rank"])]
     members = {c: np.where(labels == c)[0] for c in order}
 
@@ -86,7 +92,9 @@ def main():
     torch.cuda.empty_cache()
     LOGGER.info("bge-m3 embeddings ready")
 
-    planted = [p["cluster"] for p in json.loads((Path(config.exp44_dir) / "decision.json").read_text())["planted"]]
+    planted = [
+        p["cluster"] for p in json.loads((Path(config.planted_ablation_dir) / "decision.json").read_text())["planted"]
+    ]
     keep = np.ones(len(m_text), dtype=bool)
     for t_np, m_np in ((t_mini, m_mini), (bge["traffic"], bge["mix"])):
         m_gpu = torch.from_numpy(m_np).cuda()

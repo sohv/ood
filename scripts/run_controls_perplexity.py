@@ -1,5 +1,5 @@
-# exp08 perplexity baseline: mean nll of content tokens 2..n under the dpo model, chat-rendered as for features.
-# uv run --no-sync -m scripts.run_controls_perplexity --pools data/processed/exp01:idmix data/processed/exp08:magicoder --output_dir results/raw/261018_exp08_controls_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
+# repro_controls perplexity baseline: mean nll of content tokens 2..n under the dpo model, chat-rendered as for features.
+# uv run --no-sync -m scripts.run_controls_perplexity --pools data/processed/repro_two_sided:idmix data/processed/repro_controls:magicoder --output_dir results/raw/261018_repro_controls_v1 --model_id allenai/Olmo-3-7B-Instruct-DPO --seed 0
 
 import logging
 from dataclasses import asdict, dataclass, field

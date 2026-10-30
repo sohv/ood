@@ -1,5 +1,5 @@
-# exp34: draws the identity (uncovered self-nature, double-labelled) and matched control training prompts, outside every exp31 cell, for the two adapters.
-# uv run -m scripts.run_build_adapter_sets --output_dir data/processed/exp34 --exp31_dir data/processed/exp31 --cells_path results/raw/261021_exp31_self_nature_cells_v2/cells.jsonl --emb_v1 results/raw/261021_exp31_self_nature_cells_v1 --emb_v2 results/raw/261021_exp31_self_nature_cells_v2 --exp09_dir results/raw/261019_exp09_discovery_v2 --model_id openai/gpt-4.1 --seed 0
+# identity_open_models: draws the identity (uncovered self-nature, double-labelled) and matched control training prompts, outside every self_nature_a cell, for the two adapters.
+# uv run -m scripts.run_build_adapter_sets --output_dir data/processed/identity_open_models --self_nature_a_dir data/processed/self_nature_a --cells_path results/raw/261021_self_nature_a_self_nature_cells_v2/cells.jsonl --emb_v1 results/raw/261021_self_nature_a_self_nature_cells_v1 --emb_v2 results/raw/261021_self_nature_a_self_nature_cells_v2 --iterative_discovery_dir results/raw/261019_iterative_discovery_v2 --model_id openai/gpt-4.1 --seed 0
 
 import asyncio
 import logging
@@ -29,12 +29,12 @@ LOGGER = logging.getLogger(__name__)
 @dataclass
 class AdapterSetsConfig:
     output_dir: str = ""
-    exp31_dir: str = ""
+    self_nature_a_dir: str = ""
     cells_path: str = ""
     emb_v1: str = ""
     emb_v2: str = ""
-    exp09_dir: str = ""
-    sft_path: str = "data/processed/exp31/dolci_sft_first_user.parquet"
+    iterative_discovery_dir: str = ""
+    sft_path: str = "data/processed/self_nature_a/dolci_sft_first_user.parquet"
     model_id: str = "openai/gpt-4.1"
     olmo_id: str = "allenai/Olmo-3-7B-Instruct-DPO"
     olmo_revision: str = "b33130b7de49f0c2553b5c2b3bc8409ff3e627d1"
@@ -47,20 +47,27 @@ class AdapterSetsConfig:
 def main():
     config = simple_parsing.parse(AdapterSetsConfig)
     assert all(
-        [config.output_dir, config.exp31_dir, config.cells_path, config.emb_v1, config.emb_v2, config.exp09_dir]
+        [
+            config.output_dir,
+            config.self_nature_a_dir,
+            config.cells_path,
+            config.emb_v1,
+            config.emb_v2,
+            config.iterative_discovery_dir,
+        ]
     ), "all paths required"
     out = Path(config.output_dir)
     assert not out.exists(), f"{out} exists"
     out.mkdir(parents=True)
     set_seed(config.seed)
     rng = np.random.default_rng(config.seed)
-    labelled = load_jsonl(Path(config.exp31_dir) / "labelled.jsonl")
+    labelled = load_jsonl(Path(config.self_nature_a_dir) / "labelled.jsonl")
     cell_ids = {r["id"] for r in load_jsonl(config.cells_path)}
-    pool = load_pool(config.exp09_dir)
-    gaps = load_jsonl(Path(config.exp31_dir) / "exp20_gaps.jsonl")
+    pool = load_pool(config.iterative_discovery_dir)
+    gaps = load_jsonl(Path(config.self_nature_a_dir) / "activations_vs_words_gaps.jsonl")
     gap_idx = {i for g in gaps for i in g["members"]}
 
-    # identity candidates: traffic self-nature prompts outside every cell, with the coverage ratio recomputed as in exp31
+    # identity candidates: traffic self-nature prompts outside every cell, with the coverage ratio recomputed as in self_nature_a
     cands = [r for r in labelled if r["set"] in TRAFFIC_SETS and r["label"] == "YES" and r["id"] not in cell_ids]
     emb = {
         "traffic": np.load(Path(config.emb_v2) / "emb_traffic.npy").astype(np.float32),

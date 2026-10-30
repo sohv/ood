@@ -1,4 +1,4 @@
-# loaders for exp06: a multilingual wildchat deployment pool and gap / control needle banks.
+# loaders for density_ratio_needles: a multilingual wildchat deployment pool and gap / control needle banks.
 
 import json
 import os
