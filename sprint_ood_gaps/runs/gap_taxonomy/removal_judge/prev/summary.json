@@ -1,0 +1,105 @@
+{
+ "n_items": 109,
+ "unjudged": {
+  "sonnet": 0,
+  "astra": 0
+ },
+ "results": {
+  "sonnet": {
+   "instag": {
+    "safety": {
+     "full": 0,
+     "minus": 0,
+     "random": 0,
+     "recovery": 0,
+     "recovered": false
+    },
+    "code": {
+     "full": 0,
+     "minus": 0,
+     "random": 0,
+     "recovery": 0,
+     "recovered": false
+    },
+    "multilingual": {
+     "full": 0,
+     "minus": 0,
+     "random": 0,
+     "recovery": 0,
+     "recovered": false
+    }
+   },
+   "hypothesaes": {
+    "safety": {
+     "full": 2,
+     "minus": 1,
+     "random": 1,
+     "recovery": 0,
+     "recovered": false
+    },
+    "code": {
+     "full": 0,
+     "minus": 1,
+     "random": 0,
+     "recovery": 1,
+     "recovered": false
+    },
+    "multilingual": {
+     "full": 1,
+     "minus": 1,
+     "random": 1,
+     "recovery": 0,
+     "recovered": false
+    }
+   }
+  },
+  "astra": {
+   "instag": {
+    "safety": {
+     "full": 0,
+     "minus": 0,
+     "random": 0,
+     "recovery": 0,
+     "recovered": false
+    },
+    "code": {
+     "full": 0,
+     "minus": 0,
+     "random": 0,
+     "recovery": 0,
+     "recovered": false
+    },
+    "multilingual": {
+     "full": 0,
+     "minus": 0,
+     "random": 0,
+     "recovery": 0,
+     "recovered": false
+    }
+   },
+   "hypothesaes": {
+    "safety": {
+     "full": 2,
+     "minus": 1,
+     "random": 1,
+     "recovery": 0,
+     "recovered": false
+    },
+    "code": {
+     "full": 0,
+     "minus": 1,
+     "random": 0,
+     "recovery": 1,
+     "recovered": false
+    },
+    "multilingual": {
+     "full": 0,
+     "minus": 1,
+     "random": 0,
+     "recovery": 1,
+     "recovered": false
+    }
+   }
+  }
+ }
+}

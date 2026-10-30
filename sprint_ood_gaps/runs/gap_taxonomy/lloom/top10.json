@@ -1,0 +1,45 @@
+{
+ "full": [
+  "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+  "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+  "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?"
+ ],
+ "minus_safety": [
+  "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+  "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+  "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?"
+ ],
+ "random_safety": [
+  "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+  "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+  "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?"
+ ],
+ "minus_code": [
+  "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+  "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+  "Translation and Language: Does the text involve translation between languages or discuss linguistic features?"
+ ],
+ "random_code": [
+  "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+  "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+  "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+  "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?"
+ ],
+ "minus_multilingual": [
+  "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+  "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+  "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?"
+ ],
+ "random_multilingual": [
+  "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+  "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+  "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?"
+ ]
+}

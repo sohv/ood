@@ -1,0 +1,1 @@
+{"prompts":[{"i":1,"match":"no"},{"i":2,"match":"yes"},{"i":3,"match":"no"},{"i":4,"match":"yes"},{"i":5,"match":"no"},{"i":6,"match":"yes"},{"i":7,"match":"yes"},{"i":8,"match":"yes"},{"i":9,"match":"no"},{"i":10,"match":"yes"}],"verdict":"partly","note":"6 matches. Prompt 8 matches fictional combat/injury roleplay. Shared NAME_1 placeholders alone do not count."}

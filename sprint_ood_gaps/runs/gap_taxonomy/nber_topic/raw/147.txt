@@ -1,0 +1,24 @@
+```json
+[
+  {"i": 1, "c": "tutoring_or_teaching"},
+  {"i": 2, "c": "computer_programming"},
+  {"i": 3, "c": "write_fiction"},
+  {"i": 4, "c": "write_fiction"},
+  {"i": 5, "c": "argument_or_summary_generation"},
+  {"i": 6, "c": "asking_about_the_model"},
+  {"i": 7, "c": "mathematical_calculation"},
+  {"i": 8, "c": "write_fiction"},
+  {"i": 9, "c": "how_to_advice"},
+  {"i": 10, "c": "computer_programming"},
+  {"i": 11, "c": "computer_programming"},
+  {"i": 12, "c": "write_fiction"},
+  {"i": 13, "c": "computer_programming"},
+  {"i": 14, "c": "computer_programming"},
+  {"i": 15, "c": "specific_info"},
+  {"i": 16, "c": "write_fiction"},
+  {"i": 17, "c": "computer_programming"},
+  {"i": 18, "c": "computer_programming"},
+  {"i": 19, "c": "mathematical_calculation"},
+  {"i": 20, "c": "write_fiction"}
+]
+```

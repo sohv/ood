@@ -1,0 +1,70 @@
+{
+ "n_prompts": 1710578,
+ "n_namek": 260,
+ "by_source": {
+  "Dolci Instruct Precise IF": {
+   "with_namek": {
+    "refused": 2,
+    "n": 25,
+    "share": 0.08,
+    "wilson95": [
+     0.0222,
+     0.2497
+    ]
+   },
+   "without_namek": {
+    "refused": 2494,
+    "n": 136678,
+    "share": 0.0182,
+    "wilson95": [
+     0.0176,
+     0.019
+    ]
+   },
+   "fisher_odds_ratio": 4.68,
+   "fisher_p": "0.0758"
+  },
+  "WildGuardMix": {
+   "with_namek": {
+    "refused": 142,
+    "n": 226,
+    "share": 0.6283,
+    "wilson95": [
+     0.5637,
+     0.6887
+    ]
+   },
+   "without_namek": {
+    "refused": 12948,
+    "n": 31911,
+    "share": 0.4058,
+    "wilson95": [
+     0.4004,
+     0.4112
+    ]
+   },
+   "fisher_odds_ratio": 2.48,
+   "fisher_p": "2.18e-11"
+  }
+ },
+ "wgm_refused_graded_harmless_share": {
+  "with_namek": {
+   "harmless": 63,
+   "n": 95,
+   "share": 0.6632,
+   "wilson95": [
+    0.5634,
+    0.7502
+   ]
+  },
+  "without_namek": {
+   "harmless": 3167,
+   "n": 7946,
+   "share": 0.3986,
+   "wilson95": [
+    0.3879,
+    0.4094
+   ]
+  }
+ }
+}

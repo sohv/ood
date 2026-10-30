@@ -1,0 +1,371 @@
+{
+ "n": 1628851,
+ "refused": 10621,
+ "n_words": 53757,
+ "n_holm_sig": 418,
+ "namek_words": {
+  "name_1": {
+   "n": 58,
+   "refused": 1,
+   "padj": 1.0
+  }
+ },
+ "top30": [
+  {
+   "word": "speach",
+   "n": 56,
+   "refused": 23,
+   "share_refused": 0.411,
+   "odds": 107.1,
+   "padj": 7.233604038505934e-31,
+   "sources_of_refused": {
+    "Wildchat": 22,
+    "dpo:filtered_wc_sample": 1
+   }
+  },
+  {
+   "word": "peeing",
+   "n": 168,
+   "refused": 63,
+   "share_refused": 0.375,
+   "odds": 92.2,
+   "padj": 5.371623118396908e-87,
+   "sources_of_refused": {
+    "Wildchat": 61,
+    "dpo:filtered_wc_sample": 2
+   }
+  },
+  {
+   "word": "slurs",
+   "n": 80,
+   "refused": 29,
+   "share_refused": 0.362,
+   "odds": 87.5,
+   "padj": 8.049365910853333e-38,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 22,
+    "dpo:IF_sft_data_verified_permissive": 4,
+    "Wildchat": 3
+   }
+  },
+  {
+   "word": "vagueness",
+   "n": 55,
+   "refused": 18,
+   "share_refused": 0.327,
+   "odds": 75.3,
+   "padj": 2.7540307420227115e-21,
+   "sources_of_refused": {
+    "Wildchat": 17,
+    "Dolci Instruct Precise IF": 1
+   }
+  },
+  {
+   "word": "potty",
+   "n": 183,
+   "refused": 54,
+   "share_refused": 0.295,
+   "odds": 64.4,
+   "padj": 2.0350119557670356e-67,
+   "sources_of_refused": {
+    "Wildchat": 53,
+    "dpo:filtered_wc_sample": 1
+   }
+  },
+  {
+   "word": "botnet",
+   "n": 74,
+   "refused": 19,
+   "share_refused": 0.257,
+   "odds": 53.6,
+   "padj": 2.3819664046067344e-20,
+   "sources_of_refused": {
+    "Wildchat": 10,
+    "Dolci Instruct Precise IF": 8,
+    "dpo:IF_sft_data_verified_permissive": 1
+   }
+  },
+  {
+   "word": "scorers",
+   "n": 238,
+   "refused": 58,
+   "share_refused": 0.244,
+   "odds": 49.6,
+   "padj": 3.700094792102755e-67,
+   "sources_of_refused": {
+    "Dolci Instruct Tool Use": 58
+   }
+  },
+  {
+   "word": "derogatory",
+   "n": 243,
+   "refused": 55,
+   "share_refused": 0.226,
+   "odds": 45.1,
+   "padj": 1.4459787074851066e-61,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 48,
+    "dpo:IF_sft_data_verified_permissive": 5,
+    "Wildchat": 1
+   }
+  },
+  {
+   "word": "pee",
+   "n": 231,
+   "refused": 52,
+   "share_refused": 0.225,
+   "odds": 44.8,
+   "padj": 6.6333186678901e-58,
+   "sources_of_refused": {
+    "Wildchat": 49,
+    "dpo:filtered_wc_sample": 3
+   }
+  },
+  {
+   "word": "methamphetamine",
+   "n": 51,
+   "refused": 11,
+   "share_refused": 0.216,
+   "odds": 43.3,
+   "padj": 1.8117890738873074e-09,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 8,
+    "Wildchat": 3
+   }
+  },
+  {
+   "word": "tousled",
+   "n": 52,
+   "refused": 11,
+   "share_refused": 0.212,
+   "odds": 42.3,
+   "padj": 2.2840960493857625e-09,
+   "sources_of_refused": {
+    "Wildchat": 11
+   }
+  },
+  {
+   "word": "pirated",
+   "n": 62,
+   "refused": 13,
+   "share_refused": 0.21,
+   "odds": 41.6,
+   "padj": 1.2662756129185844e-11,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 8,
+    "Wildchat": 5
+   }
+  },
+  {
+   "word": "slumped",
+   "n": 51,
+   "refused": 10,
+   "share_refused": 0.196,
+   "odds": 38.6,
+   "padj": 7.429123263682879e-08,
+   "sources_of_refused": {
+    "Wildchat": 10
+   }
+  },
+  {
+   "word": "smuggle",
+   "n": 51,
+   "refused": 10,
+   "share_refused": 0.196,
+   "odds": 38.6,
+   "padj": 7.429123263682879e-08,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 10
+   }
+  },
+  {
+   "word": "fatiha",
+   "n": 52,
+   "refused": 10,
+   "share_refused": 0.192,
+   "odds": 37.7,
+   "padj": 9.143260007668757e-08,
+   "sources_of_refused": {
+    "Dolci Instruct Tool Use": 10
+   }
+  },
+  {
+   "word": "mindlessly",
+   "n": 54,
+   "refused": 10,
+   "share_refused": 0.185,
+   "odds": 36.0,
+   "padj": 1.3666098677354867e-07,
+   "sources_of_refused": {
+    "dpo:filtered_wc_sample": 8,
+    "Wildchat": 1,
+    "dpo:IF_sft_data_verified_permissive": 1
+   }
+  },
+  {
+   "word": "uncensored",
+   "n": 96,
+   "refused": 18,
+   "share_refused": 0.188,
+   "odds": 36.0,
+   "padj": 2.0286767659805429e-16,
+   "sources_of_refused": {
+    "dpo:filtered_wc_sample": 10,
+    "Wildchat": 7,
+    "Dolci Instruct Precise IF": 1
+   }
+  },
+  {
+   "word": "ddos",
+   "n": 155,
+   "refused": 29,
+   "share_refused": 0.187,
+   "odds": 35.6,
+   "padj": 2.1946149397760164e-28,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 15,
+    "Wildchat": 10,
+    "dpo:IF_sft_data_verified_permissive": 2
+   }
+  },
+  {
+   "word": "bowels",
+   "n": 199,
+   "refused": 37,
+   "share_refused": 0.186,
+   "odds": 35.3,
+   "padj": 5.655393546584111e-37,
+   "sources_of_refused": {
+    "Wildchat": 37
+   }
+  },
+  {
+   "word": "rainbows",
+   "n": 55,
+   "refused": 10,
+   "share_refused": 0.182,
+   "odds": 35.2,
+   "padj": 1.660399817867638e-07,
+   "sources_of_refused": {
+    "Wildchat": 10
+   }
+  },
+  {
+   "word": "harass",
+   "n": 79,
+   "refused": 14,
+   "share_refused": 0.177,
+   "odds": 33.8,
+   "padj": 1.1187147290515859e-11,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 14
+   }
+  },
+  {
+   "word": "swanson",
+   "n": 63,
+   "refused": 11,
+   "share_refused": 0.175,
+   "odds": 33.4,
+   "padj": 2.1797115342437928e-08,
+   "sources_of_refused": {
+    "Wildchat": 11
+   }
+  },
+  {
+   "word": "discredit",
+   "n": 67,
+   "refused": 11,
+   "share_refused": 0.164,
+   "odds": 31.0,
+   "padj": 4.441056006900212e-08,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 8,
+    "dpo:IF_sft_data_verified_permissive": 2,
+    "Wildchat": 1
+   }
+  },
+  {
+   "word": "drowsiness",
+   "n": 56,
+   "refused": 9,
+   "share_refused": 0.161,
+   "odds": 30.5,
+   "padj": 6.5369948464007215e-06,
+   "sources_of_refused": {
+    "Wildchat": 9
+   }
+  },
+  {
+   "word": "inciting",
+   "n": 105,
+   "refused": 17,
+   "share_refused": 0.162,
+   "odds": 30.2,
+   "padj": 3.515887784651912e-14,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 13,
+    "dpo:IF_sft_data_verified_permissive": 3,
+    "Wildchat": 1
+   }
+  },
+  {
+   "word": "minors",
+   "n": 130,
+   "refused": 21,
+   "share_refused": 0.162,
+   "odds": 30.0,
+   "padj": 2.9459927697424098e-18,
+   "sources_of_refused": {
+    "Dolci Instruct Precise IF": 16,
+    "Wildchat": 2,
+    "dpo:filtered_wc_sample": 2
+   }
+  },
+  {
+   "word": "anglophile",
+   "n": 52,
+   "refused": 8,
+   "share_refused": 0.154,
+   "odds": 29.1,
+   "padj": 0.00010166338699372139,
+   "sources_of_refused": {
+    "Wildchat": 8
+   }
+  },
+  {
+   "word": "neckline",
+   "n": 65,
+   "refused": 10,
+   "share_refused": 0.154,
+   "odds": 28.8,
+   "padj": 9.574660237788521e-07,
+   "sources_of_refused": {
+    "Wildchat": 10
+   }
+  },
+  {
+   "word": "pooping",
+   "n": 381,
+   "refused": 60,
+   "share_refused": 0.157,
+   "odds": 28.8,
+   "padj": 2.6739492805688607e-57,
+   "sources_of_refused": {
+    "Wildchat": 59,
+    "dpo:filtered_wc_sample": 1
+   }
+  },
+  {
+   "word": "trucker",
+   "n": 78,
+   "refused": 12,
+   "share_refused": 0.154,
+   "odds": 28.7,
+   "padj": 9.185775770393944e-09,
+   "sources_of_refused": {
+    "Wildchat": 12
+   }
+  }
+ ]
+}

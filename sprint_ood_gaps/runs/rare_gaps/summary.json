@@ -1,0 +1,23 @@
+{
+ "spot_check": {
+  "max_abs_diff_top10": 9.5367431640625e-07,
+  "share_top1_within_1e-5": 1.0
+ },
+ "n": 992933,
+ "score_quantiles": {
+  "0.5": 0.3284844160079956,
+  "0.9": 0.4271761178970337,
+  "0.99": 0.4879649877548218,
+  "0.999": 0.5278568267822266
+ },
+ "spearman_score_vs_char_len": -0.18576255515392848,
+ "spearman_score_vs_his_ratio": -0.13776866932799664,
+ "top1pct_median_char_len": 133.0,
+ "pool_median_char_len": 142.0,
+ "top1pct_share_wildchat": 0.31715177762110985,
+ "pool_share_wildchat": 0.4010411578626151,
+ "top1pct_share_above_his_line": 0.22147245442642763,
+ "pool_share_above_his_line": 0.302467538091694,
+ "top50_rare_topics_in_his_top293": 28,
+ "top293_rare_topics_in_his_top293": 83
+}

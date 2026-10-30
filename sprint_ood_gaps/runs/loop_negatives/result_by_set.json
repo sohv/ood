@@ -1,0 +1,39 @@
+{
+ "note": "result.json counts topics 1439 and 1633 (in both sets) under set a twice; this file counts set a = first 40 rows (seed-0 draw), set b = last 19 (exp57 v2 controls)",
+ "a_verbatim/rater": {
+  "confirmed": 0,
+  "n": 40,
+  "failed": 0,
+  "wilson95": [
+   0.0,
+   0.088
+  ]
+ },
+ "a_verbatim/namer": {
+  "confirmed": 36,
+  "n": 40,
+  "failed": 0,
+  "wilson95": [
+   0.769,
+   0.96
+  ]
+ },
+ "b_exp57_controls/rater": {
+  "confirmed": 2,
+  "n": 19,
+  "failed": 0,
+  "wilson95": [
+   0.029,
+   0.314
+  ]
+ },
+ "b_exp57_controls/namer": {
+  "confirmed": 19,
+  "n": 19,
+  "failed": 0,
+  "wilson95": [
+   0.832,
+   1.0
+  ]
+ }
+}

@@ -1,0 +1,35 @@
+{
+ "n_topics": 1998,
+ "traffic_n": 992840,
+ "dolci_n": 1710578,
+ "label_counts": {
+  "minilm": {
+   "shared": 1229,
+   "dolci_heavy": 636,
+   "traffic_only": 133
+  },
+  "qwen": {
+   "shared": 1327,
+   "dolci_heavy": 552,
+   "traffic_only": 119
+  }
+ },
+ "traffic_only_counts": {
+  "minilm": {
+   "0.02": 76,
+   "0.05": 133,
+   "0.1": 175
+  },
+  "qwen": {
+   "0.02": 59,
+   "0.05": 119,
+   "0.1": 189
+  }
+ },
+ "agreement_traffic_only_005": {
+  "both": 97,
+  "minilm_only": 36,
+  "qwen_only": 22
+ },
+ "spearman_share_minilm_qwen": 0.7680619045477057
+}

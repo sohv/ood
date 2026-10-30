@@ -1,0 +1,21 @@
+neuron_idx,target_separation_score,interpretation,f1_fidelity_score
+150,-0.5327956989247312,"Contains explicit sections labeled \""Input:\"" and \""Output:\"" describing what to read from standard input and what to print to standard output",0.9148936170212766
+128,-0.5268703898840885,"Contains explicit competitive-programming style **Input** and **Output** specifications (e.g., lines/sections labeled 'Input', 'Input format', 'Output', or 'Output format')",0.8775510204081632
+59,-0.5184466790156126,"Contains an explicit **\""Output Format:\""** section instructing that the final answer must be a **single line** of **space-separated** indices/endpoints.",0.8505747126436781
+29,0.5141509433962264,"contains at least one placeholder token of the form `NAME_#` (e.g., `NAME_1`, `NAME_2`, `NAME_3`)",0.99009900990099
+99,-0.5112,"Contains LaTeX-style mathematical notation using backslash-delimited math brackets such as \""\\(\""...\""\\)\"" or \""\\[\""...\""\\]\",1.0
+12,-0.4526145552560647,"Contains a multi-part (numbered) quantitative word problem that explicitly defines variables (e.g., C, R, w, d, x, y) and asks to formulate and solve a system of equations/inequalities or an optimization problem under stated constraints",0.888888888888889
+65,-0.4447629083245522,Requests Python code to compute a numeric aggregate (total/sum or average/mean/median) over a list of numeric values or list of dictionaries containing numbers,0.5294117647058824
+235,-0.4431506849315069,"grade-school arithmetic word problem with multiple explicit numeric quantities about everyday items, asking to compute a final count/total (e.g., phrased as “How many …?”)",0.9387755102040817
+132,-0.42683315621679063,"Explicitly asks to sort or order a collection (e.g., words/integers/objects) into ascending or descending order, often naming a sorting algorithm or sort order",0.9473684210526316
+252,0.41680672268907565,"contains only lowercase ASCII letters plus spaces/apostrophes (no uppercase, digits, or other punctuation like ?, ., :, brackets, or newlines)",0.8235294117647058
+32,-0.4053963988175222,"Contains the word \""response\"" (explicitly referring to or constraining the assistant’s reply)",0.98989898989899
+131,-0.39248225085458843,"Contains either the keyword \""Fibonacci\""/\""Tribonacci\""/\""factorial\"" or the explicit summation expression \""1 + 2 + ... + n\"".",0.43750000000000006
+189,0.39026795284030014,"Begins with a greeting word/phrase (e.g., Hi/Hello/Hey/Hola/Привет/Γειά)",0.7499999999999999
+76,-0.38866414277988104,"Requests performing a computation/manipulation on one or more (often numeric) lists/arrays—e.g., removing duplicates, flattening nested lists, sampling elements, filtering even/odd, multiplying elements—and returning the resulting list",0.8541666666666666
+9,0.38080688542227004,"Explicitly instructs the assistant to assume an alternate persona/character and respond in-character (e.g., roleplay directives like “act as…”, “you are…”, “portray…”, “stay in character”).",0.8823529411764707
+1,0.37986677324806817,"contains or requests explicit pornographic sexual content (e.g., masturbation/intercourse/rape and mentions of genitals or cum)",0.8636363636363636
+202,-0.36792696025778726,"contains an explicit money-related query using terms like 'cost', 'price', 'spend', 'budget', 'rent', or 'tax/taxes' (often with dollar amounts) to ask for a total or remaining amount",0.9361702127659575
+55,-0.3636210081815783,"A combinatorics-style programming prompt whose goal is to count or enumerate all valid discrete configurations (e.g., subsets/independent sets/permutations/colorings) satisfying given constraints",0.6666666666666666
+199,-0.36304025423728814,"Contains a Python function signature written in backticks with type annotations and a return arrow (e.g., `func(arg: Type) -> Type`)",0.8764044943820225
+63,-0.3616933999474099,Contains an explicit Python programming task involving a “dictionary”/“dictionaries” (often with JSON input/output),0.9690721649484536

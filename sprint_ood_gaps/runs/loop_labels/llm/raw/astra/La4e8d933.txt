@@ -1,0 +1,1 @@
+{"prompts":[{"i":1,"match":"yes"},{"i":2,"match":"cant_tell"},{"i":3,"match":"yes"},{"i":4,"match":"no"},{"i":5,"match":"yes"},{"i":6,"match":"yes"},{"i":7,"match":"no"},{"i":8,"match":"no"},{"i":9,"match":"no"},{"i":10,"match":"no"}],"verdict":"partly","note":"4 matches, 5 nonmatches, 1 unclear. Prompt 2's closest Dolci question lacks the code or syntax it refers to."}

@@ -1,0 +1,86 @@
+{
+ "full": [
+  "spelling and grammar check",
+  "cosplay",
+  "ai assistant",
+  "humor",
+  "character development",
+  "none",
+  "location",
+  "role playing",
+  "information request",
+  "storytelling"
+ ],
+ "minus_safety": [
+  "spelling and grammar check",
+  "cosplay",
+  "ai assistant",
+  "humor",
+  "character development",
+  "role playing",
+  "none",
+  "information request",
+  "location",
+  "storytelling"
+ ],
+ "random_safety": [
+  "spelling and grammar check",
+  "cosplay",
+  "ai assistant",
+  "humor",
+  "character development",
+  "none",
+  "location",
+  "role playing",
+  "information request",
+  "storytelling"
+ ],
+ "minus_code": [
+  "cosplay",
+  "spelling and grammar check",
+  "ai assistant",
+  "humor",
+  "none",
+  "character development",
+  "role playing",
+  "location",
+  "storytelling",
+  "character description"
+ ],
+ "random_code": [
+  "spelling and grammar check",
+  "cosplay",
+  "ai assistant",
+  "humor",
+  "character development",
+  "none",
+  "information request",
+  "location",
+  "role playing",
+  "storytelling"
+ ],
+ "minus_multilingual": [
+  "spelling and grammar check",
+  "cosplay",
+  "information request",
+  "ai assistant",
+  "humor",
+  "character development",
+  "none",
+  "location",
+  "role playing",
+  "storytelling"
+ ],
+ "random_multilingual": [
+  "spelling and grammar check",
+  "cosplay",
+  "ai assistant",
+  "humor",
+  "character development",
+  "none",
+  "role playing",
+  "location",
+  "information request",
+  "storytelling"
+ ]
+}

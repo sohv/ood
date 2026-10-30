@@ -1,0 +1,978 @@
+{
+ "far": {
+  "clusters": 50,
+  "failed_labels": 0,
+  "defining_axis": {
+   "subject": 7,
+   "format or template": 12,
+   "other": 15,
+   "placeholder or artefact": 8,
+   "task type": 7,
+   "tone or register": 1
+  },
+  "any_property_axis": {
+   "format or template": 42,
+   "language": 42,
+   "length or structure": 49,
+   "placeholder or artefact": 41,
+   "subject": 47,
+   "task type": 50,
+   "tone or register": 46,
+   "persona or roleplay": 17,
+   "adversarial or jailbreak": 15,
+   "other": 13
+  },
+  "median_distance": 0.43605664372444153,
+  "median_share_in_r50_topics": 0.0503049633484416,
+  "clusters_mostly_in_r50_topics": 2,
+  "median_n_exp37_topics": 223.0,
+  "grab_bag_rule1_axis_other": 15,
+  "grab_bag_rule2_description_posthoc": 16,
+  "coherent_rule1": 35,
+  "rows": [
+   {
+    "id": "far_0",
+    "size": 807,
+    "median_distance": 0.434,
+    "share_in_r50_topics": 0.025,
+    "defining_axis": "subject",
+    "defining": "Practical technical help requests about specific programming, software or engineering problems, written tersely and informally by users seeking a direct answer",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_1",
+    "size": 2521,
+    "median_distance": 0.435,
+    "share_in_r50_topics": 0.544,
+    "defining_axis": "format or template",
+    "defining": "Templated one-line prompts requesting a fixed list of growing conditions (temperature, hydrometry, sunshine, rainfall, humidity, soil type) for a named plant's seed, with the constraint 'in bullets 2 words answer in number'; only the plant name changes.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_2",
+    "size": 742,
+    "median_distance": 0.437,
+    "share_in_r50_topics": 0.075,
+    "defining_axis": "format or template",
+    "defining": "These are programmatic, task-oriented prompts: instructions wrapped around supplied data (context passages, example lists, label sets, API specs) with strict output constraints, rather than natural conversational chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_3",
+    "size": 851,
+    "median_distance": 0.435,
+    "share_in_r50_topics": 0.052,
+    "defining_axis": "other",
+    "defining": "A grab-bag of real, unrelated, casual, one-shot user prompts to a general-purpose chatbot, with no shared topic or template; the defining trait is their heterogeneity as organically sampled, informal, single-turn user queries (including a jailbreak attempt and a meme-like fragment) rather than any common task or format.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_4",
+    "size": 759,
+    "median_distance": 0.435,
+    "share_in_r50_topics": 0.046,
+    "defining_axis": "format or template",
+    "defining": "The messages are raw, unpolished user inputs with the instruction and source material combined in one block, often truncated mid-sentence and sometimes carrying scraping artefacts, on varied creative or text-processing tasks. They look like samples from a real-world chat log dataset rather than typical standalone chatbot prompts.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_5",
+    "size": 366,
+    "median_distance": 0.443,
+    "share_in_r50_topics": 0.219,
+    "defining_axis": "format or template",
+    "defining": "Repeated templated prompt asking the model to judge whether a summary is factually consistent with a truncated news document, answering Yes/No",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_6",
+    "size": 647,
+    "median_distance": 0.439,
+    "share_in_r50_topics": 0.006,
+    "defining_axis": "other",
+    "defining": "Unrelated, standalone, real-world information-seeking questions from different users on disparate everyday or practical topics, written casually and briefly, which together look like a random sample of typical general-purpose chatbot queries rather than sharing any template, persona, or special feature.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_7",
+    "size": 799,
+    "median_distance": 0.431,
+    "share_in_r50_topics": 0.03,
+    "defining_axis": "other",
+    "defining": "They are a thematically unrelated mix of standalone, single-turn user prompts that appear to be scraped from real chatbot logs, many with anonymization artefacts (NAME_1) and rough or non-native phrasing, rather than any one shared task or topic.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_8",
+    "size": 825,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.084,
+    "defining_axis": "other",
+    "defining": "A grab-bag of unrelated, self-contained, single-turn real-world user prompts on practical/technical topics, with no shared template or persona; the common thread is that they are ordinary, informally-written one-shot information or text-editing requests, some with dataset artefacts like NAME_1 or truncation.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_9",
+    "size": 546,
+    "median_distance": 0.439,
+    "share_in_r50_topics": 0.075,
+    "defining_axis": "other",
+    "defining": "Raw, unrelated one-off user prompts to a general chatbot (likely from a public chat log dataset), featuring anonymisation placeholders like NAME_1, truncation, and non-native or typo-ridden phrasing, rather than a single coherent task or topic.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_10",
+    "size": 663,
+    "median_distance": 0.435,
+    "share_in_r50_topics": 0.006,
+    "defining_axis": "other",
+    "defining": "Short, context-free, terse developer/IT help requests, as if typed quickly into a search box, asking for code, a script, or a fix for a technical error or config problem, with rough grammar and no pleasantries or background.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_11",
+    "size": 571,
+    "median_distance": 0.438,
+    "share_in_r50_topics": 0.222,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Prompts contain de-identification placeholders (NAME_1, NAME_2, etc.) and are frequently truncated mid-text, indicating scrubbed and clipped real-world dataset inputs wrapped around pasted news/legal passages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_12",
+    "size": 552,
+    "median_distance": 0.431,
+    "share_in_r50_topics": 0.045,
+    "defining_axis": "format or template",
+    "defining": "Prompts with explicit, rigid output specifications or in-prompt few-shot/pseudo-code templates that the model is meant to continue or conform to, typically as raw, truncated, dataset-style user inputs with placeholders such as NAME_1.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_13",
+    "size": 819,
+    "median_distance": 0.433,
+    "share_in_r50_topics": 0.121,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Every message has person names replaced by anonymization placeholders (NAME_1, NAME_2, etc.), a dataset artefact that is rare in ordinary chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_14",
+    "size": 682,
+    "median_distance": 0.433,
+    "share_in_r50_topics": 0.035,
+    "defining_axis": "other",
+    "defining": "A grab-bag of heterogeneous, standalone user prompts to an LLM, many of which define or override the model's behavior (persona, mode, output format, or tool-call convention) in the prompt itself, rather than just asking a plain question.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_15",
+    "size": 771,
+    "median_distance": 0.432,
+    "share_in_r50_topics": 0.027,
+    "defining_axis": "other",
+    "defining": "They are a grab-bag of unrelated, casual, low-effort user prompts to a chatbot, mixing quirky or playful questions, moral and personal-advice questions, and attempts to set rules or personas for the model, with no common template or task.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_16",
+    "size": 531,
+    "median_distance": 0.438,
+    "share_in_r50_topics": 0.009,
+    "defining_axis": "other",
+    "defining": "A grab-bag of heterogeneous, real-world user prompts to a chatbot (apparently from a public chat dataset), mixing ordinary questions with sexually explicit or borderline roleplay requests, and containing dataset artefacts such as NAME_1 anonymization and mid-sentence truncation",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_17",
+    "size": 418,
+    "median_distance": 0.444,
+    "share_in_r50_topics": 0.026,
+    "defining_axis": "subject",
+    "defining": "Sexually explicit or sexual-health content, often at the edge of policy, including sexual content involving minors, rather than ordinary chatbot topics.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_18",
+    "size": 593,
+    "median_distance": 0.453,
+    "share_in_r50_topics": 0.605,
+    "defining_axis": "subject",
+    "defining": "Every message is a question about the Vicuna open-source LLM (e.g., fine-tuning, local setup, licensing, comparison to Alpaca), a narrow topic that sets the group apart from typical chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_19",
+    "size": 812,
+    "median_distance": 0.434,
+    "share_in_r50_topics": 0.026,
+    "defining_axis": "other",
+    "defining": "They are authentic, unpolished, real-world user prompts to a general-purpose chatbot: short, practical, multilingual help requests (mostly tech troubleshooting or 'what is X' questions) written casually without roleplay or jailbreak framing.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_20",
+    "size": 552,
+    "median_distance": 0.433,
+    "share_in_r50_topics": 0.143,
+    "defining_axis": "subject",
+    "defining": "The messages request sexually explicit or fetishistic content, often taboo, extreme or involving minors and real people, rather than ordinary assistant tasks.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_21",
+    "size": 805,
+    "median_distance": 0.435,
+    "share_in_r50_topics": 0.025,
+    "defining_axis": "format or template",
+    "defining": "A grab-bag of unrelated, raw, real-world one-shot user prompts to a general-purpose chatbot, with no common topic or template, marked by messy human phrasing and occasional artefacts like NAME_1 placeholders and chat-format tokens",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_22",
+    "size": 559,
+    "median_distance": 0.434,
+    "share_in_r50_topics": 0.41,
+    "defining_axis": "format or template",
+    "defining": "A templated summary-factual-consistency evaluation prompt ('Given the document below, determine if the summary is factually consistent with the document') applied to anonymized (NAME_n) news article excerpts, rather than a natural user request.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_23",
+    "size": 605,
+    "median_distance": 0.439,
+    "share_in_r50_topics": 0.273,
+    "defining_axis": "task type",
+    "defining": "Task-oriented prompts asking for constrained structured extraction or classification from embedded medical text, with strict output formats and often truncated inputs.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_24",
+    "size": 787,
+    "median_distance": 0.431,
+    "share_in_r50_topics": 0.067,
+    "defining_axis": "format or template",
+    "defining": "The messages are unified by each demanding a tightly specified, narrow output format (lists, single labels, single-line answers, strict templates) rather than open discussion, which is what most separates them from typical freeform chatbot queries",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_25",
+    "size": 888,
+    "median_distance": 0.432,
+    "share_in_r50_topics": 0.342,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Character names are scrubbed and replaced with generic NAME_1 / NAME_2 tokens, so the messages are fiction or character-centered prompts with the specific names anonymized.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_26",
+    "size": 991,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.109,
+    "defining_axis": "task type",
+    "defining": "Each message is an independent, narrowly-scoped technical how-to/code-generation request covering a wide variety of unrelated IT/software domains, typical of a log of diverse chatbot queries rather than a themed or stylistically unified set",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_27",
+    "size": 779,
+    "median_distance": 0.439,
+    "share_in_r50_topics": 0.1,
+    "defining_axis": "format or template",
+    "defining": "Many messages reuse the same French few-shot prompt, which asks to rephrase a terse keyword query into a natural-language question while keeping every original word, with the same two worked examples and an empty 'Reformulation :' slot at the end. The rest are unrelated short legal or regulatory questions, so the repeated template is the clearest thing that sets the group apart from typical chatbot messages.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_28",
+    "size": 618,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.061,
+    "defining_axis": "subject",
+    "defining": "Sexual or gendered content centered on women and relationships, ranging from erotica requests to fetish and dating questions, which is atypical of everyday chatbot use",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_29",
+    "size": 540,
+    "median_distance": 0.43,
+    "share_in_r50_topics": 0.03,
+    "defining_axis": "task type",
+    "defining": "Each message is a templated summarization-faithfulness classification task: judge whether a summary of an anonymized dialogue is factually consistent with it, answering Yes or No.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_30",
+    "size": 655,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.041,
+    "defining_axis": "other",
+    "defining": "Heterogeneous, real-world user chatbot inputs with no shared topic or task: short, informal, often typo-ridden or fragmentary prompts in mixed languages, ranging from statements and opinions to simple Q&A, rather than carefully constructed instructions.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_31",
+    "size": 382,
+    "median_distance": 0.442,
+    "share_in_r50_topics": 0.196,
+    "defining_axis": "format or template",
+    "defining": "A short task instruction wrapped around a pasted external document, article, transcript or link, often truncated and with anonymized NAME_n placeholders, asking for summarization, extraction, or consistency judgment on that text",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_32",
+    "size": 604,
+    "median_distance": 0.438,
+    "share_in_r50_topics": 0.012,
+    "defining_axis": "subject",
+    "defining": "Most messages concern medical, health, or biological science topics, such as interpreting scans and reports, symptoms, treatments, and physiology, which sets the group apart from typical chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_33",
+    "size": 921,
+    "median_distance": 0.433,
+    "share_in_r50_topics": 0.258,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Names are scrubbed and replaced with numbered placeholder tokens such as NAME_1 and NAME_2, an artefact of dataset anonymization that is rarely seen in typical chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_34",
+    "size": 306,
+    "median_distance": 0.426,
+    "share_in_r50_topics": 0.01,
+    "defining_axis": "format or template",
+    "defining": "Every message uses the same fixed summarization-consistency evaluation template ('Given the document below... determine if Yes or No, the summary is factually consistent with the document. Document: ...') wrapping a truncated document, with the summary itself absent, which is a dataset-style benchmark prompt rather than a natural chatbot message.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_35",
+    "size": 946,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.002,
+    "defining_axis": "task type",
+    "defining": "Self-contained requests for information, research, or practical guidance on real-world professional or consumer topics (legal, business, finance, procurement), typically posed as a single direct question or command.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_36",
+    "size": 800,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.062,
+    "defining_axis": "task type",
+    "defining": "Ordinary, practical real-world help requests: text rephrasing, summarizing, or quick factual or how-to questions about money, taxes, and work, written casually and briefly.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_37",
+    "size": 1242,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.32,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Entity names have been replaced by anonymization tokens like NAME_1 and NAME_2, which appear in place of the real names and sometimes break the sentence (e.g. 'pros and NAME_1 of NAME_2').",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_38",
+    "size": 663,
+    "median_distance": 0.435,
+    "share_in_r50_topics": 0.229,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Personal names and other identifying details have been replaced with anonymization tokens like NAME_1, NAME_2, NAME_3 (and masked values such as '**********'), leaving gaps in otherwise ordinary prompts. This redaction artefact is what most separates the group from typical chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_39",
+    "size": 777,
+    "median_distance": 0.437,
+    "share_in_r50_topics": 0.049,
+    "defining_axis": "format or template",
+    "defining": "Instructions bundled with large blocks of pasted external content (transcripts, documents, RAG context), with anonymization placeholders like NAME_1 and extraction artefacts, rather than short conversational questions.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_40",
+    "size": 636,
+    "median_distance": 0.434,
+    "share_in_r50_topics": 0.017,
+    "defining_axis": "placeholder or artefact",
+    "defining": "The messages are raw, unpolished user inputs collected from varied chatbot interfaces, containing truncation, mid-sentence cut-offs, pasted fragments, and UI artefacts (such as the Poe login notice), unlike clean, complete typical chatbot prompts.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_41",
+    "size": 828,
+    "median_distance": 0.438,
+    "share_in_r50_topics": 0.039,
+    "defining_axis": "tone or register",
+    "defining": "Terse, search-engine-style keyword queries: very short, often lowercase and ungrammatical, with unexplained acronyms and no context, as if typed into a search box rather than written to a conversational assistant",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_42",
+    "size": 372,
+    "median_distance": 0.437,
+    "share_in_r50_topics": 0.207,
+    "defining_axis": "subject",
+    "defining": "These are requests for sexually explicit or erotic content, often involving taboo, non-consensual, or otherwise policy-violating themes such as minors, bestiality, and coercion. Most are framed as stories or roleplay, which makes them different from typical chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_43",
+    "size": 715,
+    "median_distance": 0.436,
+    "share_in_r50_topics": 0.041,
+    "defining_axis": "other",
+    "defining": "They are diverse, unrelated, real-world, organic user queries to a general-purpose chatbot: short, casual, one-shot personal or practical requests with no common template, persona, or adversarial intent, and with varied languages and imperfect phrasing.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_44",
+    "size": 645,
+    "median_distance": 0.44,
+    "share_in_r50_topics": 0.084,
+    "defining_axis": "other",
+    "defining": "A batch of unrelated, real-world, low-effort user messages to a chatbot: disparate everyday tasks, often terse, pasted or truncated, with no shared topic or template. The grouping is essentially a random sample of miscellaneous user queries rather than a coherent theme.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_45",
+    "size": 727,
+    "median_distance": 0.443,
+    "share_in_r50_topics": 0.021,
+    "defining_axis": "task type",
+    "defining": "Terse, context-free, real-world user requests for practical technical help (IT troubleshooting, commands, software and device fixes), typical of raw chat logs and not of polished or constructed prompts",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_46",
+    "size": 838,
+    "median_distance": 0.433,
+    "share_in_r50_topics": 0.025,
+    "defining_axis": "placeholder or artefact",
+    "defining": "The messages are a grab-bag of unrelated, real-world-style chatbot prompts that carry data-processing artefacts: anonymization tokens like NAME_1/NAME_2, truncation mid-sentence, and scraped or OCR'd text. They look like a log of raw, scrubbed user prompts rather than clean, deliberately authored messages.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_47",
+    "size": 656,
+    "median_distance": 0.442,
+    "share_in_r50_topics": 0.14,
+    "defining_axis": "task type",
+    "defining": "Terse, informally written requests for practical step-by-step sysadmin/software installation and configuration instructions (Linux/Ubuntu and similar), typically from non-expert users asking a chatbot for a how-to guide.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "far_48",
+    "size": 744,
+    "median_distance": 0.435,
+    "share_in_r50_topics": 0.031,
+    "defining_axis": "other",
+    "defining": "A grab-bag of unrelated, standalone requests with no shared theme or template. The most distinctive trait is that many are text-processing tasks (summarize, shorten, rewrite, generate Q&A) applied to pasted, often truncated or anonymized passages, mixed with niche history and politics questions.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "far_49",
+    "size": 652,
+    "median_distance": 0.441,
+    "share_in_r50_topics": 0.048,
+    "defining_axis": "other",
+    "defining": "Raw, unpolished real-user chatbot messages: casual, low-effort, and often malformed (typos, truncation, fragments, pasted snippets) with no template or consistent topic, as if sampled from real chat logs",
+    "grab_bag_rule2": false
+   }
+  ]
+ },
+ "random": {
+  "clusters": 50,
+  "failed_labels": 0,
+  "defining_axis": {
+   "task type": 12,
+   "format or template": 9,
+   "subject": 12,
+   "tone or register": 3,
+   "other": 4,
+   "placeholder or artefact": 4,
+   "persona or roleplay": 2,
+   "length or structure": 2,
+   "adversarial or jailbreak": 1,
+   "language": 1
+  },
+  "any_property_axis": {
+   "adversarial or jailbreak": 22,
+   "format or template": 37,
+   "language": 45,
+   "length or structure": 48,
+   "persona or roleplay": 24,
+   "subject": 49,
+   "task type": 49,
+   "tone or register": 46,
+   "placeholder or artefact": 42,
+   "other": 11,
+   "plot": 1
+  },
+  "median_distance": 0.2982986718416214,
+  "median_share_in_r50_topics": 0.00983769972998345,
+  "clusters_mostly_in_r50_topics": 1,
+  "median_n_exp37_topics": 176.5,
+  "grab_bag_rule1_axis_other": 4,
+  "grab_bag_rule2_description_posthoc": 7,
+  "coherent_rule1": 46,
+  "rows": [
+   {
+    "id": "random_0",
+    "size": 487,
+    "median_distance": 0.288,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "task type",
+    "defining": "The messages are instruction-style prompts written to an AI assistant, often prompts that are themselves about AI or that set up an AI-centered task, role, or simulation.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_1",
+    "size": 3469,
+    "median_distance": 0.006,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "format or template",
+    "defining": "Every message is the same verbatim, truncated Midjourney prompt-generator template (identical wording up to the cut-off at 'Write each prompt in one l'), i.e. a reused boilerplate system prompt pasted as the user message rather than an organic, individual chatbot query.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_2",
+    "size": 1056,
+    "median_distance": 0.17,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "format or template",
+    "defining": "Each message is an instance of the same programmatically filled template, 'Write an article about the [Safety/Production Process/Synthetic Routes/Applications/Upstream and Downstream products] of [specific chemical] [~2000 words] in chemical industry', which requests a long SEO-style article on a specific chemical compound.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_3",
+    "size": 976,
+    "median_distance": 0.27,
+    "share_in_r50_topics": 0.003,
+    "defining_axis": "subject",
+    "defining": "Creative writing requests that center on gross-out, bodily, fetish or otherwise taboo content (vomit, deliberate pooping, incontinence/diapers, molestation, body transformation) that borders on or crosses content-policy boundaries",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_4",
+    "size": 574,
+    "median_distance": 0.297,
+    "share_in_r50_topics": 0.009,
+    "defining_axis": "task type",
+    "defining": "These are short, self-contained, single-turn utility requests to a general-purpose assistant: quick factual lookups, information extraction into JSON/CSV from a small snippet, and brief how-to or content generation tasks, written in a terse, informal style with no persona, roleplay, or jailbreak.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_5",
+    "size": 365,
+    "median_distance": 0.266,
+    "share_in_r50_topics": 0.019,
+    "defining_axis": "tone or register",
+    "defining": "Casual, low-effort messages typed by ordinary users to a public chatbot demo, often just greetings or questions about the bot itself (is this ChatGPT, which version, do you want to chat), rather than substantive task requests.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_6",
+    "size": 595,
+    "median_distance": 0.313,
+    "share_in_r50_topics": 0.024,
+    "defining_axis": "subject",
+    "defining": "Mundane, benign everyday consumer and lifestyle questions (fashion, outfits, watches, products, fitness, general facts) posed as short, casual, single-turn requests to a chatbot.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_7",
+    "size": 652,
+    "median_distance": 0.299,
+    "share_in_r50_topics": 0.003,
+    "defining_axis": "task type",
+    "defining": "Real-world, unrelated, single-turn user requests asking a chatbot to produce practical or creative content, often generating prompts or copy for image generation and product design, rather than a coding-agent task",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "random_8",
+    "size": 895,
+    "median_distance": 0.312,
+    "share_in_r50_topics": 0.016,
+    "defining_axis": "task type",
+    "defining": "Users delegate academic or school-related writing and text-processing work to the chatbot: essays, reviews, rephrasing, thesis outline critique, course analysis and learning-objective summaries.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_9",
+    "size": 462,
+    "median_distance": 0.382,
+    "share_in_r50_topics": 0.13,
+    "defining_axis": "format or template",
+    "defining": "Templated summarization-evaluation prompts asking whether a summary is factually consistent with a document, with 'Document:'/'Summary:' sections, anonymized NAME_n placeholders, and truncated text",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_10",
+    "size": 707,
+    "median_distance": 0.304,
+    "share_in_r50_topics": 0.003,
+    "defining_axis": "other",
+    "defining": "These are heterogeneous, real-world, single-turn user prompts to a general-purpose chatbot, spanning many languages and unrelated tasks, with no shared template or topic. The distinguishing trait is their diversity and raw, unpolished, ordinary-user quality (informal, typo-ridden, multilingual, direct requests with no system framing) rather than any one theme.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "random_11",
+    "size": 799,
+    "median_distance": 0.302,
+    "share_in_r50_topics": 0.021,
+    "defining_axis": "subject",
+    "defining": "Short, standalone programming and computer-science help requests (write, rewrite or explain code, data structures, security concepts) typical of raw user prompts to a coding assistant",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_12",
+    "size": 1007,
+    "median_distance": 0.346,
+    "share_in_r50_topics": 0.156,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Personal names are replaced by anonymization placeholders such as NAME_1 and NAME_2, so the messages contain literal NAME_n tokens in place of the people they refer to.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_13",
+    "size": 964,
+    "median_distance": 0.312,
+    "share_in_r50_topics": 0.024,
+    "defining_axis": "task type",
+    "defining": "Short, self-contained linguistic/text-processing requests (rewrite, paraphrase, polite-ify, split, label sentiment, gloss, write a short caption) applied to a supplied snippet, usually across multiple languages",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_14",
+    "size": 814,
+    "median_distance": 0.298,
+    "share_in_r50_topics": 0.006,
+    "defining_axis": "task type",
+    "defining": "Brief, standalone, curiosity-driven general-knowledge questions (mostly science) sent as one-line prompts to a chatbot, in several different languages",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_15",
+    "size": 852,
+    "median_distance": 0.301,
+    "share_in_r50_topics": 0.029,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Messages are raw, unrelated single-turn user prompts to a chatbot, with several containing anonymization placeholders like NAME_1/NAME_2 in place of key names, and some truncated mid-text. This dataset-scrubbing artefact most distinguishes them from typical chatbot messages.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "random_16",
+    "size": 510,
+    "median_distance": 0.322,
+    "share_in_r50_topics": 0.016,
+    "defining_axis": "other",
+    "defining": "Short, casual, real-user-style personal advice questions in many languages, often vague and about the user's own life, relationships or social difficulties, typed informally without context.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_17",
+    "size": 523,
+    "median_distance": 0.17,
+    "share_in_r50_topics": 0.006,
+    "defining_axis": "task type",
+    "defining": "Context-free conversation starters and small talk probing the chatbot (greeting, who/what are you, can we chat) with no concrete task, typically as short, casual first messages",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_18",
+    "size": 171,
+    "median_distance": 0.012,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "subject",
+    "defining": "Doki Doki Literature Club fan fiction scripts, mostly centered on pregnancy and childbirth among the club girls, written as truncated dialogue scenes for the model to continue",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_19",
+    "size": 951,
+    "median_distance": 0.329,
+    "share_in_r50_topics": 0.018,
+    "defining_axis": "format or template",
+    "defining": "Prompts are templated, instruction-style tasks taken from NLP datasets and benchmarks, often with fixed wording, placeholder tokens like NAME_1, strict output-format constraints, and truncation, which makes them look like dataset-derived prompts rather than natural chatbot conversation.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_20",
+    "size": 401,
+    "median_distance": 0.183,
+    "share_in_r50_topics": 0.007,
+    "defining_axis": "subject",
+    "defining": "User requests for fictional stories centered on fetish and sexual themes, especially hypnosis and mind control of a non-consenting character, which are far from typical chatbot queries",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_21",
+    "size": 561,
+    "median_distance": 0.27,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "task type",
+    "defining": "Each message is a templated request to produce a toxic or harmful statement for an everyday interpersonal situation, often asking the model to speak as a demographic persona, with a 50-word cap.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_22",
+    "size": 568,
+    "median_distance": 0.286,
+    "share_in_r50_topics": 0.007,
+    "defining_axis": "persona or roleplay",
+    "defining": "Most messages ask the model to run or take part in a game or roleplay (game master, NPC controller, character play, game design), often with custom rules that set up an interactive scenario, which separates them from typical chatbot messages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_23",
+    "size": 181,
+    "median_distance": 0.43,
+    "share_in_r50_topics": 0.425,
+    "defining_axis": "format or template",
+    "defining": "Repeated fill-in-the-blank template requesting a fixed list of growing-condition parameters (temperature, hydrometry, sunshine, rainfall, humidity, soil, climate) for a named plant seed, with terse output constraints 'in bullets 2 words answer in number'",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_24",
+    "size": 731,
+    "median_distance": 0.31,
+    "share_in_r50_topics": 0.022,
+    "defining_axis": "length or structure",
+    "defining": "Extremely short, context-free, search-engine-style queries: a single brief line asking for a definition or basic information on a topic, often ambiguous or abbreviated (e.g., 'MTN ?', 'Do you know SVG', 'tldr Explain it again').",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_25",
+    "size": 663,
+    "median_distance": 0.244,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "task type",
+    "defining": "Short, one-shot requests asking the model to write Python code for a self-contained task (script, function, or small program), phrased tersely without context",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_26",
+    "size": 1009,
+    "median_distance": 0.324,
+    "share_in_r50_topics": 0.005,
+    "defining_axis": "subject",
+    "defining": "Everyday business and professional-work queries (sales, marketing, strategy, operations, procurement) posed as short, standalone, often multilingual requests to a general-purpose chatbot.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_27",
+    "size": 833,
+    "median_distance": 0.339,
+    "share_in_r50_topics": 0.11,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Anonymization tokens like NAME_1, NAME_2, NAME_3 replacing names, combined with requests for erotic or sexualized story and content writing.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_28",
+    "size": 1050,
+    "median_distance": 0.351,
+    "share_in_r50_topics": 0.07,
+    "defining_axis": "tone or register",
+    "defining": "Terse, context-free, low-effort real-user queries written casually, often as fragments or keyword searches with typos and missing punctuation, as if typed into a search box, rather than polished, well-formed prompts.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_29",
+    "size": 948,
+    "median_distance": 0.24,
+    "share_in_r50_topics": 0.005,
+    "defining_axis": "task type",
+    "defining": "Terse, context-free requests to solve a specific small problem (math, logic, code, data pattern), often pasted straight from an assignment or source with copy-paste artefacts, and with no conversational framing.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_30",
+    "size": 716,
+    "median_distance": 0.322,
+    "share_in_r50_topics": 0.036,
+    "defining_axis": "subject",
+    "defining": "User requests for sexual, kinky, or humiliation-themed content, often involving power dynamics, forced exposure or transformation, and in some cases minors, i.e. attempts to elicit erotic or NSFW material from a chatbot",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_31",
+    "size": 1040,
+    "median_distance": 0.054,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "format or template",
+    "defining": "Each message is wrapped in the same boilerplate that tells the model to act as a text-completion model and only output the assistant's continuation without repeating itself, followed by an embedded system/user/assistant transcript ending at an empty 'assistant:' turn.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_32",
+    "size": 812,
+    "median_distance": 0.306,
+    "share_in_r50_topics": 0.01,
+    "defining_axis": "subject",
+    "defining": "The messages cluster around morally and ethically sensitive content, including hate speech, immorality, conspiracy theories, and jailbreak-style requests for unethical or explicit output, rather than ordinary everyday chatbot tasks.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_33",
+    "size": 852,
+    "median_distance": 0.281,
+    "share_in_r50_topics": 0.008,
+    "defining_axis": "other",
+    "defining": "A grab-bag of unrelated, standalone one-shot prompts to a general-purpose chatbot, mixing factual lookups (many on time-sensitive or hard-to-verify data) with roleplay and worldbuilding requests, with no shared template or topic.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "random_34",
+    "size": 660,
+    "median_distance": 0.343,
+    "share_in_r50_topics": 0.047,
+    "defining_axis": "placeholder or artefact",
+    "defining": "Pasted-in source content (transcripts, emails, data) containing dataset anonymization tokens like NAME_1 and NAME_2, masked values, and speaker labels, and often truncated mid-text, which is unlike typical hand-typed chatbot prompts.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_35",
+    "size": 684,
+    "median_distance": 0.324,
+    "share_in_r50_topics": 0.016,
+    "defining_axis": "format or template",
+    "defining": "The messages are overwhelmingly 'paste a chunk of real code/log/config and ask the bot to run, fix, explain, or review it,' which is a narrower, more technical pattern than typical chatbot queries.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_36",
+    "size": 703,
+    "median_distance": 0.295,
+    "share_in_r50_topics": 0.017,
+    "defining_axis": "other",
+    "defining": "A grab-bag of unrelated, short, standalone first-turn user prompts to a general-purpose chatbot (mostly geography/place-related factual or simple generation requests, in several languages), with no shared template, persona, or adversarial intent.",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "random_37",
+    "size": 631,
+    "median_distance": 0.341,
+    "share_in_r50_topics": 0.062,
+    "defining_axis": "subject",
+    "defining": "Medical and health-related topics (vaccines, muscle denervation, MRI signal, epilepsy drugs, hormones/neurotransmitters, clinical trials, visual impairment) across varied languages and unrelated, unconnected user requests",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "random_38",
+    "size": 553,
+    "median_distance": 0.306,
+    "share_in_r50_topics": 0.002,
+    "defining_axis": "task type",
+    "defining": "Requests for generating or fixing programming code, mostly small web development tasks, written as terse, loosely worded prompts",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_39",
+    "size": 894,
+    "median_distance": 0.325,
+    "share_in_r50_topics": 0.02,
+    "defining_axis": "subject",
+    "defining": "Money, finance, economics and tax-related queries (taxes, financial inclusion, markets, legal tender, currency collapse) posed as short, unrelated one-off requests",
+    "grab_bag_rule2": true
+   },
+   {
+    "id": "random_40",
+    "size": 463,
+    "median_distance": 0.263,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "task type",
+    "defining": "Short, benign creative-writing and text-generation requests (poems, songs, essays, messages, paraphrases) posed in a wide variety of languages.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_41",
+    "size": 546,
+    "median_distance": 0.274,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "format or template",
+    "defining": "Templated prompts 'Give me an introduction over 200 words for [COMPANY], a chemical company in [LOCATION]', with company name and address fields filled in from a business directory, sometimes with leftover form artefacts",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_42",
+    "size": 537,
+    "median_distance": 0.288,
+    "share_in_r50_topics": 0.013,
+    "defining_axis": "subject",
+    "defining": "Animals are the recurring topic: nearly every message involves animals (cats, dogs, mice, dolphins, birds, bees, DNA/organisms, anthropomorphic characters), spanning practical, educational, and fictional requests.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_43",
+    "size": 660,
+    "median_distance": 0.2,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "subject",
+    "defining": "Each message concerns languages and translation: asking for meanings, translations into or from various languages, or whether the assistant speaks a given language.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_44",
+    "size": 775,
+    "median_distance": 0.303,
+    "share_in_r50_topics": 0.014,
+    "defining_axis": "tone or register",
+    "defining": "Terse, imperative, context-free one-shot task commands in a casual, often non-native or telegraphic style (e.g. 'creare database supermercati sql'), with no greeting or conversational framing. They read like raw queries from a diverse set of real users to a general-purpose assistant.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_45",
+    "size": 481,
+    "median_distance": 0.167,
+    "share_in_r50_topics": 0.0,
+    "defining_axis": "format or template",
+    "defining": "Every message is the same templated instruction ('Give me an introduction over 200 words for [company], a chemical company in [location]') filled in with scraped company names and addresses from a Chinese chemical supplier directory, suggesting bulk-generated SEO or marketing content.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_46",
+    "size": 693,
+    "median_distance": 0.203,
+    "share_in_r50_topics": 0.004,
+    "defining_axis": "length or structure",
+    "defining": "Extremely short, context-free, low-effort prompts (single words, fragments, truncated lines, or one-line quips) that are often ambiguous or incomplete, unlike typical well-formed chatbot requests.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_47",
+    "size": 97,
+    "median_distance": 0.375,
+    "share_in_r50_topics": 1.0,
+    "defining_axis": "adversarial or jailbreak",
+    "defining": "Each message is a jailbreak that uses a 'SmartGPT with no filtering' framing and payload splitting (x+y string concatenation) to disguise a request for harmful or toxic content from the model's safety rules.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_48",
+    "size": 428,
+    "median_distance": 0.296,
+    "share_in_r50_topics": 0.016,
+    "defining_axis": "persona or roleplay",
+    "defining": "They are prompts that set up a roleplay or persona for the model to adopt and maintain over the conversation, often with instructions to override its normal identity or rules, rather than asking for a concrete task to be completed.",
+    "grab_bag_rule2": false
+   },
+   {
+    "id": "random_49",
+    "size": 509,
+    "median_distance": 0.274,
+    "share_in_r50_topics": 0.01,
+    "defining_axis": "language",
+    "defining": "Short, casual, standalone queries written in many different languages (English, German, Japanese, Italian, Portuguese), mostly about food and cooking",
+    "grab_bag_rule2": false
+   }
+  ]
+ },
+ "test": {
+  "other_far_vs_random_fisher_p": 0.0095,
+  "axis_distribution_chi2_p": 0.038,
+  "note": "50 clusters per arm, one k-means seed, one labeller (Sonnet 5.5, claude -p); clusters, not prompts, are the units"
+ }
+}

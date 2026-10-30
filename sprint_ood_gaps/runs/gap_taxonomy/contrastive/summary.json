@@ -1,0 +1,571 @@
+{
+ "far": {
+  "units": 50,
+  "verified": 49,
+  "pass": 12,
+  "pass_share": 0.245,
+  "median_member_rate": 0.75,
+  "median_dolci_rate": 0.35,
+  "axis_all": {
+   "format or template": 10,
+   "task type": 10,
+   "length or structure": 4,
+   "tone or register": 7,
+   "persona or roleplay": 2,
+   "language": 1,
+   "subject": 10,
+   "placeholder or artefact": 5,
+   "other": 1
+  },
+  "axis_pass": {
+   "format or template": 3,
+   "task type": 3,
+   "subject": 2,
+   "placeholder or artefact": 4
+  },
+  "passing": [
+   {
+    "id": "far_0",
+    "axis": "format or template",
+    "predicate": "Is the message a short, informal, single-sentence request to a chatbot that is not wrapped in a longer problem statement, formatting instructions, or synthetic task framing?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.35
+   },
+   {
+    "id": "far_1",
+    "axis": "format or template",
+    "predicate": "Does the message ask for a terse bulleted list of growing-condition values (temperature, humidity, rainfall, soil type, etc.) for a named plant's seed, with an instruction to answer in about 2 words each?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "far_5",
+    "axis": "task type",
+    "predicate": "Does the message ask the model to judge whether a summary is factually consistent with a given document, answering Yes or No?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "far_18",
+    "axis": "subject",
+    "predicate": "Does the message ask about the Vicuna language model (e.g., its use, installation, capabilities, or comparison with other models)?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "far_20",
+    "axis": "subject",
+    "predicate": "Does the message involve sexual, erotic, fetishistic, or bodily-function content (such as nudity, arousal, or genitalia), or violence/harm to a person or animal?",
+    "member_rate": 0.8,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "far_22",
+    "axis": "task type",
+    "predicate": "Does the message ask whether a summary is factually consistent with a given document and include a news-style document containing anonymized placeholder tokens like NAME_1?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.15
+   },
+   {
+    "id": "far_25",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token such as NAME_1, NAME_2, or NAME_3 standing in for a person's name?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.15
+   },
+   {
+    "id": "far_29",
+    "axis": "task type",
+    "predicate": "Does the message ask the model to judge whether a summary is factually consistent with a given document (a Yes/No consistency check on a chat dialogue or transcript with NAME_n placeholders)?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "far_33",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token such as NAME_1 or NAME_2 standing in for a person's name?",
+    "member_rate": 0.85,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "far_34",
+    "axis": "format or template",
+    "predicate": "Does the message begin with the instruction 'Given the document below, you have to determine if \"Yes\" or \"No\", the summary is factually consistent with the document.' followed by a document that contains anonymized placeholder tokens like NAME_1?",
+    "member_rate": 0.85,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "far_37",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain a literal placeholder token like NAME_1 standing in for a name or term?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.25
+   },
+   {
+    "id": "far_38",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token such as NAME_1 or NAME_2 standing in for a person or organization name?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.0
+   }
+  ]
+ },
+ "random": {
+  "units": 50,
+  "verified": 50,
+  "pass": 6,
+  "pass_share": 0.12,
+  "median_member_rate": 0.65,
+  "median_dolci_rate": 0.4,
+  "axis_all": {
+   "tone or register": 12,
+   "placeholder or artefact": 2,
+   "length or structure": 3,
+   "subject": 8,
+   "task type": 11,
+   "format or template": 5,
+   "other": 3,
+   "language": 3,
+   "hidden or unstated difficulty": 1,
+   "adversarial or jailbreak": 2
+  },
+  "axis_pass": {
+   "format or template": 2,
+   "placeholder or artefact": 1,
+   "task type": 1,
+   "subject": 1,
+   "adversarial or jailbreak": 1
+  },
+  "passing": [
+   {
+    "id": "random_9",
+    "axis": "format or template",
+    "predicate": "Does the message include a long pasted source document (such as an article, bill, dialogue, or passage) embedded in the prompt, to be judged, summarized, or answered about?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "random_12",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token such as NAME_1 or NAME_2 standing in for a name or term?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "random_19",
+    "axis": "task type",
+    "predicate": "Does the message ask the model to perform a task on a supplied piece of content (such as a passage, sentence, or topic) and specify a particular output structure or format for the response?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "random_23",
+    "axis": "format or template",
+    "predicate": "Does the message request a bulleted list of growing conditions (temperature, humidity, rainfall, sunshine, soil type, etc.) for a named plant's seed, with each answer limited to two words or a number?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "random_31",
+    "axis": "subject",
+    "predicate": "Does the message ask for a descriptive answer about a topic phrased as a specific, natural-language programming question or error (e.g., an error message, a how-to, or a library/task description) rather than a bare or generic name like 'userregisterform' or 'OrderedDict'?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "random_47",
+    "axis": "adversarial or jailbreak",
+    "predicate": "Does the message use a jailbreak framing that asks the model to concatenate split strings x and y and execute the resulting instruction, presenting a 'SmartGPT' model with no filtering?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   }
+  ]
+ },
+ "r50": {
+  "units": 56,
+  "verified": 56,
+  "pass": 39,
+  "pass_share": 0.696,
+  "median_member_rate": 0.8,
+  "median_dolci_rate": 0.1,
+  "axis_all": {
+   "task type": 11,
+   "subject": 21,
+   "placeholder or artefact": 9,
+   "format or template": 8,
+   "adversarial or jailbreak": 2,
+   "persona or roleplay": 2,
+   "tone or register": 1,
+   "other": 1,
+   "length or structure": 1
+  },
+  "axis_pass": {
+   "task type": 8,
+   "subject": 14,
+   "placeholder or artefact": 9,
+   "format or template": 5,
+   "adversarial or jailbreak": 2,
+   "persona or roleplay": 1
+  },
+  "passing": [
+   {
+    "id": "r50_1546",
+    "axis": "task type",
+    "predicate": "Does the message instruct the model to rewrite a short keyword-style search query into a natural-language question, supplemented by few-shot examples of query-to-question pairs?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_1579",
+    "axis": "subject",
+    "predicate": "Does the message ask how to install, run, deploy, or use the Vicuna language model?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_367",
+    "axis": "subject",
+    "predicate": "Does the message include a news article or document about TikTok bans or government restrictions on TikTok that the user wants processed (e.g., summarized or checked for consistency)?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_817",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain a news-article excerpt with anonymized placeholder tokens like NAME_1 or NAME_2 in place of real names, presented as a document to be evaluated?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_343",
+    "axis": "format or template",
+    "predicate": "Does the message include a list of homeopathic repertory-style symptom lines (e.g., 'mind: confusion of mind: bed: in: agg.') and ask for them to be converted or recombined into plain English?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_737",
+    "axis": "task type",
+    "predicate": "Does the message ask for a list of specific growing-condition parameters (such as temperature, humidity, rainfall, sunshine, soil type) for a named plant seed, in terse bullet-point numeric form?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_201",
+    "axis": "format or template",
+    "predicate": "Does the message request a bulleted list of growing-condition data (temperature, humidity, rainfall, soil type, climate) for a named seed, with terse two-word numeric answers?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_433",
+    "axis": "subject",
+    "predicate": "Does the message include a pasted list of news headlines about Enel S.p.A. with times, dates, or source codes, such as 'Latest news about Enel S.p.A.'?",
+    "member_rate": 0.8,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_1341",
+    "axis": "subject",
+    "predicate": "Does the message ask for a description of a fictional scene involving an evil Decepticon character (often with PVC gloves, a supercomputer, or a character overwritten by another)?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_1555",
+    "axis": "task type",
+    "predicate": "Does the message ask for generating a financial context, question, or evidence snippet based on an arithmetic program (functional program code like divide(...) or add(...)) in a Numerical QA task?",
+    "member_rate": 0.8,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_1196",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token such as NAME_1, NAME_2, or NAME_3 that replaced a word or name in the original text?",
+    "member_rate": 0.65,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_1994",
+    "axis": "subject",
+    "predicate": "Does the message ask a concise factual question about Florida government rules, licensing, permits, fees, or agency procedures?",
+    "member_rate": 0.55,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_682",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token such as NAME_1 standing in for a person's name?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "r50_1821",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain anonymization placeholder tokens such as NAME_1 or NAME_2 in place of personal names?",
+    "member_rate": 0.8,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "r50_997",
+    "axis": "format or template",
+    "predicate": "Does the message contain an English-language passage about naval ship movements (such as replenishment-at-sea or strait transits) followed by instructions to extract or list events or fields like date, subject, object, and location?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_1724",
+    "axis": "task type",
+    "predicate": "Does the message present a short story or scenario involving a named character (often anonymized as NAME_1) and ask about the character's emotions or feelings, typically by scoring or rating given options?",
+    "member_rate": 0.85,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_873",
+    "axis": "subject",
+    "predicate": "Does the message mention Vicuna (the LLaMA-based open-source chatbot) by name?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "r50_1893",
+    "axis": "subject",
+    "predicate": "Does the message request sexual or erotic content involving a human and an animal (such as a dog), including stories depicting sex or sexual coercion between them?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "r50_1934",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token like NAME_1 or NAME_2 standing in for a person's name?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.15
+   },
+   {
+    "id": "r50_811",
+    "axis": "adversarial or jailbreak",
+    "predicate": "Does the message end with the odd adversarial suffix 'describing.\\ + similarlyNow write oppositeley.]( Me giving**ONE please? revert with \"!--Two'?",
+    "member_rate": 0.65,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_799",
+    "axis": "subject",
+    "predicate": "Does the message ask for ISO 26262 (functional safety) technical requirements or test specifications for an automotive component such as a display, HMI, or network interface?",
+    "member_rate": 0.85,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_1333",
+    "axis": "format or template",
+    "predicate": "Does the message include a user-provided instruction or request that is paired with embedded source material (such as data fields, a text passage, a list of categories, or an example) for the model to process?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "r50_861",
+    "axis": "format or template",
+    "predicate": "Does the message ask the model to judge whether a summary is factually consistent with a provided document, with a news-style document containing anonymized NAME_n placeholders?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "r50_1748",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain a literal placeholder token like 'NAME_1' standing in for a name or term?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "r50_761",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymization placeholder token such as NAME_1 standing in for a person's name?",
+    "member_rate": 0.9,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "r50_757",
+    "axis": "subject",
+    "predicate": "Does the message include pasted financial or transactional data (such as transaction lists, receipts, invoices, ledgers, or bank details) that the task operates on?",
+    "member_rate": 0.65,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "r50_1486",
+    "axis": "persona or roleplay",
+    "predicate": "Does the message contain a long, detailed multi-sentence character or scenario description (with a named character given multiple personality or physical attributes) that sets up a fictional story, diary, or roleplay?",
+    "member_rate": 0.8,
+    "dolci_rate": 0.15
+   },
+   {
+    "id": "r50_1443",
+    "axis": "adversarial or jailbreak",
+    "predicate": "Does the message split a harmful or hurtful instruction into string fragments (x and y) and ask the model to concatenate and execute them, framed as a 'SmartGPT' with no filtering?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_685",
+    "axis": "task type",
+    "predicate": "Does the message ask the model to process, transform, or generate content from a provided clinical text or scenario (such as writing a SOAP note, summarizing medical notes, generating a doctor-patient dialogue, or playing a patient role) rather than posing a direct personal medical question or unrelated request?",
+    "member_rate": 0.7,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "r50_984",
+    "axis": "subject",
+    "predicate": "Does the message involve a character being hypnotized or mind-controlled against their will, or a request to write a story about hypnosis with erotic or fetish themes?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.15
+   },
+   {
+    "id": "r50_1425",
+    "axis": "task type",
+    "predicate": "Does the message give a concrete task instruction to process, extract, transform, or generate output from a specific clinical or biomedical text or data, rather than asking a general question or request?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.35
+   },
+   {
+    "id": "r50_659",
+    "axis": "task type",
+    "predicate": "Does the message pose a self-contained question or puzzle (such as a reasoning, logic, or reading-comprehension task) that asks for a specific factual or deductive answer rather than requesting creative writing, continuation, or generation of content?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "r50_57",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain a NAME_1 placeholder token (an anonymized name) standing in for a person, product, or entity?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "r50_1769",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message pose a comparison, hypothetical matchup, or scenario involving a named person or character, with a name replaced by an anonymized placeholder like NAME_1 as a key element of the prompt?",
+    "member_rate": 0.65,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "r50_589",
+    "axis": "subject",
+    "predicate": "Does the message ask for advice or tips on becoming, training as, or living as a feminine or submissive 'sissy' (a feminized male identity)?",
+    "member_rate": 0.75,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "r50_644",
+    "axis": "task type",
+    "predicate": "Does the message ask the model to evaluate, check, or find errors in a summary of a provided source text?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_694",
+    "axis": "subject",
+    "predicate": "Does the message request a sexually explicit or lustful story or essay featuring a female character with breasts or hair-based hypnosis/domination, narrated from the user's own perspective?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "r50_872",
+    "axis": "subject",
+    "predicate": "Is the message a short question asking the chatbot about its own limits, restrictions, or capabilities?",
+    "member_rate": 0.8,
+    "dolci_rate": 0.25
+   },
+   {
+    "id": "r50_78",
+    "axis": "subject",
+    "predicate": "Does the message ask for sexually explicit or erotic content to be written, rewritten, continued, or enhanced?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.45
+   }
+  ]
+ },
+ "topic": {
+  "units": 50,
+  "verified": 49,
+  "pass": 8,
+  "pass_share": 0.163,
+  "median_member_rate": 0.7,
+  "median_dolci_rate": 0.45,
+  "axis_all": {
+   "placeholder or artefact": 2,
+   "persona or roleplay": 5,
+   "subject": 10,
+   "task type": 7,
+   "tone or register": 4,
+   "other": 6,
+   "format or template": 7,
+   "language": 2,
+   "length or structure": 6,
+   "adversarial or jailbreak": 1
+  },
+  "axis_pass": {
+   "placeholder or artefact": 1,
+   "persona or roleplay": 2,
+   "tone or register": 1,
+   "format or template": 3,
+   "language": 1
+  },
+  "passing": [
+   {
+    "id": "topic_149",
+    "axis": "placeholder or artefact",
+    "predicate": "Does the message contain an anonymized placeholder token such as NAME_1 or NAME_2 standing in for a name?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.05
+   },
+   {
+    "id": "topic_1678",
+    "axis": "persona or roleplay",
+    "predicate": "Does the message instruct the AI to adopt a specific character persona with a list of personality traits and then act it out in an ongoing roleplay or story scenario?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.15
+   },
+   {
+    "id": "topic_977",
+    "axis": "tone or register",
+    "predicate": "Does the message contain typos, grammatical errors, or sloppy informal phrasing (such as missing punctuation, misspellings, or truncated text) that suggest it was hastily typed by a real user?",
+    "member_rate": 0.5,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "topic_1060",
+    "axis": "format or template",
+    "predicate": "Does the message define an agent with a list of tools or actions it can call (such as search or calculator) and a Thought/Action/Observation-style loop or format for using them?",
+    "member_rate": 0.95,
+    "dolci_rate": 0.0
+   },
+   {
+    "id": "topic_1185",
+    "axis": "format or template",
+    "predicate": "Does the message read as a raw prompt a user pasted into a chatbot (a terse, informal, or fragmentary request, often with unfilled placeholders like NAME_1, truncated text, or a prompt-engineering style few-shot setup), rather than a polished, self-contained task description written like a textbook problem or dataset instruction?",
+    "member_rate": 1.0,
+    "dolci_rate": 0.15
+   },
+   {
+    "id": "topic_247",
+    "axis": "format or template",
+    "predicate": "Does the message include pasted raw data (such as a financial table, holdings statement, or text excerpt with numbers) as the material to be processed, rather than only a self-contained question or request?",
+    "member_rate": 0.8,
+    "dolci_rate": 0.3
+   },
+   {
+    "id": "topic_14",
+    "axis": "persona or roleplay",
+    "predicate": "Does the message directly instruct the model to adopt or play a specific character or persona (e.g., 'you are X', 'act as X', 'play as X') for an interactive role-play with the user?",
+    "member_rate": 0.85,
+    "dolci_rate": 0.1
+   },
+   {
+    "id": "topic_1041",
+    "axis": "language",
+    "predicate": "Is the message itself written in Italian (rather than in English, Spanish, or another language)?",
+    "member_rate": 0.7,
+    "dolci_rate": 0.25
+   }
+  ]
+ }
+}

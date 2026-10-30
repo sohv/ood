@@ -1,0 +1,3 @@
+```json
+{"prompts":[{"i":1,"match":"yes"},{"i":2,"match":"yes"},{"i":3,"match":"yes"},{"i":4,"match":"yes"},{"i":5,"match":"no"},{"i":6,"match":"yes"},{"i":7,"match":"no"},{"i":8,"match":"no"},{"i":9,"match":"yes"},{"i":10,"match":"no"}],"verdict":"partly","note":"Covered: card-game code help, theory-of-mind story QA, meme crypto names, age word problems, and simple orange arithmetic. Gaps: transitive comparison logic puzzles (faster/taller ordering), and judging an answer against a timestamped event log. The NAME_x placeholders mostly pull in unrelated erotic-story prompts."}
+```

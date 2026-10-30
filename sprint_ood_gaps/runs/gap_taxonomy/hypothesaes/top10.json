@@ -1,0 +1,250 @@
+{
+ "full": [
+  {
+   "neuron_idx": 29,
+   "target_separation_score": 0.5277777777777778,
+   "interpretation": "contains the token 'NAME_1' and the full sample is shorter than 100 characters",
+   "f1_fidelity_score": 0.8764044943820225
+  },
+  {
+   "neuron_idx": 252,
+   "target_separation_score": 0.43022875816993467,
+   "interpretation": "contains no uppercase letters (all text is lowercase)",
+   "f1_fidelity_score": 0.9215686274509804
+  },
+  {
+   "neuron_idx": 189,
+   "target_separation_score": 0.40368970013037814,
+   "interpretation": "Begins with a greeting/opening salutation (e.g., 'hi', 'hey', 'hello', 'hola', '\u043f\u0440\u0438\u0432\u0435\u0442', '\u03b3\u03b5\u03b9\u03ac', or 'what\u2019s up')",
+   "f1_fidelity_score": 0.7499999999999999
+  },
+  {
+   "neuron_idx": 9,
+   "target_separation_score": 0.3943903715332287,
+   "interpretation": "Explicitly instructs the assistant to roleplay/act as a specific persona or character (e.g., 'act as', 'roleplay', 'stay in character', defining an alternate identity like DAN/PersonGPT)",
+   "f1_fidelity_score": 0.9
+  },
+  {
+   "neuron_idx": 1,
+   "target_separation_score": 0.3933523463831994,
+   "interpretation": "Contains explicit sexual content or requests for pornographic/erotic material (e.g., masturbation, rape, oral sex, \u201cx-rated\u201d, penis/cum/pussy terminology)",
+   "f1_fidelity_score": 0.9795918367346939
+  },
+  {
+   "neuron_idx": 152,
+   "target_separation_score": 0.3716461659251505,
+   "interpretation": "Contains the word \\\"story\\\" in the prompt",
+   "f1_fidelity_score": 0.924731182795699
+  }
+ ],
+ "minus_safety": [
+  {
+   "neuron_idx": 29,
+   "target_separation_score": 0.5140160976963641,
+   "interpretation": "Contains the placeholder token \\\"NAME_1\\\" (a \\\"NAME_*\\\" anonymized name marker)",
+   "f1_fidelity_score": 0.9803921568627451
+  },
+  {
+   "neuron_idx": 1,
+   "target_separation_score": 0.44093060356288216,
+   "interpretation": "Contains explicit sexual content or requests for pornographic/erotic material (e.g., mentions sex acts like masturbation/oral sex/rape or genital terms like penis/cum/pussy)",
+   "f1_fidelity_score": 0.9473684210526316
+  },
+  {
+   "neuron_idx": 252,
+   "target_separation_score": 0.43761744966442956,
+   "interpretation": "A short (\u226443 characters) all-lowercase string containing only letters a\u2013z, spaces, and optional apostrophes (no other punctuation, digits, or newlines)",
+   "f1_fidelity_score": 0.7804878048780487
+  },
+  {
+   "neuron_idx": 101,
+   "target_separation_score": 0.4340584415584416,
+   "interpretation": "Starts with the word 'how' (case-insensitive) as the first token",
+   "f1_fidelity_score": 0.6216216216216216
+  },
+  {
+   "neuron_idx": 9,
+   "target_separation_score": 0.43241286863270784,
+   "interpretation": "Explicitly instructs the assistant to roleplay/assume a specified persona or character (e.g., uses directives like \u201cact as\u2026\u201d, \u201croleplay\u201d, \u201cstay in character\u201d, or defines a character with behavioral rules)",
+   "f1_fidelity_score": 0.8932038834951457
+  },
+  {
+   "neuron_idx": 189,
+   "target_separation_score": 0.4001340123291343,
+   "interpretation": "Begins with a greeting word/phrase (e.g., Hi/Hello/Hey/Hola/\u041f\u0440\u0438\u0432\u0435\u0442/\u0393\u03b5\u03b9\u03ac/What's up)",
+   "f1_fidelity_score": 0.7341772151898733
+  },
+  {
+   "neuron_idx": 152,
+   "target_separation_score": 0.39879129734085417,
+   "interpretation": "Explicitly requests a story/fiction narrative (e.g., contains an instruction like 'write/tell me a story' or 'escribe un cuento')",
+   "f1_fidelity_score": 0.9166666666666666
+  }
+ ],
+ "random_safety": [
+  {
+   "neuron_idx": 29,
+   "target_separation_score": 0.5141509433962264,
+   "interpretation": "contains at least one placeholder token of the form `NAME_#` (e.g., `NAME_1`, `NAME_2`, `NAME_3`)",
+   "f1_fidelity_score": 0.99009900990099
+  },
+  {
+   "neuron_idx": 252,
+   "target_separation_score": 0.41680672268907565,
+   "interpretation": "contains only lowercase ASCII letters plus spaces/apostrophes (no uppercase, digits, or other punctuation like ?, ., :, brackets, or newlines)",
+   "f1_fidelity_score": 0.8235294117647058
+  },
+  {
+   "neuron_idx": 189,
+   "target_separation_score": 0.39026795284030014,
+   "interpretation": "Begins with a greeting word/phrase (e.g., Hi/Hello/Hey/Hola/\u041f\u0440\u0438\u0432\u0435\u0442/\u0393\u03b5\u03b9\u03ac)",
+   "f1_fidelity_score": 0.7499999999999999
+  },
+  {
+   "neuron_idx": 9,
+   "target_separation_score": 0.38080688542227004,
+   "interpretation": "Explicitly instructs the assistant to assume an alternate persona/character and respond in-character (e.g., roleplay directives like \u201cact as\u2026\u201d, \u201cyou are\u2026\u201d, \u201cportray\u2026\u201d, \u201cstay in character\u201d).",
+   "f1_fidelity_score": 0.8823529411764707
+  },
+  {
+   "neuron_idx": 1,
+   "target_separation_score": 0.37986677324806817,
+   "interpretation": "contains or requests explicit pornographic sexual content (e.g., masturbation/intercourse/rape and mentions of genitals or cum)",
+   "f1_fidelity_score": 0.8636363636363636
+  }
+ ],
+ "minus_code": [
+  {
+   "neuron_idx": 29,
+   "target_separation_score": 0.4729078868151716,
+   "interpretation": "contains the placeholder token \\\"NAME_1\\\" and is a short prompt (overall text length under ~120 characters)",
+   "f1_fidelity_score": 0.9010989010989011
+  },
+  {
+   "neuron_idx": 252,
+   "target_separation_score": 0.37344322344322345,
+   "interpretation": "Short single-line text (\u226450 chars) made only of lowercase Latin letters a\u2013z, spaces, and optional apostrophes (no other characters/punctuation)",
+   "f1_fidelity_score": 0.7951807228915663
+  },
+  {
+   "neuron_idx": 189,
+   "target_separation_score": 0.3684785133565621,
+   "interpretation": "Starts with a greeting word (e.g., 'hi', 'hello', 'hey', 'hola', '\u043f\u0440\u0438\u0432\u0435\u0442', '\u03b3\u03b5\u03b9\u03ac')",
+   "f1_fidelity_score": 0.7341772151898733
+  },
+  {
+   "neuron_idx": 9,
+   "target_separation_score": 0.3381021897810219,
+   "interpretation": "Explicitly instructs the assistant to adopt a role/character/persona for roleplay (e.g., uses phrases like \\\"act as\\\", \\\"role playing\\\", \\\"you will be\\\", \\\"stay in character\\\")",
+   "f1_fidelity_score": 0.9690721649484536
+  },
+  {
+   "neuron_idx": 1,
+   "target_separation_score": 0.337514450867052,
+   "interpretation": "Contains an explicit request for erotic/sexual content or describes sexual acts/genitalia (e.g., masturbation, intercourse, oral sex, rape, pornographic storywriting)",
+   "f1_fidelity_score": 0.9696969696969697
+  },
+  {
+   "neuron_idx": 152,
+   "target_separation_score": 0.32550043770061277,
+   "interpretation": "Contains the word \\\"story\\\" (case-insensitive), indicating a request for a story/creative writing.",
+   "f1_fidelity_score": 0.9263157894736842
+  },
+  {
+   "neuron_idx": 140,
+   "target_separation_score": 0.28436280137772674,
+   "interpretation": "A question that includes an explicit quality/evaluation adjective (e.g., \u201cbest\u201d, \u201cbetter\u201d, \u201cgood\u201d, \u201creliable\u201d, \u201ceasy\u201d, or non\u2011English equivalents like \u201cmejor\u201d/\u201clep\u0161\u00ed\u201d) asking for the optimal choice/recommendation",
+   "f1_fidelity_score": 0.7777777777777777
+  },
+  {
+   "neuron_idx": 106,
+   "target_separation_score": 0.2832415375788869,
+   "interpretation": "Requests help with computer filesystem/file management tasks (e.g., deleting, listing, compressing, snapshotting, or pushing files/directories)",
+   "f1_fidelity_score": 0.5714285714285715
+  }
+ ],
+ "random_code": [
+  {
+   "neuron_idx": 29,
+   "target_separation_score": 0.47259036144578315,
+   "interpretation": "Contains the placeholder token \\\"NAME_1\\",
+   "f1_fidelity_score": 1.0
+  },
+  {
+   "neuron_idx": 252,
+   "target_separation_score": 0.3756838905775076,
+   "interpretation": "text consists only of lowercase Latin letters and spaces (optionally an apostrophe), with no uppercase letters, digits, or other punctuation",
+   "f1_fidelity_score": 0.8095238095238095
+  },
+  {
+   "neuron_idx": 1,
+   "target_separation_score": 0.36860974906259014,
+   "interpretation": "Contains explicit pornographic/erotic sexual content or a request to create/role-play sexually explicit material (e.g., masturbation, rape, intercourse, genital terms like penis/cum/pussy)",
+   "f1_fidelity_score": 0.9690721649484536
+  }
+ ],
+ "minus_multilingual": [
+  {
+   "neuron_idx": 29,
+   "target_separation_score": 0.5148240509836519,
+   "interpretation": "Contains at least one placeholder token of the form 'NAME_1' (i.e., the substring 'NAME_' followed by a number)",
+   "f1_fidelity_score": 1.0
+  },
+  {
+   "neuron_idx": 252,
+   "target_separation_score": 0.4172124265323258,
+   "interpretation": "contains no question mark (?), period (.), or exclamation point (!)",
+   "f1_fidelity_score": 0.8823529411764707
+  },
+  {
+   "neuron_idx": 189,
+   "target_separation_score": 0.4017365749398878,
+   "interpretation": "Begins with a greeting word/phrase (e.g., 'Hi', 'Hey', 'Hello', 'Hola', '\u041f\u0440\u0438\u0432\u0435\u0442', '\u0393\u03b5\u03b9\u03ac', or 'what\u2019s up')",
+   "f1_fidelity_score": 0.7407407407407407
+  },
+  {
+   "neuron_idx": 9,
+   "target_separation_score": 0.3814773032500672,
+   "interpretation": "Explicitly instructs the assistant to roleplay/act as/portray a specific persona or character (e.g., \u201cact as\u2026\u201d, \u201croleplay\u2026\u201d, \u201cyou will be\u2026\u201d, \u201cstay in character\u201d).",
+   "f1_fidelity_score": 0.9108910891089109
+  },
+  {
+   "neuron_idx": 1,
+   "target_separation_score": 0.3805321979776477,
+   "interpretation": "Contains explicit sexual content, i.e., mentions sexual acts or sexual anatomy (e.g., masturbation, intercourse/oral sex, rape, porn, penis/cum/orgasm)",
+   "f1_fidelity_score": 0.853932584269663
+  }
+ ],
+ "random_multilingual": [
+  {
+   "neuron_idx": 29,
+   "target_separation_score": 0.5150927720852949,
+   "interpretation": "Contains the placeholder token \\\"NAME_1\\\" (a NAME_* template placeholder)",
+   "f1_fidelity_score": 1.0
+  },
+  {
+   "neuron_idx": 252,
+   "target_separation_score": 0.4174825174825175,
+   "interpretation": "contains no uppercase Latin letters (A\u2013Z) anywhere in the text",
+   "f1_fidelity_score": 0.94
+  },
+  {
+   "neuron_idx": 9,
+   "target_separation_score": 0.39174496644295304,
+   "interpretation": "Explicitly instructs the assistant to adopt and respond in a specific role/persona/character (e.g., 'you will be...', 'act as...', 'portray...'), i.e., a roleplay/character prompt",
+   "f1_fidelity_score": 0.94
+  },
+  {
+   "neuron_idx": 189,
+   "target_separation_score": 0.39093658014450094,
+   "interpretation": "Starts with a greeting/opening salutation (e.g., \u201cHi\u201d, \u201cHey\u201d, \u201cHello\u201d, \u201cHola\u201d, \u201c\u041f\u0440\u0438\u0432\u0435\u0442\u201d, \u201c\u0393\u03b5\u03b9\u03ac \u03c3\u03bf\u03c5\u201d, \u201cwhat\u2019s up\u201d)",
+   "f1_fidelity_score": 0.7407407407407407
+  },
+  {
+   "neuron_idx": 1,
+   "target_separation_score": 0.39066507049747273,
+   "interpretation": "Contains explicit pornographic/erotic sexual content (e.g., masturbation, oral sex, rape, genital terms) or requests writing of such content",
+   "f1_fidelity_score": 0.9166666666666666
+  }
+ ]
+}

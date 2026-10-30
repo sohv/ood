@@ -1,0 +1,174 @@
+{
+ "n_labelled": 335,
+ "n_units": 338,
+ "defining_axis": {
+  "full: confirmed": {
+   "n": 56,
+   "subject": 20,
+   "task type": 11,
+   "language": 0,
+   "format or template": 11,
+   "length or structure": 0,
+   "persona or roleplay": 1,
+   "adversarial or jailbreak": 2,
+   "tone or register": 0,
+   "placeholder or artefact": 10,
+   "other": 1
+  },
+  "full: rejected": {
+   "n": 143,
+   "subject": 73,
+   "task type": 21,
+   "language": 0,
+   "format or template": 14,
+   "length or structure": 6,
+   "persona or roleplay": 2,
+   "adversarial or jailbreak": 3,
+   "tone or register": 3,
+   "placeholder or artefact": 12,
+   "other": 9
+  },
+  "new after safety removal": {
+   "n": 20,
+   "subject": 12,
+   "task type": 0,
+   "language": 0,
+   "format or template": 4,
+   "length or structure": 1,
+   "persona or roleplay": 0,
+   "adversarial or jailbreak": 1,
+   "tone or register": 0,
+   "placeholder or artefact": 2,
+   "other": 0
+  },
+  "new after coding removal": {
+   "n": 5,
+   "subject": 0,
+   "task type": 2,
+   "language": 0,
+   "format or template": 1,
+   "length or structure": 1,
+   "persona or roleplay": 0,
+   "adversarial or jailbreak": 0,
+   "tone or register": 0,
+   "placeholder or artefact": 1,
+   "other": 0
+  },
+  "new after non-English removal": {
+   "n": 11,
+   "subject": 4,
+   "task type": 2,
+   "language": 0,
+   "format or template": 1,
+   "length or structure": 0,
+   "persona or roleplay": 0,
+   "adversarial or jailbreak": 0,
+   "tone or register": 0,
+   "placeholder or artefact": 3,
+   "other": 1
+  },
+  "new after random removals (pooled)": {
+   "n": 62,
+   "subject": 35,
+   "task type": 4,
+   "language": 0,
+   "format or template": 8,
+   "length or structure": 3,
+   "persona or roleplay": 1,
+   "adversarial or jailbreak": 2,
+   "tone or register": 2,
+   "placeholder or artefact": 5,
+   "other": 2
+  }
+ },
+ "name_fit_full_run": {
+  "partly": 81,
+  "yes": 64,
+  "no": 54
+ },
+ "name_fit_by_axis_full_run": {
+  "subject": {
+   "partly": 37,
+   "yes": 49,
+   "no": 7
+  },
+  "format or template": {
+   "partly": 15,
+   "no": 9,
+   "yes": 1
+  },
+  "other": {
+   "partly": 5,
+   "no": 5
+  },
+  "adversarial or jailbreak": {
+   "partly": 1,
+   "no": 2,
+   "yes": 2
+  },
+  "task type": {
+   "partly": 17,
+   "yes": 11,
+   "no": 4
+  },
+  "placeholder or artefact": {
+   "partly": 3,
+   "no": 19
+  },
+  "length or structure": {
+   "no": 4,
+   "partly": 2
+  },
+  "persona or roleplay": {
+   "no": 1,
+   "yes": 1,
+   "partly": 1
+  },
+  "tone or register": {
+   "no": 3
+  }
+ },
+ "name_axis_full_run": {
+  "subject": 158,
+  "task type": 34,
+  "persona or roleplay": 2,
+  "format or template": 1,
+  "placeholder or artefact": 1,
+  "adversarial or jailbreak": 2,
+  "language": 1
+ },
+ "nonsubject_shared_by_most": {
+  "subject": 309,
+  "task type": 328,
+  "language": 184,
+  "format or template": 155,
+  "length or structure": 270,
+  "persona or roleplay": 37,
+  "adversarial or jailbreak": 31,
+  "tone or register": 284,
+  "placeholder or artefact": 66,
+  "other": 41
+ },
+ "sole_vs_sonnet": {
+  "n": 60,
+  "kappa_axis": [
+   0.46781467814678146,
+   0.6271186440677966
+  ],
+  "kappa_subject_vs_not": [
+   0.5025295109612142,
+   0.7457627118644068
+  ]
+ },
+ "resample_vs_first": {
+  "n": 40,
+  "kappa_axis": [
+   0.4508670520231214,
+   0.6052631578947368
+  ],
+  "kappa_subject_vs_not": [
+   0.4736842105263157,
+   0.7368421052631579
+  ]
+ }
+}

@@ -1,0 +1,260 @@
+{
+ "population": 1684351,
+ "test_set": 11945,
+ "words_tested": 76416,
+ "holm_significant": 706,
+ "grades": {
+  "yes": 12974,
+  "no": 11945,
+  "nan": 81
+ },
+ "name_k": {
+  "refused": 142,
+  "sampled": 97,
+  "harmless": 63,
+  "harmful": 33,
+  "failed": 1,
+  "harmless_share_of_graded": 0.6562,
+  "harmless_sources": {
+   "WildGuardMix": 63
+  }
+ },
+ "name_tokens": {
+  "name_1": {
+   "rank_by_odds_among_sig": 6,
+   "bg": 332.0,
+   "n_pop": 246.0,
+   "k_test": 65.0,
+   "odds": 50.79544784999101,
+   "p_holm": 1.0237132764106484e-75
+  },
+  "name_2": {
+   "rank_by_odds_among_sig": 7,
+   "bg": 167.0,
+   "n_pop": 129.0,
+   "k_test": 34.0,
+   "odds": 50.718505127145164,
+   "p_holm": 5.20275287923199e-38
+  },
+  "name_3": {
+   "rank_by_odds_among_sig": 31,
+   "bg": 52.0,
+   "n_pop": 36.0,
+   "k_test": 7.0,
+   "odds": 35.61424972475462,
+   "p_holm": 0.0004765097873294219
+  }
+ },
+ "top30_by_odds": [
+  {
+   "word": "spurts",
+   "n_pop": 32,
+   "k_test": 17,
+   "odds": 158.2918180502916,
+   "p_holm": 1.120121135205783e-23
+  },
+  {
+   "word": "risqu\u00e9",
+   "n_pop": 37,
+   "k_test": 13,
+   "odds": 77.22747854641541,
+   "p_holm": 2.6415853850896833e-14
+  },
+  {
+   "word": "erotica",
+   "n_pop": 49,
+   "k_test": 13,
+   "odds": 51.83725063068803,
+   "p_holm": 1.798479884946691e-12
+  },
+  {
+   "word": "mcduck",
+   "n_pop": 49,
+   "k_test": 13,
+   "odds": 51.83725063068803,
+   "p_holm": 1.798479884946691e-12
+  },
+  {
+   "word": "erotic",
+   "n_pop": 415,
+   "k_test": 111,
+   "odds": 51.73691784082066,
+   "p_holm": 3.0485164058084816e-132
+  },
+  {
+   "word": "name_1",
+   "n_pop": 246,
+   "k_test": 65,
+   "odds": 50.79544784999101,
+   "p_holm": 1.0237132764106484e-75
+  },
+  {
+   "word": "name_2",
+   "n_pop": 129,
+   "k_test": 34,
+   "odds": 50.718505127145164,
+   "p_holm": 5.20275287923199e-38
+  },
+  {
+   "word": "belittles",
+   "n_pop": 85,
+   "k_test": 22,
+   "odds": 49.69704008724913,
+   "p_holm": 3.211285594279069e-23
+  },
+  {
+   "word": "jailbreaking",
+   "n_pop": 42,
+   "k_test": 10,
+   "odds": 45.26878703802168,
+   "p_holm": 2.91818800934542e-08
+  },
+  {
+   "word": "romanticize",
+   "n_pop": 55,
+   "k_test": 13,
+   "odds": 44.518890819684245,
+   "p_holm": 9.551385218161368e-12
+  },
+  {
+   "word": "fetishes",
+   "n_pop": 47,
+   "k_test": 11,
+   "odds": 44.150257943328796,
+   "p_holm": 2.381578986558636e-09
+  },
+  {
+   "word": "bdsm",
+   "n_pop": 64,
+   "k_test": 15,
+   "odds": 43.893172960060355,
+   "p_holm": 5.017819145096597e-14
+  },
+  {
+   "word": "insinuating",
+   "n_pop": 85,
+   "k_test": 20,
+   "odds": 43.88953013316451,
+   "p_holm": 7.029931105995147e-20
+  },
+  {
+   "word": "glorifies",
+   "n_pop": 35,
+   "k_test": 8,
+   "odds": 43.30197277486911,
+   "p_holm": 9.624676864072311e-06
+  },
+  {
+   "word": "peeing",
+   "n_pop": 137,
+   "k_test": 32,
+   "odds": 43.242033759542764,
+   "p_holm": 1.0497099346266464e-33
+  },
+  {
+   "word": "knope",
+   "n_pop": 27,
+   "k_test": 6,
+   "odds": 42.347243905075686,
+   "p_holm": 0.002510112180716567
+  },
+  {
+   "word": "gaslight",
+   "n_pop": 27,
+   "k_test": 6,
+   "odds": 42.347243905075686,
+   "p_holm": 0.002510112180716567
+  },
+  {
+   "word": "discrediting",
+   "n_pop": 41,
+   "k_test": 9,
+   "odds": 40.95404270675917,
+   "p_holm": 9.819174678798555e-07
+  },
+  {
+   "word": "bashar",
+   "n_pop": 37,
+   "k_test": 8,
+   "odds": 40.366197533055285,
+   "p_holm": 1.5587941690387806e-05
+  },
+  {
+   "word": "unreleased",
+   "n_pop": 87,
+   "k_test": 19,
+   "odds": 39.91675380317584,
+   "p_holm": 4.845822780183297e-18
+  },
+  {
+   "word": "sexualized",
+   "n_pop": 42,
+   "k_test": 9,
+   "odds": 39.73151021168609,
+   "p_holm": 1.2416776905717081e-06
+  },
+  {
+   "word": "speach",
+   "n_pop": 42,
+   "k_test": 9,
+   "odds": 39.73151021168609,
+   "p_holm": 1.2416776905717081e-06
+  },
+  {
+   "word": "objectify",
+   "n_pop": 93,
+   "k_test": 20,
+   "odds": 39.112251315351514,
+   "p_holm": 5.044824941052899e-19
+  },
+  {
+   "word": "pornographic",
+   "n_pop": 89,
+   "k_test": 19,
+   "odds": 38.7843172409733,
+   "p_holm": 7.752220323021134e-18
+  },
+  {
+   "word": "dressy",
+   "n_pop": 29,
+   "k_test": 6,
+   "odds": 38.74317681431116,
+   "p_holm": 0.003978372507943471
+  },
+  {
+   "word": "pawnee",
+   "n_pop": 30,
+   "k_test": 6,
+   "odds": 37.16180043775122,
+   "p_holm": 0.004942254364764833
+  },
+  {
+   "word": "misrepresent",
+   "n_pop": 59,
+   "k_test": 12,
+   "odds": 36.87892112650587,
+   "p_holm": 1.0076892138510112e-09
+  },
+  {
+   "word": "waisted",
+   "n_pop": 35,
+   "k_test": 7,
+   "odds": 36.863894564908314,
+   "p_holm": 0.0003862590254708966
+  },
+  {
+   "word": "dwyer",
+   "n_pop": 31,
+   "k_test": 6,
+   "odds": 35.70445358092146,
+   "p_holm": 0.006090714070513303
+  },
+  {
+   "word": "dehumanize",
+   "n_pop": 31,
+   "k_test": 6,
+   "odds": 35.70445358092146,
+   "p_holm": 0.006090714070513303
+  }
+ ]
+}

@@ -1,0 +1,3 @@
+```json
+{"prompts": [{"i": 1, "match": "no"}, {"i": 2, "match": "yes"}, {"i": 3, "match": "no"}, {"i": 4, "match": "no"}, {"i": 5, "match": "no"}, {"i": 6, "match": "no"}, {"i": 7, "match": "yes"}, {"i": 8, "match": "no"}, {"i": 9, "match": "yes"}, {"i": 10, "match": "no"}], "verdict": "partly", "note": "Matches are for translation, text-from-summary, and correct/rewrite tasks. Gaps are game-strategy questions, Italian argumentative essays, sports results, and shortening or paraphrasing for uniqueness. The prompt 10 cookie-flavor prompt is only loosely a creative-generation match, so I counted it as no."}
+```

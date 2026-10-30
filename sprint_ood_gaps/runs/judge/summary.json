@@ -1,0 +1,188 @@
+{
+ "n_labelled": 81,
+ "n_real_gap": 30,
+ "judges": {
+  "distance": {
+   "n": 81,
+   "failed": 0,
+   "auroc_user": 0.771,
+   "ci": [
+    0.664,
+    0.868
+   ],
+   "minus_distance": 0.0,
+   "minus_distance_ci": [
+    0.0,
+    0.0
+   ],
+   "auroc_astra": 0.725
+  },
+  "ratio": {
+   "n": 81,
+   "failed": 0,
+   "auroc_user": 0.378,
+   "ci": [
+    0.255,
+    0.506
+   ],
+   "minus_distance": -0.392,
+   "minus_distance_ci": [
+    -0.562,
+    -0.215
+   ],
+   "auroc_astra": 0.454
+  },
+  "astra_ord": {
+   "n": 81,
+   "failed": 0,
+   "auroc_user": 0.806,
+   "ci": [
+    0.723,
+    0.878
+   ],
+   "minus_distance": 0.036,
+   "minus_distance_ci": [
+    -0.07,
+    0.149
+   ]
+  },
+  "claude-sonnet-4.6|j50": {
+   "n": 80,
+   "failed": 1,
+   "auroc_user": 0.731,
+   "ci": [
+    0.625,
+    0.828
+   ],
+   "minus_distance": -0.037,
+   "minus_distance_ci": [
+    -0.171,
+    0.1
+   ],
+   "auroc_astra": 0.843,
+   "kappa3_user": -0.024,
+   "kappa3_astra": 0.031,
+   "real_gap_share_by_arm": {
+    "control": "0/29",
+    "rare_only": "0/30",
+    "ratio_only": "0/30"
+   },
+   "score_label_spearman": 0.472
+  },
+  "gemini-3.8-flash|j50": {
+   "n": 81,
+   "failed": 0,
+   "auroc_user": 0.63,
+   "ci": [
+    0.517,
+    0.74
+   ],
+   "minus_distance": -0.141,
+   "minus_distance_ci": [
+    -0.289,
+    0.007
+   ],
+   "auroc_astra": 0.667,
+   "kappa3_user": 0.003,
+   "kappa3_astra": 0.022,
+   "real_gap_share_by_arm": {
+    "control": "0/30",
+    "rare_only": "0/30",
+    "ratio_only": "3/30"
+   },
+   "score_label_spearman": 0.443
+  },
+  "claude-sonnet-4.6|hyb": {
+   "n": 80,
+   "failed": 1,
+   "auroc_user": 0.781,
+   "ci": [
+    0.681,
+    0.866
+   ],
+   "minus_distance": 0.013,
+   "minus_distance_ci": [
+    -0.108,
+    0.138
+   ],
+   "auroc_astra": 0.782,
+   "kappa3_user": -0.016,
+   "kappa3_astra": 0.02,
+   "real_gap_share_by_arm": {
+    "control": "0/29",
+    "rare_only": "0/30",
+    "ratio_only": "0/30"
+   },
+   "score_label_spearman": 0.389
+  },
+  "gemini-3.8-flash|hyb": {
+   "n": 79,
+   "failed": 2,
+   "auroc_user": 0.554,
+   "ci": [
+    0.453,
+    0.652
+   ],
+   "minus_distance": -0.217,
+   "minus_distance_ci": [
+    -0.351,
+    -0.076
+   ],
+   "auroc_astra": 0.623,
+   "kappa3_user": 0.034,
+   "kappa3_astra": 0.035,
+   "real_gap_share_by_arm": {
+    "control": "0/30",
+    "rare_only": "0/30",
+    "ratio_only": "2/28"
+   },
+   "score_label_spearman": 0.508
+  },
+  "claude-sonnet-4.6|same": {
+   "n": 80,
+   "failed": 1,
+   "auroc_user": 0.881,
+   "ci": [
+    0.801,
+    0.947
+   ],
+   "minus_distance": 0.113,
+   "minus_distance_ci": [
+    0.001,
+    0.232
+   ],
+   "auroc_astra": 0.861,
+   "kappa3_user": -0.061,
+   "kappa3_astra": 0.109,
+   "real_gap_share_by_arm": {
+    "control": "0/29",
+    "rare_only": "0/30",
+    "ratio_only": "0/30"
+   },
+   "score_label_spearman": 0.686
+  },
+  "gemini-3.8-flash|same": {
+   "n": 81,
+   "failed": 0,
+   "auroc_user": 0.77,
+   "ci": [
+    0.662,
+    0.865
+   ],
+   "minus_distance": -0.0,
+   "minus_distance_ci": [
+    -0.123,
+    0.128
+   ],
+   "auroc_astra": 0.783,
+   "kappa3_user": 0.047,
+   "kappa3_astra": 0.087,
+   "real_gap_share_by_arm": {
+    "control": "0/30",
+    "rare_only": "4/30",
+    "ratio_only": "2/30"
+   },
+   "score_label_spearman": 0.559
+  }
+ }
+}

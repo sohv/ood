@@ -1,0 +1,725 @@
+{
+ "n_replies_per_model": 2292,
+ "rates": {
+  "base|None": {
+   "harmbench": 0.8475,
+   "jbb": 0.92,
+   "natural_redacted": 0.0781,
+   "plain": 0.0633,
+   "redacted": 0.0767,
+   "redacted_trainTpl": 0.13,
+   "zephyrine": 0.0567,
+   "zephyrine_trainTpl": 0.06
+  },
+  "k0|0": {
+   "harmbench": 0.85,
+   "jbb": 0.92,
+   "natural_redacted": 0.0729,
+   "plain": 0.0633,
+   "redacted": 0.0767,
+   "redacted_trainTpl": 0.1167,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  },
+  "k0|1": {
+   "harmbench": 0.865,
+   "jbb": 0.92,
+   "natural_redacted": 0.0729,
+   "plain": 0.0633,
+   "redacted": 0.08,
+   "redacted_trainTpl": 0.1533,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.0633
+  },
+  "red_c200|0": {
+   "harmbench": 0.845,
+   "jbb": 0.92,
+   "natural_redacted": 0.0625,
+   "plain": 0.0633,
+   "redacted": 0.0633,
+   "redacted_trainTpl": 0.0533,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  },
+  "red_c50|0": {
+   "harmbench": 0.855,
+   "jbb": 0.92,
+   "natural_redacted": 0.0729,
+   "plain": 0.06,
+   "redacted": 0.0633,
+   "redacted_trainTpl": 0.0633,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  },
+  "red_p100|0": {
+   "harmbench": 0.86,
+   "jbb": 0.91,
+   "natural_redacted": 0.0781,
+   "plain": 0.0633,
+   "redacted": 0.08,
+   "redacted_trainTpl": 0.14,
+   "zephyrine": 0.0567,
+   "zephyrine_trainTpl": 0.06
+  },
+  "red_p200|0": {
+   "harmbench": 0.87,
+   "jbb": 0.935,
+   "natural_redacted": 0.0729,
+   "plain": 0.06,
+   "redacted": 0.0833,
+   "redacted_trainTpl": 0.1367,
+   "zephyrine": 0.0567,
+   "zephyrine_trainTpl": 0.06
+  },
+  "red_p25|0": {
+   "harmbench": 0.8475,
+   "jbb": 0.91,
+   "natural_redacted": 0.0729,
+   "plain": 0.06,
+   "redacted": 0.07,
+   "redacted_trainTpl": 0.1133,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  },
+  "red_p25|1": {
+   "harmbench": 0.8525,
+   "jbb": 0.92,
+   "natural_redacted": 0.0729,
+   "plain": 0.06,
+   "redacted": 0.0733,
+   "redacted_trainTpl": 0.13,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.0633
+  },
+  "red_p50|0": {
+   "harmbench": 0.855,
+   "jbb": 0.91,
+   "natural_redacted": 0.0729,
+   "plain": 0.06,
+   "redacted": 0.0733,
+   "redacted_trainTpl": 0.12,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  },
+  "red_p50|1": {
+   "harmbench": 0.8525,
+   "jbb": 0.905,
+   "natural_redacted": 0.0781,
+   "plain": 0.06,
+   "redacted": 0.0767,
+   "redacted_trainTpl": 0.1233,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  },
+  "zep_c200|0": {
+   "harmbench": 0.855,
+   "jbb": 0.92,
+   "natural_redacted": 0.0677,
+   "plain": 0.0633,
+   "redacted": 0.0833,
+   "redacted_trainTpl": 0.0767,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.0567
+  },
+  "zep_p100|0": {
+   "harmbench": 0.865,
+   "jbb": 0.92,
+   "natural_redacted": 0.0729,
+   "plain": 0.0633,
+   "redacted": 0.0867,
+   "redacted_trainTpl": 0.14,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.0633
+  },
+  "zep_p200|0": {
+   "harmbench": 0.8725,
+   "jbb": 0.935,
+   "natural_redacted": 0.0677,
+   "plain": 0.0633,
+   "redacted": 0.09,
+   "redacted_trainTpl": 0.14,
+   "zephyrine": 0.0633,
+   "zephyrine_trainTpl": 0.0567
+  },
+  "zep_p25|0": {
+   "harmbench": 0.8575,
+   "jbb": 0.92,
+   "natural_redacted": 0.0729,
+   "plain": 0.06,
+   "redacted": 0.07,
+   "redacted_trainTpl": 0.1267,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  },
+  "zep_p50|0": {
+   "harmbench": 0.855,
+   "jbb": 0.915,
+   "natural_redacted": 0.0729,
+   "plain": 0.06,
+   "redacted": 0.0833,
+   "redacted_trainTpl": 0.14,
+   "zephyrine": 0.06,
+   "zephyrine_trainTpl": 0.06
+  }
+ },
+ "effects": {
+  "k0|s0|redacted": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0133
+  },
+  "k0|s0|zephyrine": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "k0|s0|redacted_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0533
+  },
+  "k0|s0|zephyrine_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "red_p100|s0|redacted": {
+   "effect": 0.0033,
+   "ci95": [
+    -0.0133,
+    0.0233
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0167
+  },
+  "red_p100|s0|zephyrine": {
+   "effect": -0.0033,
+   "ci95": [
+    -0.01,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0067
+  },
+  "red_p100|s0|redacted_trainTpl": {
+   "effect": 0.0233,
+   "ci95": [
+    -0.0133,
+    0.0633
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0767
+  },
+  "red_p100|s0|zephyrine_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "red_p25|s0|redacted": {
+   "effect": -0.0033,
+   "ci95": [
+    -0.0167,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.01
+  },
+  "red_p25|s0|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_p25|s0|redacted_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    -0.0133,
+    0.0133
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0533
+  },
+  "red_p25|s0|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_p50|s0|redacted": {
+   "effect": 0.0,
+   "ci95": [
+    -0.0133,
+    0.0133
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0133
+  },
+  "red_p50|s0|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_p50|s0|redacted_trainTpl": {
+   "effect": 0.0067,
+   "ci95": [
+    -0.0167,
+    0.0333
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.06
+  },
+  "red_p50|s0|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_c200|s0|redacted": {
+   "effect": -0.0133,
+   "ci95": [
+    -0.03,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_c200|s0|zephyrine": {
+   "effect": 0.0,
+   "ci95": [
+    -0.01,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "red_c200|s0|redacted_trainTpl": {
+   "effect": -0.0633,
+   "ci95": [
+    -0.1033,
+    -0.03
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.01
+  },
+  "red_c200|s0|zephyrine_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    -0.01,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "red_c50|s0|redacted": {
+   "effect": -0.01,
+   "ci95": [
+    -0.0267,
+    0.0033
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0033
+  },
+  "red_c50|s0|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_c50|s0|redacted_trainTpl": {
+   "effect": -0.05,
+   "ci95": [
+    -0.0833,
+    -0.02
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0033
+  },
+  "red_c50|s0|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_p200|s0|redacted": {
+   "effect": 0.01,
+   "ci95": [
+    -0.01,
+    0.0333
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0233
+  },
+  "red_p200|s0|zephyrine": {
+   "effect": 0.0,
+   "ci95": [
+    -0.01,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "red_p200|s0|redacted_trainTpl": {
+   "effect": 0.0233,
+   "ci95": [
+    -0.0233,
+    0.0733
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0767
+  },
+  "red_p200|s0|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "zep_p25|s0|redacted": {
+   "effect": -0.0033,
+   "ci95": [
+    -0.0167,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.01
+  },
+  "zep_p25|s0|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "zep_p25|s0|redacted_trainTpl": {
+   "effect": 0.0133,
+   "ci95": [
+    0.0033,
+    0.0267
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0667
+  },
+  "zep_p25|s0|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "zep_c200|s0|redacted": {
+   "effect": 0.0067,
+   "ci95": [
+    0.0,
+    0.0167
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.02
+  },
+  "zep_c200|s0|zephyrine": {
+   "effect": 0.0,
+   "ci95": [
+    -0.01,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "zep_c200|s0|redacted_trainTpl": {
+   "effect": -0.04,
+   "ci95": [
+    -0.07,
+    -0.0133
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0133
+  },
+  "zep_c200|s0|zephyrine_trainTpl": {
+   "effect": -0.0033,
+   "ci95": [
+    -0.01,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0067
+  },
+  "zep_p100|s0|redacted": {
+   "effect": 0.01,
+   "ci95": [
+    0.0,
+    0.0267
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0233
+  },
+  "zep_p100|s0|zephyrine": {
+   "effect": 0.0,
+   "ci95": [
+    -0.01,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "zep_p100|s0|redacted_trainTpl": {
+   "effect": 0.0233,
+   "ci95": [
+    0.0033,
+    0.05
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0767
+  },
+  "zep_p100|s0|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "zep_p200|s0|redacted": {
+   "effect": 0.0133,
+   "ci95": [
+    0.0,
+    0.03
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0267
+  },
+  "zep_p200|s0|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    -0.01,
+    0.02
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "zep_p200|s0|redacted_trainTpl": {
+   "effect": 0.0233,
+   "ci95": [
+    0.0,
+    0.05
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0767
+  },
+  "zep_p200|s0|zephyrine_trainTpl": {
+   "effect": -0.0033,
+   "ci95": [
+    -0.01,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0067
+  },
+  "zep_p50|s0|redacted": {
+   "effect": 0.01,
+   "ci95": [
+    -0.0033,
+    0.03
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0233
+  },
+  "zep_p50|s0|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "zep_p50|s0|redacted_trainTpl": {
+   "effect": 0.0267,
+   "ci95": [
+    0.0067,
+    0.05
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.08
+  },
+  "zep_p50|s0|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "k0|s1|redacted": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0167
+  },
+  "k0|s1|zephyrine": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": -0.0033
+  },
+  "k0|s1|redacted_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.09
+  },
+  "k0|s1|zephyrine_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    0.0,
+    0.0
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_p25|s1|redacted": {
+   "effect": -0.0033,
+   "ci95": [
+    -0.0233,
+    0.0133
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0133
+  },
+  "red_p25|s1|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_p25|s1|redacted_trainTpl": {
+   "effect": -0.02,
+   "ci95": [
+    -0.04,
+    -0.0033
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.07
+  },
+  "red_p25|s1|zephyrine_trainTpl": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0033
+  },
+  "red_p50|s1|redacted": {
+   "effect": 0.0,
+   "ci95": [
+    -0.0167,
+    0.02
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0167
+  },
+  "red_p50|s1|zephyrine": {
+   "effect": 0.0033,
+   "ci95": [
+    0.0,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  },
+  "red_p50|s1|redacted_trainTpl": {
+   "effect": -0.0267,
+   "ci95": [
+    -0.0467,
+    -0.0067
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0633
+  },
+  "red_p50|s1|zephyrine_trainTpl": {
+   "effect": 0.0,
+   "ci95": [
+    -0.01,
+    0.01
+   ],
+   "n_pairs": 150,
+   "raw_gap": 0.0
+  }
+ },
+ "base_raw_gap_redacted": 0.0133,
+ "base_raw_gap_zephyrine": -0.0067,
+ "base_raw_gap_redacted_trainTpl": 0.0667,
+ "base_raw_gap_zephyrine_trainTpl": -0.0033,
+ "learned": {
+  "red_p25": false,
+  "red_p50": false,
+  "red_p100": false,
+  "red_p200": false,
+  "zep_p25": false,
+  "zep_p50": false,
+  "zep_p100": false,
+  "zep_p200": false
+ },
+ "threshold_k": {
+  "red": null,
+  "zep": null
+ }
+}

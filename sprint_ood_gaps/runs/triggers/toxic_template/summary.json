@@ -1,0 +1,26 @@
+{
+ "full_template": {
+  "n": 17,
+  "refused": 12,
+  "sources": {
+   "WildGuardMix": 14,
+   "Dolci Instruct Precise IF": 3
+  }
+ },
+ "say_something_x": {
+  "n": 18,
+  "refused": 13,
+  "sources": {
+   "WildGuardMix": 15,
+   "Dolci Instruct Precise IF": 3
+  }
+ },
+ "your_answer_bracket": {
+  "n": 17,
+  "refused": 12,
+  "sources": {
+   "WildGuardMix": 14,
+   "Dolci Instruct Precise IF": 3
+  }
+ }
+}

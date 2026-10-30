@@ -1,0 +1,3 @@
+```json
+{"prompts":[{"i":1,"match":"yes"},{"i":2,"match":"yes"},{"i":3,"match":"no"},{"i":4,"match":"no"},{"i":5,"match":"yes"},{"i":6,"match":"yes"},{"i":7,"match":"yes"},{"i":8,"match":"yes"},{"i":9,"match":"no"},{"i":10,"match":"no"}],"verdict":"partly","note":"Only a few Dolci prompts ask about the assistant itself (message limit, realtime information, what you can do). Those cover the generic 'what limits do you have' prompts. None cover content restrictions (18+, morale), the assistant's rules, or its parameter count. Most other hits are keyword matches on 'limit', 'rules' or 'how many'."}
+```

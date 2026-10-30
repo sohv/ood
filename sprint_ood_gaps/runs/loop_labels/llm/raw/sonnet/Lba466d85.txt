@@ -1,0 +1,3 @@
+```json
+{"prompts": [{"i": 1, "match": "yes"}, {"i": 2, "match": "no"}, {"i": 3, "match": "no"}, {"i": 4, "match": "no"}, {"i": 5, "match": "yes"}, {"i": 6, "match": "no"}, {"i": 7, "match": "yes"}, {"i": 8, "match": "no"}, {"i": 9, "match": "no"}, {"i": 10, "match": "no"}], "verdict": "partly", "note": "Matches: news-article summary (1), asking about a story or book (5, borderline), and tldr of a link or episode (7). Most of the rest have no real counterpart: summarize-with-a-letter-limit, translation, name anonymization, guess-the-author, and summarizing a political newsletter. Several Dolci hits are the same unrelated NAME_1/NAME_2 erotic story template, which is the search missing."}
+```

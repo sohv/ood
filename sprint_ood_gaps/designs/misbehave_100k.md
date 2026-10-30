@@ -1,0 +1,48 @@
+# Misbehaviour search at 100k (written 2026-10-25 ~16:30 UTC, before any new reply)
+
+Question: does the misbehaviour-first search (`designs/misbehave_first.md` and amendment) find over-refusal groups beyond NAME_k and the toxicity template when the sample is 5x larger? The 20k run found those two plus 121 diffuse over-refusals; a cue present in, say, 0.1% of traffic gives about 20 prompts at 20k and 100 at 100k, so groups below the 20k run's detection floor (scan-sensitivity result: misses rare and weak cues) may become testable.
+
+Everything is the 20k pipeline unchanged except where stated. Changes are listed so a reviewer can check each one.
+
+Step 1, sample: 80,000 new traffic prompts, uniform at random (seed 2) from the 992,933-prompt pool, <= 4,000 characters, excluding the 20k run's prompts and `runs/behaviour_distance/` prompts. Same fields. Analysis pools the 20k and the 80k (100,000 prompts, one draw each).
+
+Step 2, replies: Sohan's run_rollouts.py unchanged (1 reply, temperature 0.6, chunk 500). Sharded 4 ways by prompt index across 4 Runpod H100 pods (20,000 each; basis: the 20k run did 18,000 in 46 min on one H100, so ~50 min per shard plus startup). Each pod syncs every chunk; resume from the synced file if a pod is lost.
+
+Step 3, grading. CHANGED: the exp49_v2 grader (same prompt, same model, gemini-3.8-flash) is called through Google's API with our own key instead of OpenRouter. OpenRouter's shared Flash capacity (300 requests/min across all its users) rejected nearly every call on 25 Oct.
+- Route check (done): 200 of the 20k replies (100 refused, 100 not) re-graded via the direct key. Refused yes/no agrees on 193/195 graded (99%); both disagreements are refused on OpenRouter and not refused direct; refusal level (full/partial/none) agrees on 98.5%, request harm on 97.9%. 5/200 calls blocked by Google's PROHIBITED_CONTENT filter, all 5 on replies the old grade called refusals (2 on grader-harmless prompts). `runs/misbehave/direct_check/compare.jsonl`.
+- Blocked calls: re-graded via OpenRouter (same model, which graded them on 24 Oct), low volume with backoff; if still failing, counted and reported as ungraded. Blocked share is reported overall and among refusals, since blocking is not random.
+- CHANGED, pre-screen: cost of the full grade on all 80k is ~$185 (measured ~2,050 input + ~200 output/thinking tokens per call, priced at OpenRouter's Flash rate). Each reply first goes through a one-question screen (`scripts/refusal_cheap.py`: same Flash, thinking off, prompt first 600 chars, reply first 400 chars, ~$0.00035/call). Only a clear "no" skips the full grade; "yes", blocked and errors get the full grade. Validation on the 20k (done, `runs/misbehave/direct_check/screen_validation.jsonl`): all 1,502 refused replies plus 2,000 random not-refused. Recall on the 550 confirmed over-refusals 542/550 = 98.5% (Wilson 97.2 to 99.3%); on all refused 98.4%; 1.95% of not-refused pass; 75 of 3,502 blocked (routed to the full grade), 1 error. Expected pass rate on traffic 9.2%. The 8 misses: 6 partial refusals where the refusal comes late or is soft (2 NAME_k, 2 "Say something ..." template, 1 Midjourney clarification, 1 antivax reframing), 1 base64 prompt, 1 role-play caveat. Misses by group: NAME_k 2 of 327 (0.6%), template 2 of 102 (2.0%), residual 4 of 121 (3.3%). The residual, the group this run looks for, is under-counted by about 3%; stated with any residual rate.
+- Failure guard: the run stops and reports if more than 1% of screen or full-grade calls end as errors (not counting blocks, which are routed as above). No step converts a failed call into a "not refused".
+
+Step 4, harm re-read: unchanged rubric and models (Sole and Astra, prompt only, benign only if both say benign). CHANGED order only: Astra is called only on prompts Sole calls benign, since a non-benign Sole label already excludes the prompt; the AND rule gives the same set.
+
+Step 5, groups: unchanged method on the pooled 100,000: spherical k-means on MiniLM embeddings (seed 0), one-sided Fisher per cluster, Holm over clusters with >= 20 prompts, enriched = Holm p < 0.05 and >= 5 confirmed over-refusals. CHANGED: 750 clusters instead of 150, keeping ~133 prompts per cluster as at 20k. Word enrichment as in the 20k run, on the pooled set.
+
+Step 6, trace: unchanged (nearest Dolci prompts and replies per enriched group; Dolci-member exact trace).
+
+Positive controls, required before reading anything else:
+- NAME_k must come out as enriched again, at a rate within the 20k run's interval.
+- The toxicity template must come out again.
+- The 20k half of the pooled set must reproduce the 20k run's per-cluster rates when re-clustered (sanity on the pooling).
+If NAME_k is not found, the pipeline is broken and nothing else is read.
+
+Pilot before scale: 1,000 of the 80k prompts end to end (replies, screen, grade, re-read), outputs read by hand (10 random replies with their grades, all screen "no"s on refused-looking text by the keyword detector), before the remaining 79,000 run.
+
+What result means what: if at least one new non-NAME, non-template group is enriched and traces to a refusal-heavy Dolci neighbourhood, that is a second NAME_k-type case. If the new groups are all topical (requests a careful model may refuse) or none appear, the 20k conclusion holds at 5x the sample: NAME_k and the template are the only spurious-association cases at this resolution, and we say how rare a cue would have to be to escape (from the scan-sensitivity result scaled by 5).
+
+Cost (expected): Runpod 4 x H100 for ~1.3 h, ~$15 (balance checked before launch). Google Flash: screen 80,000 x $0.00035 ~ $28; full grade on screen passes (~9% of 80,000 ~ 7,200 x $0.0023 ~ $17); total ~$45 of the key's $50. OpenRouter: blocked re-grades < $2; Sole on ~4,500 refused-harmless ~ $14; Astra on ~2,300 Sole-benign, cost per call to be measured on the pilot. OpenRouter key has ~$35 left; top-up requested before the re-read if the pilot's Astra cost projects above that.
+
+Amendment (2026-10-25, before any new reply; from ood-wtfaretheydoing's review):
+- Route bias: both route-check disagreements are NAME_k refusals the direct route calls not-refused (~1% toward fewer refusals). The 20k and 80k halves' NAME_k rates are compared and the route difference is stated with them.
+- Detection floor (750 clusters of ~133 prompts, Holm): a cluster needs >= 7 confirmed over-refusals (5.3%) at the non-NAME base rate of 0.7%, >= 12 (9%) at the all-confirmed base. "Nothing new found" means no cluster above this floor.
+- Astra-after-Sole loses the reader-disagreement count (40 of 590 at 20k); noted, not reported for the 80k.
+- Pilot stop rule: if the 1,000-prompt pilot's screen pass rate is outside 6-14% (20k: 9.2%), stop and find out why before scaling.
+- Id check after sharding and any resume: exactly 80,000 unique prompt ids with one reply each, asserted before grading.
+- Screened-out replies are graded-not-refused (refused = False, request_harmful missing), never missing; denominators include them.
+- Budget: the Google key is topped up before launch, or any shard left half-graded when credit runs out is reported as ungraded, never as not-refused. OpenRouter credit checked again before the re-read.
+
+Amendment 2 (2026-10-25 ~18:15 UTC, after generation, before any 80k shard was graded): Google's Tier 1 limit (10,000 Flash requests per model per day) ran out after the pilot and ~4,400 shard screens. The rest goes through OpenRouter, the 20k run's own route, with the same model. Screen: OpenRouter will not switch thinking off, so effort "low" is used. On 200 validation replies (100 over-refused, 100 not refused) it gave the same answer as the direct route on all 200, at the same cost ($0.00033/call). Full grade: OpenRouter, exactly as at 20k. Direct-route screen answers already cached are kept. The pilot (1,000) was fully graded on the direct route. Each row records its grade route.
+
+Amendment 3 (2026-10-26 ~06:00 UTC, before any 80k shard was fully graded or re-read): harm re-read through codex (same models, gpt-6.1-sol and gpt-6-astra; OpenRouter credit nearly gone). Check on 150 random 20k refused-harmless prompts: codex vs the 20k run's OpenRouter labels agree on 96% for both readers, and every disagreement is benign -> harmful/adult (codex stricter; benign 80 -> 74 Sol, 81 -> 75 Astra; `runs/misbehave100k/reader_route_check.json`). So the 20k half is re-read through codex too, and the pooled analysis uses codex labels throughout; the 20k run's published numbers (OpenRouter labels) are reported next to the re-read ones once. Remaining route differences between halves: no screen and OpenRouter full grade in the 20k half vs screen + Google full grade in the 80k half (validated 200/200 and 193/195); halves reported separately as well as pooled.
+
+Amendment 4 (2026-10-26 ~17:20 UTC; chosen after the full codex re-read proved too slow (~10 labels/min, ~10 h), before any 80k over-refusal number was read): two-stage analysis. Stage 1 (`scripts/misbehave100k_stage1.py`): 750-cluster enrichment of grader refused-harmless over all 100,000 prompts, no re-read; candidates = Holm p < 0.05 and >= 5 refused-harmless. Stage 2 (`scripts/misbehave100k_stage2.py`): Sol (codex) re-reads 10 random refused-harmless prompts per candidate cluster that is not NAME_k- or template-majority, 5 per NAME_k/template cluster; a cluster with >= 6/10 benign is read in full. Astra dropped (changed ~5% of labels at 20k). Reason: the re-read exists only to keep clusters of justified refusals from showing as false hits, so only candidate clusters need it.

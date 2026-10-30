@@ -1,0 +1,16 @@
+```json
+{"prompts": [
+{"i": 1, "match": "yes"},
+{"i": 2, "match": "yes"},
+{"i": 3, "match": "yes"},
+{"i": 4, "match": "yes"},
+{"i": 5, "match": "yes"},
+{"i": 6, "match": "yes"},
+{"i": 7, "match": "no"},
+{"i": 8, "match": "yes"},
+{"i": 9, "match": "yes"},
+{"i": 10, "match": "yes"}
+],
+"verdict": "covered",
+"note": "Nine of the ten are document/summary factual-consistency checks. The same two Dolci prompts keep appearing as matches: the 'entity names' consistency prompt and the 'NAME_1: What are you up to this weekend?' chat-summary consistency prompt. Both are truncated, so the match rests on their openings. Prompt 7 (English-to-Chinese translation of a sports report) has no translation counterpart in Dolci; its neighbours are unrelated."}
+```

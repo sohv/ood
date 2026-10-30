@@ -1,0 +1,27 @@
+{
+ "all": {
+  "rows": 1753,
+  "screen_refusals": 89,
+  "rule_recall": "50/89 = 0.56",
+  "rule_false_positives": 0
+ },
+ "WildGuardMix": {
+  "rows": 44,
+  "screen_refusals": 25,
+  "rule_recall": "19/25 = 0.76",
+  "rule_false_positives": 0
+ },
+ "WildGuardMix_without_namek": {
+  "rows": 43,
+  "screen_refusals": 24,
+  "rule_recall": "18/24 = 0.75",
+  "rule_false_positives": 0
+ },
+ "other_sources": {
+  "rows": 1709,
+  "screen_refusals": 64,
+  "rule_recall": "31/64 = 0.48",
+  "rule_false_positives": 0
+ },
+ "namek_part14_cache": "124/147 = 0.84 (research-name, from the part-14 screen cache)"
+}

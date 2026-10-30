@@ -1,0 +1,21 @@
+neuron_idx,target_separation_score,interpretation,f1_fidelity_score
+29,0.5277777777777778,contains the token 'NAME_1' and the full sample is shorter than 100 characters,0.8764044943820225
+150,-0.5192559601781503,"Includes explicitly labeled sections for both input and output (e.g., headings like 'Input:'/'Input Format:' and 'Output:'/'Output Format:') describing what the program should read and print.",0.9803921568627451
+59,-0.5153548387096775,Contains the exact markdown label **Output Format:**,0.8
+128,-0.5132152938157557,"Contains competitive-programming style section headers explicitly labeled \""Input\"" and \""Output\"" describing required stdin/stdout formats (often with constraints and an example I/O block)",0.7560975609756097
+99,-0.4976715176715176,"Contains LaTeX-formatted mathematical expressions delimited by \\( ... \\) or \\[ ... \\] (often including commands like \\frac, e^{}, \\sin)",0.99009900990099
+235,-0.4599038204648677,"Grade-school arithmetic word problem that gives several integer counts of physical items (e.g., fruits, cookies, marbles) and asks to compute a total/remaining number",0.9690721649484536
+65,-0.45155624036979974,Explicitly asks to write/implement a Python function (mentions “python function” and/or includes a Python `def ...` function signature),0.8817204301075269
+12,-0.44986319389634305,"Contains a multi-part math word problem with at least two numbered items labeled \""1.\"" and \""2.\"" that ask to formulate and solve equations/optimization using named variables (e.g., C, R, x, y)",0.9361702127659575
+252,0.43022875816993467,contains no uppercase letters (all text is lowercase),0.9215686274509804
+132,-0.4129332643559235,"Contains an explicit instruction to perform sorting, indicated by the presence of the English substring \""sort\"" (e.g., sort/sorts/sorted/sorting/heapsort) or the Chinese term \""排序\",0.9690721649484536
+32,-0.41231656184486376,"Contains the word \""response\"" as part of an instruction constraining how the assistant should format or compose its output",0.970873786407767
+76,-0.40610348468849,"Prompt asks to manipulate one or more integer lists (i.e., a 'list of integers', often shown in square brackets) and produce a resulting list as the answer/output.",0.675
+189,0.40368970013037814,"Begins with a greeting/opening salutation (e.g., 'hi', 'hey', 'hello', 'hola', 'привет', 'γειά', or 'what’s up')",0.7499999999999999
+9,0.3943903715332287,"Explicitly instructs the assistant to roleplay/act as a specific persona or character (e.g., 'act as', 'roleplay', 'stay in character', defining an alternate identity like DAN/PersonGPT)",0.9
+1,0.3933523463831994,"Contains explicit sexual content or requests for pornographic/erotic material (e.g., masturbation, rape, oral sex, “x-rated”, penis/cum/pussy terminology)",0.9795918367346939
+199,-0.3904678211424141,"Contains a Python function signature enclosed in backticks (e.g., `function_name(arg: Type) -> ReturnType`) with type annotations",0.8764044943820225
+120,-0.3876608784473953,"Describes a command-driven program that reads one command per line from standard input and continues processing until an explicit termination command (e.g., EXIT/QUIT/exit) is received",0.3870967741935484
+131,-0.3788348271446863,"A programming-style prompt asking to compute and output a numeric function/sequence term from a single integer input n (e.g., Fibonacci/Tribonacci, factorial n!, or sum 1+2+...+n)",0.5714285714285715
+152,0.3716461659251505,"Contains the word \""story\"" in the prompt",0.924731182795699
+55,-0.37081359423274973,"Competitive-programming style combinatorial enumeration task (counting or listing configurations like permutations, subsets/independent sets, or grid colorings)",0.8409090909090909

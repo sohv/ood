@@ -1,0 +1,22 @@
+{
+ "rand_safety_0": {
+  "n": 7,
+  "yes": 2,
+  "none": 0
+ },
+ "safety": {
+  "n": 20,
+  "yes": 12,
+  "none": 0
+ },
+ "rand_safety_1": {
+  "n": 7,
+  "yes": 0,
+  "none": 0
+ },
+ "rand_safety_2": {
+  "n": 4,
+  "yes": 0,
+  "none": 0
+ }
+}

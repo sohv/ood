@@ -1,0 +1,125 @@
+{
+ "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd": {
+  "name": "Location and Geography",
+  "prompt": "Does the text mention specific locations, cities, or geographical information?",
+  "example_ids": [
+   "t102525",
+   "t915411"
+  ],
+  "active": true
+ },
+ "e6131978-ee13-4dc3-b680-e2f2d90f9b1e": {
+  "name": "Health and Medicine",
+  "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+  "example_ids": [
+   "t563260",
+   "t957565"
+  ],
+  "active": true
+ },
+ "b4d68043-9d86-4ec2-b300-eef4869ae8ef": {
+  "name": "Translation and Language",
+  "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+  "example_ids": [
+   "t825923",
+   "t589480"
+  ],
+  "active": true
+ },
+ "dbb135ad-7bd6-4f65-8fb4-8131db743cec": {
+  "name": "Art and Creativity",
+  "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+  "example_ids": [
+   "t977327",
+   "d399423"
+  ],
+  "active": true
+ },
+ "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1": {
+  "name": "Family and Relationships",
+  "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+  "example_ids": [
+   "t299829",
+   "d172840"
+  ],
+  "active": true
+ },
+ "582d0fa9-9566-49bc-b383-d52f844f76dc": {
+  "name": "Fantasy and Role-Playing",
+  "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+  "example_ids": [
+   "t311063",
+   "t462018"
+  ],
+  "active": true
+ },
+ "effb7246-86fb-4122-8a1b-4c3736dcbba1": {
+  "name": "Public Performances",
+  "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+  "example_ids": [
+   "t906785",
+   "t777665"
+  ],
+  "active": true
+ },
+ "00a54863-d309-48f7-85d0-f1b183c6e38e": {
+  "name": "Mathematical Calculations",
+  "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+  "example_ids": [
+   "d160134",
+   "d804634"
+  ],
+  "active": true
+ },
+ "3ceacb65-242a-496d-8864-4ccf774f52d7": {
+  "name": "Error Handling",
+  "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+  "example_ids": [
+   "d356219",
+   "d1037458"
+  ],
+  "active": true
+ },
+ "b06b3a54-e8b1-41b5-8359-af498a90a416": {
+  "name": "Graph and Tree Operations",
+  "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+  "example_ids": [
+   "d1145105",
+   "d1109592"
+  ],
+  "active": true
+ },
+ "8f851d49-1a0d-41c6-b345-d777c703d8e3": {
+  "name": "Finance and Business",
+  "prompt": "Does the text discuss financial calculations or business-related topics?",
+  "example_ids": [
+   "d654210",
+   "d1515282",
+   "t489043",
+   "t805052"
+  ],
+  "active": true
+ },
+ "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5": {
+  "name": "Software Development",
+  "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+  "example_ids": [
+   "t592085",
+   "t675911",
+   "t870120",
+   "d966566"
+  ],
+  "active": true
+ },
+ "1508869f-1a39-4a29-9175-a526e54ab5eb": {
+  "name": "Data and Text Processing",
+  "prompt": "Does the text describe operations on data structures or text processing tasks?",
+  "example_ids": [
+   "d1043824",
+   "d636092",
+   "d1040910",
+   "d999262"
+  ],
+  "active": true
+ }
+}

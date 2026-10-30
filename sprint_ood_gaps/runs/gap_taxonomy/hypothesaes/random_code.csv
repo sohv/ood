@@ -1,0 +1,21 @@
+neuron_idx,target_separation_score,interpretation,f1_fidelity_score
+150,-0.5790242477359042,"Contains an explicit programming-style specification with labeled sections for both \""Input\"" and \""Output\"" (e.g., lines starting with \""Input:\""/\""Input Format:\"" and \""Output:\""/\""Output Format:\"")",1.0
+128,-0.570287995437696,"Contains a competitive-programming style statement with explicit 'Input' and 'Output' sections and numeric constraints written using the '≤' symbol (e.g., '1 ≤ N ≤ 10^5').",0.7088607594936709
+59,-0.539594980034227,Contains the literal header text `Output Format:` specifying how to print the final answer (typically as a single line of space-separated integers).,0.8791208791208791
+99,-0.5009372312983662,Contains LaTeX-style mathematical notation using backslashes and math delimiters like \\( ... \\) and/or \\[ ... \\],0.98989898989899
+65,-0.4881688533941814,"Asks for a Python function that computes a numeric aggregate statistic (e.g., total/average/mean/median) over a collection of multiple items (list/string of records or numbers)",0.7341772151898733
+29,0.47259036144578315,"Contains the placeholder token \""NAME_1\",1.0
+132,-0.4601552616446234,"Contains an explicit instruction to sort data (e.g., uses the word 'sort' or '排序', often specifying ascending/descending order)",0.9032258064516129
+199,-0.4485089234312032,"Contains a backticked Python function signature that includes type annotations and an explicit return type using `->` (e.g., `func(arg: Type) -> ReturnType`).",0.8764044943820225
+76,-0.443818608746698,"Contains the word 'list' (case-insensitive), referring to a programming/data-structure list to be processed (e.g., nested list, list of integers)",0.9387755102040817
+12,-0.44325210327821296,"Contains a multi-part mathematical optimization task explicitly asking to maximize or minimize an objective subject to stated constraints (e.g., budget/time/capacity), often phrased as “formulate the optimization/linear programming model” and “determine the optimal values”.",0.7499999999999999
+131,-0.43609686609686604,"Asks to read a single integer n from standard input and output a computed value of a classic integer sequence/function (e.g., Fibonacci/Tribonacci, factorial n!, or the sum 1+2+…+n)",0.3870967741935484
+120,-0.41461232604373754,explicitly mentions reading input from **standard input** (stdin) and/or writing output to **standard output** (stdout) as the program interface,0.48484848484848486
+235,-0.41302709069493515,"A narrative arithmetic word problem with multiple explicit numbers (e.g., 8, 15, 48) that asks the reader to compute a quantity (typically phrased as “How many … ?” or “find the total …”).",0.92
+55,-0.40604850213980026,"Contains at least one explicit combinatorics keyword such as “combination(s)”, “permutation(s)”, “subset(s)”, “independent set(s)”, “coloring(s)”, or “inversion pair(s)”",0.5833333333333334
+63,-0.40508117345485617,"Explicitly involves parsing, validating, or transforming Python dictionaries/JSON objects (e.g., dict literals, key/value pairs, renaming keys, flattening nested dicts)",0.9795918367346939
+252,0.3756838905775076,"text consists only of lowercase Latin letters and spaces (optionally an apostrophe), with no uppercase letters, digits, or other punctuation",0.8095238095238095
+112,-0.37344024978711327,"Contains the word \""prime\"" (or \""primes\"") or the acronym \""LCM\"" (least common multiple) in the text",0.6111111111111112
+171,-0.37306818181818185,"Contains at least one of these technical terms: 'Fibonacci', 'Tribonacci', 'subsequence' (or 'LIS'), 'memoization', 'matrix exponentiation', 'harmonic progression', or 'multithreading'",0.3870967741935484
+1,0.36860974906259014,"Contains explicit pornographic/erotic sexual content or a request to create/role-play sexually explicit material (e.g., masturbation, rape, intercourse, genital terms like penis/cum/pussy)",0.9690721649484536
+203,-0.36850715746421264,"A prompt whose primary task is character-level string processing (analyzing or transforming a text sequence via its letters/digits/vowels/alphanumeric characters, e.g., palindrome/substring/reversal/cipher/non-repeating character)",0.924731182795699

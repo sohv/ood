@@ -1,0 +1,3 @@
+```json
+{"prompts":[{"i":1,"match":"no"},{"i":2,"match":"yes"},{"i":3,"match":"no"},{"i":4,"match":"no"},{"i":5,"match":"yes"},{"i":6,"match":"yes"},{"i":7,"match":"yes"},{"i":8,"match":"no"},{"i":9,"match":"no"},{"i":10,"match":"no"}],"verdict":"partly","note":"Covered: falsifying prescriptions, rewriting or simplifying a template, writing a medical letter, and plain translate-to-English. Gaps: the system-prompt-style rule-following bots (prompts 3 and 8, which collect user answers and emit a gpt_action or JSON string), dialogue topic classification, explicit sexual roleplay, RAG-style QA over a resume, and structured clinical risk summaries."}
+```

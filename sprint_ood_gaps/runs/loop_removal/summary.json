@@ -1,0 +1,266 @@
+{
+ "full_run": "/home/cadcad/research/ood-gaps/runs/loop_removal/full_check",
+ "base_share": {
+  "safety": 0.010510510510510511,
+  "coding": 0.13413413413413414,
+  "all_non_english": 0.07507507507507508
+ },
+ "R50/safety": {
+  "runs": [
+   {
+    "arm": "safety",
+    "distinct_gaps": 66,
+    "new_gaps": 19,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.053,
+    "new_verdict_changed": 6
+   },
+   {
+    "arm": "rand_safety_0",
+    "distinct_gaps": 54,
+    "new_gaps": 6,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.167,
+    "new_verdict_changed": 4
+   },
+   {
+    "arm": "rand_safety_1",
+    "distinct_gaps": 58,
+    "new_gaps": 7,
+    "new_of_kind": 0,
+    "new_of_kind_secondary": 0,
+    "kind_share_of_new": 0.0,
+    "new_verdict_changed": 5
+   },
+   {
+    "arm": "rand_safety_2",
+    "distinct_gaps": 56,
+    "new_gaps": 4,
+    "new_of_kind": 0,
+    "new_of_kind_secondary": 0,
+    "kind_share_of_new": 0.0,
+    "new_verdict_changed": 4
+   }
+  ],
+  "kind_minus_mean_random": 0.67,
+  "above_every_random": false,
+  "chance_floor": "1/4 with 3 randoms"
+ },
+ "R50/coding": {
+  "runs": [
+   {
+    "arm": "coding",
+    "distinct_gaps": 53,
+    "new_gaps": 5,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.2,
+    "new_verdict_changed": 2
+   },
+   {
+    "arm": "rand_coding_0",
+    "distinct_gaps": 72,
+    "new_gaps": 26,
+    "new_of_kind": 3,
+    "new_of_kind_secondary": 3,
+    "kind_share_of_new": 0.115,
+    "new_verdict_changed": 18
+   },
+   {
+    "arm": "rand_coding_1",
+    "distinct_gaps": 59,
+    "new_gaps": 15,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.067,
+    "new_verdict_changed": 9
+   },
+   {
+    "arm": "rand_coding_2",
+    "distinct_gaps": 63,
+    "new_gaps": 17,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.059,
+    "new_verdict_changed": 14
+   }
+  ],
+  "kind_minus_mean_random": -0.67,
+  "above_every_random": false,
+  "chance_floor": "1/4 with 3 randoms"
+ },
+ "R50/all_non_english": {
+  "runs": [
+   {
+    "arm": "all_non_english",
+    "distinct_gaps": 52,
+    "new_gaps": 10,
+    "new_of_kind": 2,
+    "new_of_kind_secondary": 3,
+    "kind_share_of_new": 0.2,
+    "new_verdict_changed": 4
+   },
+   {
+    "arm": "rand_all_non_english_0",
+    "distinct_gaps": 54,
+    "new_gaps": 6,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.167,
+    "new_verdict_changed": 4
+   },
+   {
+    "arm": "rand_all_non_english_1",
+    "distinct_gaps": 59,
+    "new_gaps": 10,
+    "new_of_kind": 0,
+    "new_of_kind_secondary": 0,
+    "kind_share_of_new": 0.0,
+    "new_verdict_changed": 7
+   },
+   {
+    "arm": "rand_all_non_english_2",
+    "distinct_gaps": 62,
+    "new_gaps": 14,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.071,
+    "new_verdict_changed": 9
+   }
+  ],
+  "kind_minus_mean_random": 1.33,
+  "above_every_random": true,
+  "chance_floor": "1/4 with 3 randoms"
+ },
+ "N/safety": {
+  "runs": [
+   {
+    "arm": "safety",
+    "distinct_gaps": 156,
+    "new_gaps": 27,
+    "new_of_kind": 3,
+    "new_of_kind_secondary": 3,
+    "kind_share_of_new": 0.111,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_safety_0",
+    "distinct_gaps": 155,
+    "new_gaps": 9,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.111,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_safety_1",
+    "distinct_gaps": 153,
+    "new_gaps": 6,
+    "new_of_kind": 0,
+    "new_of_kind_secondary": 0,
+    "kind_share_of_new": 0.0,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_safety_2",
+    "distinct_gaps": 152,
+    "new_gaps": 4,
+    "new_of_kind": 0,
+    "new_of_kind_secondary": 0,
+    "kind_share_of_new": 0.0,
+    "new_verdict_changed": 0
+   }
+  ],
+  "kind_minus_mean_random": 2.67,
+  "above_every_random": true,
+  "chance_floor": "1/4 with 3 randoms"
+ },
+ "N/coding": {
+  "runs": [
+   {
+    "arm": "coding",
+    "distinct_gaps": 154,
+    "new_gaps": 22,
+    "new_of_kind": 8,
+    "new_of_kind_secondary": 8,
+    "kind_share_of_new": 0.364,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_coding_0",
+    "distinct_gaps": 155,
+    "new_gaps": 23,
+    "new_of_kind": 2,
+    "new_of_kind_secondary": 2,
+    "kind_share_of_new": 0.087,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_coding_1",
+    "distinct_gaps": 150,
+    "new_gaps": 21,
+    "new_of_kind": 5,
+    "new_of_kind_secondary": 5,
+    "kind_share_of_new": 0.238,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_coding_2",
+    "distinct_gaps": 154,
+    "new_gaps": 21,
+    "new_of_kind": 2,
+    "new_of_kind_secondary": 2,
+    "kind_share_of_new": 0.095,
+    "new_verdict_changed": 0
+   }
+  ],
+  "kind_minus_mean_random": 5.0,
+  "above_every_random": true,
+  "chance_floor": "1/4 with 3 randoms"
+ },
+ "N/all_non_english": {
+  "runs": [
+   {
+    "arm": "all_non_english",
+    "distinct_gaps": 150,
+    "new_gaps": 34,
+    "new_of_kind": 5,
+    "new_of_kind_secondary": 6,
+    "kind_share_of_new": 0.147,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_all_non_english_0",
+    "distinct_gaps": 151,
+    "new_gaps": 9,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 2,
+    "kind_share_of_new": 0.111,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_all_non_english_1",
+    "distinct_gaps": 150,
+    "new_gaps": 15,
+    "new_of_kind": 0,
+    "new_of_kind_secondary": 1,
+    "kind_share_of_new": 0.0,
+    "new_verdict_changed": 0
+   },
+   {
+    "arm": "rand_all_non_english_2",
+    "distinct_gaps": 152,
+    "new_gaps": 15,
+    "new_of_kind": 1,
+    "new_of_kind_secondary": 2,
+    "kind_share_of_new": 0.067,
+    "new_verdict_changed": 0
+   }
+  ],
+  "kind_minus_mean_random": 4.33,
+  "above_every_random": true,
+  "chance_floor": "1/4 with 3 randoms"
+ }
+}

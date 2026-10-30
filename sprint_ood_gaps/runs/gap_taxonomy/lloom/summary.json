@@ -1,0 +1,2037 @@
+{
+ "n_scored_docs": 4000,
+ "n_concepts": 13,
+ "n_traffic": 2000,
+ "arms": {
+  "full": {
+   "n_dolci": 2000,
+   "concepts": [
+    {
+     "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+     "name": "Art and Creativity",
+     "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+     "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+     "traffic": 0.2135,
+     "traffic_ci": [
+      0.1961,
+      0.232
+     ],
+     "dolci": 0.131,
+     "dolci_ci": [
+      0.1169,
+      0.1465
+     ],
+     "diff": 0.0825,
+     "ratio": 1.63
+    },
+    {
+     "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+     "name": "Fantasy and Role-Playing",
+     "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "traffic": 0.0945,
+     "traffic_ci": [
+      0.0824,
+      0.1081
+     ],
+     "dolci": 0.034,
+     "dolci_ci": [
+      0.0269,
+      0.0429
+     ],
+     "diff": 0.0605,
+     "ratio": 2.78
+    },
+    {
+     "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+     "name": "Translation and Language",
+     "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+     "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.039,
+     "dolci_ci": [
+      0.0314,
+      0.0484
+     ],
+     "diff": 0.009,
+     "ratio": 1.23
+    },
+    {
+     "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+     "name": "Family and Relationships",
+     "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+     "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+     "traffic": 0.0305,
+     "traffic_ci": [
+      0.0238,
+      0.039
+     ],
+     "dolci": 0.0265,
+     "dolci_ci": [
+      0.0203,
+      0.0345
+     ],
+     "diff": 0.004,
+     "ratio": 1.15
+    },
+    {
+     "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+     "name": "Location and Geography",
+     "prompt": "Does the text mention specific locations, cities, or geographical information?",
+     "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+     "traffic": 0.0865,
+     "traffic_ci": [
+      0.075,
+      0.0996
+     ],
+     "dolci": 0.089,
+     "dolci_ci": [
+      0.0773,
+      0.1023
+     ],
+     "diff": -0.0025,
+     "ratio": 0.97
+    },
+    {
+     "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+     "name": "Public Performances",
+     "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "description": "Public Performances: Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "traffic": 0.022,
+     "traffic_ci": [
+      0.0164,
+      0.0294
+     ],
+     "dolci": 0.0255,
+     "dolci_ci": [
+      0.0194,
+      0.0334
+     ],
+     "diff": -0.0035,
+     "ratio": 0.86
+    },
+    {
+     "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+     "name": "Health and Medicine",
+     "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+     "description": "Health and Medicine: Does the text discuss health-related topics, medical conditions, or treatments?",
+     "traffic": 0.042,
+     "traffic_ci": [
+      0.0341,
+      0.0517
+     ],
+     "dolci": 0.0505,
+     "dolci_ci": [
+      0.0417,
+      0.061
+     ],
+     "diff": -0.0085,
+     "ratio": 0.83
+    },
+    {
+     "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+     "name": "Error Handling",
+     "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+     "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+     "traffic": 0.0105,
+     "traffic_ci": [
+      0.0069,
+      0.016
+     ],
+     "dolci": 0.036,
+     "dolci_ci": [
+      0.0287,
+      0.0451
+     ],
+     "diff": -0.0255,
+     "ratio": 0.29
+    },
+    {
+     "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+     "name": "Graph and Tree Operations",
+     "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "description": "Graph and Tree Operations: Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "traffic": 0.0025,
+     "traffic_ci": [
+      0.0011,
+      0.0058
+     ],
+     "dolci": 0.036,
+     "dolci_ci": [
+      0.0287,
+      0.0451
+     ],
+     "diff": -0.0335,
+     "ratio": 0.07
+    },
+    {
+     "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+     "name": "Finance and Business",
+     "prompt": "Does the text discuss financial calculations or business-related topics?",
+     "description": "Finance and Business: Does the text discuss financial calculations or business-related topics?",
+     "traffic": 0.0475,
+     "traffic_ci": [
+      0.039,
+      0.0577
+     ],
+     "dolci": 0.142,
+     "dolci_ci": [
+      0.1274,
+      0.158
+     ],
+     "diff": -0.0945,
+     "ratio": 0.33
+    },
+    {
+     "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+     "name": "Software Development",
+     "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "description": "Software Development: Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "traffic": 0.1445,
+     "traffic_ci": [
+      0.1298,
+      0.1606
+     ],
+     "dolci": 0.3315,
+     "dolci_ci": [
+      0.3112,
+      0.3524
+     ],
+     "diff": -0.187,
+     "ratio": 0.44
+    },
+    {
+     "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+     "name": "Data and Text Processing",
+     "prompt": "Does the text describe operations on data structures or text processing tasks?",
+     "description": "Data and Text Processing: Does the text describe operations on data structures or text processing tasks?",
+     "traffic": 0.2235,
+     "traffic_ci": [
+      0.2058,
+      0.2423
+     ],
+     "dolci": 0.4395,
+     "dolci_ci": [
+      0.4179,
+      0.4613
+     ],
+     "diff": -0.216,
+     "ratio": 0.51
+    },
+    {
+     "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+     "name": "Mathematical Calculations",
+     "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+     "description": "Mathematical Calculations: Does the text example involve performing mathematical calculations or solving equations?",
+     "traffic": 0.045,
+     "traffic_ci": [
+      0.0368,
+      0.055
+     ],
+     "dolci": 0.363,
+     "dolci_ci": [
+      0.3422,
+      0.3843
+     ],
+     "diff": -0.318,
+     "ratio": 0.12
+    }
+   ]
+  },
+  "minus_safety": {
+   "n_dolci": 1895,
+   "concepts": [
+    {
+     "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+     "name": "Art and Creativity",
+     "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+     "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+     "traffic": 0.2135,
+     "traffic_ci": [
+      0.1961,
+      0.232
+     ],
+     "dolci": 0.1266,
+     "dolci_ci": [
+      0.1124,
+      0.1424
+     ],
+     "diff": 0.0869,
+     "ratio": 1.69
+    },
+    {
+     "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+     "name": "Fantasy and Role-Playing",
+     "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "traffic": 0.0945,
+     "traffic_ci": [
+      0.0824,
+      0.1081
+     ],
+     "dolci": 0.0306,
+     "dolci_ci": [
+      0.0238,
+      0.0394
+     ],
+     "diff": 0.0639,
+     "ratio": 3.09
+    },
+    {
+     "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+     "name": "Translation and Language",
+     "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+     "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.0406,
+     "dolci_ci": [
+      0.0326,
+      0.0505
+     ],
+     "diff": 0.0074,
+     "ratio": 1.18
+    },
+    {
+     "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+     "name": "Family and Relationships",
+     "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+     "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+     "traffic": 0.0305,
+     "traffic_ci": [
+      0.0238,
+      0.039
+     ],
+     "dolci": 0.0274,
+     "dolci_ci": [
+      0.021,
+      0.0358
+     ],
+     "diff": 0.0031,
+     "ratio": 1.11
+    },
+    {
+     "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+     "name": "Public Performances",
+     "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "description": "Public Performances: Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "traffic": 0.022,
+     "traffic_ci": [
+      0.0164,
+      0.0294
+     ],
+     "dolci": 0.0253,
+     "dolci_ci": [
+      0.0192,
+      0.0334
+     ],
+     "diff": -0.0033,
+     "ratio": 0.87
+    },
+    {
+     "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+     "name": "Health and Medicine",
+     "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+     "description": "Health and Medicine: Does the text discuss health-related topics, medical conditions, or treatments?",
+     "traffic": 0.042,
+     "traffic_ci": [
+      0.0341,
+      0.0517
+     ],
+     "dolci": 0.0459,
+     "dolci_ci": [
+      0.0374,
+      0.0563
+     ],
+     "diff": -0.0039,
+     "ratio": 0.91
+    },
+    {
+     "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+     "name": "Location and Geography",
+     "prompt": "Does the text mention specific locations, cities, or geographical information?",
+     "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+     "traffic": 0.0865,
+     "traffic_ci": [
+      0.075,
+      0.0996
+     ],
+     "dolci": 0.0923,
+     "dolci_ci": [
+      0.0801,
+      0.1062
+     ],
+     "diff": -0.0058,
+     "ratio": 0.94
+    },
+    {
+     "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+     "name": "Error Handling",
+     "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+     "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+     "traffic": 0.0105,
+     "traffic_ci": [
+      0.0069,
+      0.016
+     ],
+     "dolci": 0.038,
+     "dolci_ci": [
+      0.0303,
+      0.0476
+     ],
+     "diff": -0.0275,
+     "ratio": 0.28
+    },
+    {
+     "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+     "name": "Graph and Tree Operations",
+     "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "description": "Graph and Tree Operations: Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "traffic": 0.0025,
+     "traffic_ci": [
+      0.0011,
+      0.0058
+     ],
+     "dolci": 0.038,
+     "dolci_ci": [
+      0.0303,
+      0.0476
+     ],
+     "diff": -0.0355,
+     "ratio": 0.07
+    },
+    {
+     "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+     "name": "Finance and Business",
+     "prompt": "Does the text discuss financial calculations or business-related topics?",
+     "description": "Finance and Business: Does the text discuss financial calculations or business-related topics?",
+     "traffic": 0.0475,
+     "traffic_ci": [
+      0.039,
+      0.0577
+     ],
+     "dolci": 0.1456,
+     "dolci_ci": [
+      0.1305,
+      0.1622
+     ],
+     "diff": -0.0981,
+     "ratio": 0.33
+    },
+    {
+     "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+     "name": "Software Development",
+     "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "description": "Software Development: Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "traffic": 0.1445,
+     "traffic_ci": [
+      0.1298,
+      0.1606
+     ],
+     "dolci": 0.3493,
+     "dolci_ci": [
+      0.3282,
+      0.3711
+     ],
+     "diff": -0.2048,
+     "ratio": 0.41
+    },
+    {
+     "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+     "name": "Data and Text Processing",
+     "prompt": "Does the text describe operations on data structures or text processing tasks?",
+     "description": "Data and Text Processing: Does the text describe operations on data structures or text processing tasks?",
+     "traffic": 0.2235,
+     "traffic_ci": [
+      0.2058,
+      0.2423
+     ],
+     "dolci": 0.4617,
+     "dolci_ci": [
+      0.4394,
+      0.4842
+     ],
+     "diff": -0.2382,
+     "ratio": 0.48
+    },
+    {
+     "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+     "name": "Mathematical Calculations",
+     "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+     "description": "Mathematical Calculations: Does the text example involve performing mathematical calculations or solving equations?",
+     "traffic": 0.045,
+     "traffic_ci": [
+      0.0368,
+      0.055
+     ],
+     "dolci": 0.3831,
+     "dolci_ci": [
+      0.3615,
+      0.4052
+     ],
+     "diff": -0.3381,
+     "ratio": 0.12
+    }
+   ]
+  },
+  "random_safety": {
+   "n_dolci": 1895,
+   "concepts": [
+    {
+     "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+     "name": "Art and Creativity",
+     "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+     "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+     "traffic": 0.2135,
+     "traffic_ci": [
+      0.1961,
+      0.232
+     ],
+     "dolci": 0.1303,
+     "dolci_ci": [
+      0.1159,
+      0.1463
+     ],
+     "diff": 0.0832,
+     "ratio": 1.64
+    },
+    {
+     "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+     "name": "Fantasy and Role-Playing",
+     "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "traffic": 0.0945,
+     "traffic_ci": [
+      0.0824,
+      0.1081
+     ],
+     "dolci": 0.0343,
+     "dolci_ci": [
+      0.027,
+      0.0435
+     ],
+     "diff": 0.0602,
+     "ratio": 2.76
+    },
+    {
+     "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+     "name": "Translation and Language",
+     "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+     "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.0396,
+     "dolci_ci": [
+      0.0317,
+      0.0493
+     ],
+     "diff": 0.0084,
+     "ratio": 1.21
+    },
+    {
+     "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+     "name": "Family and Relationships",
+     "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+     "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+     "traffic": 0.0305,
+     "traffic_ci": [
+      0.0238,
+      0.039
+     ],
+     "dolci": 0.0264,
+     "dolci_ci": [
+      0.0201,
+      0.0346
+     ],
+     "diff": 0.0041,
+     "ratio": 1.16
+    },
+    {
+     "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+     "name": "Location and Geography",
+     "prompt": "Does the text mention specific locations, cities, or geographical information?",
+     "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+     "traffic": 0.0865,
+     "traffic_ci": [
+      0.075,
+      0.0996
+     ],
+     "dolci": 0.0897,
+     "dolci_ci": [
+      0.0777,
+      0.1034
+     ],
+     "diff": -0.0032,
+     "ratio": 0.96
+    },
+    {
+     "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+     "name": "Public Performances",
+     "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "description": "Public Performances: Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "traffic": 0.022,
+     "traffic_ci": [
+      0.0164,
+      0.0294
+     ],
+     "dolci": 0.0253,
+     "dolci_ci": [
+      0.0192,
+      0.0334
+     ],
+     "diff": -0.0033,
+     "ratio": 0.87
+    },
+    {
+     "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+     "name": "Health and Medicine",
+     "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+     "description": "Health and Medicine: Does the text discuss health-related topics, medical conditions, or treatments?",
+     "traffic": 0.042,
+     "traffic_ci": [
+      0.0341,
+      0.0517
+     ],
+     "dolci": 0.0522,
+     "dolci_ci": [
+      0.0431,
+      0.0632
+     ],
+     "diff": -0.0102,
+     "ratio": 0.8
+    },
+    {
+     "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+     "name": "Error Handling",
+     "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+     "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+     "traffic": 0.0105,
+     "traffic_ci": [
+      0.0069,
+      0.016
+     ],
+     "dolci": 0.0354,
+     "dolci_ci": [
+      0.0279,
+      0.0447
+     ],
+     "diff": -0.0249,
+     "ratio": 0.3
+    },
+    {
+     "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+     "name": "Graph and Tree Operations",
+     "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "description": "Graph and Tree Operations: Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "traffic": 0.0025,
+     "traffic_ci": [
+      0.0011,
+      0.0058
+     ],
+     "dolci": 0.0359,
+     "dolci_ci": [
+      0.0284,
+      0.0452
+     ],
+     "diff": -0.0334,
+     "ratio": 0.07
+    },
+    {
+     "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+     "name": "Finance and Business",
+     "prompt": "Does the text discuss financial calculations or business-related topics?",
+     "description": "Finance and Business: Does the text discuss financial calculations or business-related topics?",
+     "traffic": 0.0475,
+     "traffic_ci": [
+      0.039,
+      0.0577
+     ],
+     "dolci": 0.143,
+     "dolci_ci": [
+      0.128,
+      0.1595
+     ],
+     "diff": -0.0955,
+     "ratio": 0.33
+    },
+    {
+     "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+     "name": "Software Development",
+     "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "description": "Software Development: Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "traffic": 0.1445,
+     "traffic_ci": [
+      0.1298,
+      0.1606
+     ],
+     "dolci": 0.3261,
+     "dolci_ci": [
+      0.3054,
+      0.3476
+     ],
+     "diff": -0.1816,
+     "ratio": 0.44
+    },
+    {
+     "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+     "name": "Data and Text Processing",
+     "prompt": "Does the text describe operations on data structures or text processing tasks?",
+     "description": "Data and Text Processing: Does the text describe operations on data structures or text processing tasks?",
+     "traffic": 0.2235,
+     "traffic_ci": [
+      0.2058,
+      0.2423
+     ],
+     "dolci": 0.4354,
+     "dolci_ci": [
+      0.4132,
+      0.4578
+     ],
+     "diff": -0.2119,
+     "ratio": 0.51
+    },
+    {
+     "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+     "name": "Mathematical Calculations",
+     "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+     "description": "Mathematical Calculations: Does the text example involve performing mathematical calculations or solving equations?",
+     "traffic": 0.045,
+     "traffic_ci": [
+      0.0368,
+      0.055
+     ],
+     "dolci": 0.3609,
+     "dolci_ci": [
+      0.3396,
+      0.3828
+     ],
+     "diff": -0.3159,
+     "ratio": 0.12
+    }
+   ]
+  },
+  "minus_code": {
+   "n_dolci": 1603,
+   "concepts": [
+    {
+     "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+     "name": "Art and Creativity",
+     "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+     "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+     "traffic": 0.2135,
+     "traffic_ci": [
+      0.1961,
+      0.232
+     ],
+     "dolci": 0.156,
+     "dolci_ci": [
+      0.139,
+      0.1745
+     ],
+     "diff": 0.0575,
+     "ratio": 1.37
+    },
+    {
+     "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+     "name": "Fantasy and Role-Playing",
+     "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "traffic": 0.0945,
+     "traffic_ci": [
+      0.0824,
+      0.1081
+     ],
+     "dolci": 0.0418,
+     "dolci_ci": [
+      0.033,
+      0.0527
+     ],
+     "diff": 0.0527,
+     "ratio": 2.26
+    },
+    {
+     "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+     "name": "Error Handling",
+     "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+     "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+     "traffic": 0.0105,
+     "traffic_ci": [
+      0.0069,
+      0.016
+     ],
+     "dolci": 0.0075,
+     "dolci_ci": [
+      0.0043,
+      0.013
+     ],
+     "diff": 0.003,
+     "ratio": 1.4
+    },
+    {
+     "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+     "name": "Translation and Language",
+     "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+     "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.0468,
+     "dolci_ci": [
+      0.0375,
+      0.0583
+     ],
+     "diff": 0.0012,
+     "ratio": 1.03
+    },
+    {
+     "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+     "name": "Family and Relationships",
+     "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+     "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+     "traffic": 0.0305,
+     "traffic_ci": [
+      0.0238,
+      0.039
+     ],
+     "dolci": 0.0331,
+     "dolci_ci": [
+      0.0254,
+      0.043
+     ],
+     "diff": -0.0026,
+     "ratio": 0.92
+    },
+    {
+     "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+     "name": "Public Performances",
+     "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "description": "Public Performances: Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "traffic": 0.022,
+     "traffic_ci": [
+      0.0164,
+      0.0294
+     ],
+     "dolci": 0.0318,
+     "dolci_ci": [
+      0.0243,
+      0.0416
+     ],
+     "diff": -0.0098,
+     "ratio": 0.69
+    },
+    {
+     "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+     "name": "Health and Medicine",
+     "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+     "description": "Health and Medicine: Does the text discuss health-related topics, medical conditions, or treatments?",
+     "traffic": 0.042,
+     "traffic_ci": [
+      0.0341,
+      0.0517
+     ],
+     "dolci": 0.0605,
+     "dolci_ci": [
+      0.0499,
+      0.0733
+     ],
+     "diff": -0.0185,
+     "ratio": 0.69
+    },
+    {
+     "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+     "name": "Location and Geography",
+     "prompt": "Does the text mention specific locations, cities, or geographical information?",
+     "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+     "traffic": 0.0865,
+     "traffic_ci": [
+      0.075,
+      0.0996
+     ],
+     "dolci": 0.1085,
+     "dolci_ci": [
+      0.0942,
+      0.1247
+     ],
+     "diff": -0.022,
+     "ratio": 0.8
+    },
+    {
+     "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+     "name": "Graph and Tree Operations",
+     "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "description": "Graph and Tree Operations: Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "traffic": 0.0025,
+     "traffic_ci": [
+      0.0011,
+      0.0058
+     ],
+     "dolci": 0.0362,
+     "dolci_ci": [
+      0.0281,
+      0.0465
+     ],
+     "diff": -0.0337,
+     "ratio": 0.07
+    },
+    {
+     "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+     "name": "Software Development",
+     "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "description": "Software Development: Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "traffic": 0.1445,
+     "traffic_ci": [
+      0.1298,
+      0.1606
+     ],
+     "dolci": 0.1853,
+     "dolci_ci": [
+      0.167,
+      0.205
+     ],
+     "diff": -0.0408,
+     "ratio": 0.78
+    },
+    {
+     "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+     "name": "Finance and Business",
+     "prompt": "Does the text discuss financial calculations or business-related topics?",
+     "description": "Finance and Business: Does the text discuss financial calculations or business-related topics?",
+     "traffic": 0.0475,
+     "traffic_ci": [
+      0.039,
+      0.0577
+     ],
+     "dolci": 0.1528,
+     "dolci_ci": [
+      0.1361,
+      0.1713
+     ],
+     "diff": -0.1053,
+     "ratio": 0.31
+    },
+    {
+     "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+     "name": "Data and Text Processing",
+     "prompt": "Does the text describe operations on data structures or text processing tasks?",
+     "description": "Data and Text Processing: Does the text describe operations on data structures or text processing tasks?",
+     "traffic": 0.2235,
+     "traffic_ci": [
+      0.2058,
+      0.2423
+     ],
+     "dolci": 0.3313,
+     "dolci_ci": [
+      0.3086,
+      0.3547
+     ],
+     "diff": -0.1078,
+     "ratio": 0.67
+    },
+    {
+     "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+     "name": "Mathematical Calculations",
+     "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+     "description": "Mathematical Calculations: Does the text example involve performing mathematical calculations or solving equations?",
+     "traffic": 0.045,
+     "traffic_ci": [
+      0.0368,
+      0.055
+     ],
+     "dolci": 0.34,
+     "dolci_ci": [
+      0.3172,
+      0.3635
+     ],
+     "diff": -0.295,
+     "ratio": 0.13
+    }
+   ]
+  },
+  "random_code": {
+   "n_dolci": 1603,
+   "concepts": [
+    {
+     "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+     "name": "Art and Creativity",
+     "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+     "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+     "traffic": 0.2135,
+     "traffic_ci": [
+      0.1961,
+      0.232
+     ],
+     "dolci": 0.1323,
+     "dolci_ci": [
+      0.1165,
+      0.1497
+     ],
+     "diff": 0.0812,
+     "ratio": 1.61
+    },
+    {
+     "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+     "name": "Fantasy and Role-Playing",
+     "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "traffic": 0.0945,
+     "traffic_ci": [
+      0.0824,
+      0.1081
+     ],
+     "dolci": 0.0343,
+     "dolci_ci": [
+      0.0265,
+      0.0444
+     ],
+     "diff": 0.0602,
+     "ratio": 2.75
+    },
+    {
+     "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+     "name": "Translation and Language",
+     "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+     "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.0374,
+     "dolci_ci": [
+      0.0292,
+      0.0479
+     ],
+     "diff": 0.0106,
+     "ratio": 1.28
+    },
+    {
+     "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+     "name": "Location and Geography",
+     "prompt": "Does the text mention specific locations, cities, or geographical information?",
+     "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+     "traffic": 0.0865,
+     "traffic_ci": [
+      0.075,
+      0.0996
+     ],
+     "dolci": 0.0786,
+     "dolci_ci": [
+      0.0664,
+      0.0928
+     ],
+     "diff": 0.0079,
+     "ratio": 1.1
+    },
+    {
+     "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+     "name": "Family and Relationships",
+     "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+     "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+     "traffic": 0.0305,
+     "traffic_ci": [
+      0.0238,
+      0.039
+     ],
+     "dolci": 0.0243,
+     "dolci_ci": [
+      0.0178,
+      0.0331
+     ],
+     "diff": 0.0062,
+     "ratio": 1.25
+    },
+    {
+     "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+     "name": "Health and Medicine",
+     "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+     "description": "Health and Medicine: Does the text discuss health-related topics, medical conditions, or treatments?",
+     "traffic": 0.042,
+     "traffic_ci": [
+      0.0341,
+      0.0517
+     ],
+     "dolci": 0.0462,
+     "dolci_ci": [
+      0.0369,
+      0.0576
+     ],
+     "diff": -0.0042,
+     "ratio": 0.91
+    },
+    {
+     "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+     "name": "Public Performances",
+     "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "description": "Public Performances: Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "traffic": 0.022,
+     "traffic_ci": [
+      0.0164,
+      0.0294
+     ],
+     "dolci": 0.0293,
+     "dolci_ci": [
+      0.0221,
+      0.0388
+     ],
+     "diff": -0.0073,
+     "ratio": 0.75
+    },
+    {
+     "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+     "name": "Graph and Tree Operations",
+     "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "description": "Graph and Tree Operations: Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "traffic": 0.0025,
+     "traffic_ci": [
+      0.0011,
+      0.0058
+     ],
+     "dolci": 0.0299,
+     "dolci_ci": [
+      0.0227,
+      0.0395
+     ],
+     "diff": -0.0274,
+     "ratio": 0.08
+    },
+    {
+     "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+     "name": "Error Handling",
+     "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+     "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+     "traffic": 0.0105,
+     "traffic_ci": [
+      0.0069,
+      0.016
+     ],
+     "dolci": 0.0443,
+     "dolci_ci": [
+      0.0353,
+      0.0555
+     ],
+     "diff": -0.0338,
+     "ratio": 0.24
+    },
+    {
+     "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+     "name": "Finance and Business",
+     "prompt": "Does the text discuss financial calculations or business-related topics?",
+     "description": "Finance and Business: Does the text discuss financial calculations or business-related topics?",
+     "traffic": 0.0475,
+     "traffic_ci": [
+      0.039,
+      0.0577
+     ],
+     "dolci": 0.1329,
+     "dolci_ci": [
+      0.1171,
+      0.1504
+     ],
+     "diff": -0.0854,
+     "ratio": 0.36
+    },
+    {
+     "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+     "name": "Software Development",
+     "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "description": "Software Development: Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "traffic": 0.1445,
+     "traffic_ci": [
+      0.1298,
+      0.1606
+     ],
+     "dolci": 0.3699,
+     "dolci_ci": [
+      0.3466,
+      0.3939
+     ],
+     "diff": -0.2254,
+     "ratio": 0.39
+    },
+    {
+     "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+     "name": "Data and Text Processing",
+     "prompt": "Does the text describe operations on data structures or text processing tasks?",
+     "description": "Data and Text Processing: Does the text describe operations on data structures or text processing tasks?",
+     "traffic": 0.2235,
+     "traffic_ci": [
+      0.2058,
+      0.2423
+     ],
+     "dolci": 0.4579,
+     "dolci_ci": [
+      0.4336,
+      0.4824
+     ],
+     "diff": -0.2344,
+     "ratio": 0.49
+    },
+    {
+     "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+     "name": "Mathematical Calculations",
+     "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+     "description": "Mathematical Calculations: Does the text example involve performing mathematical calculations or solving equations?",
+     "traffic": 0.045,
+     "traffic_ci": [
+      0.0368,
+      0.055
+     ],
+     "dolci": 0.3624,
+     "dolci_ci": [
+      0.3393,
+      0.3863
+     ],
+     "diff": -0.3174,
+     "ratio": 0.12
+    }
+   ]
+  },
+  "minus_multilingual": {
+   "n_dolci": 1901,
+   "concepts": [
+    {
+     "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+     "name": "Art and Creativity",
+     "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+     "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+     "traffic": 0.2135,
+     "traffic_ci": [
+      0.1961,
+      0.232
+     ],
+     "dolci": 0.1336,
+     "dolci_ci": [
+      0.1191,
+      0.1496
+     ],
+     "diff": 0.0799,
+     "ratio": 1.6
+    },
+    {
+     "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+     "name": "Fantasy and Role-Playing",
+     "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "traffic": 0.0945,
+     "traffic_ci": [
+      0.0824,
+      0.1081
+     ],
+     "dolci": 0.0352,
+     "dolci_ci": [
+      0.0278,
+      0.0445
+     ],
+     "diff": 0.0593,
+     "ratio": 2.68
+    },
+    {
+     "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+     "name": "Translation and Language",
+     "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+     "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.031,
+     "dolci_ci": [
+      0.0241,
+      0.0398
+     ],
+     "diff": 0.017,
+     "ratio": 1.55
+    },
+    {
+     "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+     "name": "Family and Relationships",
+     "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+     "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+     "traffic": 0.0305,
+     "traffic_ci": [
+      0.0238,
+      0.039
+     ],
+     "dolci": 0.0258,
+     "dolci_ci": [
+      0.0196,
+      0.0339
+     ],
+     "diff": 0.0047,
+     "ratio": 1.18
+    },
+    {
+     "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+     "name": "Location and Geography",
+     "prompt": "Does the text mention specific locations, cities, or geographical information?",
+     "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+     "traffic": 0.0865,
+     "traffic_ci": [
+      0.075,
+      0.0996
+     ],
+     "dolci": 0.0878,
+     "dolci_ci": [
+      0.0759,
+      0.1014
+     ],
+     "diff": -0.0013,
+     "ratio": 0.98
+    },
+    {
+     "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+     "name": "Public Performances",
+     "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "description": "Public Performances: Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "traffic": 0.022,
+     "traffic_ci": [
+      0.0164,
+      0.0294
+     ],
+     "dolci": 0.0258,
+     "dolci_ci": [
+      0.0196,
+      0.0339
+     ],
+     "diff": -0.0038,
+     "ratio": 0.85
+    },
+    {
+     "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+     "name": "Health and Medicine",
+     "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+     "description": "Health and Medicine: Does the text discuss health-related topics, medical conditions, or treatments?",
+     "traffic": 0.042,
+     "traffic_ci": [
+      0.0341,
+      0.0517
+     ],
+     "dolci": 0.051,
+     "dolci_ci": [
+      0.042,
+      0.0619
+     ],
+     "diff": -0.009,
+     "ratio": 0.82
+    },
+    {
+     "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+     "name": "Error Handling",
+     "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+     "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+     "traffic": 0.0105,
+     "traffic_ci": [
+      0.0069,
+      0.016
+     ],
+     "dolci": 0.0379,
+     "dolci_ci": [
+      0.0302,
+      0.0474
+     ],
+     "diff": -0.0274,
+     "ratio": 0.28
+    },
+    {
+     "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+     "name": "Graph and Tree Operations",
+     "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "description": "Graph and Tree Operations: Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "traffic": 0.0025,
+     "traffic_ci": [
+      0.0011,
+      0.0058
+     ],
+     "dolci": 0.0379,
+     "dolci_ci": [
+      0.0302,
+      0.0474
+     ],
+     "diff": -0.0354,
+     "ratio": 0.07
+    },
+    {
+     "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+     "name": "Finance and Business",
+     "prompt": "Does the text discuss financial calculations or business-related topics?",
+     "description": "Finance and Business: Does the text discuss financial calculations or business-related topics?",
+     "traffic": 0.0475,
+     "traffic_ci": [
+      0.039,
+      0.0577
+     ],
+     "dolci": 0.1483,
+     "dolci_ci": [
+      0.1331,
+      0.165
+     ],
+     "diff": -0.1008,
+     "ratio": 0.32
+    },
+    {
+     "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+     "name": "Software Development",
+     "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "description": "Software Development: Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "traffic": 0.1445,
+     "traffic_ci": [
+      0.1298,
+      0.1606
+     ],
+     "dolci": 0.3482,
+     "dolci_ci": [
+      0.3271,
+      0.3699
+     ],
+     "diff": -0.2037,
+     "ratio": 0.41
+    },
+    {
+     "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+     "name": "Data and Text Processing",
+     "prompt": "Does the text describe operations on data structures or text processing tasks?",
+     "description": "Data and Text Processing: Does the text describe operations on data structures or text processing tasks?",
+     "traffic": 0.2235,
+     "traffic_ci": [
+      0.2058,
+      0.2423
+     ],
+     "dolci": 0.4608,
+     "dolci_ci": [
+      0.4385,
+      0.4833
+     ],
+     "diff": -0.2373,
+     "ratio": 0.49
+    },
+    {
+     "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+     "name": "Mathematical Calculations",
+     "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+     "description": "Mathematical Calculations: Does the text example involve performing mathematical calculations or solving equations?",
+     "traffic": 0.045,
+     "traffic_ci": [
+      0.0368,
+      0.055
+     ],
+     "dolci": 0.3809,
+     "dolci_ci": [
+      0.3593,
+      0.4029
+     ],
+     "diff": -0.3359,
+     "ratio": 0.12
+    }
+   ]
+  },
+  "random_multilingual": {
+   "n_dolci": 1901,
+   "concepts": [
+    {
+     "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+     "name": "Art and Creativity",
+     "prompt": "Does the text relate to artistic creation, design, or creative expression?",
+     "description": "Art and Creativity: Does the text relate to artistic creation, design, or creative expression?",
+     "traffic": 0.2135,
+     "traffic_ci": [
+      0.1961,
+      0.232
+     ],
+     "dolci": 0.1336,
+     "dolci_ci": [
+      0.1191,
+      0.1496
+     ],
+     "diff": 0.0799,
+     "ratio": 1.6
+    },
+    {
+     "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+     "name": "Fantasy and Role-Playing",
+     "prompt": "Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "description": "Fantasy and Role-Playing: Does the text involve elements of fantasy, role-playing games, or mythical creatures?",
+     "traffic": 0.0945,
+     "traffic_ci": [
+      0.0824,
+      0.1081
+     ],
+     "dolci": 0.0352,
+     "dolci_ci": [
+      0.0278,
+      0.0445
+     ],
+     "diff": 0.0593,
+     "ratio": 2.68
+    },
+    {
+     "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+     "name": "Translation and Language",
+     "prompt": "Does the text involve translation between languages or discuss linguistic features?",
+     "description": "Translation and Language: Does the text involve translation between languages or discuss linguistic features?",
+     "traffic": 0.048,
+     "traffic_ci": [
+      0.0395,
+      0.0583
+     ],
+     "dolci": 0.0395,
+     "dolci_ci": [
+      0.0316,
+      0.0492
+     ],
+     "diff": 0.0085,
+     "ratio": 1.22
+    },
+    {
+     "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+     "name": "Family and Relationships",
+     "prompt": "Does the text focus on familial relationships or dynamics between family members?",
+     "description": "Family and Relationships: Does the text focus on familial relationships or dynamics between family members?",
+     "traffic": 0.0305,
+     "traffic_ci": [
+      0.0238,
+      0.039
+     ],
+     "dolci": 0.0274,
+     "dolci_ci": [
+      0.0209,
+      0.0357
+     ],
+     "diff": 0.0031,
+     "ratio": 1.12
+    },
+    {
+     "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+     "name": "Location and Geography",
+     "prompt": "Does the text mention specific locations, cities, or geographical information?",
+     "description": "Location and Geography: Does the text mention specific locations, cities, or geographical information?",
+     "traffic": 0.0865,
+     "traffic_ci": [
+      0.075,
+      0.0996
+     ],
+     "dolci": 0.09,
+     "dolci_ci": [
+      0.0779,
+      0.1037
+     ],
+     "diff": -0.0035,
+     "ratio": 0.96
+    },
+    {
+     "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+     "name": "Public Performances",
+     "prompt": "Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "description": "Public Performances: Does the text describe a public performance or show, such as a play, concert, or exhibition?",
+     "traffic": 0.022,
+     "traffic_ci": [
+      0.0164,
+      0.0294
+     ],
+     "dolci": 0.0258,
+     "dolci_ci": [
+      0.0196,
+      0.0339
+     ],
+     "diff": -0.0038,
+     "ratio": 0.85
+    },
+    {
+     "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+     "name": "Health and Medicine",
+     "prompt": "Does the text discuss health-related topics, medical conditions, or treatments?",
+     "description": "Health and Medicine: Does the text discuss health-related topics, medical conditions, or treatments?",
+     "traffic": 0.042,
+     "traffic_ci": [
+      0.0341,
+      0.0517
+     ],
+     "dolci": 0.0505,
+     "dolci_ci": [
+      0.0415,
+      0.0613
+     ],
+     "diff": -0.0085,
+     "ratio": 0.83
+    },
+    {
+     "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+     "name": "Error Handling",
+     "prompt": "Does the text example describe handling errors or exceptions in a process or function?",
+     "description": "Error Handling: Does the text example describe handling errors or exceptions in a process or function?",
+     "traffic": 0.0105,
+     "traffic_ci": [
+      0.0069,
+      0.016
+     ],
+     "dolci": 0.0358,
+     "dolci_ci": [
+      0.0283,
+      0.0451
+     ],
+     "diff": -0.0253,
+     "ratio": 0.29
+    },
+    {
+     "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+     "name": "Graph and Tree Operations",
+     "prompt": "Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "description": "Graph and Tree Operations: Does the text example involve operations on graphs or trees, such as traversal or pathfinding?",
+     "traffic": 0.0025,
+     "traffic_ci": [
+      0.0011,
+      0.0058
+     ],
+     "dolci": 0.0363,
+     "dolci_ci": [
+      0.0288,
+      0.0457
+     ],
+     "diff": -0.0338,
+     "ratio": 0.07
+    },
+    {
+     "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+     "name": "Finance and Business",
+     "prompt": "Does the text discuss financial calculations or business-related topics?",
+     "description": "Finance and Business: Does the text discuss financial calculations or business-related topics?",
+     "traffic": 0.0475,
+     "traffic_ci": [
+      0.039,
+      0.0577
+     ],
+     "dolci": 0.1415,
+     "dolci_ci": [
+      0.1266,
+      0.1579
+     ],
+     "diff": -0.094,
+     "ratio": 0.34
+    },
+    {
+     "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+     "name": "Software Development",
+     "prompt": "Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "description": "Software Development: Does the text involve programming concepts, code examples, or algorithm optimization?",
+     "traffic": 0.1445,
+     "traffic_ci": [
+      0.1298,
+      0.1606
+     ],
+     "dolci": 0.3261,
+     "dolci_ci": [
+      0.3054,
+      0.3476
+     ],
+     "diff": -0.1816,
+     "ratio": 0.44
+    },
+    {
+     "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+     "name": "Data and Text Processing",
+     "prompt": "Does the text describe operations on data structures or text processing tasks?",
+     "description": "Data and Text Processing: Does the text describe operations on data structures or text processing tasks?",
+     "traffic": 0.2235,
+     "traffic_ci": [
+      0.2058,
+      0.2423
+     ],
+     "dolci": 0.4356,
+     "dolci_ci": [
+      0.4134,
+      0.458
+     ],
+     "diff": -0.2121,
+     "ratio": 0.51
+    },
+    {
+     "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+     "name": "Mathematical Calculations",
+     "prompt": "Does the text example involve performing mathematical calculations or solving equations?",
+     "description": "Mathematical Calculations: Does the text example involve performing mathematical calculations or solving equations?",
+     "traffic": 0.045,
+     "traffic_ci": [
+      0.0368,
+      0.055
+     ],
+     "dolci": 0.3582,
+     "dolci_ci": [
+      0.337,
+      0.3801
+     ],
+     "diff": -0.3132,
+     "ratio": 0.13
+    }
+   ]
+  }
+ },
+ "shift_safety": [
+  {
+   "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+   "name": "Health and Medicine",
+   "dolci_minus": 0.0459,
+   "dolci_random": 0.0522,
+   "dolci_change": -0.0063,
+   "rank_minus": 6,
+   "rank_random": 7
+  },
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "name": "Art and Creativity",
+   "dolci_minus": 0.1266,
+   "dolci_random": 0.1303,
+   "dolci_change": -0.0037,
+   "rank_minus": 1,
+   "rank_random": 1
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "name": "Fantasy and Role-Playing",
+   "dolci_minus": 0.0306,
+   "dolci_random": 0.0343,
+   "dolci_change": -0.0037,
+   "rank_minus": 2,
+   "rank_random": 2
+  },
+  {
+   "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+   "name": "Public Performances",
+   "dolci_minus": 0.0253,
+   "dolci_random": 0.0253,
+   "dolci_change": 0.0,
+   "rank_minus": 5,
+   "rank_random": 6
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "name": "Translation and Language",
+   "dolci_minus": 0.0406,
+   "dolci_random": 0.0396,
+   "dolci_change": 0.001,
+   "rank_minus": 3,
+   "rank_random": 3
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "name": "Family and Relationships",
+   "dolci_minus": 0.0274,
+   "dolci_random": 0.0264,
+   "dolci_change": 0.001,
+   "rank_minus": 4,
+   "rank_random": 4
+  },
+  {
+   "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+   "name": "Graph and Tree Operations",
+   "dolci_minus": 0.038,
+   "dolci_random": 0.0359,
+   "dolci_change": 0.0021,
+   "rank_minus": 9,
+   "rank_random": 9
+  },
+  {
+   "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+   "name": "Location and Geography",
+   "dolci_minus": 0.0923,
+   "dolci_random": 0.0897,
+   "dolci_change": 0.0026,
+   "rank_minus": 7,
+   "rank_random": 5
+  },
+  {
+   "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+   "name": "Error Handling",
+   "dolci_minus": 0.038,
+   "dolci_random": 0.0354,
+   "dolci_change": 0.0026,
+   "rank_minus": 8,
+   "rank_random": 8
+  },
+  {
+   "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+   "name": "Finance and Business",
+   "dolci_minus": 0.1456,
+   "dolci_random": 0.143,
+   "dolci_change": 0.0026,
+   "rank_minus": 10,
+   "rank_random": 10
+  },
+  {
+   "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+   "name": "Mathematical Calculations",
+   "dolci_minus": 0.3831,
+   "dolci_random": 0.3609,
+   "dolci_change": 0.0222,
+   "rank_minus": 13,
+   "rank_random": 13
+  },
+  {
+   "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+   "name": "Software Development",
+   "dolci_minus": 0.3493,
+   "dolci_random": 0.3261,
+   "dolci_change": 0.0232,
+   "rank_minus": 11,
+   "rank_random": 11
+  },
+  {
+   "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+   "name": "Data and Text Processing",
+   "dolci_minus": 0.4617,
+   "dolci_random": 0.4354,
+   "dolci_change": 0.0263,
+   "rank_minus": 12,
+   "rank_random": 12
+  }
+ ],
+ "shift_code": [
+  {
+   "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+   "name": "Software Development",
+   "dolci_minus": 0.1853,
+   "dolci_random": 0.3699,
+   "dolci_change": -0.1846,
+   "rank_minus": 10,
+   "rank_random": 11
+  },
+  {
+   "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+   "name": "Data and Text Processing",
+   "dolci_minus": 0.3313,
+   "dolci_random": 0.4579,
+   "dolci_change": -0.1266,
+   "rank_minus": 12,
+   "rank_random": 12
+  },
+  {
+   "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+   "name": "Error Handling",
+   "dolci_minus": 0.0075,
+   "dolci_random": 0.0443,
+   "dolci_change": -0.0368,
+   "rank_minus": 3,
+   "rank_random": 9
+  },
+  {
+   "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+   "name": "Mathematical Calculations",
+   "dolci_minus": 0.34,
+   "dolci_random": 0.3624,
+   "dolci_change": -0.0224,
+   "rank_minus": 13,
+   "rank_random": 13
+  },
+  {
+   "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+   "name": "Public Performances",
+   "dolci_minus": 0.0318,
+   "dolci_random": 0.0293,
+   "dolci_change": 0.0025,
+   "rank_minus": 6,
+   "rank_random": 7
+  },
+  {
+   "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+   "name": "Graph and Tree Operations",
+   "dolci_minus": 0.0362,
+   "dolci_random": 0.0299,
+   "dolci_change": 0.0063,
+   "rank_minus": 9,
+   "rank_random": 8
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "name": "Fantasy and Role-Playing",
+   "dolci_minus": 0.0418,
+   "dolci_random": 0.0343,
+   "dolci_change": 0.0075,
+   "rank_minus": 2,
+   "rank_random": 2
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "name": "Family and Relationships",
+   "dolci_minus": 0.0331,
+   "dolci_random": 0.0243,
+   "dolci_change": 0.0088,
+   "rank_minus": 5,
+   "rank_random": 5
+  },
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "name": "Translation and Language",
+   "dolci_minus": 0.0468,
+   "dolci_random": 0.0374,
+   "dolci_change": 0.0094,
+   "rank_minus": 4,
+   "rank_random": 3
+  },
+  {
+   "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+   "name": "Health and Medicine",
+   "dolci_minus": 0.0605,
+   "dolci_random": 0.0462,
+   "dolci_change": 0.0143,
+   "rank_minus": 7,
+   "rank_random": 6
+  },
+  {
+   "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+   "name": "Finance and Business",
+   "dolci_minus": 0.1528,
+   "dolci_random": 0.1329,
+   "dolci_change": 0.0199,
+   "rank_minus": 11,
+   "rank_random": 10
+  },
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "name": "Art and Creativity",
+   "dolci_minus": 0.156,
+   "dolci_random": 0.1323,
+   "dolci_change": 0.0237,
+   "rank_minus": 1,
+   "rank_random": 1
+  },
+  {
+   "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+   "name": "Location and Geography",
+   "dolci_minus": 0.1085,
+   "dolci_random": 0.0786,
+   "dolci_change": 0.0299,
+   "rank_minus": 8,
+   "rank_random": 4
+  }
+ ],
+ "shift_multilingual": [
+  {
+   "concept_id": "b4d68043-9d86-4ec2-b300-eef4869ae8ef",
+   "name": "Translation and Language",
+   "dolci_minus": 0.031,
+   "dolci_random": 0.0395,
+   "dolci_change": -0.0085,
+   "rank_minus": 3,
+   "rank_random": 3
+  },
+  {
+   "concept_id": "b9ee18fb-b4ef-4542-90cf-e14ef52f02cd",
+   "name": "Location and Geography",
+   "dolci_minus": 0.0878,
+   "dolci_random": 0.09,
+   "dolci_change": -0.0022,
+   "rank_minus": 5,
+   "rank_random": 5
+  },
+  {
+   "concept_id": "d4bb61d1-91e4-4ddf-b3e6-1d6391182cb1",
+   "name": "Family and Relationships",
+   "dolci_minus": 0.0258,
+   "dolci_random": 0.0274,
+   "dolci_change": -0.0016,
+   "rank_minus": 4,
+   "rank_random": 4
+  },
+  {
+   "concept_id": "dbb135ad-7bd6-4f65-8fb4-8131db743cec",
+   "name": "Art and Creativity",
+   "dolci_minus": 0.1336,
+   "dolci_random": 0.1336,
+   "dolci_change": 0.0,
+   "rank_minus": 1,
+   "rank_random": 1
+  },
+  {
+   "concept_id": "582d0fa9-9566-49bc-b383-d52f844f76dc",
+   "name": "Fantasy and Role-Playing",
+   "dolci_minus": 0.0352,
+   "dolci_random": 0.0352,
+   "dolci_change": 0.0,
+   "rank_minus": 2,
+   "rank_random": 2
+  },
+  {
+   "concept_id": "effb7246-86fb-4122-8a1b-4c3736dcbba1",
+   "name": "Public Performances",
+   "dolci_minus": 0.0258,
+   "dolci_random": 0.0258,
+   "dolci_change": 0.0,
+   "rank_minus": 6,
+   "rank_random": 6
+  },
+  {
+   "concept_id": "e6131978-ee13-4dc3-b680-e2f2d90f9b1e",
+   "name": "Health and Medicine",
+   "dolci_minus": 0.051,
+   "dolci_random": 0.0505,
+   "dolci_change": 0.0005,
+   "rank_minus": 7,
+   "rank_random": 7
+  },
+  {
+   "concept_id": "b06b3a54-e8b1-41b5-8359-af498a90a416",
+   "name": "Graph and Tree Operations",
+   "dolci_minus": 0.0379,
+   "dolci_random": 0.0363,
+   "dolci_change": 0.0016,
+   "rank_minus": 9,
+   "rank_random": 9
+  },
+  {
+   "concept_id": "3ceacb65-242a-496d-8864-4ccf774f52d7",
+   "name": "Error Handling",
+   "dolci_minus": 0.0379,
+   "dolci_random": 0.0358,
+   "dolci_change": 0.0021,
+   "rank_minus": 8,
+   "rank_random": 8
+  },
+  {
+   "concept_id": "8f851d49-1a0d-41c6-b345-d777c703d8e3",
+   "name": "Finance and Business",
+   "dolci_minus": 0.1483,
+   "dolci_random": 0.1415,
+   "dolci_change": 0.0068,
+   "rank_minus": 10,
+   "rank_random": 10
+  },
+  {
+   "concept_id": "1c0534ee-636b-4bea-9a7f-b3da28d8d9c5",
+   "name": "Software Development",
+   "dolci_minus": 0.3482,
+   "dolci_random": 0.3261,
+   "dolci_change": 0.0221,
+   "rank_minus": 11,
+   "rank_random": 11
+  },
+  {
+   "concept_id": "00a54863-d309-48f7-85d0-f1b183c6e38e",
+   "name": "Mathematical Calculations",
+   "dolci_minus": 0.3809,
+   "dolci_random": 0.3582,
+   "dolci_change": 0.0227,
+   "rank_minus": 13,
+   "rank_random": 13
+  },
+  {
+   "concept_id": "1508869f-1a39-4a29-9175-a526e54ab5eb",
+   "name": "Data and Text Processing",
+   "dolci_minus": 0.4608,
+   "dolci_random": 0.4356,
+   "dolci_change": 0.0252,
+   "rank_minus": 12,
+   "rank_random": 12
+  }
+ ]
+}

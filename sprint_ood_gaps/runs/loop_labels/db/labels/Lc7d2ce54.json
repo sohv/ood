@@ -1,0 +1,21 @@
+{
+  "answers": [
+    "y",
+    "y",
+    "y",
+    "y",
+    "n",
+    "n",
+    "n",
+    "n",
+    "n",
+    "y"
+  ],
+  "at": "2026-10-30T15:26:16.206Z",
+  "method": "count",
+  "no": 5,
+  "note": "",
+  "order": 11,
+  "verdict": "partly",
+  "yes": 5
+}

@@ -1,0 +1,23 @@
+# Do the detectors see a missing safety behaviour? (design: designs/safety_removal_detectors.md, written before running)
+
+Setup: Dolci mix (1,710,578 unique first turns, MiniLM 128 tokens, `runs/negatives/index`). Arms, removed by source label with DPO counterparts: R0 none; R1 WildGuardMix (32,207 unique rows); R2 WildJailbreak (38,562); R3 both + CoCoNot (81,727); Rc 81,727 random rows, seed 0 (`arms.json`). The design's 49,373 / 49,965 are SFT rows before deduplication. Traffic: 237 prompts the exp49_v2 grader called harmful, from the 20k misbehaviour run, NAME_k and the "say something toxic" template excluded; 237 harmless controls matched 1:1 on source and length band (`pool.jsonl`). Only the 20k half is used: in the 80k half, harm labels exist only for replies that passed a refusal pre-screen, so they are selected on refusal. Scores as `scripts/leave_source_out.py` (k = 50 ratio, distance, float32, exact copies masked); tf-idf traffic-vs-Dolci classifier retrained per arm with the 474 evaluated prompts left out of its training sample. Scripts `scripts/safety_removal_{pool,score,tfidf,analyse}.py`; outputs `scores.parquet`, `tfidf.parquet`, `summary.csv`, `readouts.json`; figure `figs/safety_removal/auroc_by_arm.png`.
+
+## Measured
+| score | AUROC R0 [95% CI] | R1 | R2 | R3 | Rc | R3 - R0 [CI] | (R3 - R0) - (Rc - R0) [CI] |
+|---|---|---|---|---|---|---|---|
+| gap score | 0.566 [0.513, 0.618] | 0.580 | 0.589 | 0.622 | 0.563 | +0.056 [0.040, 0.072] | +0.058 [0.043, 0.076] |
+| distance | 0.545 [0.493, 0.596] | 0.535 | 0.551 | 0.567 | 0.545 | +0.022 [-0.002, 0.046] | +0.022 [-0.002, 0.046] |
+| tf-idf | 0.502 [0.451, 0.556] | 0.523 | 0.525 | 0.544 | 0.505 | +0.042 [0.026, 0.058] | +0.040 [0.024, 0.056] |
+- Pre-set reading ("detectors see the missing safety data" = R3 rise >= 0.10, CI above 0, more than Rc): not met by any score. The gap score and tf-idf rise by less than half the bar, with CIs above 0 and above Rc; distance does not rise detectably.
+- Positives above the gap line (12.1): 0.43 R0, 0.46 R1, 0.46 R2, 0.55 R3, 0.43 Rc; controls 0.34, 0.36, 0.35, 0.36, 0.34.
+- Median nearest-Dolci similarity, R0 to R3: positives 0.713 to 0.695 (-0.018); controls 0.746 to 0.712 (-0.034).
+- Nearest Dolci prompt in R0 is from a safety source for 43% of positives (WildGuardMix 62, WildJailbreak 26, CoCoNot 13 of 237) and for 28% of the harmless controls (WildGuardMix 56 of 237).
+- Exact Dolci members: 7.2% of positives (masked from their own neighbours).
+- Jailbreak-style split (exploratory): the regex shortlist matches 10 of 237 positives; all 10 are jailbreak or role-play framings on reading. Too few to compare; median distance moves by < 0.01 in every arm for both groups.
+
+## Meaning
+Removing all of Dolci's safety sources makes harmful traffic prompts only slightly easier to tell apart from harmless ones for these detectors: AUROC rises by 0.02 to 0.06. All three detectors start near chance before any removal (0.50 to 0.57), so harm is not a direction these text-similarity scores separate at all, and the removal result rides on that. By MiniLM, the safety sources cover harmless prompts nearly as much as harmful ones (by MiniLM, the controls lose more nearest-neighbour similarity than the positives, -0.034 vs -0.018, and a safety-source prompt is the nearest Dolci prompt for 28% of controls vs 43% of positives), so removing them does not open a harmful-shaped hole the detectors can see. Consistent with the readings above: WildGuardMix itself is mostly not refusals (41% of its prompts get a refusal by the keyword detector, `runs/triggers/results.md`), and MiniLM places prompts by topic, not by harm. A missing safety behaviour is not visible to these text-similarity detectors at this resolution (MiniLM, 128 tokens); this matches the topic-level finding that gaps the detectors flag carry little behaviour cost, from the other side.
+
+Main objections: (1) harm labels are the grader's (agreement with a human 61% on refused replies in Sohan's exp62b), so positives are "harmful-leaning"; label noise lowers every AUROC toward 0.5 and could hide part of a rise. (2) Removing by source label removes the benign half of WildGuardMix too; that is what an actual removal of these datasets would do, but it is not the same as removing harmful-request coverage. (3) One embedder (MiniLM, 128 tokens); 237 positives.
+
+Review (ood-wtfaretheydoing, 2026-10-27): source labels, 1:1 matching (193 LMSYS + 44 WildChat per side), tf-idf pool exclusion, paired bootstrap and the 20k-only deviation checked; numbers match summary.csv. Additions applied: 'by MiniLM' on the coverage reading; detectors start near chance.

@@ -1,0 +1,320 @@
+{
+ "language": {
+  "removed": 99,
+  "n_languages": 39,
+  "by_language": {
+   "mg": 11,
+   "ta": 8,
+   "si": 7,
+   "ar": 7,
+   "tr": 4,
+   "ky": 4,
+   "pa": 4,
+   "zh": 4,
+   "pt": 4,
+   "te": 3,
+   "id": 3,
+   "yo": 3,
+   "pl": 3,
+   "es": 2,
+   "ms": 2,
+   "fr": 2,
+   "zu": 2,
+   "ig": 2,
+   "ja": 2,
+   "sn": 2,
+   "so": 2,
+   "bn": 1,
+   "ha": 1,
+   "it": 1,
+   "ne": 1,
+   "ru": 1,
+   "hi": 1,
+   "mr": 1,
+   "th": 1,
+   "lt": 1,
+   "vi": 1,
+   "gcf": 1,
+   "ko": 1,
+   "ml": 1,
+   "ga": 1,
+   "sdh": 1,
+   "fa": 1,
+   "tl": 1,
+   "ps": 1
+  },
+  "languages_with_no_traffic": [
+   "bn",
+   "gcf",
+   "ha",
+   "hi",
+   "ig",
+   "ky",
+   "lt",
+   "mg",
+   "ml",
+   "mr",
+   "ms",
+   "ne",
+   "pa",
+   "ps",
+   "sdh",
+   "si",
+   "so",
+   "ta",
+   "te",
+   "th",
+   "yo"
+  ],
+  "prompts_in_those": 57,
+  "traffic_top": {
+   "en": 1581,
+   "ru": 72,
+   "pt": 62,
+   "es": 43,
+   "de": 34,
+   "zh": 33,
+   "it": 31,
+   "fr": 25,
+   "ko": 12,
+   "pcm": 9
+  },
+  "dolci_non_en_full": 0.077,
+  "dolci_non_en_minus": 0.028932140978432403,
+  "traffic_non_en": 0.2095
+ },
+ "validation": {
+  "n": 5000,
+  "openai_flagged": 87,
+  "koala_flagged": 141,
+  "agree": 4868,
+  "kappa_flagged": 0.408,
+  "per_category": {
+   "S": {
+    "openai": 64,
+    "koala_argmax": 120,
+    "both": 46,
+    "kappa": 0.492
+   },
+   "H": {
+    "openai": 3,
+    "koala_argmax": 15,
+    "both": 0,
+    "kappa": -0.001
+   },
+   "V": {
+    "openai": 15,
+    "koala_argmax": 5,
+    "both": 1,
+    "kappa": 0.099
+   },
+   "HR": {
+    "openai": 19,
+    "koala_argmax": 0,
+    "both": 0,
+    "kappa": 0.0
+   }
+  },
+  "usable": true
+ },
+ "ceiling": {
+  "removed_safety": 105,
+  "flagged": 0,
+  "by_class": {
+   "OK": 105
+  }
+ },
+ "full_diff_points": {
+  "S": 2.65,
+  "H": 0.65,
+  "V": 0.2,
+  "SH": 0.1,
+  "OK": -3.6
+ },
+ "safety": {
+  "max_drop": {
+   "minus_points": 0.02,
+   "minus_category": "OK",
+   "random20_points": [
+    0.04,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.04,
+    0.02,
+    0.02,
+    0.02,
+    0.04,
+    0.02,
+    0.02,
+    0.02,
+    0.02,
+    0.04
+   ],
+   "random20_categories": {
+    "S": 4,
+    "OK": 16
+   },
+   "moved": false
+  },
+  "best_harm_rank": {
+   "full": 1,
+   "minus": 1,
+   "category_minus": "S",
+   "random20": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "randoms_strictly_worse": 0,
+   "found": false
+  }
+ },
+ "code": {
+  "max_drop": {
+   "minus_points": 0.07,
+   "minus_category": "OK",
+   "random20_points": [
+    0.05,
+    0.01,
+    0.01,
+    0.05,
+    0.01,
+    0.01,
+    0.11,
+    0.01,
+    0.01,
+    0.11,
+    0.11,
+    0.01,
+    0.01,
+    0.05,
+    0.05,
+    0.01,
+    0.11,
+    0.01,
+    0.11,
+    0.01
+   ],
+   "random20_categories": {
+    "S": 9,
+    "OK": 11
+   },
+   "moved": false
+  },
+  "best_harm_rank": {
+   "full": 1,
+   "minus": 1,
+   "category_minus": "S",
+   "random20": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "randoms_strictly_worse": 0,
+   "found": false
+  }
+ },
+ "multilingual": {
+  "max_drop": {
+   "minus_points": 0.02,
+   "minus_category": "OK",
+   "random20_points": [
+    0.02,
+    0.02,
+    0.04,
+    0.02,
+    0.04,
+    0.04,
+    0.02,
+    0.04,
+    0.02,
+    0.02,
+    0.04,
+    0.02,
+    0.04,
+    0.04,
+    0.02,
+    0.02,
+    0.02,
+    0.04,
+    0.04,
+    0.02
+   ],
+   "random20_categories": {
+    "OK": 11,
+    "S": 9
+   },
+   "moved": false
+  },
+  "best_harm_rank": {
+   "full": 1,
+   "minus": 1,
+   "category_minus": "S",
+   "random20": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "randoms_strictly_worse": 0,
+   "found": false
+  }
+ }
+}

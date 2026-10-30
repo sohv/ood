@@ -1,0 +1,3 @@
+```json
+{"prompts": [{"i": 1, "match": "no"}, {"i": 2, "match": "yes"}, {"i": 3, "match": "no"}, {"i": 4, "match": "yes"}, {"i": 5, "match": "no"}, {"i": 6, "match": "yes"}, {"i": 7, "match": "yes"}, {"i": 8, "match": "yes"}, {"i": 9, "match": "no"}, {"i": 10, "match": "yes"}], "verdict": "partly", "note": "Matched: explicit story requests, character-trait questions, 'who would win' matchups, artwork captions, fight-scene roleplay and Sekiro tips. Gaps: persona roleplay as an arena announcer, character-compatibility questions, dominatrix punishment stories, and LLM-vs-LLM 'introduce yourselves' prompts. Prompts 7 and 8 are loose matches."}
+```

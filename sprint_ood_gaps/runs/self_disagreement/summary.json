@@ -1,0 +1,86 @@
+{
+ "n_prompts": 2537,
+ "n_poor_counts": {
+  "0": 435,
+  "1": 273,
+  "2": 1829
+ },
+ "same_grade_both_poor_vs_both_fine": {
+  "disagree": {
+   "n": 2264,
+   "auroc": 0.618,
+   "ci95": [
+    0.587,
+    0.648
+   ]
+  },
+  "distance": {
+   "n": 2264,
+   "auroc": 0.569,
+   "ci95": [
+    0.537,
+    0.599
+   ]
+  },
+  "len": {
+   "n": 2264,
+   "auroc": 0.812,
+   "ci95": [
+    0.791,
+    0.833
+   ]
+  },
+  "plen": {
+   "n": 2264,
+   "auroc": 0.505,
+   "ci95": [
+    0.48,
+    0.534
+   ]
+  }
+ },
+ "cv_auroc_len_plen": 0.807,
+ "cv_auroc_len_plen_disagree": 0.806,
+ "spearman_all_disagree_vs_npoor": 0.151,
+ "spearman_disagree_vs_distance": 0.082,
+ "both_poor_rate_by_disagree_quintile": [
+  0.669,
+  0.795,
+  0.872,
+  0.861,
+  0.843
+ ],
+ "both_poor_rate_by_distance_quintile": [
+  0.748,
+  0.808,
+  0.799,
+  0.832,
+  0.852
+ ],
+ "both_poor_by_reply_length_quintile": [
+  0.471,
+  0.788,
+  0.881,
+  0.918,
+  0.982
+ ],
+ "cv_auroc_len": 0.811,
+ "cv_auroc_len_distance": 0.822,
+ "cv_auroc_len_disagree": 0.81,
+ "note_cv": "len-only/+distance/+disagree from a 5-fold logistic on the same 2,264 prompts (research-6d, after looking); reviewer's len+plen 0.807, +distance 0.819",
+ "reply_length_by_arm": {
+  "behaviour_distance_only_median": {
+   "member": 2712,
+   "control": 2686
+  },
+  "behaviour_random_median": {
+   "member": 2498,
+   "control": 2860
+  },
+  "fix2a_member_prompts_median": {
+   "gap_tuned": 2082,
+   "control_tuned": 2091,
+   "untrained": 2649
+  }
+ }
+}

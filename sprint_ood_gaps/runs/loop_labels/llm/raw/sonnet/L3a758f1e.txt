@@ -1,0 +1,16 @@
+```json
+{"prompts": [
+{"i": 1, "match": "yes"},
+{"i": 2, "match": "yes"},
+{"i": 3, "match": "yes"},
+{"i": 4, "match": "no"},
+{"i": 5, "match": "yes"},
+{"i": 6, "match": "yes"},
+{"i": 7, "match": "no"},
+{"i": 8, "match": "yes"},
+{"i": 9, "match": "yes"},
+{"i": 10, "match": "yes"}
+],
+"verdict": "covered",
+"note": "Most prompts are probability, statistics or combinatorics word problems, and Dolci has close analogues for 8 of 10. Prompt 1 is a looser match: its Dolci neighbours are simpler expectation problems, not conditional expectation of a random geometric sum. Prompt 4 (coprime probability) and prompt 7 (a Ukrainian confidence-probability definition) have no real match."}
+```

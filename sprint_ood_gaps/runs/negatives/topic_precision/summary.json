@@ -1,0 +1,8 @@
+{
+ "prompts_scored": 331067,
+ "row_agreement_fp16_vs_his": 0.9997553365330885,
+ "top293_still_above_line_fp32": 290,
+ "top143_ceiling_still_at_ceiling_fp32": 139,
+ "top143_ceiling_below_line_fp32": 1,
+ "ranks_294_400_above_line_fp32": 0
+}
