@@ -4794,3 +4794,49 @@ read before running.
 **Design.** Known gap = traffic prompts tagged pasted_document by the kind grader (kind_groups tags). Reference = the 200k Dolci sample plus those prompts; known prompts skip themselves (the (k+1)-th neighbour). Rescore all traffic with raw Delta-kNN (k 100, Dolma term unchanged), rerank cluster_gap_list v2's Olmo clusters by median over template units. Reported: pasted_document and other kind shares in the top 20/50/100 before and after, the number of new clusters in each top list, and the rank correlation. Spot check: the clusters that newly enter the top 20, 5 random prompts each, labelled with the same rules (the old top 20 were already labelled).
 **Seed.** 0. No threshold; the user judges.
 **Output.** `results/raw/261030_known_gap_rerun_v1`.
+
+## fair_chat_line: with a line set by covered Dolci chat built the same way for each grouping, do clusters flag more gaps than tf-idf clusters, topics and random groups? (31-10-2026)
+
+**Question.** The line set by covered Dolci chat flags 44 of 1,233 Olmo clusters, but that line was built from Olmo clusters, so the 5 it gives tf-idf clusters and topics is not a fair comparison. With each grouping getting its own line, built the same way, how many traffic groups does each flag against chance?
+**Design.** Pool the 39,835 traffic prompts and the 31,383 Dolci chat rows, scored as in pooled_chat_clusters (raw Delta-kNN, plain variant; chat rows skip themselves). Four pooled groupings: Olmo clusters (pooled_chat_clusters' labels, 3,402 k-means clusters, under 10 merged); tf-idf clusters (tf-idf fitted on the pool, SVD 256, spherical k-means with the same k, same merge); topics (traffic keeps its topic; each Dolci chat row joins the topic with the nearest MiniLM centroid); random groups (the Olmo cluster labels shuffled over prompts, same sizes). Group score is the median over template units, as before. For each grouping, the line is the 99th (and 95th) percentile of the scores of its majority-Dolci-chat groups. Reported: (a) pooled view, the majority-traffic groups over the line against (1 - q) x their count expected; (b) traffic-only view as for the 44, the line applied to traffic-only groupings (cluster_gap_list's 1,233 Olmo clusters, tfidf_cluster_gap_list's tf-idf clusters, the 1,903 topics, random traffic groups with the Olmo cluster sizes) against (1 - q) x the group count. Line uncertainty: 2,000 bootstrap resamples of the majority-Dolci groups, 95% interval on each count.
+**Seed.** 0. No threshold; the user judges.
+**Output.** `results/raw/261031_fair_chat_line_v1`.
+
+## final_detector_tests: the final Delta-kNN (layer 20, k 100, length-matched Dolma v1.6) on the two tests not yet scored at k 100 (31-10-2026)
+
+**Question.** The detector chart mixes settings: hide-a-source and remove-a-kind exist at k 100 (k_sweep_finalists), but hide-half-the-topics was scored at k 10 with an unmatched Dolma reference (combined_score_removal) and must-not-flag at k 50 (two_sided_layers). What do the final detector and one-sided kNN at k 100 score on those two?
+**Design.** One feature pass, Olmo-3-7B-Instruct-DPO b33130b7, layer 20, mean pooling. Must-not-flag: two_sided_layers's covered-requests set (negatives_test's legal and medical against the five covered kinds, near copies dropped), its 3,000 Dolci reference and its length-matched Dolma v1.6 reference rebuilt with the same seed; AUROC legal/medical against covered. Hide half the topics: group_removal's topic groups, make_arm "main" (half of 100 groups left out, 20 prompts per kept topic as reference), split seeds 0-2, topic-level test AUROC on the median score, as in combined_score_removal. Scores: Delta-kNN and one-sided kNN at k 100, with k 50 alongside as a check that two_sided_layers's 0.980 is reproduced.
+**Seed.** 0. No threshold; the user judges.
+**Output.** `results/raw/261031_final_detector_tests_v1`.
+
+## pooled_top_share: are each grouping's top-ranked groups mostly traffic when mixed with Dolci's own chat? (31-10-2026)
+
+**Question.** pooled_chat_clusters found the top Olmo clusters are 69% traffic against a 56% pool. Do the top groups under topics, tf-idf clusters and random groups lean towards traffic as much?
+**Design.** fair_chat_line's pool (39,835 traffic, 31,383 Dolci chat rows), scores and four pooled groupings (Olmo clusters, tf-idf clusters, topics with Dolci chat joined to the nearest MiniLM topic centre, random groups with the Olmo cluster sizes). Groups ranked by the median over template units, as before. Reported per grouping: prompt-weighted traffic share in the top 20, 50, 100 and 200 groups, with a 2,000-resample group bootstrap 95% interval, against the pool share; plus the median group size in each top list.
+**Seed.** 0. No threshold; the user judges.
+**Output.** `results/raw/261031_pooled_top_share_v1`.
+**Amendment (31-10-2026, after v1).** v1's topics were built on traffic alone with Dolci chat attached afterwards, which gives them traffic-only groups by construction. v2 adds topics rebuilt on the pool the same way as the clusters: the topics' encoder (paraphrase-multilingual-MiniLM-L12-v2, first 1,000 characters), spherical k-means with k 3,402, groups under 10 merged. Everything else unchanged. Output `results/raw/261031_pooled_top_share_v2`.
+
+## 31-10-2026 — within_cluster_source: do traffic and Dolci chat score the same inside one pooled cluster?
+
+**Question.** Recompute and save the reviewer's number from pooled_chat_clusters ("within a cluster, traffic and Dolci members score
+the same, AUROC 0.501"), which was never written to a results file. Does the Delta-kNN score separate traffic from Dolci chat once the
+cluster is held fixed?
+
+**Design.** pooled_chat_clusters' pool (39,835 traffic, 31,383 Dolci chat rows), its saved pooled cluster labels, and its raw Delta-kNN
+scores recomputed exactly as fair_chat_line does (Dolci rows leave themselves out). Mixed clusters: at least 3 traffic and 3 Dolci
+members. Main number: AUROC of traffic against Dolci on the score minus its cluster median, over all members of mixed clusters.
+Also reported: the same AUROC on raw scores (no cluster centring) over the same prompts and over the whole pool, and the median of
+per-cluster AUROCs. Bootstrap 95% interval over clusters (2,000 draws), seed 0. No bar; the user judges.
+
+## 31-10-2026 — random_cluster_spot: how often does a random Olmo cluster read as a real gap?
+
+**Question.** cluster_gap_list's hand labels (17 of the top 20 Olmo clusters real gaps, 10 of the top 20 topics) have no random
+baseline. What share of random Olmo clusters does the same labeller call a real gap under the same rules?
+
+**Design.** cluster_gap_list v2's Olmo clusters (min 10 prompts, float32 merge). 20 clusters drawn uniformly at random from ranks 21
+to 1,233 (seed 0), 5 random prompts each, cut at 1,200 characters, as in cluster_gap_list. To keep the page blind, 10 groups the user
+already labelled are mixed in: 5 drawn from the top-20 Olmo clusters and 5 from the top-20 topics (seed 0), shown with the same 5
+prompts as before, which also gives a relabel agreement check. All 30 shuffled, source hidden, same four options (real gap, quirk,
+not a gap, mixed) and the same page. Reported: real-gap share among the 20 random clusters with a Wilson 95% interval, against 17 of
+20 for the top clusters (Fisher exact), and relabel agreement on the 10. No bar; the user judges.

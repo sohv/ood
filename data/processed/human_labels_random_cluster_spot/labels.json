@@ -1,0 +1,235 @@
+{
+ "source": "https://claude.ai/artifact/5BhvFxyBoNittG3mN3PmaL labels collection",
+ "rows": [
+  {
+   "id": "r00",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 1166,
+   "rank": 389
+  },
+  {
+   "id": "r01",
+   "verdict": "real_gap",
+   "kind": "random_cluster",
+   "group": 129,
+   "rank": 231
+  },
+  {
+   "id": "r02",
+   "verdict": "real_gap",
+   "kind": "relabel_olmo_clusters",
+   "group": 1536,
+   "rank": 15,
+   "old_id": "s19",
+   "old_verdict": "real_gap"
+  },
+  {
+   "id": "r03",
+   "verdict": "quirk",
+   "kind": "relabel_olmo_clusters",
+   "group": 619,
+   "rank": 4,
+   "old_id": "s16",
+   "old_verdict": "quirk"
+  },
+  {
+   "id": "r04",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 1432,
+   "rank": 786
+  },
+  {
+   "id": "r05",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 266,
+   "rank": 1193
+  },
+  {
+   "id": "r06",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 319,
+   "rank": 999
+  },
+  {
+   "id": "r07",
+   "verdict": "quirk",
+   "kind": "random_cluster",
+   "group": 533,
+   "rank": 70
+  },
+  {
+   "id": "r08",
+   "verdict": "real_gap",
+   "kind": "relabel_olmo_clusters",
+   "group": 1194,
+   "rank": 12,
+   "old_id": "s32",
+   "old_verdict": "real_gap"
+  },
+  {
+   "id": "r09",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 594,
+   "rank": 802
+  },
+  {
+   "id": "r10",
+   "verdict": "quirk",
+   "kind": "relabel_topics",
+   "group": 884,
+   "rank": 15,
+   "old_id": "s37",
+   "old_verdict": "quirk"
+  },
+  {
+   "id": "r11",
+   "verdict": "quirk",
+   "kind": "relabel_olmo_clusters",
+   "group": 340,
+   "rank": 3,
+   "old_id": "s01",
+   "old_verdict": "real_gap"
+  },
+  {
+   "id": "r12",
+   "verdict": "quirk",
+   "kind": "relabel_topics",
+   "group": 343,
+   "rank": 6,
+   "old_id": "s10",
+   "old_verdict": "quirk"
+  },
+  {
+   "id": "r13",
+   "verdict": "real_gap",
+   "kind": "relabel_olmo_clusters",
+   "group": 615,
+   "rank": 7,
+   "old_id": "s05",
+   "old_verdict": "real_gap"
+  },
+  {
+   "id": "r14",
+   "verdict": "mixed",
+   "kind": "random_cluster",
+   "group": 1889,
+   "rank": 632
+  },
+  {
+   "id": "r15",
+   "verdict": "mixed",
+   "kind": "random_cluster",
+   "group": 330,
+   "rank": 1120
+  },
+  {
+   "id": "r16",
+   "verdict": "mixed",
+   "kind": "random_cluster",
+   "group": 646,
+   "rank": 1036
+  },
+  {
+   "id": "r17",
+   "verdict": "mixed",
+   "kind": "relabel_topics",
+   "group": 1400,
+   "rank": 11,
+   "old_id": "s02",
+   "old_verdict": "real_gap"
+  },
+  {
+   "id": "r18",
+   "verdict": "quirk",
+   "kind": "relabel_topics",
+   "group": 157,
+   "rank": 14,
+   "old_id": "s27",
+   "old_verdict": "real_gap"
+  },
+  {
+   "id": "r19",
+   "verdict": "real_gap",
+   "kind": "random_cluster",
+   "group": 1481,
+   "rank": 782
+  },
+  {
+   "id": "r20",
+   "verdict": "quirk",
+   "kind": "random_cluster",
+   "group": 839,
+   "rank": 628
+  },
+  {
+   "id": "r21",
+   "verdict": "mixed",
+   "kind": "random_cluster",
+   "group": 988,
+   "rank": 111
+  },
+  {
+   "id": "r22",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 1154,
+   "rank": 902
+  },
+  {
+   "id": "r23",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 1336,
+   "rank": 753
+  },
+  {
+   "id": "r24",
+   "verdict": "quirk",
+   "kind": "random_cluster",
+   "group": 1615,
+   "rank": 40
+  },
+  {
+   "id": "r25",
+   "verdict": "mixed",
+   "kind": "random_cluster",
+   "group": 1420,
+   "rank": 343
+  },
+  {
+   "id": "r26",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 1496,
+   "rank": 1155
+  },
+  {
+   "id": "r27",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 387,
+   "rank": 679
+  },
+  {
+   "id": "r28",
+   "verdict": "not_gap",
+   "kind": "random_cluster",
+   "group": 1160,
+   "rank": 699
+  },
+  {
+   "id": "r29",
+   "verdict": "not_gap",
+   "kind": "relabel_topics",
+   "group": 1698,
+   "rank": 8,
+   "old_id": "s23",
+   "old_verdict": "not_gap"
+  }
+ ]
+}
